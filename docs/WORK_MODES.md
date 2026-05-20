@@ -1,48 +1,34 @@
 # WORK_MODES.md
 
 ## Research
-Goal: reduce uncertainty before building.
-Default output: research plan, evidence map, hypotheses, risks, and next decisions.
-Do not implement unless explicitly approved.
+Goal: reduce uncertainty before product or technical commitment. Do not implement unless explicitly asked. Required evidence labeling.
+
+## Strategy
+Goal: choose direction, success criteria, positioning, and scope. Product Strategist usually leads.
 
 ## Prototype
-Goal: make an idea tangible, usually UI/interaction focused.
-Quality bar: fast, exploratory, disposable or semi-disposable.
-Avoid overbuilding infrastructure.
+Goal: demonstrate interaction or visual concept quickly. Technical durability is secondary. UX, Visual Design, and Design System roles dominate.
 
-## PoC
-Goal: prove technical feasibility.
-Quality bar: clear technical hypothesis, constraints, result, and decision.
-Avoid product polish unless needed for the proof.
+## Proof of Concept
+Goal: prove feasibility of a risky technical/product assumption. Solution Architect leads. QA defines proof criteria.
 
 ## MVP
-Goal: smallest valuable end-to-end product slice.
-Quality bar: user can complete a real core flow; scope is narrow but coherent.
+Goal: smallest valuable end-to-end slice. Product Strategist and Delivery Manager protect scope.
 
 ## Production change
-Goal: safely change a live system.
-Quality bar: tests, rollout, rollback, risks, compatibility, observability.
+Goal: safe improvement to existing product. Risk gates and code review matter.
 
 ## Bugfix
-Goal: reproduce, isolate, fix, verify.
-Quality bar: root cause, regression test when feasible, minimal fix.
+Goal: reproduce, isolate, fix, verify. QA leads verification, relevant architect finds root cause.
 
 ## Refactor
-Goal: improve structure while preserving behavior.
-Quality bar: staged plan, behavior-preservation tests, no opportunistic expansion.
+Goal: improve structure while preserving behavior. Refactoring Specialist requires safety tests.
 
-## Review / audit
-Goal: evaluate existing work.
-Quality bar: evidence-backed findings, severity, recommendations, no unnecessary edits.
+## Audit/review
+Goal: inspect existing artifact, not change it. Code Reviewer or Consistency Auditor leads.
 
-## Data / analytics
-Goal: answer measurement questions or build instrumentation.
-Quality bar: definitions, event schema, data caveats, reproducibility.
+## Incident
+Goal: restore, understand, prevent recurrence. Incident Investigator leads.
 
-## Incident response
-Goal: triage, mitigate, understand root cause, prevent recurrence.
-Quality bar: timeline, evidence, blast radius, mitigation, follow-ups.
-
-## Documentation / handoff
-Goal: make work understandable and maintainable.
-Quality bar: concise, accurate, evidence-linked, audience-appropriate.
+## AI/ML feature
+Goal: deliver model-enabled behavior with evals, guardrails, cost/latency and safety considered.

@@ -1,33 +1,36 @@
-# Codex Product Team Maximum Edition
+# Codex Product Team Maximum v1.1 — Final Fantasy Codenames
 
-A reusable operating kit for running Codex as an adaptive product-development team across digital product tasks: research, discovery, UX, CX, product strategy, UI design, frontend, backend, mobile, data, security, release, QA, documentation, and review.
+Это максимальная версия адаптивной продуктовой команды для Codex. Роли получили кодовые имена в честь персонажей Final Fantasy, чтобы ими было проще управлять. Имена являются только мнемоникой. Рабочее поведение задаётся ролью, playbook и skills.
 
-## Quick start
+## Как стартовать
 
-1. Unzip this folder.
-2. Open the folder in Codex.
-3. Send the contents of `FIRST_PROMPT.md` as your first message.
-4. Answer the adaptive briefing questions.
-5. Review the proposed team lineup and plan.
-6. Approve implementation only after the plan matches your intent.
+1. Распакуй архив.
+2. Открой папку в Codex.
+3. Отправь содержимое `FIRST_PROMPT.md`.
+4. Ответь на вопросы Intake A.
+5. Проверь, как Team Architect выбрал роли.
+6. Попроси план.
+7. Дай approval только после того, как план и состав команды тебе подходят.
 
-## Core idea
+## Главная идея
 
-The kit forces a sane loop:
+Команда не должна всегда запускать все роли. Она должна адаптироваться под задачу:
 
-Brief → TASK.md → Team routing → Plan → Consistency audit → Approval → Implementation → Verification → Review → CHRONICLE.md
+- маленькая правка: fast lane, 1–3 роли;
+- обычная фича: standard, 4–7 ролей;
+- сложная продуктовая задача: complex, 8–12 ролей;
+- security/privacy/release/AI-heavy: high-risk, 10–15 ролей;
+- больше 15 ролей только по явному разрешению.
 
-## Important files
+## Что нового в v1.1
 
-- `AGENTS.md` — top-level operating rules.
-- `FIRST_PROMPT.md` — copy/paste this to start.
-- `TASK.md` — live task brief.
-- `CHRONICLE.md` — durable progress memory.
-- `TEAM.md` — role catalog.
-- `docs/QUESTION_TREE.md` — adaptive briefing tree.
-- `docs/ROLE_ROUTING_MATRIX.md` — which roles to use when.
-- `docs/QUALITY_GATES.md` — approval and verification rules.
-- `.agents/playbooks/` — detailed role playbooks.
-- `.agents/skills/` — reusable Codex workflows.
-- `.codex/agents/` — project-scoped custom agent definitions.
-- `scripts/validate_kit.py` — static consistency checker for the kit.
+- Staged loading вместо чтения всего архива на старте.
+- Глубокие playbooks с методологиями, зонами компетентности и handoff-правилами.
+- `FAST_LANE.md` для маленьких задач.
+- `OWNERSHIP_MATRIX.md` для устранения конфликтов ответственности.
+- `EVIDENCE_POLICY.md` для research, UX, CX, market и AI-задач.
+- AI/ML роли: AI/ML Systems Architect, Model Evaluation Specialist, AI Safety Reviewer.
+- Delivery Manager для длинных задач.
+- Усиленный Consistency Auditor.
+- Scenario tests для проверки маршрутизации.
+- Self-audit script для структурной проверки архива.

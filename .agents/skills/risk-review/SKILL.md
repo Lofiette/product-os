@@ -1,28 +1,22 @@
 ---
 name: risk-review
-description: Use for security, privacy, compliance, performance, dependency, migration, release, and operational risk reviews.
+description: Use for security, privacy, performance, dependency, migration, release, or incident risk.
 ---
 
-# risk-review
+# Skill: risk-review
 
-## Purpose
+## When to use
+Use for security, privacy, performance, dependency, migration, release, or incident risk.
 
-Use for security, privacy, compliance, performance, dependency, migration, release, and operational risk reviews.
+## Procedure
+1. Identify triggers.
+2. Select risk owners.
+3. Create severity table.
+4. Define mitigations.
+5. State approval gates.
 
-## Required behavior
-
-- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
-- Keep the work bounded to the current task and work mode.
-- Use evidence-backed findings.
-- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
-- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
-
-## Output
-
-Return concise structured output with:
-
-1. What was inspected
-2. Findings
-3. Decisions or recommendations
-4. Risks
-5. Required approvals or next steps
+## Output rules
+- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
+- Respect `docs/QUALITY_GATES.md`.
+- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
+- Do not implement unless the approved work mode and approval gate allow implementation.

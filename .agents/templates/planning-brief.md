@@ -2,50 +2,24 @@
 
 ## Executive summary
 
-_TBD_
+## Work mode and team-size tier
 
-## Work mode
+## Selected roles and rationale
 
-_TBD_
+## Skipped roles and rationale
 
-## Selected roles
-
-_TBD_
-
-## Roles intentionally skipped
-
-_TBD_
-
-## Findings by role
-
-_TBD_
+## Evidence, assumptions, hypotheses
 
 ## Recommended scope
 
-### Now
+## Non-goals
 
-_TBD_
-
-### Later
-
-_TBD_
-
-### Explicitly out of scope
-
-_TBD_
-
-## Implementation / action plan
-
-_TBD_
+## Implementation or research plan
 
 ## Verification plan
 
-_TBD_
-
 ## Risks and mitigations
 
-_TBD_
+## Consistency audit result
 
 ## Approval request
-
-_TBD_

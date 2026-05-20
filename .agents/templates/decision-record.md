@@ -1,29 +1,16 @@
 # Decision Record
 
-## Decision
-
-_TBD_
+## ID
 
 ## Status
-
-Proposed / Accepted / Rejected / Superseded
+Proposed / Accepted / Superseded / Rejected
 
 ## Context
 
-_TBD_
-
-## Options considered
-
-_TBD_
-
-## Decision rationale
-
-_TBD_
+## Decision
 
 ## Consequences
 
-_TBD_
+## Alternatives considered
 
-## Follow-ups
-
-_TBD_
+## Evidence level

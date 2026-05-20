@@ -1,69 +1,37 @@
 from pathlib import Path
-import re, sys
-
-ROOT = Path(__file__).resolve().parents[1]
-errors = []
-
-def fail(msg):
-    errors.append(msg)
-
-team = (ROOT / 'TEAM.md').read_text(encoding='utf-8')
-role_ids = re.findall(r'\| `([^`]+)` \| [^|]+ \| [^|]+ \|', team)
-role_ids = [r for r in role_ids if r != 'Role ID']
-
-if not role_ids:
-    fail('No roles found in TEAM.md role catalog.')
-
-if len(role_ids) != len(set(role_ids)):
-    fail('Duplicate role IDs in TEAM.md.')
-
-for rid in role_ids:
-    playbooks = list((ROOT / '.agents/playbooks').glob(f'*-{rid}.md'))
-    if not playbooks:
-        fail(f'Missing playbook for role: {rid}')
-    toml = ROOT / f'.codex/agents/{rid}.toml'
-    if not toml.exists():
-        fail(f'Missing custom agent TOML for role: {rid}')
-    else:
-        txt = toml.read_text(encoding='utf-8')
-        for key in ['name', 'description', 'developer_instructions']:
-            if key not in txt:
-                fail(f'Missing {key} in {toml}')
-
-config = (ROOT / '.codex/config.toml').read_text(encoding='utf-8')
-for rid in role_ids:
-    if f'[agents.{rid}]' not in config:
-        fail(f'Missing [agents.{rid}] in .codex/config.toml')
-    if f'config_file = "agents/{rid}.toml"' not in config:
-        fail(f'Missing config_file for {rid} in .codex/config.toml')
-
-for skill_dir in (ROOT / '.agents/skills').iterdir():
-    if skill_dir.is_dir():
-        skill = skill_dir / 'SKILL.md'
-        if not skill.exists():
-            fail(f'Missing SKILL.md in {skill_dir}')
-        else:
-            text = skill.read_text(encoding='utf-8')
-            if not text.startswith('---') or 'name:' not in text or 'description:' not in text:
-                fail(f'Invalid skill front matter: {skill}')
-
-required_files = [
-    'AGENTS.md','TASK.md','CHRONICLE.md','TEAM.md','FIRST_PROMPT.md','README.md',
-    'docs/QUESTION_TREE.md','docs/ROLE_ROUTING_MATRIX.md','docs/WORK_MODES.md','docs/QUALITY_GATES.md','docs/RISK_POLICY.md','docs/PROMPT_RECIPES.md',
-]
-for rel in required_files:
-    if not (ROOT / rel).exists():
-        fail(f'Missing required file: {rel}')
-
-agents = (ROOT / 'AGENTS.md').read_text(encoding='utf-8')
-for rel in ['TASK.md','CHRONICLE.md','TEAM.md','docs/QUESTION_TREE.md','docs/ROLE_ROUTING_MATRIX.md','docs/QUALITY_GATES.md','docs/RISK_POLICY.md']:
-    if rel not in agents:
-        fail(f'AGENTS.md does not reference required file: {rel}')
-
+import tomllib, re, sys
+root = Path(__file__).resolve().parents[1]
+required = ['AGENTS.md','FIRST_PROMPT.md','TASK.md','CHRONICLE.md','TEAM.md','README.md','docs/QUESTION_TREE.md','docs/ROLE_ROUTING_MATRIX.md','docs/OWNERSHIP_MATRIX.md','docs/EVIDENCE_POLICY.md','docs/FAST_LANE.md','docs/QUALITY_GATES.md','docs/RISK_POLICY.md']
+errors=[]; warnings=[]
+for f in required:
+    if not (root/f).exists(): errors.append(f'Missing required file: {f}')
+playbooks=list((root/'.agents/playbooks').glob('*.md'))
+agents=list((root/'.codex/agents').glob('*.toml'))
+if len(playbooks)<40: warnings.append(f'Expected deep maximum role set, found {len(playbooks)} playbooks')
+if len(playbooks)!=len(agents): errors.append(f'Playbook/agent count mismatch: {len(playbooks)} vs {len(agents)}')
+for a in agents:
+    try:
+        data=tomllib.loads(a.read_text())
+    except Exception as e:
+        errors.append(f'Invalid TOML {a}: {e}'); continue
+    for k in ['name','description','developer_instructions']:
+        if k not in data: errors.append(f'{a} missing {k}')
+    m=re.search(r'playbooks/([^ ]+\.md)', data.get('developer_instructions',''))
+    if m and not (root/'.agents/playbooks'/m.group(1)).exists():
+        errors.append(f'{a} references missing playbook {m.group(1)}')
+for pb in playbooks:
+    t=pb.read_text()
+    for section in ['## Mission','## Activation criteria','## Do not do','## Ideal expertise and professional depth','## Methodological operating model','## Required output artifact','## Handoff rules','## Escalation triggers','## Common failure modes to avoid']:
+        if section not in t: errors.append(f'{pb.name} missing section {section}')
+    if len(t.split())<450: warnings.append(f'{pb.name} may be too shallow: {len(t.split())} words')
+for skill in (root/'.agents/skills').glob('*/SKILL.md'):
+    t=skill.read_text()
+    if '## Procedure' not in t: errors.append(f'{skill} missing Procedure')
+    if 'description:' not in t.split('---',2)[1]: errors.append(f'{skill} missing description metadata')
 if errors:
     print('VALIDATION FAILED')
-    for e in errors:
-        print('-', e)
+    for e in errors: print('ERROR:',e)
+    for w in warnings: print('WARN:',w)
     sys.exit(1)
-
-print(f'VALIDATION PASSED: {len(role_ids)} roles checked, skills checked, required files present.')
+print(f'VALIDATION PASSED: {len(playbooks)} roles, {len(list((root/".agents/skills").glob("*/SKILL.md")))} skills.')
+for w in warnings: print('WARN:',w)

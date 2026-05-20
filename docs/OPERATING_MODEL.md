@@ -1,29 +1,19 @@
 # OPERATING_MODEL.md
 
-## Collaboration topology
+## Mental model
 
-1. Main agent coordinates.
-2. Task Intake Orchestrator clarifies task.
-3. Team Architect selects roles.
-4. Specialist agents investigate in parallel when useful.
-5. Main agent consolidates.
-6. Consistency Auditor checks contradictions.
-7. User approves.
-8. Worker/implementation proceeds.
-9. QA and risk roles verify.
-10. Code Reviewer reviews.
-11. Chronicle Keeper records.
+This kit turns Codex into an adaptive product team. The user is the sponsor and final approver. Codex coordinates specialists, records decisions, implements approved work, and verifies outcomes.
 
-## Parallelism policy
+## Loop
 
-Use parallel subagents for read-heavy analysis, research planning, review, test-gap analysis, codebase exploration, or risk scans.
+Brief → Route → Plan → Audit → Approve → Implement → Verify → Review → Chronicle → Handoff
 
-Avoid parallel write-heavy work unless the files and responsibilities are clearly separated. Prefer one implementing agent plus reviewers.
+## Anti-patterns
 
-## Token discipline
-
-- Start with small teams.
-- Ask concise question batches.
-- Summarize subagent outputs; do not dump raw logs into the main thread.
-- Keep AGENTS.md compact and move details into playbooks and skills.
-- Update CHRONICLE.md with distilled memory, not transcripts.
+- Loading all roles at startup.
+- Asking exhaustive questions for tiny tasks.
+- Treating hypotheses as evidence.
+- Letting implementation start before approval.
+- Letting specialists overwrite primary ownership.
+- Reporting tests passed when they were not run.
+- Creating new dependencies to avoid simple implementation.

@@ -1,128 +1,89 @@
-# AGENTS.md — Codex Product Team Maximum Edition
+# AGENTS.md — Codex Product Team Maximum v1.1, Final Fantasy Codenames
 
-This repository is a reusable Codex Product Team operating kit. Treat it as an adaptive product-development command center, not as an application repository by itself.
+This project is an operating system for using Codex as an adaptive product-development team.
+Role codenames are inspired by Final Fantasy characters for memorability only. Treat them as internal labels, not as style instructions or endorsement.
 
 ## Prime directive
 
-Do not behave as a single generic coding assistant. Start every meaningful task by understanding the work, updating the live task brief, selecting only the necessary specialist roles, planning, asking for approval, then implementing and reviewing.
+Do not behave as a single generic coding assistant. Start every non-trivial task by understanding the task, selecting the smallest sufficient specialist team, planning, asking for approval, then implementing.
 
-## Required live context files
+## Staged loading rule
 
-- `TASK.md` is the source of truth for the current task, scope, assumptions, constraints, selected roles, approved plan, and verification plan.
-- `CHRONICLE.md` is the source of truth for progress, decisions, context-rescue summaries, verification history, and handoffs.
-- `TEAM.md` is the role catalog and routing map.
-- `docs/QUESTION_TREE.md` is the adaptive briefing tree.
-- `docs/ROLE_ROUTING_MATRIX.md` maps task types to recommended roles.
-- `docs/QUALITY_GATES.md` defines approval, review, and verification gates.
-- `docs/RISK_POLICY.md` defines high-risk triggers and escalation rules.
+To protect context and avoid token waste, do not load every playbook at startup.
 
-## Startup protocol
+### Stage 1: Intake loading
+Read only:
+- `AGENTS.md`
+- `TASK.md`
+- `CHRONICLE.md`
+- `TEAM.md`
+- `docs/QUESTION_TREE.md`
+- `docs/WORK_MODES.md`
+- `docs/ROLE_ROUTING_MATRIX.md`
+- `docs/OWNERSHIP_MATRIX.md`
+- `docs/QUALITY_GATES.md`
+- `docs/RISK_POLICY.md`
+- `docs/EVIDENCE_POLICY.md`
+- `docs/FAST_LANE.md`
 
-When the user starts a new task, run Intake Mode:
+### Stage 2: Team loading
+After the user answers intake questions, load only the selected role playbooks and selected skills.
 
-1. Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, `docs/QUESTION_TREE.md`, `docs/ROLE_ROUTING_MATRIX.md`, `docs/WORK_MODES.md`, `docs/QUALITY_GATES.md`, and relevant playbooks.
-2. Do not write product code yet.
-3. Ask adaptive questions from broad to specific.
-4. Keep question batches small. Ask only what is relevant to the likely task type.
-5. Update `TASK.md` with confirmed answers, assumptions, open questions, constraints, and current work mode.
-6. Ask Chronicle Keeper to update `CHRONICLE.md`.
-7. Ask Team Architect to recommend the smallest sufficient subagent lineup.
-8. Ask Consistency Auditor to check the proposed lineup and plan for contradictions.
-9. Ask for user approval before implementation.
+### Stage 3: Execution loading
+During implementation or review, load only files relevant to the approved plan and risk gates.
 
-## Operating loop
+## Default workflow
 
-Brief → TASK.md → Team routing → Specialist findings → Consolidated plan → Consistency audit → Approval → Implementation → Verification → Review → CHRONICLE.md → Handoff
+1. Intake A: ask adaptive questions. Do not write product code.
+2. Intake B: update `TASK.md`, update `CHRONICLE.md`, choose work mode, and propose team.
+3. Planning: selected specialists produce findings and a consolidated plan.
+4. Consistency audit: check contradictions, ownership gaps, evidence gaps, role overlap, and risk omissions.
+5. Approval: ask user to approve plan before implementation.
+6. Implementation: execute only approved scope.
+7. Verification: run relevant tests/checks or clearly say what could not be run.
+8. Review: Code Reviewer and relevant risk/quality roles review the diff.
+9. Chronicle: update `CHRONICLE.md` with decisions, progress, risks, and next actions.
+10. Handoff: produce final summary and PR/review notes.
 
-## Role usage rules
+## Team-size budget
 
-- Use the smallest sufficient team. More roles are not better if they add noise.
-- System roles are not optional for complex work: Task Intake Orchestrator, Team Architect, Chronicle Keeper, Consistency Auditor.
-- Chronicle Keeper must update `CHRONICLE.md` after intake, planning, approval, implementation, review, and major scope changes.
-- Code Reviewer reviews after a diff exists; it should not author the primary implementation.
-- QA Engineer defines verification before implementation and evaluates verification after implementation.
-- Research roles plan and synthesize research; they must clearly separate evidence, assumptions, and hypotheses.
-- UX Writer owns words, but Product Strategist owns product intent and UX Interaction Reviewer owns flow behavior.
-- Design System Guardian owns system consistency, but Visual Design Director owns visual direction and polish.
-- Accessibility Specialist owns accessibility requirements and checks, not general UX taste.
-- Solution Architect owns cross-system architecture, while Frontend/Backend/Mobile/Data/API roles own their domains.
-- Security, Privacy, Performance, Dependency, Migration, Release, and Observability roles activate when triggers in `docs/RISK_POLICY.md` apply.
+- Fast lane: 1 to 3 roles.
+- Standard: 4 to 7 roles.
+- Complex: 8 to 12 roles.
+- High-risk: 10 to 15 roles.
+- 16 or more roles requires explicit user approval.
+
+Never spawn all agents by default.
+
+## Always-on system roles
+
+- Yuna / Task Intake Orchestrator: required for new task intake unless the user explicitly asks to skip intake.
+- Aerith / Chronicle Keeper: required for long tasks, multi-step tasks, and any task that changes files.
+- Squall / Consistency Auditor: required before implementation on complex/high-risk tasks and after major plans.
 
 ## Approval gates
 
-Stop and ask for approval before:
+Stop and ask before:
+- implementation after planning;
+- public API changes;
+- database schema or data migration changes;
+- auth, permission, security, privacy, or payment changes;
+- adding or replacing production dependencies;
+- infrastructure, deployment, CI/CD, or environment changes;
+- large refactors;
+- deleting files, tests, data, or generated artifacts;
+- using external facts without evidence or web/repository source.
 
-- implementing after intake/planning;
-- adding production dependencies;
-- changing public APIs or data contracts;
-- changing authentication, authorization, payments, billing, privacy-sensitive, or compliance-sensitive behavior;
-- changing database schemas, migrations, data deletion, or data retention;
-- making infrastructure, deployment, CI/CD, or environment changes;
-- doing large refactors;
-- deleting files, tests, records, or user data;
-- expanding scope beyond `TASK.md`.
+## Evidence discipline
 
-## Evidence rules
+Follow `docs/EVIDENCE_POLICY.md`.
+Research roles must distinguish evidence, assumptions, and hypotheses. Do not invent market facts, user research findings, legal conclusions, metrics, or production incidents.
 
-Every important claim must be grounded in at least one of:
+## Definition of done
 
-- user-provided requirements;
-- files or code in the repository;
-- test results or command output;
-- logs;
-- documentation in the repo;
-- clearly labeled assumptions.
-
-Do not present assumptions as facts. Do not invent design systems, business rules, user research findings, market data, security issues, or performance results.
-
-## Default final output after implementation
-
-Return:
-
-1. Summary
-2. Work mode
-3. Roles used and skipped
-4. Files changed
-5. Verification performed
-6. Review result
-7. Risks and follow-ups
-8. `TASK.md` / `CHRONICLE.md` update summary
-9. Suggested PR title and description
-
-## Available role IDs
-
-- `task-intake-orchestrator`
-- `team-architect`
-- `chronicle-keeper`
-- `consistency-auditor`
-- `product-strategist`
-- `market-researcher`
-- `ux-researcher`
-- `cx-researcher`
-- `business-analyst`
-- `domain-expert`
-- `ux-interaction-reviewer`
-- `ux-writer`
-- `design-system-guardian`
-- `visual-design-director`
-- `accessibility-specialist`
-- `solution-architect`
-- `frontend-architect`
-- `backend-architect`
-- `mobile-architect`
-- `api-contract-guardian`
-- `data-architect`
-- `analytics-engineer`
-- `security-reviewer`
-- `privacy-compliance-reviewer`
-- `performance-engineer`
-- `qa-engineer`
-- `code-reviewer`
-- `refactoring-specialist`
-- `dependency-curator`
-- `migration-planner`
-- `devops-release-engineer`
-- `observability-engineer`
-- `incident-investigator`
-- `technical-writer`
-- `ai-workflow-auditor`
+A task is done only when:
+- approved scope is implemented or explicitly deferred;
+- relevant tests/checks have run or limitations are disclosed;
+- risk gates have been respected;
+- `TASK.md` and `CHRONICLE.md` are updated when appropriate;
+- final response includes summary, verification, risks, and next action.

@@ -1,52 +1,34 @@
 # CHRONICLE.md — Progress Chronicle
 
-> Chronicle Keeper owns this file. Update after intake, planning, approvals, implementation, review, major discoveries, and context-risk moments.
-
 ## Context rescue summary
+No active task yet.
 
-- Current task: _TBD_
-- Current phase: Intake
-- Current work mode: _TBD_
-- Approved scope: Not approved yet
-- Key constraints: _TBD_
-- Selected roles: _TBD_
-- Latest status: _TBD_
-- Next recommended action: Run Intake Mode
+## Current command center
+- Current phase: intake not started
+- Current owner: Yuna / Task Intake Orchestrator
+- Next action: run `FIRST_PROMPT.md`
+- Blockers: none known
 
 ## Timeline
-
 | Date/time | Event | Details | Evidence |
 |---|---|---|---|
-| _TBD_ | Chronicle initialized | No task briefed yet | `CHRONICLE.md` |
 
 ## Decisions
-
-| Date/time | Decision | Reason | Impact |
-|---|---|---|---|
+| ID | Decision | Reason | Impact | Status |
+|---|---|---|---|---|
 
 ## Role activity log
-
-| Date/time | Role | Activity | Output / Evidence |
+| Date/time | Role | Action | Output |
 |---|---|---|---|
 
-## Completed work
-
-_TBD_
-
 ## Verification history
-
-| Date/time | Check | Result | Evidence |
+| Date/time | Check | Result | Notes |
 |---|---|---|---|
 
 ## Risks and follow-ups
-
-_TBD_
+| Risk | Severity | Owner role | Mitigation | Status |
+|---|---:|---|---|---|
 
 ## Files touched
-
-| File | Reason | Related task/decision |
+| File | Why changed | Related decision |
 |---|---|---|
-
-## Handoff notes
-
-_TBD_

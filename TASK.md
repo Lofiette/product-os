@@ -1,141 +1,89 @@
 # TASK.md — Live Task Brief
 
-> This file must be updated whenever task scope, assumptions, constraints, selected roles, approval status, or verification strategy changes.
+## Status
+- Status: empty
+- Current phase: intake not started
+- Work mode: unknown
+- Last updated: not set
 
-## 1. Task status
+## User request
+_Not captured yet._
 
-- Status: Not started
-- Last updated: _TBD_
-- Current work mode: _TBD_
-- Current phase: Intake
-- Approval status: Not approved for implementation
+## Problem and outcome
+- Problem:
+- Desired outcome:
+- Target users:
+- Success criteria:
 
-## 2. User request
+## Work mode
+Choose one or more:
+- Research
+- Strategy
+- Prototype
+- Proof of Concept
+- MVP
+- Production change
+- Bugfix
+- Refactor
+- Audit/review
+- Incident
+- AI/ML feature
 
-_TBD_
-
-## 3. Product / problem context
-
-- Product/domain: _TBD_
-- Target users/audience: _TBD_
-- User/customer problem: _TBD_
-- Business or learning goal: _TBD_
-- Success signal: _TBD_
-
-## 4. Work mode
-
-Select one primary mode:
-
-- [ ] Research
-- [ ] Prototype
-- [ ] PoC
-- [ ] MVP
-- [ ] Production change
-- [ ] Bugfix
-- [ ] Refactor
-- [ ] Review/audit
-- [ ] Data/analytics
-- [ ] Incident response
-- [ ] Documentation/handoff
-
-Rationale: _TBD_
-
-## 5. Scope
-
+## Scope
 ### In scope
-
-_TBD_
 
 ### Out of scope
 
-_TBD_
-
 ### Non-goals
 
-_TBD_
+## Product, UX, and content context
+- Audience:
+- Main flows:
+- Visual/design direction:
+- Design system:
+- UX writing/tone:
+- Accessibility requirements:
 
-## 6. Platforms and stack
+## Technical context
+- Platform:
+- Stack:
+- Existing repository:
+- Data/storage:
+- APIs/integrations:
+- AI/ML components:
+- Deployment target:
 
-- Target platform(s): _TBD_
-- Existing repository or greenfield: _TBD_
-- Frontend stack: _TBD_
-- Backend stack: _TBD_
-- Mobile stack: _TBD_
-- Data/storage: _TBD_
-- AI/ML components: _TBD_
-- Design system source: _TBD_
-- Deployment target: _TBD_
-- Build/test commands: _TBD_
+## Constraints
+- Time:
+- Technical:
+- Design:
+- Research:
+- Security/privacy:
+- Performance:
+- Legal/compliance:
+- Dependencies:
 
-## 7. Research context
+## Evidence and assumptions
+### Evidence
 
-- Market research needed: _TBD_
-- UX research needed: _TBD_
-- CX/service research needed: _TBD_
-- Existing evidence: _TBD_
-- Hypotheses: _TBD_
-- Research constraints: _TBD_
+### Assumptions
 
-## 8. UX / content / visual requirements
+### Hypotheses
 
-- Primary flows: _TBD_
-- Key screens/states: _TBD_
-- Empty/loading/error/success states: _TBD_
-- Accessibility requirements: _TBD_
-- UX writing/tone: _TBD_
-- Visual direction: _TBD_
-- Branding/logo needs: _TBD_
-- Design system constraints: _TBD_
-
-## 9. Data, security, privacy, and operations
-
-- Data types involved: _TBD_
-- Personal/sensitive data: _TBD_
-- Auth/authorization: _TBD_
-- Compliance constraints: _TBD_
-- Performance constraints: _TBD_
-- Observability needs: _TBD_
-- Release/deployment constraints: _TBD_
-- Migration needs: _TBD_
-
-## 10. Selected roles
-
-### System roles
-
-- [ ] Task Intake Orchestrator
-- [ ] Team Architect
-- [ ] Chronicle Keeper
-- [ ] Consistency Auditor
+## Selected team
+### Required system roles
 
 ### Specialist roles
 
-_TBD_
-
 ### Skipped roles and rationale
 
-_TBD_
-
-## 11. Assumptions
-
-_TBD_
-
-## 12. Open questions
-
-_TBD_
-
-## 13. Approved plan
-
+## Approved plan
 _Not approved yet._
 
-## 14. Verification plan
+## Verification plan
 
-- Automated checks: _TBD_
-- Manual checks: _TBD_
-- Review roles: _TBD_
-- Evidence required: _TBD_
+## Risk register summary
 
-## 15. Decision log
+## Open questions
 
-| Date/time | Decision | Reason | Impact |
-|---|---|---|---|
-| _TBD_ | _TBD_ | _TBD_ | _TBD_ |
+## Decision log

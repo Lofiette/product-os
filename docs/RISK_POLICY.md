@@ -1,70 +1,21 @@
 # RISK_POLICY.md
 
-Use this file to trigger additional roles and approval gates.
+## Severity
+- Low: local, reversible, no user/data/security impact.
+- Medium: affects user flow, tests, or maintainability.
+- High: affects production behavior, data, auth, privacy, performance, release, or public API.
+- Critical: could cause data loss, security incident, compliance violation, financial harm, or major outage.
 
-## Security triggers
+## Required escalations
 
-Activate Security Reviewer when work touches:
-- authentication or authorization;
-- roles/permissions;
-- secrets/tokens/API keys;
-- user-generated content;
-- file upload/download;
-- redirects;
-- payments/billing;
-- injection surfaces;
-- multi-tenant isolation;
-- admin features.
+- Security/privacy data access: Vincent and Serah.
+- AI/ML model behavior: Shantotto, Celes, Rydia.
+- Data migration: Lulu and Freya.
+- Public API: Kimahri.
+- Performance-sensitive systems: Sabin and Barret.
+- Release/deployment: Cidolfus and Ashe.
+- Incident: Cecil.
 
-## Privacy and compliance triggers
+## Rule
 
-Activate Privacy & Compliance Reviewer when work touches:
-- personal data;
-- sensitive data;
-- analytics/tracking;
-- consent;
-- data export/import;
-- deletion/retention;
-- audit logs;
-- regulated contexts.
-
-## Performance triggers
-
-Activate Performance Engineer when work touches:
-- large lists/tables;
-- heavy rendering;
-- expensive queries;
-- search;
-- caching;
-- media;
-- realtime;
-- slow routes;
-- bundle size.
-
-## Dependency triggers
-
-Activate Dependency Curator before adding or replacing production dependencies.
-
-## Migration triggers
-
-Activate Migration Planner before:
-- database schema changes;
-- data migrations;
-- backfills;
-- destructive data changes;
-- changing identifiers or references.
-
-## Release/operations triggers
-
-Activate DevOps & Release Engineer and Observability Engineer when work touches:
-- CI/CD;
-- infrastructure;
-- deployment;
-- environments;
-- feature flags;
-- production rollout;
-- monitoring/logging/alerts.
-
-## Incident triggers
-
-Activate Incident Investigator when there is an outage, production bug, user-visible degradation, security event, or data integrity issue.
+When in doubt, route risk to a specialist instead of guessing. But do not spawn every specialist. Explain the trigger.

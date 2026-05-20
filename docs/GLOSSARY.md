@@ -1,9 +1,9 @@
 # GLOSSARY.md
 
-- **Intake Mode**: The initial briefing phase before planning or implementation.
-- **Work mode**: The type of task: research, prototype, PoC, MVP, production change, bugfix, refactor, review, data/analytics, incident, documentation.
-- **Specialist role**: A domain-specific subagent such as UX Researcher, Security Reviewer, or Frontend Architect.
-- **System role**: A process role required to coordinate, remember, or audit work.
-- **Approval gate**: A point where Codex must stop and ask the user before proceeding.
-- **Evidence-backed finding**: A claim supported by user input, code, docs, tests, logs, or clearly labeled assumption.
-- **Fast lane**: A lightweight intake path for small, low-risk tasks.
+- Intake A: first adaptive question batch before assumptions are committed.
+- Intake B: task brief update and role selection after user answers.
+- Fast Lane: lightweight process for small low-risk tasks.
+- Work mode: task category that determines process and roles.
+- Evidence level: confidence/source category from `EVIDENCE_POLICY.md`.
+- Approval gate: required stop before risky or irreversible work.
+- Chronicle: durable progress memory in `CHRONICLE.md`.

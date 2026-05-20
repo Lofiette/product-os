@@ -1,28 +1,22 @@
 ---
 name: implementation-review
-description: Use after code changes or on an existing diff to review correctness, scope, tests, risks, and merge readiness.
+description: Use after code changes or for PR/diff review.
 ---
 
-# implementation-review
+# Skill: implementation-review
 
-## Purpose
+## When to use
+Use after code changes or for PR/diff review.
 
-Use after code changes or on an existing diff to review correctness, scope, tests, risks, and merge readiness.
+## Procedure
+1. Compare diff to TASK.md.
+2. Check scope.
+3. Check tests.
+4. Check risk gates.
+5. Return approve/request changes.
 
-## Required behavior
-
-- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
-- Keep the work bounded to the current task and work mode.
-- Use evidence-backed findings.
-- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
-- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
-
-## Output
-
-Return concise structured output with:
-
-1. What was inspected
-2. Findings
-3. Decisions or recommendations
-4. Risks
-5. Required approvals or next steps
+## Output rules
+- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
+- Respect `docs/QUALITY_GATES.md`.
+- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
+- Do not implement unless the approved work mode and approval gate allow implementation.

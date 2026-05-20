@@ -1,29 +1,16 @@
 # Review Report
 
-## Recommendation
-
-Approve / Request changes / Needs discussion
+## Verdict
+PASS / PASS WITH WARNINGS / BLOCKED / REQUEST CHANGES
 
 ## Blocking issues
 
-_TBD_
-
 ## Non-blocking issues
 
-_TBD_
-
-## Missing tests or evidence
-
-_TBD_
-
-## Risk notes
-
-_TBD_
+## Missing evidence or tests
 
 ## Scope deviations
 
-_TBD_
+## Risk gate compliance
 
-## Suggested follow-ups
-
-_TBD_
+## Recommendation

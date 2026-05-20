@@ -1,41 +1,19 @@
 # Research Plan
 
-## Research goal
+## Decision this research supports
 
-_TBD_
+## Research questions
 
-## Decisions this research should inform
+## Evidence already available
 
-_TBD_
-
-## Known evidence
-
-_TBD_
-
-## Hypotheses
-
-_TBD_
-
-## Method
-
-_TBD_
+## Methodology
 
 ## Participants / sources
 
-_TBD_
+## Protocol
 
-## Questions / tasks
-
-_TBD_
-
-## Analysis plan
-
-_TBD_
+## Analysis approach
 
 ## Risks and limitations
 
-_TBD_
-
-## Output artifacts
-
-_TBD_
+## Output artifact

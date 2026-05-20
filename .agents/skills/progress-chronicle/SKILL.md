@@ -1,28 +1,23 @@
 ---
 name: progress-chronicle
-description: Use after every major phase or context-changing event to update CHRONICLE.md with decisions, status, evidence, and next steps.
+description: Use to update CHRONICLE.md after meaningful progress.
 ---
 
-# progress-chronicle
+# Skill: progress-chronicle
 
-## Purpose
+## When to use
+Use to update CHRONICLE.md after meaningful progress.
 
-Use after every major phase or context-changing event to update CHRONICLE.md with decisions, status, evidence, and next steps.
+## Procedure
+1. Update rescue summary.
+2. Log timeline.
+3. Log decisions.
+4. Log role activity.
+5. Log verification.
+6. Log risks and next action.
 
-## Required behavior
-
-- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
-- Keep the work bounded to the current task and work mode.
-- Use evidence-backed findings.
-- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
-- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
-
-## Output
-
-Return concise structured output with:
-
-1. What was inspected
-2. Findings
-3. Decisions or recommendations
-4. Risks
-5. Required approvals or next steps
+## Output rules
+- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
+- Respect `docs/QUALITY_GATES.md`.
+- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
+- Do not implement unless the approved work mode and approval gate allow implementation.

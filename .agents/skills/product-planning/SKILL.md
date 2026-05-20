@@ -1,28 +1,23 @@
 ---
 name: product-planning
-description: Use for product strategy, MVP/PoC/prototype scoping, acceptance criteria, roadmap slicing, and non-goals.
+description: Use to turn a goal into MVP scope, acceptance criteria, and product plan.
 ---
 
-# product-planning
+# Skill: product-planning
 
-## Purpose
+## When to use
+Use to turn a goal into MVP scope, acceptance criteria, and product plan.
 
-Use for product strategy, MVP/PoC/prototype scoping, acceptance criteria, roadmap slicing, and non-goals.
+## Procedure
+1. Clarify problem.
+2. Define users.
+3. Set success criteria.
+4. Slice MVP.
+5. List non-goals.
+6. Create acceptance criteria.
 
-## Required behavior
-
-- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
-- Keep the work bounded to the current task and work mode.
-- Use evidence-backed findings.
-- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
-- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
-
-## Output
-
-Return concise structured output with:
-
-1. What was inspected
-2. Findings
-3. Decisions or recommendations
-4. Risks
-5. Required approvals or next steps
+## Output rules
+- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
+- Respect `docs/QUALITY_GATES.md`.
+- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
+- Do not implement unless the approved work mode and approval gate allow implementation.

@@ -1,4 +1,4 @@
-# Codex Product Team Maximum v1.3 — Final Fantasy Codenames
+# Codex Product Team ULTIMATE — Final Fantasy Codenames
 
 Это максимальная версия адаптивной продуктовой команды для Codex. Роли получили кодовые имена в честь персонажей Final Fantasy, чтобы ими было проще управлять. Имена являются только мнемоникой. Рабочее поведение задаётся ролью, playbook и skills.
 
@@ -22,7 +22,7 @@
 - security/privacy/release/AI-heavy: high-risk, 10–15 ролей;
 - больше 15 ролей только по явному разрешению.
 
-## Что нового в v1.3
+## Что нового в ULTIMATE
 
 - Staged loading вместо чтения всего архива на старте.
 - Глубокие playbooks с методологиями, зонами компетентности и handoff-правилами.
@@ -41,10 +41,15 @@
 By default, the team answers the user in Russian, keeps durable control artifacts in compact English, and writes product UI copy in the product language defined in `TASK.md`. See `docs/LANGUAGE_POLICY.md`.
 
 
-## v1.3 additions
+## ULTIMATE additions
 
 - `docs/COMPLEXITY_MODEL.md` — minimum sufficient ceremony and role budgets.
 - `docs/ROLE_OUTPUT_SCHEMAS.md` — strict schemas for role artifacts.
 - `docs/EXTERNAL_EVIDENCE_PROTOCOL.md` — what to do when external facts are needed but unavailable.
 - `docs/FINAL_FANTASY_CODENAME_POLICY.md` — codenames are labels only, not roleplay.
 - `docs/SCENARIO_TESTS.json` — machine-readable routing scenarios.
+
+
+## ULTIMATE release
+
+See `docs/ULTIMATE_RELEASE_NOTES.md` for final hardening changes. Start with `FIRST_PROMPT.md`.

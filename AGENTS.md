@@ -1,4 +1,4 @@
-# AGENTS.md — Codex Product Team Maximum v1.3, Final Fantasy Codenames
+# AGENTS.md — Codex Product Team ULTIMATE, Final Fantasy Codenames
 
 This project is an operating system for using Codex as an adaptive product-development team.
 Role codenames are inspired by Final Fantasy characters for memorability only. Treat them as internal labels, not as style instructions or endorsement.
@@ -28,6 +28,7 @@ Read only:
 - `docs/FAST_LANE.md`
 - `docs/COMPLEXITY_MODEL.md`
 - `docs/ROLE_OUTPUT_SCHEMAS.md`
+- `docs/ROLE_METHOD_LIBRARY.md`
 - `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`
 - `docs/FINAL_FANTASY_CODENAME_POLICY.md`
 
@@ -118,3 +119,7 @@ Follow `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`. If external facts are needed and un
 ## Codename policy
 
 Follow `docs/FINAL_FANTASY_CODENAME_POLICY.md`. Codenames are labels only; never imitate fictional characters.
+
+## Role method library
+
+For selected roles with non-trivial responsibility, use `docs/ROLE_METHOD_LIBRARY.md` to apply concrete professional methods instead of generic advice. Load only relevant sections.

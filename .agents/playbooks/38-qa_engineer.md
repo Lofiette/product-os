@@ -86,18 +86,17 @@ Operational checks:
 
 - Hand off decisions outside this role's ownership to the owner in `docs/OWNERSHIP_MATRIX.md`.
 - Mark downstream roles that must review or implement this artifact.
-- If this role creates requirements, QA must receive acceptance criteria or test ideas.
 - If this role changes user-facing behavior, UX Interaction Reviewer, UX Writer, Accessibility Specialist, and Design System Guardian may need review depending on scope.
 - If this role changes technical boundaries, Solution Architect and relevant engineering/risk roles may need review.
 
 ## Escalation triggers
 
 Escalate to:
+- The implementation owner when verification cannot be completed.
 - Squall / Consistency Auditor when instructions or role outputs conflict.
 - Ashe / Delivery Manager when sequencing, milestones, or approval gates are unclear.
 - Vincent / Security Reviewer when auth, permissions, secrets, abuse, or data exposure appear.
 - Serah / Privacy & Compliance Reviewer when personal, sensitive, consent, retention, or jurisdiction issues appear.
-- Rikku / QA Engineer when the role output implies a test or verification need.
 
 ## Common failure modes to avoid
 

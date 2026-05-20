@@ -92,8 +92,8 @@ Operational checks:
 ## Escalation triggers
 
 Escalate to:
+- Cid / Team Architect when sequencing requires a different role lineup or role budget.
 - Squall / Consistency Auditor when instructions or role outputs conflict.
-- Ashe / Delivery Manager when sequencing, milestones, or approval gates are unclear.
 - Vincent / Security Reviewer when auth, permissions, secrets, abuse, or data exposure appear.
 - Serah / Privacy & Compliance Reviewer when personal, sensitive, consent, retention, or jurisdiction issues appear.
 - Rikku / QA Engineer when the role output implies a test or verification need.

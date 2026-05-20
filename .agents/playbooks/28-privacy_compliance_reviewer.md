@@ -93,10 +93,10 @@ Operational checks:
 ## Escalation triggers
 
 Escalate to:
+- The user or qualified counsel when a legal/compliance decision is required.
 - Squall / Consistency Auditor when instructions or role outputs conflict.
 - Ashe / Delivery Manager when sequencing, milestones, or approval gates are unclear.
 - Vincent / Security Reviewer when auth, permissions, secrets, abuse, or data exposure appear.
-- Serah / Privacy & Compliance Reviewer when personal, sensitive, consent, retention, or jurisdiction issues appear.
 - Rikku / QA Engineer when the role output implies a test or verification need.
 
 ## Common failure modes to avoid

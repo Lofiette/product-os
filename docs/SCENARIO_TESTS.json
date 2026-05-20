@@ -1,11 +1,12 @@
 {
-  "version": "1.3",
+  "version": "ULTIMATE",
+  "source_of_truth": "docs/SCENARIO_TESTS.json",
   "scenarios": [
     {
       "id": "tiny_copy_change",
       "description": "Rename a button label in one UI file",
       "work_mode": "Production change",
-      "complexity": "Fast Lane",
+      "complexity": "Tiny/Fast Lane",
       "required_roles": [
         "intake_orchestrator",
         "ux_writer"
@@ -19,10 +20,15 @@
         "market_researcher",
         "cx_researcher",
         "ai_ml_systems_architect",
-        "devops_release_engineer"
+        "devops_release_engineer",
+        "delivery_manager"
       ],
       "max_roles": 3,
-      "max_questions": 3
+      "max_questions": 3,
+      "expected_gates": [
+        "No full planning symposium",
+        "Review mode remains read-only unless implementation is explicitly requested"
+      ]
     },
     {
       "id": "greenfield_ux_mvp",
@@ -41,14 +47,20 @@
       "optional_roles": [
         "ux_writer",
         "delivery_manager",
-        "code_reviewer"
+        "code_reviewer",
+        "team_architect"
       ],
       "forbidden_roles": [
         "market_researcher",
         "incident_investigator"
       ],
       "max_roles": 9,
-      "max_questions": 9
+      "max_questions": 9,
+      "expected_gates": [
+        "Plan before implementation",
+        "Backend skipped if local-only",
+        "Delivery Manager required only if multi-phase/cross-area"
+      ]
     },
     {
       "id": "market_discovery",
@@ -72,11 +84,52 @@
         "devops_release_engineer"
       ],
       "max_roles": 7,
-      "max_questions": 9
+      "max_questions": 9,
+      "expected_gates": [
+        "No implementation",
+        "External facts require evidence or research plan",
+        "Findings separated from hypotheses"
+      ]
     },
     {
-      "id": "ai_agent_feature",
-      "description": "Add AI agent with tools and user data access",
+      "id": "ai_summarization_feature",
+      "description": "Add AI summarization of customer interviews without autonomous tool actions",
+      "work_mode": "AI/ML feature",
+      "complexity": "High-risk",
+      "required_roles": [
+        "intake_orchestrator",
+        "ai_ml_systems_architect",
+        "model_evaluation_specialist",
+        "ai_safety_reviewer",
+        "privacy_compliance_reviewer",
+        "ux_writer",
+        "qa_engineer",
+        "chronicle_keeper",
+        "consistency_auditor"
+      ],
+      "optional_roles": [
+        "ux_researcher",
+        "security_reviewer",
+        "backend_architect",
+        "observability_engineer",
+        "performance_engineer"
+      ],
+      "forbidden_roles": [
+        "market_researcher",
+        "incident_investigator"
+      ],
+      "max_roles": 15,
+      "max_questions": 9,
+      "expected_gates": [
+        "Eval plan required",
+        "Privacy/data access review required",
+        "Hallucination/fallback behavior required",
+        "No market claims"
+      ]
+    },
+    {
+      "id": "ai_tool_agent_feature",
+      "description": "Add AI agent with tool use, user data access, or irreversible actions",
       "work_mode": "AI/ML feature",
       "complexity": "High-risk",
       "required_roles": [
@@ -86,18 +139,27 @@
         "ai_safety_reviewer",
         "security_reviewer",
         "privacy_compliance_reviewer",
+        "backend_architect",
         "qa_engineer",
         "chronicle_keeper",
         "consistency_auditor"
       ],
       "optional_roles": [
-        "backend_architect",
+        "api_contract_guardian",
         "observability_engineer",
-        "performance_engineer"
+        "performance_engineer",
+        "devops_release_engineer",
+        "ux_writer"
       ],
       "forbidden_roles": [],
       "max_roles": 15,
-      "max_questions": 9
+      "max_questions": 9,
+      "expected_gates": [
+        "Tool permission matrix required",
+        "Human approval for irreversible actions",
+        "Prompt injection/data exfiltration review",
+        "Security and privacy gates required"
+      ]
     },
     {
       "id": "api_breaking_change_review",
@@ -121,7 +183,96 @@
         "ux_writer"
       ],
       "max_roles": 10,
-      "max_questions": 7
+      "max_questions": 7,
+      "expected_gates": [
+        "Review mode is read-only",
+        "Implementation requires explicit switch from review to implementation"
+      ]
+    },
+    {
+      "id": "backend_bugfix",
+      "description": "Fix a backend bug in production logic with tests",
+      "work_mode": "Bugfix",
+      "complexity": "Standard/Complex depending on risk",
+      "required_roles": [
+        "intake_orchestrator",
+        "backend_architect",
+        "qa_engineer",
+        "code_reviewer",
+        "chronicle_keeper"
+      ],
+      "optional_roles": [
+        "security_reviewer",
+        "api_contract_guardian",
+        "data_architect",
+        "consistency_auditor"
+      ],
+      "forbidden_roles": [
+        "visual_design_director",
+        "market_researcher",
+        "ux_writer"
+      ],
+      "max_roles": 9,
+      "max_questions": 7,
+      "expected_gates": [
+        "Reproduce or define failing scenario",
+        "Smallest safe fix",
+        "No schema/API/auth changes without approval"
+      ]
+    },
+    {
+      "id": "ux_research_only",
+      "description": "Plan UX research for a product problem without implementation",
+      "work_mode": "Research",
+      "complexity": "Standard",
+      "required_roles": [
+        "intake_orchestrator",
+        "ux_researcher",
+        "product_strategist",
+        "chronicle_keeper"
+      ],
+      "optional_roles": [
+        "cx_researcher",
+        "ux_writer",
+        "market_researcher",
+        "business_analyst"
+      ],
+      "forbidden_roles": [
+        "frontend_architect",
+        "backend_architect",
+        "devops_release_engineer"
+      ],
+      "max_roles": 7,
+      "max_questions": 9,
+      "expected_gates": [
+        "No implementation",
+        "Research questions before method",
+        "Insights cannot be claimed before data"
+      ]
+    },
+    {
+      "id": "language_policy_ru_user_en_artifacts",
+      "description": "Russian user asks for compact-token workflow",
+      "work_mode": "Any",
+      "complexity": "Fast Lane/Standard",
+      "required_roles": [
+        "intake_orchestrator"
+      ],
+      "optional_roles": [
+        "chronicle_keeper",
+        "team_architect",
+        "ux_writer",
+        "ux_interaction_reviewer",
+        "qa_engineer"
+      ],
+      "forbidden_roles": [],
+      "max_roles": 7,
+      "max_questions": 7,
+      "expected_gates": [
+        "Reply to user in Russian",
+        "TASK.md and CHRONICLE.md in compact English",
+        "Product UI language asked or explicitly set"
+      ]
     }
   ]
 }

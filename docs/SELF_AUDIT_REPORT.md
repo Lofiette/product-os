@@ -1,23 +1,33 @@
-# SELF_AUDIT_REPORT.md — v1.3
+# SELF_AUDIT_REPORT.md — ULTIMATE
 
 ## Result
 
-PASS WITH SMALL WARNINGS after v1.3 hardening.
+PASS.
 
-## Changes from v1.2
+```text
+VALIDATION PASSED: 42 roles, 12 skills, 9 scenarios.
+```
 
-- Added minimum-sufficient-complexity model.
-- Added strict role output schemas.
-- Added external evidence protocol.
-- Added Final Fantasy codename anti-roleplay policy.
-- Converted scenario expectations to machine-readable JSON.
-- Removed old generic expertise phrase from playbooks.
-- Added role-specific activation triggers and strict output schemas to all role playbooks.
-- Clarified MVP routing: Delivery Manager is required for multi-phase/cross-area MVP, optional for small MVP.
-- Strengthened review mode as read-only by default.
+## Scope checked
 
-## Remaining intentional limits
+- Required root/docs files
+- Staged loading references
+- Language policy references
+- Role playbook count and required sections
+- Custom agent TOML count and required keys
+- Skill count
+- No backup/temp files shipped
+- Scenario JSON validity
+- Scenario markdown sync with JSON
+- Role ID references in scenarios
+- Self-escalation loops
+- Review-mode read-only guardrail
+- ULTIMATE release notes and validator rules
 
-- The kit is still an operating system, not a substitute for domain-specific legal, medical, financial, or security review.
-- External facts require evidence; if browsing or source access is unavailable, roles must produce a research plan rather than conclusions.
-- 16+ role plans require explicit user approval.
+## Known boundaries
+
+The validator checks structural integrity and obvious routing hazards. It does not replace human review of professional methodology, real-world legal advice, security review, or market research evidence.
+
+## Recommendation
+
+Use this package as the release candidate for Codex Product Team ULTIMATE. For future versions, improve with real project telemetry: which roles were overused, which questions were unnecessary, and where handoffs failed.

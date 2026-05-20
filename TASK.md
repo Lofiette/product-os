@@ -1,27 +1,26 @@
 # TASK.md — Live Task Brief
 
-This file is the current source of truth for the active task.
-
-Codex must update this file during intake, after new user input, after scope changes, and before implementation.
+> This file must be updated whenever task scope, assumptions, constraints, selected roles, approval status, or verification strategy changes.
 
 ## 1. Task status
 
 - Status: Not started
-- Last updated: _fill when task starts_
-- Current work mode: Unknown
+- Last updated: _TBD_
+- Current work mode: _TBD_
 - Current phase: Intake
+- Approval status: Not approved for implementation
 
 ## 2. User request
 
-_Describe the user's request in plain language._
+_TBD_
 
-## 3. Product context
+## 3. Product / problem context
 
-- Product/domain:
-- Target users:
-- User problem:
-- Desired outcome:
-- Business or learning goal:
+- Product/domain: _TBD_
+- Target users/audience: _TBD_
+- User/customer problem: _TBD_
+- Business or learning goal: _TBD_
+- Success signal: _TBD_
 
 ## 4. Work mode
 
@@ -31,86 +30,98 @@ Select one primary mode:
 - [ ] Prototype
 - [ ] PoC
 - [ ] MVP
-- [ ] Production Change
+- [ ] Production change
 - [ ] Bugfix
 - [ ] Refactor
-- [ ] Review
+- [ ] Review/audit
+- [ ] Data/analytics
+- [ ] Incident response
+- [ ] Documentation/handoff
 
-Rationale:
+Rationale: _TBD_
 
 ## 5. Scope
 
 ### In scope
 
-- 
+_TBD_
 
 ### Out of scope
 
-- 
+_TBD_
 
 ### Non-goals
 
-- 
+_TBD_
 
-## 6. Platform and stack
+## 6. Platforms and stack
 
-- Target platform:
-- Existing repository or greenfield:
-- Frontend stack:
-- Backend stack:
-- Data/storage:
-- Design system:
-- Build/test tools:
-- Deployment target:
+- Target platform(s): _TBD_
+- Existing repository or greenfield: _TBD_
+- Frontend stack: _TBD_
+- Backend stack: _TBD_
+- Mobile stack: _TBD_
+- Data/storage: _TBD_
+- AI/ML components: _TBD_
+- Design system source: _TBD_
+- Deployment target: _TBD_
+- Build/test commands: _TBD_
 
-## 7. UX and visual requirements
+## 7. Research context
 
-- Visual style:
-- Brand/logo requirements:
-- Design system source:
-- Required screens/flows:
-- Interaction states:
-- Accessibility requirements:
-- Copy/tone requirements:
+- Market research needed: _TBD_
+- UX research needed: _TBD_
+- CX/service research needed: _TBD_
+- Existing evidence: _TBD_
+- Hypotheses: _TBD_
+- Research constraints: _TBD_
 
-## 8. Constraints
+## 8. UX / content / visual requirements
 
-- Time constraints:
-- Technical constraints:
-- Design constraints:
-- Security/privacy constraints:
-- Performance constraints:
-- Dependency constraints:
-- Compatibility constraints:
+- Primary flows: _TBD_
+- Key screens/states: _TBD_
+- Empty/loading/error/success states: _TBD_
+- Accessibility requirements: _TBD_
+- UX writing/tone: _TBD_
+- Visual direction: _TBD_
+- Branding/logo needs: _TBD_
+- Design system constraints: _TBD_
 
-## 9. Acceptance criteria
+## 9. Data, security, privacy, and operations
 
-- 
+- Data types involved: _TBD_
+- Personal/sensitive data: _TBD_
+- Auth/authorization: _TBD_
+- Compliance constraints: _TBD_
+- Performance constraints: _TBD_
+- Observability needs: _TBD_
+- Release/deployment constraints: _TBD_
+- Migration needs: _TBD_
 
 ## 10. Selected roles
 
-- Task Intake Orchestrator: required during intake
-- Chronicle Keeper: required for continuity
+### System roles
 
-Selected specialist roles:
+- [ ] Task Intake Orchestrator
+- [ ] Team Architect
+- [ ] Chronicle Keeper
+- [ ] Consistency Auditor
 
-- [ ] Product Strategist
-- [ ] UX Interaction Reviewer
-- [ ] Design System Guardian
-- [ ] Frontend Architect
-- [ ] Backend Architect
-- [ ] QA Engineer
-- [ ] Code Reviewer
+### Specialist roles
 
-Rationale for selected/skipped roles:
+_TBD_
+
+### Skipped roles and rationale
+
+_TBD_
 
 ## 11. Assumptions
 
-- 
+_TBD_
 
 ## 12. Open questions
 
-- 
+_TBD_
 
 ## 13. Approved plan
 
@@ -118,11 +129,13 @@ _Not approved yet._
 
 ## 14. Verification plan
 
-- Tests/checks to run:
-- Manual verification:
-- Review criteria:
+- Automated checks: _TBD_
+- Manual checks: _TBD_
+- Review roles: _TBD_
+- Evidence required: _TBD_
 
-## 15. Current decision log
+## 15. Decision log
 
-| Date/time | Decision | Reason | Owner |
+| Date/time | Decision | Reason | Impact |
 |---|---|---|---|
+| _TBD_ | _TBD_ | _TBD_ | _TBD_ |

@@ -1,63 +1,52 @@
 # CHRONICLE.md — Progress Chronicle
 
-This file preserves continuity across long sessions, context compression, and restarts.
-
-Codex must update this file:
-
-- after intake;
-- after major user decisions;
-- after planning;
-- after implementation;
-- after verification;
-- before final response;
-- whenever context may be lost.
+> Chronicle Keeper owns this file. Update after intake, planning, approvals, implementation, review, major discoveries, and context-risk moments.
 
 ## Context rescue summary
 
-_Keep this section short and current. It should allow a new Codex session to continue the work without reading the entire conversation._
-
-Current task:
-
-Current work mode:
-
-Current phase:
-
-Approved scope:
-
-Key constraints:
-
-Selected roles:
-
-Latest plan:
-
-Latest status:
-
-Next recommended action:
+- Current task: _TBD_
+- Current phase: Intake
+- Current work mode: _TBD_
+- Approved scope: Not approved yet
+- Key constraints: _TBD_
+- Selected roles: _TBD_
+- Latest status: _TBD_
+- Next recommended action: Run Intake Mode
 
 ## Timeline
 
 | Date/time | Event | Details | Evidence |
 |---|---|---|---|
+| _TBD_ | Chronicle initialized | No task briefed yet | `CHRONICLE.md` |
 
 ## Decisions
 
 | Date/time | Decision | Reason | Impact |
 |---|---|---|---|
 
+## Role activity log
+
+| Date/time | Role | Activity | Output / Evidence |
+|---|---|---|---|
+
 ## Completed work
 
-- 
+_TBD_
 
 ## Verification history
 
-| Date/time | Check | Result | Notes |
+| Date/time | Check | Result | Evidence |
 |---|---|---|---|
 
 ## Risks and follow-ups
 
-- 
+_TBD_
 
 ## Files touched
 
-| File | Why changed | Related decision |
+| File | Reason | Related task/decision |
 |---|---|---|
+
+## Handoff notes
+
+_TBD_

@@ -1,20 +1,28 @@
 ---
 name: implementation-review
-description: Use after implementation or when reviewing an existing diff. Runs Code Reviewer perspective and verifies scope, tests, and memory updates.
+description: Use after code changes or on an existing diff to review correctness, scope, tests, risks, and merge readiness.
 ---
 
-Process:
+# implementation-review
 
-1. Compare diff against `TASK.md` and approved plan.
-2. Review correctness, scope, maintainability, tests, and risks.
-3. Check whether `CHRONICLE.md` was updated.
-4. Produce merge recommendation or required changes.
+## Purpose
 
-Output:
+Use after code changes or on an existing diff to review correctness, scope, tests, risks, and merge readiness.
 
-1. Merge recommendation
-2. Blocking issues
-3. Non-blocking issues
-4. Missing tests
-5. Scope deviations
-6. Required updates to `TASK.md` or `CHRONICLE.md`
+## Required behavior
+
+- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
+- Keep the work bounded to the current task and work mode.
+- Use evidence-backed findings.
+- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
+- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
+
+## Output
+
+Return concise structured output with:
+
+1. What was inspected
+2. Findings
+3. Decisions or recommendations
+4. Risks
+5. Required approvals or next steps

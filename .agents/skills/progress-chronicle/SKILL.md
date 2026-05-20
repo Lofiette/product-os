@@ -1,15 +1,28 @@
 ---
 name: progress-chronicle
-description: Use to update CHRONICLE.md after intake, decisions, planning, implementation, verification, or before final response.
+description: Use after every major phase or context-changing event to update CHRONICLE.md with decisions, status, evidence, and next steps.
 ---
 
-Process:
+# progress-chronicle
 
-1. Update the Context rescue summary.
-2. Add timeline entry.
-3. Record decisions and rationale.
-4. Record files changed, if any.
-5. Record tests/checks and results.
-6. Record risks, open questions, and next action.
+## Purpose
 
-Keep it concise. Preserve useful continuity, not transcript noise.
+Use after every major phase or context-changing event to update CHRONICLE.md with decisions, status, evidence, and next steps.
+
+## Required behavior
+
+- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
+- Keep the work bounded to the current task and work mode.
+- Use evidence-backed findings.
+- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
+- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
+
+## Output
+
+Return concise structured output with:
+
+1. What was inspected
+2. Findings
+3. Decisions or recommendations
+4. Risks
+5. Required approvals or next steps

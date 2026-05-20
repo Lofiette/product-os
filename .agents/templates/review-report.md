@@ -1,4 +1,4 @@
-# Review Report Template
+# Review Report
 
 ## Recommendation
 
@@ -6,12 +6,24 @@ Approve / Request changes / Needs discussion
 
 ## Blocking issues
 
+_TBD_
+
 ## Non-blocking issues
 
-## Missing tests
+_TBD_
+
+## Missing tests or evidence
+
+_TBD_
+
+## Risk notes
+
+_TBD_
 
 ## Scope deviations
 
-## Risks
+_TBD_
 
-## Follow-ups
+## Suggested follow-ups
+
+_TBD_

@@ -1,28 +1,28 @@
 ---
 name: task-intake
-description: Use at the beginning of every new project, major task, or scope change. Interviews the user adaptively and updates TASK.md before planning.
+description: Use at the start of any new task or major scope change to run adaptive briefing, update TASK.md, initialize CHRONICLE.md, and prevent premature implementation.
 ---
 
-Use this skill before implementation.
+# task-intake
 
-Process:
+## Purpose
 
-1. Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, and `docs/QUESTION_TREE.md`.
-2. Determine whether the user already provided enough information.
-3. Ask adaptive questions only where answers materially affect scope, roles, or implementation.
-4. Determine work mode.
-5. Update `TASK.md`.
-6. Ask Chronicle Keeper to update `CHRONICLE.md`.
-7. Recommend specialist roles.
-8. Ask for approval to proceed to planning or implementation.
+Use at the start of any new task or major scope change to run adaptive briefing, update TASK.md, initialize CHRONICLE.md, and prevent premature implementation.
 
-Do not implement during this skill.
+## Required behavior
 
-Output:
+- Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `TEAM.md`, and relevant docs before acting.
+- Keep the work bounded to the current task and work mode.
+- Use evidence-backed findings.
+- Update or request updates to `TASK.md` and `CHRONICLE.md` when the skill changes task state.
+- Respect approval gates in `docs/QUALITY_GATES.md` and risk triggers in `docs/RISK_POLICY.md`.
 
-- Current understanding
-- Questions
-- Work mode
-- Selected roles
-- Updates to `TASK.md`
-- Next approval gate
+## Output
+
+Return concise structured output with:
+
+1. What was inspected
+2. Findings
+3. Decisions or recommendations
+4. Risks
+5. Required approvals or next steps

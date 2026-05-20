@@ -1,170 +1,119 @@
-# Adaptive Question Tree for Task Intake
+# QUESTION_TREE.md — Adaptive Briefing Tree
 
-Use this tree to brief the user. Ask only relevant questions. Prefer batches of 5–9 questions. Do not exhaustively ask every question if the task is small.
+Ask from broad to specific. Do not ask every question. Select branches based on the task. Keep the first question batch to 5–9 questions unless the task is high-risk or the user asks for exhaustive briefing.
 
-## Intake principle
-
-Start broad, then branch. Stop asking when there is enough information to choose work mode, roles, scope, acceptance criteria, and verification plan.
-
-## Level 0 — Always ask if missing
+## Level 0 — Always consider
 
 1. What are we trying to achieve?
-2. Is this a new product, a feature in an existing product, a bugfix, a refactor, a review, or research?
-3. What outcome would make you say “done”?
-4. Should this be a prototype, PoC, MVP, or production-ready change?
-5. Are we working in an existing repository or starting from scratch?
-6. Are there hard constraints: time, stack, design system, platform, dependencies, security, performance?
-7. What should explicitly not be changed or touched?
+2. What type of work is this: research, prototype, PoC, MVP, production change, bugfix, refactor, review, audit, data/analytics, incident, or documentation?
+3. Is this a new product, an existing product, or a change inside an existing repository?
+4. What does “done” mean for this task?
+5. Who is the target user, customer, operator, or reviewer?
+6. What is explicitly out of scope?
+7. Are there constraints around time, stack, design system, security, privacy, compliance, performance, or deployment?
+8. What must not be changed?
+9. What evidence already exists: user research, analytics, market data, designs, code, tickets, logs, docs?
 
-## Level 1 — Work mode selection
+## Research branch
 
-### If Prototype
+Use if uncertainty exists around market, users, CX, domain, or product value.
 
-Ask:
+### Market research
 
-- What should the prototype demonstrate?
-- Who is the prototype for: you, stakeholders, users, investors, internal team?
-- Should it be visually polished or functional enough for learning?
-- What shortcuts are acceptable?
-- What must not be faked?
+- What market/category are we exploring?
+- Who are known competitors or substitutes?
+- What positioning or adoption question are we trying to answer?
+- Do we need external research, or only a framework/template for research?
+- What regions, segments, pricing tiers, or channels matter?
 
-### If PoC
+### UX research
 
-Ask:
+- What user behavior or usability question are we trying to answer?
+- Do we need interviews, usability testing, surveys, diary study, heuristic review, or synthesis?
+- Who should participate?
+- What hypotheses should be tested?
+- What decisions will the research inform?
 
-- What technical assumption are we proving?
-- What would disprove feasibility?
-- What can be mocked?
-- What integration or platform constraint matters most?
-- What measurable result proves success?
+### CX research
 
-### If MVP
+- What customer journey or service experience is involved?
+- Which touchpoints matter before, during, and after product use?
+- Where do support, sales, onboarding, billing, or retention enter the journey?
+- What emotions, failures, expectations, and handoffs must be mapped?
 
-Ask:
+## Product branch
 
-- Who is the primary user?
-- What is the smallest valuable end-to-end flow?
-- What must be included in v1?
-- What should be deferred?
-- What is the release or demo target?
+- What is the user problem?
+- What is the business or learning goal?
+- What is the smallest valuable slice?
+- What are non-goals?
+- What trade-offs are acceptable?
+- What success metrics or signals matter?
+- What risks would make this not worth building?
 
-### If Production Change
+## UI / UX branch
 
-Ask:
+- What primary flow should the user complete?
+- Which screens or surfaces are required?
+- What empty, loading, error, disabled, success, and permission states are needed?
+- Is there an existing design system in code or design files?
+- What visual style should it follow?
+- Does it need branding, logo, illustration, iconography, motion, or responsive behavior?
+- What tone should UX copy use?
+- What accessibility requirements are critical?
 
-- What existing behavior must be preserved?
-- What regression risks are unacceptable?
-- Which tests/checks are required?
-- Is there a rollout, feature flag, or rollback expectation?
-- Are there compliance, privacy, or security constraints?
+## Technical branch
 
-### If Bugfix
+- What platforms are targeted: web, backend, mobile, desktop, CLI, API, data pipeline?
+- What stack exists or is preferred?
+- What are the current architecture boundaries?
+- What integrations are involved?
+- What tests/checks exist?
+- What performance, scale, offline, reliability, or compatibility constraints matter?
 
-Ask:
+## Data / security / privacy branch
 
-- What is the observed behavior?
-- What is the expected behavior?
-- How can the issue be reproduced?
-- When did it start?
-- Is it user-facing, internal, intermittent, or environment-specific?
-- Are logs, screenshots, stack traces, or failing tests available?
+- What data is collected, stored, processed, exported, or deleted?
+- Is any personal, sensitive, regulated, or customer-confidential data involved?
+- Is authentication, authorization, tenant isolation, payment, billing, or file upload involved?
+- Are retention, consent, deletion, audit, or compliance requirements relevant?
+- What threat or abuse scenarios should be considered?
 
-### If Refactor
+## Release / operations branch
 
-Ask:
+- Is this going to production?
+- Is a rollout or feature flag needed?
+- What rollback path exists?
+- What monitoring, logs, metrics, dashboards, or alerts are needed?
+- What CI/CD or environment constraints apply?
 
-- What pain are we solving?
-- What behavior must remain identical?
-- What is the smallest safe refactor?
-- Are there tests that protect current behavior?
-- Should refactor and behavior change be separated?
+## Bugfix branch
 
-### If Review
+- What is expected behavior?
+- What is actual behavior?
+- How can we reproduce it?
+- What changed recently?
+- What logs, screenshots, stack traces, or failing tests exist?
+- What is the blast radius?
 
-Ask:
+## Refactor branch
 
-- What should be reviewed: code, PR, architecture, UX, tests, security, performance?
-- What standard should the review use?
-- Should the output be blocking/non-blocking findings, checklist, or rewrite proposal?
+- What pain is the refactor solving?
+- What behavior must remain unchanged?
+- What tests protect current behavior?
+- Can the refactor be staged?
+- What should not be refactored?
 
-### If Research
+## Review branch
 
-Ask:
+- What artifact should be reviewed: branch, diff, design, spec, architecture, copy, research plan, release plan?
+- What review dimensions matter?
+- Should findings be blocking/non-blocking or severity-ranked?
+- Should the reviewer suggest fixes or only report issues?
 
-- What decision should the research support?
-- What sources or code areas should be considered authoritative?
-- What format should the output take: summary, comparison, recommendation, plan?
+## Documentation branch
 
-## Level 2 — Product and users
-
-Ask if product value or audience is relevant:
-
-- Who is the target audience?
-- What user problem are we solving?
-- What are the primary and secondary user flows?
-- What user context matters: device, environment, frequency, expertise, accessibility needs?
-- What user emotions or perceptions should the experience create or avoid?
-- What are the top failure states from the user's perspective?
-
-## Level 3 — UX/UI branch
-
-Ask if the task affects interface, interaction, flows, or content:
-
-- Which screens, components, or flows are affected?
-- Is there an existing design system?
-- Is the design system in code, Figma, documentation, screenshots, or only in memory?
-- What visual style should be used?
-- Are there brand/logo requirements?
-- Are there typography, color, spacing, iconography, or motion constraints?
-- Which states are required: empty, loading, error, disabled, success, partial data?
-- What accessibility level or constraints matter?
-- Should copy be formal, friendly, neutral, playful, enterprise, or domain-specific?
-
-## Level 4 — Technical branch
-
-Ask if implementation is required:
-
-- What platform is targeted: web, mobile, desktop, backend, CLI, embedded, data pipeline?
-- What stack is used?
-- What files, modules, services, packages, or folders are likely relevant?
-- Are there existing patterns to reuse?
-- Are new dependencies allowed?
-- Are there environment variables, secrets, external services, or local setup requirements?
-- What commands run build, tests, typecheck, lint, storybook, or local app?
-
-## Level 5 — Backend/data branch
-
-Ask if APIs, storage, auth, or integrations are involved:
-
-- What data is created, read, updated, or deleted?
-- Are there authorization rules or roles?
-- Are there privacy or retention constraints?
-- Are database migrations allowed?
-- Are API contracts public or internal?
-- Are integrations real, mocked, or unavailable locally?
-- Is idempotency, pagination, caching, or consistency important?
-
-## Level 6 — Quality branch
-
-Ask before implementation plan:
-
-- What tests already exist?
-- What should be tested: unit, integration, e2e, visual, accessibility, contract, performance?
-- What commands should Codex run?
-- What manual verification is expected?
-- What risks are acceptable for this work mode?
-- What is the rollback or undo path?
-
-## Level 7 — Team selection
-
-After enough answers, select roles:
-
-- Product Strategist: unclear value, scope, MVP, prioritization.
-- UX Interaction Reviewer: flows, screens, copy, interaction states.
-- Design System Guardian: UI components, visual system, tokens, reusable patterns.
-- Frontend Architect: frontend implementation.
-- Backend Architect: API, service, data, domain logic.
-- QA Engineer: tests and verification.
-- Code Reviewer: after diff or for PR/review tasks.
-
-Always record selected and skipped roles in `TASK.md`.
+- Who is the audience?
+- What should the reader be able to do after reading?
+- What source of truth should be used?
+- Should this be README, PR description, changelog, runbook, decision record, or handoff summary?

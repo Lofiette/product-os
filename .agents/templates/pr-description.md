@@ -1,20 +1,29 @@
-# PR Description Template
+# PR Description
 
 ## Summary
 
-## Why
+_TBD_
 
-## What changed
+## User-visible changes
 
-## How verified
+_TBD_
+
+## Technical changes
+
+_TBD_
+
+## Tests and checks
+
+_TBD_
 
 ## Risks
 
+_TBD_
+
 ## Rollback
+
+_TBD_
 
 ## Reviewer checklist
 
-- [ ] Scope matches `TASK.md`
-- [ ] Tests/checks are documented
-- [ ] Risks are explicit
-- [ ] `CHRONICLE.md` updated
+_TBD_

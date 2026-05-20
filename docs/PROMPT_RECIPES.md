@@ -1,31 +1,37 @@
-# Prompt Recipes
+# PROMPT_RECIPES.md
 
 ## Start a new task
 
 ```text
-Use Intake Mode. Read the project instructions and interview me using the adaptive question tree. Do not implement yet. Update TASK.md and CHRONICLE.md, recommend the optimal roles, and ask for approval before planning.
+Use Intake Mode. Read the project instructions, interview me using the adaptive question tree, update TASK.md and CHRONICLE.md, recommend the optimal subagent lineup, run a consistency audit, and ask for approval before implementation.
 ```
 
-## After answering the brief
+## Continue after context loss
 
 ```text
-Update TASK.md with my latest answers. Ask Chronicle Keeper to update CHRONICLE.md. Then use the selected specialist roles to create a planning brief. Do not implement yet.
+Read TASK.md and CHRONICLE.md. Summarize current task, phase, approved scope, decisions, selected roles, verification status, risks, and next recommended action. Do not implement until I confirm.
+```
+
+## Plan with subagents
+
+```text
+Use Team Architect to select the smallest sufficient specialist team. Spawn only the selected subagents, wait for all findings, consolidate the plan, run Consistency Auditor, and ask for approval before implementation.
 ```
 
 ## Approve implementation
 
 ```text
-I approve the plan. Implement only the approved scope. Keep the diff minimal. Update tests/checks as planned. Update CHRONICLE.md before final summary.
+I approve the plan in TASK.md. Implement only the approved scope. Keep the diff minimal. Follow QUALITY_GATES.md. Update tests/checks as planned. Update CHRONICLE.md before final summary.
 ```
 
-## Review an existing diff
+## Review a diff
 
 ```text
-Use implementation-review. Compare the diff against TASK.md and the approved plan. Use Code Reviewer and QA Engineer. If UI is affected, also use UX Interaction Reviewer and Design System Guardian. Do not rewrite code.
+Use implementation-review. Compare the diff against TASK.md and approved plan. Involve QA Engineer and any triggered risk roles. Return blocking issues, non-blocking issues, missing tests, risk notes, and merge recommendation.
 ```
 
-## Resume after context loss
+## Run self-audit
 
 ```text
-Read TASK.md and CHRONICLE.md. Summarize the current task, status, approved scope, risks, and next recommended action. Do not implement until I confirm.
+Use self-audit. Check the current plan, role lineup, TASK.md, CHRONICLE.md, gates, and referenced files for contradictions, missing ownership, missing risk roles, vague scope, and unverified claims.
 ```

@@ -1,25 +1,51 @@
-# Planning Brief Template
+# Planning Brief
 
 ## Executive summary
 
+_TBD_
+
 ## Work mode
+
+_TBD_
 
 ## Selected roles
 
-## User problem / technical problem
+_TBD_
 
-## Scope
+## Roles intentionally skipped
 
-### In scope
-
-### Out of scope
+_TBD_
 
 ## Findings by role
 
-## Recommended implementation plan
+_TBD_
+
+## Recommended scope
+
+### Now
+
+_TBD_
+
+### Later
+
+_TBD_
+
+### Explicitly out of scope
+
+_TBD_
+
+## Implementation / action plan
+
+_TBD_
 
 ## Verification plan
 
-## Risks
+_TBD_
+
+## Risks and mitigations
+
+_TBD_
 
 ## Approval request
+
+_TBD_

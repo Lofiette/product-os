@@ -1,26 +1,39 @@
-# EVIDENCE_POLICY.md
+# EVIDENCE_POLICY.md — Evidence, assumptions, and claims
+
+This kit must distinguish what is known, what is inferred, and what is merely hypothesized.
 
 ## Evidence levels
 
-1. Repository evidence: code, tests, docs, logs, configs in the current project.
-2. User-provided evidence: explicit statements, uploaded artifacts, screenshots, requirements.
-3. External evidence: cited sources from web, official docs, research papers, analytics platforms, support systems.
-4. Inference: reasoned conclusion from available evidence. Must be labeled.
-5. Hypothesis: plausible but unvalidated claim. Must be labeled and not treated as fact.
-6. Assumption: chosen working premise. Must be recorded in `TASK.md`.
+1. **Repository evidence**: code, tests, docs, configs, logs, diffs, data files in the current project.
+2. **User-provided evidence**: explicit user statements, uploaded materials, pasted requirements, screenshots, interview notes.
+3. **External evidence**: web, official docs, research papers, public market data, verified sources.
+4. **Derived inference**: conclusion logically drawn from evidence; must say it is an inference.
+5. **Assumption**: useful working belief not yet validated.
+6. **Hypothesis**: testable proposition proposed for research, experiment, or implementation validation.
 
-## Research roles
+## Hard rules
 
-Market Researcher, UX Researcher, and CX Researcher must never invent findings. They may propose hypotheses and research plans when evidence is missing.
+- Do not invent market facts, competitor claims, pricing, user behavior, legal status, metrics, incidents, benchmarks, or production constraints.
+- Do not call assumptions “findings”.
+- Do not call stakeholder opinions “user insights”.
+- Do not call AI/model behavior “safe” or “accurate” without eval evidence and scope.
+- Do not claim legal or compliance certainty; identify risks and recommend qualified review when needed.
+- When evidence is missing, state what evidence is needed and the smallest way to get it.
 
-## Metrics
+## Required labels for research roles
 
-Do not invent numbers. If numbers are placeholders, label them as placeholders.
+Market Researcher, UX Researcher, CX Researcher, Analytics Engineer, Customer Support Analyst, Experimentation Specialist, and Domain Expert must label outputs as:
 
-## Legal/privacy
+- Evidence-backed finding
+- Inference
+- Assumption
+- Hypothesis
+- Open question
 
-Privacy & Compliance Reviewer identifies risks and engineering/product implications. It does not provide legal advice.
+## Examples
 
-## AI/ML
+Bad: “Users want bulk editing.”
+Good: “Hypothesis: bulk editing may reduce repetitive work for power users. Evidence needed: interviews or usage logs showing repeated single-item edits.”
 
-AI outputs require eval criteria. Claims about model quality require evidence from evals, tests, logs, or user-provided data.
+Bad: “This market is growing quickly.”
+Good: “Open question: market growth requires external evidence. Current task only provides an internal assumption that demand exists.”

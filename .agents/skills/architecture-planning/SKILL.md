@@ -9,15 +9,18 @@ description: Use for technical architecture, stack, system boundaries, and imple
 Use for technical architecture, stack, system boundaries, and implementation sequencing.
 
 ## Procedure
-1. Read technical context.
-2. Identify constraints.
-3. Define architecture options.
-4. Choose approach.
-5. Record tradeoffs.
-6. Define verification.
+1. Read TASK.md, constraints, current architecture, repo structure, and risk policy.
+2. Identify quality attributes: correctness, reliability, performance, security, privacy, maintainability, delivery speed.
+3. Define options with tradeoffs; do not present one option as inevitable without evidence.
+4. Choose the smallest architecture that satisfies approved work mode.
+5. Define boundaries: UI, API, domain, data, infra, external integrations, AI/model tools if any.
+6. Record ADR-ready decision notes: context, decision, alternatives, consequences.
+7. Define verification: tests, contract checks, migration validation, observability, rollback where relevant.
+8. Request approval before high-risk or irreversible changes.
 
 ## Output rules
 - Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md`.
+- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
+- Follow `docs/LANGUAGE_POLICY.md`.
 - Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
 - Do not implement unless the approved work mode and approval gate allow implementation.

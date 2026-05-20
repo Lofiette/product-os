@@ -57,3 +57,14 @@ Ask adaptively. Do not ask every question. Start with Intake A, then Intake B af
 - Selected roles with rationale.
 - Skipped roles with rationale.
 - Open questions and assumptions.
+
+
+## Language policy branch
+
+Ask only when language affects the task or durable artifacts are being created.
+
+1. What language should I use when speaking with you? Default: Russian.
+2. What language should durable project artifacts use? Default: compact English for token efficiency.
+3. What language is the product UI/copy for end users?
+4. Does the task require localization, bilingual UX, locale-specific formats, or cultural adaptation?
+5. Should PR/release documentation follow repository language or user language?

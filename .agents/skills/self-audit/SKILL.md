@@ -9,14 +9,18 @@ description: Use to audit the kit itself.
 Use to audit the kit itself.
 
 ## Procedure
-1. Run validate script.
-2. Check docs links.
-3. Check role depth.
-4. Check routing consistency.
-5. Report BLOCKED/WARN/PASS.
+1. Run `python scripts/validate_kit.py`.
+2. Check required docs exist and are referenced by AGENTS.md/FIRST_PROMPT.md.
+3. Check each role has mission, activation, do-not-do, expertise, method, outputs, handoffs, escalation, failure modes.
+4. Check role-specific depth: avoid repeated generic phrasing without concrete methods.
+5. Check routing consistency: role triggers match ownership and risk policy.
+6. Check language policy integration.
+7. Check scenario tests for expected roles and missing risks.
+8. Return PASS, PASS WITH WARNINGS, or BLOCKED with patch recommendations.
 
 ## Output rules
 - Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md`.
+- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
+- Follow `docs/LANGUAGE_POLICY.md`.
 - Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
 - Do not implement unless the approved work mode and approval gate allow implementation.

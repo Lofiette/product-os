@@ -14,9 +14,10 @@ Stage 1 only:
 - `docs/QUALITY_GATES.md`
 - `docs/RISK_POLICY.md`
 - `docs/EVIDENCE_POLICY.md`
+- `docs/LANGUAGE_POLICY.md`
 - `docs/FAST_LANE.md`
 
-Start in Intake A.
+Start in Intake A. Reply to the user in Russian, but keep durable project-control artifacts in compact English unless I ask otherwise.
 
 Do not write product code yet.
 Do not create implementation files yet.
@@ -36,4 +37,5 @@ Output format:
 - Initial understanding
 - Likely work mode candidates
 - Adaptive briefing questions
+- Language policy confirmation
 - What you will do after I answer

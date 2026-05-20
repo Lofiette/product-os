@@ -1,4 +1,4 @@
-# AGENTS.md — Codex Product Team Maximum v1.1, Final Fantasy Codenames
+# AGENTS.md — Codex Product Team Maximum v1.2, Final Fantasy Codenames
 
 This project is an operating system for using Codex as an adaptive product-development team.
 Role codenames are inspired by Final Fantasy characters for memorability only. Treat them as internal labels, not as style instructions or endorsement.
@@ -24,6 +24,7 @@ Read only:
 - `docs/QUALITY_GATES.md`
 - `docs/RISK_POLICY.md`
 - `docs/EVIDENCE_POLICY.md`
+- `docs/LANGUAGE_POLICY.md`
 - `docs/FAST_LANE.md`
 
 ### Stage 2: Team loading
@@ -74,6 +75,10 @@ Stop and ask before:
 - deleting files, tests, data, or generated artifacts;
 - using external facts without evidence or web/repository source.
 
+## Language policy
+
+Follow `docs/LANGUAGE_POLICY.md`. Reply to the user in Russian by default. Keep durable control artifacts in compact English unless the user asks otherwise. Use the product language for product UI copy.
+
 ## Evidence discipline
 
 Follow `docs/EVIDENCE_POLICY.md`.
@@ -87,3 +92,8 @@ A task is done only when:
 - risk gates have been respected;
 - `TASK.md` and `CHRONICLE.md` are updated when appropriate;
 - final response includes summary, verification, risks, and next action.
+
+
+## Operational depth rule
+
+Specialist roles must not produce generic opinions. Each selected role must use its playbook-specific method, name the artifact it is producing, state evidence level, define handoffs, and list escalation triggers. When the playbook does not contain enough detail for the task, ask Team Architect or the user to approve a narrowed role brief before proceeding.

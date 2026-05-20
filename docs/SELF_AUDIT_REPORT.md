@@ -1,10 +1,22 @@
-# SELF_AUDIT_REPORT.md
+# SELF_AUDIT_REPORT.md — v1.2 Language & Depth Patch
 
-```text
-VALIDATION PASSED: 42 roles, 12 skills.
+## Static validation
 
-```
+`python scripts/validate_kit.py` passes after the v1.2 patch.
 
-## Notes
+## Changes in v1.2
 
-This is a structural and depth-oriented audit. It checks required files, role/playbook/custom-agent links, TOML validity, skill structure, and playbook section depth. It does not prove that every role judgment will be perfect in live use.
+- Added `docs/LANGUAGE_POLICY.md`.
+- Integrated language policy into `AGENTS.md`, `FIRST_PROMPT.md`, and `TASK.md`.
+- Rebuilt all 42 playbooks with more concrete role-specific methods, outputs, handoffs, and escalation rules.
+- Fixed Consistency Auditor self-escalation.
+- Expanded all 12 workflow skills into operational procedures.
+- Strengthened `docs/EVIDENCE_POLICY.md`.
+- Added language-policy scenario test.
+- Enhanced validation script to detect missing docs, old generic phrasing, missing sections, and self-escalation.
+
+## Remaining known limitations
+
+- This is still a prompt/instruction kit, not a guarantee of perfect agent behavior.
+- Some role expertise can be deepened further with industry-specific variants.
+- External market/legal/current facts still require web or user-provided evidence.

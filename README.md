@@ -1,4 +1,4 @@
-# Codex Product Team Maximum v1.1 — Final Fantasy Codenames
+# Codex Product Team Maximum v1.2 — Final Fantasy Codenames
 
 Это максимальная версия адаптивной продуктовой команды для Codex. Роли получили кодовые имена в честь персонажей Final Fantasy, чтобы ими было проще управлять. Имена являются только мнемоникой. Рабочее поведение задаётся ролью, playbook и skills.
 
@@ -22,7 +22,7 @@
 - security/privacy/release/AI-heavy: high-risk, 10–15 ролей;
 - больше 15 ролей только по явному разрешению.
 
-## Что нового в v1.1
+## Что нового в v1.2
 
 - Staged loading вместо чтения всего архива на старте.
 - Глубокие playbooks с методологиями, зонами компетентности и handoff-правилами.
@@ -34,3 +34,8 @@
 - Усиленный Consistency Auditor.
 - Scenario tests для проверки маршрутизации.
 - Self-audit script для структурной проверки архива.
+
+
+## Language policy
+
+By default, the team answers the user in Russian, keeps durable control artifacts in compact English, and writes product UI copy in the product language defined in `TASK.md`. See `docs/LANGUAGE_POLICY.md`.

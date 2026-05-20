@@ -53,6 +53,13 @@ Choose one or more:
 - AI/ML components:
 - Deployment target:
 
+## Language policy
+- User communication language: Russian
+- Control artifacts language: compact English
+- Product UI language: TBD
+- UX copy language: same as product UI language unless specified
+- Code/comment language: existing project convention, otherwise compact English
+
 ## Constraints
 - Time:
 - Technical:

@@ -52,3 +52,11 @@ If two roles disagree:
 2. The primary owner proposes the decision.
 3. Squall / Consistency Auditor checks contradictions and missing evidence.
 4. The user approves decisions that affect scope, risk, cost, or public behavior.
+
+## Conflict-resolution rules
+
+- If two roles disagree on product scope, Product Strategist owns the recommendation and Consistency Auditor checks evidence.
+- If two roles disagree on technical approach, Solution Architect owns the recommendation and relevant architects provide constraints.
+- If UX, copy, accessibility, and visual direction conflict, UX Interaction Reviewer owns flow behavior, UX Writer owns language, Accessibility Specialist owns inclusive access, Design System Guardian owns reusable UI rules, and Visual Design Director owns aesthetic direction within those constraints.
+- If a risk role blocks implementation, Delivery Manager records the gate and the user/human owner must approve resolution.
+- If no role clearly owns a decision, Team Architect assigns owner before planning continues.

@@ -1,22 +1,23 @@
-# SELF_AUDIT_REPORT.md — v1.2 Language & Depth Patch
+# SELF_AUDIT_REPORT.md — v1.3
 
-## Static validation
+## Result
 
-`python scripts/validate_kit.py` passes after the v1.2 patch.
+PASS WITH SMALL WARNINGS after v1.3 hardening.
 
-## Changes in v1.2
+## Changes from v1.2
 
-- Added `docs/LANGUAGE_POLICY.md`.
-- Integrated language policy into `AGENTS.md`, `FIRST_PROMPT.md`, and `TASK.md`.
-- Rebuilt all 42 playbooks with more concrete role-specific methods, outputs, handoffs, and escalation rules.
-- Fixed Consistency Auditor self-escalation.
-- Expanded all 12 workflow skills into operational procedures.
-- Strengthened `docs/EVIDENCE_POLICY.md`.
-- Added language-policy scenario test.
-- Enhanced validation script to detect missing docs, old generic phrasing, missing sections, and self-escalation.
+- Added minimum-sufficient-complexity model.
+- Added strict role output schemas.
+- Added external evidence protocol.
+- Added Final Fantasy codename anti-roleplay policy.
+- Converted scenario expectations to machine-readable JSON.
+- Removed old generic expertise phrase from playbooks.
+- Added role-specific activation triggers and strict output schemas to all role playbooks.
+- Clarified MVP routing: Delivery Manager is required for multi-phase/cross-area MVP, optional for small MVP.
+- Strengthened review mode as read-only by default.
 
-## Remaining known limitations
+## Remaining intentional limits
 
-- This is still a prompt/instruction kit, not a guarantee of perfect agent behavior.
-- Some role expertise can be deepened further with industry-specific variants.
-- External market/legal/current facts still require web or user-provided evidence.
+- The kit is still an operating system, not a substitute for domain-specific legal, medical, financial, or security review.
+- External facts require evidence; if browsing or source access is unavailable, roles must produce a research plan rather than conclusions.
+- 16+ role plans require explicit user approval.

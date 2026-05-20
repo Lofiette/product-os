@@ -24,3 +24,12 @@ Use to choose the smallest sufficient team after intake.
 - Follow `docs/LANGUAGE_POLICY.md`.
 - Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
 - Do not implement unless the approved work mode and approval gate allow implementation.
+
+
+## v1.3 complexity guardrail
+
+Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+
+## v1.3 output schema rule
+
+Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.

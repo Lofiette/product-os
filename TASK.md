@@ -94,3 +94,12 @@ _Not approved yet._
 ## Open questions
 
 ## Decision log
+
+
+## Complexity tier
+
+- Tier: TBD
+- Reason: TBD
+- Question budget used: TBD
+- Role budget used: TBD
+- Exception approval needed: No

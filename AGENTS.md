@@ -1,4 +1,4 @@
-# AGENTS.md — Codex Product Team Maximum v1.2, Final Fantasy Codenames
+# AGENTS.md — Codex Product Team Maximum v1.3, Final Fantasy Codenames
 
 This project is an operating system for using Codex as an adaptive product-development team.
 Role codenames are inspired by Final Fantasy characters for memorability only. Treat them as internal labels, not as style instructions or endorsement.
@@ -26,6 +26,10 @@ Read only:
 - `docs/EVIDENCE_POLICY.md`
 - `docs/LANGUAGE_POLICY.md`
 - `docs/FAST_LANE.md`
+- `docs/COMPLEXITY_MODEL.md`
+- `docs/ROLE_OUTPUT_SCHEMAS.md`
+- `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`
+- `docs/FINAL_FANTASY_CODENAME_POLICY.md`
 
 ### Stage 2: Team loading
 After the user answers intake questions, load only the selected role playbooks and selected skills.
@@ -97,3 +101,20 @@ A task is done only when:
 ## Operational depth rule
 
 Specialist roles must not produce generic opinions. Each selected role must use its playbook-specific method, name the artifact it is producing, state evidence level, define handoffs, and list escalation triggers. When the playbook does not contain enough detail for the task, ask Team Architect or the user to approve a narrowed role brief before proceeding.
+
+
+## Complexity discipline
+
+Follow `docs/COMPLEXITY_MODEL.md`. Use the lightest process tier that can safely answer scope, risk, ownership, evidence, verification, and approval questions. More roles are not better; correct routing is better.
+
+## Role output schemas
+
+Follow `docs/ROLE_OUTPUT_SCHEMAS.md`. Every selected role must produce a named artifact with evidence level, handoffs, and blockers. Review mode is read-only unless the user explicitly switches to implementation.
+
+## External evidence protocol
+
+Follow `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`. If external facts are needed and unavailable, produce a research plan instead of unsupported conclusions.
+
+## Codename policy
+
+Follow `docs/FINAL_FANTASY_CODENAME_POLICY.md`. Codenames are labels only; never imitate fictional characters.

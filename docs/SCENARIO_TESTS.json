@@ -1,0 +1,127 @@
+{
+  "version": "1.3",
+  "scenarios": [
+    {
+      "id": "tiny_copy_change",
+      "description": "Rename a button label in one UI file",
+      "work_mode": "Production change",
+      "complexity": "Fast Lane",
+      "required_roles": [
+        "intake_orchestrator",
+        "ux_writer"
+      ],
+      "optional_roles": [
+        "frontend_architect",
+        "code_reviewer",
+        "chronicle_keeper"
+      ],
+      "forbidden_roles": [
+        "market_researcher",
+        "cx_researcher",
+        "ai_ml_systems_architect",
+        "devops_release_engineer"
+      ],
+      "max_roles": 3,
+      "max_questions": 3
+    },
+    {
+      "id": "greenfield_ux_mvp",
+      "description": "Build MVP for a small UX research workflow app",
+      "work_mode": "MVP",
+      "complexity": "Standard",
+      "required_roles": [
+        "intake_orchestrator",
+        "product_strategist",
+        "ux_interaction_reviewer",
+        "design_system_guardian",
+        "frontend_architect",
+        "qa_engineer",
+        "chronicle_keeper"
+      ],
+      "optional_roles": [
+        "ux_writer",
+        "delivery_manager",
+        "code_reviewer"
+      ],
+      "forbidden_roles": [
+        "market_researcher",
+        "incident_investigator"
+      ],
+      "max_roles": 9,
+      "max_questions": 9
+    },
+    {
+      "id": "market_discovery",
+      "description": "Investigate market and positioning before building",
+      "work_mode": "Research",
+      "complexity": "Standard",
+      "required_roles": [
+        "intake_orchestrator",
+        "product_strategist",
+        "market_researcher",
+        "chronicle_keeper"
+      ],
+      "optional_roles": [
+        "ux_researcher",
+        "cx_researcher",
+        "business_analyst"
+      ],
+      "forbidden_roles": [
+        "frontend_architect",
+        "backend_architect",
+        "devops_release_engineer"
+      ],
+      "max_roles": 7,
+      "max_questions": 9
+    },
+    {
+      "id": "ai_agent_feature",
+      "description": "Add AI agent with tools and user data access",
+      "work_mode": "AI/ML feature",
+      "complexity": "High-risk",
+      "required_roles": [
+        "intake_orchestrator",
+        "ai_ml_systems_architect",
+        "model_evaluation_specialist",
+        "ai_safety_reviewer",
+        "security_reviewer",
+        "privacy_compliance_reviewer",
+        "qa_engineer",
+        "chronicle_keeper",
+        "consistency_auditor"
+      ],
+      "optional_roles": [
+        "backend_architect",
+        "observability_engineer",
+        "performance_engineer"
+      ],
+      "forbidden_roles": [],
+      "max_roles": 15,
+      "max_questions": 9
+    },
+    {
+      "id": "api_breaking_change_review",
+      "description": "Review a proposed public API contract change",
+      "work_mode": "Review/audit",
+      "complexity": "Complex",
+      "required_roles": [
+        "intake_orchestrator",
+        "api_contract_guardian",
+        "backend_architect",
+        "qa_engineer",
+        "code_reviewer",
+        "consistency_auditor"
+      ],
+      "optional_roles": [
+        "technical_writer",
+        "security_reviewer"
+      ],
+      "forbidden_roles": [
+        "visual_design_director",
+        "ux_writer"
+      ],
+      "max_roles": 10,
+      "max_questions": 7
+    }
+  ]
+}

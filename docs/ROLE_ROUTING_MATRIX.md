@@ -13,7 +13,7 @@
 | Strategy | Cloud | Balthier, Ramza, Noctis, Setzer | No implementation by default. |
 | Prototype | Rinoa, Terra, Garnet | Lightning, Zidane, Vivi | Optimize for learning and communication. |
 | PoC | Auron | Zidane, Basch, Shantotto, Rikku | Prove feasibility, not product polish. |
-| MVP | Cloud, Ashe | Rinoa, Zidane, Basch, Rikku | Smallest end-to-end slice. |
+| MVP | Cloud | Rinoa, Zidane, Basch, Rikku; Ashe required only for multi-phase or cross-area MVP | Smallest end-to-end slice; keep Standard tier unless risk triggers require Complex. |
 | Production change | Ashe | relevant architect, Rikku, Agrias | Respect risk gates. |
 | Bugfix | Rikku | relevant architect, Agrias | Reproduce, isolate, fix, verify. |
 | Refactor | Locke | relevant architect, Rikku, Agrias | Preserve behavior. |
@@ -39,3 +39,16 @@
 | Experimentation/A-B testing | Setzer, Penelo, Cloud, Rikku |
 | Support-ticket/customer complaint analysis | Prompto, Noctis, Cloud, Garnet |
 | Localization/i18n | Faris, Garnet, Zidane, Rikku |
+
+
+## Role budget by mode
+
+- Tiny/Fast Lane: do not exceed 3 roles without user approval.
+- Standard feature/fix/review: target 4–7 roles.
+- Complex product/tech work: target 8–12 roles.
+- High-risk work: 10–15 roles are allowed when risk triggers justify them.
+- 16+ roles requires explicit user approval and a Delivery Manager plan.
+
+## Review mode guardrail
+
+Review/audit mode is read-only by default. Reviewers may recommend changes, but must not edit files until the user explicitly approves implementation.

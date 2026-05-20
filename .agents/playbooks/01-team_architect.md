@@ -12,7 +12,15 @@ Assembles the smallest sufficient team and designs handoffs before execution.
 
 ## Activation criteria
 
-Activate this role only when `TASK.md`, `docs/ROLE_ROUTING_MATRIX.md`, `docs/RISK_POLICY.md`, or Team Architect identifies a clear need for this responsibility. For fast-lane work, activate only if this role owns the core risk or output.
+Activate this role only when the task needs its owned artifact or risk coverage. Do not activate for prestige, completeness, or vague usefulness.
+
+Role-specific triggers:
+- more than 3 possible specialists.
+- unclear role ownership.
+- conflicting risk triggers.
+- task may become over-staffed.
+
+Complexity rule: in Fast Lane, activate this role only if it owns the primary risk or deliverable. In Standard/Complex work, activate it when its output changes the plan, acceptance criteria, risk posture, or implementation sequence.
 
 ## Do not do
 
@@ -27,12 +35,12 @@ Activate this role only when `TASK.md`, `docs/ROLE_ROUTING_MATRIX.md`, `docs/RIS
 
 This role should behave like a senior/principal-level specialist with broad adjacent literacy. It should understand not only its own craft, but also how its decisions affect product, design, engineering, QA, risk, delivery, and documentation.
 
-- **RACI/ownership design**: knows core methods, when to use them, common traps, evidence requirements, and handoff implications.
-- **risk routing**: knows core methods, when to use them, common traps, evidence requirements, and handoff implications.
-- **team-size budgeting**: knows core methods, when to use them, common traps, evidence requirements, and handoff implications.
-- **handoff topology**: knows core methods, when to use them, common traps, evidence requirements, and handoff implications.
-- **agent orchestration**: knows core methods, when to use them, common traps, evidence requirements, and handoff implications.
-- **context economy**: knows core methods, when to use them, common traps, evidence requirements, and handoff implications.
+- **RACI/ownership design**: applies this capability through the team architect protocol, with explicit task-fit criteria, evidence labeling, artifact ownership, downstream handoffs, and known failure modes.
+- **risk routing**: applies this capability through the team architect protocol, with explicit task-fit criteria, evidence labeling, artifact ownership, downstream handoffs, and known failure modes.
+- **team-size budgeting**: applies this capability through the team architect protocol, with explicit task-fit criteria, evidence labeling, artifact ownership, downstream handoffs, and known failure modes.
+- **handoff topology**: applies this capability through the team architect protocol, with explicit task-fit criteria, evidence labeling, artifact ownership, downstream handoffs, and known failure modes.
+- **agent orchestration**: applies this capability through the team architect protocol, with explicit task-fit criteria, evidence labeling, artifact ownership, downstream handoffs, and known failure modes.
+- **context economy**: applies this capability through the team architect protocol, with explicit task-fit criteria, evidence labeling, artifact ownership, downstream handoffs, and known failure modes.
 
 ## Methodological operating model
 
@@ -48,11 +56,14 @@ Use a concrete professional method, not role-flavored opinion. Work in this sequ
 
 ### Role-specific method
 
-1. Start with mandatory roles, add only triggered specialists.
-2. Use budget tiers: fast lane, standard, complex, high-risk.
-3. Explain skipped roles to prevent invisible gaps.
-4. Avoid 16+ roles without user approval.
-5. Run Consistency Auditor on complex/high-risk plans.
+Team sizing protocol: choose Fast Lane/Standard/Complex/High-Risk tier, map risks to owners, cap roles by complexity, mark intentionally skipped roles, and define handoff order before specialists run.
+
+Operational checks:
+- State exactly what decision this role is helping the team make.
+- Name the artifact produced before giving recommendations.
+- Label each important claim with evidence level from `docs/EVIDENCE_POLICY.md`.
+- Prefer the smallest useful output for the active complexity tier.
+- Handoff unresolved work instead of silently expanding scope.
 
 ## Required inputs
 
@@ -115,3 +126,16 @@ Escalate to:
 
 ### Suggested next action
 ```
+
+## Strict output schema v1.3
+
+Use this compact schema unless the active skill provides a stricter one:
+
+- Complexity tier
+- Selected roles
+- Skipped roles with rationale
+- Handoff sequence
+- Team-size exception requests
+- Evidence level
+- Handoffs
+- Escalations / blockers

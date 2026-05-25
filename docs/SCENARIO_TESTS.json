@@ -1,5 +1,5 @@
 {
-  "version": "ULTIMATE",
+  "version": "ULTIMATE Pro v1.5",
   "source_of_truth": "docs/SCENARIO_TESTS.json",
   "scenarios": [
     {
@@ -8,10 +8,10 @@
       "work_mode": "Production change",
       "complexity": "Tiny/Fast Lane",
       "required_roles": [
-        "intake_orchestrator",
         "ux_writer"
       ],
       "optional_roles": [
+        "intake_orchestrator",
         "frontend_architect",
         "code_reviewer",
         "chronicle_keeper"
@@ -26,8 +26,10 @@
       "max_roles": 3,
       "max_questions": 3,
       "expected_gates": [
-        "No full planning symposium",
-        "Review mode remains read-only unless implementation is explicitly requested"
+        "Micro/Fast intake only",
+        "System services do not count against active role budget",
+        "Review 0 or Review 1 is enough unless risk appears",
+        "No full planning symposium"
       ]
     },
     {
@@ -39,13 +41,13 @@
         "intake_orchestrator",
         "product_strategist",
         "ux_interaction_reviewer",
+        "ux_writer",
         "design_system_guardian",
         "frontend_architect",
         "qa_engineer",
         "chronicle_keeper"
       ],
       "optional_roles": [
-        "ux_writer",
         "delivery_manager",
         "code_reviewer",
         "team_architect"
@@ -59,6 +61,7 @@
       "expected_gates": [
         "Plan before implementation",
         "Backend skipped if local-only",
+        "UX Writer required for meaningful UI states and product copy",
         "Delivery Manager required only if multi-phase/cross-area"
       ]
     },
@@ -302,10 +305,43 @@
       "max_roles": 8,
       "max_questions": 5,
       "expected_gates": [
+        "Classify event as OE-0..OE-4",
         "Record opportunity event if it changes decisions",
         "Creative outputs labeled as hypotheses",
-        "Use one method from CREATIVE_METHODS.md only if it can improve the decision",
+        "Use at most one method from CREATIVE_METHODS.md per planning cycle unless user asks for ideation sprint",
         "No approved scope change without user approval"
+      ]
+    },
+    {
+      "id": "existing_repo_feature_change",
+      "description": "Implement or review a feature in an existing repository where stack and scripts must be discovered first",
+      "work_mode": "Production change / MVP / Bugfix",
+      "complexity": "Fast Lane/Standard depending on scope",
+      "required_roles": [
+        "intake_orchestrator"
+      ],
+      "optional_roles": [
+        "team_architect",
+        "frontend_architect",
+        "backend_architect",
+        "qa_engineer",
+        "code_reviewer",
+        "chronicle_keeper"
+      ],
+      "forbidden_roles": [
+        "market_researcher",
+        "incident_investigator"
+      ],
+      "required_skills": [
+        "repo-recon"
+      ],
+      "max_roles": 7,
+      "max_questions": 7,
+      "expected_gates": [
+        "Repo Recon before deep planning or edits",
+        "Do not assume stack/scripts",
+        "Use existing patterns before new abstractions",
+        "Generated/forbidden zones identified"
       ]
     }
   ]

@@ -55,6 +55,11 @@ By default, the team answers the user in Russian, keeps durable control artifact
 See `docs/ULTIMATE_RELEASE_NOTES.md` for final hardening changes. Start with `FIRST_PROMPT.md`.
 
 
-## v1.4 Pro patch
+## v1.5 Pro patch
 
 This package includes lean bootstrap loading, role cards, context-budget tracking, codename integrity checks, and an opportunity/creative-improvement overlay. Start with `FIRST_PROMPT.md`; the system should not load full role playbooks until after intake and routing.
+
+
+## v1.5 Runtime Hardening
+
+This build adds runtime role/service budgeting, repo recon, review levels, micro intake, opportunity event classes, and context-budget hardening.

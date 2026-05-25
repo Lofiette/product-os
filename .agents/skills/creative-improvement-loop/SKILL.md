@@ -31,3 +31,10 @@ Use `Creative Enhancement Brief` from `docs/CREATIVE_METHODS.md`.
 - Do not expand scope without approval.
 - Do not bypass quality or risk gates.
 - Prefer one high-leverage method over many decorative methods.
+
+
+## v1.5 event classes
+
+Classify opportunity events as OE-0, OE-1, OE-2, OE-3, or OE-4 using `docs/OPPORTUNITY_EVENTS.md`.
+
+At most one creative loop per planning cycle unless the user explicitly asks for an ideation sprint. Park good but out-of-scope ideas instead of re-opening approved scope.

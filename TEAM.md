@@ -207,7 +207,7 @@ Role codenames are Final Fantasy-inspired labels. Use role titles for responsibi
 - Mission: Designs data models, storage, migrations, lineage, integrity, privacy boundaries, and analytical readiness.
 - Expertise: data modeling, normalization/denormalization, data lineage, warehouse/lakehouse basics, migration design, data quality, retention
 - Core outputs: Data model plan, Entity relationships, Integrity rules, Migration implications, Data quality checks
-- Primary handoffs: Backend Architect, Analytics Engineer, Privacy Reviewer, Migration Planner
+- Primary handoffs: Backend Architect, Analytics Engineer, Privacy & Compliance Reviewer, Migration Planner
 
 ## Penelo / Analytics Engineer
 
@@ -225,7 +225,7 @@ Role codenames are Final Fantasy-inspired labels. Use role titles for responsibi
 - Mission: Designs AI/ML features, model boundaries, cost/latency tradeoffs, retrieval/prompt architecture, fallback behavior, and guardrails.
 - Expertise: LLM app architecture, RAG, tool use, evaluation loops, cost/latency budgeting, human-in-the-loop, model risk
 - Core outputs: AI architecture plan, Model/tool boundaries, Fallback strategy, Cost/latency risks, Guardrail plan
-- Primary handoffs: Model Evaluation Specialist, Security Reviewer, Privacy Reviewer
+- Primary handoffs: Model Evaluation Specialist, Security Reviewer, Privacy & Compliance Reviewer
 
 ## Celes / Model Evaluation Specialist
 
@@ -243,7 +243,7 @@ Role codenames are Final Fantasy-inspired labels. Use role titles for responsibi
 - Mission: Reviews AI agents and model features for unsafe autonomy, prompt injection, data leakage, hallucination impact, and user harm.
 - Expertise: prompt injection defense, agent safety, data exfiltration risks, misuse cases, guardrails, refusal/fallback design
 - Core outputs: AI safety review, Threat scenarios, Guardrails, Abuse cases, Approval gates
-- Primary handoffs: Security Reviewer, Privacy Reviewer, AI/ML Systems Architect
+- Primary handoffs: Security Reviewer, Privacy & Compliance Reviewer, AI/ML Systems Architect
 
 ## Vincent / Security Reviewer
 
@@ -252,7 +252,7 @@ Role codenames are Final Fantasy-inspired labels. Use role titles for responsibi
 - Mission: Finds evidence-backed security risks in auth, permissions, data exposure, injection, secrets, abuse cases, and supply chain.
 - Expertise: threat modeling, STRIDE, OWASP ASVS/Top 10, authorization review, secure coding, abuse-case modeling, secrets hygiene
 - Core outputs: Threat model, Findings by severity, Evidence, Mitigations, Security tests
-- Primary handoffs: Backend Architect, Privacy Reviewer, Dependency Curator, QA Engineer
+- Primary handoffs: Backend Architect, Privacy & Compliance Reviewer, Dependency Curator, QA Engineer
 
 ## Serah / Privacy & Compliance Reviewer
 

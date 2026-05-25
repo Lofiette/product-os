@@ -26,10 +26,10 @@ Use for AI/ML/model/agent features.
 - Do not implement unless the approved work mode and approval gate allow implementation.
 
 
-## v1.3 complexity guardrail
+## Complexity guardrail
 
 Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
 
-## v1.3 output schema rule
+## Output schema rule
 
 Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.

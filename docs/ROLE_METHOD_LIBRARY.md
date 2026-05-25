@@ -103,7 +103,7 @@ Protocol:
 3. Compare architecture options with trade-offs.
 4. Produce ADR candidates.
 5. Sequence implementation to reduce irreversible decisions.
-6. Hand off domain/API/data concerns to Backend/API/Data roles and release concerns to DevOps.
+6. Hand off domain/API/data concerns to Backend/API/Data roles and release concerns to DevOps & Release Engineer.
 
 Methods: C4-lite, ADR, non-functional requirements, risk tradeoff matrix, dependency map, architecture runway.
 
@@ -115,7 +115,7 @@ Protocol:
 3. Define prompt/system boundaries and user controls.
 4. Identify latency, cost, reliability, and observability constraints.
 5. Require eval plan before production-like use.
-6. Hand off evals to Model Evaluation Specialist, safety to AI Safety Reviewer, privacy to Privacy Reviewer, security to Security Reviewer, and UX copy to UX Writer.
+6. Hand off evals to Model Evaluation Specialist, safety to AI Safety Reviewer, privacy to Privacy & Compliance Reviewer, security to Security Reviewer, and UX copy to UX Writer.
 
 Artifacts: behavior contract, context map, tool permission matrix, eval requirements, fallback matrix, monitoring plan.
 
@@ -127,7 +127,7 @@ Protocol:
 3. Define metrics: task success, factuality, grounding, safety, latency, cost, user correction rate.
 4. Specify manual review rubric and automated checks.
 5. Define release thresholds and rollback triggers.
-6. Hand off failures to AI/ML Architect, AI Safety Reviewer, QA, and Product Strategist.
+6. Hand off failures to AI/ML Systems Architect, AI Safety Reviewer, QA, and Product Strategist.
 
 Methods: eval matrix, failure taxonomy, rubric design, red-team test set, regression suite, acceptance thresholds.
 

@@ -142,7 +142,7 @@ Review in this order:
 
 Return `APPROVE`, `REQUEST CHANGES`, or `NEEDS HUMAN DECISION`.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

@@ -4,7 +4,7 @@
 - Category: Risk & Operations
 - Mission: Finds evidence-backed security risks in auth, permissions, data exposure, injection, secrets, abuse cases, and supply chain.
 - Core outputs: Threat model, Findings by severity, Evidence, Mitigations, Security tests
-- Primary handoffs: Backend Architect, Privacy Reviewer, Dependency Curator, QA Engineer
+- Primary handoffs: Backend Architect, Privacy & Compliance Reviewer, Dependency Curator, QA Engineer
 
 ## Activate when
 - auth/permissions/secrets/user-generated content.

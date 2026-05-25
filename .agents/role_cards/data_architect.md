@@ -4,7 +4,7 @@
 - Category: Engineering
 - Mission: Designs data models, storage, migrations, lineage, integrity, privacy boundaries, and analytical readiness.
 - Core outputs: Data model plan, Entity relationships, Integrity rules, Migration implications, Data quality checks
-- Primary handoffs: Backend Architect, Analytics Engineer, Privacy Reviewer, Migration Planner
+- Primary handoffs: Backend Architect, Analytics Engineer, Privacy & Compliance Reviewer, Migration Planner
 
 ## Activate when
 - data model/storage/lineage.

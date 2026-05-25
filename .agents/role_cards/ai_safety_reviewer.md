@@ -4,7 +4,7 @@
 - Category: Risk & Operations
 - Mission: Reviews AI agents and model features for unsafe autonomy, prompt injection, data leakage, hallucination impact, and user harm.
 - Core outputs: AI safety review, Threat scenarios, Guardrails, Abuse cases, Approval gates
-- Primary handoffs: Security Reviewer, Privacy Reviewer, AI/ML Systems Architect
+- Primary handoffs: Security Reviewer, Privacy & Compliance Reviewer, AI/ML Systems Architect
 
 ## Activate when
 - AI agent/tool use.

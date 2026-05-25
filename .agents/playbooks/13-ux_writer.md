@@ -147,7 +147,7 @@ Rules:
 - Avoid idioms in product copy when localization is likely.
 - Preserve user trust: do not overpromise automation, AI certainty, privacy, or availability.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

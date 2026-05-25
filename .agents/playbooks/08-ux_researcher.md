@@ -144,7 +144,7 @@ Escalate to:
 
 Never call “users want X” a finding unless the evidence supports it. Prefer “participants in this evidence set showed...” when sample is limited.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

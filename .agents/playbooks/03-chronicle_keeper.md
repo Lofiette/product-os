@@ -128,7 +128,7 @@ Escalate to:
 ### Suggested next action
 ```
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

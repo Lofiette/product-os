@@ -4,6 +4,7 @@
 - Status: empty
 - Current phase: intake not started
 - Work mode: unknown
+- Complexity tier: TBD
 - Last updated: not set
 
 ## User request
@@ -28,6 +29,7 @@ Choose one or more:
 - Audit/review
 - Incident
 - AI/ML feature
+- Opportunity event / improvement loop
 
 ## Scope
 ### In scope
@@ -48,6 +50,7 @@ Choose one or more:
 - Platform:
 - Stack:
 - Existing repository:
+- Repo Recon status: not needed / needed / completed / blocked
 - Data/storage:
 - APIs/integrations:
 - AI/ML components:
@@ -77,10 +80,15 @@ Choose one or more:
 
 ### Hypotheses
 
-## Selected team
-### Required system roles
+## Team and role budget
+- Active role budget: TBD
+- Active roles used: TBD
+- System services used: TBD
+- Consulted role cards: TBD
 
-### Specialist roles
+### Required system services
+
+### Active specialist roles
 
 ### Skipped roles and rationale
 
@@ -89,21 +97,23 @@ _Not approved yet._
 
 ## Verification plan
 
+## Review plan
+- Review level: TBD
+- Reviewer roles/services: TBD
+
 ## Risk register summary
 
 ## Open questions
 
 ## Decision log
 
-
 ## Complexity tier
 
 - Tier: TBD
 - Reason: TBD
 - Question budget used: TBD
-- Role budget used: TBD
+- Active role budget used: TBD
 - Exception approval needed: No
-
 
 ## Context budget
 
@@ -112,14 +122,19 @@ _Not approved yet._
 - Role cards loaded: TBD
 - Full playbooks loaded: TBD
 - Skills loaded: TBD
-- Reason for any large-context load: TBD
+- Large-context loads and reasons: TBD
 
 ## Selected-role contract
 
-| Role | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
-|---|---|---|---|---|---|---|
+| Role | Contributor class | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
+|---|---|---|---|---|---|---|---|
 
 ## Opportunity events
 
-| Event ID | Source | Evidence level | Affected decision | Impact | Owner role | Status |
-|---|---|---|---|---|---|---|
+| Event ID | Class | Source | Evidence level | Affected decision | Impact | Owner role | Status |
+|---|---|---|---|---|---|---|---|
+
+## Parking lot
+
+| Idea | Source | Why parked | Revisit condition |
+|---|---|---|---|

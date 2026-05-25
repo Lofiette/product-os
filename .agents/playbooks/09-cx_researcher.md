@@ -139,7 +139,7 @@ Escalate to:
 6. **Metric connection**: connect pain points to CSAT, CES, NPS, retention, activation, support volume, time to resolution, or other observable signals.
 7. **Evidence boundaries**: mark journey elements as evidence-backed or hypothesized.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

@@ -4,7 +4,7 @@
 - Category: Engineering
 - Mission: Designs AI/ML features, model boundaries, cost/latency tradeoffs, retrieval/prompt architecture, fallback behavior, and guardrails.
 - Core outputs: AI architecture plan, Model/tool boundaries, Fallback strategy, Cost/latency risks, Guardrail plan
-- Primary handoffs: Model Evaluation Specialist, Security Reviewer, Privacy Reviewer
+- Primary handoffs: Model Evaluation Specialist, Security Reviewer, Privacy & Compliance Reviewer
 
 ## Activate when
 - LLM/AI/ML feature.

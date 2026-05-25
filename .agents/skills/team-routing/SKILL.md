@@ -29,10 +29,21 @@ Use to choose the smallest sufficient team after intake.
 - Do not implement unless the approved work mode and approval gate allow implementation.
 
 
-## v1.3 complexity guardrail
+## Complexity guardrail
 
 Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
 
-## v1.3 output schema rule
+## Output schema rule
 
 Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+
+
+## v1.5 role budget classification
+
+Before producing the team lineup, classify contributors as:
+
+- active specialist role;
+- system service;
+- consulted role card.
+
+Follow `docs/ROLE_SERVICE_BUDGET.md`. Only active specialist roles count against the tier role budget.

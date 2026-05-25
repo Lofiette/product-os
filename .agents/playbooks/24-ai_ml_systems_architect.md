@@ -145,7 +145,7 @@ For every AI/ML feature, define:
 
 Never design an AI feature without eval and fallback strategy.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

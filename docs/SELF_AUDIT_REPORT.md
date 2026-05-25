@@ -1,22 +1,25 @@
-# SELF_AUDIT_REPORT.md — ULTIMATE Pro v1.4
+# SELF_AUDIT_REPORT.md — v1.5 Runtime Hardening Audit
 
-Validation should be run with:
+## Verdict
 
-```bash
-python scripts/validate_kit.py
-```
+PASS.
 
-Expected result:
+The package validates structurally and includes the v1.5 runtime hardening patch:
 
-```text
-VALIDATION PASSED: 42 roles, 13 skills, 10 scenarios.
-```
+- active roles vs system services vs consulted role cards;
+- Review 0–3 levels;
+- Tiny/Fast implicit approval rule;
+- Micro/Fast/Standard/Complex intake budgets;
+- repo recon protocol and skill;
+- compact chronicle policy;
+- opportunity event classes OE-0..OE-4;
+- role index for cheap routing;
+- scenario tests synced from JSON.
 
-Main v1.4 checks:
-- role/playbook/TOML codename integrity;
-- lean startup prompt does not load heavy runtime assets;
-- role cards exist for all roles;
-- creative/opportunity docs exist and are referenced;
-- scenario JSON and markdown sync;
-- no backup/temp files;
-- no self-escalation loops.
+## Validator result
+
+`VALIDATION PASSED: 42 roles, 14 skills, 11 scenarios.`
+
+## Known boundaries
+
+The validator checks structure and routing integrity. It does not prove that every generated role output will be perfect. Real tasks still require evidence, approval gates, verification, and human review.

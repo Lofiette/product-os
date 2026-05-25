@@ -1,17 +1,33 @@
-# Scenario Test 09: language_policy_ru_user_en_artifacts
+# Scenario 09: language_policy_ru_user_en_artifacts
 
-Description: Russian user asks for compact-token workflow
+## Description
+Russian user asks for compact-token workflow
 
-Work mode: Any
-Complexity: Fast Lane/Standard
+## Work mode
+Any
 
-## Expected roles
+## Complexity
+Fast Lane/Standard
 
-Required: intake_orchestrator
-Optional: chronicle_keeper, team_architect, ux_writer, ux_interaction_reviewer, qa_engineer
-Forbidden: none
-Max roles: 7
-Max questions: 7
+## Required roles
+- `intake_orchestrator`
+
+## Optional roles
+- `chronicle_keeper`
+- `team_architect`
+- `ux_writer`
+- `ux_interaction_reviewer`
+- `qa_engineer`
+
+## Forbidden roles
+- None
+
+## Required skills
+- None
+
+## Limits
+- Max active roles: 7
+- Max questions: 7
 
 ## Expected gates
 - Reply to user in Russian

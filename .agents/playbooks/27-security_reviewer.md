@@ -142,7 +142,7 @@ Use lightweight threat modeling unless high-risk:
 
 Never say “secure” as a blanket conclusion. Say what was reviewed and what remains unverified.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

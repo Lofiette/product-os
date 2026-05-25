@@ -141,7 +141,7 @@ Check:
 6. Refusal/fallback: what happens when request, evidence, or permissions are unsafe.
 7. Monitoring: how unsafe behavior is detected after launch.
 
-## Strict output schema v1.3
+## Strict output schema
 
 Use this compact schema unless the active skill provides a stricter one:
 

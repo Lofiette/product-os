@@ -1,0 +1,585 @@
+{
+  "version": "v1.5",
+  "purpose": "Lightweight role index for routing before loading full TEAM.md or playbooks.",
+  "role_budget_classes": {
+    "active_specialist": "Counts against role budget; owns a task artifact.",
+    "system_service": "Does not count when performing compact intake, routing, chronicle, consistency, or review service work.",
+    "consulted_role_card": "Does not count when used only for routing decisions and no artifact is produced."
+  },
+  "roles": [
+    {
+      "role_id": "intake_orchestrator",
+      "codename": "Yuna",
+      "title": "Task Intake Orchestrator",
+      "category": "System",
+      "mission": "Turns an unclear user request into a well-scoped task brief, chooses the correct work mode, and prevents premature implementation.",
+      "core_outputs": [
+        "Briefing summary",
+        "Updated TASK.md",
+        "Open questions",
+        "Recommended work mode",
+        "Initial role triggers"
+      ]
+    },
+    {
+      "role_id": "team_architect",
+      "codename": "Cid",
+      "title": "Team Architect",
+      "category": "System",
+      "mission": "Assembles the smallest sufficient specialist team and sequences their work without wasting context or spawning unnecessary agents.",
+      "core_outputs": [
+        "Role lineup",
+        "Skipped role rationale",
+        "Coordination plan",
+        "Handoff map"
+      ]
+    },
+    {
+      "role_id": "delivery_manager",
+      "codename": "Ashe",
+      "title": "Delivery Manager",
+      "category": "System",
+      "mission": "Controls sequencing, approval gates, milestone slicing, and execution discipline across long or multi-agent tasks.",
+      "core_outputs": [
+        "Execution plan",
+        "Milestone board",
+        "Approval checkpoints",
+        "Next action"
+      ]
+    },
+    {
+      "role_id": "chronicle_keeper",
+      "codename": "Aerith",
+      "title": "Chronicle Keeper",
+      "category": "System",
+      "mission": "Maintains durable project memory so the team can survive context compression, interruptions, and long-running work.",
+      "core_outputs": [
+        "Updated CHRONICLE.md",
+        "Context rescue summary",
+        "Decision/timeline updates",
+        "Files touched log"
+      ]
+    },
+    {
+      "role_id": "consistency_auditor",
+      "codename": "Squall",
+      "title": "Consistency Auditor",
+      "category": "System",
+      "mission": "Audits role outputs, plans, and instructions for contradictions, missing ownership, unsupported claims, and risk gaps.",
+      "core_outputs": [
+        "PASS/WARN/BLOCKED audit",
+        "Contradictions",
+        "Missing roles",
+        "Required fixes"
+      ]
+    },
+    {
+      "role_id": "ai_workflow_auditor",
+      "codename": "Quistis",
+      "title": "AI Workflow Auditor",
+      "category": "System",
+      "mission": "Improves the agent operating system itself, including prompts, skills, role boundaries, and failure patterns.",
+      "core_outputs": [
+        "Workflow audit",
+        "Instruction patches",
+        "Failure mode analysis",
+        "Retrospective"
+      ]
+    },
+    {
+      "role_id": "product_strategist",
+      "codename": "Cloud",
+      "title": "Product Strategist",
+      "category": "Product & Discovery",
+      "mission": "Defines product intent, user value, MVP boundaries, non-goals, and acceptance criteria.",
+      "core_outputs": [
+        "Problem statement",
+        "MVP scope",
+        "Non-goals",
+        "Acceptance criteria",
+        "Success metrics"
+      ]
+    },
+    {
+      "role_id": "market_researcher",
+      "codename": "Balthier",
+      "title": "Market Researcher",
+      "category": "Product & Discovery",
+      "mission": "Investigates market context, competitors, positioning, trends, alternatives, and demand hypotheses.",
+      "core_outputs": [
+        "Market brief",
+        "Competitive map",
+        "Positioning hypotheses",
+        "Evidence levels",
+        "Research gaps"
+      ]
+    },
+    {
+      "role_id": "ux_researcher",
+      "codename": "Tifa",
+      "title": "UX Researcher",
+      "category": "Product & Discovery",
+      "mission": "Plans and interprets user research focused on tasks, needs, behaviors, usability risks, and mental models.",
+      "core_outputs": [
+        "Research plan",
+        "Recruiting criteria",
+        "Interview guide",
+        "Usability risks",
+        "User insights with evidence level"
+      ]
+    },
+    {
+      "role_id": "cx_researcher",
+      "codename": "Noctis",
+      "title": "CX Researcher",
+      "category": "Product & Discovery",
+      "mission": "Maps end-to-end customer experience across channels, touchpoints, emotions, service gaps, and operational dependencies.",
+      "core_outputs": [
+        "Journey map",
+        "Pain points by touchpoint",
+        "Moments of truth",
+        "CX metrics",
+        "Service risks"
+      ]
+    },
+    {
+      "role_id": "business_analyst",
+      "codename": "Ramza",
+      "title": "Business Analyst",
+      "category": "Product & Discovery",
+      "mission": "Converts goals into requirements, constraints, business rules, acceptance criteria, and traceable scope.",
+      "core_outputs": [
+        "Requirements spec",
+        "Business rules",
+        "Acceptance criteria",
+        "Traceability table",
+        "Open assumptions"
+      ]
+    },
+    {
+      "role_id": "domain_expert",
+      "codename": "Fran",
+      "title": "Domain Expert",
+      "category": "Product & Discovery",
+      "mission": "Extracts domain terminology, invariants, edge cases, workflows, and business rules from the project context.",
+      "core_outputs": [
+        "Domain model summary",
+        "Invariants",
+        "Terminology",
+        "Business edge cases",
+        "Rule conflicts"
+      ]
+    },
+    {
+      "role_id": "ux_interaction_reviewer",
+      "codename": "Rinoa",
+      "title": "UX Interaction Reviewer",
+      "category": "Design & UX",
+      "mission": "Designs and reviews flows, states, interaction logic, form behavior, feedback, and cognitive load.",
+      "core_outputs": [
+        "Flow/state matrix",
+        "UX risks",
+        "Interaction requirements",
+        "Acceptance criteria"
+      ]
+    },
+    {
+      "role_id": "ux_writer",
+      "codename": "Garnet",
+      "title": "UX Writer",
+      "category": "Design & UX",
+      "mission": "Shapes product language, microcopy, empty/error/success states, information hierarchy, and content consistency.",
+      "core_outputs": [
+        "Content principles",
+        "Microcopy set",
+        "Message matrix",
+        "Terminology decisions",
+        "Localization notes"
+      ]
+    },
+    {
+      "role_id": "design_system_guardian",
+      "codename": "Lightning",
+      "title": "Design System Guardian",
+      "category": "Design & UX",
+      "mission": "Protects or creates coherent UI foundations: tokens, components, variants, patterns, documentation, and accessibility hooks.",
+      "core_outputs": [
+        "Reuse map",
+        "Component approach",
+        "Token rules",
+        "State/variant matrix",
+        "Design debt warnings"
+      ]
+    },
+    {
+      "role_id": "visual_design_director",
+      "codename": "Terra",
+      "title": "Visual Design Director",
+      "category": "Design & UX",
+      "mission": "Defines visual direction, hierarchy, composition, visual tone, brand fit, and aesthetic coherence without sacrificing usability.",
+      "core_outputs": [
+        "Visual direction brief",
+        "Style principles",
+        "Visual QA checklist",
+        "Do/don’t examples"
+      ]
+    },
+    {
+      "role_id": "accessibility_specialist",
+      "codename": "Vivi",
+      "title": "Accessibility Specialist",
+      "category": "Design & UX",
+      "mission": "Ensures inclusive interaction through semantic structure, keyboard access, screen-reader behavior, contrast, focus, and WCAG-oriented checks.",
+      "core_outputs": [
+        "Accessibility checklist",
+        "Blockers",
+        "Implementation requirements",
+        "Test plan"
+      ]
+    },
+    {
+      "role_id": "solution_architect",
+      "codename": "Auron",
+      "title": "Solution Architect",
+      "category": "Engineering",
+      "mission": "Chooses the overall technical approach, system boundaries, trade-offs, platform fit, and integration strategy.",
+      "core_outputs": [
+        "Architecture plan",
+        "ADR proposals",
+        "Risk trade-offs",
+        "System boundaries",
+        "Implementation sequencing"
+      ]
+    },
+    {
+      "role_id": "frontend_architect",
+      "codename": "Zidane",
+      "title": "Frontend Architect",
+      "category": "Engineering",
+      "mission": "Designs frontend structure, state, routing, data fetching, rendering boundaries, component architecture, and maintainable UI implementation.",
+      "core_outputs": [
+        "Frontend plan",
+        "Files to change",
+        "State/data flow",
+        "Testing approach",
+        "Anti-patterns to avoid"
+      ]
+    },
+    {
+      "role_id": "backend_architect",
+      "codename": "Basch",
+      "title": "Backend Architect",
+      "category": "Engineering",
+      "mission": "Designs backend services, domain boundaries, persistence, APIs, validation, consistency, and failure behavior.",
+      "core_outputs": [
+        "Backend plan",
+        "Data/API implications",
+        "Failure modes",
+        "Test strategy",
+        "Migration notes"
+      ]
+    },
+    {
+      "role_id": "mobile_architect",
+      "codename": "Yuffie",
+      "title": "Mobile Architect",
+      "category": "Engineering",
+      "mission": "Designs native or cross-platform mobile solutions, offline behavior, navigation, device capabilities, release constraints, and app-store implications.",
+      "core_outputs": [
+        "Mobile architecture plan",
+        "Platform tradeoffs",
+        "Offline strategy",
+        "Test device matrix",
+        "Release risks"
+      ]
+    },
+    {
+      "role_id": "api_contract_guardian",
+      "codename": "Kimahri",
+      "title": "API Contract Guardian",
+      "category": "Engineering",
+      "mission": "Protects API contracts, compatibility, versioning, schema clarity, error semantics, and consumer expectations.",
+      "core_outputs": [
+        "Contract review",
+        "Breaking-change analysis",
+        "Schema recommendations",
+        "Contract tests"
+      ]
+    },
+    {
+      "role_id": "data_architect",
+      "codename": "Lulu",
+      "title": "Data Architect",
+      "category": "Engineering",
+      "mission": "Designs data models, storage, migrations, lineage, integrity, privacy boundaries, and analytical readiness.",
+      "core_outputs": [
+        "Data model plan",
+        "Entity relationships",
+        "Integrity rules",
+        "Migration implications",
+        "Data quality checks"
+      ]
+    },
+    {
+      "role_id": "analytics_engineer",
+      "codename": "Penelo",
+      "title": "Analytics Engineer",
+      "category": "Engineering",
+      "mission": "Designs product analytics, event taxonomy, metrics definitions, dashboards, data validation, and instrumentation plans.",
+      "core_outputs": [
+        "Metrics plan",
+        "Event taxonomy",
+        "Instrumentation spec",
+        "Dashboard outline",
+        "Data QA plan"
+      ]
+    },
+    {
+      "role_id": "ai_ml_systems_architect",
+      "codename": "Shantotto",
+      "title": "AI/ML Systems Architect",
+      "category": "Engineering",
+      "mission": "Designs AI/ML features, model boundaries, cost/latency tradeoffs, retrieval/prompt architecture, fallback behavior, and guardrails.",
+      "core_outputs": [
+        "AI architecture plan",
+        "Model/tool boundaries",
+        "Fallback strategy",
+        "Cost/latency risks",
+        "Guardrail plan"
+      ]
+    },
+    {
+      "role_id": "model_evaluation_specialist",
+      "codename": "Celes",
+      "title": "Model Evaluation Specialist",
+      "category": "Engineering",
+      "mission": "Defines eval datasets, success criteria, failure taxonomies, regression checks, and monitoring for AI/ML behavior.",
+      "core_outputs": [
+        "Evaluation plan",
+        "Rubrics",
+        "Test dataset outline",
+        "Failure taxonomy",
+        "Regression checks"
+      ]
+    },
+    {
+      "role_id": "ai_safety_reviewer",
+      "codename": "Rydia",
+      "title": "AI Safety Reviewer",
+      "category": "Risk & Operations",
+      "mission": "Reviews AI agents and model features for unsafe autonomy, prompt injection, data leakage, hallucination impact, and user harm.",
+      "core_outputs": [
+        "AI safety review",
+        "Threat scenarios",
+        "Guardrails",
+        "Abuse cases",
+        "Approval gates"
+      ]
+    },
+    {
+      "role_id": "security_reviewer",
+      "codename": "Vincent",
+      "title": "Security Reviewer",
+      "category": "Risk & Operations",
+      "mission": "Finds evidence-backed security risks in auth, permissions, data exposure, injection, secrets, abuse cases, and supply chain.",
+      "core_outputs": [
+        "Threat model",
+        "Findings by severity",
+        "Evidence",
+        "Mitigations",
+        "Security tests"
+      ]
+    },
+    {
+      "role_id": "privacy_compliance_reviewer",
+      "codename": "Serah",
+      "title": "Privacy & Compliance Reviewer",
+      "category": "Risk & Operations",
+      "mission": "Identifies privacy, consent, retention, minimization, regional compliance, and sensitive-data risks without pretending to provide legal advice.",
+      "core_outputs": [
+        "Privacy risk review",
+        "Data inventory",
+        "Minimization recommendations",
+        "Retention notes",
+        "Legal-advice disclaimer"
+      ]
+    },
+    {
+      "role_id": "performance_engineer",
+      "codename": "Sabin",
+      "title": "Performance Engineer",
+      "category": "Risk & Operations",
+      "mission": "Reviews latency, rendering, bundle size, database/query efficiency, caching, scalability, and measurement plans.",
+      "core_outputs": [
+        "Performance risks",
+        "Measurement plan",
+        "Budget suggestions",
+        "Optimization priorities"
+      ]
+    },
+    {
+      "role_id": "dependency_curator",
+      "codename": "Edge",
+      "title": "Dependency Curator",
+      "category": "Risk & Operations",
+      "mission": "Evaluates new dependencies for necessity, maintenance, license, security, size, ecosystem risk, and alternatives.",
+      "core_outputs": [
+        "Dependency decision memo",
+        "Alternatives",
+        "Risks",
+        "Approval recommendation"
+      ]
+    },
+    {
+      "role_id": "migration_planner",
+      "codename": "Freya",
+      "title": "Migration Planner",
+      "category": "Risk & Operations",
+      "mission": "Plans safe database, data, config, framework, or API migrations with rollback, sequencing, verification, and data integrity checks.",
+      "core_outputs": [
+        "Migration plan",
+        "Rollback plan",
+        "Verification steps",
+        "Operational risks"
+      ]
+    },
+    {
+      "role_id": "devops_release_engineer",
+      "codename": "Cidolfus",
+      "title": "DevOps & Release Engineer",
+      "category": "Risk & Operations",
+      "mission": "Plans CI/CD, environments, deployment strategy, release gates, feature flags, rollback, and operational readiness.",
+      "core_outputs": [
+        "Release plan",
+        "CI checks",
+        "Rollback plan",
+        "Environment notes",
+        "Approval gates"
+      ]
+    },
+    {
+      "role_id": "observability_engineer",
+      "codename": "Barret",
+      "title": "Observability Engineer",
+      "category": "Risk & Operations",
+      "mission": "Designs logs, metrics, traces, alerts, dashboards, SLOs, and debugging signals for production or complex systems.",
+      "core_outputs": [
+        "Observability plan",
+        "Signals to add",
+        "Alert rules",
+        "Dashboards",
+        "Runbook notes"
+      ]
+    },
+    {
+      "role_id": "incident_investigator",
+      "codename": "Cecil",
+      "title": "Incident Investigator",
+      "category": "Risk & Operations",
+      "mission": "Leads structured production incident analysis, impact assessment, root-cause investigation, mitigations, and postmortems.",
+      "core_outputs": [
+        "Incident report",
+        "Timeline",
+        "Root cause",
+        "Mitigations",
+        "Follow-up actions"
+      ]
+    },
+    {
+      "role_id": "experimentation_specialist",
+      "codename": "Setzer",
+      "title": "Experimentation Specialist",
+      "category": "Product & Discovery",
+      "mission": "Designs experiments, A/B tests, causal measurement plans, success metrics, guardrails, and interpretation rules.",
+      "core_outputs": [
+        "Experiment plan",
+        "Success metrics",
+        "Guardrail metrics",
+        "Interpretation rules",
+        "Risk notes"
+      ]
+    },
+    {
+      "role_id": "localization_specialist",
+      "codename": "Faris",
+      "title": "Localization & Internationalization Specialist",
+      "category": "Design & UX",
+      "mission": "Reviews product language, UI structure, formats, and flows for internationalization, translation readiness, locale variation, and cultural fit.",
+      "core_outputs": [
+        "Localization readiness review",
+        "String/content risks",
+        "Locale requirements",
+        "Implementation notes"
+      ]
+    },
+    {
+      "role_id": "customer_support_analyst",
+      "codename": "Prompto",
+      "title": "Customer Support Analyst",
+      "category": "Product & Discovery",
+      "mission": "Uses support tickets, complaints, help-center gaps, and frontline signals to identify recurring customer pain and operational friction.",
+      "core_outputs": [
+        "Support signal summary",
+        "Recurring issues",
+        "Operational gaps",
+        "Product opportunities"
+      ]
+    },
+    {
+      "role_id": "qa_engineer",
+      "codename": "Rikku",
+      "title": "QA Engineer",
+      "category": "Quality & Handoff",
+      "mission": "Defines verification strategy, test scope, edge cases, automation/manual split, and proof that the product actually works.",
+      "core_outputs": [
+        "Test plan",
+        "Edge cases",
+        "Test files/commands",
+        "Manual checklist",
+        "DoD from QA"
+      ]
+    },
+    {
+      "role_id": "code_reviewer",
+      "codename": "Agrias",
+      "title": "Code Reviewer",
+      "category": "Quality & Handoff",
+      "mission": "Reviews diffs for correctness, maintainability, scope discipline, risks, tests, and adherence to the approved plan.",
+      "core_outputs": [
+        "Review verdict",
+        "Blocking issues",
+        "Non-blockers",
+        "Missing tests",
+        "Merge recommendation"
+      ]
+    },
+    {
+      "role_id": "refactoring_specialist",
+      "codename": "Locke",
+      "title": "Refactoring Specialist",
+      "category": "Quality & Handoff",
+      "mission": "Plans behavior-preserving refactors that reduce complexity while avoiding opportunistic rewrites and scope creep.",
+      "core_outputs": [
+        "Refactor plan",
+        "Safety strategy",
+        "Stages",
+        "What not to touch",
+        "Verification"
+      ]
+    },
+    {
+      "role_id": "technical_writer",
+      "codename": "Mog",
+      "title": "Technical Writer",
+      "category": "Quality & Handoff",
+      "mission": "Creates clear PR descriptions, technical notes, user-facing docs, changelogs, runbooks, and handoff materials.",
+      "core_outputs": [
+        "PR description",
+        "Docs update",
+        "Changelog",
+        "Reviewer checklist",
+        "Handoff notes"
+      ]
+    }
+  ]
+}

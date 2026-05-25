@@ -1,6 +1,6 @@
 # ROLE_OUTPUT_SCHEMAS.md
 
-Every selected role must produce a compact artifact, not generic advice. Use the role playbook’s `Strict output schema v1.3`.
+Every selected role must produce a compact artifact, not generic advice. Use the role playbook’s `Strict output schema` and the right-sized review rules in `docs/REVIEW_LEVELS.md`.
 
 ## Universal schema
 
@@ -32,7 +32,7 @@ Every selected role must produce a compact artifact, not generic advice. Use the
 
 ## Verdict roles
 
-Consistency Auditor, Code Reviewer, Security Reviewer, Privacy Reviewer, AI Safety Reviewer, and QA Engineer must include one of:
+Consistency Auditor, Code Reviewer, Security Reviewer, Privacy & Compliance Reviewer, AI Safety Reviewer, and QA Engineer must include one of:
 
 - PASS
 - PASS WITH WARNINGS
@@ -62,8 +62,8 @@ High-risk AI, security, privacy, migration, release, or public API work must inc
 
 Before planning, Team Architect should produce this compact table:
 
-| Role | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
-|---|---|---|---|---|---|---|
+| Role | Contributor class | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
+|---|---|---|---|---|---|---|---|
 
 A role should not stay in the team if it has no owned artifact or decision impact.
 
@@ -79,3 +79,13 @@ For AI agent/tool-use work, include:
 |---|---|---|---|---|---|---|---|
 
 Any irreversible action requires explicit user/human approval and relevant safety/security/privacy review.
+
+
+## Review level schema
+
+Before final answer, include the selected review level:
+
+| Review level | Why sufficient | Reviewer/service | Checks performed | Remaining risk |
+|---|---|---|---|---|
+
+Review 0/1 may be enough for Tiny/Fast Lane. Review 2+ requires Agrias / Code Reviewer as an active role. Review 3 requires triggered risk roles.

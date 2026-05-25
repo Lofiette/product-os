@@ -1,35 +1,28 @@
-# ULTIMATE_RELEASE_NOTES.md
+# ULTIMATE_RELEASE_NOTES.md — ULTIMATE Pro v1.5
 
-## Codex Product Team ULTIMATE — Final Fantasy Codenames
+## Release name
 
-This release hardens the v1.3 operating system into a cleaner ULTIMATE package.
+Codex Product Team ULTIMATE Pro v1.5 — Runtime Hardening & Repo Recon Patch.
 
-## Fixed from final audit
+## Main changes
 
-- Fixed malformed `FIRST_PROMPT.md` document references.
-- Removed `README.md.bak` from the package.
-- Made `docs/SCENARIO_TESTS.json` the source of truth.
-- Regenerated markdown scenario tests from JSON.
-- Split AI scenarios into summarization and tool-using agent scenarios.
-- Added backend bugfix and UX research-only scenarios.
-- Removed known self-escalation loops.
-- Strengthened validator rules for backups, scenario mismatch, self-escalation, and malformed doc refs.
-- Added `docs/ROLE_METHOD_LIBRARY.md` for deeper role-specific professional protocols.
-- Added `docs/VALIDATOR_RULES.md`.
+- Added `docs/RUNTIME_DECISION_TREE.md`.
+- Added `docs/ROLE_SERVICE_BUDGET.md`.
+- Added `docs/REVIEW_LEVELS.md`.
+- Added `docs/REPO_RECON.md` and `.agents/skills/repo-recon/SKILL.md`.
+- Added `docs/CHRONICLE_POLICY.md`.
+- Added `docs/ROLE_INDEX.json` for cheap routing.
+- Clarified active roles vs system services vs consulted role cards.
+- Clarified Tiny/Fast implicit approval.
+- Added review levels 0–3.
+- Added Micro/Fast/Standard/Complex intake budgets.
+- Added platform/surface routing.
+- Added Opportunity Event classes OE-0 to OE-4 and creative-loop churn control.
+- Made UX Writer required for UI-heavy MVPs with meaningful states/copy.
+- Made Delivery Manager required only for multi-phase/cross-area/deadline-heavy MVPs.
+- Removed stale version labels from role/skill headings.
+- Strengthened validator for v1.5 runtime docs, repo-recon skill, review levels, scenario sync, role index, and stale labels.
 
-## Operating principle
+## Design principle
 
-Maximum capability, minimum necessary ceremony. The team should scale up only when scope, risk, uncertainty, evidence needs, or verification needs justify it.
-
-
-## v1.4 Pro — Routing Integrity, Context Budget, and Creative Improvement
-
-- Added lean `BOOTSTRAP_INDEX.md`.
-- Reworked startup prompt to avoid reading full team/method/scenario assets during first intake.
-- Added `.agents/role_cards/` for low-cost role routing before full playbooks.
-- Added context-budget tracking to `TASK.md` and `CHRONICLE.md`.
-- Fixed codename/title drift between `TEAM.md`, TOML agents, and playbooks.
-- Added `CREATIVE_METHODS.md` and `OPPORTUNITY_EVENTS.md`.
-- Added `creative-improvement-loop` skill for structured improvement events.
-- Added selected-role contract and creative enhancement schemas.
-- Strengthened validator with codename integrity, lean-startup, role-card, and creative-doc checks.
+Efficiency must remove process waste, not quality safeguards. v1.5 reduces early context, full role activation, and ceremonial approvals while preserving evidence, risk gates, verification, review, and memory.

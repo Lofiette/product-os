@@ -11,13 +11,14 @@ warnings = []
 
 required = [
     'AGENTS.md','FIRST_PROMPT.md','TASK.md','CHRONICLE.md','TEAM.md','README.md',
-    'docs/BOOTSTRAP_INDEX.md','docs/QUESTION_TREE.md','docs/WORK_MODES.md','docs/ROLE_ROUTING_MATRIX.md',
-    'docs/OWNERSHIP_MATRIX.md','docs/QUALITY_GATES.md','docs/RISK_POLICY.md',
-    'docs/EVIDENCE_POLICY.md','docs/LANGUAGE_POLICY.md','docs/FAST_LANE.md',
-    'docs/COMPLEXITY_MODEL.md','docs/ROLE_OUTPUT_SCHEMAS.md','docs/ROLE_METHOD_LIBRARY.md',
-    'docs/EXTERNAL_EVIDENCE_PROTOCOL.md','docs/FINAL_FANTASY_CODENAME_POLICY.md',
-    'docs/CREATIVE_METHODS.md','docs/OPPORTUNITY_EVENTS.md',
-    'docs/SCENARIO_TESTS.json','docs/VALIDATOR_RULES.md','docs/ULTIMATE_RELEASE_NOTES.md'
+    'docs/BOOTSTRAP_INDEX.md','docs/RUNTIME_DECISION_TREE.md','docs/QUESTION_TREE.md','docs/WORK_MODES.md',
+    'docs/ROLE_ROUTING_MATRIX.md','docs/OWNERSHIP_MATRIX.md','docs/QUALITY_GATES.md','docs/RISK_POLICY.md',
+    'docs/EVIDENCE_POLICY.md','docs/LANGUAGE_POLICY.md','docs/FAST_LANE.md','docs/COMPLEXITY_MODEL.md',
+    'docs/ROLE_OUTPUT_SCHEMAS.md','docs/ROLE_METHOD_LIBRARY.md','docs/EXTERNAL_EVIDENCE_PROTOCOL.md',
+    'docs/FINAL_FANTASY_CODENAME_POLICY.md','docs/CREATIVE_METHODS.md','docs/OPPORTUNITY_EVENTS.md',
+    'docs/SCENARIO_TESTS.json','docs/VALIDATOR_RULES.md','docs/ULTIMATE_RELEASE_NOTES.md',
+    'docs/REVIEW_LEVELS.md','docs/REPO_RECON.md','docs/CHRONICLE_POLICY.md','docs/ROLE_SERVICE_BUDGET.md',
+    'docs/ROLE_INDEX.json'
 ]
 for r in required:
     if not (ROOT/r).exists():
@@ -51,6 +52,7 @@ else:
 playbooks = sorted((ROOT/'.agents/playbooks').glob('*.md'))
 agents = sorted((ROOT/'.codex/agents').glob('*.toml'))
 skills = sorted((ROOT/'.agents/skills').glob('*/SKILL.md'))
+skill_names = {p.parent.name for p in skills}
 role_cards = sorted((ROOT/'.agents/role_cards').glob('*.md')) if (ROOT/'.agents/role_cards').exists() else []
 
 role_ids = set()
@@ -85,8 +87,10 @@ for pb in playbooks:
 
 if len(playbooks) != len(agents):
     errors.append(f'Playbook/agent count mismatch: {len(playbooks)} playbooks vs {len(agents)} agents')
-if len(skills) < 13:
-    errors.append(f'Expected at least 13 skills after v1.4, found {len(skills)}')
+if len(skills) < 14:
+    errors.append(f'Expected at least 14 skills after v1.5, found {len(skills)}')
+if 'repo-recon' not in skill_names:
+    errors.append('Missing repo-recon skill')
 if len(role_cards) != len(playbooks):
     errors.append(f'Role card count mismatch: {len(role_cards)} cards vs {len(playbooks)} playbooks')
 
@@ -127,7 +131,6 @@ for rid, pb in role_file.items():
             errors.append(f'{pb.name} escalates to its own role title: {role_title}')
 
 if tomllib:
-    agent_names=set()
     for agent in agents:
         try:
             data = tomllib.loads(agent.read_text(encoding='utf-8'))
@@ -135,7 +138,6 @@ if tomllib:
                 if k not in data:
                     errors.append(f'{agent.name} missing TOML key {k}')
             rid = data.get('name')
-            agent_names.add(agent.stem)
             if rid not in team_roles:
                 errors.append(f'{agent.name} TOML name not listed in TEAM.md: {rid}')
             else:
@@ -158,7 +160,7 @@ for f in ['AGENTS.md','FIRST_PROMPT.md','TASK.md']:
         errors.append(f'{f} does not reference language policy')
 
 ag = (ROOT/'AGENTS.md').read_text(encoding='utf-8') if (ROOT/'AGENTS.md').exists() else ''
-for doc in ['BOOTSTRAP_INDEX.md','COMPLEXITY_MODEL.md','ROLE_OUTPUT_SCHEMAS.md','ROLE_METHOD_LIBRARY.md','EXTERNAL_EVIDENCE_PROTOCOL.md','FINAL_FANTASY_CODENAME_POLICY.md','CREATIVE_METHODS.md','OPPORTUNITY_EVENTS.md']:
+for doc in ['BOOTSTRAP_INDEX.md','RUNTIME_DECISION_TREE.md','COMPLEXITY_MODEL.md','ROLE_OUTPUT_SCHEMAS.md','ROLE_METHOD_LIBRARY.md','EXTERNAL_EVIDENCE_PROTOCOL.md','FINAL_FANTASY_CODENAME_POLICY.md','CREATIVE_METHODS.md','OPPORTUNITY_EVENTS.md','REVIEW_LEVELS.md','REPO_RECON.md','ROLE_SERVICE_BUDGET.md','CHRONICLE_POLICY.md']:
     if doc not in ag:
         errors.append(f'AGENTS.md does not reference {doc}')
 
@@ -170,15 +172,30 @@ for heavy in ['TEAM.md','ROLE_METHOD_LIBRARY.md','ROLE_OUTPUT_SCHEMAS.md','SCENA
     stage0 = re.search(r'## Stage 0.*?## Hard stops', fp, flags=re.S)
     if stage0 and heavy in stage0.group(0):
         errors.append(f'FIRST_PROMPT Stage 0 loads heavy/non-runtime asset: {heavy}')
-if 'BOOTSTRAP_INDEX.md' not in fp:
-    errors.append('FIRST_PROMPT.md does not reference BOOTSTRAP_INDEX.md')
+if 'BOOTSTRAP_INDEX.md' not in fp or 'RUNTIME_DECISION_TREE.md' not in fp:
+    errors.append('FIRST_PROMPT.md does not reference bootstrap/runtime docs')
 if 'SCENARIO_TESTS.json' in fp:
     errors.append('FIRST_PROMPT.md should not load/reference SCENARIO_TESTS.json during normal startup')
+if 'Micro Intake' not in fp:
+    errors.append('FIRST_PROMPT.md missing Micro Intake budget')
+
+# Role index validation
+try:
+    role_index = json.loads((ROOT/'docs/ROLE_INDEX.json').read_text(encoding='utf-8'))
+    idx_ids = {r.get('role_id') for r in role_index.get('roles', [])}
+    if idx_ids != set(team_roles.keys()):
+        errors.append(f'ROLE_INDEX role mismatch: missing={sorted(set(team_roles)-idx_ids)} extra={sorted(idx_ids-set(team_roles))}')
+    for k in ['active_specialist','system_service','consulted_role_card']:
+        if k not in role_index.get('role_budget_classes', {}):
+            errors.append(f'ROLE_INDEX missing role budget class {k}')
+except Exception as e:
+    errors.append(f'ROLE_INDEX.json parse/validation error: {e}')
 
 # Scenario validation and markdown sync
 try:
     scenarios = json.loads((ROOT/'docs/SCENARIO_TESTS.json').read_text(encoding='utf-8'))
     scenario_ids = []
+    has_existing_repo = False
     for s in scenarios.get('scenarios', []):
         sid=s.get('id')
         scenario_ids.append(sid)
@@ -188,8 +205,17 @@ try:
             for rid in s.get(field, []):
                 if rid not in role_ids:
                     errors.append(f"Scenario {sid} references unknown role {rid} in {field}")
+        for skill in s.get('required_skills', []):
+            if skill not in skill_names:
+                errors.append(f"Scenario {sid} references unknown skill {skill}")
         if len(s.get('required_roles', [])) > s.get('max_roles', 999):
             errors.append(f"Scenario {sid} has required_roles > max_roles")
+        if sid == 'existing_repo_feature_change':
+            has_existing_repo = True
+            if 'repo-recon' not in s.get('required_skills', []):
+                errors.append('existing_repo_feature_change must require repo-recon')
+    if not has_existing_repo:
+        errors.append('Missing existing_repo_feature_change scenario')
     md_dir = ROOT/'docs/scenario_tests'
     md_files = sorted(md_dir.glob('*.md')) if md_dir.exists() else []
     md_ids = []
@@ -204,11 +230,15 @@ try:
 except Exception as e:
     errors.append(f'SCENARIO_TESTS.json parse/validation error: {e}')
 
-# Review mode guardrail
-for f in ['AGENTS.md','docs/ROLE_OUTPUT_SCHEMAS.md']:
+# Review mode guardrail and levels
+for f in ['AGENTS.md','docs/ROLE_OUTPUT_SCHEMAS.md','docs/QUALITY_GATES.md','docs/REVIEW_LEVELS.md']:
     text=(ROOT/f).read_text(encoding='utf-8') if (ROOT/f).exists() else ''
-    if 'read-only' not in text.lower():
-        warnings.append(f'{f} may not clearly state review mode is read-only')
+    if 'read-only' not in text.lower() and 'review 0' not in text.lower():
+        warnings.append(f'{f} may not clearly state review mode/levels')
+for f in ['AGENTS.md','docs/QUALITY_GATES.md','docs/ROLE_OUTPUT_SCHEMAS.md']:
+    text=(ROOT/f).read_text(encoding='utf-8') if (ROOT/f).exists() else ''
+    if 'Review 0' not in text or 'Review 3' not in text:
+        errors.append(f'{f} does not reference review levels 0..3')
 
 # Creative docs and skill integration
 if not (ROOT/'.agents/skills/creative-improvement-loop/SKILL.md').exists():
@@ -217,6 +247,19 @@ for f in ['docs/CREATIVE_METHODS.md','docs/OPPORTUNITY_EVENTS.md','docs/QUESTION
     text=(ROOT/f).read_text(encoding='utf-8') if (ROOT/f).exists() else ''
     if 'creative' not in text.lower() and 'opportunity' not in text.lower():
         errors.append(f'{f} does not appear to integrate opportunity/creative workflow')
+if 'OE-0' not in (ROOT/'docs/OPPORTUNITY_EVENTS.md').read_text(encoding='utf-8'):
+    errors.append('OPPORTUNITY_EVENTS.md missing OE-0..OE-4 classification')
+
+# Stale labels and shorthand checks
+for p in list(ROOT.rglob('*.md')) + list(ROOT.rglob('*.toml')):
+    rel = str(p.relative_to(ROOT))
+    text = p.read_text(encoding='utf-8')
+    if 'v1.3' in text or 'Strict output schema v1.3' in text:
+        errors.append(f'Stale v1.3 label remains in {rel}')
+    if 'Privacy Reviewer' in text:
+        errors.append(f'Shorthand role title remains in {rel}: Privacy Reviewer')
+    if 'AI/ML Architect' in text:
+        errors.append(f'Shorthand role title remains in {rel}: AI/ML Architect')
 
 if errors:
     print('VALIDATION FAILED')

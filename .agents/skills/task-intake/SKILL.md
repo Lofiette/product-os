@@ -34,10 +34,22 @@ Intake B:
 - Do not implement unless the approved work mode and approval gate allow implementation.
 
 
-## v1.3 complexity guardrail
+## Complexity guardrail
 
 Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
 
-## v1.3 output schema rule
+## Output schema rule
 
 Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+
+
+## v1.5 intake budgets
+
+Use `docs/QUESTION_TREE.md` intake budgets:
+
+- Micro Intake: 0–2 questions.
+- Fast Lane Intake: 1–3 questions.
+- Standard Intake: 3–7 questions.
+- Complex/High-risk Intake: 5–9 plus targeted follow-up.
+
+Ask only decision-impact questions.

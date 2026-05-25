@@ -1,50 +1,37 @@
-# BOOTSTRAP_INDEX.md — Lean Runtime Index
+# BOOTSTRAP_INDEX.md — Lean Startup Map
 
-Purpose: start every task with enough operating context to make good first routing decisions without loading the full team library.
+Read this at startup to avoid loading the whole kit.
 
-## Runtime loading principle
+## Start here
 
-Load the smallest context that can change the next decision. Do not read full playbooks, the full role catalog, scenario tests, or deep method libraries until the task shape requires them.
+1. Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `docs/QUESTION_TREE.md`, and `docs/LANGUAGE_POLICY.md`.
+2. Classify likely work mode and complexity lightly.
+3. Ask only decision-impact questions.
+4. After user answers, load `docs/RUNTIME_DECISION_TREE.md`, routing docs, and role cards.
+5. Load full playbooks only for active selected roles.
 
-## Minimal startup files
+## Complexity quick map
 
-Read only:
-- `AGENTS.md`
-- `TASK.md`
-- `CHRONICLE.md`
-- `docs/BOOTSTRAP_INDEX.md`
-- `docs/QUESTION_TREE.md`
-- `docs/LANGUAGE_POLICY.md`
+- Tiny: obvious reversible tweak, 0–2 questions, 0–2 active roles, Review 0.
+- Fast Lane: small low-risk task, 1–3 questions, 1–3 active roles, Review 0/1.
+- Standard: normal feature/fix/review, 3–7 questions, 4–7 active roles, Review 1/2.
+- Complex: multi-area task, 5–9 questions, 8–12 active roles, Review 2/3.
+- High-risk: AI tools, auth, privacy, payments, migrations, public API, release, incident, 10–15 active roles, Review 3.
 
-## After the user answers Intake A
+System services and consulted role cards do not count as active roles unless they produce full artifacts.
 
-Load only what is needed for the likely tier:
-- Work mode and ceremony: `docs/WORK_MODES.md`, `docs/COMPLEXITY_MODEL.md`, `docs/FAST_LANE.md`
-- Routing and risk: `docs/ROLE_ROUTING_MATRIX.md`, `docs/RISK_POLICY.md`, `docs/QUALITY_GATES.md`, `.agents/role_cards/*`
-- Evidence and external facts: `docs/EVIDENCE_POLICY.md`, `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`
-- Creative/opportunity events: `docs/OPPORTUNITY_EVENTS.md`, `docs/CREATIVE_METHODS.md`
+## Hard stops
 
-## Specialist loading
+Ask before public API, DB/schema migration, auth/security/privacy/payment, new production dependency, infra/deploy/CI, deletion, large refactor, irreversible AI/tool actions, or approved-scope changes.
 
-After selecting the team, load only:
-- selected role cards first;
-- selected full playbooks only when the role produces a non-trivial artifact;
-- selected skills only when a workflow needs them;
-- relevant sections of `docs/ROLE_METHOD_LIBRARY.md`, not the whole file.
+## Existing repo
 
-## Complexity budget
+If implementation/review may touch an existing repo, run the `repo-recon` skill before deep planning or edits.
 
-- Tiny: answer or change directly with 0–2 questions and 0–2 roles.
-- Fast Lane: 1–3 questions and 1–3 roles.
-- Standard: 3–7 questions and 4–7 roles.
-- Complex: 5–9 questions and 8–12 roles.
-- High-risk: 5–9 questions plus targeted follow-up and 10–15 roles.
-- 16+ roles requires explicit user approval.
+## Language
 
-## Question rule
+Reply to the user in Russian by default. Keep durable artifacts in compact English. Product UI copy uses product language.
 
-Ask a question only if the answer can change scope, risk, role lineup, acceptance criteria, verification, approval gates, product language, or implementation sequence.
+## Creativity
 
-## Creative improvement rule
-
-Use creative methods only when they can improve the decision, not as ritual. Creative output is hypothesis generation, not evidence. Selection still requires evidence, constraints, and verification.
+Use creative methods only when they can improve a specific decision. One creative loop per planning cycle unless the user asks for an ideation sprint.

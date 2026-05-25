@@ -273,6 +273,40 @@
         "TASK.md and CHRONICLE.md in compact English",
         "Product UI language asked or explicitly set"
       ]
+    },
+    {
+      "id": "opportunity_event_creative_improvement",
+      "description": "A stakeholder or another department proposes a potentially better idea during planning",
+      "work_mode": "Opportunity event / improvement loop",
+      "complexity": "Fast Lane/Standard depending on impact",
+      "required_roles": [
+        "intake_orchestrator",
+        "team_architect",
+        "product_strategist",
+        "chronicle_keeper"
+      ],
+      "optional_roles": [
+        "ux_researcher",
+        "cx_researcher",
+        "market_researcher",
+        "ux_interaction_reviewer",
+        "ux_writer",
+        "solution_architect",
+        "experimentation_specialist",
+        "consistency_auditor"
+      ],
+      "forbidden_roles": [
+        "incident_investigator",
+        "devops_release_engineer"
+      ],
+      "max_roles": 8,
+      "max_questions": 5,
+      "expected_gates": [
+        "Record opportunity event if it changes decisions",
+        "Creative outputs labeled as hypotheses",
+        "Use one method from CREATIVE_METHODS.md only if it can improve the decision",
+        "No approved scope change without user approval"
+      ]
     }
   ]
 }

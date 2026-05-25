@@ -32,3 +32,12 @@ No active task yet.
 ## Files touched
 | File | Why changed | Related decision |
 |---|---|---|
+
+
+## Context budget log
+| Date/time | Loaded context | Why needed | Outcome |
+|---|---|---|---|
+
+## Opportunity events
+| Event ID | Event | Decision impact | Action taken | Status |
+|---|---|---|---|---|

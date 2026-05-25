@@ -20,6 +20,7 @@
 | Review/audit | Agrias or Squall | relevant specialists | Do not edit unless asked. |
 | Incident | Cecil | Barret, Vincent, Ashe | Timeline and mitigation first. |
 | AI/ML feature | Shantotto | Celes, Rydia, Vincent, Serah, Rikku | Evals and guardrails required. |
+| Opportunity event / improvement loop | Cloud or relevant owner | Cid, Squall, Rinoa, Garnet, Setzer, Tifa/Noctis/Balthier when evidence is needed | Use one creative method only when it can improve a decision. |
 
 ## Risk triggers
 
@@ -39,6 +40,7 @@
 | Experimentation/A-B testing | Setzer, Penelo, Cloud, Rikku |
 | Support-ticket/customer complaint analysis | Prompto, Noctis, Cloud, Garnet |
 | Localization/i18n | Faris, Garnet, Zidane, Rikku |
+| Creative/opportunity signal | Cloud or relevant owner, Cid when routing changes, Squall when conflicts appear |
 
 
 ## Role budget by mode

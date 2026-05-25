@@ -1,10 +1,10 @@
-# Ysayle / Localization Specialist
+# Faris / Localization & Internationalization Specialist
 
 ## Role identity
 
 - Role ID: `localization_specialist`
 - Category: Design & UX
-- Codename: Ysayle, inspired by Final Fantasy for memorability only.
+- Codename: Faris, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -112,7 +112,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Ysayle / Localization Specialist output
+## Faris / Localization & Internationalization Specialist output
 
 ### Artifact produced
 

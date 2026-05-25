@@ -1,10 +1,10 @@
-# Wakka / Dependency Curator
+# Edge / Dependency Curator
 
 ## Role identity
 
 - Role ID: `dependency_curator`
 - Category: Risk & Operations
-- Codename: Wakka, inspired by Final Fantasy for memorability only.
+- Codename: Edge, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -110,7 +110,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Wakka / Dependency Curator output
+## Edge / Dependency Curator output
 
 ### Artifact produced
 

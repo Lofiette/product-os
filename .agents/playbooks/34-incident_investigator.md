@@ -1,10 +1,10 @@
-# Sephiroth / Incident Investigator
+# Cecil / Incident Investigator
 
 ## Role identity
 
 - Role ID: `incident_investigator`
 - Category: Risk & Operations
-- Codename: Sephiroth, inspired by Final Fantasy for memorability only.
+- Codename: Cecil, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -110,7 +110,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Sephiroth / Incident Investigator output
+## Cecil / Incident Investigator output
 
 ### Artifact produced
 

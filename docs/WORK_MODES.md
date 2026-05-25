@@ -32,3 +32,7 @@ Goal: restore, understand, prevent recurrence. Incident Investigator leads.
 
 ## AI/ML feature
 Goal: deliver model-enabled behavior with evals, guardrails, cost/latency and safety considered.
+
+
+## Opportunity event / improvement loop
+Goal: evaluate a new idea, stakeholder suggestion, research/support/market signal, or technical discovery without derailing approved scope. Use `docs/OPPORTUNITY_EVENTS.md` and `docs/CREATIVE_METHODS.md`. Creative outputs are hypotheses until validated and approved.

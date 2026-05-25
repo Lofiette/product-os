@@ -1,10 +1,10 @@
-# Faris / Migration Planner
+# Freya / Migration Planner
 
 ## Role identity
 
 - Role ID: `migration_planner`
 - Category: Risk & Operations
-- Codename: Faris, inspired by Final Fantasy for memorability only.
+- Codename: Freya, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -111,7 +111,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Faris / Migration Planner output
+## Freya / Migration Planner output
 
 ### Artifact produced
 

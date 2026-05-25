@@ -1,10 +1,10 @@
-# Quina / Observability Engineer
+# Barret / Observability Engineer
 
 ## Role identity
 
 - Role ID: `observability_engineer`
 - Category: Risk & Operations
-- Codename: Quina, inspired by Final Fantasy for memorability only.
+- Codename: Barret, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -112,7 +112,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Quina / Observability Engineer output
+## Barret / Observability Engineer output
 
 ### Artifact produced
 

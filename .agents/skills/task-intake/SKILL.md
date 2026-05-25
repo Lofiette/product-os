@@ -10,12 +10,14 @@ Use for Intake A and Intake B when starting or reshaping a task.
 
 ## Procedure
 Intake A:
-1. Load core docs only.
+1. Load bootstrap docs only.
 2. Confirm language policy.
-3. Identify likely work modes.
-4. Ask 5–9 adaptive questions max, unless exhaustive briefing is requested.
-5. Use fast lane when task is small and low-risk.
-6. Do not update product code or final plan.
+3. Identify likely work modes lightly.
+4. Ask 5–9 adaptive questions max, or 0–3 for Tiny/Fast Lane.
+5. Apply the decision-impact question rule from QUESTION_TREE.md.
+6. Use Fast Lane when the task is small and low-risk.
+7. Detect opportunity events but do not run creative methods unless they can change the next decision.
+8. Do not update product code or final plan.
 
 Intake B:
 1. Update TASK.md from user answers.

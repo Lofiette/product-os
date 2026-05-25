@@ -27,3 +27,11 @@ All must be true:
 - Dependency question: Edge / Dependency Curator, Vincent / Security Reviewer, Sabin / Performance Engineer.
 
 Fast Lane never bypasses risk gates.
+
+
+## Creative methods in Fast Lane
+
+Do not run creative frameworks by default. Use at most one lightweight creative pass only if:
+- the user explicitly asks for alternatives;
+- the task is a small UX/copy/product improvement where alternatives can improve the exact requested change;
+- the creative pass will not expand scope or trigger extra roles beyond the Fast Lane budget.

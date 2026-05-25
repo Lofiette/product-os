@@ -1,10 +1,10 @@
-# Ignis / Customer Support Analyst
+# Prompto / Customer Support Analyst
 
 ## Role identity
 
 - Role ID: `customer_support_analyst`
 - Category: Product & Discovery
-- Codename: Ignis, inspired by Final Fantasy for memorability only.
+- Codename: Prompto, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -110,7 +110,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Ignis / Customer Support Analyst output
+## Prompto / Customer Support Analyst output
 
 ### Artifact produced
 

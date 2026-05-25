@@ -35,3 +35,11 @@ Use the lightest tier that can answer these questions confidently:
 6. What gate requires user approval?
 
 If the answer is unclear, move up one tier. If the answer is clear and risk is low, move down one tier.
+
+
+## Context-budget heuristics
+
+- Start with bootstrap docs, then load routing docs, then role cards, then full playbooks only for selected roles.
+- Loading a large document is justified only when it can change the next decision or required artifact.
+- Prefer compact artifacts over long explanations.
+- Use creative methods as a focused improvement loop, not as additional bureaucracy.

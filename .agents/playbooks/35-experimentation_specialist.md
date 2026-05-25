@@ -1,10 +1,10 @@
-# Laguna / Experimentation Specialist
+# Setzer / Experimentation Specialist
 
 ## Role identity
 
 - Role ID: `experimentation_specialist`
 - Category: Product & Discovery
-- Codename: Laguna, inspired by Final Fantasy for memorability only.
+- Codename: Setzer, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -111,7 +111,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Laguna / Experimentation Specialist output
+## Setzer / Experimentation Specialist output
 
 ### Artifact produced
 

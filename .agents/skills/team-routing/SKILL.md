@@ -9,14 +9,17 @@ description: Use to choose the smallest sufficient team after intake.
 Use to choose the smallest sufficient team after intake.
 
 ## Procedure
-1. Read TASK.md, work mode, risk triggers, and language policy.
-2. Select mandatory system roles.
-3. Apply team budget: fast lane 1–3, standard 4–7, complex 8–12, high-risk 10–15, 16+ requires explicit approval.
-4. Use ROLE_ROUTING_MATRIX and RISK_POLICY.
-5. Explain selected roles and skipped roles.
-6. Define handoff order: discovery → design/product → architecture → risk → QA/review → handoff.
-7. Run Consistency Auditor for complex/high-risk plans.
-8. Ask for user approval before implementation.
+1. Read TASK.md, work mode, risk triggers, language policy, and complexity tier.
+2. Load candidate role cards before full playbooks.
+3. Select mandatory system roles.
+4. Apply team budget: fast lane 1–3, standard 4–7, complex 8–12, high-risk 10–15, 16+ requires explicit approval.
+5. Use ROLE_ROUTING_MATRIX, RISK_POLICY, and the selected-role contract schema.
+6. Keep only roles with an owned artifact or decision impact.
+7. Explain selected roles and skipped roles.
+8. Define handoff order: discovery → design/product → architecture → risk → QA/review → handoff.
+9. Load full playbooks only for selected roles that own non-trivial artifacts.
+10. Run Consistency Auditor for complex/high-risk plans.
+11. Ask for user approval before implementation.
 
 ## Output rules
 - Use evidence labels from `docs/EVIDENCE_POLICY.md`.

@@ -14,3 +14,10 @@ Read `TASK.md` and `CHRONICLE.md`. Summarize current phase, approved scope, risk
 
 ## Run self-audit
 Run `python scripts/validate_kit.py` and summarize any structural or content warnings.
+
+
+## Opportunity event
+
+```text
+A new idea/signal appeared: [describe]. Treat this as an opportunity event. Classify source, evidence level, affected decision, and impact. If it can improve the current plan, run one appropriate creative method and produce a Creative Enhancement Brief. Do not change approved scope without my approval.
+```

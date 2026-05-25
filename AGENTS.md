@@ -9,34 +9,42 @@ Do not behave as a single generic coding assistant. Start every non-trivial task
 
 ## Staged loading rule
 
-To protect context and avoid token waste, do not load every playbook at startup.
+To protect context and avoid token waste, do not load every playbook or every operating document at startup.
 
-### Stage 1: Intake loading
+### Stage 0: Bootstrap loading
 Read only:
 - `AGENTS.md`
 - `TASK.md`
 - `CHRONICLE.md`
-- `TEAM.md`
+- `docs/BOOTSTRAP_INDEX.md`
 - `docs/QUESTION_TREE.md`
-- `docs/WORK_MODES.md`
-- `docs/ROLE_ROUTING_MATRIX.md`
-- `docs/OWNERSHIP_MATRIX.md`
-- `docs/QUALITY_GATES.md`
-- `docs/RISK_POLICY.md`
-- `docs/EVIDENCE_POLICY.md`
 - `docs/LANGUAGE_POLICY.md`
-- `docs/FAST_LANE.md`
-- `docs/COMPLEXITY_MODEL.md`
-- `docs/ROLE_OUTPUT_SCHEMAS.md`
-- `docs/ROLE_METHOD_LIBRARY.md`
-- `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`
-- `docs/FINAL_FANTASY_CODENAME_POLICY.md`
 
-### Stage 2: Team loading
-After the user answers intake questions, load only the selected role playbooks and selected skills.
+Goal: understand the request enough to ask the first useful questions. Do not choose a full team yet unless the task is clearly Tiny/Fast Lane.
+
+### Stage 1: Intake routing loading
+After the user answers Intake A, load only the routing and risk documents needed for the likely tier:
+- `docs/WORK_MODES.md`
+- `docs/COMPLEXITY_MODEL.md`
+- `docs/FAST_LANE.md`
+- `docs/ROLE_ROUTING_MATRIX.md`
+- `docs/RISK_POLICY.md`
+- `docs/QUALITY_GATES.md`
+- `.agents/role_cards/*` for candidate roles
+
+Load `docs/EVIDENCE_POLICY.md`, `docs/EXTERNAL_EVIDENCE_PROTOCOL.md`, `docs/OPPORTUNITY_EVENTS.md`, or `docs/CREATIVE_METHODS.md` only when evidence, external facts, events, or creative improvement loops can change the next decision.
+
+### Stage 2: Specialist loading
+After selecting the smallest sufficient team, load only:
+- selected full role playbooks when the role owns a non-trivial artifact;
+- selected skills when their workflow is needed;
+- relevant sections of `docs/ROLE_METHOD_LIBRARY.md` and `docs/ROLE_OUTPUT_SCHEMAS.md`.
 
 ### Stage 3: Execution loading
 During implementation or review, load only files relevant to the approved plan and risk gates.
+
+### Non-runtime assets
+Do not load `docs/SCENARIO_TESTS.json` during ordinary task startup. It is a kit validation asset, not runtime context.
 
 ## Default workflow
 
@@ -60,6 +68,25 @@ During implementation or review, load only files relevant to the approved plan a
 - 16 or more roles requires explicit user approval.
 
 Never spawn all agents by default.
+
+
+## Context-budget discipline
+
+Track context budget in `TASK.md` and keep `CHRONICLE.md` compact. Do not load or quote documents that do not change the next decision. Prefer role cards before full playbooks. Prefer compact role artifacts before long reports.
+
+## Selected-role contract
+
+Before planning, list each selected role with:
+- why selected;
+- artifact owned;
+- decision supported;
+- evidence required;
+- stop condition;
+- whether full playbook is required or role card is enough.
+
+## Opportunity and creative improvement overlay
+
+Follow `docs/OPPORTUNITY_EVENTS.md` and `docs/CREATIVE_METHODS.md` when a new idea, stakeholder suggestion, support signal, market signal, design critique, research finding, or technical discovery may improve the solution. Creative methods generate candidates; they do not override evidence, risk gates, accessibility, privacy, security, or user approval.
 
 ## Always-on system roles
 

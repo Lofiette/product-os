@@ -2,6 +2,10 @@
 
 Ask adaptively. Do not ask every question. Start with Intake A, then Intake B after user answers.
 
+## Decision-impact question rule
+
+Ask a question only if the answer can change scope, risk, role lineup, acceptance criteria, verification, approval gates, product language, creative/opportunity handling, or implementation sequence.
+
 ## Intake A: universal first batch, 5 to 9 questions
 
 1. What are we trying to achieve, in one sentence?
@@ -49,6 +53,16 @@ Ask adaptively. Do not ask every question. Start with Intake A, then Intake B af
 - Impact and severity?
 - Recent changes?
 - Logs or screenshots?
+
+
+
+## Branch: opportunity event / improvement idea
+- What is the new idea, signal, or event?
+- Who or what is the source: stakeholder, user, support, analytics, market, repo, incident, or design critique?
+- What decision could this change: scope, UX, copy, architecture, risk, delivery, or verification?
+- Is there evidence, or is it an assumption/hypothesis?
+- Should we ignore, defer, clarify, creatively explore, re-route, re-plan, or block?
+- What constraint must the idea respect?
 
 ## Intake B outputs
 - Updated `TASK.md`.

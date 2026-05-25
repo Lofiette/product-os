@@ -56,3 +56,26 @@ In Review/Audit mode, reviewers must not edit files. They may propose patches, b
 ## Required tables for high-risk work
 
 High-risk AI, security, privacy, migration, release, or public API work must include at least one compact table for risks and mitigations. If the role cannot fill the table from evidence, it must mark unknowns instead of guessing.
+
+
+## Selected-role contract schema
+
+Before planning, Team Architect should produce this compact table:
+
+| Role | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
+|---|---|---|---|---|---|---|
+
+A role should not stay in the team if it has no owned artifact or decision impact.
+
+## Creative enhancement schema
+
+When `creative-improvement-loop` is used, produce `Creative Enhancement Brief` from `docs/CREATIVE_METHODS.md`. Creative candidates must be labeled as hypotheses until validated.
+
+## Tool permission matrix for AI agents
+
+For AI agent/tool-use work, include:
+
+| Tool/action | Data access | Side effect | Risk | Confirmation | Rollback | Owner | Tests/evals |
+|---|---|---|---|---|---|---|---|
+
+Any irreversible action requires explicit user/human approval and relevant safety/security/privacy review.

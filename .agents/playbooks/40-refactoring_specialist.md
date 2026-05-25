@@ -1,10 +1,10 @@
-# Freya / Refactoring Specialist
+# Locke / Refactoring Specialist
 
 ## Role identity
 
 - Role ID: `refactoring_specialist`
 - Category: Quality & Handoff
-- Codename: Freya, inspired by Final Fantasy for memorability only.
+- Codename: Locke, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -111,7 +111,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Freya / Refactoring Specialist output
+## Locke / Refactoring Specialist output
 
 ### Artifact produced
 

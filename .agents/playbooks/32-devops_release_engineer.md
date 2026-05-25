@@ -1,10 +1,10 @@
-# Edgar / DevOps & Release Engineer
+# Cidolfus / DevOps & Release Engineer
 
 ## Role identity
 
 - Role ID: `devops_release_engineer`
 - Category: Risk & Operations
-- Codename: Edgar, inspired by Final Fantasy for memorability only.
+- Codename: Cidolfus, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -111,7 +111,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Edgar / DevOps & Release Engineer output
+## Cidolfus / DevOps & Release Engineer output
 
 ### Artifact produced
 

@@ -103,3 +103,23 @@ _Not approved yet._
 - Question budget used: TBD
 - Role budget used: TBD
 - Exception approval needed: No
+
+
+## Context budget
+
+- Startup loading tier: TBD
+- Documents loaded: TBD
+- Role cards loaded: TBD
+- Full playbooks loaded: TBD
+- Skills loaded: TBD
+- Reason for any large-context load: TBD
+
+## Selected-role contract
+
+| Role | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
+|---|---|---|---|---|---|---|
+
+## Opportunity events
+
+| Event ID | Source | Evidence level | Affected decision | Impact | Owner role | Status |
+|---|---|---|---|---|---|---|

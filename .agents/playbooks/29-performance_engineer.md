@@ -1,10 +1,10 @@
-# Prompto / Performance Engineer
+# Sabin / Performance Engineer
 
 ## Role identity
 
 - Role ID: `performance_engineer`
 - Category: Risk & Operations
-- Codename: Prompto, inspired by Final Fantasy for memorability only.
+- Codename: Sabin, inspired by Final Fantasy for memorability only.
 
 ## Mission
 
@@ -111,7 +111,7 @@ Escalate to:
 ## Output template
 
 ```markdown
-## Prompto / Performance Engineer output
+## Sabin / Performance Engineer output
 
 ### Artifact produced
 

@@ -1,55 +1,54 @@
 ---
 name: task-intake
-description: Use for Intake A and Intake B when starting or reshaping a task.
+description: Turn a request into a scoped task brief using Micro/Fast/Standard/Risk-first intake. Ask only decision-changing questions.
 ---
 
-# Skill: task-intake
+# task-intake
+
+## Purpose
+
+Turn a request into a scoped task brief using Micro/Fast/Standard/Risk-first intake. Ask only decision-changing questions.
 
 ## When to use
-Use for Intake A and Intake B when starting or reshaping a task.
 
-## Procedure
-Intake A:
-1. Load bootstrap docs only.
-2. Confirm language policy.
-3. Identify likely work modes lightly.
-4. Ask 5–9 adaptive questions max, or 0–3 for Tiny/Fast Lane.
-5. Apply the decision-impact question rule from QUESTION_TREE.md.
-6. Use Fast Lane when the task is small and low-risk.
-7. Detect opportunity events but do not run creative methods unless they can change the next decision.
-8. Do not update product code or final plan.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-Intake B:
-1. Update TASK.md from user answers.
-2. Mark evidence, assumptions, hypotheses, constraints, and open questions.
-3. Identify risk triggers.
-4. Ask Chronicle Keeper to update CHRONICLE.md when task is multi-step or file-changing.
-5. Hand off to Team Architect for role routing.
+## Inputs
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
+## Process
 
-## Complexity guardrail
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+## Output schema
 
-## Output schema rule
+```markdown
+## Skill output: task-intake
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+### Context
 
+### Steps performed
 
-## v1.5 intake budgets
+### Findings
 
-Use `docs/QUESTION_TREE.md` intake budgets:
+### Evidence / assumptions
 
-- Micro Intake: 0–2 questions.
-- Fast Lane Intake: 1–3 questions.
-- Standard Intake: 3–7 questions.
-- Complex/High-risk Intake: 5–9 plus targeted follow-up.
+### Blockers
 
-Ask only decision-impact questions.
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

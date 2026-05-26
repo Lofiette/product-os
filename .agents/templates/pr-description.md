@@ -1,13 +1,10 @@
 # PR Description
 
 ## Summary
-
 ## User-visible changes
-
 ## Technical changes
-
-## Tests and checks
-
-## Risks and rollback
-
+## Design changes
+## Tests/checks
+## Risks
+## Rollback
 ## Reviewer checklist

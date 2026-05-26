@@ -1,16 +1,9 @@
 # Review Report
 
-## Verdict
-PASS / PASS WITH WARNINGS / BLOCKED / REQUEST CHANGES
-
+## Verdict: PASS / PASS WITH WARNINGS / BLOCKED
 ## Blocking issues
-
 ## Non-blocking issues
-
-## Missing evidence or tests
-
+## Missing tests/checks
 ## Scope deviations
-
-## Risk gate compliance
-
-## Recommendation
+## Design-system deviations
+## Required fixes

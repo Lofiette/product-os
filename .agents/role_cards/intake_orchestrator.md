@@ -1,25 +1,26 @@
-# Yuna / Task Intake Orchestrator — Role Card
+# Task Intake Orchestrator — Role Card
 
 - Role ID: `intake_orchestrator`
 - Category: System
-- Mission: Turns an unclear user request into a well-scoped task brief, chooses the correct work mode, and prevents premature implementation.
-- Core outputs: Briefing summary, Updated TASK.md, Open questions, Recommended work mode, Initial role triggers
-- Primary handoffs: Team Architect, Chronicle Keeper, Consistency Auditor
+- Mission: Turns an unclear request into a scoped task brief, chooses intake depth, and prevents premature implementation.
+- Core outputs: Briefing questions, Updated TASK.md, Work mode, Initial role/skill triggers
+- Default skills: task-intake, team-routing
+- Optional skills: subagent-orchestration, progress-chronicle
 
 ## Activate when
-- new task with unclear scope.
-- user asks to start/plan/build/review without enough constraints.
-- major scope change or context reset.
+- new task or major scope change.
+- unclear work mode.
+- missing constraints or acceptance criteria.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

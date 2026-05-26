@@ -1,46 +1,54 @@
 ---
 name: implementation-review
-description: Use after code changes or for PR/diff review.
+description: Review implementation against TASK, approved plan, tests, gates, risks, and output PASS/WARN/BLOCKED.
 ---
 
-# Skill: implementation-review
+# implementation-review
+
+## Purpose
+
+Review implementation against TASK, approved plan, tests, gates, risks, and output PASS/WARN/BLOCKED.
 
 ## When to use
-Use after code changes or for PR/diff review.
 
-## Procedure
-1. Compare diff to TASK.md approved scope and non-goals.
-2. Check if quality/risk gates were respected.
-3. Check correctness against acceptance criteria.
-4. Check tests and verification evidence.
-5. Check UI copy, accessibility, design system, performance, security/privacy only when relevant.
-6. Check TASK.md/CHRONICLE.md updates when task is multi-step or file-changing.
-7. Return APPROVE, REQUEST CHANGES, or NEEDS HUMAN DECISION with severity-ranked findings.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+## Inputs
 
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
-## Complexity guardrail
+## Process
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-## Output schema rule
+## Output schema
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+```markdown
+## Skill output: implementation-review
 
+### Context
 
-## v1.5 review levels
+### Steps performed
 
-Before reviewing, choose Review 0, 1, 2, or 3 from `docs/REVIEW_LEVELS.md`.
+### Findings
 
-- Review 0: Tiny self-check.
-- Review 1: Fast Lane lightweight checklist.
-- Review 2: active Code Reviewer role.
-- Review 3: Code Reviewer plus triggered risk roles.
+### Evidence / assumptions
 
-Do not activate a heavier review level unless it can change the decision or a gate requires it.
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

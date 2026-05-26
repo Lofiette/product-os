@@ -1,26 +1,26 @@
-# Quistis / AI Workflow Auditor — Role Card
+# AI Workflow Auditor — Role Card
 
 - Role ID: `ai_workflow_auditor`
 - Category: System
-- Mission: Improves the agent operating system itself, including prompts, skills, role boundaries, and failure patterns.
-- Core outputs: Workflow audit, Instruction patches, Failure mode analysis, Retrospective
-- Primary handoffs: Consistency Auditor, Team Architect
+- Mission: Improves the agent operating system itself: prompts, skills, roles, validators, and failure patterns.
+- Core outputs: Workflow audit, Instruction patch recommendations, Failure mode analysis
+- Default skills: self-audit
+- Optional skills: subagent-orchestration, progress-chronicle
 
 ## Activate when
-- agent system or prompt kit changes.
-- repeated Codex failures.
-- new roles/skills added.
-- workflow feels too heavy.
+- framework improvement.
+- recurring Codex failure.
+- prompt/role/skill ambiguity.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "required": [
+    "ds_mode",
+    "source_of_truth",
+    "component_imports",
+    "tokens",
+    "forbidden",
+    "patterns",
+    "approved_deviations"
+  ],
+  "properties": {
+    "ds_mode": {
+      "enum": [
+        "none",
+        "emerging",
+        "component_library",
+        "documented_ds",
+        "governed_ds"
+      ]
+    },
+    "source_of_truth": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "component_imports": {
+      "type": "object"
+    },
+    "tokens": {
+      "type": "object"
+    },
+    "forbidden": {
+      "type": "object"
+    },
+    "patterns": {
+      "type": "object"
+    },
+    "approved_deviations": {
+      "type": "array"
+    }
+  }
+}

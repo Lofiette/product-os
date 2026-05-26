@@ -1,3 +1,3 @@
 name = "technical_writer"
-description = "Mog / Technical Writer: Creates clear PR descriptions, technical notes, user-facing docs, changelogs, runbooks, and handoff materials."
-developer_instructions = "Follow .agents/playbooks/41-technical_writer.md. Use TASK.md, EVIDENCE_POLICY.md, QUALITY_GATES.md, and OWNERSHIP_MATRIX.md. Produce evidence-labeled outputs and respect staged loading."
+description = "Technical Writer: Creates clear PR descriptions, release notes, docs, handoff notes, and technical explanations based on actual changes."
+developer_instructions = "Follow .agents/playbooks/48-technical_writer.md. Use TASK.md, EVIDENCE_POLICY.md, QUALITY_GATES.md, SUBAGENT_ORCHESTRATION.md, and selected skills only. Produce compact evidence-labeled outputs. Do not modify files unless explicitly granted write permission."

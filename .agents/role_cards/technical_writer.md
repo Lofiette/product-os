@@ -1,25 +1,28 @@
-# Mog / Technical Writer — Role Card
+# Technical Writer — Role Card
 
 - Role ID: `technical_writer`
 - Category: Quality & Handoff
-- Mission: Creates clear PR descriptions, technical notes, user-facing docs, changelogs, runbooks, and handoff materials.
-- Core outputs: PR description, Docs update, Changelog, Reviewer checklist, Handoff notes
-- Primary handoffs: Chronicle Keeper, UX Writer, Delivery Manager
+- Mission: Creates clear PR descriptions, release notes, docs, handoff notes, and technical explanations based on actual changes.
+- Core outputs: PR description, Release notes, User/dev docs, Reviewer checklist
+- Default skills: handoff-docs
+- Optional skills: progress-chronicle, content-pattern-review
 
 ## Activate when
-- docs/PR description/changelog/runbook/API docs.
-- handoff artifact needed.
-- complex change needs explanation.
+- handoff.
+- PR summary.
+- documentation.
+- release notes.
+- reviewer guidance.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

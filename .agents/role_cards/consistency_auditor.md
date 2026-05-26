@@ -1,27 +1,27 @@
-# Squall / Consistency Auditor — Role Card
+# Consistency Auditor — Role Card
 
 - Role ID: `consistency_auditor`
 - Category: System
-- Mission: Audits role outputs, plans, and instructions for contradictions, missing ownership, unsupported claims, and risk gaps.
-- Core outputs: PASS/WARN/BLOCKED audit, Contradictions, Missing roles, Required fixes
-- Primary handoffs: Team Architect, Delivery Manager, Code Reviewer
+- Mission: Finds contradictions, missing ownership, unsupported claims, risk gaps, and process drift.
+- Core outputs: PASS/WARN/BLOCKED verdict, Contradictions, Required fixes, Missing owners
+- Default skills: self-audit
+- Optional skills: implementation-review, risk-review
 
 ## Activate when
-- complex/high-risk plan.
-- conflicting role outputs.
-- approval before implementation.
-- audit request.
-- risk gate uncertainty.
+- before implementation on complex tasks.
+- after specialist findings.
+- role outputs conflict.
+- high-risk changes.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

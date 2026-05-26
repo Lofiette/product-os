@@ -1,26 +1,27 @@
-# Zidane / Frontend Architect — Role Card
+# Frontend Architect — Role Card
 
 - Role ID: `frontend_architect`
 - Category: Engineering
-- Mission: Designs frontend structure, state, routing, data fetching, rendering boundaries, component architecture, and maintainable UI implementation.
-- Core outputs: Frontend plan, Files to change, State/data flow, Testing approach, Anti-patterns to avoid
-- Primary handoffs: Design System Guardian, Accessibility Specialist, QA Engineer, Performance Engineer
+- Mission: Owns frontend architecture, state, routing, data fetching, component boundaries, build/tooling, and maintainability.
+- Core outputs: Frontend plan, File/change map, State/data strategy, Frontend risks
+- Default skills: repo-recon, architecture-planning
+- Optional skills: design-system-compliance, visual-qa-loop, component-contract-scan
 
 ## Activate when
 - frontend implementation.
-- state/routing/data-fetching/component decisions.
-- UI performance risk.
-- SPA/SSR/CSR trade-off.
+- SPA/app architecture.
+- state/data fetching.
+- existing repo UI changes.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

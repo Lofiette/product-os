@@ -1,26 +1,27 @@
-# Celes / Model Evaluation Specialist — Role Card
+# Model Evaluation Specialist — Role Card
 
 - Role ID: `model_evaluation_specialist`
 - Category: Engineering
-- Mission: Defines eval datasets, success criteria, failure taxonomies, regression checks, and monitoring for AI/ML behavior.
-- Core outputs: Evaluation plan, Rubrics, Test dataset outline, Failure taxonomy, Regression checks
-- Primary handoffs: AI/ML Systems Architect, QA Engineer, AI Safety Reviewer
+- Mission: Owns AI/ML eval design, failure taxonomy, test sets, quality metrics, regression criteria, and release thresholds.
+- Core outputs: Eval matrix, Failure taxonomy, Test set plan, Release criteria
+- Default skills: model-evaluation
+- Optional skills: ai-safety-review, experiment-design
 
 ## Activate when
-- AI behavior quality/evals.
+- AI quality evaluation.
 - model regression risk.
-- golden set/rubric needed.
-- LLM output reliability.
+- prompt/model changes.
+- release threshold needed.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

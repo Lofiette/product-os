@@ -1,41 +1,54 @@
 ---
 name: progress-chronicle
-description: Use to update CHRONICLE.md after meaningful progress.
+description: Update CHRONICLE compactly with decisions, current state, next action, risks, files, subagent activity.
 ---
 
-# Skill: progress-chronicle
+# progress-chronicle
+
+## Purpose
+
+Update CHRONICLE compactly with decisions, current state, next action, risks, files, subagent activity.
 
 ## When to use
-Use to update CHRONICLE.md after meaningful progress.
 
-## Procedure
-1. Update top context rescue summary first: task, phase, approved scope, latest decision, next action.
-2. Add timeline entry only for meaningful phase changes, decisions, implementations, checks, or blockers.
-3. Log decisions with reason and consequence.
-4. Log role activity only when it changes plan, scope, risk, or artifact ownership.
-5. Log files touched and verification results.
-6. Log unresolved risks and follow-ups.
-7. Keep compact English by default; add short Russian note only if it helps the user.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+## Inputs
 
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
-## Complexity guardrail
+## Process
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-## Output schema rule
+## Output schema
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+```markdown
+## Skill output: progress-chronicle
 
+### Context
 
-## v1.5 chronicle compaction
+### Steps performed
 
-Follow `docs/CHRONICLE_POLICY.md`.
+### Findings
 
-Use compact chronicle service updates for Tiny/Fast Lane. Activate Aerith / Chronicle Keeper only for long, multi-step, decision-heavy, high-risk, or context-rescue-critical tasks.
+### Evidence / assumptions
+
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

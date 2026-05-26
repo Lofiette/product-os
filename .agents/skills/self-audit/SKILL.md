@@ -1,46 +1,54 @@
 ---
 name: self-audit
-description: Use to audit the kit itself.
+description: Audit the framework execution, instruction conflicts, routing, gates, role/skill usage, and failure modes.
 ---
 
-# Skill: self-audit
+# self-audit
+
+## Purpose
+
+Audit the framework execution, instruction conflicts, routing, gates, role/skill usage, and failure modes.
 
 ## When to use
-Use to audit the kit itself.
 
-## Procedure
-1. Run `python scripts/validate_kit.py`.
-2. Check required docs exist and are referenced by AGENTS.md/FIRST_PROMPT.md.
-3. Check each role has mission, activation, do-not-do, expertise, method, outputs, handoffs, escalation, failure modes.
-4. Check role-specific depth: avoid repeated generic phrasing without concrete methods.
-5. Check routing consistency: role triggers match ownership and risk policy.
-6. Check language policy integration.
-7. Check scenario tests for expected roles and missing risks.
-8. Return PASS, PASS WITH WARNINGS, or BLOCKED with patch recommendations.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+## Inputs
 
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
-## Complexity guardrail
+## Process
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-## Output schema rule
+## Output schema
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+```markdown
+## Skill output: self-audit
 
+### Context
 
-## v1.5 runtime hardening checks
+### Steps performed
 
-Check:
-- active roles vs system services vs consulted role cards;
-- review level is not heavier than necessary;
-- repo recon was run when existing repo files are touched;
-- opportunity events are classified OE-0..OE-4;
-- Tiny/Fast implicit approval is used only when reversible and low-risk;
-- chronicle is compact and useful.
+### Findings
+
+### Evidence / assumptions
+
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

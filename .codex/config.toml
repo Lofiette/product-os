@@ -1,5 +1,1 @@
-# Project-scoped Codex config placeholder.
-# Custom agents live in `.codex/agents/*.toml`.
-# Keep runtime-specific personal settings in your user-level Codex config unless the project needs shared settings.
-
-project_root_markers = [".git", "AGENTS.md"]
+project = "codex-product-team-2.0"

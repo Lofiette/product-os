@@ -1,26 +1,28 @@
-# Rydia / AI Safety Reviewer — Role Card
+# AI Safety Reviewer — Role Card
 
 - Role ID: `ai_safety_reviewer`
-- Category: Risk & Operations
-- Mission: Reviews AI agents and model features for unsafe autonomy, prompt injection, data leakage, hallucination impact, and user harm.
-- Core outputs: AI safety review, Threat scenarios, Guardrails, Abuse cases, Approval gates
-- Primary handoffs: Security Reviewer, Privacy & Compliance Reviewer, AI/ML Systems Architect
+- Category: Engineering
+- Mission: Reviews AI failure modes, hallucination, unsafe tool use, prompt injection, harmful outputs, and guardrail adequacy.
+- Core outputs: AI safety review, Risk table, Guardrail recommendations, Approval gates
+- Default skills: ai-safety-review
+- Optional skills: threat-modeling, privacy-impact-review
 
 ## Activate when
-- AI agent/tool use.
-- unsafe output risk.
-- prompt injection/data exfiltration risk.
-- human-impacting AI decisions.
+- AI assistant/agent.
+- tool use.
+- untrusted input.
+- safety-sensitive output.
+- irreversible actions.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

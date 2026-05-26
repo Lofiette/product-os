@@ -1,53 +1,27 @@
-# CHRONICLE.md — Progress Chronicle
+# CHRONICLE.md — Compact Project Memory
 
 ## Context rescue summary
 No active task yet.
 
-## Current command center
-- Current phase: intake not started
-- Current owner/service: Yuna / Task Intake Orchestrator
-- Next action: run `FIRST_PROMPT.md`
-- Blockers: none known
+## Current state
+- Phase: Intake
+- Next action: Run intake and propose role/skill/orchestration plan.
 
-## Compact status
-- Scope status: not set
-- Repo Recon status: not needed
-- Review level: TBD
-- Latest verification: none
-- Latest decision: none
-
-## Timeline
-| Date/time | Event | Details | Evidence |
-|---|---|---|---|
+## Subagent activity
+| Time | Agent | Mode | Task | Result | Follow-up |
+|---|---|---|---|---|---|
 
 ## Decisions
-| ID | Decision | Reason | Impact | Status |
-|---|---|---|---|---|
+| Time | Decision | Reason | Impact |
+|---|---|---|---|
 
-## Role and service activity log
-| Date/time | Contributor | Class | Action | Output |
-|---|---|---|---|---|
-
-## Verification history
-| Date/time | Check | Result | Notes |
+## Progress timeline
+| Time | Event | Details | Evidence |
 |---|---|---|---|
 
 ## Risks and follow-ups
-| Risk | Severity | Owner role | Mitigation | Status |
-|---|---:|---|---|---|
+None yet.
 
 ## Files touched
 | File | Why changed | Related decision |
 |---|---|---|
-
-## Context budget log
-| Date/time | Loaded context | Why needed | Outcome |
-|---|---|---|---|
-
-## Opportunity events
-| Event ID | Class | Event | Decision impact | Action taken | Status |
-|---|---|---|---|---|---|
-
-## Parking lot
-| Idea | Source | Why parked | Revisit condition |
-|---|---|---|---|

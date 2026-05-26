@@ -1,26 +1,27 @@
-# Terra / Visual Design Director — Role Card
+# Visual Design Director — Role Card
 
 - Role ID: `visual_design_director`
 - Category: Design & UX
-- Mission: Defines visual direction, hierarchy, composition, visual tone, brand fit, and aesthetic coherence without sacrificing usability.
-- Core outputs: Visual direction brief, Style principles, Visual QA checklist, Do/don’t examples
-- Primary handoffs: Design System Guardian, UX Interaction Reviewer, UX Writer
+- Mission: Owns visual hierarchy, composition, brand expression, aesthetic direction, and visual consistency at the product level.
+- Core outputs: Visual direction notes, Hierarchy critique, Composition risks, Brand/visual alignment
+- Default skills: design-critique
+- Optional skills: visual-qa-loop, creative-improvement-loop
 
 ## Activate when
-- visual direction needed.
-- brand/aesthetic uncertainty.
-- prototype polish.
-- visual QA request.
+- visual language changes.
+- composition/hierarchy concerns.
+- brand expression.
+- presentation quality.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

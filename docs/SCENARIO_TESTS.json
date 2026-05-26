@@ -1,348 +1,157 @@
 {
-  "version": "ULTIMATE Pro v1.5",
-  "source_of_truth": "docs/SCENARIO_TESTS.json",
+  "version": "2.0",
   "scenarios": [
     {
       "id": "tiny_copy_change",
-      "description": "Rename a button label in one UI file",
-      "work_mode": "Production change",
-      "complexity": "Tiny/Fast Lane",
-      "required_roles": [
-        "ux_writer"
-      ],
-      "optional_roles": [
-        "intake_orchestrator",
-        "frontend_architect",
-        "code_reviewer",
-        "chronicle_keeper"
-      ],
-      "forbidden_roles": [
-        "market_researcher",
-        "cx_researcher",
-        "ai_ml_systems_architect",
-        "devops_release_engineer",
-        "delivery_manager"
-      ],
-      "max_roles": 3,
-      "max_questions": 3,
-      "expected_gates": [
-        "Micro/Fast intake only",
-        "System services do not count against active role budget",
-        "Review 0 or Review 1 is enough unless risk appears",
-        "No full planning symposium"
-      ]
+      "description": "Rename a button label",
+      "max_questions": 2,
+      "max_active_roles": 1,
+      "required_skills": [],
+      "forbidden_spawn": true,
+      "expected_mode": "role_simulation_or_main_thread"
     },
     {
-      "id": "greenfield_ux_mvp",
-      "description": "Build MVP for a small UX research workflow app",
-      "work_mode": "MVP",
-      "complexity": "Standard",
+      "id": "ui_prototype_no_ds",
+      "description": "Build UI prototype with no design system",
       "required_roles": [
-        "intake_orchestrator",
-        "product_strategist",
-        "ux_interaction_reviewer",
-        "ux_writer",
+        "product_designer",
+        "design_engineer"
+      ],
+      "required_skills": [
+        "design-recon",
+        "screen-redesign",
+        "state-matrix",
+        "ui-heuristic-audit"
+      ],
+      "expected_ds_mode": "none"
+    },
+    {
+      "id": "screen_redesign_existing_ds",
+      "description": "Redesign screen in repo with component library",
+      "required_roles": [
+        "product_designer",
         "design_system_guardian",
-        "frontend_architect",
-        "qa_engineer",
-        "chronicle_keeper"
+        "design_engineer"
       ],
-      "optional_roles": [
-        "delivery_manager",
-        "code_reviewer",
-        "team_architect"
-      ],
-      "forbidden_roles": [
-        "market_researcher",
-        "incident_investigator"
-      ],
-      "max_roles": 9,
-      "max_questions": 9,
-      "expected_gates": [
-        "Plan before implementation",
-        "Backend skipped if local-only",
-        "UX Writer required for meaningful UI states and product copy",
-        "Delivery Manager required only if multi-phase/cross-area"
+      "required_skills": [
+        "repo-recon",
+        "design-recon",
+        "screen-redesign",
+        "design-system-compliance",
+        "visual-qa-loop"
       ]
     },
     {
-      "id": "market_discovery",
-      "description": "Investigate market and positioning before building",
-      "work_mode": "Research",
-      "complexity": "Standard",
+      "id": "governed_ds_folder",
+      "description": "Task includes rich DS folder with instructions and component specs",
       "required_roles": [
-        "intake_orchestrator",
-        "product_strategist",
-        "market_researcher",
-        "chronicle_keeper"
+        "design_system_guardian",
+        "design_engineer",
+        "product_designer"
       ],
-      "optional_roles": [
-        "ux_researcher",
-        "cx_researcher",
-        "business_analyst"
+      "required_skills": [
+        "design-recon",
+        "design-system-manifest",
+        "design-system-compliance"
       ],
-      "forbidden_roles": [
-        "frontend_architect",
-        "backend_architect",
-        "devops_release_engineer"
-      ],
-      "max_roles": 7,
-      "max_questions": 9,
-      "expected_gates": [
-        "No implementation",
-        "External facts require evidence or research plan",
-        "Findings separated from hypotheses"
-      ]
+      "expected_ds_mode": "governed_ds"
     },
     {
-      "id": "ai_summarization_feature",
-      "description": "Add AI summarization of customer interviews without autonomous tool actions",
-      "work_mode": "AI/ML feature",
-      "complexity": "High-risk",
+      "id": "ai_tool_agent",
+      "description": "AI agent can act on user data with confirmation",
       "required_roles": [
-        "intake_orchestrator",
-        "ai_ml_systems_architect",
-        "model_evaluation_specialist",
-        "ai_safety_reviewer",
-        "privacy_compliance_reviewer",
-        "ux_writer",
-        "qa_engineer",
-        "chronicle_keeper",
-        "consistency_auditor"
-      ],
-      "optional_roles": [
-        "ux_researcher",
-        "security_reviewer",
-        "backend_architect",
-        "observability_engineer",
-        "performance_engineer"
-      ],
-      "forbidden_roles": [
-        "market_researcher",
-        "incident_investigator"
-      ],
-      "max_roles": 15,
-      "max_questions": 9,
-      "expected_gates": [
-        "Eval plan required",
-        "Privacy/data access review required",
-        "Hallucination/fallback behavior required",
-        "No market claims"
-      ]
-    },
-    {
-      "id": "ai_tool_agent_feature",
-      "description": "Add AI agent with tool use, user data access, or irreversible actions",
-      "work_mode": "AI/ML feature",
-      "complexity": "High-risk",
-      "required_roles": [
-        "intake_orchestrator",
         "ai_ml_systems_architect",
         "model_evaluation_specialist",
         "ai_safety_reviewer",
         "security_reviewer",
-        "privacy_compliance_reviewer",
-        "backend_architect",
-        "qa_engineer",
-        "chronicle_keeper",
-        "consistency_auditor"
+        "privacy_compliance_reviewer"
       ],
-      "optional_roles": [
-        "api_contract_guardian",
-        "observability_engineer",
-        "performance_engineer",
-        "devops_release_engineer",
-        "ux_writer"
-      ],
-      "forbidden_roles": [],
-      "max_roles": 15,
-      "max_questions": 9,
-      "expected_gates": [
-        "Tool permission matrix required",
-        "Human approval for irreversible actions",
-        "Prompt injection/data exfiltration review",
-        "Security and privacy gates required"
+      "required_skills": [
+        "ai-ml-planning",
+        "model-evaluation",
+        "ai-safety-review",
+        "threat-modeling",
+        "privacy-impact-review"
       ]
     },
     {
-      "id": "api_breaking_change_review",
-      "description": "Review a proposed public API contract change",
-      "work_mode": "Review/audit",
-      "complexity": "Complex",
+      "id": "service_journey",
+      "description": "User experience crosses support and operations",
       "required_roles": [
-        "intake_orchestrator",
-        "api_contract_guardian",
-        "backend_architect",
-        "qa_engineer",
-        "code_reviewer",
-        "consistency_auditor"
+        "service_designer",
+        "cx_researcher"
       ],
-      "optional_roles": [
-        "technical_writer",
-        "security_reviewer"
-      ],
-      "forbidden_roles": [
-        "visual_design_director",
-        "ux_writer"
-      ],
-      "max_roles": 10,
-      "max_questions": 7,
-      "expected_gates": [
-        "Review mode is read-only",
-        "Implementation requires explicit switch from review to implementation"
+      "required_skills": [
+        "service-blueprint",
+        "cx-journey-mapping"
       ]
     },
     {
-      "id": "backend_bugfix",
-      "description": "Fix a backend bug in production logic with tests",
-      "work_mode": "Bugfix",
-      "complexity": "Standard/Complex depending on risk",
+      "id": "dashboard_design",
+      "description": "Design dashboard with charts and metrics",
       "required_roles": [
-        "intake_orchestrator",
-        "backend_architect",
-        "qa_engineer",
-        "code_reviewer",
-        "chronicle_keeper"
+        "data_visualization_designer",
+        "analytics_engineer",
+        "product_designer"
       ],
-      "optional_roles": [
-        "security_reviewer",
-        "api_contract_guardian",
-        "data_architect",
-        "consistency_auditor"
-      ],
-      "forbidden_roles": [
-        "visual_design_director",
-        "market_researcher",
-        "ux_writer"
-      ],
-      "max_roles": 9,
-      "max_questions": 7,
-      "expected_gates": [
-        "Reproduce or define failing scenario",
-        "Smallest safe fix",
-        "No schema/API/auth changes without approval"
+      "required_skills": [
+        "data-visualization-review",
+        "analytics-planning",
+        "screen-redesign"
       ]
     },
     {
-      "id": "ux_research_only",
-      "description": "Plan UX research for a product problem without implementation",
-      "work_mode": "Research",
-      "complexity": "Standard",
+      "id": "conversation_ui",
+      "description": "Design chatbot/AI assistant flow",
       "required_roles": [
-        "intake_orchestrator",
-        "ux_researcher",
-        "product_strategist",
-        "chronicle_keeper"
-      ],
-      "optional_roles": [
-        "cx_researcher",
+        "conversation_designer",
         "ux_writer",
-        "market_researcher",
-        "business_analyst"
+        "ai_safety_reviewer"
       ],
-      "forbidden_roles": [
-        "frontend_architect",
-        "backend_architect",
-        "devops_release_engineer"
-      ],
-      "max_roles": 7,
-      "max_questions": 9,
-      "expected_gates": [
-        "No implementation",
-        "Research questions before method",
-        "Insights cannot be claimed before data"
-      ]
-    },
-    {
-      "id": "language_policy_ru_user_en_artifacts",
-      "description": "Russian user asks for compact-token workflow",
-      "work_mode": "Any",
-      "complexity": "Fast Lane/Standard",
-      "required_roles": [
-        "intake_orchestrator"
-      ],
-      "optional_roles": [
-        "chronicle_keeper",
-        "team_architect",
-        "ux_writer",
-        "ux_interaction_reviewer",
-        "qa_engineer"
-      ],
-      "forbidden_roles": [],
-      "max_roles": 7,
-      "max_questions": 7,
-      "expected_gates": [
-        "Reply to user in Russian",
-        "TASK.md and CHRONICLE.md in compact English",
-        "Product UI language asked or explicitly set"
-      ]
-    },
-    {
-      "id": "opportunity_event_creative_improvement",
-      "description": "A stakeholder or another department proposes a potentially better idea during planning",
-      "work_mode": "Opportunity event / improvement loop",
-      "complexity": "Fast Lane/Standard depending on impact",
-      "required_roles": [
-        "intake_orchestrator",
-        "team_architect",
-        "product_strategist",
-        "chronicle_keeper"
-      ],
-      "optional_roles": [
-        "ux_researcher",
-        "cx_researcher",
-        "market_researcher",
-        "ux_interaction_reviewer",
-        "ux_writer",
-        "solution_architect",
-        "experimentation_specialist",
-        "consistency_auditor"
-      ],
-      "forbidden_roles": [
-        "incident_investigator",
-        "devops_release_engineer"
-      ],
-      "max_roles": 8,
-      "max_questions": 5,
-      "expected_gates": [
-        "Classify event as OE-0..OE-4",
-        "Record opportunity event if it changes decisions",
-        "Creative outputs labeled as hypotheses",
-        "Use at most one method from CREATIVE_METHODS.md per planning cycle unless user asks for ideation sprint",
-        "No approved scope change without user approval"
+      "required_skills": [
+        "conversation-design",
+        "content-pattern-review",
+        "ai-safety-review"
       ]
     },
     {
       "id": "existing_repo_feature_change",
-      "description": "Implement or review a feature in an existing repository where stack and scripts must be discovered first",
-      "work_mode": "Production change / MVP / Bugfix",
-      "complexity": "Fast Lane/Standard depending on scope",
-      "required_roles": [
-        "intake_orchestrator"
-      ],
-      "optional_roles": [
-        "team_architect",
-        "frontend_architect",
-        "backend_architect",
-        "qa_engineer",
-        "code_reviewer",
-        "chronicle_keeper"
-      ],
-      "forbidden_roles": [
-        "market_researcher",
-        "incident_investigator"
-      ],
+      "description": "Feature change in existing repo",
       "required_skills": [
         "repo-recon"
       ],
-      "max_roles": 7,
-      "max_questions": 7,
-      "expected_gates": [
-        "Repo Recon before deep planning or edits",
-        "Do not assume stack/scripts",
-        "Use existing patterns before new abstractions",
-        "Generated/forbidden zones identified"
+      "expected_first_step": "repo-recon"
+    },
+    {
+      "id": "backend_bugfix",
+      "description": "Backend bug with API behavior",
+      "required_roles": [
+        "backend_architect",
+        "qa_engineer"
+      ],
+      "required_skills": [
+        "repo-recon",
+        "api-contract-review"
       ]
+    },
+    {
+      "id": "ux_research_only",
+      "description": "Plan UX research, no implementation",
+      "required_roles": [
+        "ux_researcher"
+      ],
+      "required_skills": [
+        "ux-research-planning"
+      ],
+      "forbidden_implementation": true
+    },
+    {
+      "id": "opportunity_event",
+      "description": "Support suggests a better idea mid-task",
+      "required_skills": [
+        "opportunity-event-triage"
+      ],
+      "requires_approval_if": "OE-2 or higher"
     }
   ]
 }

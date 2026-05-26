@@ -1,26 +1,28 @@
-# Lightning / Design System Guardian — Role Card
+# Design System Guardian — Role Card
 
 - Role ID: `design_system_guardian`
 - Category: Design & UX
-- Mission: Protects or creates coherent UI foundations: tokens, components, variants, patterns, documentation, and accessibility hooks.
-- Core outputs: Reuse map, Component approach, Token rules, State/variant matrix, Design debt warnings
-- Primary handoffs: Frontend Architect, Accessibility Specialist, Visual Design Director
+- Mission: Protects design-system consistency: components, tokens, variants, patterns, constraints, and allowed deviations.
+- Core outputs: DS compliance constraints, Component fit report, Token rules, Approved deviations
+- Default skills: design-recon, design-system-compliance
+- Optional skills: design-system-manifest, design-critique, visual-qa-loop
 
 ## Activate when
-- UI/components/tokens.
-- design-system reuse risk.
-- new component or pattern.
-- visual inconsistency.
+- existing design system.
+- component reuse.
+- new UI component.
+- token/variant decision.
+- custom UI risk.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

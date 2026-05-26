@@ -1,37 +1,44 @@
-# BOOTSTRAP_INDEX.md — Lean Startup Map
+# BOOTSTRAP_INDEX.md
 
-Read this at startup to avoid loading the whole kit.
+Load this file during Stage 0.
 
-## Start here
+## Runtime kernel
 
-1. Read `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `docs/QUESTION_TREE.md`, and `docs/LANGUAGE_POLICY.md`.
-2. Classify likely work mode and complexity lightly.
-3. Ask only decision-impact questions.
-4. After user answers, load `docs/RUNTIME_DECISION_TREE.md`, routing docs, and role cards.
-5. Load full playbooks only for active selected roles.
+1. Classify request.
+2. Choose intake depth.
+3. Detect whether repo/design recon is needed.
+4. Select roles by artifact ownership.
+5. Select skills by method need.
+6. Choose orchestration mode.
+7. Ask for approval before real subagent spawn.
+8. Execute, verify, review, and update Chronicle compactly.
 
-## Complexity quick map
+## Load order
 
-- Tiny: obvious reversible tweak, 0–2 questions, 0–2 active roles, Review 0.
-- Fast Lane: small low-risk task, 1–3 questions, 1–3 active roles, Review 0/1.
-- Standard: normal feature/fix/review, 3–7 questions, 4–7 active roles, Review 1/2.
-- Complex: multi-area task, 5–9 questions, 8–12 active roles, Review 2/3.
-- High-risk: AI tools, auth, privacy, payments, migrations, public API, release, incident, 10–15 active roles, Review 3.
+Stage 0 bootstrap:
+- AGENTS.md
+- TASK.md
+- CHRONICLE.md
+- docs/BOOTSTRAP_INDEX.md
+- docs/QUESTION_TREE.md
+- docs/LANGUAGE_POLICY.md
 
-System services and consulted role cards do not count as active roles unless they produce full artifacts.
+Stage 1 routing:
+- docs/ROLE_INDEX.json
+- docs/SKILL_INDEX.json
+- .agents/role_cards/<relevant>.md
+- docs/ROLE_ROUTING_MATRIX.md if routing is not obvious
+- docs/SKILL_ROUTING_MATRIX.md if skill choice is not obvious
 
-## Hard stops
+Stage 2 operation:
+- selected role playbooks only
+- selected skills only
+- repo/design/risk docs only when triggered
 
-Ask before public API, DB/schema migration, auth/security/privacy/payment, new production dependency, infra/deploy/CI, deletion, large refactor, irreversible AI/tool actions, or approved-scope changes.
+## UI tasks
 
-## Existing repo
+If UI changes are involved, determine design-system mode and run design-recon before implementation unless explicitly skipped.
 
-If implementation/review may touch an existing repo, run the `repo-recon` skill before deep planning or edits.
+## Subagent truth
 
-## Language
-
-Reply to the user in Russian by default. Keep durable artifacts in compact English. Product UI copy uses product language.
-
-## Creativity
-
-Use creative methods only when they can improve a specific decision. One creative loop per planning cycle unless the user asks for an ideation sprint.
+A real subagent exists only if explicitly spawned. Otherwise roles are simulated in the main thread.

@@ -1,26 +1,27 @@
-# Balthier / Market Researcher — Role Card
+# Market Researcher — Role Card
 
 - Role ID: `market_researcher`
 - Category: Product & Discovery
-- Mission: Investigates market context, competitors, positioning, trends, alternatives, and demand hypotheses.
-- Core outputs: Market brief, Competitive map, Positioning hypotheses, Evidence levels, Research gaps
-- Primary handoffs: Product Strategist, Business Analyst, CX Researcher
+- Mission: Investigates market context, alternatives, competitors, positioning, trends, and demand hypotheses.
+- Core outputs: Market brief, Alternatives map, Competitive teardown, Positioning hypotheses, Evidence gaps
+- Default skills: market-research-planning
+- Optional skills: external-evidence-protocol, creative-improvement-loop
 
 ## Activate when
-- market/category/competitor/pricing uncertainty.
-- positioning question.
-- go-to-market or adoption risk.
-- user asks for market research.
+- market unknowns.
+- competitor comparison.
+- positioning/pricing/adoption question.
+- business opportunity assessment.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

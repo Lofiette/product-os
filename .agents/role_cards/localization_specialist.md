@@ -1,26 +1,28 @@
-# Faris / Localization & Internationalization Specialist — Role Card
+# Localization Specialist — Role Card
 
 - Role ID: `localization_specialist`
 - Category: Design & UX
-- Mission: Reviews product language, UI structure, formats, and flows for internationalization, translation readiness, locale variation, and cultural fit.
-- Core outputs: Localization readiness review, String/content risks, Locale requirements, Implementation notes
-- Primary handoffs: UX Writer, Frontend Architect, QA Engineer
+- Mission: Protects localization readiness, translation constraints, terminology, pluralization, layout expansion, and locale-specific UX.
+- Core outputs: Localization risks, Terminology notes, Locale constraints, String-readiness checklist
+- Default skills: localization-review
+- Optional skills: content-pattern-review, accessibility-check
 
 ## Activate when
-- multi-language UI.
-- translation/i18n/l10n.
-- locale-specific formatting.
-- cultural adaptation.
+- multilingual product.
+- Russian/English switch.
+- locale formatting.
+- string expansion.
+- translation readiness.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

@@ -1,40 +1,54 @@
 ---
 name: creative-improvement-loop
-description: Use when a new idea, stakeholder suggestion, research signal, design critique, or weak solution space may improve the plan.
+description: Controlled ideation using focal objects, synectics, SCAMPER, TRIZ-lite, pre-mortem, and OST without confusing hypotheses with evidence.
 ---
 
-# Skill: creative-improvement-loop
+# creative-improvement-loop
+
+## Purpose
+
+Controlled ideation using focal objects, synectics, SCAMPER, TRIZ-lite, pre-mortem, and OST without confusing hypotheses with evidence.
 
 ## When to use
-Use when the team needs structured ideation or when an opportunity event may improve product, UX, technical, or delivery decisions.
 
-Do not use as ceremony for Tiny/Fast Lane unless the user asks or the creative output can change the exact decision.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Procedure
-1. Read `TASK.md`, current scope, constraints, non-goals, and evidence.
-2. If triggered by a new event, classify it with `docs/OPPORTUNITY_EVENTS.md`.
-3. Define the decision to improve.
-4. Pick one method from `docs/CREATIVE_METHODS.md`.
-5. Generate candidates compactly.
-6. Filter candidates by user value, feasibility, evidence, risk, accessibility, privacy/security, performance, delivery, and verification.
-7. Shortlist 1–3 options.
-8. Identify required owner-role review before plan changes.
-9. Update `TASK.md`/`CHRONICLE.md` only if the event changes scope, risk, acceptance criteria, team, or decision log.
-10. Ask for approval before implementation or scope change.
+## Inputs
+
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
+
+## Process
+
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
 ## Output schema
-Use `Creative Enhancement Brief` from `docs/CREATIVE_METHODS.md`.
 
-## Guardrails
-- Creative output is hypothesis generation, not evidence.
-- Do not invent user research, market facts, analytics, or legal/security conclusions.
-- Do not expand scope without approval.
-- Do not bypass quality or risk gates.
-- Prefer one high-leverage method over many decorative methods.
+```markdown
+## Skill output: creative-improvement-loop
 
+### Context
 
-## v1.5 event classes
+### Steps performed
 
-Classify opportunity events as OE-0, OE-1, OE-2, OE-3, or OE-4 using `docs/OPPORTUNITY_EVENTS.md`.
+### Findings
 
-At most one creative loop per planning cycle unless the user explicitly asks for an ideation sprint. Park good but out-of-scope ideas instead of re-opening approved scope.
+### Evidence / assumptions
+
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

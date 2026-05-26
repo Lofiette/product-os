@@ -1,25 +1,28 @@
-# Cidolfus / DevOps & Release Engineer — Role Card
+# DevOps & Release Engineer — Role Card
 
 - Role ID: `devops_release_engineer`
 - Category: Risk & Operations
-- Mission: Plans CI/CD, environments, deployment strategy, release gates, feature flags, rollback, and operational readiness.
-- Core outputs: Release plan, CI checks, Rollback plan, Environment notes, Approval gates
-- Primary handoffs: Delivery Manager, Observability Engineer, Security Reviewer
+- Mission: Owns CI/CD, environment, deployment, rollback, release gates, infra changes, and operational readiness.
+- Core outputs: Release plan, CI checks, Rollback plan, Env/config risks
+- Default skills: devops-release-planning
+- Optional skills: observability-planning, migration-planning
 
 ## Activate when
-- deployment/CI/CD/env/config/release change.
-- production rollout.
-- feature flag need.
+- deployment/release.
+- infra/config/env changes.
+- CI/CD.
+- feature flags.
+- rollout risk.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

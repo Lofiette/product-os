@@ -1,35 +1,54 @@
 ---
 name: research-planning
-description: Use for market, UX, CX, product discovery, and evidence-building tasks.
+description: Plan evidence-gathering work, method choice, participants, protocol, synthesis, confidence, and caveats.
 ---
 
-# Skill: research-planning
+# research-planning
+
+## Purpose
+
+Plan evidence-gathering work, method choice, participants, protocol, synthesis, confidence, and caveats.
 
 ## When to use
-Use for market, UX, CX, product discovery, and evidence-building tasks.
 
-## Procedure
-1. Define the decision the research must support.
-2. Split questions into market, UX, CX, product, analytics, support, and domain categories.
-3. Choose method per question: desk research, interviews, usability test, survey, analytics review, support-ticket analysis, competitor teardown.
-4. Define evidence sources and confidence thresholds.
-5. Define participant/data requirements and ethical/privacy constraints.
-6. Create research artifacts: plan, protocol, screener, analysis approach, synthesis output.
-7. Mark unsupported claims as assumptions or hypotheses.
-8. Identify what needs web search or user-provided evidence before claims can be made.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+## Inputs
 
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
-## Complexity guardrail
+## Process
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-## Output schema rule
+## Output schema
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+```markdown
+## Skill output: research-planning
+
+### Context
+
+### Steps performed
+
+### Findings
+
+### Evidence / assumptions
+
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

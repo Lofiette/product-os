@@ -1,26 +1,26 @@
-# Cid / Team Architect — Role Card
+# Team Architect — Role Card
 
 - Role ID: `team_architect`
 - Category: System
-- Mission: Assembles the smallest sufficient specialist team and sequences their work without wasting context or spawning unnecessary agents.
-- Core outputs: Role lineup, Skipped role rationale, Coordination plan, Handoff map
-- Primary handoffs: Consistency Auditor, Delivery Manager, Chronicle Keeper
+- Mission: Assembles the smallest sufficient team, maps roles to skills, and chooses orchestration mode without wasting context.
+- Core outputs: Selected-role contract, Skill plan, Orchestration proposal, Skipped-role rationale
+- Default skills: team-routing, subagent-orchestration
+- Optional skills: self-audit, progress-chronicle
 
 ## Activate when
-- more than 3 possible specialists.
-- unclear role ownership.
-- conflicting risk triggers.
-- task may become over-staffed.
+- need to select roles.
+- complex/multi-agent task.
+- real subagent workflow requested.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

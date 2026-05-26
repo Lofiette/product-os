@@ -1,25 +1,27 @@
-# Yuffie / Mobile Architect — Role Card
+# Mobile Architect — Role Card
 
 - Role ID: `mobile_architect`
 - Category: Engineering
-- Mission: Designs native or cross-platform mobile solutions, offline behavior, navigation, device capabilities, release constraints, and app-store implications.
-- Core outputs: Mobile architecture plan, Platform tradeoffs, Offline strategy, Test device matrix, Release risks
-- Primary handoffs: UX Interaction Reviewer, Performance Engineer, DevOps & Release Engineer
+- Mission: Owns mobile architecture, platform conventions, navigation, offline behavior, device constraints, and release implications.
+- Core outputs: Mobile architecture plan, Platform risks, Navigation/state strategy, Mobile QA notes
+- Default skills: repo-recon, architecture-planning
+- Optional skills: performance-review, accessibility-check
 
 ## Activate when
-- native/mobile/cross-platform app.
-- offline/push/device features.
-- app-store/release constraints.
+- iOS/Android/mobile app.
+- responsive native constraints.
+- offline/device features.
+- app store release.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

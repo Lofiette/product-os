@@ -1,140 +1,84 @@
 # TASK.md — Live Task Brief
 
 ## Status
-- Status: empty
-- Current phase: intake not started
-- Work mode: unknown
+- Task status: Unbriefed
+- Current phase: Intake
+- Work mode: TBD
 - Complexity tier: TBD
-- Last updated: not set
-
-## User request
-_Not captured yet._
-
-## Problem and outcome
-- Problem:
-- Desired outcome:
-- Target users:
-- Success criteria:
-
-## Work mode
-Choose one or more:
-- Research
-- Strategy
-- Prototype
-- Proof of Concept
-- MVP
-- Production change
-- Bugfix
-- Refactor
-- Audit/review
-- Incident
-- AI/ML feature
-- Opportunity event / improvement loop
-
-## Scope
-### In scope
-
-### Out of scope
-
-### Non-goals
-
-## Product, UX, and content context
-- Audience:
-- Main flows:
-- Visual/design direction:
-- Design system:
-- UX writing/tone:
-- Accessibility requirements:
-
-## Technical context
-- Platform:
-- Stack:
-- Existing repository:
-- Repo Recon status: not needed / needed / completed / blocked
-- Data/storage:
-- APIs/integrations:
-- AI/ML components:
-- Deployment target:
+- Orchestration mode: TBD
 
 ## Language policy
 - User communication language: Russian
-- Control artifacts language: compact English
+- Durable control artifacts language: compact English
 - Product UI language: TBD
-- UX copy language: same as product UI language unless specified
-- Code/comment language: existing project convention, otherwise compact English
 
-## Constraints
-- Time:
-- Technical:
-- Design:
-- Research:
-- Security/privacy:
-- Performance:
-- Legal/compliance:
-- Dependencies:
+## User request
+TBD
 
-## Evidence and assumptions
-### Evidence
+## Product context
+- Product/domain: TBD
+- Target users: TBD
+- User problem: TBD
+- Desired outcome: TBD
 
-### Assumptions
+## Scope
+### In scope
+TBD
 
-### Hypotheses
+### Out of scope
+TBD
 
-## Team and role budget
-- Active role budget: TBD
-- Active roles used: TBD
-- System services used: TBD
-- Consulted role cards: TBD
+### Non-goals
+TBD
 
-### Required system services
+## Design-system context
+- DS mode: TBD (`none`, `emerging`, `component_library`, `documented_ds`, `governed_ds`)
+- DS source of truth: TBD
+- Component registry: TBD
+- Token system: TBD
+- DS folder/docs loaded: TBD
+- Custom UI policy: blocked if DS component exists unless approved
+- Approved DS deviations: none
 
-### Active specialist roles
+## Technical context
+- Existing repository: TBD
+- Platform/surface: TBD
+- Stack/package manager/scripts: TBD
+- Repo recon status: not run
+- Design recon status: not run
 
-### Skipped roles and rationale
+## Role-skill plan
+| Role | Execution mode | Spawn name | Artifact | Skills | Approval status |
+|---|---|---|---|---|---|
 
-## Approved plan
-_Not approved yet._
+## Orchestration
+- Real subagents spawned: no
+- Spawned agents: none
+- Simulated roles: none
+- System services: none
+- Skills loaded: none
+
+## Acceptance criteria
+TBD
+
+## Quality gates
+- Product gate: TBD
+- Design-system compliance gate: TBD
+- UI quality gate: TBD
+- Engineering gate: TBD
+- Risk gate: TBD
+- Review level: TBD
 
 ## Verification plan
-
-## Review plan
-- Review level: TBD
-- Reviewer roles/services: TBD
-
-## Risk register summary
+TBD
 
 ## Open questions
+TBD
 
-## Decision log
-
-## Complexity tier
-
-- Tier: TBD
-- Reason: TBD
-- Question budget used: TBD
-- Active role budget used: TBD
-- Exception approval needed: No
-
-## Context budget
-
-- Startup loading tier: TBD
-- Documents loaded: TBD
-- Role cards loaded: TBD
-- Full playbooks loaded: TBD
-- Skills loaded: TBD
-- Large-context loads and reasons: TBD
-
-## Selected-role contract
-
-| Role | Contributor class | Why selected | Artifact owned | Decision supported | Evidence required | Full playbook? | Stop condition |
-|---|---|---|---|---|---|---|---|
-
-## Opportunity events
-
-| Event ID | Class | Source | Evidence level | Affected decision | Impact | Owner role | Status |
-|---|---|---|---|---|---|---|---|
-
-## Parking lot
-
-| Idea | Source | Why parked | Revisit condition |
+## Decisions
+| Decision | Reason | Impact | Date |
 |---|---|---|---|
+
+## Context budget log
+| Stage | Docs loaded | Role cards | Full playbooks | Skills | Reason |
+|---|---|---|---|---|---|

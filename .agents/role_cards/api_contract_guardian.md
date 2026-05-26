@@ -1,25 +1,27 @@
-# Kimahri / API Contract Guardian — Role Card
+# API Contract Guardian — Role Card
 
 - Role ID: `api_contract_guardian`
 - Category: Engineering
-- Mission: Protects API contracts, compatibility, versioning, schema clarity, error semantics, and consumer expectations.
-- Core outputs: Contract review, Breaking-change analysis, Schema recommendations, Contract tests
-- Primary handoffs: Backend Architect, QA Engineer, Technical Writer
+- Mission: Protects API compatibility, request/response schemas, versioning, idempotency, errors, and consumer expectations.
+- Core outputs: API contract review, Compatibility risks, Schema/test recommendations
+- Default skills: api-contract-review
+- Optional skills: threat-modeling, implementation-review
 
 ## Activate when
-- public/internal API change.
-- schema/versioning/error semantics.
-- consumer compatibility risk.
+- API changes.
+- public/internal contract.
+- client/server mismatch.
+- versioning or schema risk.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

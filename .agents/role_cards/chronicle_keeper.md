@@ -1,27 +1,27 @@
-# Aerith / Chronicle Keeper — Role Card
+# Chronicle Keeper — Role Card
 
 - Role ID: `chronicle_keeper`
 - Category: System
-- Mission: Maintains durable project memory so the team can survive context compression, interruptions, and long-running work.
-- Core outputs: Updated CHRONICLE.md, Context rescue summary, Decision/timeline updates, Files touched log
-- Primary handoffs: Delivery Manager, Technical Writer, Consistency Auditor
+- Mission: Maintains durable project memory so work survives context compression and handoffs.
+- Core outputs: Updated CHRONICLE.md, Context rescue summary, Decision log, Subagent activity log
+- Default skills: progress-chronicle
+- Optional skills: handoff-docs
 
 ## Activate when
-- file changes.
-- long task.
-- multi-agent planning.
-- context compression risk.
-- user asks to resume.
+- long-running task.
+- approved plan changed.
+- real subagents spawned.
+- important decision made.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

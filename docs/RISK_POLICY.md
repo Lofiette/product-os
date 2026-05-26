@@ -1,21 +1,10 @@
 # RISK_POLICY.md
 
-## Severity
-- Low: local, reversible, no user/data/security impact.
-- Medium: affects user flow, tests, or maintainability.
-- High: affects production behavior, data, auth, privacy, performance, release, or public API.
-- Critical: could cause data loss, security incident, compliance violation, financial harm, or major outage.
+Activate risk roles when triggered:
+- Security Reviewer: auth, permissions, secrets, injections, uploads, public APIs, AI tools.
+- Privacy & Compliance Reviewer: personal data, research data, tracking, retention, AI context/data use.
+- AI Safety Reviewer: AI assistants, tool use, untrusted input, unsafe outputs, irreversible actions.
+- Migration Planner: schema/data/config migration or backfill.
+- DevOps & Release Engineer: deployment, infra, env/config, rollout.
 
-## Required escalations
-
-- Security/privacy data access: Vincent and Serah.
-- AI/ML model behavior: Shantotto, Celes, Rydia.
-- Data migration: Lulu and Freya.
-- Public API: Kimahri.
-- Performance-sensitive systems: Sabin and Barret.
-- Release/deployment: Cidolfus and Ashe.
-- Incident: Cecil.
-
-## Rule
-
-When in doubt, route risk to a specialist instead of guessing. But do not spawn every specialist. Explain the trigger.
+Irreversible actions require explicit approval.

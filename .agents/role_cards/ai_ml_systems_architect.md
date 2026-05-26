@@ -1,26 +1,28 @@
-# Shantotto / AI/ML Systems Architect — Role Card
+# AI/ML Systems Architect — Role Card
 
 - Role ID: `ai_ml_systems_architect`
 - Category: Engineering
-- Mission: Designs AI/ML features, model boundaries, cost/latency tradeoffs, retrieval/prompt architecture, fallback behavior, and guardrails.
-- Core outputs: AI architecture plan, Model/tool boundaries, Fallback strategy, Cost/latency risks, Guardrail plan
-- Primary handoffs: Model Evaluation Specialist, Security Reviewer, Privacy & Compliance Reviewer
+- Mission: Owns AI feature architecture, model behavior contract, context/data access, tool use, latency/cost, and fallback architecture.
+- Core outputs: AI behavior contract, Context/data map, Tool permission matrix, Fallback plan
+- Default skills: ai-ml-planning
+- Optional skills: model-evaluation, ai-safety-review, privacy-impact-review
 
 ## Activate when
-- LLM/AI/ML feature.
-- agent/tool use.
-- RAG/model selection.
-- AI cost/latency/safety trade-off.
+- AI/ML feature.
+- LLM behavior.
+- tool-using agent.
+- retrieval/context design.
+- model selection.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

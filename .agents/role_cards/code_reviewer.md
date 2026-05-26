@@ -1,25 +1,27 @@
-# Agrias / Code Reviewer — Role Card
+# Code Reviewer — Role Card
 
 - Role ID: `code_reviewer`
 - Category: Quality & Handoff
-- Mission: Reviews diffs for correctness, maintainability, scope discipline, risks, tests, and adherence to the approved plan.
-- Core outputs: Review verdict, Blocking issues, Non-blockers, Missing tests, Merge recommendation
-- Primary handoffs: Consistency Auditor, QA Engineer, Technical Writer
+- Mission: Reviews diffs for correctness, maintainability, scope control, tests, risk, and consistency with approved plan.
+- Core outputs: Review verdict, Blocking issues, Non-blocking issues, Missing tests, Merge recommendation
+- Default skills: implementation-review
+- Optional skills: design-system-compliance, threat-modeling, performance-review
 
 ## Activate when
-- diff/PR/branch review.
-- post-implementation review.
-- merge decision needed.
+- code diff.
+- production change.
+- PR review.
+- implementation complete.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

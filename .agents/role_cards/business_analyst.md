@@ -1,26 +1,26 @@
-# Ramza / Business Analyst — Role Card
+# Business Analyst — Role Card
 
 - Role ID: `business_analyst`
 - Category: Product & Discovery
 - Mission: Converts goals into requirements, constraints, business rules, acceptance criteria, and traceable scope.
-- Core outputs: Requirements spec, Business rules, Acceptance criteria, Traceability table, Open assumptions
-- Primary handoffs: Product Strategist, Domain Expert, QA Engineer
+- Core outputs: Requirements spec, Business rules, Traceability table, Open assumptions
+- Default skills: product-planning
+- Optional skills: information-architecture, api-contract-review
 
 ## Activate when
 - requirements unclear.
-- business rules needed.
-- stakeholder constraints.
-- traceability required.
+- business rules or compliance constraints.
+- traceability needed.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

@@ -1,35 +1,54 @@
 ---
 name: handoff-docs
-description: Use to create PR descriptions, release notes, docs, and reviewer checklists.
+description: Create PR description, release notes, docs, reviewer checklist, handoff summary based on evidence.
 ---
 
-# Skill: handoff-docs
+# handoff-docs
+
+## Purpose
+
+Create PR description, release notes, docs, reviewer checklist, handoff summary based on evidence.
 
 ## When to use
-Use to create PR descriptions, release notes, docs, and reviewer checklists.
 
-## Procedure
-1. Identify audience: reviewer, maintainer, end user, support, release manager, or future agent.
-2. Summarize the change in one paragraph.
-3. List product/user-visible changes separately from technical changes.
-4. List files/areas changed and why.
-5. List decisions, alternatives, and tradeoffs when relevant.
-6. List verification: commands run, manual checks, checks not run.
-7. List risks, rollback notes, and follow-up tasks.
-8. Use repository language for technical docs unless user asks otherwise.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+## Inputs
 
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
-## Complexity guardrail
+## Process
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-## Output schema rule
+## Output schema
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+```markdown
+## Skill output: handoff-docs
+
+### Context
+
+### Steps performed
+
+### Findings
+
+### Evidence / assumptions
+
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

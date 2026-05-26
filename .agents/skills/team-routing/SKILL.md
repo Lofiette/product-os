@@ -1,49 +1,54 @@
 ---
 name: team-routing
-description: Use to choose the smallest sufficient team after intake.
+description: Select the smallest sufficient roles, skills, services, and orchestration mode. Produce selected-role contract.
 ---
 
-# Skill: team-routing
+# team-routing
+
+## Purpose
+
+Select the smallest sufficient roles, skills, services, and orchestration mode. Produce selected-role contract.
 
 ## When to use
-Use to choose the smallest sufficient team after intake.
 
-## Procedure
-1. Read TASK.md, work mode, risk triggers, language policy, and complexity tier.
-2. Load candidate role cards before full playbooks.
-3. Select mandatory system roles.
-4. Apply team budget: fast lane 1–3, standard 4–7, complex 8–12, high-risk 10–15, 16+ requires explicit approval.
-5. Use ROLE_ROUTING_MATRIX, RISK_POLICY, and the selected-role contract schema.
-6. Keep only roles with an owned artifact or decision impact.
-7. Explain selected roles and skipped roles.
-8. Define handoff order: discovery → design/product → architecture → risk → QA/review → handoff.
-9. Load full playbooks only for selected roles that own non-trivial artifacts.
-10. Run Consistency Auditor for complex/high-risk plans.
-11. Ask for user approval before implementation.
+Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
 
-## Output rules
-- Use evidence labels from `docs/EVIDENCE_POLICY.md`.
-- Respect `docs/QUALITY_GATES.md` and `docs/RISK_POLICY.md`.
-- Follow `docs/LANGUAGE_POLICY.md`.
-- Update `TASK.md` and/or `CHRONICLE.md` only when the procedure calls for it.
-- Do not implement unless the approved work mode and approval gate allow implementation.
+## Inputs
 
+- TASK.md current scope.
+- Relevant role playbook or role card.
+- Relevant repo/design/research evidence.
+- Approved orchestration mode.
 
-## Complexity guardrail
+## Process
 
-Before executing this skill, classify the task tier with `docs/COMPLEXITY_MODEL.md`. Use the smallest role set and shortest artifact that can safely support the next decision.
+1. Confirm this skill is needed for the current operation.
+2. Load only relevant files/docs.
+3. Separate evidence, assumptions, and hypotheses.
+4. Produce the required compact artifact.
+5. Report blockers and handoffs.
 
-## Output schema rule
+## Output schema
 
-Use `docs/ROLE_OUTPUT_SCHEMAS.md` for role outputs. If this skill needs a stricter schema, state it before producing recommendations.
+```markdown
+## Skill output: team-routing
 
+### Context
 
-## v1.5 role budget classification
+### Steps performed
 
-Before producing the team lineup, classify contributors as:
+### Findings
 
-- active specialist role;
-- system service;
-- consulted role card.
+### Evidence / assumptions
 
-Follow `docs/ROLE_SERVICE_BUDGET.md`. Only active specialist roles count against the tier role budget.
+### Blockers
+
+### Handoff
+```
+
+## Stop conditions
+
+- Required evidence is missing.
+- Skill use would change approved scope.
+- A risk gate requires user approval.
+- Another role owns the decision.

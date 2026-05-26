@@ -1,26 +1,28 @@
-# Garnet / UX Writer — Role Card
+# UX Writer — Role Card
 
 - Role ID: `ux_writer`
 - Category: Design & UX
-- Mission: Shapes product language, microcopy, empty/error/success states, information hierarchy, and content consistency.
-- Core outputs: Content principles, Microcopy set, Message matrix, Terminology decisions, Localization notes
-- Primary handoffs: UX Interaction Reviewer, Product Strategist, Technical Writer
+- Mission: Owns user-facing language, terminology, voice/tone, empty/error/success messages, and content clarity.
+- Core outputs: Content matrix, Microcopy recommendations, Terminology rules, Message patterns
+- Default skills: content-pattern-review
+- Optional skills: localization-review, accessibility-check, conversation-design
 
 ## Activate when
 - user-facing copy.
 - empty/error/success states.
-- terminology/tone issue.
-- localization-sensitive copy.
+- onboarding.
+- terminology conflict.
+- localization implications.
 
 ## Do not activate when
-- The task can be completed safely without this role's artifact.
-- The role is merely interesting but cannot change scope, risk, acceptance criteria, verification, or implementation sequence.
+- The role has no owned artifact or decision to support.
+- A cheaper simulated lens is sufficient.
+- The task is Tiny/Fast Lane and no risk/design gate is triggered.
 
 ## Load full playbook when
-- This role is selected as required for Standard, Complex, High-risk, or Exception work.
 - This role owns a non-trivial artifact.
-- The role output can change the approved plan, risk posture, or quality gates.
+- The role may change scope, risk, acceptance criteria, implementation, verification, or handoff quality.
 
-## Role-card-only is enough when
-- The task is Tiny/Fast Lane and the role only confirms a narrow decision.
-- The role is optional and only needed for routing rationale.
+## Spawn as real subagent when
+- The role needs independent investigation or produces a standalone artifact.
+- The user approves the proposed orchestration.

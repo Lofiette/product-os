@@ -2,61 +2,6 @@
   "version": "2.0",
   "scenarios": [
     {
-      "id": "tiny_copy_change",
-      "description": "Rename a button label",
-      "max_questions": 2,
-      "max_active_roles": 1,
-      "required_skills": [],
-      "forbidden_spawn": true,
-      "expected_mode": "role_simulation_or_main_thread"
-    },
-    {
-      "id": "ui_prototype_no_ds",
-      "description": "Build UI prototype with no design system",
-      "required_roles": [
-        "product_designer",
-        "design_engineer"
-      ],
-      "required_skills": [
-        "design-recon",
-        "screen-redesign",
-        "state-matrix",
-        "ui-heuristic-audit"
-      ],
-      "expected_ds_mode": "none"
-    },
-    {
-      "id": "screen_redesign_existing_ds",
-      "description": "Redesign screen in repo with component library",
-      "required_roles": [
-        "product_designer",
-        "design_system_guardian",
-        "design_engineer"
-      ],
-      "required_skills": [
-        "repo-recon",
-        "design-recon",
-        "screen-redesign",
-        "design-system-compliance",
-        "visual-qa-loop"
-      ]
-    },
-    {
-      "id": "governed_ds_folder",
-      "description": "Task includes rich DS folder with instructions and component specs",
-      "required_roles": [
-        "design_system_guardian",
-        "design_engineer",
-        "product_designer"
-      ],
-      "required_skills": [
-        "design-recon",
-        "design-system-manifest",
-        "design-system-compliance"
-      ],
-      "expected_ds_mode": "governed_ds"
-    },
-    {
       "id": "ai_tool_agent",
       "description": "AI agent can act on user data with confirmation",
       "required_roles": [
@@ -75,29 +20,15 @@
       ]
     },
     {
-      "id": "service_journey",
-      "description": "User experience crosses support and operations",
+      "id": "backend_bugfix",
+      "description": "Backend bug with API behavior",
       "required_roles": [
-        "service_designer",
-        "cx_researcher"
+        "backend_architect",
+        "qa_engineer"
       ],
       "required_skills": [
-        "service-blueprint",
-        "cx-journey-mapping"
-      ]
-    },
-    {
-      "id": "dashboard_design",
-      "description": "Design dashboard with charts and metrics",
-      "required_roles": [
-        "data_visualization_designer",
-        "analytics_engineer",
-        "product_designer"
-      ],
-      "required_skills": [
-        "data-visualization-review",
-        "analytics-planning",
-        "screen-redesign"
+        "repo-recon",
+        "api-contract-review"
       ]
     },
     {
@@ -115,24 +46,176 @@
       ]
     },
     {
+      "id": "dashboard_design",
+      "description": "Design dashboard with charts and metrics",
+      "required_roles": [
+        "data_visualization_designer",
+        "analytics_engineer",
+        "product_designer"
+      ],
+      "required_skills": [
+        "data-visualization-review",
+        "analytics-planning",
+        "screen-redesign"
+      ]
+    },
+    {
       "id": "existing_repo_feature_change",
       "description": "Feature change in existing repo",
       "required_skills": [
         "repo-recon"
       ],
-      "expected_first_step": "repo-recon"
+      "expected_first_step": "repo-recon",
+      "required_roles": [
+        "frontend_architect"
+      ]
     },
     {
-      "id": "backend_bugfix",
-      "description": "Backend bug with API behavior",
+      "id": "governed_ds_folder",
+      "description": "Task includes rich DS folder with instructions and component specs",
       "required_roles": [
-        "backend_architect",
+        "design_system_guardian",
+        "design_engineer",
+        "product_designer"
+      ],
+      "required_skills": [
+        "design-recon",
+        "design-system-manifest",
+        "design-system-compliance"
+      ],
+      "expected_ds_mode": "governed_ds"
+    },
+    {
+      "id": "module_design_handoff_ds",
+      "request": "Design a full product module for later developer rebuild using our documented design-system rules. Do not implement code yet.",
+      "expected_complexity": "Complex",
+      "required_roles": [
+        "product_designer",
+        "information_architect",
+        "design_system_guardian",
+        "ux_writer",
+        "design_engineer",
         "qa_engineer"
+      ],
+      "optional_roles": [
+        "product_strategist",
+        "accessibility_specialist",
+        "frontend_architect"
+      ],
+      "required_skills": [
+        "design-recon",
+        "module-design",
+        "design-system-manifest",
+        "design-system-compliance",
+        "design-handoff-qa",
+        "handoff-docs"
+      ],
+      "forbidden_skills": [
+        "production-service-planning"
+      ],
+      "max_questions": 7,
+      "must_not_implement": true,
+      "must_not_spawn_without_approval": true
+    },
+    {
+      "id": "opportunity_event",
+      "description": "Support suggests a better idea mid-task",
+      "required_skills": [
+        "opportunity-event-triage"
+      ],
+      "requires_approval_if": "OE-2 or higher"
+    },
+    {
+      "id": "production_web_service_code_ds",
+      "request": "Plan and implement a production web service in an existing repo. The design system exists in code.",
+      "expected_complexity": "High-risk",
+      "required_roles": [
+        "product_strategist",
+        "solution_architect",
+        "frontend_architect",
+        "backend_architect",
+        "product_designer",
+        "design_system_guardian",
+        "design_engineer",
+        "qa_engineer"
+      ],
+      "optional_roles": [
+        "security_reviewer",
+        "privacy_compliance_reviewer",
+        "api_contract_guardian",
+        "data_architect",
+        "devops_release_engineer",
+        "performance_engineer",
+        "code_reviewer"
       ],
       "required_skills": [
         "repo-recon",
-        "api-contract-review"
+        "design-recon",
+        "production-service-planning",
+        "production-readiness-review",
+        "design-system-compliance",
+        "ds-code-contract-enforcement",
+        "implementation-review"
+      ],
+      "max_questions": 9,
+      "must_use_phased_orchestration": true,
+      "must_not_spawn_without_approval": true
+    },
+    {
+      "id": "screen_redesign_existing_ds",
+      "description": "Redesign screen in repo with component library",
+      "required_roles": [
+        "product_designer",
+        "design_system_guardian",
+        "design_engineer"
+      ],
+      "required_skills": [
+        "repo-recon",
+        "design-recon",
+        "screen-redesign",
+        "design-system-compliance",
+        "visual-qa-loop"
       ]
+    },
+    {
+      "id": "service_journey",
+      "description": "User experience crosses support and operations",
+      "required_roles": [
+        "service_designer",
+        "cx_researcher"
+      ],
+      "required_skills": [
+        "service-blueprint",
+        "cx-journey-mapping"
+      ]
+    },
+    {
+      "id": "tiny_copy_change",
+      "description": "Rename a button label",
+      "max_questions": 2,
+      "max_active_roles": 1,
+      "required_skills": [],
+      "forbidden_spawn": true,
+      "expected_mode": "role_simulation_or_main_thread"
+    },
+    {
+      "id": "ui_prototype_no_ds",
+      "description": "Build UI prototype with no design system",
+      "required_roles": [
+        "product_designer",
+        "design_engineer",
+        "design_system_guardian"
+      ],
+      "required_skills": [
+        "design-recon",
+        "prototype-ui-kit",
+        "screen-redesign",
+        "state-matrix",
+        "ui-heuristic-audit"
+      ],
+      "expected_ds_mode": "none",
+      "max_roles": 5,
+      "must_not_spawn_without_approval": true
     },
     {
       "id": "ux_research_only",
@@ -144,14 +227,6 @@
         "ux-research-planning"
       ],
       "forbidden_implementation": true
-    },
-    {
-      "id": "opportunity_event",
-      "description": "Support suggests a better idea mid-task",
-      "required_skills": [
-        "opportunity-event-triage"
-      ],
-      "requires_approval_if": "OE-2 or higher"
     }
   ]
 }

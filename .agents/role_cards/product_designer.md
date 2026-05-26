@@ -27,3 +27,7 @@
 ## Spawn as real subagent when
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
+
+## Beta 1 runtime note
+
+Beta 1: for UI/module work, request screen-redesign or module-design; for no-DS prototypes, request prototype-ui-kit before implementation.

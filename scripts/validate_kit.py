@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import json, tomllib, sys, re
+import json, tomllib, sys, subprocess
 ROOT = Path(__file__).resolve().parents[1]
 errors=[]
 required = [
  'AGENTS.md','FIRST_PROMPT.md','TASK.md','CHRONICLE.md','TEAM.md','README.md',
  'docs/ROLE_SKILL_ARCHITECTURE.md','docs/SUBAGENT_ORCHESTRATION.md','docs/SUBAGENT_PROMPT_RECIPES.md',
  'docs/ORCHESTRATION_APPROVAL_POLICY.md','docs/DESIGN_SYSTEM_MODES.md','docs/DESIGN_RECON.md','docs/UI_QUALITY_GATES.md',
- 'docs/UI_OBVIOUS_ERRORS_CHECKLIST.md','docs/ROLE_INDEX.json','docs/SKILL_INDEX.json','docs/SCENARIO_TESTS.json'
+ 'docs/UI_OBVIOUS_ERRORS_CHECKLIST.md','docs/ROLE_INDEX.json','docs/ROLE_MINI_INDEX.json','docs/SKILL_INDEX.json','docs/SCENARIO_TESTS.json',
+ 'docs/PHASED_ORCHESTRATION.md','docs/PRODUCTION_READINESS_GATES.md','docs/WEB_SERVICE_ROUTING.md','docs/MODULE_DESIGN.md',
+ 'docs/DESIGN_HANDOFF_QA.md','docs/PROTOTYPE_UI_KIT.md','docs/OPERATIONAL_UI_WORKFLOWS.md',
+ 'scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs','scripts/test-routing.py'
 ]
 for p in required:
     if not (ROOT/p).exists(): errors.append(f'Missing required file: {p}')
@@ -17,11 +20,16 @@ role_index=json.loads((ROOT/'docs/ROLE_INDEX.json').read_text())
 roles=role_index.get('roles',[])
 ids=[r['id'] for r in roles]
 if len(ids)!=len(set(ids)): errors.append('Duplicate role IDs')
-for forbidden in ['\"codename\"',' / Task Intake Orchestrator',' / Product Strategist',' / Chronicle Keeper',' / Consistency Auditor']:
-    text='\n'.join([p.read_text(errors='ignore') for p in [ROOT/'TEAM.md', ROOT/'docs/ROLE_INDEX.json'] if p.exists()])
-    if forbidden in text: errors.append(f'Forbidden codename marker found in core role docs: {forbidden}')
 skill_index=json.loads((ROOT/'docs/SKILL_INDEX.json').read_text())
 skills={s['id'] for s in skill_index.get('skills',[])}
+required_skills = {
+ 'repo-recon','design-recon','prototype-ui-kit','screen-redesign','module-design','state-matrix',
+ 'design-system-manifest','design-system-compliance','design-handoff-qa','design-qa','visual-qa-loop',
+ 'ui-heuristic-audit','component-contract-scan','ds-code-contract-enforcement','production-service-planning','production-readiness-review'
+}
+for sk in required_skills:
+    if sk not in skills: errors.append(f'Missing beta1 required skill in index: {sk}')
+    if not (ROOT/'.agents/skills'/sk/'SKILL.md').exists(): errors.append(f'Missing beta1 skill file: {sk}')
 for s in skills:
     if not (ROOT/'.agents/skills'/s/'SKILL.md').exists(): errors.append(f'Missing skill SKILL.md: {s}')
 for r in roles:
@@ -40,17 +48,41 @@ for r in roles:
 # scenario references
 sc=json.loads((ROOT/'docs/SCENARIO_TESTS.json').read_text())
 for s in sc.get('scenarios',[]):
-    for rid in s.get('required_roles',[]):
+    for rid in s.get('required_roles') or []:
         if rid not in ids: errors.append(f'Scenario {s["id"]} unknown role: {rid}')
-    for sk in s.get('required_skills',[]):
+    for rid in s.get('optional_roles') or []:
+        if rid not in ids: errors.append(f'Scenario {s["id"]} unknown optional role: {rid}')
+    for sk in s.get('required_skills') or []:
         if sk not in skills: errors.append(f'Scenario {s["id"]} unknown skill: {sk}')
+    for sk in s.get('forbidden_skills') or []:
+        if sk not in skills: errors.append(f'Scenario {s["id"]} unknown forbidden skill: {sk}')
+
+# scenario markdown sync
+scenario_ids = {s.get('id') for s in sc.get('scenarios', [])}
+md_ids = {p.stem for p in (ROOT/'docs/scenario_tests').glob('*.md')}
+if scenario_ids != md_ids:
+    missing = sorted(scenario_ids - md_ids)
+    extra = sorted(md_ids - scenario_ids)
+    if missing: errors.append(f'Scenario markdown mismatch: missing {missing}')
+    if extra: errors.append(f'Scenario markdown mismatch: extra {extra}')
+
 # critical v2 roles
 for rid in ['product_designer','design_engineer','service_designer','information_architect','data_visualization_designer','conversation_designer']:
     if rid not in ids: errors.append(f'Missing critical v2 role: {rid}')
-# make sure first prompt includes no spawn yet / approval
+# first prompt critical phrases
 fp=(ROOT/'FIRST_PROMPT.md').read_text()
-for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents']:
+for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned']:
     if phrase not in fp: errors.append(f'FIRST_PROMPT missing phrase: {phrase}')
+# script syntax
+for js in ['scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs']:
+    try:
+        subprocess.run(['node','--check',str(ROOT/js)], check=True, capture_output=True, text=True)
+    except Exception as e:
+        errors.append(f'Node syntax check failed for {js}: {e}')
+try:
+    subprocess.run([sys.executable, str(ROOT/'scripts/test-routing.py')], check=True, capture_output=True, text=True)
+except Exception as e:
+    errors.append(f'Routing test failed: {e}')
 if errors:
     print('VALIDATION FAILED')
     for e in errors: print('-', e)

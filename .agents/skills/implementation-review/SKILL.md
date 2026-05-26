@@ -1,54 +1,53 @@
 ---
 name: implementation-review
-description: Review implementation against TASK, approved plan, tests, gates, risks, and output PASS/WARN/BLOCKED.
+description: Review implemented changes against approved scope, artifacts, tests, UI/DS gates, risks, and handoff requirements before completion.
 ---
+
 
 # implementation-review
 
 ## Purpose
 
-Review implementation against TASK, approved plan, tests, gates, risks, and output PASS/WARN/BLOCKED.
+Prevent “code compiles” from being treated as done when product/design/risk gates are unmet.
 
-## When to use
+## Procedure
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
-
-## Inputs
-
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. Compare diff against TASK.md approved scope.
+2. Check relevant artifacts exist: Screen Spec, Module Package, Production Plan, etc.
+3. Check tests/commands run or limitations stated.
+4. For UI tasks, require DS compliance, UI heuristic audit, and visual QA status.
+5. For production tasks, require production readiness status.
+6. Identify scope creep and unresolved blockers.
 
 ## Output schema
 
 ```markdown
-## Skill output: implementation-review
+## Implementation Review
 
-### Context
+### Verdict
+PASS / PASS WITH WARNINGS / BLOCKED
 
-### Steps performed
-
-### Findings
-
-### Evidence / assumptions
-
+### Scope match
+### Files changed
+### Required artifacts present
+### Tests/checks run
+### UI/design-system gates
+### Risk/production gates
 ### Blockers
-
-### Handoff
+### Approved exceptions
+### Merge/completion recommendation
 ```
+
+## BLOCKED conditions
+
+- Approved scope is violated.
+- Required UI/DS/risk gate is missing or failed.
+- Tests/checks claimed without evidence.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
+

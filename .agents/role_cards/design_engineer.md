@@ -26,3 +26,7 @@
 ## Spawn as real subagent when
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
+
+## Beta 1 runtime note
+
+Beta 1: owns UI fidelity in code; run DS code contract enforcement, component scan, raw UI scan, and visual QA when UI is implemented.

@@ -418,7 +418,10 @@
         "design-critique",
         "design-system-compliance",
         "creative-improvement-loop",
-        "visual-qa-loop"
+        "visual-qa-loop",
+        "prototype-ui-kit",
+        "module-design",
+        "design-handoff-qa"
       ],
       "handoffs": [
         "design_engineer",
@@ -582,7 +585,10 @@
       "optional": [
         "design-system-manifest",
         "design-critique",
-        "visual-qa-loop"
+        "visual-qa-loop",
+        "prototype-ui-kit",
+        "ds-code-contract-enforcement",
+        "component-contract-scan"
       ],
       "handoffs": [
         "product_designer",
@@ -617,7 +623,10 @@
       "optional": [
         "component-contract-scan",
         "design-system-manifest",
-        "screen-redesign"
+        "screen-redesign",
+        "ds-code-contract-enforcement",
+        "e2e-visual-state-capture",
+        "design-handoff-qa"
       ],
       "handoffs": [
         "frontend_architect",
@@ -808,7 +817,9 @@
       ],
       "optional": [
         "risk-review",
-        "api-contract-review"
+        "api-contract-review",
+        "production-service-planning",
+        "production-readiness-review"
       ],
       "handoffs": [
         "frontend_architect",
@@ -841,7 +852,10 @@
       "optional": [
         "design-system-compliance",
         "visual-qa-loop",
-        "component-contract-scan"
+        "component-contract-scan",
+        "repo-recon",
+        "ds-code-contract-enforcement",
+        "production-service-planning"
       ],
       "handoffs": [
         "design_engineer",
@@ -874,7 +888,9 @@
       "optional": [
         "api-contract-review",
         "threat-modeling",
-        "migration-planning"
+        "migration-planning",
+        "production-service-planning",
+        "production-readiness-review"
       ],
       "handoffs": [
         "api_contract_guardian",
@@ -1282,7 +1298,8 @@
       ],
       "optional": [
         "observability-planning",
-        "migration-planning"
+        "migration-planning",
+        "production-readiness-review"
       ],
       "handoffs": [
         "observability_engineer",
@@ -1437,7 +1454,10 @@
       "optional": [
         "ui-heuristic-audit",
         "accessibility-check",
-        "visual-qa-loop"
+        "visual-qa-loop",
+        "design-handoff-qa",
+        "production-readiness-review",
+        "e2e-visual-state-capture"
       ],
       "handoffs": [
         "code_reviewer",
@@ -1470,7 +1490,9 @@
       "optional": [
         "design-system-compliance",
         "threat-modeling",
-        "performance-review"
+        "performance-review",
+        "production-readiness-review",
+        "ds-code-contract-enforcement"
       ],
       "handoffs": [
         "qa_engineer",

@@ -29,3 +29,7 @@ A role-skill orchestration framework for Codex that simulates or spawns a produc
 - `docs/DESIGN_SYSTEM_MODES.md` — how to handle no DS vs rich DS folders.
 - `docs/DESIGN_RECON.md` — how to discover design system and UI patterns.
 - `docs/UI_QUALITY_GATES.md` — blocking UI quality checks.
+
+## 2.0 beta 1
+
+This beta hardens operational UI workflows, module design handoff, production readiness, DS enforcement scripts, and explicit spawned/simulated execution transparency. See `docs/RELEASE_NOTES_2.0_BETA1.md`.

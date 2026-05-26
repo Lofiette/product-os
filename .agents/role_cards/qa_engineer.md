@@ -26,3 +26,7 @@
 ## Spawn as real subagent when
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
+
+## Beta 1 runtime note
+
+Beta 1: for UI work, QA must include state matrix, UI heuristic audit, visual QA status, and DS compliance status.

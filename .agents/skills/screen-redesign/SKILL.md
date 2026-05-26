@@ -1,69 +1,61 @@
 ---
 name: screen-redesign
-description: Produce a Screen Design Spec for new/redesigned screens with purpose, hierarchy, actions, states, component tree, responsive behavior.
+description: Create or redesign a screen using user goals, information hierarchy, component tree, state matrix, content, accessibility, and implementation constraints.
 ---
+
 
 # screen-redesign
 
 ## Purpose
 
-Produce a Screen Design Spec for new/redesigned screens with purpose, hierarchy, actions, states, component tree, responsive behavior.
+Produce a screen-level design decision that can be implemented or reviewed without guessing.
 
-## When to use
+## Procedure
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
-
-## Inputs
-
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. State the user goal and product goal.
+2. Identify the current problem or desired outcome.
+3. Define primary and secondary actions.
+4. Define information hierarchy and screen anatomy.
+5. Create a component tree using existing DS components or prototype UI kit components.
+6. Create or reference a state matrix.
+7. Define content requirements and UX writing handoff.
+8. Define accessibility and responsive requirements.
+9. List alternatives considered and why the selected direction wins.
+10. Produce implementation handoff notes.
 
 ## Output schema
 
 ```markdown
-## Skill output: screen-redesign
+## Screen Design Spec
 
-### Context
-
-### Steps performed
-
-### Findings
-
-### Evidence / assumptions
-
-### Blockers
-
-### Handoff
+### User goal
+### Product goal
+### Current problem / opportunity
+### Constraints
+### Information hierarchy
+### Screen anatomy
+### Primary and secondary actions
+### Component tree
+### State matrix reference
+### Content requirements
+### Accessibility requirements
+### Responsive behavior
+### Alternatives considered
+### Selected solution and rationale
+### Implementation handoff
+### Design QA checklist
 ```
+
+## BLOCKED conditions
+
+- Screen has user-facing states but no state matrix.
+- Component tree ignores an existing DS.
+- Primary action is unclear.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
 
-## Required Screen Design Spec sections
-- user goal
-- product goal
-- screen purpose
-- information hierarchy
-- primary/secondary actions
-- state matrix
-- component tree
-- content matrix
-- accessibility requirements
-- responsive behavior
-- alternatives considered
-- selected solution rationale
-- implementation handoff

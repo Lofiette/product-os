@@ -1,65 +1,68 @@
 ---
 name: design-recon
-description: Discover design-system level, component registry, tokens, style conventions, UI patterns, Figma/design docs, and implementation constraints.
+description: Discover design-system mode, component registry, tokens, style conventions, UI patterns, DS docs/folders, Storybook/Figma links, and implementation constraints.
 ---
+
 
 # design-recon
 
 ## Purpose
 
-Discover design-system level, component registry, tokens, style conventions, UI patterns, Figma/design docs, and implementation constraints.
+Identify what design rules already exist before any UI design or implementation.
 
-## When to use
+## Required inputs
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
+- Repo Recon Brief, if an existing repo is present.
+- Any DS folder, component library, Storybook, Figma links, UI docs, token files, theme files.
+- Current task and UI surface.
 
-## Inputs
+## Procedure
 
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. Locate UI component directories and shared primitives.
+2. Locate token/theme/style sources: CSS variables, Tailwind config, theme files, design tokens, style dictionaries.
+3. Locate DS docs/instructions: `docs/design-system`, Storybook, README, MDX, Figma/design references.
+4. Classify DS mode: `none`, `emerging`, `component_library`, `documented_ds`, `governed_ds`.
+5. Build or update a component registry from evidence.
+6. Identify patterns for forms, settings, lists, tables, dialogs, empty states, errors, navigation, dashboards.
+7. Identify anti-patterns and local deviations.
+8. Record compliance gate severity.
 
 ## Output schema
 
 ```markdown
-## Skill output: design-recon
+## Design Recon Brief
 
-### Context
+### DS mode
+none / emerging / component_library / documented_ds / governed_ds
 
-### Steps performed
+### DS source of truth
 
-### Findings
+### Component registry
+| Need | Component/pattern | Source | Notes |
+|---|---|---|---|
 
-### Evidence / assumptions
+### Token system
 
-### Blockers
+### Existing UI patterns
 
-### Handoff
+### Anti-patterns / deviations observed
+
+### Relevant screens/components to inspect
+
+### Required compliance gate
+
+### Recommended next roles/skills
 ```
+
+## BLOCKED conditions
+
+- UI implementation requested in an existing repo but DS mode cannot be determined.
+- A governed/documented DS exists but relevant DS docs are ignored.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
 
-## Required Design Recon Brief sections
-- DS mode: none / emerging / component_library / documented_ds / governed_ds
-- DS source of truth
-- Component registry
-- Token system
-- Relevant patterns
-- Anti-patterns
-- DS docs loaded
-- Required compliance gate
-- Recommended next roles/skills

@@ -1,54 +1,43 @@
 ---
 name: state-matrix
-description: Define UI state matrix: empty, loading, success, error, disabled, permission, partial, optimistic, responsive edge cases.
+description: Define UI states and behaviors across empty, loading, success, error, disabled, permission, overflow, responsive, and edge-case conditions.
 ---
+
 
 # state-matrix
 
 ## Purpose
 
-Define UI state matrix: empty, loading, success, error, disabled, permission, partial, optimistic, responsive edge cases.
+Make UI behavior testable across real states instead of designing only the happy path.
 
-## When to use
+## Procedure
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
-
-## Inputs
-
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. Identify objects/entities and their lifecycle states.
+2. Identify async/data states: loading, partial, stale, empty, error, success.
+3. Identify interaction states: default, hover/focus, active, disabled, validation, destructive confirmation.
+4. Identify permission and role states.
+5. Identify overflow and responsive states.
+6. Define copy, components, and expected behavior per state.
+7. Mark blockers and states intentionally out of scope.
 
 ## Output schema
 
 ```markdown
-## Skill output: state-matrix
+## State Matrix
 
-### Context
-
-### Steps performed
-
-### Findings
-
-### Evidence / assumptions
-
-### Blockers
-
-### Handoff
+| State | User need | UI behavior | Copy | Component/pattern | Edge cases | Verification |
+|---|---|---|---|---|---|---|
 ```
+
+## BLOCKED conditions
+
+- Form/screen has error or empty cases but no defined behavior.
+- Disabled state exists without explanation or alternative path.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
+

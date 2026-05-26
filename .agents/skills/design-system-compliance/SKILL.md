@@ -1,61 +1,59 @@
 ---
 name: design-system-compliance
-description: Check UI changes against DS manifest, components, tokens, variants, anti-patterns, and approved deviations.
+description: Check that UI decisions and implementation use DS components, tokens, patterns, and approved deviations instead of custom lookalikes.
 ---
+
 
 # design-system-compliance
 
 ## Purpose
 
-Check UI changes against DS manifest, components, tokens, variants, anti-patterns, and approved deviations.
+Prevent “looks similar” UI from replacing actual design-system components and patterns.
 
-## When to use
+## Procedure
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
-
-## Inputs
-
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. Load Design Recon Brief and DS Manifest if present.
+2. Compare planned or implemented UI against component registry.
+3. Build a component usage map.
+4. Check raw colors, arbitrary spacing, inline styles, custom duplicated components, and local variants.
+5. Record deviations and approvals.
+6. If scripts are available, run:
+   - `node scripts/find-raw-ui-values.mjs <root>`
+   - `node scripts/check-component-imports.mjs <root>`
+7. Return gate verdict.
 
 ## Output schema
 
 ```markdown
-## Skill output: design-system-compliance
+## Design-System Compliance Report
 
-### Context
+### Verdict
+PASS / PASS WITH WARNINGS / BLOCKED
 
-### Steps performed
+### Components reused
+| Need | Component | Source | Evidence |
 
-### Findings
+### Token usage
 
-### Evidence / assumptions
+### Raw UI findings
 
-### Blockers
+### Custom UI / duplicate component findings
 
-### Handoff
+### Approved deviations
+
+### Required fixes
 ```
+
+## BLOCKED conditions
+
+- Existing DS component is bypassed by custom lookalike UI.
+- Raw colors/spacing are introduced in governed/documented DS mode.
+- Deviation lacks explicit approval.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
 
-## Blocking checks
-- custom duplicate of existing DS component
-- raw colors/spacing/radius when tokens exist
-- new variant without approval
-- missing state/pattern coverage
-- DS folder docs ignored

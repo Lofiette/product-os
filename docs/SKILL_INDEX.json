@@ -67,6 +67,10 @@
       "description": "Structured critique of design alternatives using goals, constraints, trade-offs, and evidence-labeled recommendations."
     },
     {
+      "id": "design-handoff-qa",
+      "description": "Validate design-only handoff packages so developers can rebuild without guessing."
+    },
+    {
       "id": "design-qa",
       "description": "Final design QA gate for UI tasks: screen spec coverage, DS fidelity, states, copy, accessibility, responsive behavior."
     },
@@ -85,6 +89,14 @@
     {
       "id": "devops-release-planning",
       "description": "Plan CI/CD, env/config, feature flags, deployment, rollout, rollback, and release gates."
+    },
+    {
+      "id": "ds-code-contract-enforcement",
+      "description": "Enforce DS code contracts using manifest, import scans, raw UI scans, and approved deviation records."
+    },
+    {
+      "id": "e2e-visual-state-capture",
+      "description": "Define and optionally run screenshot/state capture for key UI states and breakpoints."
     },
     {
       "id": "experiment-design",
@@ -131,6 +143,10 @@
       "description": "Create AI eval matrix, cases, failure taxonomy, rubrics, thresholds, and regression criteria."
     },
     {
+      "id": "module-design",
+      "description": "Design a full product module with IA, flows, screen inventory, component matrix, state matrix, content, accessibility, and developer handoff."
+    },
+    {
       "id": "observability-planning",
       "description": "Define logs, metrics, traces, dashboards, alerts, runbook hints, and debug signals."
     },
@@ -151,8 +167,20 @@
       "description": "Plan product scope, MVP slice, non-goals, user value, acceptance criteria, and success metrics."
     },
     {
+      "id": "production-readiness-review",
+      "description": "Run production readiness gates across product, architecture, UI/DS, security, privacy, performance, release, and verification."
+    },
+    {
+      "id": "production-service-planning",
+      "description": "Plan production web/service work using phased orchestration and readiness gates."
+    },
+    {
       "id": "progress-chronicle",
       "description": "Update CHRONICLE compactly with decisions, current state, next action, risks, files, subagent activity."
+    },
+    {
+      "id": "prototype-ui-kit",
+      "description": "Create a lightweight local UI contract for fast prototypes when no design system exists."
     },
     {
       "id": "refactoring-planning",

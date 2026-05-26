@@ -1,54 +1,52 @@
 ---
 name: design-qa
-description: Final design QA gate for UI tasks: screen spec coverage, DS fidelity, states, copy, accessibility, responsive behavior.
+description: Validate a screen/module design or implementation against specs, states, DS rules, accessibility, copy, responsive behavior, and handoff requirements.
 ---
+
 
 # design-qa
 
 ## Purpose
 
-Final design QA gate for UI tasks: screen spec coverage, DS fidelity, states, copy, accessibility, responsive behavior.
+Provide a final design-quality gate before handoff or completion.
 
-## When to use
+## Procedure
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
-
-## Inputs
-
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. Load the relevant design artifact: Screen Design Spec, Module Design Package, or Prototype UI Kit Contract.
+2. Load DS Compliance Report if DS exists.
+3. Run or reference UI Heuristic Audit.
+4. Check state matrix coverage.
+5. Check content/copy completeness.
+6. Check accessibility basics.
+7. Check responsive assumptions.
+8. Return a gate verdict.
 
 ## Output schema
 
 ```markdown
-## Skill output: design-qa
+## Design QA Report
 
-### Context
-
-### Steps performed
-
-### Findings
-
-### Evidence / assumptions
-
-### Blockers
-
-### Handoff
+### Artifact checked
+### Verdict
+PASS / PASS WITH WARNINGS / BLOCKED
+### Missing states
+### DS compliance issues
+### Copy/content issues
+### Accessibility issues
+### Responsive issues
+### Required fixes before done
+### Approved exceptions
 ```
+
+## BLOCKED conditions
+
+- Implementation/handoff cannot be evaluated because required design artifact is missing.
+- A blocker from UI/DS/a11y/state checks remains unresolved.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
+

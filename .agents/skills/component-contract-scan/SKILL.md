@@ -1,54 +1,43 @@
 ---
 name: component-contract-scan
-description: Scan component imports, props, variants, duplicate custom UI, token usage, and forbidden one-off implementations.
+description: Inspect component imports, duplicate local components, raw JSX primitives, and DS manifest compliance using code heuristics.
 ---
+
 
 # component-contract-scan
 
 ## Purpose
 
-Scan component imports, props, variants, duplicate custom UI, token usage, and forbidden one-off implementations.
+Run a practical code scan for DS component contract violations.
 
-## When to use
+## Procedure
 
-Use only when this workflow can improve decision quality, risk detection, implementation, verification, or handoff.
-
-## Inputs
-
-- TASK.md current scope.
-- Relevant role playbook or role card.
-- Relevant repo/design/research evidence.
-- Approved orchestration mode.
-
-## Process
-
-1. Confirm this skill is needed for the current operation.
-2. Load only relevant files/docs.
-3. Separate evidence, assumptions, and hypotheses.
-4. Produce the required compact artifact.
-5. Report blockers and handoffs.
+1. Confirm DS manifest exists or run design-recon/design-system-manifest first.
+2. Run `node scripts/check-component-imports.mjs <root>` if available.
+3. Review findings for false positives before declaring blockers.
+4. Map each finding to a component, file, and required fix.
 
 ## Output schema
 
 ```markdown
-## Skill output: component-contract-scan
+## Component Contract Scan
 
-### Context
-
-### Steps performed
-
+### Command run
 ### Findings
-
-### Evidence / assumptions
-
-### Blockers
-
-### Handoff
+| Severity | File | Line | Finding | Fix |
+### False positives / limitations
+### Verdict
 ```
+
+## BLOCKED conditions
+
+- DS component exists but duplicate local component is introduced.
+- UI imports known DS component names from non-DS sources without approved deviation.
 
 ## Stop conditions
 
-- Required evidence is missing.
-- Skill use would change approved scope.
+- Required evidence is missing and the next step would require guessing.
+- The skill would change approved scope.
 - A risk gate requires user approval.
-- Another role owns the decision.
+- Another role owns the decision and has not been consulted.
+

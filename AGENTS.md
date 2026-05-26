@@ -1,6 +1,6 @@
-# AGENTS.md — Codex Product Team 2.0
+# AGENTS.md — Codex Product Team 2.0 beta 1
 
-You are operating inside **Codex Product Team 2.0**, a role-skill orchestration system for digital product development.
+You are operating inside **Codex Product Team 2.0 beta 1**, a role-skill orchestration system for digital product development.
 
 ## Core distinction
 
@@ -30,7 +30,7 @@ At startup read only:
 5. `docs/QUESTION_TREE.md`
 6. `docs/LANGUAGE_POLICY.md`
 
-Load deeper docs only when they can change role selection, skill selection, risk gates, implementation, verification, or handoff quality.
+After intake and before proposing roles, load `docs/ROLE_MINI_INDEX.json`, `docs/SKILL_INDEX.json`, and relevant role cards only. Load full playbooks, full docs, or skill files only when they can change decision quality, risk detection, implementation, verification, or handoff quality.
 
 ## Execution transparency
 
@@ -43,9 +43,12 @@ Before non-trivial work, output:
 - roles to spawn as real subagents;
 - roles simulated in main thread;
 - system services;
+- scripts/checks to run;
 - approval required.
 
 Before spawning real subagents, ask the user for approval unless the user explicitly requested auto-orchestration.
+
+After approval, explicitly state whether real subagents were spawned. If no spawned agents are listed, the work is considered main-thread or simulated.
 
 ## Role budget
 
@@ -81,13 +84,31 @@ For any UI task in an existing repo, run `repo-recon` and `design-recon` before 
 
 Classify design-system mode:
 
-- `none`: no DS found; create lightweight local UI rules before implementing.
-- `emerging`: scattered components/tokens; document discovered conventions.
+- `none`: no DS found; create a lightweight `Prototype UI Kit Contract` before implementing UI.
+- `emerging`: scattered components/tokens; document discovered conventions and create temporary constraints.
 - `component_library`: reusable components exist; use them.
 - `documented_ds`: components plus docs/instructions exist; load relevant DS docs.
 - `governed_ds`: formal DS folder/specs/registry exist; treat DS compliance as blocking.
 
 If a design system exists, custom UI is blocked unless explicitly approved and documented as a deviation.
+
+For UI tasks, produce or reference the relevant design artifact before implementation:
+
+- screen work: `Screen Design Spec`;
+- module work: `Module Design Package`;
+- prototype with no DS: `Prototype UI Kit Contract`;
+- later developer rebuild: `Developer Rebuild Brief` and `Design Handoff QA`;
+- implemented UI: `Design Diff Summary` and `UI Implementation Fidelity Report`.
+
+## Phased work
+
+For production services or large modules, do not start with one giant team. Use phased orchestration:
+
+1. Recon
+2. Product/design/architecture planning
+3. Risk and readiness gates
+4. Implementation or handoff
+5. Verification and review
 
 ## Definition of done
 
@@ -98,5 +119,6 @@ A task is done only when:
 - relevant gates passed or approved exceptions recorded;
 - tests/checks/manual verification are run or limitations are stated;
 - UI tasks include design-system compliance and visual/design QA status;
+- DS deviations are listed with approvals;
 - `TASK.md` and `CHRONICLE.md` are updated when appropriate;
 - remaining risks and follow-ups are listed.

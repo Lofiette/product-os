@@ -26,3 +26,7 @@
 ## Spawn as real subagent when
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
+
+## Beta 1 runtime note
+
+Beta 1: DS compliance is blocking in documented/governed DS mode; when no DS exists, help create a Prototype UI Kit Contract.

@@ -1,44 +1,28 @@
-# BOOTSTRAP_INDEX.md
+# BOOTSTRAP_INDEX.md — 2.0 beta 1 runtime index
 
-Load this file during Stage 0.
+Read this file at startup after `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `QUESTION_TREE.md`, and `LANGUAGE_POLICY.md`.
 
-## Runtime kernel
+## Runtime flow
 
-1. Classify request.
-2. Choose intake depth.
-3. Detect whether repo/design recon is needed.
-4. Select roles by artifact ownership.
-5. Select skills by method need.
-6. Choose orchestration mode.
-7. Ask for approval before real subagent spawn.
-8. Execute, verify, review, and update Chronicle compactly.
+1. Intake: classify request, complexity, work mode, UI/design-system impact, repo impact, risk impact.
+2. If repo exists: propose `repo-recon` before implementation decisions.
+3. If UI/design is affected: propose `design-recon` before UI decisions.
+4. After intake: load `docs/ROLE_MINI_INDEX.json`, `docs/SKILL_INDEX.json`, and relevant role cards.
+5. Propose next operation with roles, skills, orchestration mode, gates, and scripts.
+6. Ask approval before spawning real subagents or starting implementation.
+7. After approval, explicitly state spawned vs simulated execution.
+8. Run selected skills and produce their required artifacts.
+9. Apply gates: quality, UI, DS, risk, production, review.
+10. Update `TASK.md` and `CHRONICLE.md` compactly when useful.
 
-## Load order
+## UI quality shortcuts
 
-Stage 0 bootstrap:
-- AGENTS.md
-- TASK.md
-- CHRONICLE.md
-- docs/BOOTSTRAP_INDEX.md
-- docs/QUESTION_TREE.md
-- docs/LANGUAGE_POLICY.md
+- UI without DS: use `prototype-ui-kit`.
+- UI with DS: use `design-system-compliance` and DS scripts.
+- Module design for developer rebuild: use `module-design` and `design-handoff-qa`.
+- Production web/service: use `phased orchestration` and `production-readiness-review`.
+- Implemented UI: use `visual-qa-loop`, `ui-heuristic-audit`, and `Design Diff Summary`.
 
-Stage 1 routing:
-- docs/ROLE_INDEX.json
-- docs/SKILL_INDEX.json
-- .agents/role_cards/<relevant>.md
-- docs/ROLE_ROUTING_MATRIX.md if routing is not obvious
-- docs/SKILL_ROUTING_MATRIX.md if skill choice is not obvious
+## Real subagent transparency
 
-Stage 2 operation:
-- selected role playbooks only
-- selected skills only
-- repo/design/risk docs only when triggered
-
-## UI tasks
-
-If UI changes are involved, determine design-system mode and run design-recon before implementation unless explicitly skipped.
-
-## Subagent truth
-
-A real subagent exists only if explicitly spawned. Otherwise roles are simulated in the main thread.
+Selected role is not a spawned subagent. Spawned subagents must be named explicitly after approval.

@@ -1,0 +1,1015 @@
+{
+  "roles": [
+    {
+      "id": "intake_orchestrator",
+      "title": "Task Intake Orchestrator",
+      "category": "System",
+      "triggers": [
+        "new task or major scope change",
+        "unclear work mode",
+        "missing constraints or acceptance criteria"
+      ],
+      "primary_outputs": [
+        "Briefing questions",
+        "Updated TASK.md",
+        "Work mode",
+        "Initial role/skill triggers"
+      ],
+      "default_skills": [
+        "task-intake",
+        "team-routing"
+      ]
+    },
+    {
+      "id": "team_architect",
+      "title": "Team Architect",
+      "category": "System",
+      "triggers": [
+        "need to select roles",
+        "complex/multi-agent task",
+        "real subagent workflow requested"
+      ],
+      "primary_outputs": [
+        "Selected-role contract",
+        "Skill plan",
+        "Orchestration proposal",
+        "Skipped-role rationale"
+      ],
+      "default_skills": [
+        "team-routing",
+        "subagent-orchestration"
+      ]
+    },
+    {
+      "id": "delivery_manager",
+      "title": "Delivery Manager",
+      "category": "System",
+      "triggers": [
+        "multi-phase MVP",
+        "cross-functional task",
+        "deadline or dependency risk",
+        "more than seven active roles"
+      ],
+      "primary_outputs": [
+        "Execution plan",
+        "Milestones",
+        "Dependency map",
+        "Approval checkpoints"
+      ],
+      "default_skills": [
+        "product-planning"
+      ]
+    },
+    {
+      "id": "chronicle_keeper",
+      "title": "Chronicle Keeper",
+      "category": "System",
+      "triggers": [
+        "long-running task",
+        "approved plan changed",
+        "real subagents spawned",
+        "important decision made"
+      ],
+      "primary_outputs": [
+        "Updated CHRONICLE.md",
+        "Context rescue summary",
+        "Decision log",
+        "Subagent activity log"
+      ],
+      "default_skills": [
+        "progress-chronicle"
+      ]
+    },
+    {
+      "id": "consistency_auditor",
+      "title": "Consistency Auditor",
+      "category": "System",
+      "triggers": [
+        "before implementation on complex tasks",
+        "after specialist findings",
+        "role outputs conflict",
+        "high-risk changes"
+      ],
+      "primary_outputs": [
+        "PASS/WARN/BLOCKED verdict",
+        "Contradictions",
+        "Required fixes",
+        "Missing owners"
+      ],
+      "default_skills": [
+        "self-audit"
+      ]
+    },
+    {
+      "id": "ai_workflow_auditor",
+      "title": "AI Workflow Auditor",
+      "category": "System",
+      "triggers": [
+        "framework improvement",
+        "recurring Codex failure",
+        "prompt/role/skill ambiguity"
+      ],
+      "primary_outputs": [
+        "Workflow audit",
+        "Instruction patch recommendations",
+        "Failure mode analysis"
+      ],
+      "default_skills": [
+        "self-audit"
+      ]
+    },
+    {
+      "id": "product_strategist",
+      "title": "Product Strategist",
+      "category": "Product & Discovery",
+      "triggers": [
+        "new product/feature",
+        "unclear user value",
+        "MVP/prototype scope needed",
+        "prioritization needed"
+      ],
+      "primary_outputs": [
+        "Problem statement",
+        "MVP slice",
+        "Non-goals",
+        "Success metrics"
+      ],
+      "default_skills": [
+        "product-planning"
+      ]
+    },
+    {
+      "id": "market_researcher",
+      "title": "Market Researcher",
+      "category": "Product & Discovery",
+      "triggers": [
+        "market unknowns",
+        "competitor comparison",
+        "positioning/pricing/adoption question",
+        "business opportunity assessment"
+      ],
+      "primary_outputs": [
+        "Market brief",
+        "Alternatives map",
+        "Competitive teardown",
+        "Positioning hypotheses"
+      ],
+      "default_skills": [
+        "market-research-planning"
+      ]
+    },
+    {
+      "id": "ux_researcher",
+      "title": "UX Researcher",
+      "category": "Product & Discovery",
+      "triggers": [
+        "user behavior unclear",
+        "research planning needed",
+        "validation of design assumptions",
+        "usability risk"
+      ],
+      "primary_outputs": [
+        "Research plan",
+        "Screener",
+        "Interview/test guide",
+        "Evidence-labeled insights"
+      ],
+      "default_skills": [
+        "ux-research-planning"
+      ]
+    },
+    {
+      "id": "cx_researcher",
+      "title": "CX Researcher",
+      "category": "Product & Discovery",
+      "triggers": [
+        "cross-channel journey",
+        "support/service handoff",
+        "customer experience gap",
+        "retention/satisfaction issue"
+      ],
+      "primary_outputs": [
+        "Journey map",
+        "Pain points by touchpoint",
+        "Moments of truth",
+        "CX evidence gaps"
+      ],
+      "default_skills": [
+        "cx-journey-mapping"
+      ]
+    },
+    {
+      "id": "business_analyst",
+      "title": "Business Analyst",
+      "category": "Product & Discovery",
+      "triggers": [
+        "requirements unclear",
+        "business rules or compliance constraints",
+        "traceability needed"
+      ],
+      "primary_outputs": [
+        "Requirements spec",
+        "Business rules",
+        "Traceability table",
+        "Open assumptions"
+      ],
+      "default_skills": [
+        "product-planning"
+      ]
+    },
+    {
+      "id": "domain_expert",
+      "title": "Domain Expert",
+      "category": "Product & Discovery",
+      "triggers": [
+        "domain-heavy logic",
+        "ambiguous terminology",
+        "business-rule risk",
+        "edge-case-heavy workflow"
+      ],
+      "primary_outputs": [
+        "Domain model summary",
+        "Terminology",
+        "Invariants",
+        "Domain edge cases"
+      ],
+      "default_skills": [
+        "product-planning"
+      ]
+    },
+    {
+      "id": "growth_activation_strategist",
+      "title": "Growth & Activation Strategist",
+      "category": "Product & Discovery",
+      "triggers": [
+        "onboarding",
+        "activation",
+        "retention",
+        "conversion",
+        "trial-to-paid",
+        "lifecycle messaging"
+      ],
+      "primary_outputs": [
+        "Activation hypothesis",
+        "Growth loop map",
+        "Experiment ideas",
+        "Friction report"
+      ],
+      "default_skills": [
+        "growth-activation-planning"
+      ]
+    },
+    {
+      "id": "product_designer",
+      "title": "Product Designer",
+      "category": "Design & UX",
+      "triggers": [
+        "new screen",
+        "screen redesign",
+        "UI prototype",
+        "flow redesign",
+        "turn requirements into interface",
+        "obvious UI problems"
+      ],
+      "primary_outputs": [
+        "Screen Design Spec",
+        "Flow Design Spec",
+        "State matrix",
+        "Component tree"
+      ],
+      "default_skills": [
+        "design-recon",
+        "screen-redesign",
+        "state-matrix"
+      ]
+    },
+    {
+      "id": "service_designer",
+      "title": "Service Designer",
+      "category": "Design & UX",
+      "triggers": [
+        "human/service handoff",
+        "multi-channel journey",
+        "support or operations involved",
+        "backstage workflow affects experience"
+      ],
+      "primary_outputs": [
+        "Service blueprint",
+        "Actor/channel map",
+        "Operational gap list",
+        "Service handoff plan"
+      ],
+      "default_skills": [
+        "service-blueprint",
+        "cx-journey-mapping"
+      ]
+    },
+    {
+      "id": "information_architect",
+      "title": "Information Architect",
+      "category": "Design & UX",
+      "triggers": [
+        "navigation redesign",
+        "settings/catalog/knowledge base",
+        "complex grouping",
+        "taxonomy or labeling problem"
+      ],
+      "primary_outputs": [
+        "IA model",
+        "Navigation structure",
+        "Taxonomy",
+        "Labeling recommendations"
+      ],
+      "default_skills": [
+        "information-architecture"
+      ]
+    },
+    {
+      "id": "ux_interaction_reviewer",
+      "title": "UX Interaction Reviewer",
+      "category": "Design & UX",
+      "triggers": [
+        "flow/state behavior",
+        "forms",
+        "user confusion",
+        "error recovery",
+        "interaction-heavy UI"
+      ],
+      "primary_outputs": [
+        "Flow/state matrix",
+        "Interaction risks",
+        "Behavior requirements",
+        "UX acceptance criteria"
+      ],
+      "default_skills": [
+        "state-matrix",
+        "ui-heuristic-audit"
+      ]
+    },
+    {
+      "id": "ux_writer",
+      "title": "UX Writer",
+      "category": "Design & UX",
+      "triggers": [
+        "user-facing copy",
+        "empty/error/success states",
+        "onboarding",
+        "terminology conflict",
+        "localization implications"
+      ],
+      "primary_outputs": [
+        "Content matrix",
+        "Microcopy recommendations",
+        "Terminology rules",
+        "Message patterns"
+      ],
+      "default_skills": [
+        "content-pattern-review"
+      ]
+    },
+    {
+      "id": "design_system_guardian",
+      "title": "Design System Guardian",
+      "category": "Design & UX",
+      "triggers": [
+        "existing design system",
+        "component reuse",
+        "new UI component",
+        "token/variant decision",
+        "custom UI risk"
+      ],
+      "primary_outputs": [
+        "DS compliance constraints",
+        "Component fit report",
+        "Token rules",
+        "Approved deviations"
+      ],
+      "default_skills": [
+        "design-recon",
+        "design-system-compliance"
+      ]
+    },
+    {
+      "id": "design_engineer",
+      "title": "Design Engineer",
+      "category": "Design & UX",
+      "triggers": [
+        "UI implementation",
+        "prototype interface",
+        "design-to-code",
+        "DS compliance problems",
+        "Codex makes similar-looking custom UI"
+      ],
+      "primary_outputs": [
+        "UI Implementation Fidelity Report",
+        "Component usage map",
+        "Token usage report",
+        "Visual QA blockers"
+      ],
+      "default_skills": [
+        "design-system-compliance",
+        "visual-qa-loop",
+        "ui-heuristic-audit"
+      ]
+    },
+    {
+      "id": "visual_design_director",
+      "title": "Visual Design Director",
+      "category": "Design & UX",
+      "triggers": [
+        "visual language changes",
+        "composition/hierarchy concerns",
+        "brand expression",
+        "presentation quality"
+      ],
+      "primary_outputs": [
+        "Visual direction notes",
+        "Hierarchy critique",
+        "Composition risks",
+        "Brand/visual alignment"
+      ],
+      "default_skills": [
+        "design-critique"
+      ]
+    },
+    {
+      "id": "accessibility_specialist",
+      "title": "Accessibility Specialist",
+      "category": "Design & UX",
+      "triggers": [
+        "forms",
+        "dialogs",
+        "tables",
+        "interactive UI",
+        "production UI",
+        "keyboard/focus/labels risk"
+      ],
+      "primary_outputs": [
+        "A11y blockers",
+        "A11y checklist",
+        "Focus/keyboard requirements",
+        "ARIA notes"
+      ],
+      "default_skills": [
+        "accessibility-check"
+      ]
+    },
+    {
+      "id": "data_visualization_designer",
+      "title": "Data Visualization Designer",
+      "category": "Design & UX",
+      "triggers": [
+        "charts",
+        "dashboards",
+        "reports",
+        "metrics UI",
+        "decision-support data display"
+      ],
+      "primary_outputs": [
+        "Visualization spec",
+        "Chart choice rationale",
+        "Metric display risks",
+        "Dashboard critique"
+      ],
+      "default_skills": [
+        "data-visualization-review"
+      ]
+    },
+    {
+      "id": "conversation_designer",
+      "title": "Conversation Designer",
+      "category": "Design & UX",
+      "triggers": [
+        "chatbot",
+        "AI assistant",
+        "agentic UI",
+        "voice/dialogue UI",
+        "multi-turn clarification"
+      ],
+      "primary_outputs": [
+        "Conversation flow",
+        "Prompt/user-message patterns",
+        "Fallback strategy",
+        "Clarification rules"
+      ],
+      "default_skills": [
+        "conversation-design"
+      ]
+    },
+    {
+      "id": "localization_specialist",
+      "title": "Localization Specialist",
+      "category": "Design & UX",
+      "triggers": [
+        "multilingual product",
+        "Russian/English switch",
+        "locale formatting",
+        "string expansion",
+        "translation readiness"
+      ],
+      "primary_outputs": [
+        "Localization risks",
+        "Terminology notes",
+        "Locale constraints",
+        "String-readiness checklist"
+      ],
+      "default_skills": [
+        "localization-review"
+      ]
+    },
+    {
+      "id": "solution_architect",
+      "title": "Solution Architect",
+      "category": "Engineering",
+      "triggers": [
+        "cross-system design",
+        "architecture choice",
+        "non-functional constraints",
+        "multi-platform work"
+      ],
+      "primary_outputs": [
+        "Architecture plan",
+        "Boundary map",
+        "Trade-off record",
+        "Risk register"
+      ],
+      "default_skills": [
+        "architecture-planning"
+      ]
+    },
+    {
+      "id": "frontend_architect",
+      "title": "Frontend Architect",
+      "category": "Engineering",
+      "triggers": [
+        "frontend implementation",
+        "SPA/app architecture",
+        "state/data fetching",
+        "existing repo UI changes"
+      ],
+      "primary_outputs": [
+        "Frontend plan",
+        "File/change map",
+        "State/data strategy",
+        "Frontend risks"
+      ],
+      "default_skills": [
+        "repo-recon",
+        "architecture-planning"
+      ]
+    },
+    {
+      "id": "backend_architect",
+      "title": "Backend Architect",
+      "category": "Engineering",
+      "triggers": [
+        "backend/API change",
+        "data persistence",
+        "domain logic",
+        "integrations",
+        "auth/server validation"
+      ],
+      "primary_outputs": [
+        "Backend plan",
+        "API/data implications",
+        "Validation strategy",
+        "Backend risk list"
+      ],
+      "default_skills": [
+        "repo-recon",
+        "architecture-planning"
+      ]
+    },
+    {
+      "id": "mobile_architect",
+      "title": "Mobile Architect",
+      "category": "Engineering",
+      "triggers": [
+        "iOS/Android/mobile app",
+        "responsive native constraints",
+        "offline/device features",
+        "app store release"
+      ],
+      "primary_outputs": [
+        "Mobile architecture plan",
+        "Platform risks",
+        "Navigation/state strategy",
+        "Mobile QA notes"
+      ],
+      "default_skills": [
+        "repo-recon",
+        "architecture-planning"
+      ]
+    },
+    {
+      "id": "api_contract_guardian",
+      "title": "API Contract Guardian",
+      "category": "Engineering",
+      "triggers": [
+        "API changes",
+        "public/internal contract",
+        "client/server mismatch",
+        "versioning or schema risk"
+      ],
+      "primary_outputs": [
+        "API contract review",
+        "Compatibility risks",
+        "Schema/test recommendations"
+      ],
+      "default_skills": [
+        "api-contract-review"
+      ]
+    },
+    {
+      "id": "data_architect",
+      "title": "Data Architect",
+      "category": "Engineering",
+      "triggers": [
+        "data model/schema",
+        "storage choice",
+        "data quality",
+        "retention/lineage",
+        "analytics data"
+      ],
+      "primary_outputs": [
+        "Data model",
+        "Schema risks",
+        "Data quality rules",
+        "Retention notes"
+      ],
+      "default_skills": [
+        "architecture-planning"
+      ]
+    },
+    {
+      "id": "analytics_engineer",
+      "title": "Analytics Engineer",
+      "category": "Engineering",
+      "triggers": [
+        "metrics/instrumentation",
+        "dashboard/report",
+        "experiment measurement",
+        "product analytics"
+      ],
+      "primary_outputs": [
+        "Analytics plan",
+        "Metric definitions",
+        "Event spec",
+        "Data caveats"
+      ],
+      "default_skills": [
+        "analytics-planning"
+      ]
+    },
+    {
+      "id": "ai_ml_systems_architect",
+      "title": "AI/ML Systems Architect",
+      "category": "Engineering",
+      "triggers": [
+        "AI/ML feature",
+        "LLM behavior",
+        "tool-using agent",
+        "retrieval/context design",
+        "model selection"
+      ],
+      "primary_outputs": [
+        "AI behavior contract",
+        "Context/data map",
+        "Tool permission matrix",
+        "Fallback plan"
+      ],
+      "default_skills": [
+        "ai-ml-planning"
+      ]
+    },
+    {
+      "id": "model_evaluation_specialist",
+      "title": "Model Evaluation Specialist",
+      "category": "Engineering",
+      "triggers": [
+        "AI quality evaluation",
+        "model regression risk",
+        "prompt/model changes",
+        "release threshold needed"
+      ],
+      "primary_outputs": [
+        "Eval matrix",
+        "Failure taxonomy",
+        "Test set plan",
+        "Release criteria"
+      ],
+      "default_skills": [
+        "model-evaluation"
+      ]
+    },
+    {
+      "id": "ai_safety_reviewer",
+      "title": "AI Safety Reviewer",
+      "category": "Engineering",
+      "triggers": [
+        "AI assistant/agent",
+        "tool use",
+        "untrusted input",
+        "safety-sensitive output",
+        "irreversible actions"
+      ],
+      "primary_outputs": [
+        "AI safety review",
+        "Risk table",
+        "Guardrail recommendations",
+        "Approval gates"
+      ],
+      "default_skills": [
+        "ai-safety-review"
+      ]
+    },
+    {
+      "id": "security_reviewer",
+      "title": "Security Reviewer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "auth/permissions",
+        "sensitive data",
+        "uploads",
+        "public APIs",
+        "AI tools",
+        "security-sensitive code"
+      ],
+      "primary_outputs": [
+        "Threat model",
+        "Ranked findings",
+        "Mitigations",
+        "Security tests"
+      ],
+      "default_skills": [
+        "threat-modeling"
+      ]
+    },
+    {
+      "id": "privacy_compliance_reviewer",
+      "title": "Privacy & Compliance Reviewer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "personal data",
+        "research data",
+        "user tracking",
+        "AI context/data use",
+        "retention/export/deletion"
+      ],
+      "primary_outputs": [
+        "Privacy impact notes",
+        "Data inventory",
+        "Consent/retention risks",
+        "Compliance caveats"
+      ],
+      "default_skills": [
+        "privacy-impact-review"
+      ]
+    },
+    {
+      "id": "performance_engineer",
+      "title": "Performance Engineer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "slow UI/API",
+        "large lists",
+        "dashboards",
+        "mobile perf",
+        "expensive rendering/query risk"
+      ],
+      "primary_outputs": [
+        "Performance risk report",
+        "Measurement plan",
+        "Cheap wins",
+        "Avoided over-optimizations"
+      ],
+      "default_skills": [
+        "performance-review"
+      ]
+    },
+    {
+      "id": "dependency_curator",
+      "title": "Dependency Curator",
+      "category": "Risk & Operations",
+      "triggers": [
+        "new dependency",
+        "package replacement",
+        "bundle size concern",
+        "license/maintenance risk"
+      ],
+      "primary_outputs": [
+        "Dependency decision",
+        "Alternatives",
+        "Risk notes",
+        "Approval recommendation"
+      ],
+      "default_skills": [
+        "dependency-review"
+      ]
+    },
+    {
+      "id": "migration_planner",
+      "title": "Migration Planner",
+      "category": "Risk & Operations",
+      "triggers": [
+        "schema/data migration",
+        "backfill",
+        "breaking data change",
+        "deployment sequencing"
+      ],
+      "primary_outputs": [
+        "Migration plan",
+        "Rollback plan",
+        "Data validation plan",
+        "Risk table"
+      ],
+      "default_skills": [
+        "migration-planning"
+      ]
+    },
+    {
+      "id": "devops_release_engineer",
+      "title": "DevOps & Release Engineer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "deployment/release",
+        "infra/config/env changes",
+        "CI/CD",
+        "feature flags",
+        "rollout risk"
+      ],
+      "primary_outputs": [
+        "Release plan",
+        "CI checks",
+        "Rollback plan",
+        "Env/config risks"
+      ],
+      "default_skills": [
+        "devops-release-planning"
+      ]
+    },
+    {
+      "id": "observability_engineer",
+      "title": "Observability Engineer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "production risk",
+        "new service/job",
+        "incident follow-up",
+        "monitoring blind spots"
+      ],
+      "primary_outputs": [
+        "Observability plan",
+        "Signal map",
+        "Alert recommendations",
+        "Debugging notes"
+      ],
+      "default_skills": [
+        "observability-planning"
+      ]
+    },
+    {
+      "id": "incident_investigator",
+      "title": "Incident Investigator",
+      "category": "Risk & Operations",
+      "triggers": [
+        "production incident",
+        "major regression",
+        "data loss",
+        "outage",
+        "security event"
+      ],
+      "primary_outputs": [
+        "Incident report",
+        "Timeline",
+        "Root cause hypotheses",
+        "Prevention actions"
+      ],
+      "default_skills": [
+        "incident-review"
+      ]
+    },
+    {
+      "id": "experimentation_specialist",
+      "title": "Experimentation Specialist",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "A/B test",
+        "pilot",
+        "uncertain solution value",
+        "experiment decision needed"
+      ],
+      "primary_outputs": [
+        "Experiment plan",
+        "Hypothesis",
+        "Metrics/guardrails",
+        "Decision rules"
+      ],
+      "default_skills": [
+        "experiment-design"
+      ]
+    },
+    {
+      "id": "customer_support_analyst",
+      "title": "Customer Support Analyst",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "support feedback",
+        "field report",
+        "customer complaints",
+        "recurring user confusion"
+      ],
+      "primary_outputs": [
+        "Support signal brief",
+        "Issue taxonomy",
+        "Frequency/severity notes",
+        "Opportunity events"
+      ],
+      "default_skills": [
+        "customer-support-analysis"
+      ]
+    },
+    {
+      "id": "qa_engineer",
+      "title": "QA Engineer",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "implementation",
+        "bugfix",
+        "MVP verification",
+        "UI quality gate",
+        "regression risk"
+      ],
+      "primary_outputs": [
+        "Test plan",
+        "Edge cases",
+        "Verification commands",
+        "QA verdict"
+      ],
+      "default_skills": [
+        "implementation-review"
+      ]
+    },
+    {
+      "id": "code_reviewer",
+      "title": "Code Reviewer",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "code diff",
+        "production change",
+        "PR review",
+        "implementation complete"
+      ],
+      "primary_outputs": [
+        "Review verdict",
+        "Blocking issues",
+        "Non-blocking issues",
+        "Missing tests"
+      ],
+      "default_skills": [
+        "implementation-review"
+      ]
+    },
+    {
+      "id": "refactoring_specialist",
+      "title": "Refactoring Specialist",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "complexity reduction",
+        "refactor request",
+        "technical debt blocking change",
+        "large code cleanup"
+      ],
+      "primary_outputs": [
+        "Refactor plan",
+        "Behavior preservation strategy",
+        "Risk list",
+        "Test requirements"
+      ],
+      "default_skills": [
+        "refactoring-planning"
+      ]
+    },
+    {
+      "id": "technical_writer",
+      "title": "Technical Writer",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "handoff",
+        "PR summary",
+        "documentation",
+        "release notes",
+        "reviewer guidance"
+      ],
+      "primary_outputs": [
+        "PR description",
+        "Release notes",
+        "User/dev docs",
+        "Reviewer checklist"
+      ],
+      "default_skills": [
+        "handoff-docs"
+      ]
+    }
+  ]
+}

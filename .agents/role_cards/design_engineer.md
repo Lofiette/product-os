@@ -30,3 +30,6 @@
 ## Beta 1 runtime note
 
 Beta 1: owns UI fidelity in code; run DS code contract enforcement, component scan, raw UI scan, and visual QA when UI is implemented.
+
+## Beta 2 culture/taste/anticipation
+- Do not let taste override DS contract; report implementation fidelity and taste/craft blockers.

@@ -10,6 +10,9 @@ required = [
  'docs/UI_OBVIOUS_ERRORS_CHECKLIST.md','docs/ROLE_INDEX.json','docs/ROLE_MINI_INDEX.json','docs/SKILL_INDEX.json','docs/SCENARIO_TESTS.json',
  'docs/PHASED_ORCHESTRATION.md','docs/PRODUCTION_READINESS_GATES.md','docs/WEB_SERVICE_ROUTING.md','docs/MODULE_DESIGN.md',
  'docs/DESIGN_HANDOFF_QA.md','docs/PROTOTYPE_UI_KIT.md','docs/OPERATIONAL_UI_WORKFLOWS.md',
+ 'docs/TEAM_CULTURE.md','docs/TASTE_PROFILE.md','docs/TASTE_REVIEW.md','docs/CREATIVE_TENSION.md','docs/EXPECTATION_ANTICIPATION.md','docs/AGENT_NAMING_POLICY.md',
+ 'docs/TEAM_CULTURE.md','docs/TASTE_PROFILE.md','docs/TASTE_REVIEW.md','docs/CREATIVE_TENSION.md',
+ 'docs/ANTICIPATION_BRANCH.md','docs/PROACTIVE_PROPOSALS.md','docs/AGENT_NAMING_POLICY.md',
  'scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs','scripts/test-routing.py'
 ]
 for p in required:
@@ -25,7 +28,9 @@ skills={s['id'] for s in skill_index.get('skills',[])}
 required_skills = {
  'repo-recon','design-recon','prototype-ui-kit','screen-redesign','module-design','state-matrix',
  'design-system-manifest','design-system-compliance','design-handoff-qa','design-qa','visual-qa-loop',
- 'ui-heuristic-audit','component-contract-scan','ds-code-contract-enforcement','production-service-planning','production-readiness-review'
+ 'ui-heuristic-audit','component-contract-scan','ds-code-contract-enforcement','production-service-planning','production-readiness-review',
+ 'taste-calibration','taste-review','creative-tension-review','expectation-anticipation','example-taste-board',
+ 'taste-calibration','taste-review','creative-tension-review','anticipation-radar','proactive-proposal-review'
 }
 for sk in required_skills:
     if sk not in skills: errors.append(f'Missing beta1 required skill in index: {sk}')
@@ -71,8 +76,16 @@ for rid in ['product_designer','design_engineer','service_designer','information
     if rid not in ids: errors.append(f'Missing critical v2 role: {rid}')
 # first prompt critical phrases
 fp=(ROOT/'FIRST_PROMPT.md').read_text()
-for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned']:
+for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned','TEAM_CULTURE.md','AGENT_NAMING_POLICY.md','taste-calibration','anticipation-radar']:
     if phrase not in fp: errors.append(f'FIRST_PROMPT missing phrase: {phrase}')
+
+# exact agent ID / no personal labels in core docs
+for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/SUBAGENT_ORCHESTRATION.md']:
+    text=(ROOT/doc).read_text()
+    for term in ['Final Fantasy','codename policy']:
+        if term in text and 'ignore' not in text.lower():
+            errors.append(f'Core doc {doc} contains suspicious personal/codename term: {term}')
+
 # script syntax
 for js in ['scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs']:
     try:
@@ -83,6 +96,24 @@ try:
     subprocess.run([sys.executable, str(ROOT/'scripts/test-routing.py')], check=True, capture_output=True, text=True)
 except Exception as e:
     errors.append(f'Routing test failed: {e}')
+
+
+# beta 2 no-alias rule in custom agent instructions
+for toml_path in (ROOT/'.codex/agents').glob('*.toml'):
+    try:
+        data=tomllib.loads(toml_path.read_text())
+        instr=data.get('developer_instructions','')
+        if 'Do not use aliases' not in instr:
+            errors.append(f'TOML missing no-alias instruction: {toml_path.name}')
+    except Exception:
+        pass
+
+# beta 2 docs references
+for phrase in ['Taste Review','Anticipation','Agent Naming Policy']:
+    combined=(ROOT/'AGENTS.md').read_text() + (ROOT/'FIRST_PROMPT.md').read_text()
+    if phrase not in combined:
+        errors.append(f'Missing beta2 phrase in AGENTS/FIRST_PROMPT: {phrase}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors: print('-', e)

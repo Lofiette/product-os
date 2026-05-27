@@ -50,3 +50,13 @@ PASS / PASS WITH WARNINGS / BLOCKED
 - A risk gate requires user approval.
 - Another role owns the decision and has not been consulted.
 
+
+
+## Beta 2 culture/taste gate
+
+Design QA must include team culture and taste checks when applicable:
+- user stewardship;
+- craft discipline;
+- system fidelity;
+- content clarity;
+- approved proactive suggestions only.

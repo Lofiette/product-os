@@ -25,3 +25,8 @@ Spawn:
 - design_engineer after implementation for UI Fidelity Report.
 
 Do not implement before design-recon and screen spec approval unless user explicitly asks for throwaway exploration.
+
+
+## Agent naming policy
+
+Use exact `.codex/agents/*.toml` `name` values only. Do not invent aliases or display labels such as human names, fictional names, philosopher names, or codenames. If the platform auto-labels threads, map them back to role IDs in summaries.

@@ -25,3 +25,10 @@ None yet.
 ## Files touched
 | File | Why changed | Related decision |
 |---|---|---|
+
+
+## Taste and anticipation log
+
+| Time | Type | Signal | Decision | Status |
+|---|---|---|---|---|
+

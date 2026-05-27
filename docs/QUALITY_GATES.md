@@ -21,3 +21,20 @@ Use PASS / PASS WITH WARNINGS / BLOCKED.
 
 ## Review levels
 See REVIEW_LEVELS.md.
+
+
+## Taste Review Gate
+
+Use when task affects product/UI/design/prototype/content quality and a Taste Profile exists or can be inferred.
+
+Report:
+- taste profile used;
+- good examples matched;
+- bad examples avoided or violated;
+- visible craft issues;
+- DS/taste deviations;
+- top fixes without scope expansion.
+
+Verdict: PASS / PASS WITH WARNINGS / BLOCKED.
+
+BLOCKED if avoidable UX confusion, DS drift, visible craft failure, or contradiction with explicit bad examples remains unresolved.

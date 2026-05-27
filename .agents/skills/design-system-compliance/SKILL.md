@@ -57,3 +57,8 @@ PASS / PASS WITH WARNINGS / BLOCKED
 - A risk gate requires user approval.
 - Another role owns the decision and has not been consulted.
 
+
+
+## Beta 2 taste guardrail
+
+Taste never overrides design-system compliance. If a local visual decision feels better but conflicts with documented/governed DS, record it as a deviation and ask approval.

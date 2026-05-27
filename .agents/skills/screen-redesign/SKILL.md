@@ -59,3 +59,15 @@ Produce a screen-level design decision that can be implemented or reviewed witho
 - A risk gate requires user approval.
 - Another role owns the decision and has not been consulted.
 
+
+
+## Beta 2 taste/culture integration
+
+Before selecting a design direction, check whether `taste-calibration` is needed. It is required when visual/product feel is ambiguous, no DS exists, or the user provided taste adjectives/references.
+
+Screen decisions must reference:
+- taste profile, if active;
+- good/bad examples, if provided;
+- team culture concerns when user stewardship/craft/system fidelity are affected.
+
+Before finalizing, run or request `taste-review` when taste profile is active or quality is ambiguous.

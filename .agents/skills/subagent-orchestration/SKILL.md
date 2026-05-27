@@ -58,3 +58,8 @@ Use only when this workflow can improve decision quality, risk detection, implem
 |---|---|---|---|---|---|---|
 
 Ask user approval before spawning.
+
+
+## Agent naming policy
+
+Use exact `.codex/agents/*.toml` `name` values only. Do not invent aliases or display labels such as human names, fictional names, philosopher names, or codenames. If the platform auto-labels threads, map them back to role IDs in summaries.

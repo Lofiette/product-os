@@ -37,7 +37,12 @@
       ],
       "default_skills": [
         "team-routing",
-        "subagent-orchestration"
+        "subagent-orchestration",
+        "expectation-anticipation"
+      ],
+      "optional": [
+        "anticipation-radar",
+        "proactive-proposal-review"
       ]
     },
     {
@@ -58,6 +63,10 @@
       ],
       "default_skills": [
         "product-planning"
+      ],
+      "optional": [
+        "anticipation-radar",
+        "proactive-proposal-review"
       ]
     },
     {
@@ -98,6 +107,9 @@
       ],
       "default_skills": [
         "self-audit"
+      ],
+      "optional": [
+        "proactive-proposal-review"
       ]
     },
     {
@@ -135,7 +147,13 @@
         "Success metrics"
       ],
       "default_skills": [
-        "product-planning"
+        "product-planning",
+        "expectation-anticipation"
+      ],
+      "optional": [
+        "anticipation-radar",
+        "proactive-proposal-review",
+        "creative-tension-review"
       ]
     },
     {
@@ -280,7 +298,16 @@
       "default_skills": [
         "design-recon",
         "screen-redesign",
-        "state-matrix"
+        "state-matrix",
+        "taste-calibration"
+      ],
+      "default": [
+        "taste-calibration"
+      ],
+      "optional": [
+        "taste-review",
+        "creative-tension-review",
+        "anticipation-radar"
       ]
     },
     {
@@ -364,7 +391,12 @@
         "Message patterns"
       ],
       "default_skills": [
-        "content-pattern-review"
+        "content-pattern-review",
+        "taste-calibration"
+      ],
+      "optional": [
+        "taste-review",
+        "taste-calibration"
       ]
     },
     {
@@ -387,6 +419,9 @@
       "default_skills": [
         "design-recon",
         "design-system-compliance"
+      ],
+      "optional": [
+        "taste-review"
       ]
     },
     {
@@ -409,7 +444,11 @@
       "default_skills": [
         "design-system-compliance",
         "visual-qa-loop",
-        "ui-heuristic-audit"
+        "ui-heuristic-audit",
+        "taste-review"
+      ],
+      "optional": [
+        "taste-review"
       ]
     },
     {
@@ -429,7 +468,15 @@
         "Brand/visual alignment"
       ],
       "default_skills": [
-        "design-critique"
+        "design-critique",
+        "taste-review"
+      ],
+      "default": [
+        "taste-review"
+      ],
+      "optional": [
+        "taste-calibration",
+        "creative-tension-review"
       ]
     },
     {

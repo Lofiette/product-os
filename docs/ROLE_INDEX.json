@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.0-beta2",
   "purpose": "Lightweight role index for routing before loading full playbooks. No codenames.",
   "roles": [
     {
@@ -19,7 +19,9 @@
       ],
       "optional": [
         "subagent-orchestration",
-        "progress-chronicle"
+        "progress-chronicle",
+        "expectation-anticipation",
+        "taste-calibration"
       ],
       "handoffs": [
         "team_architect",
@@ -49,7 +51,11 @@
       ],
       "optional": [
         "self-audit",
-        "progress-chronicle"
+        "progress-chronicle",
+        "anticipation-radar",
+        "proactive-proposal-review",
+        "expectation-anticipation",
+        "taste-calibration"
       ],
       "handoffs": [
         "delivery_manager",
@@ -78,7 +84,9 @@
       ],
       "optional": [
         "progress-chronicle",
-        "implementation-review"
+        "implementation-review",
+        "anticipation-radar",
+        "proactive-proposal-review"
       ],
       "handoffs": [
         "qa_engineer",
@@ -137,7 +145,10 @@
       ],
       "optional": [
         "implementation-review",
-        "risk-review"
+        "risk-review",
+        "proactive-proposal-review",
+        "taste-review",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "team_architect",
@@ -196,7 +207,12 @@
       "optional": [
         "creative-improvement-loop",
         "experiment-design",
-        "market-research-planning"
+        "market-research-planning",
+        "anticipation-radar",
+        "proactive-proposal-review",
+        "creative-tension-review",
+        "expectation-anticipation",
+        "taste-calibration"
       ],
       "handoffs": [
         "business_analyst",
@@ -380,7 +396,10 @@
       "optional": [
         "experiment-design",
         "analytics-planning",
-        "ux-research-planning"
+        "ux-research-planning",
+        "expectation-anticipation",
+        "creative-tension-review",
+        "taste-calibration"
       ],
       "handoffs": [
         "product_strategist",
@@ -412,7 +431,8 @@
       "default": [
         "design-recon",
         "screen-redesign",
-        "state-matrix"
+        "state-matrix",
+        "taste-calibration"
       ],
       "optional": [
         "design-critique",
@@ -421,7 +441,12 @@
         "visual-qa-loop",
         "prototype-ui-kit",
         "module-design",
-        "design-handoff-qa"
+        "design-handoff-qa",
+        "taste-review",
+        "creative-tension-review",
+        "anticipation-radar",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "design_engineer",
@@ -456,7 +481,10 @@
       ],
       "optional": [
         "research-planning",
-        "opportunity-event-triage"
+        "opportunity-event-triage",
+        "expectation-anticipation",
+        "creative-tension-review",
+        "taste-calibration"
       ],
       "handoffs": [
         "cx_researcher",
@@ -487,7 +515,10 @@
       ],
       "optional": [
         "content-pattern-review",
-        "ux-research-planning"
+        "ux-research-planning",
+        "expectation-anticipation",
+        "creative-tension-review",
+        "taste-calibration"
       ],
       "handoffs": [
         "product_designer",
@@ -551,7 +582,11 @@
       "optional": [
         "localization-review",
         "accessibility-check",
-        "conversation-design"
+        "conversation-design",
+        "taste-review",
+        "taste-calibration",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "product_designer",
@@ -588,7 +623,11 @@
         "visual-qa-loop",
         "prototype-ui-kit",
         "ds-code-contract-enforcement",
-        "component-contract-scan"
+        "component-contract-scan",
+        "taste-review",
+        "taste-calibration",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "product_designer",
@@ -626,7 +665,11 @@
         "screen-redesign",
         "ds-code-contract-enforcement",
         "e2e-visual-state-capture",
-        "design-handoff-qa"
+        "design-handoff-qa",
+        "taste-review",
+        "taste-calibration",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "frontend_architect",
@@ -654,11 +697,16 @@
         "Brand/visual alignment"
       ],
       "default": [
-        "design-critique"
+        "design-critique",
+        "taste-review"
       ],
       "optional": [
         "visual-qa-loop",
-        "creative-improvement-loop"
+        "creative-improvement-loop",
+        "taste-calibration",
+        "creative-tension-review",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "product_designer",
@@ -721,7 +769,11 @@
       ],
       "optional": [
         "ui-heuristic-audit",
-        "analytics-planning"
+        "analytics-planning",
+        "taste-calibration",
+        "taste-review",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "analytics_engineer",
@@ -754,7 +806,11 @@
       "optional": [
         "ai-safety-review",
         "content-pattern-review",
-        "state-matrix"
+        "state-matrix",
+        "taste-calibration",
+        "taste-review",
+        "example-taste-board",
+        "expectation-anticipation"
       ],
       "handoffs": [
         "ux_writer",

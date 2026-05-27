@@ -53,3 +53,10 @@ PASS / PASS WITH WARNINGS / BLOCKED / NOT RUN
 - A risk gate requires user approval.
 - Another role owns the decision and has not been consulted.
 
+
+
+## Beta 2 taste review integration
+
+Visual QA must call out not only visible bugs but taste/craft concerns when they affect clarity, hierarchy, system fidelity, or user trust.
+
+If taste profile is active, visual QA cannot return PASS until `taste-review` is PASS or PASS WITH WARNINGS.

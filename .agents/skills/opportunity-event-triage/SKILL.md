@@ -52,3 +52,8 @@ Use only when this workflow can improve decision quality, risk detection, implem
 - Skill use would change approved scope.
 - A risk gate requires user approval.
 - Another role owns the decision.
+
+
+## Beta 2 anticipation integration
+
+If an opportunity event reveals a likely future expectation, also classify it through the Anticipation Branch A-0..A-4 levels. Scope-changing ideas require user approval.

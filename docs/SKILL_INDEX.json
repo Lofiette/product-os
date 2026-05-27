@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.0-beta2",
   "purpose": "Lightweight skill index. Load full SKILL.md only when selected.",
   "skills": [
     {
@@ -17,6 +17,10 @@
     {
       "id": "analytics-planning",
       "description": "Define event taxonomy, metrics, properties, data source, segmentation, dashboards, and caveats."
+    },
+    {
+      "id": "anticipation-radar",
+      "description": "Identify likely future expectations, hidden quality risks, and proactive improvement proposals requiring explicit approval before scope changes."
     },
     {
       "id": "api-contract-review",
@@ -41,6 +45,10 @@
     {
       "id": "creative-improvement-loop",
       "description": "Controlled ideation using focal objects, synectics, SCAMPER, TRIZ-lite, pre-mortem, and OST without confusing hypotheses with evidence."
+    },
+    {
+      "id": "creative-tension-review",
+      "description": "Use controlled creative perspectives to challenge a decision and produce bounded improvement options."
     },
     {
       "id": "customer-support-analysis",
@@ -97,6 +105,14 @@
     {
       "id": "e2e-visual-state-capture",
       "description": "Define and optionally run screenshot/state capture for key UI states and breakpoints."
+    },
+    {
+      "id": "example-taste-board",
+      "description": "Capture good and bad examples as reusable taste evidence and convert them into design rules and anti-patterns."
+    },
+    {
+      "id": "expectation-anticipation",
+      "description": "Generate forward-looking proposals that may improve quality or meet hidden expectations, requiring approval before scope changes."
     },
     {
       "id": "experiment-design",
@@ -161,6 +177,10 @@
     {
       "id": "privacy-impact-review",
       "description": "Map data categories, purpose, access, sharing, retention, consent, deletion, and privacy risks."
+    },
+    {
+      "id": "proactive-proposal-review",
+      "description": "Review proactive suggestions for evidence level, scope impact, user value, cost, and approval need before they enter the plan."
     },
     {
       "id": "product-planning",
@@ -229,6 +249,14 @@
     {
       "id": "task-intake",
       "description": "Turn a request into a scoped task brief using Micro/Fast/Standard/Risk-first intake. Ask only decision-changing questions."
+    },
+    {
+      "id": "taste-calibration",
+      "description": "Define task-specific taste profile, examples, anti-examples, quality bar, and review checklist for design-facing work."
+    },
+    {
+      "id": "taste-review",
+      "description": "Review design or implemented UI against taste profile, team culture, DS constraints, and user goal with PASS/WARN/BLOCKED verdict."
     },
     {
       "id": "team-routing",

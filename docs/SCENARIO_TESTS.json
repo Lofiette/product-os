@@ -1,6 +1,24 @@
 {
-  "version": "2.0",
+  "version": "2.0-beta2",
   "scenarios": [
+    {
+      "id": "agent_id_no_personal_names",
+      "description": "Subagent reporting must use exact agent IDs and ignore UI-generated personal/thread labels",
+      "required_roles": [
+        "team_architect"
+      ],
+      "required_skills": [
+        "subagent-orchestration"
+      ],
+      "forbidden_terms": [
+        "<personal-display-label>",
+        "codename",
+        "nickname",
+        "fictional name",
+        "philosopher name"
+      ],
+      "max_questions": 3
+    },
     {
       "id": "ai_tool_agent",
       "description": "AI agent can act on user data with confirmation",
@@ -18,6 +36,25 @@
         "threat-modeling",
         "privacy-impact-review"
       ]
+    },
+    {
+      "id": "anticipation_proposals_before_implementation",
+      "description": "Team should propose high-leverage improvements before implementation, requiring human approval for scope changes",
+      "required_roles": [
+        "product_strategist",
+        "product_designer"
+      ],
+      "optional_roles": [
+        "team_architect",
+        "design_engineer",
+        "ux_writer"
+      ],
+      "required_skills": [
+        "expectation-anticipation",
+        "creative-improvement-loop"
+      ],
+      "must_not_implement_without_approval": true,
+      "max_questions": 7
     },
     {
       "id": "backend_bugfix",
@@ -69,6 +106,25 @@
       "required_roles": [
         "frontend_architect"
       ]
+    },
+    {
+      "id": "good_bad_examples_redesign",
+      "description": "User provides good and bad examples for a redesign; examples must become taste rules and anti-patterns",
+      "required_roles": [
+        "product_designer",
+        "ux_writer"
+      ],
+      "optional_roles": [
+        "visual_design_director",
+        "design_system_guardian"
+      ],
+      "required_skills": [
+        "example-taste-board",
+        "taste-calibration",
+        "screen-redesign",
+        "taste-review"
+      ],
+      "max_questions": 7
     },
     {
       "id": "governed_ds_folder",
@@ -124,6 +180,28 @@
         "opportunity-event-triage"
       ],
       "requires_approval_if": "OE-2 or higher"
+    },
+    {
+      "id": "proactive_anticipation_scope_change",
+      "prompt": "While designing a module, propose promising improvements that may exceed current scope but could improve the product.",
+      "required_roles": [
+        "product_strategist",
+        "product_designer"
+      ],
+      "optional_roles": [
+        "delivery_manager",
+        "consistency_auditor",
+        "ux_writer",
+        "design_system_guardian"
+      ],
+      "required_skills": [
+        "anticipation-radar",
+        "proactive-proposal-review"
+      ],
+      "forbidden_skills": [],
+      "max_roles": 6,
+      "expected_orchestration": "role_simulation or hybrid",
+      "notes": "Must ask approval before changing scope or acceptance criteria."
     },
     {
       "id": "production_web_service_code_ds",
@@ -188,6 +266,55 @@
         "service-blueprint",
         "cx-journey-mapping"
       ]
+    },
+    {
+      "id": "taste_calibrated_ui_prototype",
+      "description": "UI prototype with no DS requires a local taste profile and Prototype UI Kit Contract",
+      "required_roles": [
+        "product_designer",
+        "design_engineer"
+      ],
+      "optional_roles": [
+        "ux_writer",
+        "visual_design_director",
+        "design_system_guardian"
+      ],
+      "required_skills": [
+        "taste-calibration",
+        "prototype-ui-kit",
+        "screen-redesign",
+        "state-matrix",
+        "taste-review"
+      ],
+      "max_questions": 7
+    },
+    {
+      "id": "taste_sensitive_ui_concept_no_ds",
+      "prompt": "Create a fast redesign concept for an existing interface without a design system; make it feel calm, premium, and clearer.",
+      "required_roles": [
+        "product_designer",
+        "design_engineer"
+      ],
+      "optional_roles": [
+        "visual_design_director",
+        "ux_writer",
+        "design_system_guardian",
+        "qa_engineer"
+      ],
+      "required_skills": [
+        "design-recon",
+        "prototype-ui-kit",
+        "taste-calibration",
+        "screen-redesign",
+        "state-matrix",
+        "taste-review"
+      ],
+      "forbidden_skills": [
+        "production-readiness-review"
+      ],
+      "max_roles": 7,
+      "expected_orchestration": "hybrid or role_simulation",
+      "notes": "Must create taste profile and good/bad examples; no DS means prototype UI kit contract."
     },
     {
       "id": "tiny_copy_change",

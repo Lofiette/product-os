@@ -52,3 +52,8 @@ Use only when this workflow can improve decision quality, risk detection, implem
 - Skill use would change approved scope.
 - A risk gate requires user approval.
 - Another role owns the decision.
+
+
+## Beta 2 anticipation integration
+
+When creative improvement generates a suggestion that changes acceptance criteria, scope, roles, architecture, DS contract, or verification, route it through `anticipation-radar` or `proactive-proposal-review` before adding it to the plan.

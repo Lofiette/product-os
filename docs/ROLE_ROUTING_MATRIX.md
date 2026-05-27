@@ -36,7 +36,7 @@ Service Designer, CX Researcher, Product Strategist, Business Analyst.
 Data Visualization Designer, Analytics Engineer, Product Designer, QA Engineer.
 
 
-## 2.0 beta 1 additions
+## 2.0 beta 2 additions
 
 ### Quick UI prototype without a design system
 Required:
@@ -87,3 +87,59 @@ Required skills usually include:
 - design-system-compliance
 - ds-code-contract-enforcement
 - implementation-review
+
+
+## Taste / culture / anticipation routing
+
+### Taste-sensitive UI/design task
+Usually include:
+- product_designer, owns product/design coherence;
+- visual_design_director, if visual direction, composition, or brand feel matters;
+- ux_writer, if tone, labels, empty/error/success states matter;
+- design_engineer, if implementation fidelity matters;
+- design_system_guardian, if DS or prototype UI rules exist.
+
+Required skills often include:
+- taste-calibration before design decisions;
+- taste-review before final UI/design verdict.
+
+### Proactive improvement / anticipation
+Usually handled by:
+- product_strategist for product value/scope;
+- product_designer for UI/product concept impact;
+- delivery_manager for sequencing/scope impact;
+- consistency_auditor for contradiction/scope/risk check when proposal changes plan.
+
+Required skills:
+- anticipation-radar;
+- proactive-proposal-review for scope-changing suggestions.
+
+
+## Taste and anticipation routing
+
+### UI concept / redesign / prototype with taste concerns
+Required:
+- product_designer
+
+Usually include:
+- design_engineer
+- ux_writer
+- visual_design_director if visual direction, hierarchy, or craft is important
+- design_system_guardian if DS exists or local UI rules are needed
+
+Required or recommended skills:
+- taste-calibration
+- example-taste-board when user provides references/good/bad examples
+- taste-review before final approval
+- creative-tension-review when the solution feels adequate but not strong
+
+### Anticipation branch
+Use `expectation-anticipation` when the team can propose high-leverage improvements that may match hidden expectations.
+
+Usually owned by:
+- product_strategist for product scope/value proposals;
+- product_designer for UI/design proposals;
+- design_engineer for DS/implementation-fidelity proposals;
+- solution_architect or relevant architect for technical proposals.
+
+A2/A3/A4 proposals require user approval and TASK.md decision log update.

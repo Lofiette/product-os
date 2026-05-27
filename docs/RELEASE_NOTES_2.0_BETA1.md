@@ -1,8 +1,8 @@
-# Codex Product Team 2.0 beta 1 Release Notes
+# Codex Product Team 2.0 beta 2 Release Notes
 
 ## Focus
 
-2.0 beta 1 hardens the practical runtime for UI, module, and production web/service tasks. It upgrades skills from generic shells into operational workflows and adds executable DS/code checks.
+2.0 beta 2 hardens the practical runtime for UI, module, and production web/service tasks. It upgrades skills from generic shells into operational workflows and adds executable DS/code checks.
 
 ## Main changes
 

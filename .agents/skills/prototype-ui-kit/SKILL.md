@@ -57,3 +57,10 @@ Keep a fast UI prototype visually coherent when no design system exists. This is
 - A risk gate requires user approval.
 - Another role owns the decision and has not been consulted.
 
+
+
+## Beta 2 taste examples requirement
+
+A Prototype UI Kit Contract must include at least 2 good examples and 2 anti-examples for the current task when no design system exists. Examples may be textual if screenshots/references are unavailable.
+
+The contract should make “bad” concrete: raw spacing drift, inconsistent button hierarchy, vague CTAs, decorative empty states, one-off cards, or arbitrary colors.

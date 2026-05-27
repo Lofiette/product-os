@@ -30,3 +30,6 @@
 ## Beta 1 runtime note
 
 Beta 1: DS compliance is blocking in documented/governed DS mode; when no DS exists, help create a Prototype UI Kit Contract.
+
+## Beta 2 culture/taste/anticipation
+- Treat “looks similar” as a failure when actual DS components exist.

@@ -1,4 +1,4 @@
-# SELF_AUDIT_REPORT.md — Codex Product Team 2.0 beta 1
+# SELF_AUDIT_REPORT.md — Codex Product Team 2.0 beta 2
 
 ## Verdict
 
@@ -11,7 +11,7 @@ VALIDATION PASSED: 49 roles, 62 skills, 14 scenarios.
 ROUTING TEST PASSED: 14 scenarios, 49 roles, 62 skills.
 ```
 
-## What beta 1 hardens
+## What beta 2 hardens
 
 - UI/design-system workflows now require concrete artifacts instead of generic role opinions.
 - No-DS prototypes require a Prototype UI Kit Contract.

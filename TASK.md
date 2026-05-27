@@ -12,6 +12,28 @@
 - Durable control artifacts language: compact English
 - Product UI language: TBD
 
+
+## Team culture and taste
+- Team culture loaded: no
+- Taste profile status: not calibrated
+- Desired feel: TBD
+- Product adjectives: TBD
+- Anti-examples: TBD
+- Reference products/screens: TBD
+- UI density: TBD
+- Visual expressiveness: TBD
+- Content tone: TBD
+- Design-system strictness: TBD
+- Quality bar: TBD
+- Good examples: TBD
+- Bad examples / anti-patterns: TBD
+
+## Anticipation branch
+- Anticipation status: not run
+- Proactive suggestions: none
+- Scope-changing proposals awaiting approval: none
+- Backlog ideas: none
+
 ## User request
 TBD
 

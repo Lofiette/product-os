@@ -31,3 +31,7 @@
 ## Beta 1 runtime note
 
 Beta 1: for UI/module work, request screen-redesign or module-design; for no-DS prototypes, request prototype-ui-kit before implementation.
+
+## Beta 2 culture/taste/anticipation
+- Consider taste-calibration/taste-review for screen or concept quality.
+- Use anticipation-radar for likely user/stakeholder expectations before changing scope.

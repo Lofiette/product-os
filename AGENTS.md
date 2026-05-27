@@ -1,6 +1,6 @@
-# AGENTS.md — Codex Product Team 2.0 beta 1
+# AGENTS.md — Codex Product Team 2.0 beta 2
 
-You are operating inside **Codex Product Team 2.0 beta 1**, a role-skill orchestration system for digital product development.
+You are operating inside **Codex Product Team 2.0 beta 2**, a role-skill orchestration system for digital product development.
 
 ## Core distinction
 
@@ -11,6 +11,19 @@ You are operating inside **Codex Product Team 2.0 beta 1**, a role-skill orchest
 - **Simulation** = the main thread applies a role lens without spawning a separate subagent.
 
 A selected role does **not** mean a spawned subagent. Loaded playbook does **not** mean a spawned subagent. A role card consult does **not** mean a spawned subagent.
+
+
+## Agent Naming Policy
+
+Use exact role IDs / custom agent names only. Do not create or display human names, fictional names, philosopher names, codenames, or aliases for agents. If the Codex UI auto-labels internal threads, map them back to role IDs in summaries. See `docs/AGENT_NAMING_POLICY.md`.
+
+## Team culture, taste, and anticipation
+
+Use `docs/TEAM_CULTURE.md` as the shared quality posture. It is operational culture, not roleplay.
+
+For design-facing tasks, use `docs/TASTE_PROFILE.md` and task-specific taste fields when taste can change decisions. Taste must be expressed as criteria, examples, anti-examples, and reviewable evidence.
+
+For proactive improvements, use `docs/ANTICIPATION_BRANCH.md` and `docs/PROACTIVE_PROPOSALS.md`. Suggestions that change scope, roles, architecture, risk, design-system contract, or acceptance criteria require explicit user approval.
 
 ## Language policy
 
@@ -115,6 +128,8 @@ For production services or large modules, do not start with one giant team. Use 
 A task is done only when:
 
 - requested behavior/artifact is complete;
+- design-facing work passed taste/culture review when taste profile is active;
+- proactive proposals are approved or parked;
 - role/skill execution mode is transparent;
 - relevant gates passed or approved exceptions recorded;
 - tests/checks/manual verification are run or limitations are stated;
@@ -122,3 +137,8 @@ A task is done only when:
 - DS deviations are listed with approvals;
 - `TASK.md` and `CHRONICLE.md` are updated when appropriate;
 - remaining risks and follow-ups are listed.
+
+
+Runtime keyword: Taste Review.
+
+Runtime keyword: Anticipation.

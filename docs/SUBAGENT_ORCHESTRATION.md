@@ -38,3 +38,26 @@ After spawning:
 - consolidate conflicts;
 - run Consistency Auditor when needed;
 - update TASK.md and CHRONICLE.md.
+
+
+## Agent naming policy
+
+Use exact `.codex/agents/*.toml` `name` values only. Do not invent aliases or display labels such as human names, fictional names, philosopher names, or codenames. If the platform auto-labels threads, map them back to role IDs in summaries.
+
+
+## Agent naming and UI labels
+
+Use exact `agent_id` / `.codex/agents/<role_id>.toml` `name` values in all reports.
+
+Do not assign personal names, fictional names, philosopher names, codenames, or nicknames to agents. If Codex UI auto-generates thread labels, ignore them in artifacts and summaries. The source of truth is the spawned custom agent name.
+
+Required transparency statement after approval:
+
+```markdown
+## Execution transparency
+Real subagents spawned: yes/no
+Spawned agents by ID: ...
+Simulated roles: ...
+System services: ...
+UI labels ignored: yes, if any appeared
+```

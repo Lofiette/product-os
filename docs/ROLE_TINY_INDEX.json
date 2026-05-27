@@ -1,0 +1,445 @@
+{
+  "roles": [
+    {
+      "id": "intake_orchestrator",
+      "category": "System",
+      "triggers": [
+        "new task or major scope change",
+        "unclear work mode"
+      ],
+      "artifact": "Briefing questions"
+    },
+    {
+      "id": "team_architect",
+      "category": "System",
+      "triggers": [
+        "need to select roles",
+        "complex/multi-agent task"
+      ],
+      "artifact": "Selected-role contract"
+    },
+    {
+      "id": "delivery_manager",
+      "category": "System",
+      "triggers": [
+        "multi-phase MVP",
+        "cross-functional task"
+      ],
+      "artifact": "Execution plan"
+    },
+    {
+      "id": "chronicle_keeper",
+      "category": "System",
+      "triggers": [
+        "long-running task",
+        "approved plan changed"
+      ],
+      "artifact": "Updated CHRONICLE.md"
+    },
+    {
+      "id": "consistency_auditor",
+      "category": "System",
+      "triggers": [
+        "before implementation on complex tasks",
+        "after specialist findings"
+      ],
+      "artifact": "PASS/WARN/BLOCKED verdict"
+    },
+    {
+      "id": "ai_workflow_auditor",
+      "category": "System",
+      "triggers": [
+        "framework improvement",
+        "recurring Codex failure"
+      ],
+      "artifact": "Workflow audit"
+    },
+    {
+      "id": "product_strategist",
+      "category": "Product & Discovery",
+      "triggers": [
+        "new product/feature",
+        "unclear user value"
+      ],
+      "artifact": "Problem statement"
+    },
+    {
+      "id": "market_researcher",
+      "category": "Product & Discovery",
+      "triggers": [
+        "market unknowns",
+        "competitor comparison"
+      ],
+      "artifact": "Market brief"
+    },
+    {
+      "id": "ux_researcher",
+      "category": "Product & Discovery",
+      "triggers": [
+        "user behavior unclear",
+        "research planning needed"
+      ],
+      "artifact": "Research plan"
+    },
+    {
+      "id": "cx_researcher",
+      "category": "Product & Discovery",
+      "triggers": [
+        "cross-channel journey",
+        "support/service handoff"
+      ],
+      "artifact": "Journey map"
+    },
+    {
+      "id": "business_analyst",
+      "category": "Product & Discovery",
+      "triggers": [
+        "requirements unclear",
+        "business rules or compliance constraints"
+      ],
+      "artifact": "Requirements spec"
+    },
+    {
+      "id": "domain_expert",
+      "category": "Product & Discovery",
+      "triggers": [
+        "domain-heavy logic",
+        "ambiguous terminology"
+      ],
+      "artifact": "Domain model summary"
+    },
+    {
+      "id": "growth_activation_strategist",
+      "category": "Product & Discovery",
+      "triggers": [
+        "onboarding",
+        "activation"
+      ],
+      "artifact": "Activation hypothesis"
+    },
+    {
+      "id": "product_designer",
+      "category": "Design & UX",
+      "triggers": [
+        "new screen",
+        "screen redesign"
+      ],
+      "artifact": "Screen Design Spec"
+    },
+    {
+      "id": "service_designer",
+      "category": "Design & UX",
+      "triggers": [
+        "human/service handoff",
+        "multi-channel journey"
+      ],
+      "artifact": "Service blueprint"
+    },
+    {
+      "id": "information_architect",
+      "category": "Design & UX",
+      "triggers": [
+        "navigation redesign",
+        "settings/catalog/knowledge base"
+      ],
+      "artifact": "IA model"
+    },
+    {
+      "id": "ux_interaction_reviewer",
+      "category": "Design & UX",
+      "triggers": [
+        "flow/state behavior",
+        "forms"
+      ],
+      "artifact": "Flow/state matrix"
+    },
+    {
+      "id": "ux_writer",
+      "category": "Design & UX",
+      "triggers": [
+        "user-facing copy",
+        "empty/error/success states"
+      ],
+      "artifact": "Content matrix"
+    },
+    {
+      "id": "design_system_guardian",
+      "category": "Design & UX",
+      "triggers": [
+        "existing design system",
+        "component reuse"
+      ],
+      "artifact": "DS compliance constraints"
+    },
+    {
+      "id": "design_engineer",
+      "category": "Design & UX",
+      "triggers": [
+        "UI implementation",
+        "prototype interface"
+      ],
+      "artifact": "UI Implementation Fidelity Report"
+    },
+    {
+      "id": "visual_design_director",
+      "category": "Design & UX",
+      "triggers": [
+        "visual language changes",
+        "composition/hierarchy concerns"
+      ],
+      "artifact": "Visual direction notes"
+    },
+    {
+      "id": "accessibility_specialist",
+      "category": "Design & UX",
+      "triggers": [
+        "forms",
+        "dialogs"
+      ],
+      "artifact": "A11y blockers"
+    },
+    {
+      "id": "data_visualization_designer",
+      "category": "Design & UX",
+      "triggers": [
+        "charts",
+        "dashboards"
+      ],
+      "artifact": "Visualization spec"
+    },
+    {
+      "id": "conversation_designer",
+      "category": "Design & UX",
+      "triggers": [
+        "chatbot",
+        "AI assistant"
+      ],
+      "artifact": "Conversation flow"
+    },
+    {
+      "id": "localization_specialist",
+      "category": "Design & UX",
+      "triggers": [
+        "multilingual product",
+        "Russian/English switch"
+      ],
+      "artifact": "Localization risks"
+    },
+    {
+      "id": "solution_architect",
+      "category": "Engineering",
+      "triggers": [
+        "cross-system design",
+        "architecture choice"
+      ],
+      "artifact": "Architecture plan"
+    },
+    {
+      "id": "frontend_architect",
+      "category": "Engineering",
+      "triggers": [
+        "frontend implementation",
+        "SPA/app architecture"
+      ],
+      "artifact": "Frontend plan"
+    },
+    {
+      "id": "backend_architect",
+      "category": "Engineering",
+      "triggers": [
+        "backend/API change",
+        "data persistence"
+      ],
+      "artifact": "Backend plan"
+    },
+    {
+      "id": "mobile_architect",
+      "category": "Engineering",
+      "triggers": [
+        "iOS/Android/mobile app",
+        "responsive native constraints"
+      ],
+      "artifact": "Mobile architecture plan"
+    },
+    {
+      "id": "api_contract_guardian",
+      "category": "Engineering",
+      "triggers": [
+        "API changes",
+        "public/internal contract"
+      ],
+      "artifact": "API contract review"
+    },
+    {
+      "id": "data_architect",
+      "category": "Engineering",
+      "triggers": [
+        "data model/schema",
+        "storage choice"
+      ],
+      "artifact": "Data model"
+    },
+    {
+      "id": "analytics_engineer",
+      "category": "Engineering",
+      "triggers": [
+        "metrics/instrumentation",
+        "dashboard/report"
+      ],
+      "artifact": "Analytics plan"
+    },
+    {
+      "id": "ai_ml_systems_architect",
+      "category": "Engineering",
+      "triggers": [
+        "AI/ML feature",
+        "LLM behavior"
+      ],
+      "artifact": "AI behavior contract"
+    },
+    {
+      "id": "model_evaluation_specialist",
+      "category": "Engineering",
+      "triggers": [
+        "AI quality evaluation",
+        "model regression risk"
+      ],
+      "artifact": "Eval matrix"
+    },
+    {
+      "id": "ai_safety_reviewer",
+      "category": "Engineering",
+      "triggers": [
+        "AI assistant/agent",
+        "tool use"
+      ],
+      "artifact": "AI safety review"
+    },
+    {
+      "id": "security_reviewer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "auth/permissions",
+        "sensitive data"
+      ],
+      "artifact": "Threat model"
+    },
+    {
+      "id": "privacy_compliance_reviewer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "personal data",
+        "research data"
+      ],
+      "artifact": "Privacy impact notes"
+    },
+    {
+      "id": "performance_engineer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "slow UI/API",
+        "large lists"
+      ],
+      "artifact": "Performance risk report"
+    },
+    {
+      "id": "dependency_curator",
+      "category": "Risk & Operations",
+      "triggers": [
+        "new dependency",
+        "package replacement"
+      ],
+      "artifact": "Dependency decision"
+    },
+    {
+      "id": "migration_planner",
+      "category": "Risk & Operations",
+      "triggers": [
+        "schema/data migration",
+        "backfill"
+      ],
+      "artifact": "Migration plan"
+    },
+    {
+      "id": "devops_release_engineer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "deployment/release",
+        "infra/config/env changes"
+      ],
+      "artifact": "Release plan"
+    },
+    {
+      "id": "observability_engineer",
+      "category": "Risk & Operations",
+      "triggers": [
+        "production risk",
+        "new service/job"
+      ],
+      "artifact": "Observability plan"
+    },
+    {
+      "id": "incident_investigator",
+      "category": "Risk & Operations",
+      "triggers": [
+        "production incident",
+        "major regression"
+      ],
+      "artifact": "Incident report"
+    },
+    {
+      "id": "experimentation_specialist",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "A/B test",
+        "pilot"
+      ],
+      "artifact": "Experiment plan"
+    },
+    {
+      "id": "customer_support_analyst",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "support feedback",
+        "field report"
+      ],
+      "artifact": "Support signal brief"
+    },
+    {
+      "id": "qa_engineer",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "implementation",
+        "bugfix"
+      ],
+      "artifact": "Test plan"
+    },
+    {
+      "id": "code_reviewer",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "code diff",
+        "production change"
+      ],
+      "artifact": "Review verdict"
+    },
+    {
+      "id": "refactoring_specialist",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "complexity reduction",
+        "refactor request"
+      ],
+      "artifact": "Refactor plan"
+    },
+    {
+      "id": "technical_writer",
+      "category": "Quality & Handoff",
+      "triggers": [
+        "handoff",
+        "PR summary"
+      ],
+      "artifact": "PR description"
+    }
+  ]
+}

@@ -65,3 +65,13 @@ Report:
 Verdict: PASS / PASS WITH WARNINGS / BLOCKED.
 
 BLOCKED if avoidable UX confusion, DS drift, visible craft failure, or contradiction with explicit bad examples remains unresolved.
+
+
+## Current-page UI review gate
+
+When reviewing a rendered page or prototype, create a `UI Review Packet` before spawning UI/design reviewers. Reviewers must return PASS/WARN/BLOCKED with evidence and at most 5 findings. If reviewer subagents do not complete, apply `SUBAGENT_FAILURE_POLICY.md`; do not mark DS/taste/fidelity gates as PASS solely because a reviewer did not return.
+
+
+## Runtime adequacy reminder
+
+- Report Subagent Completion Status whenever real subagents are used or fail.

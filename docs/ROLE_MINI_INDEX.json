@@ -12,8 +12,7 @@
       "primary_outputs": [
         "Briefing questions",
         "Updated TASK.md",
-        "Work mode",
-        "Initial role/skill triggers"
+        "Work mode"
       ],
       "default_skills": [
         "task-intake",
@@ -32,17 +31,11 @@
       "primary_outputs": [
         "Selected-role contract",
         "Skill plan",
-        "Orchestration proposal",
-        "Skipped-role rationale"
+        "Orchestration proposal"
       ],
       "default_skills": [
         "team-routing",
-        "subagent-orchestration",
-        "expectation-anticipation"
-      ],
-      "optional": [
-        "anticipation-radar",
-        "proactive-proposal-review"
+        "subagent-orchestration"
       ]
     },
     {
@@ -58,15 +51,10 @@
       "primary_outputs": [
         "Execution plan",
         "Milestones",
-        "Dependency map",
-        "Approval checkpoints"
+        "Dependency map"
       ],
       "default_skills": [
         "product-planning"
-      ],
-      "optional": [
-        "anticipation-radar",
-        "proactive-proposal-review"
       ]
     },
     {
@@ -82,8 +70,7 @@
       "primary_outputs": [
         "Updated CHRONICLE.md",
         "Context rescue summary",
-        "Decision log",
-        "Subagent activity log"
+        "Decision log"
       ],
       "default_skills": [
         "progress-chronicle"
@@ -102,14 +89,10 @@
       "primary_outputs": [
         "PASS/WARN/BLOCKED verdict",
         "Contradictions",
-        "Required fixes",
-        "Missing owners"
+        "Required fixes"
       ],
       "default_skills": [
         "self-audit"
-      ],
-      "optional": [
-        "proactive-proposal-review"
       ]
     },
     {
@@ -143,17 +126,10 @@
       "primary_outputs": [
         "Problem statement",
         "MVP slice",
-        "Non-goals",
-        "Success metrics"
+        "Non-goals"
       ],
       "default_skills": [
-        "product-planning",
-        "expectation-anticipation"
-      ],
-      "optional": [
-        "anticipation-radar",
-        "proactive-proposal-review",
-        "creative-tension-review"
+        "product-planning"
       ]
     },
     {
@@ -169,8 +145,7 @@
       "primary_outputs": [
         "Market brief",
         "Alternatives map",
-        "Competitive teardown",
-        "Positioning hypotheses"
+        "Competitive teardown"
       ],
       "default_skills": [
         "market-research-planning"
@@ -189,8 +164,7 @@
       "primary_outputs": [
         "Research plan",
         "Screener",
-        "Interview/test guide",
-        "Evidence-labeled insights"
+        "Interview/test guide"
       ],
       "default_skills": [
         "ux-research-planning"
@@ -209,8 +183,7 @@
       "primary_outputs": [
         "Journey map",
         "Pain points by touchpoint",
-        "Moments of truth",
-        "CX evidence gaps"
+        "Moments of truth"
       ],
       "default_skills": [
         "cx-journey-mapping"
@@ -228,8 +201,7 @@
       "primary_outputs": [
         "Requirements spec",
         "Business rules",
-        "Traceability table",
-        "Open assumptions"
+        "Traceability table"
       ],
       "default_skills": [
         "product-planning"
@@ -248,8 +220,7 @@
       "primary_outputs": [
         "Domain model summary",
         "Terminology",
-        "Invariants",
-        "Domain edge cases"
+        "Invariants"
       ],
       "default_skills": [
         "product-planning"
@@ -263,15 +234,12 @@
         "onboarding",
         "activation",
         "retention",
-        "conversion",
-        "trial-to-paid",
-        "lifecycle messaging"
+        "conversion"
       ],
       "primary_outputs": [
         "Activation hypothesis",
         "Growth loop map",
-        "Experiment ideas",
-        "Friction report"
+        "Experiment ideas"
       ],
       "default_skills": [
         "growth-activation-planning"
@@ -285,29 +253,18 @@
         "new screen",
         "screen redesign",
         "UI prototype",
-        "flow redesign",
-        "turn requirements into interface",
-        "obvious UI problems"
+        "flow redesign"
       ],
       "primary_outputs": [
         "Screen Design Spec",
         "Flow Design Spec",
-        "State matrix",
-        "Component tree"
+        "State matrix"
       ],
       "default_skills": [
         "design-recon",
         "screen-redesign",
         "state-matrix",
         "taste-calibration"
-      ],
-      "default": [
-        "taste-calibration"
-      ],
-      "optional": [
-        "taste-review",
-        "creative-tension-review",
-        "anticipation-radar"
       ]
     },
     {
@@ -323,8 +280,7 @@
       "primary_outputs": [
         "Service blueprint",
         "Actor/channel map",
-        "Operational gap list",
-        "Service handoff plan"
+        "Operational gap list"
       ],
       "default_skills": [
         "service-blueprint",
@@ -344,8 +300,7 @@
       "primary_outputs": [
         "IA model",
         "Navigation structure",
-        "Taxonomy",
-        "Labeling recommendations"
+        "Taxonomy"
       ],
       "default_skills": [
         "information-architecture"
@@ -359,14 +314,12 @@
         "flow/state behavior",
         "forms",
         "user confusion",
-        "error recovery",
-        "interaction-heavy UI"
+        "error recovery"
       ],
       "primary_outputs": [
         "Flow/state matrix",
         "Interaction risks",
-        "Behavior requirements",
-        "UX acceptance criteria"
+        "Behavior requirements"
       ],
       "default_skills": [
         "state-matrix",
@@ -381,22 +334,15 @@
         "user-facing copy",
         "empty/error/success states",
         "onboarding",
-        "terminology conflict",
-        "localization implications"
+        "terminology conflict"
       ],
       "primary_outputs": [
         "Content matrix",
         "Microcopy recommendations",
-        "Terminology rules",
-        "Message patterns"
+        "Terminology rules"
       ],
       "default_skills": [
-        "content-pattern-review",
-        "taste-calibration"
-      ],
-      "optional": [
-        "taste-review",
-        "taste-calibration"
+        "content-pattern-review"
       ]
     },
     {
@@ -407,21 +353,16 @@
         "existing design system",
         "component reuse",
         "new UI component",
-        "token/variant decision",
-        "custom UI risk"
+        "token/variant decision"
       ],
       "primary_outputs": [
         "DS compliance constraints",
         "Component fit report",
-        "Token rules",
-        "Approved deviations"
+        "Token rules"
       ],
       "default_skills": [
         "design-recon",
         "design-system-compliance"
-      ],
-      "optional": [
-        "taste-review"
       ]
     },
     {
@@ -432,23 +373,17 @@
         "UI implementation",
         "prototype interface",
         "design-to-code",
-        "DS compliance problems",
-        "Codex makes similar-looking custom UI"
+        "DS compliance problems"
       ],
       "primary_outputs": [
         "UI Implementation Fidelity Report",
         "Component usage map",
-        "Token usage report",
-        "Visual QA blockers"
+        "Token usage report"
       ],
       "default_skills": [
         "design-system-compliance",
         "visual-qa-loop",
-        "ui-heuristic-audit",
-        "taste-review"
-      ],
-      "optional": [
-        "taste-review"
+        "ui-heuristic-audit"
       ]
     },
     {
@@ -464,19 +399,11 @@
       "primary_outputs": [
         "Visual direction notes",
         "Hierarchy critique",
-        "Composition risks",
-        "Brand/visual alignment"
+        "Composition risks"
       ],
       "default_skills": [
         "design-critique",
         "taste-review"
-      ],
-      "default": [
-        "taste-review"
-      ],
-      "optional": [
-        "taste-calibration",
-        "creative-tension-review"
       ]
     },
     {
@@ -487,15 +414,12 @@
         "forms",
         "dialogs",
         "tables",
-        "interactive UI",
-        "production UI",
-        "keyboard/focus/labels risk"
+        "interactive UI"
       ],
       "primary_outputs": [
         "A11y blockers",
         "A11y checklist",
-        "Focus/keyboard requirements",
-        "ARIA notes"
+        "Focus/keyboard requirements"
       ],
       "default_skills": [
         "accessibility-check"
@@ -509,14 +433,12 @@
         "charts",
         "dashboards",
         "reports",
-        "metrics UI",
-        "decision-support data display"
+        "metrics UI"
       ],
       "primary_outputs": [
         "Visualization spec",
         "Chart choice rationale",
-        "Metric display risks",
-        "Dashboard critique"
+        "Metric display risks"
       ],
       "default_skills": [
         "data-visualization-review"
@@ -530,14 +452,12 @@
         "chatbot",
         "AI assistant",
         "agentic UI",
-        "voice/dialogue UI",
-        "multi-turn clarification"
+        "voice/dialogue UI"
       ],
       "primary_outputs": [
         "Conversation flow",
         "Prompt/user-message patterns",
-        "Fallback strategy",
-        "Clarification rules"
+        "Fallback strategy"
       ],
       "default_skills": [
         "conversation-design"
@@ -551,14 +471,12 @@
         "multilingual product",
         "Russian/English switch",
         "locale formatting",
-        "string expansion",
-        "translation readiness"
+        "string expansion"
       ],
       "primary_outputs": [
         "Localization risks",
         "Terminology notes",
-        "Locale constraints",
-        "String-readiness checklist"
+        "Locale constraints"
       ],
       "default_skills": [
         "localization-review"
@@ -577,8 +495,7 @@
       "primary_outputs": [
         "Architecture plan",
         "Boundary map",
-        "Trade-off record",
-        "Risk register"
+        "Trade-off record"
       ],
       "default_skills": [
         "architecture-planning"
@@ -597,8 +514,7 @@
       "primary_outputs": [
         "Frontend plan",
         "File/change map",
-        "State/data strategy",
-        "Frontend risks"
+        "State/data strategy"
       ],
       "default_skills": [
         "repo-recon",
@@ -613,14 +529,12 @@
         "backend/API change",
         "data persistence",
         "domain logic",
-        "integrations",
-        "auth/server validation"
+        "integrations"
       ],
       "primary_outputs": [
         "Backend plan",
         "API/data implications",
-        "Validation strategy",
-        "Backend risk list"
+        "Validation strategy"
       ],
       "default_skills": [
         "repo-recon",
@@ -640,8 +554,7 @@
       "primary_outputs": [
         "Mobile architecture plan",
         "Platform risks",
-        "Navigation/state strategy",
-        "Mobile QA notes"
+        "Navigation/state strategy"
       ],
       "default_skills": [
         "repo-recon",
@@ -675,14 +588,12 @@
         "data model/schema",
         "storage choice",
         "data quality",
-        "retention/lineage",
-        "analytics data"
+        "retention/lineage"
       ],
       "primary_outputs": [
         "Data model",
         "Schema risks",
-        "Data quality rules",
-        "Retention notes"
+        "Data quality rules"
       ],
       "default_skills": [
         "architecture-planning"
@@ -701,8 +612,7 @@
       "primary_outputs": [
         "Analytics plan",
         "Metric definitions",
-        "Event spec",
-        "Data caveats"
+        "Event spec"
       ],
       "default_skills": [
         "analytics-planning"
@@ -716,14 +626,12 @@
         "AI/ML feature",
         "LLM behavior",
         "tool-using agent",
-        "retrieval/context design",
-        "model selection"
+        "retrieval/context design"
       ],
       "primary_outputs": [
         "AI behavior contract",
         "Context/data map",
-        "Tool permission matrix",
-        "Fallback plan"
+        "Tool permission matrix"
       ],
       "default_skills": [
         "ai-ml-planning"
@@ -742,8 +650,7 @@
       "primary_outputs": [
         "Eval matrix",
         "Failure taxonomy",
-        "Test set plan",
-        "Release criteria"
+        "Test set plan"
       ],
       "default_skills": [
         "model-evaluation"
@@ -757,14 +664,12 @@
         "AI assistant/agent",
         "tool use",
         "untrusted input",
-        "safety-sensitive output",
-        "irreversible actions"
+        "safety-sensitive output"
       ],
       "primary_outputs": [
         "AI safety review",
         "Risk table",
-        "Guardrail recommendations",
-        "Approval gates"
+        "Guardrail recommendations"
       ],
       "default_skills": [
         "ai-safety-review"
@@ -778,15 +683,12 @@
         "auth/permissions",
         "sensitive data",
         "uploads",
-        "public APIs",
-        "AI tools",
-        "security-sensitive code"
+        "public APIs"
       ],
       "primary_outputs": [
         "Threat model",
         "Ranked findings",
-        "Mitigations",
-        "Security tests"
+        "Mitigations"
       ],
       "default_skills": [
         "threat-modeling"
@@ -800,14 +702,12 @@
         "personal data",
         "research data",
         "user tracking",
-        "AI context/data use",
-        "retention/export/deletion"
+        "AI context/data use"
       ],
       "primary_outputs": [
         "Privacy impact notes",
         "Data inventory",
-        "Consent/retention risks",
-        "Compliance caveats"
+        "Consent/retention risks"
       ],
       "default_skills": [
         "privacy-impact-review"
@@ -821,14 +721,12 @@
         "slow UI/API",
         "large lists",
         "dashboards",
-        "mobile perf",
-        "expensive rendering/query risk"
+        "mobile perf"
       ],
       "primary_outputs": [
         "Performance risk report",
         "Measurement plan",
-        "Cheap wins",
-        "Avoided over-optimizations"
+        "Cheap wins"
       ],
       "default_skills": [
         "performance-review"
@@ -847,8 +745,7 @@
       "primary_outputs": [
         "Dependency decision",
         "Alternatives",
-        "Risk notes",
-        "Approval recommendation"
+        "Risk notes"
       ],
       "default_skills": [
         "dependency-review"
@@ -867,8 +764,7 @@
       "primary_outputs": [
         "Migration plan",
         "Rollback plan",
-        "Data validation plan",
-        "Risk table"
+        "Data validation plan"
       ],
       "default_skills": [
         "migration-planning"
@@ -882,14 +778,12 @@
         "deployment/release",
         "infra/config/env changes",
         "CI/CD",
-        "feature flags",
-        "rollout risk"
+        "feature flags"
       ],
       "primary_outputs": [
         "Release plan",
         "CI checks",
-        "Rollback plan",
-        "Env/config risks"
+        "Rollback plan"
       ],
       "default_skills": [
         "devops-release-planning"
@@ -908,8 +802,7 @@
       "primary_outputs": [
         "Observability plan",
         "Signal map",
-        "Alert recommendations",
-        "Debugging notes"
+        "Alert recommendations"
       ],
       "default_skills": [
         "observability-planning"
@@ -923,14 +816,12 @@
         "production incident",
         "major regression",
         "data loss",
-        "outage",
-        "security event"
+        "outage"
       ],
       "primary_outputs": [
         "Incident report",
         "Timeline",
-        "Root cause hypotheses",
-        "Prevention actions"
+        "Root cause hypotheses"
       ],
       "default_skills": [
         "incident-review"
@@ -949,8 +840,7 @@
       "primary_outputs": [
         "Experiment plan",
         "Hypothesis",
-        "Metrics/guardrails",
-        "Decision rules"
+        "Metrics/guardrails"
       ],
       "default_skills": [
         "experiment-design"
@@ -969,8 +859,7 @@
       "primary_outputs": [
         "Support signal brief",
         "Issue taxonomy",
-        "Frequency/severity notes",
-        "Opportunity events"
+        "Frequency/severity notes"
       ],
       "default_skills": [
         "customer-support-analysis"
@@ -984,14 +873,12 @@
         "implementation",
         "bugfix",
         "MVP verification",
-        "UI quality gate",
-        "regression risk"
+        "UI quality gate"
       ],
       "primary_outputs": [
         "Test plan",
         "Edge cases",
-        "Verification commands",
-        "QA verdict"
+        "Verification commands"
       ],
       "default_skills": [
         "implementation-review"
@@ -1010,8 +897,7 @@
       "primary_outputs": [
         "Review verdict",
         "Blocking issues",
-        "Non-blocking issues",
-        "Missing tests"
+        "Non-blocking issues"
       ],
       "default_skills": [
         "implementation-review"
@@ -1030,8 +916,7 @@
       "primary_outputs": [
         "Refactor plan",
         "Behavior preservation strategy",
-        "Risk list",
-        "Test requirements"
+        "Risk list"
       ],
       "default_skills": [
         "refactoring-planning"
@@ -1045,14 +930,12 @@
         "handoff",
         "PR summary",
         "documentation",
-        "release notes",
-        "reviewer guidance"
+        "release notes"
       ],
       "primary_outputs": [
         "PR description",
         "Release notes",
-        "User/dev docs",
-        "Reviewer checklist"
+        "User/dev docs"
       ],
       "default_skills": [
         "handoff-docs"

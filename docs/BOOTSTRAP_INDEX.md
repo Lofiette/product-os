@@ -51,3 +51,12 @@ Selected role is not a spawned subagent. Spawned subagents must be named explici
 ## Agent naming policy
 
 Use exact agent IDs. If the UI auto-labels spawned threads, ignore those labels in artifacts and summaries. See `docs/AGENT_NAMING_POLICY.md` when real subagents are used.
+
+
+## Runtime stability docs
+
+Load only when relevant:
+- `docs/SUBAGENT_RUN_CONTRACT.md` before real subagent spawn.
+- `docs/SUBAGENT_FAILURE_POLICY.md` when spawned agents stall/fail/duplicate.
+- `docs/UI_REVIEW_PACKET.md` before current-page UI review.
+- `docs/UI_REVIEW_RUNBOOK.md` for bounded rendered UI review.

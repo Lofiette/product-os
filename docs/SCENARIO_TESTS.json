@@ -354,6 +354,39 @@
         "ux-research-planning"
       ],
       "forbidden_implementation": true
+    },
+    {
+      "id": "current_page_ui_review_bounded",
+      "description": "Review a currently rendered page without over-spawning role-specific agents",
+      "required_roles": [
+        "product_designer",
+        "design_engineer",
+        "design_system_guardian"
+      ],
+      "required_skills": [
+        "ui-review-packet",
+        "current-page-ui-review",
+        "design-system-compliance",
+        "taste-review"
+      ],
+      "max_spawned_agents_default": 2,
+      "requires_approval_before_spawn": true
+    },
+    {
+      "id": "subagent_hang_recovery",
+      "description": "Recover when one or more spawned UI review agents remain running or fail",
+      "required_roles": [
+        "team_architect",
+        "consistency_auditor"
+      ],
+      "required_skills": [
+        "subagent-run-contract",
+        "subagent-failure-recovery"
+      ],
+      "required_artifacts": [
+        "Subagent Completion Status"
+      ],
+      "must_not_duplicate_running_role": true
     }
   ]
 }

@@ -30,12 +30,12 @@ A role-skill orchestration framework for Codex that simulates or spawns a produc
 - `docs/DESIGN_RECON.md` — how to discover design system and UI patterns.
 - `docs/UI_QUALITY_GATES.md` — blocking UI quality checks.
 
-## 2.0 beta 2
+## 2.0 beta 3
 
 This beta hardens operational UI workflows, module design handoff, production readiness, DS enforcement scripts, and explicit spawned/simulated execution transparency. See `docs/RELEASE_NOTES_2.0_BETA2.md`.
 
 
-## 2.0 beta 2 highlights
+## 2.0 beta 3 highlights
 
 - Added Team Culture Layer.
 - Added Taste Profile, good/bad examples, Taste Calibration, and Taste Review.

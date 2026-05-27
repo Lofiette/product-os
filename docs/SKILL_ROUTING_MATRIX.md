@@ -68,3 +68,15 @@ Rules:
 - Taste skills are not evidence substitutes.
 - Anticipation proposals A2/A3/A4 require approval before implementation.
 - Do not use these skills for Tiny/Fast Lane mechanical tasks unless requested.
+
+
+## Runtime stability and current-page review skills
+
+Use these skills to prevent stalled or over-broad subagent workflows:
+
+- `subagent-run-contract`: before any real spawned workflow.
+- `subagent-failure-recovery`: when spawned agents are running too long, fail, duplicate, or return unusable artifacts.
+- `ui-review-packet`: before asking UI/design reviewers to inspect a rendered page.
+- `current-page-ui-review`: for bounded page/prototype review with PASS/WARN/BLOCKED verdict.
+
+For current-page UI review, prefer `ui-review-packet` + `current-page-ui-review` before spawning multiple role-specific agents.

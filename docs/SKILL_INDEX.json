@@ -51,6 +51,10 @@
       "description": "Use controlled creative perspectives to challenge a decision and produce bounded improvement options."
     },
     {
+      "id": "current-page-ui-review",
+      "description": "Use when reviewing a rendered page or interface prototype for product clarity, DS fidelity, taste, obvious UI issues, and implementation fidelity."
+    },
+    {
       "id": "customer-support-analysis",
       "description": "Classify support signals by frequency, severity, evidence strength, user segment, and product implication."
     },
@@ -243,8 +247,16 @@
       "description": "Define UI state matrix: empty, loading, success, error, disabled, permission, partial, optimistic, responsive edge cases."
     },
     {
+      "id": "subagent-failure-recovery",
+      "description": "Use when one or more real subagents are still running, failed, duplicated, or did not return a usable artifact."
+    },
+    {
       "id": "subagent-orchestration",
       "description": "Plan and execute true subagent workflow with explicit user approval, bounded tasks, exact agent names, outputs, and stop conditions."
+    },
+    {
+      "id": "subagent-run-contract",
+      "description": "Use before spawning real subagents to create a bounded task, evidence requirements, read/write permissions, output schema, and stop condition."
     },
     {
       "id": "task-intake",
@@ -269,6 +281,10 @@
     {
       "id": "ui-heuristic-audit",
       "description": "Run obvious UI errors checklist: hierarchy, actions, states, copy, accessibility, responsiveness, consistency."
+    },
+    {
+      "id": "ui-review-packet",
+      "description": "Use before UI review subagents or multi-lens review to package URL, screenshot, changed files, DS mode, component sources, console/build status, and review focus."
     },
     {
       "id": "ux-research-planning",

@@ -61,3 +61,25 @@ Simulated roles: ...
 System services: ...
 UI labels ignored: yes, if any appeared
 ```
+
+
+## Runtime adequacy patch
+
+Before true subagent workflow, use `docs/SUBAGENT_RUN_CONTRACT.md`. A subagent must receive a bounded task, exact input packet, read/write permission, strict output schema, and stop condition.
+
+For UI/page review, create `UI Review Packet` first. Do not ask multiple role-specific agents to broadly inspect the entire repo or current page without a packet.
+
+If one or more spawned agents remain running or fail to return a usable artifact, apply `docs/SUBAGENT_FAILURE_POLICY.md`. Do not wait indefinitely and do not invent missing specialist results. Proceed with completed agents plus bounded fallback only when quality gates can still be satisfied.
+
+Default max simultaneous spawned reviewers:
+
+- Fast Lane: 0 unless explicitly approved.
+- Standard UI review: 1–2.
+- Complex/high-risk: 3–5 by phase, not all at once.
+
+Duplicate spawning of the same role is forbidden while an earlier agent for that role is still running unless the user explicitly approves the retry.
+
+
+## Runtime adequacy reminder
+
+- Report Subagent Completion Status whenever real subagents are used or fail.

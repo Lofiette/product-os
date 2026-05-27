@@ -55,7 +55,9 @@
         "anticipation-radar",
         "proactive-proposal-review",
         "expectation-anticipation",
-        "taste-calibration"
+        "taste-calibration",
+        "subagent-run-contract",
+        "subagent-failure-recovery"
       ],
       "handoffs": [
         "delivery_manager",
@@ -148,7 +150,8 @@
         "risk-review",
         "proactive-proposal-review",
         "taste-review",
-        "expectation-anticipation"
+        "expectation-anticipation",
+        "subagent-failure-recovery"
       ],
       "handoffs": [
         "team_architect",
@@ -446,7 +449,9 @@
         "creative-tension-review",
         "anticipation-radar",
         "example-taste-board",
-        "expectation-anticipation"
+        "expectation-anticipation",
+        "ui-review-packet",
+        "current-page-ui-review"
       ],
       "handoffs": [
         "design_engineer",
@@ -627,7 +632,9 @@
         "taste-review",
         "taste-calibration",
         "example-taste-board",
-        "expectation-anticipation"
+        "expectation-anticipation",
+        "ui-review-packet",
+        "current-page-ui-review"
       ],
       "handoffs": [
         "product_designer",
@@ -669,7 +676,10 @@
         "taste-review",
         "taste-calibration",
         "example-taste-board",
-        "expectation-anticipation"
+        "expectation-anticipation",
+        "ui-review-packet",
+        "current-page-ui-review",
+        "subagent-failure-recovery"
       ],
       "handoffs": [
         "frontend_architect",
@@ -1513,7 +1523,9 @@
         "visual-qa-loop",
         "design-handoff-qa",
         "production-readiness-review",
-        "e2e-visual-state-capture"
+        "e2e-visual-state-capture",
+        "current-page-ui-review",
+        "subagent-failure-recovery"
       ],
       "handoffs": [
         "code_reviewer",
@@ -1548,7 +1560,8 @@
         "threat-modeling",
         "performance-review",
         "production-readiness-review",
-        "ds-code-contract-enforcement"
+        "ds-code-contract-enforcement",
+        "subagent-failure-recovery"
       ],
       "handoffs": [
         "qa_engineer",

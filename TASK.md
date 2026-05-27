@@ -104,3 +104,22 @@ TBD
 ## Context budget log
 | Stage | Docs loaded | Role cards | Full playbooks | Skills | Reason |
 |---|---|---|---|---|---|
+
+
+## Subagent run status
+
+- Real subagents spawned: TBD
+- Spawned agents: []
+- Simulated roles: []
+- System services: []
+- Agent run contract: TBD
+- Subagent completion status: TBD
+- Fallbacks used: []
+
+## UI review packet
+
+- Target URL/route: TBD
+- Screenshots/render evidence: TBD
+- Changed files: []
+- Design-system mode: TBD
+- Missing evidence: []

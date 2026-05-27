@@ -32,3 +32,14 @@ None yet.
 | Time | Type | Signal | Decision | Status |
 |---|---|---|---|---|
 
+
+
+## Subagent completion log
+
+| Time | Agent ID | Expected artifact | Status | Used in verdict | Fallback |
+|---|---|---|---|---|---|
+
+## UI review packet log
+
+| Time | Target | DS mode | Evidence | Verdict | Missing evidence |
+|---|---|---|---|---|---|

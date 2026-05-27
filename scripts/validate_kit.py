@@ -13,6 +13,8 @@ required = [
  'docs/TEAM_CULTURE.md','docs/TASTE_PROFILE.md','docs/TASTE_REVIEW.md','docs/CREATIVE_TENSION.md','docs/EXPECTATION_ANTICIPATION.md','docs/AGENT_NAMING_POLICY.md',
  'docs/TEAM_CULTURE.md','docs/TASTE_PROFILE.md','docs/TASTE_REVIEW.md','docs/CREATIVE_TENSION.md',
  'docs/ANTICIPATION_BRANCH.md','docs/PROACTIVE_PROPOSALS.md','docs/AGENT_NAMING_POLICY.md',
+ 'docs/SUBAGENT_RUN_CONTRACT.md','docs/SUBAGENT_FAILURE_POLICY.md','docs/UI_REVIEW_PACKET.md','docs/UI_REVIEW_RUNBOOK.md',
+ 'docs/ROLE_TINY_INDEX.json','docs/SKILL_TINY_INDEX.json',
  'scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs','scripts/test-routing.py'
 ]
 for p in required:
@@ -30,7 +32,8 @@ required_skills = {
  'design-system-manifest','design-system-compliance','design-handoff-qa','design-qa','visual-qa-loop',
  'ui-heuristic-audit','component-contract-scan','ds-code-contract-enforcement','production-service-planning','production-readiness-review',
  'taste-calibration','taste-review','creative-tension-review','expectation-anticipation','example-taste-board',
- 'taste-calibration','taste-review','creative-tension-review','anticipation-radar','proactive-proposal-review'
+ 'taste-calibration','taste-review','creative-tension-review','anticipation-radar','proactive-proposal-review',
+ 'subagent-run-contract','subagent-failure-recovery','ui-review-packet','current-page-ui-review'
 }
 for sk in required_skills:
     if sk not in skills: errors.append(f'Missing beta1 required skill in index: {sk}')
@@ -76,7 +79,7 @@ for rid in ['product_designer','design_engineer','service_designer','information
     if rid not in ids: errors.append(f'Missing critical v2 role: {rid}')
 # first prompt critical phrases
 fp=(ROOT/'FIRST_PROMPT.md').read_text()
-for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned','TEAM_CULTURE.md','AGENT_NAMING_POLICY.md','taste-calibration','anticipation-radar']:
+for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned','TEAM_CULTURE.md','AGENT_NAMING_POLICY.md','taste-calibration','anticipation-radar','subagent-failure-recovery','ui-review-packet','ROLE_TINY_INDEX.json']:
     if phrase not in fp: errors.append(f'FIRST_PROMPT missing phrase: {phrase}')
 
 # exact agent ID / no personal labels in core docs
@@ -113,6 +116,34 @@ for phrase in ['Taste Review','Anticipation','Agent Naming Policy']:
     combined=(ROOT/'AGENTS.md').read_text() + (ROOT/'FIRST_PROMPT.md').read_text()
     if phrase not in combined:
         errors.append(f'Missing beta2 phrase in AGENTS/FIRST_PROMPT: {phrase}')
+
+
+# beta 3 runtime adequacy checks
+for toml_path in (ROOT/'.codex/agents').glob('*.toml'):
+    try:
+        data=tomllib.loads(toml_path.read_text())
+        instr=data.get('developer_instructions','')
+        for bad_ref in [' EVIDENCE_POLICY.md', ' QUALITY_GATES.md', ' SUBAGENT_ORCHESTRATION.md']:
+            if bad_ref in instr:
+                errors.append(f'TOML uses unqualified critical doc path {bad_ref.strip()}: {toml_path.name}')
+        for good_ref in ['docs/EVIDENCE_POLICY.md','docs/QUALITY_GATES.md','docs/SUBAGENT_ORCHESTRATION.md']:
+            if good_ref not in instr:
+                errors.append(f'TOML missing qualified critical doc path {good_ref}: {toml_path.name}')
+        if 'INSUFFICIENT EVIDENCE' not in instr:
+            errors.append(f'TOML missing insufficient-evidence anti-hang rule: {toml_path.name}')
+    except Exception:
+        pass
+
+for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/SUBAGENT_ORCHESTRATION.md','docs/UI_QUALITY_GATES.md']:
+    text=(ROOT/doc).read_text()
+    for phrase in ['UI Review Packet','SUBAGENT_FAILURE_POLICY','Subagent Completion Status']:
+        if phrase not in text:
+            errors.append(f'{doc} missing runtime adequacy phrase: {phrase}')
+
+sc_ids = {s.get('id') for s in sc.get('scenarios', [])}
+for required_scenario in ['current_page_ui_review_bounded','subagent_hang_recovery']:
+    if required_scenario not in sc_ids:
+        errors.append(f'Missing beta3 scenario: {required_scenario}')
 
 if errors:
     print('VALIDATION FAILED')

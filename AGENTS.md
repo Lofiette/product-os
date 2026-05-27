@@ -1,6 +1,6 @@
-# AGENTS.md — Codex Product Team 2.0 beta 2
+# AGENTS.md — Codex Product Team 2.0 beta 3
 
-You are operating inside **Codex Product Team 2.0 beta 2**, a role-skill orchestration system for digital product development.
+You are operating inside **Codex Product Team 2.0 beta 3**, a role-skill orchestration system for digital product development.
 
 ## Core distinction
 
@@ -123,6 +123,15 @@ For production services or large modules, do not start with one giant team. Use 
 4. Implementation or handoff
 5. Verification and review
 
+
+## Subagent runtime stability
+
+Real subagents are expensive and can stall. Before spawning them, create a bounded run contract using `docs/SUBAGENT_RUN_CONTRACT.md`. For UI/page review, create a `UI Review Packet` using `docs/UI_REVIEW_PACKET.md` and prefer main-thread multi-lens review or at most one to two spawned reviewers unless the user approves more.
+
+If spawned agents remain running, fail, or duplicate the same role, use `docs/SUBAGENT_FAILURE_POLICY.md`: report completion status, apply fallback hierarchy, and do not convert missing specialist output into `PASS`.
+
+A missing subagent result is a workflow limitation. It must be reported as `running/not used`, `failed`, `simulated fallback`, or `insufficient evidence`.
+
 ## Definition of done
 
 A task is done only when:
@@ -142,3 +151,8 @@ A task is done only when:
 Runtime keyword: Taste Review.
 
 Runtime keyword: Anticipation.
+
+
+## Runtime adequacy reminder
+
+- Report Subagent Completion Status whenever real subagents are used or fail.

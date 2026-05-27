@@ -43,3 +43,8 @@ None yet.
 
 | Time | Target | DS mode | Evidence | Verdict | Missing evidence |
 |---|---|---|---|---|---|
+
+## Reference / visual QA log
+
+| Time | Event | Reference/DS authority | Verdict | Follow-up |
+|---|---|---|---|---|

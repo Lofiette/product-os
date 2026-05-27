@@ -30,12 +30,12 @@ A role-skill orchestration framework for Codex that simulates or spawns a produc
 - `docs/DESIGN_RECON.md` — how to discover design system and UI patterns.
 - `docs/UI_QUALITY_GATES.md` — blocking UI quality checks.
 
-## 2.0 beta 3
+## 2.0 beta 4
 
 This beta hardens operational UI workflows, module design handoff, production readiness, DS enforcement scripts, and explicit spawned/simulated execution transparency. See `docs/RELEASE_NOTES_2.0_BETA2.md`.
 
 
-## 2.0 beta 3 highlights
+## 2.0 beta 4 highlights
 
 - Added Team Culture Layer.
 - Added Taste Profile, good/bad examples, Taste Calibration, and Taste Review.
@@ -49,3 +49,7 @@ This beta hardens operational UI workflows, module design handoff, production re
 Beta 2 adds an operational culture layer, taste calibration/review, example-driven taste boards, controlled creative tension, and expectation anticipation proposals. These are gates and artifacts, not roleplay. Scope-changing anticipation proposals require user approval.
 
 Agent reporting uses exact role IDs only. Any UI-generated personal thread labels are ignored.
+
+## 2.0 beta 4 focus
+
+Beta 4 adds Reference Fidelity and Design Source Authority. If a user provides a visual reference, the system must convert it into a reference contract before implementation and compare rendered output after implementation. DS manifests generated or changed during the same task cannot be used as proof of compliance without explicit approval.

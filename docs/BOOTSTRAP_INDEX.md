@@ -60,3 +60,11 @@ Load only when relevant:
 - `docs/SUBAGENT_FAILURE_POLICY.md` when spawned agents stall/fail/duplicate.
 - `docs/UI_REVIEW_PACKET.md` before current-page UI review.
 - `docs/UI_REVIEW_RUNBOOK.md` for bounded rendered UI review.
+
+## Reference/DS authority quick triggers
+
+- Reference image/mock/good/bad example → `reference-fidelity` before implementation and `screenshot-reference-comparison` after render.
+- DS manifest created/changed/used → `design-source-authority` and `manifest-freeze-check`.
+- Generated/sample content → `content-realism-review`.
+- Visible state/debug/prototype controls → `debug-control-review`.
+- Technical checks alone never equal design PASS.

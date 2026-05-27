@@ -92,6 +92,8 @@
         "Required fixes"
       ],
       "default_skills": [
+        "design-source-authority",
+        "reference-fidelity",
         "self-audit"
       ]
     },
@@ -262,7 +264,9 @@
       ],
       "default_skills": [
         "design-recon",
+        "reference-fidelity",
         "screen-redesign",
+        "screenshot-reference-comparison",
         "state-matrix",
         "taste-calibration"
       ]
@@ -342,7 +346,9 @@
         "Terminology rules"
       ],
       "default_skills": [
-        "content-pattern-review"
+        "content-pattern-review",
+        "content-realism-review",
+        "reference-fidelity"
       ]
     },
     {
@@ -362,7 +368,9 @@
       ],
       "default_skills": [
         "design-recon",
-        "design-system-compliance"
+        "design-source-authority",
+        "design-system-compliance",
+        "manifest-freeze-check"
       ]
     },
     {
@@ -381,9 +389,11 @@
         "Token usage report"
       ],
       "default_skills": [
+        "design-source-authority",
         "design-system-compliance",
-        "visual-qa-loop",
-        "ui-heuristic-audit"
+        "manifest-freeze-check",
+        "ui-heuristic-audit",
+        "visual-qa-loop"
       ]
     },
     {
@@ -403,6 +413,8 @@
       ],
       "default_skills": [
         "design-critique",
+        "reference-fidelity",
+        "screenshot-reference-comparison",
         "taste-review"
       ]
     },
@@ -881,7 +893,9 @@
         "Verification commands"
       ],
       "default_skills": [
-        "implementation-review"
+        "debug-control-review",
+        "implementation-review",
+        "screenshot-reference-comparison"
       ]
     },
     {

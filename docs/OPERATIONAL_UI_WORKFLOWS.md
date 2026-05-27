@@ -32,3 +32,20 @@
 4. Implementation with verification.
 5. Design/DS compliance for UI.
 6. Release and rollback notes.
+
+## Reference-first UI workflow
+
+When the user provides a reference:
+
+1. `design-recon`
+2. `design-source-authority`
+3. `reference-fidelity`
+4. `taste-calibration` / `example-taste-board` if examples exist
+5. screen/module/prototype design skill
+6. implementation only after approval if fidelity implications change scope
+7. `screenshot-reference-comparison`
+8. `content-realism-review`
+9. `debug-control-review`
+10. final UI verdict
+
+No final UI PASS without required evidence.

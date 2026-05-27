@@ -1,5 +1,5 @@
 {
-  "version": "2.0-beta2",
+  "version": "2.0-beta4",
   "purpose": "Lightweight role index for routing before loading full playbooks. No codenames.",
   "roles": [
     {
@@ -151,7 +151,9 @@
         "proactive-proposal-review",
         "taste-review",
         "expectation-anticipation",
-        "subagent-failure-recovery"
+        "subagent-failure-recovery",
+        "design-source-authority",
+        "reference-fidelity"
       ],
       "handoffs": [
         "team_architect",
@@ -451,7 +453,11 @@
         "example-taste-board",
         "expectation-anticipation",
         "ui-review-packet",
-        "current-page-ui-review"
+        "current-page-ui-review",
+        "reference-fidelity",
+        "screenshot-reference-comparison",
+        "content-realism-review",
+        "debug-control-review"
       ],
       "handoffs": [
         "design_engineer",
@@ -591,7 +597,9 @@
         "taste-review",
         "taste-calibration",
         "example-taste-board",
-        "expectation-anticipation"
+        "expectation-anticipation",
+        "content-realism-review",
+        "reference-fidelity"
       ],
       "handoffs": [
         "product_designer",
@@ -634,7 +642,10 @@
         "example-taste-board",
         "expectation-anticipation",
         "ui-review-packet",
-        "current-page-ui-review"
+        "current-page-ui-review",
+        "design-source-authority",
+        "manifest-freeze-check",
+        "reference-fidelity"
       ],
       "handoffs": [
         "product_designer",
@@ -679,7 +690,12 @@
         "expectation-anticipation",
         "ui-review-packet",
         "current-page-ui-review",
-        "subagent-failure-recovery"
+        "subagent-failure-recovery",
+        "design-source-authority",
+        "manifest-freeze-check",
+        "screenshot-reference-comparison",
+        "content-realism-review",
+        "debug-control-review"
       ],
       "handoffs": [
         "frontend_architect",
@@ -716,7 +732,9 @@
         "taste-calibration",
         "creative-tension-review",
         "example-taste-board",
-        "expectation-anticipation"
+        "expectation-anticipation",
+        "reference-fidelity",
+        "screenshot-reference-comparison"
       ],
       "handoffs": [
         "product_designer",
@@ -1525,7 +1543,10 @@
         "production-readiness-review",
         "e2e-visual-state-capture",
         "current-page-ui-review",
-        "subagent-failure-recovery"
+        "subagent-failure-recovery",
+        "screenshot-reference-comparison",
+        "debug-control-review",
+        "content-realism-review"
       ],
       "handoffs": [
         "code_reviewer",

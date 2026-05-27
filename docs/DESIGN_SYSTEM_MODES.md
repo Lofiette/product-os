@@ -35,3 +35,14 @@ If no DS exists:
 - Design Engineer creates minimal component structure only as needed.
 - Design System Guardian may create a lightweight manifest for local consistency.
 - Avoid overbuilding a DS for a prototype.
+
+## Authority overlay
+
+Each DS mode also has an authority state from `docs/DESIGN_SOURCE_AUTHORITY.md`:
+
+- authoritative;
+- candidate;
+- provisional;
+- self_generated.
+
+A `self_generated` manifest or registry cannot validate the same UI operation that created it. For no-DS prototypes, use `Prototype UI Kit Contract` as provisional constraint, not as proof of a governed design system.

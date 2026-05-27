@@ -1,5 +1,5 @@
 {
-  "version": "2.0-beta2",
+  "version": "2.0-beta4",
   "purpose": "Lightweight skill index. Load full SKILL.md only when selected.",
   "skills": [
     {
@@ -293,6 +293,30 @@
     {
       "id": "visual-qa-loop",
       "description": "Render or inspect UI states, capture screenshots if possible, compare against spec and DS constraints, report visual blockers."
+    },
+    {
+      "id": "reference-fidelity",
+      "description": "Extract a visual reference contract and compare implemented UI against it; required when references/good/bad examples guide UI."
+    },
+    {
+      "id": "design-source-authority",
+      "description": "Classify design sources and prevent self-validating DS manifests or false compliance claims."
+    },
+    {
+      "id": "manifest-freeze-check",
+      "description": "Detect and classify DS manifest baseline/changes before using manifest for compliance."
+    },
+    {
+      "id": "screenshot-reference-comparison",
+      "description": "Compare rendered UI screenshots against references, specs, DS/taste contracts, and visual acceptance criteria."
+    },
+    {
+      "id": "content-realism-review",
+      "description": "Check whether prototype/demo content is realistic enough to validate comprehension, layout, hierarchy, and target-audience fit."
+    },
+    {
+      "id": "debug-control-review",
+      "description": "Classify visible debug/prototype controls and block accidental exposure in user-facing UI."
     }
   ]
 }

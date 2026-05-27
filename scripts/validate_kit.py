@@ -15,6 +15,8 @@ required = [
  'docs/ANTICIPATION_BRANCH.md','docs/PROACTIVE_PROPOSALS.md','docs/AGENT_NAMING_POLICY.md',
  'docs/SUBAGENT_RUN_CONTRACT.md','docs/SUBAGENT_FAILURE_POLICY.md','docs/UI_REVIEW_PACKET.md','docs/UI_REVIEW_RUNBOOK.md',
  'docs/ROLE_TINY_INDEX.json','docs/SKILL_TINY_INDEX.json',
+ 'docs/REFERENCE_FIDELITY.md','docs/DESIGN_SOURCE_AUTHORITY.md','docs/MANIFEST_FREEZE_POLICY.md','docs/SCREENSHOT_VISUAL_GATE.md','docs/CONTENT_REALISM.md','docs/DEBUG_CONTROL_GATE.md','docs/VISUAL_ACCEPTANCE_CRITERIA.md',
+ 'scripts/check-design-source-authority.mjs',
  'scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs','scripts/test-routing.py'
 ]
 for p in required:
@@ -33,7 +35,7 @@ required_skills = {
  'ui-heuristic-audit','component-contract-scan','ds-code-contract-enforcement','production-service-planning','production-readiness-review',
  'taste-calibration','taste-review','creative-tension-review','expectation-anticipation','example-taste-board',
  'taste-calibration','taste-review','creative-tension-review','anticipation-radar','proactive-proposal-review',
- 'subagent-run-contract','subagent-failure-recovery','ui-review-packet','current-page-ui-review'
+ 'subagent-run-contract','subagent-failure-recovery','ui-review-packet','current-page-ui-review','reference-fidelity','design-source-authority','manifest-freeze-check','screenshot-reference-comparison','content-realism-review','debug-control-review'
 }
 for sk in required_skills:
     if sk not in skills: errors.append(f'Missing beta1 required skill in index: {sk}')
@@ -79,7 +81,7 @@ for rid in ['product_designer','design_engineer','service_designer','information
     if rid not in ids: errors.append(f'Missing critical v2 role: {rid}')
 # first prompt critical phrases
 fp=(ROOT/'FIRST_PROMPT.md').read_text()
-for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned','TEAM_CULTURE.md','AGENT_NAMING_POLICY.md','taste-calibration','anticipation-radar','subagent-failure-recovery','ui-review-packet','ROLE_TINY_INDEX.json']:
+for phrase in ['Do not spawn real subagents yet','Ask for approval before spawning real subagents','ROLE_MINI_INDEX.json','No real subagents spawned','TEAM_CULTURE.md','AGENT_NAMING_POLICY.md','taste-calibration','anticipation-radar','subagent-failure-recovery','ui-review-packet','ROLE_TINY_INDEX.json','Reference Fidelity Spec','design-source-authority','screenshot-reference-comparison']:
     if phrase not in fp: errors.append(f'FIRST_PROMPT missing phrase: {phrase}')
 
 # exact agent ID / no personal labels in core docs
@@ -90,7 +92,7 @@ for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/SUBAGENT_ORCHESTRATION.md']:
             errors.append(f'Core doc {doc} contains suspicious personal/codename term: {term}')
 
 # script syntax
-for js in ['scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs']:
+for js in ['scripts/find-raw-ui-values.mjs','scripts/check-component-imports.mjs','scripts/check-design-source-authority.mjs']:
     try:
         subprocess.run(['node','--check',str(ROOT/js)], check=True, capture_output=True, text=True)
     except Exception as e:
@@ -141,7 +143,7 @@ for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/SUBAGENT_ORCHESTRATION.md','docs
             errors.append(f'{doc} missing runtime adequacy phrase: {phrase}')
 
 sc_ids = {s.get('id') for s in sc.get('scenarios', [])}
-for required_scenario in ['current_page_ui_review_bounded','subagent_hang_recovery']:
+for required_scenario in ['current_page_ui_review_bounded','subagent_hang_recovery','reference_driven_ui_prototype_blocking','generated_manifest_self_validation_blocked','debug_control_and_content_realism_review']:
     if required_scenario not in sc_ids:
         errors.append(f'Missing beta3 scenario: {required_scenario}')
 
@@ -150,3 +152,11 @@ if errors:
     for e in errors: print('-', e)
     sys.exit(1)
 print(f'VALIDATION PASSED: {len(ids)} roles, {len(skills)} skills, {len(sc.get("scenarios",[]))} scenarios.')
+
+
+# beta 4 reference/authority checks
+for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/UI_QUALITY_GATES.md']:
+    text_doc=(ROOT/doc).read_text()
+    for phrase in ['Reference Fidelity', 'Generated artifacts cannot validate themselves', 'Looks similar']:
+        if phrase not in text_doc:
+            errors.append(f'{doc} missing beta4 reference/authority phrase: {phrase}')

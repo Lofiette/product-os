@@ -26,3 +26,14 @@ Use for any UI work in an existing repo or when a design system may exist.
 - Required docs loaded
 - Implementation constraints
 - DS compliance gate
+
+## Required authority output
+
+Design Recon must report source authority:
+
+- Did DS docs/component registry/manifest exist before task?
+- Was any manifest generated or changed during current task?
+- Which sources are authoritative vs candidate/provisional/self-generated?
+- Which compliance claims are unproven?
+
+If a reference screenshot exists, Design Recon must hand off to `reference-fidelity`.

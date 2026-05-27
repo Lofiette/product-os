@@ -75,3 +75,49 @@ When reviewing a rendered page or prototype, create a `UI Review Packet` before 
 ## Runtime adequacy reminder
 
 - Report Subagent Completion Status whenever real subagents are used or fail.
+
+## Reference Fidelity Gate
+
+Required when the user provides a reference screenshot/mock/example.
+
+- Create a Reference Fidelity Spec before implementation.
+- Compare actual rendered UI against the reference after implementation.
+- Do not accept “looks similar” as evidence.
+- Build success, console-clean route, raw-value scan, and component-import scan do not prove reference fidelity.
+- Final UI verdict cannot be PASS without screenshot/reference comparison when rendering is possible.
+
+BLOCKED if:
+- a must-match reference trait is violated without approval;
+- reference exists but no comparison was performed;
+- content/taste contradicts explicit bad examples;
+- actual screenshot is unavailable and no limitation was accepted.
+
+## Design Source Authority Gate
+
+Before claiming DS compliance, report design-source authority:
+
+- authoritative DS docs/code;
+- candidate generated manifest;
+- provisional prototype UI contract;
+- self-generated artifact.
+
+Generated artifacts cannot validate themselves.
+
+BLOCKED if:
+- DS compliance is claimed against a manifest generated or materially changed in the same operation without approval;
+- custom UI is introduced when an authoritative DS component exists;
+- DS source is unknown but strict compliance is claimed.
+
+## Content Realism Gate
+
+Prototype/demo content must be realistic enough to validate layout, comprehension, and hierarchy.
+
+BLOCKED if placeholder/internal content prevents judging UI quality or target-audience fit.
+
+## Debug Control Gate
+
+Visible dev/prototype controls must be classified. Unknown or dev-only controls in user-facing UI are BLOCKED until removed, segregated, or explicitly accepted.
+
+## Visual Acceptance reminder
+
+Use `docs/VISUAL_ACCEPTANCE_CRITERIA.md`: technical checks are not design success.

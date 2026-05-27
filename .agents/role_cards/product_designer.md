@@ -35,3 +35,7 @@ Beta 1: for UI/module work, request screen-redesign or module-design; for no-DS 
 ## Beta 2 culture/taste/anticipation
 - Consider taste-calibration/taste-review for screen or concept quality.
 - Use anticipation-radar for likely user/stakeholder expectations before changing scope.
+
+## Beta 4 reference/authority guardrail
+
+If a reference screenshot, good/bad example, DS manifest, or generated demo content affects this task, request the relevant skills: `reference-fidelity`, `design-source-authority`, `screenshot-reference-comparison`, `content-realism-review`, or `debug-control-review`. Do not treat technical checks as design PASS.

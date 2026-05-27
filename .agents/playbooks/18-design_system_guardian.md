@@ -83,3 +83,11 @@ Identify the actual DS source of truth. Prefer existing components/tokens. Block
 ## Quality bar
 
 Use PASS / PASS WITH WARNINGS / BLOCKED when reviewing artifacts. Keep output compact and actionable.
+
+## Beta 4 reference/authority responsibilities
+
+- Treat user-provided references as constraints until clarified.
+- Do not accept “looks similar” as evidence.
+- Do not validate UI against a manifest/registry generated in the same task unless the user approved it as authority.
+- For UI outputs, distinguish technical pass from design pass.
+- Block final PASS if required screenshot/reference comparison, source authority, content realism, or debug-control review is missing.

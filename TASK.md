@@ -123,3 +123,16 @@ TBD
 - Changed files: []
 - Design-system mode: TBD
 - Missing evidence: []
+
+## Reference fidelity and design-source authority
+
+- Visual/reference sources:
+- Good examples:
+- Bad examples:
+- Reference fidelity target: strict / adapted / mood-only / none
+- DS/source authority state: authoritative / candidate / provisional / self_generated / unknown
+- Manifest baseline path:
+- Manifest changed during task: yes/no/unknown
+- Approved deviations:
+- Content realism requirement:
+- Debug/prototype controls allowed: yes/no/unknown

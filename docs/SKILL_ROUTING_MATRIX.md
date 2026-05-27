@@ -80,3 +80,12 @@ Use these skills to prevent stalled or over-broad subagent workflows:
 - `current-page-ui-review`: for bounded page/prototype review with PASS/WARN/BLOCKED verdict.
 
 For current-page UI review, prefer `ui-review-packet` + `current-page-ui-review` before spawning multiple role-specific agents.
+
+## Reference / authority / visual acceptance routing
+
+- User provides reference screenshot/mock/example → `reference-fidelity`, `screenshot-reference-comparison`.
+- User provides good/bad examples → `example-taste-board`, `reference-fidelity`, `taste-review`.
+- DS manifest/registry created, changed, or used → `design-source-authority`, `manifest-freeze-check`.
+- Rendered UI exists → `screenshot-reference-comparison`, `visual-qa-loop`.
+- Prototype/demo/sample content exists → `content-realism-review`.
+- Debug/prototype controls visible → `debug-control-review`.

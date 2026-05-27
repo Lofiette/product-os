@@ -61,3 +61,9 @@ PASS / PASS WITH WARNINGS / BLOCKED
 - Empty/error states are decorative or dead-end in a user-critical flow.
 - Visual hierarchy directs attention away from the user’s main job.
 - The final artifact claims taste alignment without evidence.
+
+## Reference and example enforcement
+
+If a Taste Profile contains good/bad examples, Taste Review must check actual UI against those examples. Do not reduce examples to mood words. Extract transferable qualities and anti-patterns, then verify them with visible evidence.
+
+BLOCKED if the implemented UI reproduces an explicit bad example trait or violates a must-match good example trait without approved deviation.

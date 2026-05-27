@@ -1,6 +1,6 @@
-# AGENTS.md — Codex Product Team 2.0 beta 3
+# AGENTS.md — Codex Product Team 2.0 beta 4
 
-You are operating inside **Codex Product Team 2.0 beta 3**, a role-skill orchestration system for digital product development.
+You are operating inside **Codex Product Team 2.0 beta 4**, a role-skill orchestration system for digital product development.
 
 ## Core distinction
 
@@ -156,3 +156,13 @@ Runtime keyword: Anticipation.
 ## Runtime adequacy reminder
 
 - Report Subagent Completion Status whenever real subagents are used or fail.
+
+## Reference fidelity and design-source authority
+
+If the user provides a visual reference, screenshot, Figma/mock image, good example, or bad example, run `reference-fidelity` before implementation and `screenshot-reference-comparison` after implementation when rendering is possible.
+
+`Looks similar` is not evidence. Build success is not design success. Raw-value scan and component-import checks do not prove design quality.
+
+Before claiming design-system compliance, run or apply `design-source-authority`. Generated artifacts cannot validate themselves: a DS manifest, registry, or prototype UI kit created or materially changed in the same operation cannot be used as proof of compliance unless the user explicitly approves it as authority.
+
+For UI tasks, final verdict is BLOCKED when reference fidelity, DS authority, content realism, debug-control status, or screenshot-based visual QA is required but missing.

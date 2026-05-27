@@ -43,7 +43,11 @@
         "before implementation on complex tasks",
         "after specialist findings"
       ],
-      "artifact": "PASS/WARN/BLOCKED verdict"
+      "artifact": "PASS/WARN/BLOCKED verdict",
+      "default_skills": [
+        "design-source-authority",
+        "reference-fidelity"
+      ]
     },
     {
       "id": "ai_workflow_auditor",
@@ -124,7 +128,11 @@
         "new screen",
         "screen redesign"
       ],
-      "artifact": "Screen Design Spec"
+      "artifact": "Screen Design Spec",
+      "default_skills": [
+        "reference-fidelity",
+        "screenshot-reference-comparison"
+      ]
     },
     {
       "id": "service_designer",
@@ -160,7 +168,11 @@
         "user-facing copy",
         "empty/error/success states"
       ],
-      "artifact": "Content matrix"
+      "artifact": "Content matrix",
+      "default_skills": [
+        "content-realism-review",
+        "reference-fidelity"
+      ]
     },
     {
       "id": "design_system_guardian",
@@ -169,7 +181,11 @@
         "existing design system",
         "component reuse"
       ],
-      "artifact": "DS compliance constraints"
+      "artifact": "DS compliance constraints",
+      "default_skills": [
+        "design-source-authority",
+        "manifest-freeze-check"
+      ]
     },
     {
       "id": "design_engineer",
@@ -178,7 +194,11 @@
         "UI implementation",
         "prototype interface"
       ],
-      "artifact": "UI Implementation Fidelity Report"
+      "artifact": "UI Implementation Fidelity Report",
+      "default_skills": [
+        "design-source-authority",
+        "manifest-freeze-check"
+      ]
     },
     {
       "id": "visual_design_director",
@@ -187,7 +207,11 @@
         "visual language changes",
         "composition/hierarchy concerns"
       ],
-      "artifact": "Visual direction notes"
+      "artifact": "Visual direction notes",
+      "default_skills": [
+        "reference-fidelity",
+        "screenshot-reference-comparison"
+      ]
     },
     {
       "id": "accessibility_specialist",
@@ -412,7 +436,11 @@
         "implementation",
         "bugfix"
       ],
-      "artifact": "Test plan"
+      "artifact": "Test plan",
+      "default_skills": [
+        "debug-control-review",
+        "screenshot-reference-comparison"
+      ]
     },
     {
       "id": "code_reviewer",

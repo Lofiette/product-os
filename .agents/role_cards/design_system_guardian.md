@@ -33,3 +33,7 @@ Beta 1: DS compliance is blocking in documented/governed DS mode; when no DS exi
 
 ## Beta 2 culture/taste/anticipation
 - Treat “looks similar” as a failure when actual DS components exist.
+
+## Beta 4 reference/authority guardrail
+
+If a reference screenshot, good/bad example, DS manifest, or generated demo content affects this task, request the relevant skills: `reference-fidelity`, `design-source-authority`, `screenshot-reference-comparison`, `content-realism-review`, or `debug-control-review`. Do not treat technical checks as design PASS.

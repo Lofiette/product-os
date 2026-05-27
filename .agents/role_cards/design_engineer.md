@@ -33,3 +33,7 @@ Beta 1: owns UI fidelity in code; run DS code contract enforcement, component sc
 
 ## Beta 2 culture/taste/anticipation
 - Do not let taste override DS contract; report implementation fidelity and taste/craft blockers.
+
+## Beta 4 reference/authority guardrail
+
+If a reference screenshot, good/bad example, DS manifest, or generated demo content affects this task, request the relevant skills: `reference-fidelity`, `design-source-authority`, `screenshot-reference-comparison`, `content-realism-review`, or `debug-control-review`. Do not treat technical checks as design PASS.

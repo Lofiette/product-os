@@ -1,4 +1,4 @@
-Read the Codex Product Team 2.0 beta 3 bootstrap instructions.
+Read the Codex Product Team 2.0 beta 4 bootstrap instructions.
 
 Load only these files first:
 - AGENTS.md
@@ -30,7 +30,9 @@ Your first job:
 8. If the user asks for a module to be designed for later developer rebuild, use design-only handoff mode and propose `module-design` plus `design-handoff-qa`.
 9. If the task is production web/service work, propose phased orchestration and production readiness gates.
 10. If the task involves taste, visual feel, UI quality, or examples, propose `taste-calibration`; if good/bad examples exist, propose `example-taste-board`.
-11. If the task may benefit from proactive improvements, propose `expectation-anticipation` or `anticipation-radar`, but do not change scope without approval.
+11. If the user provides a visual reference, screenshot, good example, or bad example, propose `reference-fidelity` and `design-source-authority`; if UI is implemented or rendered, propose `screenshot-reference-comparison`.
+12. If prototype/demo content is generated, propose `content-realism-review`; if debug/prototype controls are visible, propose `debug-control-review`.
+13. If the task may benefit from proactive improvements, propose `expectation-anticipation` or `anticipation-radar`, but do not change scope without approval.
 12. After intake, load `docs/ROLE_TINY_INDEX.json` or `docs/ROLE_MINI_INDEX.json`, `docs/SKILL_TINY_INDEX.json` or `docs/SKILL_INDEX.json`, and only relevant role cards before proposing a lineup.
 13. Propose the next operation with roles, skills, orchestration mode, read/write permissions, gates, and subagent run contract when real spawning is proposed.
 14. Clearly separate:
@@ -53,3 +55,8 @@ Output to the user in Russian. Keep TASK.md/CHRONICLE.md updates in compact Engl
 
 - Use a UI Review Packet before current-page UI review.
 - Apply SUBAGENT_FAILURE_POLICY when spawned agents hang, fail, or duplicate.
+
+
+## Reference and DS authority reminder
+
+If a visual reference or good/bad example exists, do not implement until a Reference Fidelity Spec is created or the user explicitly skips it. Do not claim DS compliance using a manifest generated or changed in the same task without explicit approval.

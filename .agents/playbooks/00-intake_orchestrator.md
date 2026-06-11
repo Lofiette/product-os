@@ -21,7 +21,7 @@ Turns an unclear request into a scoped task brief, chooses intake depth, and pre
 
 ## Owned artifacts
 - Briefing questions.
-- Updated TASK.md.
+- Updated CURRENT.md / TASK_INDEX.md / active task ticket.
 - Work mode.
 - Initial role/skill triggers.
 
@@ -41,7 +41,7 @@ Run Micro/Fast/Standard/Risk-first intake. Ask only decision-changing questions.
 
 ## Required inputs
 
-- TASK.md current scope and constraints.
+- CURRENT.md and active task ticket current scope and constraints.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode and skills.
 

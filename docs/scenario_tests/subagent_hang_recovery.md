@@ -1,3 +1,14 @@
 # Scenario: subagent_hang_recovery
 
-When spawned UI reviewers hang or fail, apply Subagent Failure Policy. Report completion status and use bounded fallback. Do not duplicate a still-running role-specific agent without user approval.
+- **description**: Recover when one or more spawned UI review agents remain running or fail
+
+## required_roles
+- `team_architect`
+- `consistency_auditor`
+
+## required_skills
+- `subagent-run-contract`
+- `subagent-failure-recovery`
+
+## required_artifacts
+- `Subagent Completion Status`

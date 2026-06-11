@@ -1,4 +1,4 @@
-# TEAM_CULTURE.md — Product Team 2.0 beta 2 Culture Layer
+# TEAM_CULTURE.md — Product Team Culture Layer
 
 This file defines how the team behaves when the answer is not purely mechanical. It is not roleplay and it is not personality theater. It is an operational culture: values, tensions, quality standards, and decision rules.
 

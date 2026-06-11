@@ -1,5 +1,5 @@
 {
-  "version": "2.0-beta4",
+  "version": "2.1-beta3",
   "scenarios": [
     {
       "id": "agent_id_no_personal_names",
@@ -69,6 +69,19 @@
       ]
     },
     {
+      "id": "context_prune_after_long_work",
+      "description": "After long work or frequent context compression, memory should be pruned into CURRENT, active ticket, compact CHRONICLE, and archive logs.",
+      "required_roles": [
+        "chronicle_keeper"
+      ],
+      "required_skills": [
+        "context-snapshot",
+        "context-prune",
+        "memory-integrity-check"
+      ],
+      "max_questions": 3
+    },
+    {
       "id": "conversation_ui",
       "description": "Design chatbot/AI assistant flow",
       "required_roles": [
@@ -81,6 +94,23 @@
         "content-pattern-review",
         "ai-safety-review"
       ]
+    },
+    {
+      "id": "current_page_ui_review_bounded",
+      "description": "Review a currently rendered page without over-spawning role-specific agents",
+      "required_roles": [
+        "product_designer",
+        "design_engineer",
+        "design_system_guardian"
+      ],
+      "required_skills": [
+        "ui-review-packet",
+        "current-page-ui-review",
+        "design-system-compliance",
+        "taste-review"
+      ],
+      "max_spawned_agents_default": 2,
+      "requires_approval_before_spawn": true
     },
     {
       "id": "dashboard_design",
@@ -97,6 +127,25 @@
       ]
     },
     {
+      "id": "debug_control_and_content_realism_review",
+      "description": "UI contains prototype/debug controls and generated placeholder content; content realism and debug control review required.",
+      "required_roles": [
+        "product_designer",
+        "ux_writer",
+        "qa_engineer"
+      ],
+      "optional_roles": [
+        "design_engineer"
+      ],
+      "required_skills": [
+        "content-realism-review",
+        "debug-control-review",
+        "ui-heuristic-audit"
+      ],
+      "max_questions": 4,
+      "must_not_pass_without_classification": true
+    },
+    {
       "id": "existing_repo_feature_change",
       "description": "Feature change in existing repo",
       "required_skills": [
@@ -106,6 +155,22 @@
       "required_roles": [
         "frontend_architect"
       ]
+    },
+    {
+      "id": "generated_manifest_self_validation_blocked",
+      "description": "DS manifest is generated/changed in same task; it cannot be used as proof of DS compliance without approval.",
+      "required_roles": [
+        "design_system_guardian",
+        "design_engineer",
+        "consistency_auditor"
+      ],
+      "required_skills": [
+        "design-source-authority",
+        "manifest-freeze-check",
+        "design-system-compliance"
+      ],
+      "max_questions": 5,
+      "must_block_self_validating_manifest": true
     },
     {
       "id": "good_bad_examples_redesign",
@@ -171,7 +236,8 @@
       ],
       "max_questions": 7,
       "must_not_implement": true,
-      "must_not_spawn_without_approval": true
+      "must_not_spawn_without_approval": true,
+      "requires_approval_before_spawn": true
     },
     {
       "id": "opportunity_event",
@@ -233,11 +299,38 @@
         "production-readiness-review",
         "design-system-compliance",
         "ds-code-contract-enforcement",
-        "implementation-review"
+        "implementation-review",
+        "visual-qa-loop",
+        "component-contract-scan"
       ],
       "max_questions": 9,
       "must_use_phased_orchestration": true,
-      "must_not_spawn_without_approval": true
+      "must_not_spawn_without_approval": true,
+      "requires_approval_before_spawn": true
+    },
+    {
+      "id": "reference_driven_ui_prototype_blocking",
+      "description": "User provides a visual reference and asks for UI prototype; reference fidelity and screenshot comparison are required.",
+      "required_roles": [
+        "product_designer",
+        "design_engineer",
+        "design_system_guardian"
+      ],
+      "optional_roles": [
+        "ux_writer",
+        "visual_design_director",
+        "qa_engineer"
+      ],
+      "required_skills": [
+        "design-recon",
+        "reference-fidelity",
+        "design-source-authority",
+        "screen-redesign",
+        "screenshot-reference-comparison",
+        "taste-review"
+      ],
+      "max_questions": 7,
+      "must_not_implement_before_reference_spec": true
     },
     {
       "id": "screen_redesign_existing_ds",
@@ -266,6 +359,40 @@
         "service-blueprint",
         "cx-journey-mapping"
       ]
+    },
+    {
+      "id": "subagent_bounded_ticket_packet",
+      "description": "Spawned subagents should receive the active ticket and operation packet, not all project memory.",
+      "required_roles": [
+        "team_architect"
+      ],
+      "required_skills": [
+        "subagent-run-contract",
+        "ui-review-packet",
+        "ticket-router"
+      ],
+      "must_not_load": [
+        "archive/*",
+        "chronicle/*",
+        "all tickets"
+      ],
+      "max_questions": 3
+    },
+    {
+      "id": "subagent_hang_recovery",
+      "description": "Recover when one or more spawned UI review agents remain running or fail",
+      "required_roles": [
+        "team_architect",
+        "consistency_auditor"
+      ],
+      "required_skills": [
+        "subagent-run-contract",
+        "subagent-failure-recovery"
+      ],
+      "required_artifacts": [
+        "Subagent Completion Status"
+      ],
+      "must_not_duplicate_running_role": true
     },
     {
       "id": "taste_calibrated_ui_prototype",
@@ -317,13 +444,35 @@
       "notes": "Must create taste profile and good/bad examples; no DS means prototype UI kit contract."
     },
     {
+      "id": "ticketed_memory_new_task",
+      "description": "A new multi-step task should create or update a ticket instead of expanding TASK.md.",
+      "required_roles": [
+        "intake_orchestrator",
+        "team_architect"
+      ],
+      "required_skills": [
+        "ticket-router",
+        "task-ledger",
+        "task-intake"
+      ],
+      "forbidden_files_to_update_as_working_memory": [
+        "TASK.md"
+      ],
+      "max_questions": 7
+    },
+    {
       "id": "tiny_copy_change",
       "description": "Rename a button label",
       "max_questions": 2,
       "max_active_roles": 1,
       "required_skills": [],
       "forbidden_spawn": true,
-      "expected_mode": "role_simulation_or_main_thread"
+      "expected_mode": "role_simulation_or_main_thread",
+      "must_not_load": [
+        "docs/ROLE_TINY_INDEX.json",
+        "docs/SKILL_TINY_INDEX.json"
+      ],
+      "expected_complexity": "Tiny"
     },
     {
       "id": "ui_prototype_no_ds",
@@ -342,7 +491,9 @@
       ],
       "expected_ds_mode": "none",
       "max_roles": 5,
-      "must_not_spawn_without_approval": true
+      "must_not_spawn_without_approval": true,
+      "requires_approval_before_spawn": true,
+      "notes": "When DS mode is none, design_system_guardian acts as Prototype UI Kit Guardian and protects local prototype consistency, not a non-existent DS."
     },
     {
       "id": "ux_research_only",
@@ -354,98 +505,6 @@
         "ux-research-planning"
       ],
       "forbidden_implementation": true
-    },
-    {
-      "id": "current_page_ui_review_bounded",
-      "description": "Review a currently rendered page without over-spawning role-specific agents",
-      "required_roles": [
-        "product_designer",
-        "design_engineer",
-        "design_system_guardian"
-      ],
-      "required_skills": [
-        "ui-review-packet",
-        "current-page-ui-review",
-        "design-system-compliance",
-        "taste-review"
-      ],
-      "max_spawned_agents_default": 2,
-      "requires_approval_before_spawn": true
-    },
-    {
-      "id": "subagent_hang_recovery",
-      "description": "Recover when one or more spawned UI review agents remain running or fail",
-      "required_roles": [
-        "team_architect",
-        "consistency_auditor"
-      ],
-      "required_skills": [
-        "subagent-run-contract",
-        "subagent-failure-recovery"
-      ],
-      "required_artifacts": [
-        "Subagent Completion Status"
-      ],
-      "must_not_duplicate_running_role": true
-    },
-    {
-      "id": "reference_driven_ui_prototype_blocking",
-      "description": "User provides a visual reference and asks for UI prototype; reference fidelity and screenshot comparison are required.",
-      "required_roles": [
-        "product_designer",
-        "design_engineer",
-        "design_system_guardian"
-      ],
-      "optional_roles": [
-        "ux_writer",
-        "visual_design_director",
-        "qa_engineer"
-      ],
-      "required_skills": [
-        "design-recon",
-        "reference-fidelity",
-        "design-source-authority",
-        "screen-redesign",
-        "screenshot-reference-comparison",
-        "taste-review"
-      ],
-      "max_questions": 7,
-      "must_not_implement_before_reference_spec": true
-    },
-    {
-      "id": "generated_manifest_self_validation_blocked",
-      "description": "DS manifest is generated/changed in same task; it cannot be used as proof of DS compliance without approval.",
-      "required_roles": [
-        "design_system_guardian",
-        "design_engineer",
-        "consistency_auditor"
-      ],
-      "required_skills": [
-        "design-source-authority",
-        "manifest-freeze-check",
-        "design-system-compliance"
-      ],
-      "max_questions": 5,
-      "must_block_self_validating_manifest": true
-    },
-    {
-      "id": "debug_control_and_content_realism_review",
-      "description": "UI contains prototype/debug controls and generated placeholder content; content realism and debug control review required.",
-      "required_roles": [
-        "product_designer",
-        "ux_writer",
-        "qa_engineer"
-      ],
-      "optional_roles": [
-        "design_engineer"
-      ],
-      "required_skills": [
-        "content-realism-review",
-        "debug-control-review",
-        "ui-heuristic-audit"
-      ],
-      "max_questions": 4,
-      "must_not_pass_without_classification": true
     }
   ]
 }

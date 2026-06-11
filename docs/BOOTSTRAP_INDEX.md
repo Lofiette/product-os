@@ -1,70 +1,70 @@
-# BOOTSTRAP_INDEX.md — 2.0 beta 2 runtime index
+# BOOTSTRAP_INDEX.md — 2.1 beta 4 runtime index
 
-Read this file at startup after `AGENTS.md`, `TASK.md`, `CHRONICLE.md`, `QUESTION_TREE.md`, , `LANGUAGE_POLICY.md`, `TEAM_CULTURE.md`, and `AGENT_NAMING_POLICY.md`.
+This is the compact startup map. It is not a full manual.
+
+## Tier 0 startup files
+
+Load only these files before intake decisions:
+
+1. `AGENTS.md`
+2. `CURRENT.md`
+3. `TASK_INDEX.md`
+4. `CHRONICLE.md`
+5. `docs/BOOTSTRAP_INDEX.md`
+6. `docs/LANGUAGE_POLICY.md`
+
+Do not load all tickets, archive logs, old snapshots, release notes, full role indexes, all playbooks, all skills, or reference-only docs at startup.
 
 ## Runtime flow
 
-1. Intake: classify request, complexity, work mode, UI/design-system impact, repo impact, risk impact, taste impact, and anticipation opportunity.
-2. If repo exists: propose `repo-recon` before implementation decisions.
-3. If UI/design is affected: propose `design-recon` before UI decisions.
-4. If design-facing and taste can change quality: consider `taste-calibration`.
-5. If proactive improvement could help: consider `anticipation-radar` but ask approval before scope changes.
-6. After intake: load `docs/ROLE_MINI_INDEX.json`, `docs/SKILL_INDEX.json`, and relevant role cards.
-7. Propose next operation with roles, skills, orchestration mode, gates, and scripts.
-8. Ask approval before spawning real subagents or starting implementation.
-9. After approval, explicitly state spawned vs simulated execution.
-10. Run selected skills and produce their required artifacts.
-11. Apply gates: quality, UI, DS, risk, production, review.
-12. Update `TASK.md` and `CHRONICLE.md` compactly when useful.
+1. Identify active ticket from `CURRENT.md`.
+2. Decide whether the user request continues the active ticket, creates a new ticket, resumes from snapshot, or requires context pruning.
+3. Load the active ticket only.
+4. Ask only questions that can change scope, risk, role/skill routing, acceptance criteria, implementation, verification, or approval gates. Load `docs/QUESTION_TREE.md` only when structured intake is needed.
+5. If repo exists, propose `repo-recon` before implementation decisions.
+6. If UI/design is affected, propose `design-recon` before UI decisions.
+7. If taste, examples, or visual feel can change quality, consider `taste-calibration` and `example-taste-board`.
+8. If a visual reference exists, use `reference-fidelity` before implementation and `screenshot-reference-comparison` after render.
+9. If DS manifest/registry is created, changed, or used, use `design-source-authority` and `manifest-freeze-check`.
+10. After intake, classify routing cost first: `Tiny/Micro` should not load indexes by default; no role/skill indexes by default for obvious Tiny/Micro work; `Fast Lane` loads tiny indexes only when the route is unclear; `Standard+` may use `docs/SKILL_ROUTER_INDEX.json` for ultra-light domain routing, then `docs/ROLE_TINY_INDEX.json` and `docs/SKILL_TINY_INDEX.json`. Load mini/full indexes or role cards only if needed.
+11. Propose roles, skills, orchestration mode, gates, and scripts.
+12. Ask approval before real subagent spawn or implementation.
+13. After approval, explicitly report spawned vs simulated execution.
+14. Run selected skills and gates.
+15. Update `CURRENT.md`, active ticket, `TASK_INDEX.md` if needed, and compact `CHRONICLE.md`.
 
-## UI quality shortcuts
+## Quick triggers
 
-- UI without DS: use `prototype-ui-kit`.
-- UI with DS: use `design-system-compliance` and DS scripts.
-- Module design for developer rebuild: use `module-design` and `design-handoff-qa`.
-- Production web/service: use `phased orchestration` and `production-readiness-review`.
-- Implemented UI: use `visual-qa-loop`, `ui-heuristic-audit`, and `Design Diff Summary`.
-
-## Real subagent transparency
-
-Selected role is not a spawned subagent. Spawned subagents must be named explicitly after approval.
-
-
-## Taste and anticipation shortcuts
-
-- New/redesigned interface: consider `taste-calibration` before design decisions.
-- Implemented UI: use `taste-review` when taste profile exists or quality feels ambiguous.
-- New idea/signal during work: use `anticipation-radar` and classify A-0..A-4.
-- Scope-changing proactive ideas require user confirmation.
-- Agent identities must remain exact role IDs; no aliases or codenames.
-
-
-## Taste / culture / anticipation shortcuts
-
-- Team culture applies by default through `docs/TEAM_CULTURE.md`, but load the full file only when culture/taste affects the decision.
-- Product/UI/design/prototype work may use `taste-calibration` before design and `taste-review` before final approval.
-- If the user provides good/bad examples, use `example-taste-board` and record them in TASK.md.
-- Use `expectation-anticipation` for forward-looking proposals that may improve quality, but never implement A2/A3/A4 proposals without approval.
-- Use `creative-tension-review` when a product/design decision is adequate but could be materially better.
-- Report real spawned agents by exact `agent_id` only. Ignore any UI-generated thread labels or personal names.
-
-## Agent naming policy
-
-Use exact agent IDs. If the UI auto-labels spawned threads, ignore those labels in artifacts and summaries. See `docs/AGENT_NAMING_POLICY.md` when real subagents are used.
-
+- Existing repo → `repo-recon`.
+- UI/design affected → `design-recon`.
+- UI without DS → `prototype-ui-kit`.
+- UI with DS → `design-system-compliance` and DS scripts.
+- Current rendered page review → `ui-review-packet` + `current-page-ui-review`.
+- Module for later developer rebuild → `module-design` + `design-handoff-qa`.
+- Production web/service → phased orchestration + `production-readiness-review`.
+- Generated/sample content → `content-realism-review`.
+- Visible debug/prototype controls → `debug-control-review`.
+- New idea/signal → `expectation-anticipation`; scope changes require approval.
 
 ## Runtime stability docs
 
 Load only when relevant:
+
 - `docs/SUBAGENT_RUN_CONTRACT.md` before real subagent spawn.
 - `docs/SUBAGENT_FAILURE_POLICY.md` when spawned agents stall/fail/duplicate.
 - `docs/UI_REVIEW_PACKET.md` before current-page UI review.
 - `docs/UI_REVIEW_RUNBOOK.md` for bounded rendered UI review.
 
-## Reference/DS authority quick triggers
+## Non-negotiables
 
-- Reference image/mock/good/bad example → `reference-fidelity` before implementation and `screenshot-reference-comparison` after render.
-- DS manifest created/changed/used → `design-source-authority` and `manifest-freeze-check`.
-- Generated/sample content → `content-realism-review`.
-- Visible state/debug/prototype controls → `debug-control-review`.
+- `TASK.md` is a deprecated compatibility pointer only.
+- Selected role is not a spawned subagent.
+- Generated artifacts cannot validate themselves.
 - Technical checks alone never equal design PASS.
+- “Looks similar” is not evidence.
+- Use exact agent IDs only; ignore UI-generated personal/thread labels in formal artifacts.
+
+
+## Skill discovery
+
+For critical workflows, do not rely on implicit skill discovery. Load `docs/SKILL_DISCOVERY_POLICY.md` only when skill selection appears unreliable, the task is Standard+, or a previous run missed required skills/gates.

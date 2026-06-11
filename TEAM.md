@@ -7,7 +7,7 @@ No codenames. Use exact role IDs and titles for routing and spawning.
 - ID: `intake_orchestrator`
 - Category: System
 - Mission: Turns an unclear request into a scoped task brief, chooses intake depth, and prevents premature implementation.
-- Core outputs: Briefing questions, Updated TASK.md, Work mode, Initial role/skill triggers
+- Core outputs: Briefing questions, updated CURRENT.md / TASK_INDEX.md / active ticket, work mode, initial role/skill triggers
 - Default skills: task-intake, team-routing
 - Optional skills: subagent-orchestration, progress-chronicle
 - Primary handoffs: team_architect, chronicle_keeper, consistency_auditor

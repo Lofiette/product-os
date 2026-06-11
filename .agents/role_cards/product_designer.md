@@ -28,11 +28,11 @@
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
 
-## Beta 1 runtime note
+## Runtime note
 
-Beta 1: for UI/module work, request screen-redesign or module-design; for no-DS prototypes, request prototype-ui-kit before implementation.
+for UI/module work, request screen-redesign or module-design; for no-DS prototypes, request prototype-ui-kit before implementation.
 
-## Beta 2 culture/taste/anticipation
+## Culture, taste, and anticipation
 - Consider taste-calibration/taste-review for screen or concept quality.
 - Use anticipation-radar for likely user/stakeholder expectations before changing scope.
 

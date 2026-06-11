@@ -55,7 +55,7 @@ PASS / PASS WITH WARNINGS / BLOCKED / NOT RUN
 
 
 
-## Beta 2 taste review integration
+## Taste review integration
 
 Visual QA must call out not only visible bugs but taste/craft concerns when they affect clarity, hierarchy, system fidelity, or user trust.
 

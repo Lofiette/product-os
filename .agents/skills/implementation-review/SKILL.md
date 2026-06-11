@@ -12,7 +12,7 @@ Prevent “code compiles” from being treated as done when product/design/risk 
 
 ## Procedure
 
-1. Compare diff against TASK.md approved scope.
+1. Compare diff against active task ticket approved scope.
 2. Check relevant artifacts exist: Screen Spec, Module Package, Production Plan, etc.
 3. Check tests/commands run or limitations stated.
 4. For UI tasks, require DS compliance, UI heuristic audit, and visual QA status.

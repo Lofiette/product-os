@@ -37,7 +37,7 @@ After spawning:
 - wait for all results;
 - consolidate conflicts;
 - run Consistency Auditor when needed;
-- update TASK.md and CHRONICLE.md.
+- update CURRENT.md and the active ticket and CHRONICLE.md.
 
 
 ## Agent naming policy

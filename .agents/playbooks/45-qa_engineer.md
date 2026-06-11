@@ -43,7 +43,7 @@ Define what must be proven, how to prove it, which tests/checks to run, manual c
 
 ## Required inputs
 
-- TASK.md current scope and constraints.
+- CURRENT.md and active task ticket current scope and constraints.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode and skills.
 

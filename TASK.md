@@ -1,138 +1,20 @@
-# TASK.md — Live Task Brief
+# TASK.md — Deprecated Compatibility Pointer
 
-## Status
-- Task status: Unbriefed
-- Current phase: Intake
-- Work mode: TBD
-- Complexity tier: TBD
-- Orchestration mode: TBD
+This project uses **ticketed memory**.
+`TASK.md` is no longer the source of truth and must stay short.
 
-## Language policy
-- User communication language: Russian
-- Durable control artifacts language: compact English
-- Product UI language: TBD
+Read these files instead:
 
+1. `CURRENT.md` — current active state, active ticket, blockers, next operation.
+2. `TASK_INDEX.md` — task/ticket ledger.
+3. `tasks/<active-ticket>.md` — detailed active task brief.
+4. `CHRONICLE.md` — compact rescue summary.
 
-## Team culture and taste
-- Team culture loaded: no
-- Taste profile status: not calibrated
-- Desired feel: TBD
-- Product adjectives: TBD
-- Anti-examples: TBD
-- Reference products/screens: TBD
-- UI density: TBD
-- Visual expressiveness: TBD
-- Content tone: TBD
-- Design-system strictness: TBD
-- Quality bar: TBD
-- Good examples: TBD
-- Bad examples / anti-patterns: TBD
+Do not store detailed task state, scope, acceptance criteria, decisions, logs, role plans, or verification history in this file.
 
-## Anticipation branch
-- Anticipation status: not run
-- Proactive suggestions: none
-- Scope-changing proposals awaiting approval: none
-- Backlog ideas: none
+If an older instruction asks you to update `TASK.md`, update:
 
-## User request
-TBD
-
-## Product context
-- Product/domain: TBD
-- Target users: TBD
-- User problem: TBD
-- Desired outcome: TBD
-
-## Scope
-### In scope
-TBD
-
-### Out of scope
-TBD
-
-### Non-goals
-TBD
-
-## Design-system context
-- DS mode: TBD (`none`, `emerging`, `component_library`, `documented_ds`, `governed_ds`)
-- DS source of truth: TBD
-- Component registry: TBD
-- Token system: TBD
-- DS folder/docs loaded: TBD
-- Custom UI policy: blocked if DS component exists unless approved
-- Approved DS deviations: none
-
-## Technical context
-- Existing repository: TBD
-- Platform/surface: TBD
-- Stack/package manager/scripts: TBD
-- Repo recon status: not run
-- Design recon status: not run
-
-## Role-skill plan
-| Role | Execution mode | Spawn name | Artifact | Skills | Approval status |
-|---|---|---|---|---|---|
-
-## Orchestration
-- Real subagents spawned: no
-- Spawned agents: none
-- Simulated roles: none
-- System services: none
-- Skills loaded: none
-
-## Acceptance criteria
-TBD
-
-## Quality gates
-- Product gate: TBD
-- Design-system compliance gate: TBD
-- UI quality gate: TBD
-- Engineering gate: TBD
-- Risk gate: TBD
-- Review level: TBD
-
-## Verification plan
-TBD
-
-## Open questions
-TBD
-
-## Decisions
-| Decision | Reason | Impact | Date |
-|---|---|---|---|
-
-## Context budget log
-| Stage | Docs loaded | Role cards | Full playbooks | Skills | Reason |
-|---|---|---|---|---|---|
-
-
-## Subagent run status
-
-- Real subagents spawned: TBD
-- Spawned agents: []
-- Simulated roles: []
-- System services: []
-- Agent run contract: TBD
-- Subagent completion status: TBD
-- Fallbacks used: []
-
-## UI review packet
-
-- Target URL/route: TBD
-- Screenshots/render evidence: TBD
-- Changed files: []
-- Design-system mode: TBD
-- Missing evidence: []
-
-## Reference fidelity and design-source authority
-
-- Visual/reference sources:
-- Good examples:
-- Bad examples:
-- Reference fidelity target: strict / adapted / mood-only / none
-- DS/source authority state: authoritative / candidate / provisional / self_generated / unknown
-- Manifest baseline path:
-- Manifest changed during task: yes/no/unknown
-- Approved deviations:
-- Content realism requirement:
-- Debug/prototype controls allowed: yes/no/unknown
+- `CURRENT.md` for active state and next action;
+- `TASK_INDEX.md` for ticket list/status changes;
+- `tasks/<active-ticket>.md` for detailed task context;
+- `CHRONICLE.md` for compact rescue summary.

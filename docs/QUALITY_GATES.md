@@ -3,7 +3,7 @@
 Use PASS / PASS WITH WARNINGS / BLOCKED.
 
 ## Universal gates
-- Scope matches approved TASK.md.
+- Scope matches the approved active task ticket.
 - Claims are evidence-labeled.
 - Required roles/skills executed or intentionally skipped.
 - Tests/checks run or limitations stated.

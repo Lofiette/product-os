@@ -15,7 +15,7 @@ Use only when this workflow can improve decision quality, risk detection, implem
 
 ## Inputs
 
-- TASK.md current scope.
+- CURRENT.md and active task ticket current scope.
 - Relevant role playbook or role card.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode.
@@ -54,6 +54,6 @@ Use only when this workflow can improve decision quality, risk detection, implem
 - Another role owns the decision.
 
 
-## Beta 2 anticipation integration
+## Anticipation integration
 
 When creative improvement generates a suggestion that changes acceptance criteria, scope, roles, architecture, DS contract, or verification, route it through `anticipation-radar` or `proactive-proposal-review` before adding it to the plan.

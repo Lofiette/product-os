@@ -1,5 +1,13 @@
 # Scenario: dashboard_design
 
-Design dashboard with charts and metrics
+- **description**: Design dashboard with charts and metrics
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `data_visualization_designer`
+- `analytics_engineer`
+- `product_designer`
+
+## required_skills
+- `data-visualization-review`
+- `analytics-planning`
+- `screen-redesign`

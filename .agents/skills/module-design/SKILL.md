@@ -62,8 +62,8 @@ Design an entire product module, not isolated screens.
 
 
 
-## Beta 2 anticipation and taste integration
+## Anticipation and taste integration
 
 For module design, run `anticipation-radar` once before final handoff to detect likely developer, user, stakeholder, and QA expectations not yet captured. Do not add scope without approval.
 
-If the module has user-facing UI, include taste profile and good/bad examples in the Module Design Package or reference `TASK.md`.
+If the module has user-facing UI, include taste profile and good/bad examples in the Module Design Package or reference the active task ticket.

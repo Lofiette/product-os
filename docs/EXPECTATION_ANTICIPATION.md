@@ -68,4 +68,4 @@ Use more only when the user explicitly asks for an ideation sprint.
 
 ## Approval rule
 
-A2/A3/A4 proposals must not be implemented until the user approves them. If approved, update TASK.md decisions and CHRONICLE.md.
+A2/A3/A4 proposals must not be implemented until the user approves them. If approved, update active task ticket decisions, CURRENT.md if next action changes, and compact CHRONICLE.md.

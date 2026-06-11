@@ -26,7 +26,7 @@
 
 - `AGENTS.md` now includes operational culture, taste gates, anticipation discipline, and exact-agent-ID naming policy.
 - `FIRST_PROMPT.md` now forbids personal/codename agent labels and proposes taste/anticipation workflows when relevant.
-- `TASK.md` now tracks taste profile and anticipation proposals.
+- The active task ticket now tracks taste profile and anticipation proposals.
 - `CHRONICLE.md` now tracks taste/anticipation decisions.
 - Routing docs now include taste and anticipation triggers.
 

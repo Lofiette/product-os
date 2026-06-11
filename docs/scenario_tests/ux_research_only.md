@@ -1,5 +1,10 @@
 # Scenario: ux_research_only
 
-Plan UX research, no implementation
+- **description**: Plan UX research, no implementation
+- **forbidden_implementation**: True
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `ux_researcher`
+
+## required_skills
+- `ux-research-planning`

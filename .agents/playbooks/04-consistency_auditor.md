@@ -37,11 +37,11 @@ Finds contradictions, missing ownership, unsupported claims, risk gaps, and proc
 
 ## Method
 
-Check plan against TASK.md, gates, evidence, role ownership, and approved scope. Escalate unresolved conflicts to Team Architect or the user, not to itself.
+Check plan against CURRENT.md, the active task ticket, gates, evidence, role ownership, and approved scope. Escalate unresolved conflicts to Team Architect or the user, not to itself.
 
 ## Required inputs
 
-- TASK.md current scope and constraints.
+- CURRENT.md and active task ticket current scope and constraints.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode and skills.
 

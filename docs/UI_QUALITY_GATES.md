@@ -121,3 +121,6 @@ Visible dev/prototype controls must be classified. Unknown or dev-only controls 
 ## Visual Acceptance reminder
 
 Use `docs/VISUAL_ACCEPTANCE_CRITERIA.md`: technical checks are not design success.
+
+
+Runtime keyword: Looks similar.

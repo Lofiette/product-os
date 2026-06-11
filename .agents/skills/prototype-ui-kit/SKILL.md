@@ -59,7 +59,7 @@ Keep a fast UI prototype visually coherent when no design system exists. This is
 
 
 
-## Beta 2 taste examples requirement
+## Taste examples requirement
 
 A Prototype UI Kit Contract must include at least 2 good examples and 2 anti-examples for the current task when no design system exists. Examples may be textual if screenshots/references are unavailable.
 

@@ -61,7 +61,7 @@ Produce a screen-level design decision that can be implemented or reviewed witho
 
 
 
-## Beta 2 taste/culture integration
+## Taste and culture integration
 
 Before selecting a design direction, check whether `taste-calibration` is needed. It is required when visual/product feel is ambiguous, no DS exists, or the user provided taste adjectives/references.
 

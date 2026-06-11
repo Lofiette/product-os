@@ -11,4 +11,4 @@
 9. Execute approved operation.
 10. Verify through relevant gates.
 11. Review at appropriate level.
-12. Update TASK.md/CHRONICLE.md compactly.
+12. Update CURRENT.md, active task ticket, TASK_INDEX.md if needed, and compact CHRONICLE.md.

@@ -15,7 +15,7 @@ Use only when this workflow can improve decision quality, risk detection, implem
 
 ## Inputs
 
-- TASK.md current scope.
+- CURRENT.md and active task ticket current scope.
 - Relevant role playbook or role card.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode.

@@ -26,7 +26,7 @@ If user provides or repo contains a DS folder:
 2. Identify component registry, token rules, patterns, anti-patterns, contribution rules.
 3. Load only relevant component/pattern docs for the current task.
 4. Update or create `docs/design-system/DESIGN_SYSTEM_MANIFEST.json`.
-5. Record loaded DS docs in TASK.md context budget.
+5. Record loaded DS docs in the active task ticket context budget.
 
 ## No DS handling
 

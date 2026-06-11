@@ -47,3 +47,8 @@ Spawned agents must not perform broad repo exploration unless explicitly assigne
 ## UI review default
 
 For current-page UI review, do not spawn multiple full role-specific subagents before creating a `UI Review Packet`. First collect URL, screenshot/render notes, changed files, DS mode, component sources, console errors, and known constraints. Then spawn only the minimum reviewers needed.
+
+
+## Ticketed memory input rule
+
+Subagents must receive `CURRENT.md`, the active `tasks/TKT-*.md`, and a bounded operation packet. Do not load `TASK.md` except as a compatibility pointer. Do not load all tickets or detailed chronicle logs.

@@ -8,3 +8,7 @@ For low-risk reversible work:
 - compact Chronicle if files changed.
 
 Risk gates still override Fast Lane.
+
+## Context rule
+
+No role/skill indexes by default for obvious Tiny/Micro work. Load tiny indexes only when routing is ambiguous or a gate may be triggered.

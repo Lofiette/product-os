@@ -39,11 +39,11 @@ Reviews diffs for correctness, maintainability, scope control, tests, risk, and 
 
 ## Method
 
-Review read-only by default. Compare diff with TASK.md, approved plan, tests, gates, and role artifacts. Use PASS/WARN/BLOCKED.
+Review read-only by default. Compare diff with active task ticket, approved plan, tests, gates, and role artifacts. Use PASS/WARN/BLOCKED.
 
 ## Required inputs
 
-- TASK.md current scope and constraints.
+- CURRENT.md and active task ticket current scope and constraints.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode and skills.
 

@@ -1,5 +1,5 @@
 {
-  "version": "2.0-beta4",
+  "version": "2.1-beta3",
   "purpose": "Lightweight skill index. Load full SKILL.md only when selected.",
   "skills": [
     {
@@ -39,6 +39,18 @@
       "description": "Review UX copy, terminology, empty/error/success states, CTA clarity, accessibility, localization readiness."
     },
     {
+      "id": "content-realism-review",
+      "description": "Check whether prototype/demo content is realistic enough to validate comprehension, layout, hierarchy, and target-audience fit."
+    },
+    {
+      "id": "context-prune",
+      "description": "Compress active memory without losing current decisions, blockers, next action, approvals, or evidence links."
+    },
+    {
+      "id": "context-snapshot",
+      "description": "Create a compact checkpoint for recovery before compression, phase changes, risky operations, or long-running work."
+    },
+    {
       "id": "conversation-design",
       "description": "Design conversational flows, intents, turns, confirmations, repair, fallback, tone, and human handoff."
     },
@@ -71,6 +83,10 @@
       "description": "Review chart/dashboard/report design, metric semantics, misleading visuals, scales, aggregation, cognitive load."
     },
     {
+      "id": "debug-control-review",
+      "description": "Classify visible debug/prototype controls and block accidental exposure in user-facing UI."
+    },
+    {
       "id": "dependency-review",
       "description": "Assess dependency necessity, alternatives, maintenance, license, security, bundle/perf, rollback."
     },
@@ -89,6 +105,10 @@
     {
       "id": "design-recon",
       "description": "Discover design-system level, component registry, tokens, style conventions, UI patterns, Figma/design docs, and implementation constraints."
+    },
+    {
+      "id": "design-source-authority",
+      "description": "Classify design sources and prevent self-validating DS manifests or false compliance claims."
     },
     {
       "id": "design-system-compliance",
@@ -136,7 +156,7 @@
     },
     {
       "id": "implementation-review",
-      "description": "Review implementation against TASK, approved plan, tests, gates, risks, and output PASS/WARN/BLOCKED."
+      "description": "Review implementation against the active ticket, approved plan, tests, gates, risks, and output artifacts."
     },
     {
       "id": "incident-review",
@@ -151,8 +171,16 @@
       "description": "Check strings, variables, pluralization, formats, text expansion, locale assumptions, and hardcoded copy."
     },
     {
+      "id": "manifest-freeze-check",
+      "description": "Detect and classify DS manifest baseline/changes before using manifest for compliance."
+    },
+    {
       "id": "market-research-planning",
       "description": "Plan market research: category, alternatives, competitors, positioning, pricing/adoption hypotheses, evidence sources."
+    },
+    {
+      "id": "memory-integrity-check",
+      "description": "Check CURRENT.md, TASK_INDEX.md, active ticket, CHRONICLE.md, and compatibility TASK.md for consistency and broken links."
     },
     {
       "id": "migration-planning",
@@ -211,6 +239,10 @@
       "description": "Plan behavior-preserving refactor stages, tests, risks, and rollback."
     },
     {
+      "id": "reference-fidelity",
+      "description": "Extract a visual reference contract and compare implemented UI against it; required when references/good/bad examples guide UI."
+    },
+    {
       "id": "repo-recon",
       "description": "Inspect an existing repository shallowly: stack, package manager, scripts, instructions, generated zones, patterns, tests."
     },
@@ -229,6 +261,10 @@
     {
       "id": "screen-redesign",
       "description": "Produce a Screen Design Spec for new/redesigned screens with purpose, hierarchy, actions, states, component tree, responsive behavior."
+    },
+    {
+      "id": "screenshot-reference-comparison",
+      "description": "Compare rendered UI screenshots against references, specs, DS/taste contracts, and visual acceptance criteria."
     },
     {
       "id": "security-review",
@@ -263,6 +299,10 @@
       "description": "Turn a request into a scoped task brief using Micro/Fast/Standard/Risk-first intake. Ask only decision-changing questions."
     },
     {
+      "id": "task-ledger",
+      "description": "Create, update, close, archive, and validate task tickets in TASK_INDEX.md and tasks/TKT-*.md."
+    },
+    {
       "id": "taste-calibration",
       "description": "Define task-specific taste profile, examples, anti-examples, quality bar, and review checklist for design-facing work."
     },
@@ -279,6 +319,10 @@
       "description": "Build evidence-backed security threat model, findings, mitigations, and tests."
     },
     {
+      "id": "ticket-router",
+      "description": "Route new work to an existing ticket or create a new ticket based on deliverable, scope, blocker, and approval boundaries."
+    },
+    {
       "id": "ui-heuristic-audit",
       "description": "Run obvious UI errors checklist: hierarchy, actions, states, copy, accessibility, responsiveness, consistency."
     },
@@ -293,30 +337,6 @@
     {
       "id": "visual-qa-loop",
       "description": "Render or inspect UI states, capture screenshots if possible, compare against spec and DS constraints, report visual blockers."
-    },
-    {
-      "id": "reference-fidelity",
-      "description": "Extract a visual reference contract and compare implemented UI against it; required when references/good/bad examples guide UI."
-    },
-    {
-      "id": "design-source-authority",
-      "description": "Classify design sources and prevent self-validating DS manifests or false compliance claims."
-    },
-    {
-      "id": "manifest-freeze-check",
-      "description": "Detect and classify DS manifest baseline/changes before using manifest for compliance."
-    },
-    {
-      "id": "screenshot-reference-comparison",
-      "description": "Compare rendered UI screenshots against references, specs, DS/taste contracts, and visual acceptance criteria."
-    },
-    {
-      "id": "content-realism-review",
-      "description": "Check whether prototype/demo content is realistic enough to validate comprehension, layout, hierarchy, and target-audience fit."
-    },
-    {
-      "id": "debug-control-review",
-      "description": "Classify visible debug/prototype controls and block accidental exposure in user-facing UI."
     }
   ]
 }

@@ -1,5 +1,13 @@
 # Scenario: conversation_ui
 
-Design chatbot/AI assistant flow
+- **description**: Design chatbot/AI assistant flow
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `conversation_designer`
+- `ux_writer`
+- `ai_safety_reviewer`
+
+## required_skills
+- `conversation-design`
+- `content-pattern-review`
+- `ai-safety-review`

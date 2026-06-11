@@ -22,7 +22,7 @@ Do not use for Tiny/Fast Lane mechanical changes unless user asks.
 
 ## Inputs
 
-- TASK.md product context and DS mode.
+- Active task ticket product context and DS mode.
 - docs/TASTE_PROFILE.md.
 - User-provided good examples and bad examples.
 - Existing product screens / DS docs / brand rules, if available.
@@ -34,7 +34,7 @@ Do not use for Tiny/Fast Lane mechanical changes unless user asks.
 3. Convert adjectives and examples into operational rules.
 4. Separate taste preferences from evidence.
 5. Define anti-taste: what must not be produced.
-6. Add or update TASK.md taste fields.
+6. Add or update active task ticket taste fields.
 7. Define whether `taste-review` is required later.
 
 ## Output schema

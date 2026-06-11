@@ -1,6 +1,6 @@
-# AGENTS.md — Codex Product Team 2.0 beta 4
+# AGENTS.md — Codex Product Team 2.1 beta 4
 
-You are operating inside **Codex Product Team 2.0 beta 4**, a role-skill orchestration system for digital product development.
+You are operating inside **Codex Product Team 2.1 beta 4**, a role-skill orchestration system for digital product development.
 
 ## Core distinction
 
@@ -11,6 +11,23 @@ You are operating inside **Codex Product Team 2.0 beta 4**, a role-skill orchest
 - **Simulation** = the main thread applies a role lens without spawning a separate subagent.
 
 A selected role does **not** mean a spawned subagent. Loaded playbook does **not** mean a spawned subagent. A role card consult does **not** mean a spawned subagent.
+
+## Ticketed memory and context economy
+
+Use ticketed memory for long-running work.
+
+- `CURRENT.md` = current active state, active ticket, blockers, next operation.
+- `TASK_INDEX.md` = compact ticket ledger.
+- `tasks/TKT-*.md` = detailed task briefs.
+- `CHRONICLE.md` = compact rescue summary only.
+- `context/packets/*` = operation evidence packets.
+- `context/snapshots/*` = recovery checkpoints.
+- `chronicle/*` and `archive/*` = detailed history; do not load by default.
+- `TASK.md` = deprecated compatibility pointer only.
+
+Before loading large memory, ask: what decision can this change? If the answer is unclear, do not load it.
+
+Use `ticket-router`, `task-ledger`, `context-snapshot`, `context-prune`, and `memory-integrity-check` when the active task, memory size, or continuity changes.
 
 
 ## Agent Naming Policy
@@ -29,21 +46,38 @@ For proactive improvements, use `docs/ANTICIPATION_BRANCH.md` and `docs/PROACTIV
 
 - Speak to the user in Russian by default.
 - Keep durable control artifacts in compact English unless the user asks otherwise.
-- Product UI copy must use the product/user language defined in `TASK.md`.
+- Product UI copy must use the product/user language defined in the active ticket referenced by `CURRENT.md`.
 - Do not mix languages inside one user-facing artifact unless quoting code, file names, or user-provided terms.
+
+
+## Skill discovery discipline
+
+This repository has a large skill set. Do not rely on implicit skill discovery for critical workflows. Use staged routing and explicit skill IDs from `docs/SKILL_DISCOVERY_POLICY.md`, `docs/SKILL_ROUTER_INDEX.json`, `docs/ROLE_TINY_INDEX.json`, and `docs/SKILL_TINY_INDEX.json`.
+
+For UI/design quality, explicitly select required skills such as `reference-fidelity`, `design-source-authority`, `design-system-compliance`, `screenshot-reference-comparison`, `visual-qa-loop`, and `taste-review` when their triggers are present. If a required skill cannot be confirmed as loaded/applied, report `INSUFFICIENT WORKFLOW EVIDENCE` instead of PASS.
 
 ## Staged loading
 
 At startup read only:
 
 1. `AGENTS.md`
-2. `TASK.md`
-3. `CHRONICLE.md`
-4. `docs/BOOTSTRAP_INDEX.md`
-5. `docs/QUESTION_TREE.md`
+2. `CURRENT.md`
+3. `TASK_INDEX.md`
+4. `CHRONICLE.md`
+5. `docs/BOOTSTRAP_INDEX.md`
 6. `docs/LANGUAGE_POLICY.md`
 
-After intake and before proposing roles, load `docs/ROLE_MINI_INDEX.json`, `docs/SKILL_INDEX.json`, and relevant role cards only. Load full playbooks, full docs, or skill files only when they can change decision quality, risk detection, implementation, verification, or handoff quality.
+Load `docs/QUESTION_TREE.md` only when structured intake is needed.
+
+`TASK.md` is only a deprecated compatibility pointer. Do not use it as working memory.
+
+After intake, first classify whether the request is `Tiny/Micro`, `Fast Lane`, or `Standard+`.
+
+- For `Tiny/Micro` obvious reversible work, do **not** load role/skill indexes by default. No role/skill indexes by default for obvious Tiny/Micro work. Use the active ticket or a compact inline note, main-thread execution, and the smallest relevant checklist.
+- For `Fast Lane`, load tiny indexes only if the route is not obvious from the request and active ticket. If the task domain is unclear but not complex, use `docs/SKILL_ROUTER_INDEX.json` before loading full skill indexes.
+- For `Standard+`, load the active ticket from `CURRENT.md`, optionally use `docs/SKILL_ROUTER_INDEX.json` for domain routing, then `docs/ROLE_TINY_INDEX.json` and `docs/SKILL_TINY_INDEX.json` first. Load `docs/ROLE_MINI_INDEX.json`, `docs/SKILL_INDEX.json`, and relevant role cards only if the tiny indexes are insufficient.
+
+Load full playbooks, full docs, or skill files only when they can change decision quality, risk detection, implementation, verification, or handoff quality.
 
 ## Execution transparency
 
@@ -144,7 +178,7 @@ A task is done only when:
 - tests/checks/manual verification are run or limitations are stated;
 - UI tasks include design-system compliance and visual/design QA status;
 - DS deviations are listed with approvals;
-- `TASK.md` and `CHRONICLE.md` are updated when appropriate;
+- `CURRENT.md`, `TASK_INDEX.md`, the active ticket, and compact `CHRONICLE.md` are updated when appropriate;
 - remaining risks and follow-ups are listed.
 
 
@@ -166,3 +200,8 @@ If the user provides a visual reference, screenshot, Figma/mock image, good exam
 Before claiming design-system compliance, run or apply `design-source-authority`. Generated artifacts cannot validate themselves: a DS manifest, registry, or prototype UI kit created or materially changed in the same operation cannot be used as proof of compliance unless the user explicitly approves it as authority.
 
 For UI tasks, final verdict is BLOCKED when reference fidelity, DS authority, content realism, debug-control status, or screenshot-based visual QA is required but missing.
+
+
+Runtime memory phrase: TASK.md is only a deprecated compatibility pointer.
+
+Runtime keyword: Reference Fidelity.

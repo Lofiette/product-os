@@ -27,9 +27,9 @@
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
 
-## Beta 1 runtime note
+## Runtime note
 
-Beta 1: for UI work, QA must include state matrix, UI heuristic audit, visual QA status, and DS compliance status.
+for UI work, QA must include state matrix, UI heuristic audit, visual QA status, and DS compliance status.
 
 ## Beta 4 reference/authority guardrail
 

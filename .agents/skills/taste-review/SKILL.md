@@ -11,7 +11,7 @@ Do not use Taste Review for purely backend, mechanical refactor, dependency-only
 
 ## Inputs
 
-- TASK.md taste fields.
+- Active task ticket taste fields.
 - docs/TASTE_PROFILE.md.
 - User-provided good/bad examples, if any.
 - Screen Design Spec / Module Design Package / Prototype UI Kit Contract.

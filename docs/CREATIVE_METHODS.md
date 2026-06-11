@@ -16,7 +16,7 @@ Use when quality may improve and the method can change a decision.
 At most one creative loop per planning cycle unless the user requests ideation sprint.
 
 
-## Beta 2 integration
+## Integration
 
 Creative methods are now governed by `docs/CREATIVE_TENSION.md` and `docs/ANTICIPATION_BRANCH.md` when they create proactive suggestions.
 

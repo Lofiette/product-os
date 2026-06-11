@@ -1,5 +1,15 @@
 # Scenario: screen_redesign_existing_ds
 
-Redesign screen in repo with component library
+- **description**: Redesign screen in repo with component library
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `product_designer`
+- `design_system_guardian`
+- `design_engineer`
+
+## required_skills
+- `repo-recon`
+- `design-recon`
+- `screen-redesign`
+- `design-system-compliance`
+- `visual-qa-loop`

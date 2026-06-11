@@ -7,7 +7,7 @@ Spawn these custom agents by exact name:
 - `<agent_name>`
 
 Each agent must:
-- read TASK.md and only relevant docs/files;
+- read CURRENT.md, the active task ticket, and only relevant docs/files;
 - stay inside its role boundary;
 - use only approved skills;
 - return the required artifact schema;

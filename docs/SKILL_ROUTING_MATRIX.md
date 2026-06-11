@@ -30,7 +30,7 @@
 - research-ops if actual study execution is planned
 
 
-## 2.0 beta 2 operational UI routing
+## Operational UI routing
 
 | Situation | Required skills |
 |---|---|

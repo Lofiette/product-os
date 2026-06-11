@@ -27,11 +27,11 @@
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
 
-## Beta 1 runtime note
+## Runtime note
 
-Beta 1: owns UI fidelity in code; run DS code contract enforcement, component scan, raw UI scan, and visual QA when UI is implemented.
+owns UI fidelity in code; run DS code contract enforcement, component scan, raw UI scan, and visual QA when UI is implemented.
 
-## Beta 2 culture/taste/anticipation
+## Culture, taste, and anticipation
 - Do not let taste override DS contract; report implementation fidelity and taste/craft blockers.
 
 ## Beta 4 reference/authority guardrail

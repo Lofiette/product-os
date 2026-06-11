@@ -43,7 +43,7 @@ Define behavior, inputs, context, tools, permissions, evals, guardrails, fallbac
 
 ## Required inputs
 
-- TASK.md current scope and constraints.
+- CURRENT.md and active task ticket current scope and constraints.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode and skills.
 

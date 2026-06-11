@@ -1,5 +1,10 @@
 # Scenario: existing_repo_feature_change
 
-Feature change in existing repo
+- **description**: Feature change in existing repo
+- **expected_first_step**: repo-recon
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `frontend_architect`
+
+## required_skills
+- `repo-recon`

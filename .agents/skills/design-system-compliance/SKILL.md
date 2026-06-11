@@ -59,6 +59,6 @@ PASS / PASS WITH WARNINGS / BLOCKED
 
 
 
-## Beta 2 taste guardrail
+## Taste guardrail
 
 Taste never overrides design-system compliance. If a local visual decision feels better but conflicts with documented/governed DS, record it as a deviation and ask approval.

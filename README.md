@@ -1,55 +1,95 @@
-# Codex Product Team 2.0
+# Codex Product Team 2.1 beta 4
 
-A role-skill orchestration framework for Codex that simulates or spawns a product team depending on task complexity.
+A role-skill orchestration framework for Codex that can either simulate product-team roles in the main thread or spawn approved custom subagents for bounded expert work.
 
 ## Start
 
 1. Open this folder in Codex.
 2. Paste `FIRST_PROMPT.md`.
-3. Answer the intake questions.
-4. Review the proposed roles, skills, and orchestration mode.
-5. Approve real subagent spawn or ask for cheaper simulation mode.
+3. Answer only decision-changing intake questions.
+4. Review the proposed roles, skills, orchestration mode, gates, and context budget.
+5. Approve real subagent spawn or request cheaper simulation mode.
 
 ## Key ideas
 
 - Roles own decisions and artifacts.
-- Skills are reusable methods.
+- Skills are reusable methods/workflows.
 - Custom agents are spawnable role executors.
-- Real subagents run only after explicit approval.
-- UI work requires design recon and design-system compliance when relevant.
+- Real subagents run only after explicit approval unless auto-orchestration was explicitly approved.
+- Ticketed memory keeps long-running work compact: use `CURRENT.md`, `TASK_INDEX.md`, active `tasks/TKT-*.md`, and compact `CHRONICLE.md`.
+- `TASK.md` is only a deprecated compatibility pointer.
+- UI work requires design recon, design-system authority checks, and reference/taste/visual gates when relevant.
 - Design systems may be absent, emerging, component-based, documented, or governed.
 
 ## Important files
 
 - `AGENTS.md` — core runtime rules.
-- `TASK.md` — current task source of truth.
-- `CHRONICLE.md` — compact continuity memory.
+- `FIRST_PROMPT.md` — startup prompt.
+- `CURRENT.md` — active control panel.
+- `TASK_INDEX.md` — ticket ledger.
+- `tasks/TKT-*.md` — detailed task briefs.
+- `CHRONICLE.md` — compact rescue summary.
+- `docs/BOOTSTRAP_INDEX.md` — compact startup map.
+- `docs/CONTEXT_BUDGET_POLICY.md` — context loading tiers.
+- `docs/RUNTIME_LOAD_POLICY.md` — runtime/reference file separation.
+- `docs/TICKETED_MEMORY.md` — memory model.
 - `docs/SUBAGENT_ORCHESTRATION.md` — real subagent rules.
 - `docs/ROLE_SKILL_ARCHITECTURE.md` — role/skill model.
-- `docs/DESIGN_SYSTEM_MODES.md` — how to handle no DS vs rich DS folders.
-- `docs/DESIGN_RECON.md` — how to discover design system and UI patterns.
+- `docs/DESIGN_SYSTEM_MODES.md` — no DS vs rich DS handling.
+- `docs/REFERENCE_FIDELITY.md` — reference-driven UI constraints.
+- `docs/DESIGN_SOURCE_AUTHORITY.md` — DS/source authority rules.
 - `docs/UI_QUALITY_GATES.md` — blocking UI quality checks.
 
-## 2.0 beta 4
+## 2.1 beta 4 focus
 
-This beta hardens operational UI workflows, module design handoff, production readiness, DS enforcement scripts, and explicit spawned/simulated execution transparency. See `docs/RELEASE_NOTES_2.0_BETA2.md`.
+Beta 4 is a targeted hardening patch for context economy, diagnostics, and skill-discovery discipline:
 
+- Fixes `scripts/validate_kit.py` as a proper executable script.
+- Adds validator checks for executable shebangs and strict DS scanner behavior.
+- Adds strict DS mode to `scripts/check-component-imports.mjs`:
+  - `--strict-ds`
+  - `--fail-on-warning`
+  - DS source-file exclusions for native primitives.
+- Prevents obvious Tiny/Micro tasks from loading role/skill indexes by default.
+- Adds `docs/SKILL_ROUTER_INDEX.json` as an optional ultra-light domain router before heavier indexes.
+- Updates scenario behavior checks for Tiny/Micro, production UI, spawn approval, and reference/manifest gates.
+- Fixes legacy `TASK` wording in skill indexes: implementation review now references the active ticket.
 
-## 2.0 beta 4 highlights
+## Runtime loading summary
 
-- Added Team Culture Layer.
-- Added Taste Profile, good/bad examples, Taste Calibration, and Taste Review.
-- Added Anticipation Branch for proactive suggestions requiring human confirmation.
-- Added Agent Naming Policy to prevent aliases/codenames in spawned-agent summaries.
-- Added creative tension review for controlled design/product improvement.
+Tier 0 startup files:
 
+- `AGENTS.md`
+- `CURRENT.md`
+- `TASK_INDEX.md`
+- `CHRONICLE.md`
+- `docs/BOOTSTRAP_INDEX.md`
+- `docs/LANGUAGE_POLICY.md`
 
-## Taste, culture, and anticipation
+After intake:
 
-Beta 2 adds an operational culture layer, taste calibration/review, example-driven taste boards, controlled creative tension, and expectation anticipation proposals. These are gates and artifacts, not roleplay. Scope-changing anticipation proposals require user approval.
+- Tiny/Micro obvious reversible work: do **not** load role/skill indexes by default.
+- Fast Lane: load tiny indexes only when routing is unclear or a gate may be triggered.
+- Standard+: optionally use `docs/SKILL_ROUTER_INDEX.json`, then load `docs/ROLE_TINY_INDEX.json` and `docs/SKILL_TINY_INDEX.json`.
+- Mini/full indexes, role cards, full playbooks, and full skill docs load only when they can change a decision.
 
-Agent reporting uses exact role IDs only. Any UI-generated personal thread labels are ignored.
+Do not load archives, all tickets, all skills, all playbooks, release notes, self-audit reports, or reference-only docs by default.
 
-## 2.0 beta 4 focus
+## Validation
 
-Beta 4 adds Reference Fidelity and Design Source Authority. If a user provides a visual reference, the system must convert it into a reference contract before implementation and compare rendered output after implementation. DS manifests generated or changed during the same task cannot be used as proof of compliance without explicit approval.
+Run:
+
+```bash
+python scripts/validate_kit.py
+./scripts/validate_kit.py
+python scripts/test-routing.py
+node scripts/check-memory-integrity.mjs
+```
+
+Expected result:
+
+```text
+VALIDATION PASSED
+ROUTING TEST PASSED
+MEMORY INTEGRITY PASSED
+```

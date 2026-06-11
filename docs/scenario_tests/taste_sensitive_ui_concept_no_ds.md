@@ -1,30 +1,27 @@
-# taste_sensitive_ui_concept_no_ds
+# Scenario: taste_sensitive_ui_concept_no_ds
 
-Prompt: Create a fast redesign concept for an existing interface without a design system; make it feel calm, premium, and clearer.
+- **prompt**: Create a fast redesign concept for an existing interface without a design system; make it feel calm, premium, and clearer.
+- **expected_orchestration**: hybrid or role_simulation
+- **max_roles**: 7
+- **notes**: Must create taste profile and good/bad examples; no DS means prototype UI kit contract.
 
-## Required roles
-- product_designer
-- design_engineer
+## required_roles
+- `product_designer`
+- `design_engineer`
 
-## Optional roles
-- visual_design_director
-- ux_writer
-- design_system_guardian
-- qa_engineer
+## optional_roles
+- `visual_design_director`
+- `ux_writer`
+- `design_system_guardian`
+- `qa_engineer`
 
-## Required skills
-- design-recon
-- prototype-ui-kit
-- taste-calibration
-- screen-redesign
-- state-matrix
-- taste-review
+## required_skills
+- `design-recon`
+- `prototype-ui-kit`
+- `taste-calibration`
+- `screen-redesign`
+- `state-matrix`
+- `taste-review`
 
-## Forbidden skills
-- production-readiness-review
-
-## Expected orchestration
-hybrid or role_simulation
-
-## Notes
-Must create taste profile and good/bad examples; no DS means prototype UI kit contract.
+## forbidden_skills
+- `production-readiness-review`

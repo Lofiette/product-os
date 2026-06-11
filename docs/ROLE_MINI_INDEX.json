@@ -11,7 +11,7 @@
       ],
       "primary_outputs": [
         "Briefing questions",
-        "Updated TASK.md",
+        "Updated CURRENT.md / TASK_INDEX.md / active task ticket",
         "Work mode"
       ],
       "default_skills": [
@@ -955,5 +955,6 @@
         "handoff-docs"
       ]
     }
-  ]
+  ],
+  "version": "2.1-beta3"
 }

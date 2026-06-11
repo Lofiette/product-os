@@ -36,7 +36,7 @@ Service Designer, CX Researcher, Product Strategist, Business Analyst.
 Data Visualization Designer, Analytics Engineer, Product Designer, QA Engineer.
 
 
-## 2.0 beta 2 additions
+## Operational UI and module routing
 
 ### Quick UI prototype without a design system
 Required:
@@ -142,4 +142,4 @@ Usually owned by:
 - design_engineer for DS/implementation-fidelity proposals;
 - solution_architect or relevant architect for technical proposals.
 
-A2/A3/A4 proposals require user approval and TASK.md decision log update.
+A2/A3/A4 proposals require user approval and active task ticket decision log update.

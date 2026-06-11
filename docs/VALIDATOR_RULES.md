@@ -13,16 +13,16 @@ Validator checks:
 - root zip integrity.
 
 
-## Beta 2 validator additions
+## Culture, taste, and anticipation validator additions
 
 - Required culture/taste/anticipation docs exist.
-- Required beta 2 skills exist and are listed in SKILL_INDEX.
+- Required culture/taste/anticipation skills exist and are listed in SKILL_INDEX.
 - FIRST_PROMPT includes agent naming policy and taste/anticipation handling.
 - Scenario markdown matches SCENARIO_TESTS.json.
 - TOML agent instructions include no-alias rule.
 
 
-## beta 2 culture/taste/anticipation rules
+## Culture/taste/anticipation rules
 
 Validator must check:
 - TEAM_CULTURE.md exists;

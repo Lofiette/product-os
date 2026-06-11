@@ -3,7 +3,7 @@
 - Role ID: `intake_orchestrator`
 - Category: System
 - Mission: Turns an unclear request into a scoped task brief, chooses intake depth, and prevents premature implementation.
-- Core outputs: Briefing questions, Updated TASK.md, Work mode, Initial role/skill triggers
+- Core outputs: Briefing questions, Updated CURRENT.md / TASK_INDEX.md / active task ticket, Work mode, Initial role/skill triggers
 - Default skills: task-intake, team-routing
 - Optional skills: subagent-orchestration, progress-chronicle
 

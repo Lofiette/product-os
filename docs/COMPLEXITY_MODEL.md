@@ -10,3 +10,9 @@
 - Exception: 16+ roles or irreversible actions. explicit user approval required.
 
 Use the lowest tier that preserves quality.
+
+## Tiny/Micro loading rule
+
+For Tiny or obvious Micro work, use Tier 0 plus active ticket/inline note only. Do not load role/skill indexes unless the route is ambiguous, UI/risk gates may trigger, or the user asks for a structured team proposal.
+
+No role/skill indexes by default for obvious Tiny/Micro work.

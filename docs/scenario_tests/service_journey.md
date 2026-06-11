@@ -1,5 +1,11 @@
 # Scenario: service_journey
 
-User experience crosses support and operations
+- **description**: User experience crosses support and operations
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `service_designer`
+- `cx_researcher`
+
+## required_skills
+- `service-blueprint`
+- `cx-journey-mapping`

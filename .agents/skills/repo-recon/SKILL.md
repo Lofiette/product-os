@@ -12,7 +12,7 @@ Build a shallow but reliable map of an existing repository before changing it.
 
 ## Required inputs
 
-- Current task from `TASK.md`.
+- Current task from `CURRENT.md` and the active task ticket.
 - File tree, package/build config, existing instructions.
 - User constraints.
 

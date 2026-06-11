@@ -25,5 +25,5 @@
 - The role needs independent investigation or produces a standalone artifact.
 - The user approves the proposed orchestration.
 
-## Beta 2 culture/taste/anticipation
+## Culture, taste, and anticipation
 - For proactive proposals, route anticipation-radar and ask approval before scope changes.

@@ -43,7 +43,7 @@ Build message matrix by state and intent. Ensure concise, actionable, non-blamin
 
 ## Required inputs
 
-- TASK.md current scope and constraints.
+- CURRENT.md and active task ticket current scope and constraints.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode and skills.
 

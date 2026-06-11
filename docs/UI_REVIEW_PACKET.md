@@ -56,3 +56,8 @@ For a current rendered page, the main thread should build this packet first, the
 - run a main-thread multi-lens review, or
 - spawn at most two reviewer agents by default, or
 - ask user approval for broader parallel review.
+
+
+## Ticket link
+
+Every UI Review Packet must name the ticket ID, ticket file, current objective, and review operation.

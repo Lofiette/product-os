@@ -1,15 +1,17 @@
 # Scenario: agent_id_no_personal_names
 
-Description: Subagent reporting must use exact agent IDs and ignore UI-generated personal/thread labels
+- **description**: Subagent reporting must use exact agent IDs and ignore UI-generated personal/thread labels
+- **max_questions**: 3
 
-Required roles: team_architect
+## required_roles
+- `team_architect`
 
-Optional roles: none
+## required_skills
+- `subagent-orchestration`
 
-Required skills: subagent-orchestration
-
-Expected behavior:
-- Use staged loading.
-- Propose roles, skills, orchestration mode, and gates before execution.
-- Ask approval before real subagent spawn or scope-changing proposals.
-- Produce compact artifacts and gate verdicts.
+## forbidden_terms
+- `<personal-display-label>`
+- `codename`
+- `nickname`
+- `fictional name`
+- `philosopher name`

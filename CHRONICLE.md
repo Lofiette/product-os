@@ -1,50 +1,39 @@
-# CHRONICLE.md — Compact Project Memory
+# CHRONICLE.md — Compact Rescue Summary
+
+Keep this file short. It is a rescue summary, not a full log.
+Move detailed logs into `chronicle/` and evidence into `context/packets/`.
 
 ## Context rescue summary
-No active task yet.
+
+No active product task has been briefed yet. The project now uses ticketed memory: `CURRENT.md` points to the active ticket, `TASK_INDEX.md` tracks tickets, and `tasks/TKT-*.md` stores detailed task briefs.
 
 ## Current state
-- Phase: Intake
-- Next action: Run intake and propose role/skill/orchestration plan.
 
-## Subagent activity
-| Time | Agent | Mode | Task | Result | Follow-up |
-|---|---|---|---|---|---|
+- Active ticket: `TKT-000`
+- Phase: Intake / routing
+- Next action: read `CURRENT.md`, load the active ticket, and run intake.
 
-## Decisions
-| Time | Decision | Reason | Impact |
-|---|---|---|---|
+## Latest important decisions
 
-## Progress timeline
-| Time | Event | Details | Evidence |
-|---|---|---|---|
-
-## Risks and follow-ups
-None yet.
-
-## Files touched
-| File | Why changed | Related decision |
+| Decision | Reason | Impact |
 |---|---|---|
+| Use ticketed memory | Prevent `TASK.md` / `CHRONICLE.md` context bloat | Active details move into `tasks/TKT-*.md` |
+| Keep `TASK.md` as shim only | Avoid breaking legacy references | Old instructions redirect to current memory files |
 
+## Active blockers
 
-## Taste and anticipation log
+- No user task is briefed yet.
 
-| Time | Type | Signal | Decision | Status |
-|---|---|---|---|---|
+## Next action
 
+Use `ticket-router` and `task-intake` to create or update the active ticket.
 
+## Detailed logs
 
-## Subagent completion log
+- Detailed session logs belong in `chronicle/`.
+- Evidence packets belong in `context/packets/`.
+- Snapshots belong in `context/snapshots/`.
 
-| Time | Agent ID | Expected artifact | Status | Used in verdict | Fallback |
-|---|---|---|---|---|---|
+## Subagent completion summary
 
-## UI review packet log
-
-| Time | Target | DS mode | Evidence | Verdict | Missing evidence |
-|---|---|---|---|---|---|
-
-## Reference / visual QA log
-
-| Time | Event | Reference/DS authority | Verdict | Follow-up |
-|---|---|---|---|---|
+No real subagents have been spawned yet.

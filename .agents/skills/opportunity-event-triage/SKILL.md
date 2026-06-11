@@ -15,7 +15,7 @@ Use only when this workflow can improve decision quality, risk detection, implem
 
 ## Inputs
 
-- TASK.md current scope.
+- CURRENT.md and active task ticket current scope.
 - Relevant role playbook or role card.
 - Relevant repo/design/research evidence.
 - Approved orchestration mode.
@@ -54,6 +54,6 @@ Use only when this workflow can improve decision quality, risk detection, implem
 - Another role owns the decision.
 
 
-## Beta 2 anticipation integration
+## Anticipation integration
 
 If an opportunity event reveals a likely future expectation, also classify it through the Anticipation Branch A-0..A-4 levels. Scope-changing ideas require user approval.

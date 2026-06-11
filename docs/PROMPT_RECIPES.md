@@ -7,4 +7,4 @@ Use true subagent workflow. Propose agents and skills first. Ask my approval bef
 Run repo-recon and design-recon first. Classify DS mode. Produce Screen Design Spec and Component Tree. Ask approval before implementation. After implementation run DS compliance, visual QA, and obvious UI checklist.
 
 ## Resume after context loss
-Read TASK.md and CHRONICLE.md. Summarize current state, approved scope, spawned agents, risks, and next action. Do not implement until I confirm.
+Read CURRENT.md, active task ticket, and CHRONICLE.md. Summarize current state, approved scope, spawned agents, risks, and next action. Do not implement until I confirm.

@@ -1,5 +1,14 @@
 # Scenario: governed_ds_folder
 
-Task includes rich DS folder with instructions and component specs
+- **description**: Task includes rich DS folder with instructions and component specs
+- **expected_ds_mode**: governed_ds
 
-Expected behavior is defined in `docs/SCENARIO_TESTS.json`.
+## required_roles
+- `design_system_guardian`
+- `design_engineer`
+- `product_designer`
+
+## required_skills
+- `design-recon`
+- `design-system-manifest`
+- `design-system-compliance`

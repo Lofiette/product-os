@@ -52,7 +52,7 @@ PASS / PASS WITH WARNINGS / BLOCKED
 
 
 
-## Beta 2 culture/taste gate
+## Culture and taste gate
 
 Design QA must include team culture and taste checks when applicable:
 - user stewardship;

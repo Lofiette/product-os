@@ -491,3 +491,5 @@ No codenames. Use exact role IDs and titles for routing and spawning.
 - Default skills: handoff-docs
 - Optional skills: progress-chronicle, content-pattern-review
 - Primary handoffs: delivery_manager, code_reviewer, chronicle_keeper
+
+- `frontend_engineer` — Engineering — Implements frontend changes safely in existing code.

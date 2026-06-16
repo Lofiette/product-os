@@ -1,5 +1,5 @@
 {
-  "version": "2.1-beta3",
+  "version": "3.0-ultra-beta2",
   "purpose": "Lightweight role index for routing before loading full playbooks. No codenames.",
   "roles": [
     {
@@ -32,7 +32,11 @@
         "new task or major scope change",
         "unclear work mode",
         "missing constraints or acceptance criteria"
-      ]
+      ],
+      "default_execution": "system_service",
+      "spawn_policy": "approval-only",
+      "load_cost": "tiny",
+      "primary_task_types": []
     },
     {
       "id": "team_architect",
@@ -68,7 +72,11 @@
         "need to select roles",
         "complex/multi-agent task",
         "real subagent workflow requested"
-      ]
+      ],
+      "default_execution": "system_service",
+      "spawn_policy": "approval-only",
+      "load_cost": "tiny",
+      "primary_task_types": []
     },
     {
       "id": "delivery_manager",
@@ -100,7 +108,11 @@
         "cross-functional task",
         "deadline or dependency risk",
         "more than seven active roles"
-      ]
+      ],
+      "default_execution": "system_service",
+      "spawn_policy": "approval-only",
+      "load_cost": "tiny",
+      "primary_task_types": []
     },
     {
       "id": "chronicle_keeper",
@@ -129,7 +141,11 @@
         "approved plan changed",
         "real subagents spawned",
         "important decision made"
-      ]
+      ],
+      "default_execution": "system_service",
+      "spawn_policy": "approval-only",
+      "load_cost": "tiny",
+      "primary_task_types": []
     },
     {
       "id": "consistency_auditor",
@@ -165,7 +181,11 @@
         "after specialist findings",
         "role outputs conflict",
         "high-risk changes"
-      ]
+      ],
+      "default_execution": "system_service",
+      "spawn_policy": "approval-only",
+      "load_cost": "tiny",
+      "primary_task_types": []
     },
     {
       "id": "ai_workflow_auditor",
@@ -192,7 +212,11 @@
         "framework improvement",
         "recurring Codex failure",
         "prompt/role/skill ambiguity"
-      ]
+      ],
+      "default_execution": "system_service",
+      "spawn_policy": "approval-only",
+      "load_cost": "tiny",
+      "primary_task_types": []
     },
     {
       "id": "product_strategist",
@@ -229,7 +253,11 @@
         "unclear user value",
         "MVP/prototype scope needed",
         "prioritization needed"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "market_researcher",
@@ -260,7 +288,11 @@
         "competitor comparison",
         "positioning/pricing/adoption question",
         "business opportunity assessment"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "ux_researcher",
@@ -293,7 +325,11 @@
         "research planning needed",
         "validation of design assumptions",
         "usability risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "cx_researcher",
@@ -323,7 +359,11 @@
         "support/service handoff",
         "customer experience gap",
         "retention/satisfaction issue"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "business_analyst",
@@ -352,7 +392,11 @@
         "requirements unclear",
         "business rules or compliance constraints",
         "traceability needed"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "domain_expert",
@@ -382,7 +426,11 @@
         "ambiguous terminology",
         "business-rule risk",
         "edge-case-heavy workflow"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "growth_activation_strategist",
@@ -419,7 +467,11 @@
         "conversion",
         "trial-to-paid",
         "lifecycle messaging"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "product_designer",
@@ -473,6 +525,14 @@
         "flow redesign",
         "turn requirements into interface",
         "obvious UI problems"
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": [
+        "ui_design",
+        "screen_redesign",
+        "product_surface_design"
       ]
     },
     {
@@ -508,7 +568,11 @@
         "multi-channel journey",
         "support or operations involved",
         "backstage workflow affects experience"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "information_architect",
@@ -541,7 +605,11 @@
         "settings/catalog/knowledge base",
         "complex grouping",
         "taxonomy or labeling problem"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "ux_interaction_reviewer",
@@ -574,7 +642,11 @@
         "user confusion",
         "error recovery",
         "interaction-heavy UI"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "ux_writer",
@@ -613,7 +685,11 @@
         "onboarding",
         "terminology conflict",
         "localization implications"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "design_system_guardian",
@@ -659,7 +735,11 @@
         "new UI component",
         "token/variant decision",
         "custom UI risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "design_engineer",
@@ -709,6 +789,14 @@
         "design-to-code",
         "DS compliance problems",
         "Codex makes similar-looking custom UI"
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": [
+        "ui_fidelity",
+        "design_system_implementation",
+        "visual_qa"
       ]
     },
     {
@@ -746,7 +834,11 @@
         "composition/hierarchy concerns",
         "brand expression",
         "presentation quality"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "accessibility_specialist",
@@ -779,7 +871,11 @@
         "interactive UI",
         "production UI",
         "keyboard/focus/labels risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "data_visualization_designer",
@@ -815,7 +911,11 @@
         "reports",
         "metrics UI",
         "decision-support data display"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "conversation_designer",
@@ -852,7 +952,11 @@
         "agentic UI",
         "voice/dialogue UI",
         "multi-turn clarification"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "localization_specialist",
@@ -883,7 +987,11 @@
         "locale formatting",
         "string expansion",
         "translation readiness"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "solution_architect",
@@ -916,7 +1024,11 @@
         "architecture choice",
         "non-functional constraints",
         "multi-platform work"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "frontend_architect",
@@ -952,6 +1064,14 @@
         "SPA/app architecture",
         "state/data fetching",
         "existing repo UI changes"
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": [
+        "frontend_architecture",
+        "systemic_ui_code_change",
+        "routing_state_structure"
       ]
     },
     {
@@ -988,7 +1108,11 @@
         "domain logic",
         "integrations",
         "auth/server validation"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "mobile_architect",
@@ -1019,7 +1143,11 @@
         "responsive native constraints",
         "offline/device features",
         "app store release"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "api_contract_guardian",
@@ -1049,7 +1177,11 @@
         "public/internal contract",
         "client/server mismatch",
         "versioning or schema risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "data_architect",
@@ -1081,7 +1213,11 @@
         "data quality",
         "retention/lineage",
         "analytics data"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "analytics_engineer",
@@ -1111,7 +1247,11 @@
         "dashboard/report",
         "experiment measurement",
         "product analytics"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "ai_ml_systems_architect",
@@ -1144,7 +1284,11 @@
         "tool-using agent",
         "retrieval/context design",
         "model selection"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "model_evaluation_specialist",
@@ -1174,7 +1318,11 @@
         "model regression risk",
         "prompt/model changes",
         "release threshold needed"
-      ]
+      ],
+      "default_execution": "simulated_or_spawned",
+      "spawn_policy": "approval-only-for-independent-review",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "ai_safety_reviewer",
@@ -1206,7 +1354,11 @@
         "untrusted input",
         "safety-sensitive output",
         "irreversible actions"
-      ]
+      ],
+      "default_execution": "simulated_or_spawned",
+      "spawn_policy": "approval-only-for-independent-review",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "security_reviewer",
@@ -1239,7 +1391,11 @@
         "public APIs",
         "AI tools",
         "security-sensitive code"
-      ]
+      ],
+      "default_execution": "simulated_or_spawned",
+      "spawn_policy": "approval-only-for-independent-review",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "privacy_compliance_reviewer",
@@ -1271,7 +1427,11 @@
         "user tracking",
         "AI context/data use",
         "retention/export/deletion"
-      ]
+      ],
+      "default_execution": "simulated_or_spawned",
+      "spawn_policy": "approval-only-for-independent-review",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "performance_engineer",
@@ -1302,7 +1462,11 @@
         "dashboards",
         "mobile perf",
         "expensive rendering/query risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "dependency_curator",
@@ -1333,7 +1497,11 @@
         "package replacement",
         "bundle size concern",
         "license/maintenance risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "migration_planner",
@@ -1364,7 +1532,11 @@
         "backfill",
         "breaking data change",
         "deployment sequencing"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "devops_release_engineer",
@@ -1396,7 +1568,11 @@
         "CI/CD",
         "feature flags",
         "rollout risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "observability_engineer",
@@ -1426,7 +1602,11 @@
         "new service/job",
         "incident follow-up",
         "monitoring blind spots"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "incident_investigator",
@@ -1458,7 +1638,11 @@
         "data loss",
         "outage",
         "security event"
-      ]
+      ],
+      "default_execution": "simulated_or_spawned",
+      "spawn_policy": "approval-only-for-independent-review",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "experimentation_specialist",
@@ -1488,7 +1672,11 @@
         "pilot",
         "uncertain solution value",
         "experiment decision needed"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "customer_support_analyst",
@@ -1519,7 +1707,11 @@
         "field report",
         "customer complaints",
         "recurring user confusion"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "qa_engineer",
@@ -1559,7 +1751,11 @@
         "MVP verification",
         "UI quality gate",
         "regression risk"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "code_reviewer",
@@ -1594,7 +1790,11 @@
         "production change",
         "PR review",
         "implementation complete"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "refactoring_specialist",
@@ -1624,7 +1824,11 @@
         "refactor request",
         "technical debt blocking change",
         "large code cleanup"
-      ]
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
     },
     {
       "id": "technical_writer",
@@ -1655,6 +1859,56 @@
         "documentation",
         "release notes",
         "reviewer guidance"
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": []
+    },
+    {
+      "id": "frontend_engineer",
+      "title": "Frontend Engineer",
+      "category": "Engineering",
+      "mission": "Implements frontend changes safely in existing code: components, routing, state, data flow, UI integration, maintainability, and regression avoidance.",
+      "outputs": [
+        "Implementation plan",
+        "File/change map",
+        "Frontend integration notes",
+        "Verification notes"
+      ],
+      "default": [
+        "repo-recon",
+        "bounded-discovery",
+        "frontend-integration-review"
+      ],
+      "optional": [
+        "design-system-compliance",
+        "component-contract-scan",
+        "visual-qa-loop",
+        "api-contract-review",
+        "impact-map"
+      ],
+      "handoffs": [
+        "frontend_architect",
+        "design_engineer",
+        "api_contract_guardian",
+        "qa_engineer",
+        "code_reviewer"
+      ],
+      "triggers": [
+        "UI implementation",
+        "component integration",
+        "routing or state changes",
+        "existing frontend code changes"
+      ],
+      "default_execution": "simulated",
+      "spawn_policy": "approval-only",
+      "load_cost": "standard",
+      "primary_task_types": [
+        "ui_implementation",
+        "frontend_integration",
+        "api_dependent_ui",
+        "component_refactor"
       ]
     }
   ]

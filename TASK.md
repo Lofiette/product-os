@@ -1,20 +1,14 @@
-# TASK.md — Deprecated Compatibility Pointer
+# TASK.md
 
-This project uses **ticketed memory**.
-`TASK.md` is no longer the source of truth and must stay short.
+Deprecated Compatibility Pointer.
 
-Read these files instead:
+This project uses ticketed runtime memory.
 
-1. `CURRENT.md` — current active state, active ticket, blockers, next operation.
-2. `TASK_INDEX.md` — task/ticket ledger.
+Read instead:
+
+1. `CURRENT.md` — current active state and next operation.
+2. `TASK_INDEX.md` — task/ticket list.
 3. `tasks/<active-ticket>.md` — detailed active task brief.
-4. `CHRONICLE.md` — compact rescue summary.
+4. `CHRONICLE.md` — compact rescue summary only.
 
-Do not store detailed task state, scope, acceptance criteria, decisions, logs, role plans, or verification history in this file.
-
-If an older instruction asks you to update `TASK.md`, update:
-
-- `CURRENT.md` for active state and next action;
-- `TASK_INDEX.md` for ticket list/status changes;
-- `tasks/<active-ticket>.md` for detailed task context;
-- `CHRONICLE.md` for compact rescue summary.
+Do not store detailed task state, decisions, logs, acceptance criteria, or long history in this file.

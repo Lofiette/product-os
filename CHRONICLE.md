@@ -1,39 +1,19 @@
-# CHRONICLE.md — Compact Rescue Summary
+# CHRONICLE.md
 
-Keep this file short. It is a rescue summary, not a full log.
-Move detailed logs into `chronicle/` and evidence into `context/packets/`.
+## Compact Rescue Summary
 
-## Context rescue summary
+Runtime is ready. No active user task is selected.
 
-No active product task has been briefed yet. The project now uses ticketed memory: `CURRENT.md` points to the active ticket, `TASK_INDEX.md` tracks tickets, and `tasks/TKT-*.md` stores detailed task briefs.
+`TKT-000 — Runtime ready / no active product work` is the current intake placeholder only. Replace it with a real task ticket when the user provides a concrete task.
 
-## Current state
+Use New Task Protocol for future work:
 
-- Active ticket: `TKT-000`
-- Phase: Intake / routing
-- Next action: read `CURRENT.md`, load the active ticket, and run intake.
+User task -> local/current ticket -> Product Knowledge -> bounded discovery -> Impact Map -> approval -> implementation -> verification -> knowledge update -> CHRONICLE compaction.
 
-## Latest important decisions
+Safety state:
 
-| Decision | Reason | Impact |
-|---|---|---|
-| Use ticketed memory | Prevent `TASK.md` / `CHRONICLE.md` context bloat | Active details move into `tasks/TKT-*.md` |
-| Keep `TASK.md` as shim only | Avoid breaking legacy references | Old instructions redirect to current memory files |
-
-## Active blockers
-
-- No user task is briefed yet.
-
-## Next action
-
-Use `ticket-router` and `task-intake` to create or update the active ticket.
-
-## Detailed logs
-
-- Detailed session logs belong in `chronicle/`.
-- Evidence packets belong in `context/packets/`.
-- Snapshots belong in `context/snapshots/`.
-
-## Subagent completion summary
-
-No real subagents have been spawned yet.
+- Do not edit application code unless explicitly approved.
+- Do not read root historical memory as active context.
+- Do not inspect broad external modules by default.
+- Do not load the whole expert framework by default.
+- Real subagents require explicit approval.

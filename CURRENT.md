@@ -1,68 +1,45 @@
-# CURRENT.md — Active Runtime State
+# CURRENT.md
 
-This is the first file to read after `AGENTS.md`.
-It is a compact control panel, not a full project diary.
+## Active State
 
-## Active ticket
+- Runtime: Codex Product Team 3.0 Ultra beta 2
+- Status: ready
+- Current ticket: TKT-000
+- Current ticket type: intake placeholder
+- Active user task: none
 
-- Current ticket: `TKT-000`
-- Ticket file: `tasks/TKT-000-intake.md`
-- Status: `Intake`
-- Current phase: `Briefing / routing`
-- Work mode: `TBD`
-- Complexity tier: `TBD`
-- Orchestration mode: `TBD`
+## Current Objective
 
-## Current objective
+Bootstrap the lightweight runtime and wait for the user's first concrete task.
 
-Run intake, decide whether to continue `TKT-000` or create a new task ticket, then propose the smallest useful role/skill/orchestration plan.
+## Current Task
 
-## Must load next
+`TKT-000 — Runtime ready / no active product work` is an intake placeholder, not an active product task.
 
-- `TASK_INDEX.md`
-- `tasks/TKT-000-intake.md`
-- `CHRONICLE.md`
-- `docs/BOOTSTRAP_INDEX.md`
-- `docs/LANGUAGE_POLICY.md`
+## Runtime Ready State
 
-Load `docs/QUESTION_TREE.md` only if structured intake is needed.
+Use New Task Protocol for future work:
 
-## Current blockers
+1. User gives task.
+2. Propose/create ticket if substantial.
+3. Read Product Knowledge if present.
+4. Select roles/skills/gates.
+5. Propose bounded discovery.
+6. Produce Impact Map.
+7. Ask approval before implementation.
 
-- No user task has been briefed yet.
+## Important Constraints
 
-## Next operation
-
-Use `ticket-router` and `task-intake` to create or update an active ticket before any implementation.
-
-## Runtime context budget
-
-| Category | Current state | Default policy |
-|---|---|---|
-| Active ticket | `tasks/TKT-000-intake.md` | load |
-| Closed tickets | none | do not load |
-| Chronicle summary | `CHRONICLE.md` | load compact summary only |
-| Detailed session logs | `chronicle/` | do not load by default |
-| Evidence packets | `context/packets/` | load only for active operation |
-| Snapshots | `context/snapshots/` | load only for resume/recovery |
-| Archive | `archive/` | never load by default |
-| Full playbooks | not loaded | load only for selected active roles |
-| Full skill docs | not loaded | load only when selected for operation |
+- `TASK.md` is only a deprecated compatibility pointer.
+- Keep `CHRONICLE.md` compact.
+- Do not load old logs/archives by default.
+- Do not load all roles, all skills, all docs, or root historical memory by default.
 
 ## Do not load by default
 
 - all tickets;
-- closed tickets;
-- `chronicle/*` detailed logs;
-- `context/snapshots/*` old snapshots;
-- `archive/*`;
-- release notes;
-- self-audit reports;
-- full role/method libraries.
-
-## Update rules
-
-- Update `CURRENT.md` when the active ticket, next action, blockers, phase, or orchestration mode changes.
-- Update `TASK_INDEX.md` when tickets are created, closed, blocked, or re-prioritized.
-- Update the active `tasks/TKT-*.md` for scope, acceptance criteria, decisions, role/skill plan, and evidence links.
-- Keep `CHRONICLE.md` short. Move detailed logs into `chronicle/`.
+- chronicle archives;
+- generated files;
+- external modules;
+- all roles/skills/docs;
+- root historical memory.

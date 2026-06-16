@@ -42,7 +42,7 @@ REQUIRED_SKILLS = {
     'taste-calibration','taste-review','creative-tension-review','expectation-anticipation','example-taste-board',
     'anticipation-radar','proactive-proposal-review','subagent-run-contract','subagent-failure-recovery','ui-review-packet','current-page-ui-review',
     'reference-fidelity','design-source-authority','manifest-freeze-check','screenshot-reference-comparison','content-realism-review','debug-control-review',
-    'context-prune','context-snapshot','task-ledger','ticket-router','memory-integrity-check'
+    'context-prune','context-snapshot','task-ledger','ticket-router','memory-integrity-check','new-task-protocol','knowledge-freshness-review'
 }
 CRITICAL_ROLES = ['product_designer','design_engineer','service_designer','information_architect','data_visualization_designer','conversation_designer']
 
@@ -268,7 +268,7 @@ for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/BOOTSTRAP_INDEX.md','docs/CONTEX
     if 'do not load role/skill indexes by default' not in text.lower() and 'no role/skill indexes by default' not in text.lower():
         errors.append(f'{doc} missing no-index default for Tiny/Micro')
 bootstrap = read('docs/BOOTSTRAP_INDEX.md')
-if any(x in bootstrap for x in ['2.0 beta','beta 1',', ,','CURRENT.md / active ticket']):
+if any(x in bootstrap for x in ['2' + '.0 beta','beta 1',', ,','CURRENT.md / active ticket']):
     errors.append('BOOTSTRAP_INDEX.md contains stale labels or ambiguous refs')
 for doc in ['AGENTS.md','FIRST_PROMPT.md','docs/BOOTSTRAP_INDEX.md','docs/RUNTIME_LOAD_POLICY.md']:
     if 'SKILL_ROUTER_INDEX.json' not in read(doc):

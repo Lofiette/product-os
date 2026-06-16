@@ -1,4 +1,4 @@
-# BOOTSTRAP_INDEX.md — 2.1 beta 4 runtime index
+# BOOTSTRAP_INDEX.md — 3.0 runtime index
 
 This is the compact startup map. It is not a full manual.
 
@@ -68,3 +68,7 @@ Load only when relevant:
 ## Skill discovery
 
 For critical workflows, do not rely on implicit skill discovery. Load `docs/SKILL_DISCOVERY_POLICY.md` only when skill selection appears unreliable, the task is Standard+, or a previous run missed required skills/gates.
+
+## 3.0 Product Knowledge
+
+Use `docs/PRODUCT_KNOWLEDGE_SYSTEM.md`, `docs/PRODUCT_ONBOARDING.md`, `docs/BOUNDED_DISCOVERY.md`, and `docs/IMPACT_MAP_PROTOCOL.md` for task routing and context engineering.

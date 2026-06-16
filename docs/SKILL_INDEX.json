@@ -1,5 +1,5 @@
 {
-  "version": "2.1-beta3",
+  "version": "3.0-ultra",
   "purpose": "Lightweight skill index. Load full SKILL.md only when selected.",
   "skills": [
     {
@@ -337,6 +337,50 @@
     {
       "id": "visual-qa-loop",
       "description": "Render or inspect UI states, capture screenshots if possible, compare against spec and DS constraints, report visual blockers."
+    },
+    {
+      "id": "bounded-discovery",
+      "description": "Perform scoped read-only discovery using path-first, targeted-read, stop-condition, and Impact Map rules without broad repository scans."
+    },
+    {
+      "id": "impact-map",
+      "description": "Create a pre-implementation map of user intent, affected product areas/files, systemic impact, risks, unknowns, verification, and approval request."
+    },
+    {
+      "id": "product-knowledge-onboarding",
+      "description": "Build hierarchical Product Knowledge for existing, greenfield, or redesign work through phased discovery, evidence, confidence, freshness, and compact maps."
+    },
+    {
+      "id": "knowledge-update",
+      "description": "Update only affected Product Knowledge artifacts after task work while preserving confidence, evidence, freshness, and compact routing value."
+    },
+    {
+      "id": "api-data-shape-prewarm",
+      "description": "Map frontend-facing API/client/proxy/type contracts that constrain UI/product work without backend deep dive."
+    },
+    {
+      "id": "framework-loading",
+      "description": "Select the smallest relevant roles, skills, playbooks, and gates through staged loading without loading the full framework."
+    },
+    {
+      "id": "greenfield-onboarding",
+      "description": "Create hypothesis Product Knowledge for greenfield work from user brief, approved decisions, design/implementation evidence, and validation markers."
+    },
+    {
+      "id": "chronicle-compaction",
+      "description": "Compress CHRONICLE into a compact rescue summary without losing current recovery state or next-step guidance."
+    },
+    {
+      "id": "frontend-integration-review",
+      "description": "Review UI implementation integration across components, routing, state, data fetching, maintainability, and regression risk."
+    },
+    {
+      "id": "new-task-protocol",
+      "description": "Start a task through local runtime memory: propose ticket, select product knowledge, choose roles/skills, plan bounded discovery, and request approval before edits."
+    },
+    {
+      "id": "knowledge-freshness-review",
+      "description": "Review Product Knowledge freshness after code/product changes by matching changed files to review triggers without rereading the whole repository."
     }
   ]
 }

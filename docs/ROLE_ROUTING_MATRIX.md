@@ -1,145 +1,76 @@
-# ROLE_ROUTING_MATRIX.md
+# ROLE_ROUTING_MATRIX.md — 3.0 beta 2
 
-## By operation
+Use this matrix after the Runtime Kernel has classified the task and selected the relevant Product Knowledge area. Do not load every role. Select the smallest useful set and explain skipped roles.
 
-### Screen creation/redesign / UI prototype
-Required: product_designer.
-Usually: design_system_guardian, design_engineer, ux_writer, qa_engineer.
-Conditional: ux_researcher, accessibility_specialist, visual_design_director, information_architect, data_visualization_designer, frontend_architect.
+## Core routing principles
 
-### Existing repo UI implementation
-Required: repo-recon skill, design-recon skill, design_engineer, frontend_architect.
-Usually: design_system_guardian, qa_engineer.
+- Role = accountability / expert perspective, not automatically a real subagent.
+- Default execution is role simulation unless an independent artifact or parallel review justifies a spawned subagent.
+- Real subagents require explicit user approval.
+- UI/product implementation must include frontend engineering responsibility. Do not route implementation as design-only work.
+- If API/data/server behavior constrains UI, add API/data/backend roles.
 
-### No design system UI prototype
-Required: product_designer, design_engineer.
-Usually: ux_writer, qa_engineer.
-Optional: design_system_guardian to create lightweight local consistency rules.
+## Runtime / task management
 
-### Governed design system
-Required: design_system_guardian, design_engineer, design-recon, design-system-compliance.
-Custom UI requires approval.
+| Operation | Usually select | Notes |
+|---|---|---|
+| New task intake | intake_orchestrator, team_architect | Use `new-task-protocol`, ticketing, and bounded discovery. |
+| Product knowledge onboarding | product_strategist, information_architect, domain_expert, consistency_auditor | Add frontend/data roles only when reading implementation evidence. |
+| Context/memory maintenance | chronicle_keeper, delivery_manager, consistency_auditor | Use compact CHRONICLE, do not create archive logs by default. |
+| Framework loading uncertainty | team_architect, consistency_auditor | Use bounded framework-index discovery, not broad scans. |
 
-### AI tool-using agent
-Required: ai_ml_systems_architect, model_evaluation_specialist, ai_safety_reviewer, security_reviewer, privacy_compliance_reviewer, qa_engineer.
+## Product / discovery / planning
 
-### Research-only
-Select the relevant researcher only. Do not implement.
+| Operation | Core roles | Conditional roles |
+|---|---|---|
+| Existing product onboarding | product_strategist, information_architect, domain_expert | frontend_architect/frontend_engineer when code evidence is needed; api_contract_guardian for data contracts. |
+| Greenfield product creation | product_strategist, product_designer, solution_architect, delivery_manager | ux_researcher, market_researcher, business_analyst, domain_expert, design_system_guardian, frontend_architect. |
+| Redesign / migration | product_designer, information_architect, design_system_guardian, frontend_architect, delivery_manager | ux_researcher, visual_design_director, design_engineer, qa_engineer, code_reviewer. |
+| Product scope / MVP shaping | product_strategist, business_analyst, delivery_manager | domain_expert, market_researcher, cx_researcher. |
 
-### Backend/API change
-Backend Architect, API Contract Guardian, QA Engineer; risk roles if data/auth/security.
+## UI / UX / design
 
-### Service journey
-Service Designer, CX Researcher, Product Strategist, Business Analyst.
+| Operation | Core roles | Conditional roles |
+|---|---|---|
+| Screen creation/redesign | product_designer, ux_writer, design_system_guardian | information_architect, visual_design_director, accessibility_specialist, data_visualization_designer. |
+| UI prototype without DS | product_designer, design_engineer | design_system_guardian for lightweight local UI rules, ux_writer, qa_engineer. |
+| Governed DS work | design_system_guardian, design_engineer | frontend_engineer for implementation, accessibility_specialist for production UI. |
+| Visual/reference fidelity review | product_designer, design_engineer, visual_design_director | qa_engineer, design_system_guardian, ux_writer. |
+| Design-only module handoff | product_designer, information_architect, design_system_guardian, ux_writer, design_engineer, qa_engineer | technical_writer if handoff docs are user-facing. |
 
-### Dashboard/report
-Data Visualization Designer, Analytics Engineer, Product Designer, QA Engineer.
+## UI/product implementation in code
 
+| Operation | Core roles | Conditional roles |
+|---|---|---|
+| Existing repo UI implementation | frontend_engineer, design_engineer, qa_engineer | frontend_architect if structural risk; design_system_guardian if DS exists; code_reviewer before final. |
+| Systemic UI/code change | frontend_architect, frontend_engineer, design_engineer, code_reviewer, qa_engineer | product_designer/ux_writer when behavior/copy changes. |
+| API-dependent UI | frontend_engineer, api_contract_guardian, qa_engineer | backend_architect if backend behavior may change; data_architect if entities/data model change. |
+| Component refactor | frontend_architect, frontend_engineer, refactoring_specialist, code_reviewer | design_system_guardian/design_engineer if component is UI/DS-facing. |
 
-## Operational UI and module routing
+## Architecture / API / data / operations
 
-### Quick UI prototype without a design system
-Required:
-- product_designer
-- design_engineer
+| Operation | Core roles | Conditional roles |
+|---|---|---|
+| Backend/API change | backend_architect, api_contract_guardian, qa_engineer | security_reviewer, privacy_compliance_reviewer, data_architect. |
+| Data model / analytics | data_architect, analytics_engineer | product_strategist, privacy_compliance_reviewer, qa_engineer. |
+| Production web service | solution_architect, frontend_architect, backend_architect, devops_release_engineer, qa_engineer | security, privacy, performance, observability, API/data roles by risk. |
+| Incident / reliability | incident_investigator, observability_engineer, devops_release_engineer | backend/frontend architects, security if suspicious. |
+| Performance | performance_engineer | frontend/backend architects, observability. |
 
-Usually include:
-- design_system_guardian, to create a lightweight Prototype UI Kit Contract
-- ux_writer, if user-facing copy/states matter
+## AI / agentic / conversational
 
-Required skills:
-- design-recon
-- prototype-ui-kit
-- screen-redesign
-- state-matrix
-- ui-heuristic-audit
+| Operation | Core roles | Conditional roles |
+|---|---|---|
+| AI/ML feature | ai_ml_systems_architect, model_evaluation_specialist, ai_safety_reviewer | privacy, security, backend, frontend, product_designer. |
+| Tool-using agent | ai_ml_systems_architect, ai_safety_reviewer, security_reviewer, privacy_compliance_reviewer, api_contract_guardian | model_evaluation, qa, backend/frontend architects. |
+| Conversation UI | conversation_designer, ux_writer, product_designer | ai_safety_reviewer, frontend_engineer, qa_engineer. |
 
-### Module design for later developer rebuild
-Required:
-- product_designer
-- information_architect
-- design_system_guardian
-- ux_writer
-- design_engineer as feasibility/handoff reviewer
-- qa_engineer as design QA reviewer
+## Research / CX / growth / localization
 
-Required skills:
-- design-recon
-- module-design
-- design-system-manifest, if DS exists
-- design-system-compliance
-- design-handoff-qa
-- handoff-docs
-
-Do not implement code unless the user approves implementation.
-
-### Production web service with design system in code
-Use phased orchestration.
-Phase 1: repo-recon and design-recon.
-Phase 2: product/architecture/design plan.
-Phase 3: risk/readiness gates.
-Phase 4: implementation.
-Phase 5: verification and review.
-
-Required skills usually include:
-- production-service-planning
-- production-readiness-review
-- design-system-compliance
-- ds-code-contract-enforcement
-- implementation-review
-
-
-## Taste / culture / anticipation routing
-
-### Taste-sensitive UI/design task
-Usually include:
-- product_designer, owns product/design coherence;
-- visual_design_director, if visual direction, composition, or brand feel matters;
-- ux_writer, if tone, labels, empty/error/success states matter;
-- design_engineer, if implementation fidelity matters;
-- design_system_guardian, if DS or prototype UI rules exist.
-
-Required skills often include:
-- taste-calibration before design decisions;
-- taste-review before final UI/design verdict.
-
-### Proactive improvement / anticipation
-Usually handled by:
-- product_strategist for product value/scope;
-- product_designer for UI/product concept impact;
-- delivery_manager for sequencing/scope impact;
-- consistency_auditor for contradiction/scope/risk check when proposal changes plan.
-
-Required skills:
-- anticipation-radar;
-- proactive-proposal-review for scope-changing suggestions.
-
-
-## Taste and anticipation routing
-
-### UI concept / redesign / prototype with taste concerns
-Required:
-- product_designer
-
-Usually include:
-- design_engineer
-- ux_writer
-- visual_design_director if visual direction, hierarchy, or craft is important
-- design_system_guardian if DS exists or local UI rules are needed
-
-Required or recommended skills:
-- taste-calibration
-- example-taste-board when user provides references/good/bad examples
-- taste-review before final approval
-- creative-tension-review when the solution feels adequate but not strong
-
-### Anticipation branch
-Use `expectation-anticipation` when the team can propose high-leverage improvements that may match hidden expectations.
-
-Usually owned by:
-- product_strategist for product scope/value proposals;
-- product_designer for UI/design proposals;
-- design_engineer for DS/implementation-fidelity proposals;
-- solution_architect or relevant architect for technical proposals.
-
-A2/A3/A4 proposals require user approval and active task ticket decision log update.
+| Operation | Core roles | Conditional roles |
+|---|---|---|
+| UX research only | ux_researcher | research-ops skill if execution planned; do not implement. |
+| Market research | market_researcher | product_strategist, business_analyst. |
+| CX journey/service | cx_researcher, service_designer | product_strategist, customer_support_analyst. |
+| Growth/activation | growth_activation_strategist, experimentation_specialist, analytics_engineer | ux_writer, product_designer. |
+| Localization | localization_specialist, ux_writer | product_designer, frontend_engineer. |

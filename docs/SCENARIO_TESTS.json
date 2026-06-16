@@ -1,5 +1,5 @@
 {
-  "version": "2.1-beta3",
+  "version": "3.0-ultra-beta2",
   "scenarios": [
     {
       "id": "agent_id_no_personal_names",
@@ -505,6 +505,184 @@
         "ux-research-planning"
       ],
       "forbidden_implementation": true
+    },
+    {
+      "id": "new_task_protocol_ui_button",
+      "description": "User asks to change a UI button; Codex should create/propose ticket, load product knowledge, bounded discovery, Impact Map before edit.",
+      "request": "Change the edit-mode button systemically.",
+      "required_roles": [
+        "product_designer",
+        "frontend_engineer",
+        "design_engineer",
+        "qa_engineer"
+      ],
+      "required_skills": [
+        "bounded-discovery",
+        "framework-loading",
+        "impact-map",
+        "knowledge-update",
+        "new-task-protocol"
+      ],
+      "must_not_implement_without_approval": true,
+      "must_not_load": [
+        "root TASK.md",
+        "root CHRONICLE.md",
+        "all role cards",
+        "all skills"
+      ],
+      "requires_approval_if": [
+        "editing files",
+        "broad discovery"
+      ],
+      "required_artifacts": [
+        "local runtime ticket proposal",
+        "Impact Map",
+        "bounded discovery plan"
+      ]
+    },
+    {
+      "id": "greenfield_product_start",
+      "description": "New product built from scratch starts with hypothesis map and decision records, not repo scan.",
+      "request": "Build a new product from scratch.",
+      "required_roles": [
+        "product_strategist",
+        "product_designer",
+        "frontend_architect",
+        "solution_architect"
+      ],
+      "required_skills": [
+        "greenfield-onboarding",
+        "impact-map",
+        "knowledge-update",
+        "product-knowledge-onboarding",
+        "product-planning"
+      ],
+      "must_not_load": [
+        "src/",
+        "docs/"
+      ],
+      "must_not_implement_without_approval": true,
+      "expected_mode": "greenfield_product_creation",
+      "required_artifacts": [
+        "hypothesis PRODUCT_MAP",
+        "initial decision records",
+        "unknowns/validation plan"
+      ]
+    },
+    {
+      "id": "api_data_shape_prewarm",
+      "description": "API/data knowledge should read frontend-facing contracts, not deep backend.",
+      "request": "Prepare API/data context for UI tasks.",
+      "required_roles": [
+        "api_contract_guardian",
+        "frontend_engineer",
+        "data_architect"
+      ],
+      "required_skills": [
+        "api-contract-review",
+        "api-data-shape-prewarm",
+        "bounded-discovery",
+        "impact-map"
+      ],
+      "requires_approval_if": [
+        "area-specific API reads",
+        "backend deep dive"
+      ],
+      "required_artifacts": [
+        "API/Data Contract Brief",
+        "frontend-facing UI implications",
+        "task-driven unknowns"
+      ]
+    },
+    {
+      "id": "chronicle_compaction_after_task",
+      "description": "After work, CHRONICLE is compacted instead of appending dated ladders.",
+      "request": "Finish task and update memory.",
+      "required_roles": [
+        "chronicle_keeper"
+      ],
+      "required_skills": [
+        "chronicle-compaction",
+        "context-prune",
+        "task-ledger"
+      ],
+      "forbidden_files_to_update_as_working_memory": [
+        "TASK.md"
+      ]
+    },
+    {
+      "id": "existing_product_knowledge_onboarding",
+      "description": "Existing product onboarding builds compact product knowledge through phased bounded discovery, not a giant brief.",
+      "request": "Onboard this existing product so future tasks can start from product maps without loading old TASK/CHRONICLE.",
+      "required_roles": [
+        "product_strategist",
+        "information_architect",
+        "consistency_auditor"
+      ],
+      "optional_roles": [
+        "frontend_engineer",
+        "api_contract_guardian",
+        "domain_expert"
+      ],
+      "required_skills": [
+        "product-knowledge-onboarding",
+        "bounded-discovery",
+        "knowledge-update",
+        "chronicle-compaction"
+      ],
+      "required_artifacts": [
+        "PRODUCT_MAP",
+        "KNOWLEDGE_INDEX",
+        "at least one AREA_MAP or explicit reason to defer"
+      ],
+      "must_not_load": [
+        "root TASK.md",
+        "root CHRONICLE.md",
+        "archive/*",
+        "generated files",
+        "all framework docs"
+      ],
+      "must_not_implement": true,
+      "requires_approval_before_spawn": true,
+      "expected_mode": "existing_product_onboarding"
+    },
+    {
+      "id": "new_task_safe_autonomy",
+      "description": "User gives a product/UI task; Codex creates/proposes ticket, loads product knowledge, runs bounded discovery, returns Impact Map, and asks approval before edits.",
+      "request": "Fix the edit-mode button systemically across the product.",
+      "required_roles": [
+        "product_designer",
+        "frontend_engineer",
+        "design_engineer",
+        "qa_engineer"
+      ],
+      "optional_roles": [
+        "design_system_guardian",
+        "api_contract_guardian",
+        "ux_writer"
+      ],
+      "required_skills": [
+        "new-task-protocol",
+        "framework-loading",
+        "bounded-discovery",
+        "impact-map"
+      ],
+      "required_artifacts": [
+        "local runtime ticket proposal",
+        "selected product area",
+        "bounded discovery plan",
+        "Impact Map"
+      ],
+      "must_not_implement_without_approval": true,
+      "must_not_load": [
+        "all src",
+        "all docs",
+        "all roles",
+        "all skills",
+        "root TASK.md",
+        "root CHRONICLE.md"
+      ],
+      "expected_mode": "safe_autonomy"
     }
   ]
 }

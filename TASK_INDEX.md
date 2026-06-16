@@ -1,25 +1,12 @@
-# TASK_INDEX.md — Ticket Ledger
+# TASK_INDEX.md
 
-This file is an index, not a task brief. Keep it compact.
-Only one ticket should be marked as primary current.
+| ID | Title | Status | Mode | Current | File |
+|---|---|---|---|---|---|
+| TKT-000 | Runtime ready / no active product work | Ready | Runtime bootstrap | yes | tasks/TKT-000-ready.md |
 
-| ID | Title | Status | Mode | Priority | Current | File |
-|---|---|---|---|---|---|---|
-| TKT-000 | Intake and routing placeholder | Intake | TBD | P0 | yes | `tasks/TKT-000-intake.md` |
+## Rules
 
-## Status values
-
-- `Backlog`
-- `Ready`
-- `Intake`
-- `In Progress`
-- `Blocked`
-- `Review`
-- `Done`
-- `Archived`
-
-## Index rules
-
-- Do not store long scope, decisions, or logs here.
-- Create a new ticket only when the work has a distinct deliverable, blocker, operation, or approval boundary.
-- Closed and archived tickets remain listed but are not loaded by default.
+- Only one task may have `Current = yes`.
+- Replace TKT-000 with a real ticket when the user gives a substantial task.
+- Do not load old logs or archives by default.
+- Small notes should stay in the active task file.

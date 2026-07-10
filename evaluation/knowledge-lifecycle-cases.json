@@ -1,0 +1,86 @@
+{
+  "schema_version": "cpt-knowledge-eval-v1",
+  "cases": [
+    {
+      "id": "planned-to-confirmed",
+      "from": "planned",
+      "to": "confirmed",
+      "allowed": true
+    },
+    {
+      "id": "planned-to-validated",
+      "from": "planned",
+      "to": "validated",
+      "allowed": false
+    },
+    {
+      "id": "hypothesized-to-inferred",
+      "from": "hypothesized",
+      "to": "inferred",
+      "allowed": true
+    },
+    {
+      "id": "confirmed-to-validated",
+      "from": "confirmed",
+      "to": "validated",
+      "allowed": true
+    },
+    {
+      "id": "deprecated-to-confirmed",
+      "from": "deprecated",
+      "to": "confirmed",
+      "allowed": false
+    },
+    {
+      "id": "confirmed-without-evidence",
+      "lifecycle": "confirmed",
+      "confidence": "medium",
+      "evidence": [],
+      "valid": false
+    },
+    {
+      "id": "confirmed-source-file",
+      "lifecycle": "confirmed",
+      "confidence": "medium",
+      "evidence": [
+        "source_file"
+      ],
+      "valid": true
+    },
+    {
+      "id": "validated-test",
+      "lifecycle": "validated",
+      "confidence": "high",
+      "evidence": [
+        "test"
+      ],
+      "valid": true
+    },
+    {
+      "id": "validated-source-only",
+      "lifecycle": "validated",
+      "confidence": "high",
+      "evidence": [
+        "source_file"
+      ],
+      "valid": false
+    },
+    {
+      "id": "hypothesis-high-confidence",
+      "lifecycle": "hypothesized",
+      "confidence": "high",
+      "evidence": [],
+      "valid": false
+    },
+    {
+      "id": "greenfield-planned-decision",
+      "lifecycle": "planned",
+      "confidence": "medium",
+      "evidence": [
+        "user_approved_decision"
+      ],
+      "mode": "greenfield",
+      "valid": true
+    }
+  ]
+}

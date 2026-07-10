@@ -23,7 +23,7 @@ def run(*args: str, cwd: Path | None = None, env: dict | None = None, check: boo
 
 class DistributionTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha2-test-'))
+        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha5-test-'))
         self.home = self.tmp / 'home'
         self.home.mkdir()
         self.env = os.environ.copy()
@@ -189,6 +189,15 @@ class DistributionTests(unittest.TestCase):
         active = run('skill-resolve', '--name', 'cpt-api-contract', '--json', env=self.env)
         active_data = json.loads(active.stdout)
         self.assertEqual(active_data['plugin'], 'cpt-engineering')
+
+    def test_knowledge_directories_are_lazy_and_file_budget_stays_small(self):
+        repo = self.tmp / 'knowledge-lazy'
+        self.init_git(repo)
+        run('install', '--project', str(repo), '--mode', 'team', env=self.env)
+        data = json.loads(run('status', '--project', str(repo), '--json', env=self.env).stdout)
+        self.assertLess(data['framework_file_count'], 20)
+        self.assertTrue((repo / '.cpt/knowledge/artifacts').is_dir())
+        self.assertFalse((repo / '.cpt/knowledge/index.yaml').exists())
 
 
 if __name__ == '__main__':

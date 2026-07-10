@@ -1,0 +1,46 @@
+schema_version: 4.0-alpha5
+id: template-area-map
+artifact_type: area_map
+title: Area Map Template
+mode: existing
+perspective: current
+status: draft
+freshness: current
+confidence: low
+scope:
+  summary: Template for area_map.
+  in_scope: []
+  out_of_scope: []
+owner_role: product_designer
+source_revision:
+  kind: none
+  value: null
+  recorded_at: '2026-07-10T17:30:00Z'
+review_triggers: []
+dependencies: []
+claims: []
+unknowns: []
+size_guidance:
+  profile: compact
+  quality_over_line_count: true
+  split_strategy: Move lower-level detail to child artifacts and retain links.
+content:
+  summary: Bounded routing map for one product area.
+  actors: []
+  surfaces: []
+  responsibilities: []
+  states: []
+  candidate_flows: []
+  boundaries:
+    inside: []
+    outside: []
+  where_to_look_next: []
+created_at: '2026-07-10T17:30:00Z'
+updated_at: '2026-07-10T17:30:00Z'
+data_classification: internal
+sharing:
+  external_sharing: prohibited
+  sanitization_status: not_required
+  redactions: []
+  notes:
+  - Template contains no project-specific knowledge.

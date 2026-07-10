@@ -4,6 +4,8 @@ from __future__ import annotations
 import argparse
 import copy
 import hashlib
+import fnmatch
+import subprocess
 import json
 import os
 import re
@@ -18,13 +20,14 @@ from typing import Any, Iterable
 
 try:
     import yaml
-    from jsonschema import Draft202012Validator, FormatChecker
+    import fastjsonschema
 except ImportError as exc:
     raise SystemExit(
-        "Missing runtime dependencies. Install PyYAML and jsonschema using the CPT package requirements."
+        "Missing runtime dependencies. Install PyYAML and fastjsonschema using the CPT package requirements."
     ) from exc
 
-SCHEMA_VERSION = "4.0-alpha2"
+SCHEMA_VERSION = "4.0-alpha5"
+KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha5"
 
 
 def utc_now() -> str:
@@ -128,6 +131,10 @@ def paths(root: Path) -> dict[str, Path]:
         "micro_changes": cpt / "micro-changes",
         "leases": cpt / "leases",
         "checkpoints": cpt / "checkpoints",
+        "knowledge": cpt / "knowledge",
+        "knowledge_index": cpt / "knowledge" / "index.yaml",
+        "knowledge_artifacts": cpt / "knowledge" / "artifacts",
+        "knowledge_views": cpt / "knowledge" / "views",
     }
 
 
@@ -141,14 +148,20 @@ def schema_bundle() -> dict[str, Any]:
     return _SCHEMA_BUNDLE
 
 
+_COMPILED_VALIDATORS: dict[str, Any] = {}
+
+
 def validate_schema(data: Any, name: str, label: str) -> list[str]:
-    schema = schema_bundle()[name]
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
-    errors = []
-    for error in sorted(validator.iter_errors(data), key=lambda e: list(e.path)):
-        loc = ".".join(str(p) for p in error.path) or "<root>"
-        errors.append(f"{label}:{loc}: {error.message}")
-    return errors
+    try:
+        validator = _COMPILED_VALIDATORS.get(name)
+        if validator is None:
+            validator = fastjsonschema.compile(schema_bundle()[name], use_default=False)
+            _COMPILED_VALIDATORS[name] = validator
+        validator(data)
+        return []
+    except fastjsonschema.JsonSchemaException as error:
+        loc = error.path or "<root>"
+        return [f"{label}:{loc}: {error.message}"]
 
 
 def task_file(root: Path, task_id: str) -> Path:
@@ -208,6 +221,12 @@ def render_summary(root: Path, current: dict | None = None, index: dict | None =
         f"- [{b['severity']}] {b['id']}: {b['summary']}" for b in blockers
     )
     next_op = current.get("next_operation", {})
+    knowledge = load_knowledge_index(root, required=False)
+    if knowledge:
+        stale = sum(1 for a in knowledge.get("artifacts", []) if a.get("freshness") != "current")
+        knowledge_text = f"`{knowledge['id']}` ({len(knowledge.get('artifacts', []))} artifacts, {stale} requiring review)"
+    else:
+        knowledge_text = "not initialized"
     return f"""# Runtime Summary
 <!-- cpt-state-revision: {current['state_revision']} -->
 
@@ -220,6 +239,7 @@ Generated from `.cpt/current.yaml` and `.cpt/task-index.yaml`. Do not edit manua
 - Current micro change: `{micro_label}`
 - Current lease: `{lease_label}`
 - Latest checkpoint: `{checkpoint_label}`
+- Product Knowledge: {knowledge_text}
 
 ## Blockers
 
@@ -368,6 +388,10 @@ def validate_runtime(root: Path) -> tuple[list[str], list[str]]:
     if summary != expected_summary:
         warnings.append("runtime-summary: content differs from generated projection; run render-summary")
 
+    knowledge_errors, knowledge_warnings = validate_knowledge(root, check_views=True)
+    errors += knowledge_errors
+    warnings += knowledge_warnings
+
     agents = root / "AGENTS.md"
     if agents.exists():
         size = agents.stat().st_size
@@ -419,6 +443,8 @@ def command_status(root: Path, _args) -> int:
         "blockers": current.get("blockers", []),
         "next_operation": current.get("next_operation"),
     }
+    knowledge = load_knowledge_index(root, required=False)
+    payload["knowledge"] = None if knowledge is None else {"id": knowledge["id"], "mode": knowledge["mode"], "status": knowledge["status"], "artifacts": len(knowledge.get("artifacts", [])), "requires_review": sum(1 for a in knowledge.get("artifacts", []) if a.get("freshness") != "current")}
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
 
@@ -463,6 +489,7 @@ def command_create_task(root: Path, args) -> int:
             "scope": {"in": [], "out": []},
             "acceptance_criteria": [],
             "product_knowledge": [],
+            "knowledge_update": {"status": "not_assessed", "affected_artifacts": [], "summary": None, "updated_at": None},
             "expertise": {"roles": [], "skills": [], "gates": []},
             "impact_map": {"status": "not_started", "path": None},
             "authorization_lease": {"status": "none", "path": None},
@@ -534,6 +561,9 @@ def command_complete_task(root: Path, args) -> int:
             raise RuntimeError(f"Unknown task: {task_id}")
         entry = matches[0]
         task = load_yaml(root / entry["file"])
+        knowledge_update = task.get("knowledge_update")
+        if knowledge_update and knowledge_update.get("status") not in {"not_required", "applied", "deferred"}:
+            raise RuntimeError("Task knowledge update is not accounted for. Use knowledge-task-assess before completion.")
         ts = utc_now()
         task["status"] = "done"
         task["next_operation"] = {"type": "complete", "summary": "Task complete."}
@@ -872,8 +902,684 @@ def command_recover(root: Path, args) -> int:
     return 0
 
 
+
+# ---- Product Knowledge ----------------------------------------------------
+
+CLAIM_TRANSITIONS = {
+    "planned": {"confirmed", "deprecated"},
+    "hypothesized": {"inferred", "confirmed", "needs_review", "deprecated"},
+    "inferred": {"confirmed", "needs_review", "stale", "deprecated"},
+    "confirmed": {"validated", "needs_review", "stale", "deprecated"},
+    "validated": {"needs_review", "stale", "deprecated"},
+    "needs_review": {"confirmed", "validated", "stale", "deprecated"},
+    "stale": {"needs_review", "confirmed", "validated", "deprecated"},
+    "deprecated": set(),
+}
+
+KNOWLEDGE_TARGET_LINES = {
+    "product_map": (80, 150),
+    "area_map": (70, 140),
+    "flow_map": (60, 120),
+    "decision_record": (40, 90),
+    "api_data_contract": (60, 120),
+    "context_packet": (80, 160),
+}
+
+
+def knowledge_artifact_file(root: Path, artifact_id: str) -> Path:
+    return paths(root)["knowledge_artifacts"] / f"{artifact_id}.yaml"
+
+
+def knowledge_view_file(root: Path, artifact_id: str) -> Path:
+    return paths(root)["knowledge_views"] / f"{artifact_id}.md"
+
+
+def knowledge_index_view_file(root: Path) -> Path:
+    return paths(root)["knowledge_views"] / "KNOWLEDGE_INDEX.md"
+
+
+def source_revision(kind: str, value: str | None, recorded_at: str | None = None) -> dict:
+    return {"kind": kind, "value": value, "recorded_at": recorded_at or utc_now()}
+
+
+def load_knowledge_index(root: Path, required: bool = True) -> dict | None:
+    path = paths(root)["knowledge_index"]
+    if not path.exists():
+        if required:
+            raise RuntimeError("Product Knowledge is not initialized. Run knowledge-init.")
+        return None
+    return load_yaml(path)
+
+
+def artifact_content_skeleton(artifact_type: str, task_id: str | None = None) -> dict:
+    entry = lambda: []
+    skeletons = {
+        "product_map": {"summary": "", "actors": [], "areas": entry(), "surfaces": entry(), "top_flows": entry(), "routing_guidance": [], "shared_boundaries": []},
+        "area_map": {"summary": "", "actors": [], "surfaces": entry(), "responsibilities": entry(), "states": entry(), "candidate_flows": entry(), "boundaries": {"inside": [], "outside": []}, "where_to_look_next": []},
+        "flow_map": {"summary": "", "actors": [], "trigger": "", "preconditions": [], "steps": [], "states": [], "data_touchpoints": [], "failure_states": [], "permissions": [], "files_involved": []},
+        "decision_record": {"decision": "", "decision_status": "proposed", "context": "", "alternatives": [], "consequences": []},
+        "api_data_contract": {"summary": "", "boundaries": [], "entities": entry(), "operations": entry(), "error_model": [], "auth_model": [], "ui_implications": [], "task_driven_unknowns": []},
+        "context_packet": {"task_id": task_id or "", "objective": "", "selected_artifacts": [], "current_evidence": [], "impact_map": {}, "risks": [], "verification_plan": []},
+    }
+    return copy.deepcopy(skeletons[artifact_type])
+
+
+def next_claim_id(artifact: dict) -> str:
+    return next_numeric_id((c["id"] for c in artifact.get("claims", [])), "CLM")
+
+
+def next_unknown_id(artifact: dict) -> str:
+    return next_numeric_id((u["id"] for u in artifact.get("unknowns", [])), "UNK")
+
+
+def claim_counts(artifact: dict) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for claim in artifact.get("claims", []):
+        counts[claim["lifecycle"]] = counts.get(claim["lifecycle"], 0) + 1
+    return counts
+
+
+KNOWLEDGE_CLASSIFICATIONS = ("public", "internal", "confidential", "restricted")
+KNOWLEDGE_EXTERNAL_SHARING = ("allowed", "after_sanitization", "prohibited")
+KNOWLEDGE_SANITIZATION_STATUSES = ("not_reviewed", "not_required", "sanitized", "blocked")
+KNOWLEDGE_SENSITIVE_PATTERNS = (
+    ("private_key", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----")),
+    ("aws_access_key", re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")),
+    ("github_token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b")),
+    ("openai_style_key", re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b")),
+    ("slack_token", re.compile(r"\bxox[baprs]-[A-Za-z0-9-]{20,}\b")),
+    ("jwt", re.compile(r"\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b")),
+    ("bearer_token", re.compile(r"(?i)\bBearer\s+[A-Za-z0-9._~+/-]{20,}=*")),
+    ("credential_assignment", re.compile(r"(?i)\b(?:password|passwd|client_secret|api_secret)\s*[:=]\s*[\"']?[A-Za-z0-9!@#$%^&*()_+./=-]{8,}")),
+)
+
+
+def default_sharing(classification: str = "internal", external_sharing: str = "prohibited") -> dict:
+    status = "not_required" if external_sharing == "prohibited" or (classification == "public" and external_sharing == "allowed") else "not_reviewed"
+    return {"external_sharing": external_sharing, "sanitization_status": status, "redactions": [], "notes": []}
+
+
+def sensitive_findings(value: Any, location: str = "$") -> list[dict]:
+    findings: list[dict] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            findings.extend(sensitive_findings(child, f"{location}.{key}"))
+    elif isinstance(value, list):
+        for i, child in enumerate(value):
+            findings.extend(sensitive_findings(child, f"{location}[{i}]"))
+    elif isinstance(value, str):
+        for pattern_id, pattern in KNOWLEDGE_SENSITIVE_PATTERNS:
+            if pattern.search(value):
+                findings.append({"pattern": pattern_id, "location": location})
+    return findings
+
+
+def sharing_policy_errors(artifact: dict, *, external_check: bool = False) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    classification = artifact.get("data_classification", "internal")
+    sharing = artifact.get("sharing") or {}
+    external = sharing.get("external_sharing", "prohibited")
+    status = sharing.get("sanitization_status", "not_reviewed")
+    if classification == "restricted" and external != "prohibited":
+        errors.append(f"{artifact.get('id')}: restricted knowledge must prohibit external sharing")
+    if classification == "confidential" and external == "allowed":
+        errors.append(f"{artifact.get('id')}: confidential knowledge cannot allow external sharing without sanitization")
+    if status == "blocked" and external != "prohibited":
+        errors.append(f"{artifact.get('id')}: blocked sanitization status requires prohibited external sharing")
+    if external == "allowed" and status not in {"not_required", "sanitized"}:
+        errors.append(f"{artifact.get('id')}: external sharing is allowed but sanitization is not complete")
+    if external == "after_sanitization" and status == "not_reviewed":
+        warnings.append(f"{artifact.get('id')}: external sharing requires a sanitization review")
+    if external_check and external == "prohibited":
+        errors.append(f"{artifact.get('id')}: external sharing is prohibited")
+    if external_check and external == "after_sanitization" and status != "sanitized":
+        errors.append(f"{artifact.get('id')}: external sharing requires sanitization_status=sanitized")
+    return errors, warnings
+
+
+def artifact_index_entry(artifact: dict) -> dict:
+    return {
+        "id": artifact["id"], "artifact_type": artifact["artifact_type"], "title": artifact["title"],
+        "path": f".cpt/knowledge/artifacts/{artifact['id']}.yaml", "view_path": f".cpt/knowledge/views/{artifact['id']}.md",
+        "status": artifact["status"], "freshness": artifact["freshness"], "confidence": artifact["confidence"],
+        "perspective": artifact["perspective"], "owner_role": artifact["owner_role"],
+        "data_classification": artifact["data_classification"], "sanitization_status": artifact["sharing"]["sanitization_status"],
+        "source_revision": copy.deepcopy(artifact["source_revision"]),
+        "dependencies": copy.deepcopy(artifact.get("dependencies", [])), "review_triggers": copy.deepcopy(artifact.get("review_triggers", [])),
+        "claim_counts": claim_counts(artifact), "updated_at": artifact["updated_at"],
+    }
+
+
+def sync_artifact_in_index(index: dict, artifact: dict) -> None:
+    entry = artifact_index_entry(artifact)
+    matches = [i for i, existing in enumerate(index.get("artifacts", [])) if existing["id"] == artifact["id"]]
+    if matches:
+        index["artifacts"][matches[0]] = entry
+    else:
+        index.setdefault("artifacts", []).append(entry)
+    index["updated_at"] = utc_now()
+
+
+def knowledge_dependency_cycles(artifacts: dict[str, dict]) -> list[list[str]]:
+    graph = {aid: [dep["artifact_id"] for dep in artifact.get("dependencies", []) if dep["artifact_id"] in artifacts] for aid, artifact in artifacts.items()}
+    cycles: list[list[str]] = []
+    visiting: set[str] = set()
+    visited: set[str] = set()
+    stack: list[str] = []
+
+    def visit(node: str) -> None:
+        if node in visiting:
+            start = stack.index(node)
+            cycle = stack[start:] + [node]
+            if cycle not in cycles:
+                cycles.append(cycle)
+            return
+        if node in visited:
+            return
+        visiting.add(node); stack.append(node)
+        for dep in graph.get(node, []):
+            visit(dep)
+        stack.pop(); visiting.remove(node); visited.add(node)
+
+    for node in graph:
+        visit(node)
+    return cycles
+
+
+def semantic_knowledge_errors(artifact: dict) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    claim_ids = [c.get("id") for c in artifact.get("claims", [])]
+    if len(claim_ids) != len(set(claim_ids)):
+        errors.append(f"{artifact['id']}: duplicate claim IDs")
+    unknown_ids = [u.get("id") for u in artifact.get("unknowns", [])]
+    if len(unknown_ids) != len(set(unknown_ids)):
+        errors.append(f"{artifact['id']}: duplicate unknown IDs")
+    for claim in artifact.get("claims", []):
+        lifecycle = claim["lifecycle"]
+        evidence = claim.get("evidence", [])
+        types = {item["type"] for item in evidence}
+        if evidence and claim.get("evidence_depth") == "none":
+            errors.append(f"{artifact['id']}:{claim['id']}: evidence_depth cannot be none when evidence exists")
+        if not evidence and claim.get("evidence_depth") != "none":
+            errors.append(f"{artifact['id']}:{claim['id']}: evidence_depth requires evidence")
+        if lifecycle == "confirmed" and not evidence:
+            errors.append(f"{artifact['id']}:{claim['id']}: confirmed claim requires evidence")
+        if lifecycle == "validated" and not ({"test", "runtime_observation"} & types):
+            errors.append(f"{artifact['id']}:{claim['id']}: validated claim requires test or runtime_observation evidence")
+        if lifecycle == "hypothesized" and claim["confidence"] == "high":
+            errors.append(f"{artifact['id']}:{claim['id']}: hypothesis cannot have high confidence")
+        if lifecycle == "inferred" and claim["confidence"] == "high":
+            warnings.append(f"{artifact['id']}:{claim['id']}: high-confidence inference should be reviewed")
+        if lifecycle == "validated" and claim["source_revision"]["kind"] == "none":
+            errors.append(f"{artifact['id']}:{claim['id']}: validated claim requires source revision")
+    dep_ids = [d["artifact_id"] for d in artifact.get("dependencies", [])]
+    if artifact["id"] in dep_ids:
+        errors.append(f"{artifact['id']}: artifact cannot depend on itself")
+    policy_errors, policy_warnings = sharing_policy_errors(artifact)
+    errors.extend(policy_errors); warnings.extend(policy_warnings)
+    for finding in sensitive_findings(artifact):
+        errors.append(f"{artifact['id']}: possible sensitive value ({finding['pattern']}) at {finding['location']}; redact before storing canonical knowledge")
+    return errors, warnings
+
+
+def validate_knowledge(root: Path, check_views: bool = True) -> tuple[list[str], list[str]]:
+    p = paths(root)
+    errors: list[str] = []
+    warnings: list[str] = []
+    index = load_knowledge_index(root, required=False)
+    if index is None:
+        return errors, warnings
+    errors += validate_schema(index, "knowledge-index.schema.json", ".cpt/knowledge/index.yaml")
+    ids = [e.get("id") for e in index.get("artifacts", [])]
+    if len(ids) != len(set(ids)):
+        errors.append("knowledge-index: duplicate artifact IDs")
+    by_id: dict[str, dict] = {}
+    for entry in index.get("artifacts", []):
+        path = root / entry["path"]
+        if not path.exists():
+            errors.append(f"knowledge-index: missing artifact {entry['path']}")
+            continue
+        artifact = load_yaml(path)
+        by_id[artifact["id"]] = artifact
+        errors += validate_schema(artifact, "knowledge-artifact.schema.json", entry["path"])
+        sem_err, sem_warn = semantic_knowledge_errors(artifact)
+        errors += sem_err; warnings += sem_warn
+        expected = artifact_index_entry(artifact)
+        if expected != entry:
+            errors.append(f"knowledge-index: entry drift for {artifact['id']}; render/sync knowledge")
+        for dep in artifact.get("dependencies", []):
+            if dep["artifact_id"] not in ids:
+                errors.append(f"{artifact['id']}: missing dependency artifact {dep['artifact_id']}")
+        if check_views:
+            view = root / entry["view_path"]
+            expected_view = render_knowledge_artifact(artifact)
+            if not view.exists():
+                warnings.append(f"knowledge view missing: {entry['view_path']}")
+            elif view.read_text(encoding="utf-8") != expected_view:
+                warnings.append(f"knowledge view drift: {entry['view_path']}")
+            lines = expected_view.count("\n") + 1
+            target = KNOWLEDGE_TARGET_LINES[artifact["artifact_type"]]
+            if lines > target[1]:
+                warnings.append(f"{artifact['id']}: generated view has {lines} lines; target guidance is {target[0]}–{target[1]}. Preserve quality and consider splitting lower-level detail.")
+    for cycle in knowledge_dependency_cycles(by_id):
+        errors.append("knowledge dependency cycle: " + " -> ".join(cycle))
+    artifact_files = {path.stem for path in p["knowledge_artifacts"].glob("*.yaml")} if p["knowledge_artifacts"].exists() else set()
+    orphans = artifact_files - set(ids)
+    for orphan in sorted(orphans):
+        warnings.append(f"orphan knowledge artifact not indexed: {orphan}")
+    return errors, warnings
+
+
+def md_scalar(value: Any) -> str:
+    if value is None: return "none"
+    if isinstance(value, bool): return "true" if value else "false"
+    return str(value)
+
+
+def render_section_value(value: Any, level: int = 3) -> str:
+    if isinstance(value, str):
+        return value or "_Not yet populated._"
+    if isinstance(value, list):
+        if not value: return "_None recorded._"
+        if all(isinstance(item, dict) and all(not isinstance(v, (dict, list)) for v in item.values()) for item in value):
+            keys = []
+            for item in value:
+                for key in item:
+                    if key not in keys: keys.append(key)
+            lines = ["| " + " | ".join(k.replace("_", " ").title() for k in keys) + " |", "|" + "|".join(["---"] * len(keys)) + "|"]
+            for item in value:
+                lines.append("| " + " | ".join(md_scalar(item.get(k, "")).replace("\n", " ") for k in keys) + " |")
+            return "\n".join(lines)
+        lines = []
+        for item in value:
+            if isinstance(item, dict):
+                label = item.get("label") or item.get("id") or "item"
+                lines.append(f"- **{label}**: {item.get('summary', '')}")
+            else: lines.append(f"- {md_scalar(item)}")
+        return "\n".join(lines)
+    if isinstance(value, dict):
+        if not value: return "_None recorded._"
+        lines = []
+        for k,v in value.items():
+            lines.append(f"{'#' * level} {k.replace('_',' ').title()}\n\n{render_section_value(v, level+1)}")
+        return "\n\n".join(lines)
+    return md_scalar(value)
+
+
+def render_knowledge_artifact(artifact: dict) -> str:
+    lines = [f"# {artifact['title']}", "", "> Generated from canonical YAML. Do not edit this view manually.", "", "## Metadata", ""]
+    metadata = [
+        ("Artifact ID", artifact["id"]), ("Type", artifact["artifact_type"]), ("Mode", artifact["mode"]),
+        ("Perspective", artifact["perspective"]), ("Status", artifact["status"]), ("Freshness", artifact["freshness"]),
+        ("Confidence", artifact["confidence"]), ("Owner role", artifact["owner_role"]),
+        ("Data classification", artifact["data_classification"]),
+        ("External sharing", artifact["sharing"]["external_sharing"]),
+        ("Sanitization", artifact["sharing"]["sanitization_status"]),
+        ("Source revision", f"{artifact['source_revision']['kind']}:{artifact['source_revision']['value'] or 'none'}"),
+        ("Updated", artifact["updated_at"]),
+    ]
+    lines += ["| Field | Value |", "|---|---|"] + [f"| {k} | {v} |" for k,v in metadata]
+    lines += ["", "## Scope", "", artifact["scope"]["summary"] or "_Not yet populated._"]
+    if artifact["scope"]["in_scope"]:
+        lines += ["", "### In Scope", ""] + [f"- {x}" for x in artifact["scope"]["in_scope"]]
+    if artifact["scope"]["out_of_scope"]:
+        lines += ["", "### Out of Scope", ""] + [f"- {x}" for x in artifact["scope"]["out_of_scope"]]
+    lines += ["", "## Content", ""]
+    for key,value in artifact["content"].items():
+        lines += [f"### {key.replace('_',' ').title()}", "", render_section_value(value), ""]
+    lines += ["## Claims", ""]
+    if artifact["claims"]:
+        lines += ["| ID | Lifecycle | Confidence | Statement | Evidence Depth |", "|---|---|---|---|---|"]
+        for c in artifact["claims"]:
+            lines.append(f"| {c['id']} | {c['lifecycle']} | {c['confidence']} | {c['statement'].replace('|','/')} | {c['evidence_depth']} |")
+        for c in artifact["claims"]:
+            lines += ["", f"### {c['id']} Evidence", ""]
+            if c["evidence"]:
+                for e in c["evidence"]:
+                    lines.append(f"- `{e['type']}` — `{e['source']}`{(' @ ' + e['locator']) if e['locator'] else ''}: {e['summary']}")
+            else: lines.append("_No evidence recorded._")
+            if c["unknowns"]:
+                lines += ["", "Unknowns:"] + [f"- {u}" for u in c["unknowns"]]
+    else: lines.append("_No claims recorded._")
+    lines += ["", "## Unknowns", ""]
+    if artifact["unknowns"]:
+        lines += ["| ID | Status | Question | Impact | Owner |", "|---|---|---|---|---|"]
+        for u in artifact["unknowns"]:
+            lines.append(f"| {u['id']} | {u['status']} | {u['question'].replace('|','/')} | {u['impact'].replace('|','/')} | {u['owner_role']} |")
+    else: lines.append("_None recorded._")
+    lines += ["", "## Dependencies", ""]
+    lines += [f"- `{d['relation']}` → `{d['artifact_id']}`" for d in artifact["dependencies"]] or ["_None recorded._"]
+    lines += ["", "## Review Triggers", ""]
+    if artifact["review_triggers"]:
+        for t in artifact["review_triggers"]:
+            lines.append(f"- **{t['id']}**: {t['description']} | paths={t['path_globs']} | events={t['events']}")
+    else: lines.append("_None recorded._")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_knowledge_index(index: dict) -> str:
+    lines = [f"# {index['title']}", "", "> Generated from `.cpt/knowledge/index.yaml`. Do not edit manually.", "", "## State", ""]
+    lines += [f"- Mode: `{index['mode']}`", f"- Status: `{index['status']}`", f"- Owner: `{index['owner_role']}`", f"- Updated: `{index['updated_at']}`", "", "## Artifacts", ""]
+    if index["artifacts"]:
+        lines += ["| ID | Type | Status | Freshness | Confidence | Classification | Sanitization | Owner |", "|---|---|---|---|---|---|---|---|"]
+        for a in index["artifacts"]:
+            lines.append(f"| `{a['id']}` | {a['artifact_type']} | {a['status']} | {a['freshness']} | {a['confidence']} | {a['data_classification']} | {a['sanitization_status']} | {a['owner_role']} |")
+    else: lines.append("_No artifacts yet._")
+    return "\n".join(lines).rstrip()+"\n"
+
+
+def write_knowledge_views(root: Path, index: dict, artifact_ids: list[str] | None = None) -> None:
+    p = paths(root)
+    p["knowledge_views"].mkdir(parents=True, exist_ok=True)
+    selected = set(artifact_ids or [a["id"] for a in index.get("artifacts", [])])
+    for entry in index.get("artifacts", []):
+        if entry["id"] in selected:
+            artifact = load_yaml(root / entry["path"])
+            atomic_write_text(root / entry["view_path"], render_knowledge_artifact(artifact))
+    atomic_write_text(knowledge_index_view_file(root), render_knowledge_index(index))
+
+
+def save_artifact_and_index(root: Path, artifact: dict, index: dict, render: bool = True) -> None:
+    errors = validate_schema(artifact, "knowledge-artifact.schema.json", artifact["id"])
+    sem_err, sem_warn = semantic_knowledge_errors(artifact)
+    if errors or sem_err:
+        raise RuntimeError("; ".join(errors + sem_err))
+    atomic_write_yaml(knowledge_artifact_file(root, artifact["id"]), artifact)
+    sync_artifact_in_index(index, artifact)
+    atomic_write_yaml(paths(root)["knowledge_index"], index)
+    if render: write_knowledge_views(root, index, [artifact["id"]])
+    for warning in sem_warn: print(f"WARNING: {warning}")
+
+
+def command_knowledge_init(root: Path, args) -> int:
+    p = paths(root)
+    with runtime_lock(root):
+        if p["knowledge_index"].exists() and not args.force:
+            raise RuntimeError("Product Knowledge is already initialized. Use --force only to replace an empty index.")
+        if p["knowledge_index"].exists() and args.force:
+            existing = load_yaml(p["knowledge_index"])
+            if existing.get("artifacts"):
+                raise RuntimeError("Refusing to replace non-empty Product Knowledge index")
+        p["knowledge_artifacts"].mkdir(parents=True, exist_ok=True)
+        p["knowledge_views"].mkdir(parents=True, exist_ok=True)
+        ts = utc_now()
+        rev = source_revision(args.source_kind, args.source_value, ts)
+        index = {
+            "schema_version": KNOWLEDGE_SCHEMA_VERSION, "id": args.id, "title": args.title, "mode": args.mode,
+            "status": "active", "owner_role": args.owner_role, "source_revision": rev, "current_source_revision": copy.deepcopy(rev),
+            "artifact_sequence": 0, "artifacts": [],
+            "size_policy": {"mode": "soft_targets", "quality_over_line_count": True, "default_profile": args.size_profile},
+            "created_at": ts, "updated_at": ts,
+        }
+        errors = validate_schema(index, "knowledge-index.schema.json", ".cpt/knowledge/index.yaml")
+        if errors: raise RuntimeError("; ".join(errors))
+        atomic_write_yaml(p["knowledge_index"], index)
+        write_knowledge_views(root, index)
+        write_summary(root)
+    print(args.id)
+    return 0
+
+
+def command_knowledge_status(root: Path, args) -> int:
+    index = load_knowledge_index(root, required=False)
+    if index is None:
+        payload = {"initialized": False, "artifacts": 0}
+    else:
+        counts: dict[str,int] = {}
+        freshness: dict[str,int] = {}
+        for a in index.get("artifacts", []):
+            counts[a["artifact_type"]] = counts.get(a["artifact_type"],0)+1
+            freshness[a["freshness"]] = freshness.get(a["freshness"],0)+1
+        payload = {"initialized": True, "id": index["id"], "mode": index["mode"], "status": index["status"], "artifacts": len(index["artifacts"]), "types": counts, "freshness": freshness, "current_source_revision": index.get("current_source_revision")}
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_knowledge_create(root: Path, args) -> int:
+    with runtime_lock(root):
+        index = load_knowledge_index(root)
+        if knowledge_artifact_file(root, args.id).exists(): raise RuntimeError(f"Artifact already exists: {args.id}")
+        ts = utc_now()
+        rev = copy.deepcopy(index.get("current_source_revision") or index["source_revision"])
+        perspective = args.perspective or {"existing":"current","greenfield":"planned","redesign":"delta"}[index["mode"]]
+        artifact = {
+            "schema_version": KNOWLEDGE_SCHEMA_VERSION, "id": args.id, "artifact_type": args.type, "title": args.title,
+            "mode": index["mode"], "perspective": perspective, "status": "draft", "freshness": "current", "confidence": args.confidence,
+            "scope": {"summary": args.scope_summary or "", "in_scope": args.in_scope, "out_of_scope": args.out_of_scope},
+            "owner_role": args.owner_role, "data_classification": args.classification,
+            "sharing": default_sharing(args.classification, args.external_sharing), "source_revision": rev,
+            "review_triggers": [{"id": f"TRG-{i+1:03d}", "path_globs": [path], "events": [], "description": f"Review when {path} changes."} for i,path in enumerate(args.review_path)],
+            "dependencies": [{"artifact_id": dep, "relation": "depends_on"} for dep in args.depends_on],
+            "claims": [], "unknowns": [],
+            "size_guidance": {"profile": args.size_profile, "quality_over_line_count": True, "split_strategy": "Move lower-level detail into an existing child artifact and retain links and a compact summary."},
+            "content": artifact_content_skeleton(args.type, args.task_id), "created_at": ts, "updated_at": ts,
+        }
+        save_artifact_and_index(root, artifact, index)
+        write_summary(root)
+    print(args.id)
+    return 0
+
+
+def make_evidence(args, revision: dict) -> list[dict]:
+    if not getattr(args, "evidence_type", None): return []
+    if not getattr(args, "evidence_source", None): raise RuntimeError("--evidence-source is required with --evidence-type")
+    return [{"type": args.evidence_type, "source": args.evidence_source, "locator": getattr(args,"evidence_locator",None), "summary": getattr(args,"evidence_summary",None) or "", "source_revision": copy.deepcopy(revision), "observed_at": utc_now()}]
+
+
+def command_knowledge_claim_add(root: Path, args) -> int:
+    with runtime_lock(root):
+        index = load_knowledge_index(root); artifact = load_yaml(knowledge_artifact_file(root,args.artifact))
+        ts=utc_now(); evidence=make_evidence(args, artifact["source_revision"])
+        claim={"id":next_claim_id(artifact),"statement":args.statement,"lifecycle":args.lifecycle,"confidence":args.confidence,"owner_role":args.owner_role,"evidence_depth":args.evidence_type or "none","evidence":evidence,"source_revision":copy.deepcopy(artifact["source_revision"]),"last_verified":ts if args.lifecycle in {"confirmed","validated"} else None,"review_triggers":[{"id":f"CLM-TRG-{i+1:03d}","path_globs":[p],"events":[],"description":f"Review claim when {p} changes."} for i,p in enumerate(args.review_path)],"unknowns":args.unknown}
+        artifact["claims"].append(claim); artifact["updated_at"]=ts
+        if artifact["status"]=="draft": artifact["status"]="active"
+        save_artifact_and_index(root,artifact,index)
+    print(claim["id"]); return 0
+
+
+def command_knowledge_claim_transition(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root); artifact=load_yaml(knowledge_artifact_file(root,args.artifact))
+        matches=[c for c in artifact["claims"] if c["id"]==args.claim]
+        if not matches: raise RuntimeError(f"Unknown claim: {args.claim}")
+        claim=matches[0]; old=claim["lifecycle"]
+        if args.to not in CLAIM_TRANSITIONS[old]: raise RuntimeError(f"Invalid claim transition: {old} -> {args.to}")
+        evidence=make_evidence(args, artifact["source_revision"])
+        if evidence:
+            claim["evidence"].extend(evidence); claim["evidence_depth"]=args.evidence_type
+        claim["lifecycle"]=args.to
+        if args.confidence: claim["confidence"]=args.confidence
+        if args.to in {"confirmed","validated"}: claim["last_verified"]=utc_now(); claim["source_revision"]=copy.deepcopy(artifact["source_revision"])
+        artifact["updated_at"]=utc_now()
+        save_artifact_and_index(root,artifact,index)
+    print(f"{args.claim}: {old} -> {args.to}"); return 0
+
+
+def command_knowledge_unknown_add(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root); artifact=load_yaml(knowledge_artifact_file(root,args.artifact))
+        unknown={"id":next_unknown_id(artifact),"question":args.question,"impact":args.impact or "","owner_role":args.owner_role,"status":"open"}
+        artifact["unknowns"].append(unknown); artifact["updated_at"]=utc_now(); save_artifact_and_index(root,artifact,index)
+    print(unknown["id"]); return 0
+
+
+def command_knowledge_link(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root)
+        ids={a["id"] for a in index["artifacts"]}
+        if args.artifact not in ids or args.depends_on not in ids: raise RuntimeError("Both artifacts must exist")
+        artifact=load_yaml(knowledge_artifact_file(root,args.artifact)); dep={"artifact_id":args.depends_on,"relation":args.relation}
+        if dep not in artifact["dependencies"]: artifact["dependencies"].append(dep)
+        artifact["updated_at"]=utc_now(); save_artifact_and_index(root,artifact,index)
+    print(f"Linked {args.artifact} {args.relation} {args.depends_on}"); return 0
+
+
+def command_knowledge_trigger_add(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root); artifact=load_yaml(knowledge_artifact_file(root,args.artifact))
+        seq=len(artifact["review_triggers"])+1
+        artifact["review_triggers"].append({"id":f"TRG-{seq:03d}","path_globs":args.path,"events":args.event,"description":args.description or "Review when declared path/event changes."})
+        artifact["updated_at"]=utc_now(); save_artifact_and_index(root,artifact,index)
+    print(f"Trigger added to {args.artifact}"); return 0
+
+
+def command_knowledge_render(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root)
+        ids=None if args.all else [args.artifact]
+        if not args.all and args.artifact not in {a["id"] for a in index["artifacts"]}: raise RuntimeError(f"Unknown artifact: {args.artifact}")
+        write_knowledge_views(root,index,ids)
+    print("Knowledge views regenerated"); return 0
+
+
+def command_knowledge_validate(root: Path, _args) -> int:
+    errors,warnings=validate_knowledge(root,check_views=True)
+    for warning in warnings: print(f"WARNING: {warning}")
+    if errors:
+        for error in errors: print(f"ERROR: {error}")
+        return 1
+    print("KNOWLEDGE VALIDATION PASSED"); return 0
+
+
+def trigger_matches(trigger: dict, changed: list[str], events: list[str]) -> bool:
+    return any(any(fnmatch.fnmatch(path,glob) for glob in trigger.get("path_globs",[])) for path in changed) or bool(set(events)&set(trigger.get("events",[])))
+
+
+def command_knowledge_stale_scan(root: Path, args) -> int:
+    changed=list(args.changed); events=list(args.event)
+    if args.git_base:
+        result=subprocess.run(["git","-C",str(root),"diff","--name-only",f"{args.git_base}...HEAD"],text=True,capture_output=True)
+        if result.returncode!=0: raise RuntimeError(result.stderr.strip() or "git diff failed")
+        changed.extend(line.strip() for line in result.stdout.splitlines() if line.strip())
+    changed=sorted(set(changed)); events=sorted(set(events))
+    with runtime_lock(root):
+        index=load_knowledge_index(root); artifacts={e["id"]:load_yaml(root/e["path"]) for e in index["artifacts"]}
+        marked:set[str]=set()
+        for aid,artifact in artifacts.items():
+            direct=any(trigger_matches(t,changed,events) for t in artifact.get("review_triggers",[]))
+            for claim in artifact.get("claims",[]):
+                claim_match=any(trigger_matches(t,changed,events) for t in claim.get("review_triggers",[]))
+                evidence_match=any(any(fnmatch.fnmatch(path,e["source"]) or path==e["source"] for path in changed) for e in claim.get("evidence",[]))
+                if claim_match or evidence_match:
+                    if claim["lifecycle"] not in {"deprecated","stale"}: claim["lifecycle"]="needs_review"
+                    claim["confidence"]="low" if claim["confidence"]=="low" else "medium"
+                    direct=True
+            if direct: marked.add(aid)
+        # Propagate to dependents.
+        changed_flag=True
+        while changed_flag:
+            changed_flag=False
+            for aid,artifact in artifacts.items():
+                if aid in marked: continue
+                if any(dep["artifact_id"] in marked for dep in artifact.get("dependencies",[])):
+                    marked.add(aid); changed_flag=True
+        ts=utc_now()
+        if args.source_kind:
+            index["current_source_revision"]=source_revision(args.source_kind,args.source_value,ts)
+        for aid in marked:
+            artifact=artifacts[aid]; artifact["freshness"]="needs_review"
+            if artifact["status"]=="active": artifact["status"]="needs_review"
+            artifact["updated_at"]=ts; save_artifact_and_index(root,artifact,index,render=False)
+        index["status"]="needs_review" if marked else index["status"]
+        index["updated_at"]=ts; atomic_write_yaml(paths(root)["knowledge_index"],index); write_knowledge_views(root,index,list(marked))
+    print(json.dumps({"changed_paths":changed,"events":events,"marked_artifacts":sorted(marked)},ensure_ascii=False,indent=2)); return 0
+
+
+def command_knowledge_refresh(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root); artifact=load_yaml(knowledge_artifact_file(root,args.artifact))
+        unresolved=[c["id"] for c in artifact["claims"] if c["lifecycle"] in {"needs_review","stale"}]
+        if unresolved and not args.allow_unresolved: raise RuntimeError(f"Claims still require review: {unresolved}")
+        rev=source_revision(args.source_kind,args.source_value,utc_now()) if args.source_kind else copy.deepcopy(index.get("current_source_revision") or artifact["source_revision"])
+        artifact["source_revision"]=rev; artifact["freshness"]="current"; artifact["status"]="active"; artifact["updated_at"]=utc_now(); save_artifact_and_index(root,artifact,index)
+    print(f"Refreshed {args.artifact}"); return 0
+
+
+def command_knowledge_task_assess(root: Path, args) -> int:
+    with runtime_lock(root):
+        tf=task_file(root,args.task)
+        if not tf.exists(): raise RuntimeError(f"Unknown task: {args.task}")
+        task=load_yaml(tf); index=load_knowledge_index(root,required=False)
+        known={a["id"] for a in index.get("artifacts",[])} if index else set()
+        missing=[a for a in args.artifact if a not in known]
+        if missing: raise RuntimeError(f"Unknown knowledge artifacts: {missing}")
+        if args.status in {"applied","deferred"} and not args.summary: raise RuntimeError("--summary is required for applied or deferred knowledge update")
+        task["knowledge_update"]={"status":args.status,"affected_artifacts":args.artifact,"summary":args.summary,"updated_at":utc_now()}
+        task["product_knowledge"]=sorted(set(task.get("product_knowledge",[])+args.artifact)); task["updated_at"]=utc_now(); atomic_write_yaml(tf,task)
+    print(f"{args.task}: knowledge update = {args.status}"); return 0
+
+
+def command_knowledge_packet_create(root: Path, args) -> int:
+    with runtime_lock(root):
+        index=load_knowledge_index(root); tf=task_file(root,args.task)
+        if not tf.exists(): raise RuntimeError(f"Unknown task: {args.task}")
+        task=load_yaml(tf); by_id={a["id"]:a for a in index["artifacts"]}
+        missing=[a for a in args.artifact if a not in by_id]
+        if missing: raise RuntimeError(f"Unknown knowledge artifacts: {missing}")
+        if knowledge_artifact_file(root,args.id).exists(): raise RuntimeError(f"Artifact already exists: {args.id}")
+        ts=utc_now(); rev=copy.deepcopy(index.get("current_source_revision") or index["source_revision"])
+        evidence=[]
+        for aid in args.artifact:
+            art=load_yaml(root/by_id[aid]["path"])
+            for claim in art.get("claims",[]):
+                if claim["lifecycle"] in {"confirmed","validated"}: evidence.append(f"{aid}/{claim['id']}: {claim['statement']}")
+        artifact={"schema_version":KNOWLEDGE_SCHEMA_VERSION,"id":args.id,"artifact_type":"context_packet","title":args.title,"mode":index["mode"],"perspective":"mixed","status":"active","freshness":"current","confidence":"medium","scope":{"summary":f"Task-specific context packet for {args.task}","in_scope":args.artifact,"out_of_scope":[]},"owner_role":args.owner_role,"data_classification":"internal","sharing":default_sharing("internal","prohibited"),"source_revision":rev,"review_triggers":[],"dependencies":[{"artifact_id":a,"relation":"references"} for a in args.artifact],"claims":[],"unknowns":[],"size_guidance":{"profile":"compact","quality_over_line_count":True,"split_strategy":"Remove unrelated evidence; never copy whole parent artifacts."},"content":{"task_id":args.task,"objective":task["objective"],"selected_artifacts":args.artifact,"current_evidence":evidence[:args.max_evidence],"impact_map":{"status":task["impact_map"]["status"],"path":task["impact_map"]["path"]},"risks":task.get("blockers",[]),"verification_plan":task["verification"]["plan"]},"created_at":ts,"updated_at":ts}
+        save_artifact_and_index(root,artifact,index)
+        task["product_knowledge"]=sorted(set(task.get("product_knowledge",[])+args.artifact+[args.id])); task["updated_at"]=ts; atomic_write_yaml(tf,task)
+    print(args.id); return 0
+
+def command_knowledge_sharing_set(root: Path, args) -> int:
+    with runtime_lock(root):
+        index = load_knowledge_index(root)
+        path = knowledge_artifact_file(root, args.artifact)
+        if not path.exists():
+            raise RuntimeError(f"Unknown artifact: {args.artifact}")
+        artifact = load_yaml(path)
+        if args.classification:
+            artifact["data_classification"] = args.classification
+        sharing = artifact.setdefault("sharing", default_sharing())
+        if args.external_sharing:
+            sharing["external_sharing"] = args.external_sharing
+        if args.sanitization_status:
+            sharing["sanitization_status"] = args.sanitization_status
+        if args.redaction:
+            sharing["redactions"] = sorted(set(sharing.get("redactions", []) + args.redaction))
+        if args.note:
+            sharing["notes"] = sharing.get("notes", []) + args.note
+        artifact["updated_at"] = utc_now()
+        save_artifact_and_index(root, artifact, index)
+    print(f"Updated sharing policy for {args.artifact}")
+    return 0
+
+
+def command_knowledge_sanitize_check(root: Path, args) -> int:
+    index = load_knowledge_index(root, required=False)
+    if index is None:
+        print(json.dumps({"initialized": False, "artifacts": [], "findings": [], "policy_errors": []}, indent=2))
+        return 0
+    selected = set(args.artifact or [entry["id"] for entry in index.get("artifacts", [])])
+    known = {entry["id"] for entry in index.get("artifacts", [])}
+    missing = sorted(selected - known)
+    if missing:
+        raise RuntimeError(f"Unknown artifacts: {missing}")
+    findings: list[dict] = []
+    policy_errors: list[str] = []
+    policy_warnings: list[str] = []
+    for aid in sorted(selected):
+        artifact = load_yaml(knowledge_artifact_file(root, aid))
+        for finding in sensitive_findings(artifact):
+            findings.append({"artifact": aid, **finding})
+        errors, warnings = sharing_policy_errors(artifact, external_check=args.external)
+        policy_errors.extend(errors); policy_warnings.extend(warnings)
+    payload = {"initialized": True, "artifacts": sorted(selected), "external_check": bool(args.external), "findings": findings, "policy_errors": policy_errors, "policy_warnings": policy_warnings}
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 1 if findings or policy_errors else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 1 runtime CLI")
+    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 5 runtime and Product Knowledge CLI")
     parser.add_argument("--root", type=Path, help="Runtime root; defaults to nearest parent containing .cpt/runtime.yaml")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -932,6 +1638,90 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--checkpoint", default="latest")
     p.add_argument("--verify-only", action="store_true")
 
+    p = sub.add_parser("knowledge-init")
+    p.add_argument("--id", default="product-knowledge")
+    p.add_argument("--title", required=True)
+    p.add_argument("--mode", choices=["existing","greenfield","redesign"], required=True)
+    p.add_argument("--owner-role", required=True)
+    p.add_argument("--source-kind", choices=["git_commit","git_tree","user_approval","design_version","external_version","timestamp","none"], default="none")
+    p.add_argument("--source-value")
+    p.add_argument("--size-profile", choices=["compact","standard","extended"], default="compact")
+    p.add_argument("--force", action="store_true")
+
+    sub.add_parser("knowledge-status")
+
+    p = sub.add_parser("knowledge-create")
+    p.add_argument("--id", required=True)
+    p.add_argument("--type", choices=["product_map","area_map","flow_map","decision_record","api_data_contract","context_packet"], required=True)
+    p.add_argument("--title", required=True)
+    p.add_argument("--owner-role", required=True)
+    p.add_argument("--perspective", choices=["current","target","delta","planned","mixed"])
+    p.add_argument("--confidence", choices=["low","medium","high"], default="low")
+    p.add_argument("--scope-summary")
+    p.add_argument("--in-scope", action="append", default=[])
+    p.add_argument("--out-of-scope", action="append", default=[])
+    p.add_argument("--depends-on", action="append", default=[])
+    p.add_argument("--review-path", action="append", default=[])
+    p.add_argument("--size-profile", choices=["compact","standard","extended"], default="compact")
+    p.add_argument("--task-id")
+    p.add_argument("--classification", choices=list(KNOWLEDGE_CLASSIFICATIONS), default="internal")
+    p.add_argument("--external-sharing", choices=list(KNOWLEDGE_EXTERNAL_SHARING), default="prohibited")
+
+    def add_evidence_args(p):
+        p.add_argument("--evidence-type", choices=["user_approved_decision","design_artifact","source_file","route","component","hook_store","api_type","test","runtime_observation","external_source","other"])
+        p.add_argument("--evidence-source")
+        p.add_argument("--evidence-locator")
+        p.add_argument("--evidence-summary")
+
+    p = sub.add_parser("knowledge-claim-add")
+    p.add_argument("--artifact", required=True); p.add_argument("--statement", required=True)
+    p.add_argument("--lifecycle", choices=list(CLAIM_TRANSITIONS), required=True)
+    p.add_argument("--confidence", choices=["low","medium","high"], required=True)
+    p.add_argument("--owner-role", required=True); p.add_argument("--review-path", action="append", default=[]); p.add_argument("--unknown", action="append", default=[])
+    add_evidence_args(p)
+
+    p = sub.add_parser("knowledge-claim-transition")
+    p.add_argument("--artifact", required=True); p.add_argument("--claim", required=True); p.add_argument("--to", choices=list(CLAIM_TRANSITIONS), required=True)
+    p.add_argument("--confidence", choices=["low","medium","high"]); add_evidence_args(p)
+
+    p = sub.add_parser("knowledge-unknown-add")
+    p.add_argument("--artifact", required=True); p.add_argument("--question", required=True); p.add_argument("--impact"); p.add_argument("--owner-role", required=True)
+
+    p = sub.add_parser("knowledge-link")
+    p.add_argument("--artifact", required=True); p.add_argument("--depends-on", required=True); p.add_argument("--relation", choices=["parent","child","depends_on","feeds","implements","supersedes","references"], default="depends_on")
+
+    p = sub.add_parser("knowledge-trigger-add")
+    p.add_argument("--artifact", required=True); p.add_argument("--path", action="append", default=[]); p.add_argument("--event", action="append", default=[]); p.add_argument("--description")
+
+    p = sub.add_parser("knowledge-render")
+    g = p.add_mutually_exclusive_group(required=True); g.add_argument("--artifact"); g.add_argument("--all", action="store_true")
+    sub.add_parser("knowledge-validate")
+
+    p = sub.add_parser("knowledge-stale-scan")
+    p.add_argument("--changed", action="append", default=[]); p.add_argument("--event", action="append", default=[]); p.add_argument("--git-base")
+    p.add_argument("--source-kind", choices=["git_commit","git_tree","user_approval","design_version","external_version","timestamp","none"]); p.add_argument("--source-value")
+
+    p = sub.add_parser("knowledge-refresh")
+    p.add_argument("--artifact", required=True); p.add_argument("--source-kind", choices=["git_commit","git_tree","user_approval","design_version","external_version","timestamp","none"]); p.add_argument("--source-value"); p.add_argument("--allow-unresolved", action="store_true")
+
+    p = sub.add_parser("knowledge-task-assess")
+    p.add_argument("--task", required=True); p.add_argument("--status", choices=["not_required","planned","applied","deferred"], required=True); p.add_argument("--artifact", action="append", default=[]); p.add_argument("--summary")
+
+    p = sub.add_parser("knowledge-packet-create")
+    p.add_argument("--id", required=True); p.add_argument("--title", required=True); p.add_argument("--task", required=True); p.add_argument("--artifact", action="append", required=True); p.add_argument("--owner-role", required=True); p.add_argument("--max-evidence", type=int, default=20)
+
+    p = sub.add_parser("knowledge-sharing-set")
+    p.add_argument("--artifact", required=True)
+    p.add_argument("--classification", choices=list(KNOWLEDGE_CLASSIFICATIONS))
+    p.add_argument("--external-sharing", choices=list(KNOWLEDGE_EXTERNAL_SHARING))
+    p.add_argument("--sanitization-status", choices=list(KNOWLEDGE_SANITIZATION_STATUSES))
+    p.add_argument("--redaction", action="append", default=[])
+    p.add_argument("--note", action="append", default=[])
+
+    p = sub.add_parser("knowledge-sanitize-check")
+    p.add_argument("--artifact", action="append", default=[])
+    p.add_argument("--external", action="store_true", help="Validate that selected artifacts are permitted and sanitized for external sharing")
+
     return parser
 
 
@@ -953,6 +1743,22 @@ def main(argv: list[str] | None = None) -> int:
             "lease-create": command_lease_create,
             "checkpoint": command_checkpoint,
             "recover": command_recover,
+            "knowledge-init": command_knowledge_init,
+            "knowledge-status": command_knowledge_status,
+            "knowledge-create": command_knowledge_create,
+            "knowledge-claim-add": command_knowledge_claim_add,
+            "knowledge-claim-transition": command_knowledge_claim_transition,
+            "knowledge-unknown-add": command_knowledge_unknown_add,
+            "knowledge-link": command_knowledge_link,
+            "knowledge-trigger-add": command_knowledge_trigger_add,
+            "knowledge-render": command_knowledge_render,
+            "knowledge-validate": command_knowledge_validate,
+            "knowledge-stale-scan": command_knowledge_stale_scan,
+            "knowledge-refresh": command_knowledge_refresh,
+            "knowledge-task-assess": command_knowledge_task_assess,
+            "knowledge-packet-create": command_knowledge_packet_create,
+            "knowledge-sharing-set": command_knowledge_sharing_set,
+            "knowledge-sanitize-check": command_knowledge_sanitize_check,
         }
         return commands[args.command](root, args)
     except Exception as exc:

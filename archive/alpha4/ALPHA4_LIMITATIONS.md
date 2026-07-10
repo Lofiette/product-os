@@ -1,4 +1,4 @@
-# Alpha 4 Limitations
+# Alpha 5 Limitations
 
 - Roles are logical lenses; worker archetypes and real delegation controls are not implemented yet.
 - Role routing evals are deterministic metadata/registry proxies, not live Codex traces.

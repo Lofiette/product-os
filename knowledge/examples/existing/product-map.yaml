@@ -1,0 +1,44 @@
+schema_version: 4.0-alpha5
+id: product-map
+artifact_type: product_map
+title: Example Existing Product Map
+mode: existing
+perspective: current
+status: active
+freshness: current
+confidence: medium
+scope:
+  summary: Example Existing Product Map
+  in_scope: []
+  out_of_scope: []
+owner_role: product_strategist
+source_revision:
+  kind: git_commit
+  value: 0123456789abcdef
+  recorded_at: '2026-07-10T17:30:00Z'
+review_triggers: []
+dependencies: []
+claims: []
+unknowns: []
+size_guidance:
+  profile: compact
+  quality_over_line_count: true
+  split_strategy: Move lower-level detail to child artifacts and retain links.
+content:
+  summary: Top-level routing map for an existing product.
+  actors:
+  - Authenticated operator
+  areas: []
+  surfaces: []
+  top_flows: []
+  routing_guidance: []
+  shared_boundaries: []
+created_at: '2026-07-10T17:30:00Z'
+updated_at: '2026-07-10T17:30:00Z'
+data_classification: internal
+sharing:
+  external_sharing: prohibited
+  sanitization_status: not_required
+  redactions: []
+  notes:
+  - Local canonical knowledge; review before any external sharing.

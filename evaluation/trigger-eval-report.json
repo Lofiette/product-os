@@ -451,7 +451,7 @@
       "top": [
         "cpt-frontend-integration",
         "cpt-product-scope",
-        "cpt-knowledge-lifecycle"
+        "cpt-design-system-code-audit"
       ],
       "pass": true
     },
@@ -630,8 +630,8 @@
       "expected_not": "cpt-framework-audit",
       "top": [
         "cpt-product-scope",
-        "cpt-knowledge-lifecycle",
-        "cpt-design-system-code-audit"
+        "cpt-design-system-code-audit",
+        "cpt-production-readiness"
       ],
       "pass": true
     },
@@ -1190,8 +1190,8 @@
       "expected": "cpt-runtime",
       "top": [
         "cpt-runtime",
-        "cpt-knowledge-lifecycle",
-        "cpt-framework-audit"
+        "cpt-framework-audit",
+        "cpt-delegation"
       ],
       "pass": true
     },

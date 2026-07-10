@@ -1,0 +1,14 @@
+{
+  "task_status": "done",
+  "knowledge_artifacts": [
+    "product-map",
+    "context-task"
+  ],
+  "freshness_marked": [
+    "context-task",
+    "product-map"
+  ],
+  "framework_file_count": 9,
+  "git_status": "M src/area/index.ts",
+  "doctor": "DOCTOR\nframework_files: 9\nruntime: PASS"
+}

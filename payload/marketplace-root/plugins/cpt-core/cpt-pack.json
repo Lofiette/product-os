@@ -2,7 +2,7 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-core",
   "kind": "core",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "requires_core": null,
   "domains": [
     "core"

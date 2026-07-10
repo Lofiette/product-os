@@ -1,0 +1,68 @@
+schema_version: 4.0-alpha5
+id: decision-redesign-navigation
+artifact_type: decision_record
+title: Example Redesign Decision
+mode: redesign
+perspective: delta
+status: active
+freshness: current
+confidence: medium
+scope:
+  summary: Example Redesign Decision
+  in_scope: []
+  out_of_scope: []
+owner_role: product_designer
+source_revision:
+  kind: user_approval
+  value: example-approval
+  recorded_at: '2026-07-10T17:30:00Z'
+review_triggers: []
+dependencies: []
+claims:
+- id: CLM-001
+  statement: The target navigation pattern is user-approved.
+  lifecycle: confirmed
+  confidence: high
+  owner_role: product_designer
+  evidence_depth: user_approved_decision
+  evidence:
+  - type: user_approved_decision
+    source: design review
+    locator: null
+    summary: Target direction approved.
+    source_revision:
+      kind: user_approval
+      value: review-1
+      recorded_at: '2026-07-10T17:30:00Z'
+    observed_at: '2026-07-10T17:30:00Z'
+  source_revision:
+    kind: user_approval
+    value: review-1
+    recorded_at: '2026-07-10T17:30:00Z'
+  last_verified: '2026-07-10T17:30:00Z'
+  review_triggers: []
+  unknowns:
+  - Implementation fidelity is not yet validated.
+unknowns: []
+size_guidance:
+  profile: compact
+  quality_over_line_count: true
+  split_strategy: Move lower-level detail to child artifacts and retain links.
+content:
+  decision: Adopt a unified navigation pattern for the target experience.
+  decision_status: approved
+  context: Current and target patterns differ.
+  alternatives:
+  - Keep current pattern
+  - Introduce per-area navigation
+  consequences:
+  - Migration and regression review required.
+created_at: '2026-07-10T17:30:00Z'
+updated_at: '2026-07-10T17:30:00Z'
+data_classification: internal
+sharing:
+  external_sharing: prohibited
+  sanitization_status: not_required
+  redactions: []
+  notes:
+  - Local canonical knowledge; review before any external sharing.

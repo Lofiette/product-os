@@ -1,6 +1,6 @@
 ---
 name: cpt-knowledge-lifecycle
-description: Use to create, validate, refresh, or update hierarchical Product Knowledge; not as a substitute for current code or task evidence.
+description: Use to create, validate, refresh, render, or update typed hierarchical Product Knowledge and task-specific context packets.
 ---
 
 # CPT Knowledge Lifecycle
@@ -8,53 +8,77 @@ description: Use to create, validate, refresh, or update hierarchical Product Kn
 ## Use when
 
 - Onboarding an existing, greenfield, or redesign product.
-- A completed task changes product areas, flows, decisions, contracts, or review triggers.
-- Knowledge may be stale after code or product changes.
+- A task changes product areas, flows, decisions, frontend-facing contracts, or review triggers.
+- Knowledge may be stale after code, design, product, API, or runtime changes.
+- A task needs a bounded context packet rather than broad repository rereading.
 
 ## Do not use when
 
-- The task does not affect durable product knowledge.
-- A temporary finding belongs only in the active task or context packet.
+- A temporary finding belongs only in the active task.
+- A Micro Change has no durable product implication.
+- The requested output is an ungrounded product narrative.
 
 ## Required inputs
 
-- Knowledge artifact registry and schemas.
-- Source revision, changed paths, user-approved decisions, and implementation/verification evidence.
-- Existing confidence, freshness, unknowns, and review triggers.
+- `.cpt/knowledge/index.yaml` when initialized.
+- Relevant canonical YAML artifacts, not the whole knowledge tree.
+- Source revision, changed paths/events, user-approved decisions, and implementation/verification evidence.
+- Active task knowledge-update status.
 
 ## Method
 
-1. Choose lifecycle mode: existing discovery, greenfield creation, redesign delta, targeted refresh, or post-task update.
-2. Route from Product Map to the smallest affected area, flow, decision, contract, or context packet.
-3. Classify each claim as planned, hypothesized, inferred, confirmed, validated, needs-review, stale, or deprecated.
-4. Attach evidence depth and source revision; never upgrade confidence from prose alone.
-5. Update only affected artifacts and preserve unknowns that remain unresolved.
-6. Keep parent artifacts navigational; move detail to child artifacts without deleting useful knowledge to meet size targets.
-7. Mark review triggers using paths or decisions that can be checked later.
-8. Summarize the durable change in runtime state without copying the full artifact.
+1. Choose mode: existing discovery, greenfield construction, redesign baseline/target/delta, targeted refresh, or post-task update.
+2. Route from Product Map and Knowledge Index to the smallest affected artifacts.
+3. Classify every durable claim as planned, hypothesized, inferred, confirmed, validated, needs_review, stale, or deprecated.
+4. Attach evidence depth and source revision. Never upgrade certainty from prose alone.
+5. Keep parent artifacts navigational and move lower-level detail to existing child types without deleting useful knowledge.
+6. Use path/event review triggers and artifact dependencies for targeted freshness scans.
+7. Update only affected artifacts, regenerate deterministic Markdown views, and record task knowledge-update status.
+8. Before Standard Task completion, mark knowledge `not_required`, `applied`, or explicitly `deferred`.
+
+## Runtime commands
+
+```bash
+python .cpt/bin/cpt_runtime.py knowledge-init ...
+python .cpt/bin/cpt_runtime.py knowledge-create ...
+python .cpt/bin/cpt_runtime.py knowledge-claim-add ...
+python .cpt/bin/cpt_runtime.py knowledge-claim-transition ...
+python .cpt/bin/cpt_runtime.py knowledge-stale-scan ...
+python .cpt/bin/cpt_runtime.py knowledge-render --all
+python .cpt/bin/cpt_runtime.py knowledge-validate
+python .cpt/bin/cpt_runtime.py knowledge-task-assess ...
+```
 
 ## Output contract
 
-Produce a compact artifact containing:
+Return:
 
-- `Artifacts created, updated, marked stale, or left untouched.`
-- `Claim-level confidence/freshness changes and evidence.`
-- `Review triggers and unresolved unknowns.`
-- `Compact knowledge-update summary for task completion.`
+- artifacts created, updated, marked stale, deprecated, or left untouched;
+- claim lifecycle/confidence changes and supporting evidence;
+- source revisions, review triggers, dependencies, and unresolved unknowns;
+- generated view status;
+- compact task knowledge-update summary.
 
 ## Evidence standard
 
-- Canonical files and approved decisions outrank semantic recall or generated summaries.
-- Greenfield knowledge must distinguish planned from implemented and validated.
+- Canonical project files, approved decisions, tests, and runtime observations outrank semantic recall or generated summaries.
+- `validated` requires test or runtime-observation evidence.
+- Greenfield knowledge must distinguish planned intent from implementation and validation.
+- Redesign knowledge must distinguish current baseline, target, and delta.
 
 ## Stop and escalate
 
-- Source revision is unknown for a material claim.
-- Conflicting evidence cannot be reconciled.
-- The update would require a new artifact category or broad remap without approval.
+- A material claim has conflicting or untraceable evidence.
+- Sensitive values are detected or sharing policy is incompatible with classification.
+- Source revision is missing for a claim proposed as validated.
+- The update requires a new artifact category or broad remap without approval.
+- Canonical YAML and generated view disagree after regeneration.
 
 ## Failure modes to avoid
 
 - Turning Product Map into an encyclopedia.
 - Refreshing the whole knowledge base after a local change.
 - Treating vector-search snippets as canonical evidence.
+- Editing generated Markdown views instead of canonical YAML.
+- Cutting useful knowledge merely to satisfy a target size.
+- Exporting internal knowledge without an explicit sanitization review.

@@ -40,6 +40,10 @@ Create checkpoints before major handoffs, risky state changes, and compaction wh
 - Do not delete useful knowledge merely to meet a size target.
 - Do not create branches, commits, staged changes, destructive Git operations, dependencies, migrations, or network access without explicit authorization.
 
+## Product Knowledge
+
+If `.cpt/knowledge/index.yaml` exists and the task affects durable product behavior, load only the relevant indexed artifacts. Canonical knowledge is YAML; Markdown views are generated. Before Standard Task completion, account for knowledge as `not_required`, `applied`, or explicitly `deferred`. Never load the entire knowledge tree by default.
+
 ## Completion
 
 Complete work only when outcome, scope, verification, runtime validity, relevant durable knowledge, and compact recovery state are accounted for.

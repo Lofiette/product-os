@@ -1,6 +1,6 @@
 # Role Sources and Method Foundation
 
-The 50 roles originate from `codex-product-team-3.0-ultra-beta2`. Alpha 4 preserves their stable IDs and competency coverage while replacing templated role cards and shallow playbooks.
+The 50 roles originate from `codex-product-team-3.0-ultra-beta2`. Alpha 5 preserves their stable IDs and competency coverage while replacing templated role cards and shallow playbooks.
 
 Role methods use established professional bodies of practice as conceptual foundations, including:
 
@@ -12,4 +12,4 @@ Role methods use established professional bodies of practice as conceptual found
 
 The package does not claim a single methodology is universally correct. Every method reference requires evidence, explicit assumptions, stop conditions, and adaptation to product context.
 
-Future releases may add a curated references library per domain, but Alpha 4 already removes generic five-step role boilerplate and makes the applied method explicit.
+Future releases may add a curated references library per domain, but Alpha 5 already removes generic five-step role boilerplate and makes the applied method explicit.

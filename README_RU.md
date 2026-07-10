@@ -1,28 +1,32 @@
-# Codex Product Operating System 4.0 — Alpha 4: роли, экспертиза и маршрутизация
+# Codex Product Operating System 4.0 — Alpha 5: схема и жизненный цикл Product Knowledge
 
-Alpha 4 сохраняет Runtime Kernel, модель распространения и 45 канонических skills из Alpha 3, а затем переносит все 50 логических ролей в типизированный экспертный слой.
+Alpha 5 сохраняет Runtime Kernel, модель распространения, 45 канонических skills, 50 логических ролей и 25 quality gates из Alpha 4. Новый слой добавляет типизированную файловую Product Knowledge для существующего продукта, greenfield-разработки и редизайна/миграции, не превращая знания в постоянно загружаемую энциклопедию.
 
-## Что реализовано
+## Что входит
 
-- компактный repo scaffold и обязательный `cpt-core`;
+- минимальный repo scaffold и нативный `cpt-core` plugin;
 - пять независимо устанавливаемых domain plugins;
-- 45 канонических skills и полное покрытие миграции 95 старых skills;
-- все 50 ролей сохранены и глубоко переработаны;
-- decision rights, evidence obligations, owned artifacts, skills, gates, handoffs и worker eligibility;
-- 50 компактных role lenses;
-- 50 глубоких role-specific method references;
-- 25 evidence-based quality gates;
-- 14 task routing profiles;
-- role-to-skill и role-to-gate matrices;
-- migration registry;
-- детерминированные proxy-evals триггеров и routing.
+- 45 канонических skills и полное покрытие миграции 95 legacy skills;
+- 50 логических ролей и 25 evidence-based gates;
+- канонические YAML-артефакты и генерируемые Markdown-проекции;
+- Product Map, Area Map, Flow Map, Decision Record, API/Data Contract и Context Packet;
+- lifecycle утверждений, confidence, evidence depth, source revision, unknowns, review triggers и зависимости;
+- режимы existing, greenfield и redesign;
+- targeted freshness scan с распространением по зависимостям;
+- обязательный учёт обновления знаний перед закрытием Standard Task;
+- классификация, sanitization и правила внешнего шаринга;
+- безопасные install, update, doctor, uninstall и управление domain packs.
 
-## Главная модель
+## Принципы Product Knowledge
 
-Роль — это логическая ответственность и профессиональная перспектива, а не subagent.  
-Skill — это метод.  
-Gate — проверяемый контракт качества.  
-Worker archetypes появятся позже в Execution Plane.
+- Product Map маршрутизирует будущую работу, а не пересказывает весь продукт.
+- Родительский артефакт ссылается на более глубокий, а не копирует его целиком.
+- Уверенность растёт только вместе с качеством evidence.
+- Greenfield-намерение остаётся planned до появления реализации и проверки.
+- В редизайне current, target и delta не смешиваются.
+- Freshness обновляет только затронутые артефакты.
+- Целевые размеры являются рекомендацией и никогда не обрезают полезное знание.
+- В канонических знаниях нельзя хранить credentials и сырые restricted-значения.
 
 ## Быстрый старт
 
@@ -31,19 +35,24 @@ python -m pip install -r requirements.txt
 python tools/cpt_dist.py install --project /путь/к/репозиторию --mode local
 python tools/cpt_dist.py pack-add --name cpt-design-ui --scope personal
 python tools/cpt_dist.py doctor --project /путь/к/репозиторию
+
+cd /путь/к/репозиторию
+python .cpt/bin/cpt_runtime.py knowledge-init   --title "Product Knowledge"   --mode existing   --owner-role product_strategist   --source-kind git_commit   --source-value "$(git rev-parse HEAD)"
 ```
 
-## Проверка
+Product Knowledge создаётся лениво. Если проекту не нужны durable product knowledge artifacts, файловый бюджет установки не увеличивается.
+
+## Проверка дистрибутива
 
 ```bash
-python tools/validate_distribution.py --root .
+python tools/validate_distribution.py
 python tools/validate_skills.py --root .
 python tools/validate_roles.py --root .
-python tools/eval_skill_triggers.py --root . --write-report evaluation/trigger-eval-report.json
-python tools/eval_role_routing.py --root . --write-report evaluation/role-routing-eval-report.json
+python tools/validate_knowledge_assets.py
+python tools/eval_knowledge_lifecycle.py --root .   --write-report evaluation/knowledge-lifecycle-eval-report.json
 python tests/run_all.py
 ```
 
-Основные документы: `ROLES.md`, `roles/ROLE_CATALOG.md`, `roles/ROLE_ROUTING.md`, `roles/QUALITY_GATE_MODEL.md`, `migration/ROLE_MIGRATION.csv`, `ALPHA4_LIMITATIONS.md`.
+Ключевые документы: `KNOWLEDGE.md`, `knowledge/KNOWLEDGE_ARCHITECTURE.md`, `knowledge/CLAIM_LIFECYCLE.md`, `knowledge/EVIDENCE_AND_PROVENANCE.md`, `knowledge/FRESHNESS_AND_DEPENDENCIES.md`, `knowledge/SANITIZATION_AND_SHARING.md`, `knowledge/SCHEMA_REFERENCE.md`, `ROLES.md`, `SKILLS.md`, `ALPHA5_LIMITATIONS.md`.
 
-В Alpha 4 ещё нет исполняемых worker archetypes, Product Knowledge schemas, hooks/rules enforcement, SQLite/MCP и live Codex behavioral certification.
+В Alpha 5 ещё нет автоматических hooks, SQLite, MCP adapters, AST dependency graph, исполняемых worker archetypes и live Codex behavioral certification.

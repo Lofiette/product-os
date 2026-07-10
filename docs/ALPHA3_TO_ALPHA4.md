@@ -1,8 +1,8 @@
-# Alpha 3 to Alpha 4
+# Alpha 3 to Alpha 5
 
 Alpha 3 consolidated 95 legacy skills into 45 canonical skills across six plugins.
 
-Alpha 4 adds the expertise layer:
+Alpha 5 adds the expertise layer:
 
 - all 50 logical roles retained and rewritten;
 - explicit decision rights, artifacts, evidence, handoffs, skills, and gates;
@@ -14,4 +14,4 @@ Alpha 4 adds the expertise layer:
 - migration registry from the 3.0 role library;
 - deterministic role metadata/routing proxy evaluations.
 
-Alpha 4 intentionally does **not** install 50 custom agents. Worker archetypes, timeouts, quorum, and worktree isolation belong to a later Execution Plane phase.
+Alpha 5 intentionally does **not** install 50 custom agents. Worker archetypes, timeouts, quorum, and worktree isolation belong to a later Execution Plane phase.

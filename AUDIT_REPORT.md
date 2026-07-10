@@ -1,215 +1,204 @@
-# Codex Product Operating System 4.0 Alpha 4 — Role Expertise and Routing Audit
-
-Date: 2026-07-10  
-Version: `4.0.0-alpha.4`  
-Phase: **Phase 4 — Role Expertise and Routing Overhaul**
+# Codex Product Operating System 4.0 Alpha 5 Audit
 
 ## Verdict
 
-**PASS for Alpha 4 role-layer scope, with worker orchestration, live-model routing, and automated gate enforcement explicitly deferred.**
+**PASS — Alpha 5 Product Knowledge Schema and Lifecycle baseline is internally coherent and ready to freeze for the next phase.**
 
-Alpha 4 preserves the Alpha 1 Runtime Kernel, Alpha 2 distribution model, and Alpha 3 skill consolidation. It rewrites the complete 50-role library as typed accountability lenses, connects roles to the 45 canonical skills and 25 evidence-based gates, and keeps the installed project footprint below the distribution budget.
+Alpha 5 preserves the validated Runtime, Distribution, Skills, and Role/Gate layers from Alpha 4 and adds a typed, optional Product Knowledge lifecycle. It does not add new logical roles or domain skills.
 
-## Implemented
+## Package identity
 
-- all 50 logical roles from `codex-product-team-3.0-ultra-beta2` retained;
-- zero new logical roles and zero deprecated roles;
-- 50 compact role lenses;
-- 50 deep, role-specific method references;
-- explicit decision rights, activation/non-activation, artifacts, evidence, handoffs, skills, gates, task types, execution modes, and worker eligibility;
-- 25 quality gates with four-state verdict contracts;
-- 14 task routing profiles;
-- role-to-skill and role-to-gate matrices;
-- complete role migration registry;
-- compact runtime expertise bundle inside `cpt-core`;
-- deterministic role trigger and routing proxy evaluations;
-- preserved installer/update/uninstall/runtime behavior.
+- Version: `4.0.0-alpha.5`
+- Phase: Product Knowledge Schema and Lifecycle
+- Canonical knowledge: YAML
+- Human views: deterministic generated Markdown
+- Storage: file-backed and lazily initialized
+- External services: not required
 
-## Inventory
+## Inventories
 
-| Metric | Result |
-|---|---:|
-| Logical roles | 50 |
-| Roles retained from 3.0 | 50 / 50 |
-| New roles | 0 |
-| Role lenses | 50 |
-| Deep role methods | 50 |
-| Canonical skills | 45 |
-| Quality gates | 25 |
-| Routing profiles | 14 |
-| Role trigger cases | 150 |
-| Routing-profile cases | 14 |
-| Role proxy cases passed | 164 / 164 |
-| Lens lines | 3,325 |
-| Method-reference lines | 3,083 |
-| Gate-contract lines | 988 |
-| Team-mode project framework files | 19 |
+- Plugins: 6
+- Canonical skills: 45
+- Legacy skill mappings: 95 / 95
+- Logical roles: 50
+- Quality gates: 25
+- Routing profiles: 14
+- Product Knowledge artifact types: 6
+- Product Knowledge templates: 6
+- Product Knowledge examples: 3
+- Knowledge lifecycle eval cases: 11
+- Skill trigger proxy cases: 135
+- Role trigger/routing proxy cases: 164
 
-## Role distribution
+## Implemented Product Knowledge capabilities
 
-| Plugin | Primary roles |
-|---|---:|
-| `cpt-core` | 6 |
-| `cpt-product-research` | 9 |
-| `cpt-design-ui` | 12 |
-| `cpt-engineering` | 18 |
-| `cpt-risk-operations` | 2 |
-| `cpt-ai-agentic` | 3 |
+### Artifact hierarchy
 
-## Role model
+- Product Map
+- Area Map
+- Flow Map
+- Decision Record
+- API/Data Contract
+- Context Packet
 
-Alpha 4 enforces the following separation:
+Parent artifacts remain navigational and link to deeper knowledge instead of duplicating it.
+
+### Knowledge modes
+
+- Existing product discovery
+- Greenfield product construction
+- Redesign/migration current-target-delta knowledge
+
+### Claim lifecycle
+
+- planned
+- hypothesized
+- inferred
+- confirmed
+- validated
+- needs_review
+- stale
+- deprecated
+
+Certainty increases only with appropriate evidence. Generated analysis alone cannot confirm or validate material claims.
+
+### Provenance and freshness
+
+- evidence depth and source locator;
+- source revision;
+- claim and artifact ownership;
+- path/event review triggers;
+- typed artifact dependencies;
+- targeted freshness scans;
+- dependent-artifact propagation;
+- dependency-cycle detection;
+- deterministic index and projections.
+
+### Task-driven lifecycle
+
+New Standard Tasks contain knowledge-update accounting. Task completion is blocked until durable knowledge is marked `not_required`, `applied`, or explicitly `deferred`. Context Packets assemble bounded task-local knowledge without copying whole parent maps.
+
+### Sanitization and sharing
+
+- artifact classification: public, internal, confidential, restricted;
+- explicit external-sharing policy;
+- sanitization state, redactions, and notes;
+- heuristic secret-pattern detection;
+- external-share validation command;
+- safe defaults: internal and external sharing prohibited.
+
+The scanner is defense in depth and does not claim to replace access control, privacy review, or repository secret scanning.
+
+### Size policy
+
+Content ranges are guidance only. Validation may warn when abstraction boundaries look mixed, but it never truncates or fails useful knowledge based only on line count.
+
+## Runtime commands added
+
+- `knowledge-init`
+- `knowledge-status`
+- `knowledge-create`
+- `knowledge-claim-add`
+- `knowledge-claim-transition`
+- `knowledge-unknown-add`
+- `knowledge-link`
+- `knowledge-trigger-add`
+- `knowledge-render`
+- `knowledge-validate`
+- `knowledge-stale-scan`
+- `knowledge-refresh`
+- `knowledge-task-assess`
+- `knowledge-packet-create`
+- `knowledge-sharing-set`
+- `knowledge-sanitize-check`
+
+## Verification results
+
+### Behavioral tests
+
+- Distribution: 16 / 16 passed
+- Skills: 5 / 5 passed
+- Roles: 4 / 4 passed
+- Product Knowledge: 13 / 13 passed
+- Total: 38 / 38 passed
+
+Knowledge cases cover:
+
+- lazy initialization and project file budget;
+- existing, greenfield, and redesign modes;
+- claim evidence and transition enforcement;
+- validated-evidence requirements;
+- targeted staleness and dependency propagation;
+- dependency-cycle rejection;
+- soft size warnings without truncation;
+- Standard Task completion accounting;
+- Context Packet generation;
+- update preservation;
+- sensitive-value rejection;
+- classification and external-sharing policy.
+
+### Static and proxy checks
+
+- Distribution static validation: PASS
+- Skill validation: PASS
+- Role/gate/routing validation: PASS
+- Knowledge schema/template/example validation: PASS
+- Knowledge lifecycle eval: 11 / 11
+- Skill trigger proxy eval: 135 / 135
+- Role routing proxy eval: 164 / 164
+- Python compilation: PASS
+- Node syntax: 3 / 3 files
+
+### End-to-end integration
+
+A clean temporary repository completed:
 
 ```text
-Role   = accountable professional lens
-Skill  = reusable method
-Gate   = evidence required to accept a result
-Worker = bounded execution container, deferred to the Execution Plane
+local install
+→ Standard Task
+→ Product Knowledge initialization
+→ Product Map creation
+→ confirmed claim with source evidence
+→ artifact refresh
+→ Context Packet creation
+→ task knowledge assessment
+→ task completion
+→ source change
+→ targeted stale scan
+→ doctor PASS
 ```
 
-Roles default to the main thread. Worker eligibility records whether a bounded independent contribution could be delegated later; it never grants spawn permission.
+Observed local installation framework file count: 9. Product Knowledge remained lazy until explicitly initialized.
 
-## Expertise depth
+## Deliberate limitations
 
-Every role now includes:
+- Freshness is path/event/dependency based, not AST based.
+- Hooks do not yet invoke freshness or checkpoint workflows automatically.
+- Runtime registry remains file-backed YAML rather than SQLite.
+- MCP and external knowledge adapters are not implemented.
+- Semantic/vector retrieval is optional future infrastructure and is not canonical evidence.
+- Generated Markdown projections are deterministic and functional, not bespoke documentation layouts.
+- Secret scanning is heuristic.
+- Live-model knowledge authoring and routing still need executable fixture-repository evals.
+- Worker archetypes and parallel execution remain deferred.
 
-- explicit decision rights;
-- at least two professional mental models;
-- a role-specific multi-step method;
-- evidence requirements;
-- professional anti-patterns;
-- an output contract;
-- stop and escalation rules;
-- canonical skill and gate mappings.
+## Exit-criteria assessment
 
-The legacy role-card/playbook template was not copied forward as the active method. The stable role IDs and competency coverage were preserved, while the method content was rewritten.
-
-## Quality gates
-
-Twenty-five gates cover:
-
-- scope and evidence integrity;
-- product value and research validity;
-- design, design-system fidelity, content, accessibility, localization;
-- frontend, architecture, API, data, analytics;
-- security, privacy, performance;
-- AI quality and AI safety;
-- production, migration, experimentation, verification;
-- incident learning and knowledge freshness.
-
-Every gate supports:
-
-```text
-PASS
-PASS_WITH_WARNINGS
-BLOCKED
-INSUFFICIENT_EVIDENCE
-```
-
-A warning cannot hide a blocker, and missing evidence cannot become a clean pass.
-
-## Runtime loading
-
-The full role library remains in the distribution package for authoring, audit, and migration.
-
-The installed core plugin carries one task-planning reference file:
-
-```text
-references/EXPERTISE_BUNDLE.json
-```
-
-It contains the compact role router, routing profiles, selected deep methods, and gate contracts. It is loaded only after `cpt-task-planning` is invoked; it does not add skill-discovery metadata.
-
-The team-mode project footprint remains at 19 framework files.
-
-## Migration
-
-`migration/ROLE_MIGRATION.json` and `.csv` map all 50 source roles to the same stable role IDs with status:
-
-```text
-retained_rewritten
-```
-
-Migration adds:
-
-- typed ownership;
-- skill/gate routing;
-- method depth;
-- worker-eligibility separation;
-- canonical runtime references.
-
-It does not install legacy role aliases or 50 custom agents.
-
-## Static and proxy validation
-
-```text
-ROLE VALIDATION PASSED: 50 logical roles, 25 gates, 14 routing profiles
-ROLE ROUTING PROXY EVAL: 164/164 passed
-SKILL VALIDATION PASSED: 45 active skills, 95 unique legacy mappings, 6 plugins
-TRIGGER PROXY EVAL: 135/135 passed
-DISTRIBUTION STATIC VALIDATION PASSED
-```
-
-Validated:
-
-- exact 50-role preservation;
-- role IDs, plugins, skills, gates, and handoffs;
-- lens/method/gate required sections;
-- method depth and evidence obligations;
-- one accountable role per routing profile;
-- complete migration coverage;
-- plugin role inventories;
-- compact expertise-bundle consistency;
-- trigger/routing case coverage;
-- absence of one-custom-agent-per-role packaging.
-
-## Behavioral distribution tests
-
-All 15 distribution cases passed, including:
-
-- local Git-clean installation;
-- team installation below 20 framework files;
-- tracked `AGENTS.md` protection;
-- runtime-state-preserving update;
-- managed-file conflict detection;
-- safe uninstall;
-- marketplace preservation;
-- independent domain-pack lifecycle;
-- core metadata budget;
-- doctor and legacy-skill resolution.
-
-Role tests: 4 / 4 PASS.  
-Skill tests: 5 / 5 PASS.
-
-## Honest limitations
-
-- Role selection evaluation is a deterministic metadata proxy, not a live Codex trace.
-- Quality gates are contracts, not hook-enforced runtime barriers yet.
-- Worker archetypes, timeout, cancellation, quorum, and worktree isolation are not implemented.
-- Product Knowledge schemas and claim provenance are not migrated.
-- Role method references do not yet include a curated external bibliography or worked example for every domain.
-- The runtime expertise bundle is intentionally compact in file count but can still be context-heavy if a model reads it indiscriminately; `cpt-task-planning` instructs router-first, selected-method loading.
-- No SQLite, MCP, external adapters, or observability backend are included.
-
-## Phase 4 exit assessment
-
-| Criterion | Status |
-|---|---|
-| Preserve all 50 logical roles | PASS |
-| Add no unproven new roles | PASS |
-| Replace generic role methods | PASS |
-| Define decision rights and evidence | PASS |
-| Map roles to canonical skills | PASS |
-| Map roles to evidence gates | PASS |
-| Add routing profiles | PASS |
-| Separate roles from workers | PASS |
-| Preserve distribution file budget | PASS |
-| Add role migration and proxy evals | PASS |
-| Live Codex role-routing certification | DEFERRED |
-| Executable worker archetypes | DEFERRED to Execution Plane |
+- Machine-readable schemas: PASS
+- Claim lifecycle and evidence depth: PASS
+- Source revision: PASS
+- Path/event review triggers: PASS
+- Dependency graph and cycle validation: PASS
+- Automatic stale detection on changed paths: PASS
+- Affected-set-only propagation: PASS
+- Existing and greenfield modes: PASS
+- Redesign current/target/delta mode: PASS
+- Generated human-readable projections: PASS
+- Soft size policy without truncation: PASS
+- Sanitization and sharing policy: PASS
+- No vector-store dependency: PASS
+- Lazy initialization preserves project file budget: PASS
 
 ## Recommendation
 
-Freeze Alpha 4 as the role/expertise baseline and proceed to Phase 5: Product Knowledge Schema and Lifecycle.
-
-The next phase should type Product Map, Knowledge Index, Area/Flow Maps, Decision Records, API/Data contracts, claim provenance, freshness dependencies, and task-specific context packets without expanding the always-on runtime surface.
+Freeze Alpha 5 as the Product Knowledge baseline. Proceed to Phase 6: deterministic runtime enforcement through hooks, rules, permission profiles, compaction checkpoints, tool-output controls, and freshness automation. Do not add new role or skill inventory during that phase.

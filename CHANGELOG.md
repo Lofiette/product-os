@@ -1,30 +1,31 @@
 # Changelog
 
+## 4.0.0-alpha.5 — Product Knowledge Schema and Lifecycle
+
+- Added canonical YAML Product Knowledge and deterministic Markdown projections.
+- Added Product Map, Area Map, Flow Map, Decision Record, API/Data Contract, and Context Packet types.
+- Added existing, greenfield, and redesign modes.
+- Added claim lifecycle, confidence, evidence depth, provenance, source revision, ownership, unknowns, review triggers, and artifact dependencies.
+- Added targeted stale scans with dependency propagation and cycle detection.
+- Added Standard Task knowledge-update accounting and task-specific Context Packet generation.
+- Added data classification, sharing policy, sanitization state, heuristic secret scanning, and external-sharing checks.
+- Added soft size guidance that never truncates useful knowledge.
+- Preserved 45 canonical skills, 50 logical roles, 25 gates, and the `< 20` team-install file budget through lazy initialization.
+
 ## 4.0.0-alpha.4 — Role Expertise and Routing Overhaul
 
-- Preserved and rewrote all 50 logical roles from 3.0.
-- Added explicit decision rights, evidence obligations, artifacts, canonical skills, gates, handoffs, task types, and worker eligibility.
-- Added 50 compact role lenses and 50 deep role-specific method references.
-- Added 25 evidence-based quality gates and four-state verdict contracts.
-- Added 14 machine-readable task routing profiles.
-- Added role-to-skill and role-to-gate matrices plus a complete role migration registry.
-- Added deterministic role trigger/routing proxy evaluations.
-- Kept logical roles separate from custom agents and future worker archetypes.
+- Preserved and rewrote all 50 logical roles.
+- Added role-specific methods, decision rights, evidence obligations, gates, handoffs, and routing profiles.
 
-## 4.0.0-alpha.4 — Skills Consolidation
+## 4.0.0-alpha.3 — Skills Consolidation
 
-- Consolidated 95 legacy skills into 45 canonical skills with complete migration coverage.
-- Implemented five independently installable domain plugins alongside `cpt-core`.
-- Rewrote every active skill with trigger/non-trigger boundaries, required inputs, domain method, output contract, evidence standard, stop conditions, and failure modes.
-- Added `agents/openai.yaml` and invocation policy for every skill.
-- Added central skill registry, migration map, trigger proxy evals, pack profiles, and metadata-budget checks.
-- Added bundled pack installation by name while preserving Alpha 2 installer/update/uninstall behavior.
+- Consolidated 95 legacy skills into 45 canonical skills across six plugins.
+- Added invocation policy, migration registry, trigger proxy evals, and metadata budgets.
 
 ## 4.0.0-alpha.2 — Distribution Split
 
-- Packaged Runtime Kernel as a minimal repo scaffold and native `cpt-core` plugin.
-- Added personal/repo marketplace exposure, local/team modes, safe lifecycle tooling, and independent pack boundaries.
+- Added minimal repo scaffold, native plugin packaging, local/team modes, installer, updater, doctor, and safe uninstall.
 
 ## 4.0.0-alpha.1 — Runtime Kernel
 
-- Added typed file runtime, Standard Task and Micro Change lifecycles, leases, checkpoints, and recovery.
+- Added typed runtime state, Standard Task and Micro Change lifecycles, authorization leases, checkpoints, and recovery.

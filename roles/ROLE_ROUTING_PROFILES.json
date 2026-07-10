@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-routing-profiles-v1",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "profiles": {
     "micro_change": {
       "title": "Micro change",

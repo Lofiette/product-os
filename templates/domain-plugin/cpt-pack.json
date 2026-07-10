@@ -3,7 +3,7 @@
   "name": "cpt-domain-example",
   "kind": "domain",
   "version": "0.1.0",
-  "requires_core": ">=4.0.0-alpha.4",
+  "requires_core": ">=4.0.0-alpha.5",
   "domains": [
     "example"
   ],

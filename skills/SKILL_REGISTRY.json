@@ -1,6 +1,6 @@
 {
   "schema": "cpt-skill-registry-v1",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "skills": [
     {
       "id": "cpt-accessibility-review",
@@ -396,7 +396,7 @@
     {
       "id": "cpt-knowledge-lifecycle",
       "plugin": "cpt-core",
-      "description": "Use to create, validate, refresh, or update hierarchical Product Knowledge; not as a substitute for current code or task evidence.",
+      "description": "Use to create, validate, refresh, render, or update typed hierarchical Product Knowledge and task-specific context packets.",
       "implicit": true,
       "positive_examples": [
         "Update only the workflows area map after implementing a new editor mode.",

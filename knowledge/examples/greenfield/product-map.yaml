@@ -1,0 +1,68 @@
+schema_version: 4.0-alpha5
+id: product-map
+artifact_type: product_map
+title: Example Greenfield Product Map
+mode: greenfield
+perspective: planned
+status: active
+freshness: current
+confidence: medium
+scope:
+  summary: Example Greenfield Product Map
+  in_scope: []
+  out_of_scope: []
+owner_role: product_strategist
+source_revision:
+  kind: user_approval
+  value: example-approval
+  recorded_at: '2026-07-10T17:30:00Z'
+review_triggers: []
+dependencies: []
+claims:
+- id: CLM-001
+  statement: The first release will support one primary workflow.
+  lifecycle: planned
+  confidence: medium
+  owner_role: product_strategist
+  evidence_depth: user_approved_decision
+  evidence:
+  - type: user_approved_decision
+    source: approved brief
+    locator: null
+    summary: Approved MVP boundary.
+    source_revision:
+      kind: user_approval
+      value: brief-v1
+      recorded_at: '2026-07-10T17:30:00Z'
+    observed_at: '2026-07-10T17:30:00Z'
+  source_revision:
+    kind: user_approval
+    value: brief-v1
+    recorded_at: '2026-07-10T17:30:00Z'
+  last_verified: '2026-07-10T17:30:00Z'
+  review_triggers: []
+  unknowns:
+  - Implementation evidence does not exist yet.
+unknowns: []
+size_guidance:
+  profile: compact
+  quality_over_line_count: true
+  split_strategy: Move lower-level detail to child artifacts and retain links.
+content:
+  summary: Planned product map before implementation evidence exists.
+  actors:
+  - Target user
+  areas: []
+  surfaces: []
+  top_flows: []
+  routing_guidance: []
+  shared_boundaries: []
+created_at: '2026-07-10T17:30:00Z'
+updated_at: '2026-07-10T17:30:00Z'
+data_classification: internal
+sharing:
+  external_sharing: prohibited
+  sanitization_status: not_required
+  redactions: []
+  notes:
+  - Local canonical knowledge; review before any external sharing.

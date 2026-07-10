@@ -23,10 +23,10 @@ A role may be delegated only when:
 
 - `never`: system/integration responsibility must remain in the main thread.
 - `conditional`: a bounded independent contribution can be delegated.
-- `recommended`: reserved for future evidence-backed cases; none are default in Alpha 4.
+- `recommended`: reserved for future evidence-backed cases; none are default in Alpha 5.
 
 Worker eligibility never grants spawn permission.
 
 ## Parallel writes
 
-Parallel write workers are out of scope for Alpha 4. Future support must require disjoint scopes or isolated worktrees.
+Parallel write workers are out of scope for Alpha 5. Future support must require disjoint scopes or isolated worktrees.

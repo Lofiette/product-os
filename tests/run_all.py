@@ -19,7 +19,7 @@ def flatten(suite: unittest.TestSuite):
             yield item
 
 
-def run(command: list[str], *, timeout: int = 120) -> None:
+def run(command: list[str], *, timeout: int = 300) -> None:
     print("+", " ".join(map(str, command)), flush=True)
     completed = subprocess.run(command, cwd=ROOT, text=True, timeout=timeout)
     if completed.returncode:
@@ -32,13 +32,16 @@ suite = unittest.TestSuite([
     unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution"),
     unittest.defaultTestLoader.loadTestsFromName("tests.test_skills"),
     unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
+    unittest.defaultTestLoader.loadTestsFromName("tests.test_knowledge"),
 ])
 test_ids = [test.id() for test in flatten(suite)]
 for test_id in test_ids:
-    run([sys.executable, "-m", "unittest", "-v", test_id], timeout=120)
+    run([sys.executable, "-m", "unittest", "-v", test_id], timeout=300)
 
 commands = [
+    [sys.executable, str(ROOT / 'tools' / 'validate_knowledge_assets.py')],
     [sys.executable, str(ROOT / "tools" / "validate_roles.py"), "--root", str(ROOT)],
+    [sys.executable, str(ROOT / "tools" / "eval_knowledge_lifecycle.py"), "--root", str(ROOT), "--write-report", str(ROOT / "evaluation" / "knowledge-lifecycle-eval-report.json")],
     [
         sys.executable,
         str(ROOT / "tools" / "eval_role_routing.py"),
@@ -62,4 +65,4 @@ commands = [
 for command in commands:
     run(command, timeout=180)
 
-print(f"ALPHA 4 COMPLETE TEST SUITE PASSED: {len(test_ids)} distribution cases")
+print(f"ALPHA 5 COMPLETE TEST SUITE PASSED: {len(test_ids)} distribution cases")

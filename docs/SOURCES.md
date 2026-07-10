@@ -1,17 +1,19 @@
-# Sources
+# Sources and Platform Assumptions
 
-Current OpenAI guidance used for Alpha 3:
+Official guidance used by the 4.0 Alpha series:
 
 - https://developers.openai.com/codex/skills
 - https://developers.openai.com/codex/plugins/build
+- https://developers.openai.com/codex/hooks
+- https://developers.openai.com/codex/config-reference
+- https://json-schema.org/draft/2020-12
 
-Platform assumptions used by the package:
+Platform assumptions:
 
-- Skills use progressive disclosure: initial discovery sees name, description, and path; full instructions load after selection.
-- Initial skill metadata is bounded, so active-pack selection and concise descriptions matter.
-- Skill descriptions influence implicit activation.
-- `agents/openai.yaml` may expose interface metadata and set `policy.allow_implicit_invocation`.
-- Plugins are the reusable distribution boundary for skills and, in later phases, related hooks or MCP configuration.
-- Marketplace exposure and plugin enablement are separate operations.
+- Skills use progressive disclosure; concise metadata and task-specific pack activation matter.
+- `agents/openai.yaml` controls interface metadata and implicit invocation policy.
+- Plugins are the reusable boundary for skills and later hooks/MCP configuration.
+- Project hooks require separate trust and are deliberately deferred from Alpha 5.
+- JSON Schema Draft 2020-12 is the machine-validation contract for Product Knowledge artifacts.
 
-These assumptions should be revalidated against current official documentation before a release candidate.
+These assumptions must be revalidated against current official documentation before a release candidate.

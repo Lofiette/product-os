@@ -55,3 +55,37 @@ python .cpt/bin/cpt_runtime.py recover --checkpoint latest
 python .cpt/bin/cpt_runtime.py complete-task
 python .cpt/bin/cpt_runtime.py micro-complete
 ```
+
+## Product Knowledge
+
+Initialize a knowledge base only when needed:
+
+```bash
+python .cpt/bin/cpt_runtime.py knowledge-init \
+  --id product-knowledge \
+  --title "Product Knowledge" \
+  --mode existing \
+  --owner-role product_strategist \
+  --source-kind git_commit \
+  --source-value "$(git rev-parse HEAD)"
+```
+
+Create and maintain artifacts:
+
+```bash
+python .cpt/bin/cpt_runtime.py knowledge-create --id product-map --type product_map --title "Product Map" --owner-role product_strategist
+python .cpt/bin/cpt_runtime.py knowledge-claim-add --artifact product-map --statement "..." --lifecycle confirmed --confidence medium --owner-role product_strategist --evidence-type source_file --evidence-source src/example.ts
+python .cpt/bin/cpt_runtime.py knowledge-stale-scan --changed src/example.ts
+python .cpt/bin/cpt_runtime.py knowledge-render --all
+python .cpt/bin/cpt_runtime.py knowledge-validate
+python .cpt/bin/cpt_runtime.py knowledge-sanitize-check
+python .cpt/bin/cpt_runtime.py knowledge-sanitize-check --external --artifact product-map
+```
+
+Account for knowledge before Standard Task completion:
+
+```bash
+python .cpt/bin/cpt_runtime.py knowledge-task-assess --task TKT-001 --status not_required --summary "No durable product knowledge changed."
+```
+
+Target sizes are guidance only. Validation never truncates knowledge.

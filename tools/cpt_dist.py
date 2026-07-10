@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-PACKAGE_VERSION = "4.0.0-alpha.4"
+PACKAGE_VERSION = "4.0.0-alpha.5"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -443,6 +443,8 @@ def install(args: argparse.Namespace) -> int:
         project / ".cpt" / "micro-changes",
         project / ".cpt" / "leases",
         project / ".cpt" / "checkpoints",
+        project / ".cpt" / "knowledge" / "artifacts",
+        project / ".cpt" / "knowledge" / "views",
     ]:
         path.mkdir(parents=True, exist_ok=True)
 

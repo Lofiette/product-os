@@ -1,0 +1,62 @@
+{
+  "case_count": 11,
+  "passed": 11,
+  "failed": 0,
+  "results": [
+    {
+      "id": "planned-to-confirmed",
+      "passed": true,
+      "actual": true
+    },
+    {
+      "id": "planned-to-validated",
+      "passed": true,
+      "actual": false
+    },
+    {
+      "id": "hypothesized-to-inferred",
+      "passed": true,
+      "actual": true
+    },
+    {
+      "id": "confirmed-to-validated",
+      "passed": true,
+      "actual": true
+    },
+    {
+      "id": "deprecated-to-confirmed",
+      "passed": true,
+      "actual": false
+    },
+    {
+      "id": "confirmed-without-evidence",
+      "passed": true,
+      "actual": false
+    },
+    {
+      "id": "confirmed-source-file",
+      "passed": true,
+      "actual": true
+    },
+    {
+      "id": "validated-test",
+      "passed": true,
+      "actual": true
+    },
+    {
+      "id": "validated-source-only",
+      "passed": true,
+      "actual": false
+    },
+    {
+      "id": "hypothesis-high-confidence",
+      "passed": true,
+      "actual": false
+    },
+    {
+      "id": "greenfield-planned-decision",
+      "passed": true,
+      "actual": true
+    }
+  ]
+}

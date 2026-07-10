@@ -1,6 +1,6 @@
 {
   "name": "cpt-core",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "description": "Task lifecycle, bounded planning, scoped authorization, recovery, and Product Knowledge lifecycle for CPT OS.",
   "keywords": [
     "cpt",

@@ -2,8 +2,8 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-risk-operations",
   "kind": "domain",
-  "version": "4.0.0-alpha.3",
-  "requires_core": ">=4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
+  "requires_core": ">=4.0.0-alpha.4",
   "domains": [
     "risk-operations"
   ],
@@ -20,5 +20,11 @@
   "legacy_source": {
     "package": "codex-product-team-3.0-ultra-beta2",
     "skill_count": 8
-  }
+  },
+  "role_count": 2,
+  "role_ids": [
+    "privacy_compliance_reviewer",
+    "security_reviewer"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

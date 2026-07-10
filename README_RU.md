@@ -1,40 +1,49 @@
-# Codex Product Operating System 4.0 — Alpha 3: консолидация skills
+# Codex Product Operating System 4.0 — Alpha 4: роли, экспертиза и маршрутизация
 
-Alpha 3 сохраняет Runtime Kernel и модель распространения Alpha 2, но переносит skill-слой 3.x в глубокие и независимо устанавливаемые domain plugins.
+Alpha 4 сохраняет Runtime Kernel, модель распространения и 45 канонических skills из Alpha 3, а затем переносит все 50 логических ролей в типизированный экспертный слой.
 
 ## Что реализовано
 
-- компактный `cpt-core` из трёх runtime/context skills;
-- пять опциональных domain plugins;
-- полное отображение 95 старых skills в 45 канонических;
-- для каждого skill: trigger/non-trigger, входы, специализированный метод, output contract, evidence rules, stop conditions и failure modes;
-- `agents/openai.yaml` с политикой implicit/explicit invocation;
-- proxy-evals триггеров и контроль metadata budget по реальным профилям;
-- установка domain pack по имени;
-- сохранение local-ignored и team-shared режимов, безопасного update/uninstall.
+- компактный repo scaffold и обязательный `cpt-core`;
+- пять независимо устанавливаемых domain plugins;
+- 45 канонических skills и полное покрытие миграции 95 старых skills;
+- все 50 ролей сохранены и глубоко переработаны;
+- decision rights, evidence obligations, owned artifacts, skills, gates, handoffs и worker eligibility;
+- 50 компактных role lenses;
+- 50 глубоких role-specific method references;
+- 25 evidence-based quality gates;
+- 14 task routing profiles;
+- role-to-skill и role-to-gate matrices;
+- migration registry;
+- детерминированные proxy-evals триггеров и routing.
+
+## Главная модель
+
+Роль — это логическая ответственность и профессиональная перспектива, а не subagent.  
+Skill — это метод.  
+Gate — проверяемый контракт качества.  
+Worker archetypes появятся позже в Execution Plane.
 
 ## Быстрый старт
 
 ```bash
 python -m pip install -r requirements.txt
 python tools/cpt_dist.py install --project /путь/к/репозиторию --mode local
-python tools/cpt_dist.py pack-catalog
 python tools/cpt_dist.py pack-add --name cpt-design-ui --scope personal
 python tools/cpt_dist.py doctor --project /путь/к/репозиторию
 ```
-
-Обязателен только `cpt-core`. Domain packs включаются по задаче или рабочему профилю, а не все одновременно.
 
 ## Проверка
 
 ```bash
 python tools/validate_distribution.py --root .
 python tools/validate_skills.py --root .
+python tools/validate_roles.py --root .
 python tools/eval_skill_triggers.py --root . --write-report evaluation/trigger-eval-report.json
-python tools/measure_all_skill_metadata.py
+python tools/eval_role_routing.py --root . --write-report evaluation/role-routing-eval-report.json
 python tests/run_all.py
 ```
 
-Полезные документы: `SKILLS.md`, `docs/SKILL_AUTHORING_STANDARD.md`, `docs/SKILL_CONSOLIDATION.md`, `migration/SKILL_MIGRATION.csv`, `ALPHA3_LIMITATIONS.md`.
+Основные документы: `ROLES.md`, `roles/ROLE_CATALOG.md`, `roles/ROLE_ROUTING.md`, `roles/QUALITY_GATE_MODEL.md`, `migration/ROLE_MIGRATION.csv`, `ALPHA4_LIMITATIONS.md`.
 
-Роли, Product Knowledge schemas, hooks/rules, worker archetypes и внешние adapters остаются следующими этапами.
+В Alpha 4 ещё нет исполняемых worker archetypes, Product Knowledge schemas, hooks/rules enforcement, SQLite/MCP и live Codex behavioral certification.

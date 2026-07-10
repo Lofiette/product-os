@@ -1,0 +1,355 @@
+{
+  "schema": "cpt-role-routing-profiles-v1",
+  "version": "4.0.0-alpha.4",
+  "profiles": {
+    "micro_change": {
+      "title": "Micro change",
+      "when": "A small, obvious, reversible, low-risk change with local scope and clear verification.",
+      "accountable_roles": [
+        "frontend_engineer"
+      ],
+      "supporting_roles": [
+        "qa_engineer"
+      ],
+      "skills": [
+        "cpt-runtime",
+        "cpt-frontend-integration"
+      ],
+      "gates": [
+        "gate-verification"
+      ],
+      "default_execution": "main_thread",
+      "worker_policy": "none by default"
+    },
+    "product_discovery": {
+      "title": "Product discovery and scope",
+      "when": "The product outcome, opportunity, user problem, market, or MVP boundary is uncertain.",
+      "accountable_roles": [
+        "product_strategist"
+      ],
+      "supporting_roles": [
+        "ux_researcher",
+        "market_researcher",
+        "business_analyst",
+        "domain_expert"
+      ],
+      "skills": [
+        "cpt-product-scope",
+        "cpt-evidence-research-plan",
+        "cpt-ux-research",
+        "cpt-market-research"
+      ],
+      "gates": [
+        "gate-product-value",
+        "gate-research-validity",
+        "gate-evidence-integrity"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "research worker only for bounded independent evidence"
+    },
+    "ux_research": {
+      "title": "UX research",
+      "when": "A user-behavior, usability, or concept question needs decision-grade evidence.",
+      "accountable_roles": [
+        "ux_researcher"
+      ],
+      "supporting_roles": [
+        "product_strategist",
+        "product_designer",
+        "cx_researcher"
+      ],
+      "skills": [
+        "cpt-ux-research",
+        "cpt-evidence-research-plan"
+      ],
+      "gates": [
+        "gate-research-validity",
+        "gate-evidence-integrity"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "researcher eligible for independent protocol/evidence synthesis"
+    },
+    "screen_or_module_design": {
+      "title": "Screen or module design",
+      "when": "A user-facing screen, module, flow, or interaction system must be created or redesigned.",
+      "accountable_roles": [
+        "product_designer"
+      ],
+      "supporting_roles": [
+        "information_architect",
+        "ux_writer",
+        "ux_interaction_reviewer",
+        "design_system_guardian",
+        "accessibility_specialist"
+      ],
+      "skills": [
+        "cpt-screen-module-design",
+        "cpt-interaction-state-model",
+        "cpt-information-architecture",
+        "cpt-content-design"
+      ],
+      "gates": [
+        "gate-design-quality",
+        "gate-content-quality",
+        "gate-accessibility"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "design reviewer only for bounded independent critique"
+    },
+    "ui_implementation": {
+      "title": "UI implementation",
+      "when": "Approved product/UI behavior must be integrated into frontend code.",
+      "accountable_roles": [
+        "frontend_engineer"
+      ],
+      "supporting_roles": [
+        "design_engineer",
+        "design_system_guardian",
+        "qa_engineer",
+        "code_reviewer",
+        "frontend_architect"
+      ],
+      "skills": [
+        "cpt-frontend-integration",
+        "cpt-visual-acceptance-review",
+        "cpt-implementation-review"
+      ],
+      "gates": [
+        "gate-frontend-integration",
+        "gate-design-system-fidelity",
+        "gate-accessibility",
+        "gate-verification"
+      ],
+      "default_execution": "main_thread",
+      "worker_policy": "implementer/reviewer only with bounded disjoint scope"
+    },
+    "design_system_work": {
+      "title": "Design-system governance or implementation",
+      "when": "A design-system component, token, pattern, variant, or governed source is created, changed, or audited.",
+      "accountable_roles": [
+        "design_system_guardian"
+      ],
+      "supporting_roles": [
+        "design_engineer",
+        "frontend_engineer",
+        "visual_design_director",
+        "accessibility_specialist"
+      ],
+      "skills": [
+        "cpt-design-system-governance",
+        "cpt-design-system-code-audit",
+        "cpt-visual-acceptance-review"
+      ],
+      "gates": [
+        "gate-design-system-fidelity",
+        "gate-accessibility",
+        "gate-verification"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "reviewer eligible; code audit explicit-only"
+    },
+    "api_dependent_ui": {
+      "title": "API-dependent UI",
+      "when": "A UI change depends on API/data contracts, mutations, persistence, errors, or server/client behavior.",
+      "accountable_roles": [
+        "frontend_engineer"
+      ],
+      "supporting_roles": [
+        "api_contract_guardian",
+        "design_engineer",
+        "backend_architect",
+        "qa_engineer",
+        "data_architect"
+      ],
+      "skills": [
+        "cpt-frontend-integration",
+        "cpt-api-contract",
+        "cpt-implementation-review"
+      ],
+      "gates": [
+        "gate-frontend-integration",
+        "gate-api-contract",
+        "gate-data-integrity",
+        "gate-verification"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "reviewer or explorer for bounded contract analysis"
+    },
+    "backend_service": {
+      "title": "Backend service or API behavior",
+      "when": "Backend/domain-service behavior, consistency, asynchronous workflow, or service contract changes.",
+      "accountable_roles": [
+        "backend_architect"
+      ],
+      "supporting_roles": [
+        "api_contract_guardian",
+        "data_architect",
+        "security_reviewer",
+        "observability_engineer",
+        "qa_engineer"
+      ],
+      "skills": [
+        "cpt-architecture-plan",
+        "cpt-api-contract",
+        "cpt-data-architecture"
+      ],
+      "gates": [
+        "gate-architecture",
+        "gate-api-contract",
+        "gate-security",
+        "gate-production-readiness"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "architect/reviewer eligible"
+    },
+    "data_and_analytics": {
+      "title": "Data and analytics",
+      "when": "Data models, lineage, metrics, instrumentation, semantic layers, or analytics decisions change.",
+      "accountable_roles": [
+        "data_architect"
+      ],
+      "supporting_roles": [
+        "analytics_engineer",
+        "experimentation_specialist",
+        "privacy_compliance_reviewer",
+        "business_analyst"
+      ],
+      "skills": [
+        "cpt-data-architecture",
+        "cpt-analytics-measurement",
+        "cpt-experiment-design"
+      ],
+      "gates": [
+        "gate-data-integrity",
+        "gate-analytics-quality",
+        "gate-privacy"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "researcher/reviewer eligible"
+    },
+    "ai_product": {
+      "title": "AI or agentic product",
+      "when": "Model behavior, retrieval, generation, tools, memory, evals, or AI safety are material.",
+      "accountable_roles": [
+        "ai_ml_systems_architect"
+      ],
+      "supporting_roles": [
+        "model_evaluation_specialist",
+        "ai_safety_reviewer",
+        "security_reviewer",
+        "privacy_compliance_reviewer",
+        "conversation_designer"
+      ],
+      "skills": [
+        "cpt-ai-system-plan",
+        "cpt-model-evaluation",
+        "cpt-ai-safety-review"
+      ],
+      "gates": [
+        "gate-ai-quality",
+        "gate-ai-safety",
+        "gate-security",
+        "gate-privacy"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "bounded specialist workers recommended for independent eval/safety review"
+    },
+    "security_privacy": {
+      "title": "Security and privacy review",
+      "when": "Sensitive data, identity, permissions, secrets, trust boundaries, privileged actions, or compliance risk are involved.",
+      "accountable_roles": [
+        "security_reviewer"
+      ],
+      "supporting_roles": [
+        "privacy_compliance_reviewer",
+        "solution_architect",
+        "data_architect"
+      ],
+      "skills": [
+        "cpt-threat-model",
+        "cpt-privacy-impact",
+        "cpt-cross-cutting-risk"
+      ],
+      "gates": [
+        "gate-security",
+        "gate-privacy",
+        "gate-evidence-integrity"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "independent reviewer eligible"
+    },
+    "migration_release": {
+      "title": "Migration and release",
+      "when": "A staged migration, cutover, deployment, data/backfill, compatibility, or production rollout is required.",
+      "accountable_roles": [
+        "migration_planner"
+      ],
+      "supporting_roles": [
+        "devops_release_engineer",
+        "data_architect",
+        "observability_engineer",
+        "qa_engineer",
+        "delivery_manager"
+      ],
+      "skills": [
+        "cpt-migration-plan",
+        "cpt-production-readiness",
+        "cpt-observability-plan"
+      ],
+      "gates": [
+        "gate-migration-safety",
+        "gate-production-readiness",
+        "gate-verification"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "operator/reviewer eligible"
+    },
+    "incident": {
+      "title": "Incident investigation",
+      "when": "A production incident, outage, data loss, security event, or root-cause analysis is required.",
+      "accountable_roles": [
+        "incident_investigator"
+      ],
+      "supporting_roles": [
+        "observability_engineer",
+        "security_reviewer",
+        "delivery_manager",
+        "domain_expert"
+      ],
+      "skills": [
+        "cpt-incident-review",
+        "cpt-observability-plan"
+      ],
+      "gates": [
+        "gate-incident-learning",
+        "gate-evidence-integrity"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "incident investigator worker eligible"
+    },
+    "framework_maintenance": {
+      "title": "Framework and runtime maintenance",
+      "when": "The Codex operating environment, routing, context, skills, roles, plugins, or evaluations are being changed.",
+      "accountable_roles": [
+        "ai_workflow_auditor"
+      ],
+      "supporting_roles": [
+        "team_architect",
+        "consistency_auditor",
+        "chronicle_keeper"
+      ],
+      "skills": [
+        "cpt-framework-audit",
+        "cpt-task-planning",
+        "cpt-knowledge-lifecycle"
+      ],
+      "gates": [
+        "gate-evidence-integrity",
+        "gate-verification",
+        "gate-knowledge-freshness"
+      ],
+      "default_execution": "main_thread_with_lenses",
+      "worker_policy": "framework-auditor eligible for bounded independent audit"
+    }
+  }
+}

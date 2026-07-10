@@ -2,7 +2,7 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-core",
   "kind": "core",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "requires_core": null,
   "domains": [
     "core"
@@ -18,5 +18,15 @@
   "legacy_source": {
     "package": "codex-product-team-3.0-ultra-beta2",
     "skill_count": 18
-  }
+  },
+  "role_count": 6,
+  "role_ids": [
+    "ai_workflow_auditor",
+    "chronicle_keeper",
+    "consistency_auditor",
+    "delivery_manager",
+    "intake_orchestrator",
+    "team_architect"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

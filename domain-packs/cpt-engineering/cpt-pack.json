@@ -2,8 +2,8 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-engineering",
   "kind": "domain",
-  "version": "4.0.0-alpha.3",
-  "requires_core": ">=4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
+  "requires_core": ">=4.0.0-alpha.4",
   "domains": [
     "engineering"
   ],
@@ -27,5 +27,27 @@
   "legacy_source": {
     "package": "codex-product-team-3.0-ultra-beta2",
     "skill_count": 16
-  }
+  },
+  "role_count": 18,
+  "role_ids": [
+    "analytics_engineer",
+    "api_contract_guardian",
+    "backend_architect",
+    "code_reviewer",
+    "data_architect",
+    "dependency_curator",
+    "devops_release_engineer",
+    "frontend_architect",
+    "frontend_engineer",
+    "incident_investigator",
+    "migration_planner",
+    "mobile_architect",
+    "observability_engineer",
+    "performance_engineer",
+    "qa_engineer",
+    "refactoring_specialist",
+    "solution_architect",
+    "technical_writer"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

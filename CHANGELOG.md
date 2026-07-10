@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.0.0-alpha.3 — Skills Consolidation
+## 4.0.0-alpha.4 — Role Expertise and Routing Overhaul
+
+- Preserved and rewrote all 50 logical roles from 3.0.
+- Added explicit decision rights, evidence obligations, artifacts, canonical skills, gates, handoffs, task types, and worker eligibility.
+- Added 50 compact role lenses and 50 deep role-specific method references.
+- Added 25 evidence-based quality gates and four-state verdict contracts.
+- Added 14 machine-readable task routing profiles.
+- Added role-to-skill and role-to-gate matrices plus a complete role migration registry.
+- Added deterministic role trigger/routing proxy evaluations.
+- Kept logical roles separate from custom agents and future worker archetypes.
+
+## 4.0.0-alpha.4 — Skills Consolidation
 
 - Consolidated 95 legacy skills into 45 canonical skills with complete migration coverage.
 - Implemented five independently installable domain plugins alongside `cpt-core`.

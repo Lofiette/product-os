@@ -2,8 +2,8 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-design-ui",
   "kind": "domain",
-  "version": "4.0.0-alpha.3",
-  "requires_core": ">=4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
+  "requires_core": ">=4.0.0-alpha.4",
   "domains": [
     "design-ui"
   ],
@@ -27,5 +27,21 @@
   "legacy_source": {
     "package": "codex-product-team-3.0-ultra-beta2",
     "skill_count": 31
-  }
+  },
+  "role_count": 12,
+  "role_ids": [
+    "accessibility_specialist",
+    "conversation_designer",
+    "data_visualization_designer",
+    "design_engineer",
+    "design_system_guardian",
+    "information_architect",
+    "localization_specialist",
+    "product_designer",
+    "service_designer",
+    "ux_interaction_reviewer",
+    "ux_writer",
+    "visual_design_director"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

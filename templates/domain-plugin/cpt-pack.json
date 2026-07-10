@@ -3,14 +3,21 @@
   "name": "cpt-domain-example",
   "kind": "domain",
   "version": "0.1.0",
-  "requires_core": ">=4.0.0-alpha.3",
-  "domains": ["example"],
+  "requires_core": ">=4.0.0-alpha.4",
+  "domains": [
+    "example"
+  ],
   "canonical_state_owner": false,
   "optional": true,
   "skill_count": 1,
-  "skill_ids": ["cpt-domain-example-skill"],
+  "skill_ids": [
+    "cpt-domain-example-skill"
+  ],
   "legacy_source": {
     "package": "none",
     "skill_count": 0
-  }
+  },
+  "role_count": 0,
+  "role_ids": [],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

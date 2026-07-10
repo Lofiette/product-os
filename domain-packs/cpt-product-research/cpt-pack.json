@@ -2,8 +2,8 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-product-research",
   "kind": "domain",
-  "version": "4.0.0-alpha.3",
-  "requires_core": ">=4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
+  "requires_core": ">=4.0.0-alpha.4",
   "domains": [
     "product-research"
   ],
@@ -25,5 +25,18 @@
   "legacy_source": {
     "package": "codex-product-team-3.0-ultra-beta2",
     "skill_count": 19
-  }
+  },
+  "role_count": 9,
+  "role_ids": [
+    "business_analyst",
+    "customer_support_analyst",
+    "cx_researcher",
+    "domain_expert",
+    "experimentation_specialist",
+    "growth_activation_strategist",
+    "market_researcher",
+    "product_strategist",
+    "ux_researcher"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

@@ -1,53 +1,121 @@
 {
   "schema_version": "cpt-pack-catalog-v3",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "core": {
     "name": "cpt-core",
     "status": "implemented",
-    "version": "4.0.0-alpha.3",
+    "version": "4.0.0-alpha.4",
     "skill_count": 3,
-    "metadata_chars": 564
+    "metadata_chars": 564,
+    "role_count": 6,
+    "role_ids": [
+      "ai_workflow_auditor",
+      "chronicle_keeper",
+      "consistency_auditor",
+      "delivery_manager",
+      "intake_orchestrator",
+      "team_architect"
+    ]
   },
   "domains": [
     {
       "id": "cpt-product-research",
       "status": "implemented",
-      "version": "4.0.0-alpha.3",
+      "version": "4.0.0-alpha.4",
       "skill_count": 10,
       "path": "./domain-packs/cpt-product-research",
-      "metadata_chars": 2052
+      "metadata_chars": 2052,
+      "role_count": 9,
+      "role_ids": [
+        "business_analyst",
+        "customer_support_analyst",
+        "cx_researcher",
+        "domain_expert",
+        "experimentation_specialist",
+        "growth_activation_strategist",
+        "market_researcher",
+        "product_strategist",
+        "ux_researcher"
+      ]
     },
     {
       "id": "cpt-design-ui",
       "status": "implemented",
-      "version": "4.0.0-alpha.3",
+      "version": "4.0.0-alpha.4",
       "skill_count": 12,
       "path": "./domain-packs/cpt-design-ui",
-      "metadata_chars": 2555
+      "metadata_chars": 2555,
+      "role_count": 12,
+      "role_ids": [
+        "accessibility_specialist",
+        "conversation_designer",
+        "data_visualization_designer",
+        "design_engineer",
+        "design_system_guardian",
+        "information_architect",
+        "localization_specialist",
+        "product_designer",
+        "service_designer",
+        "ux_interaction_reviewer",
+        "ux_writer",
+        "visual_design_director"
+      ]
     },
     {
       "id": "cpt-engineering",
       "status": "implemented",
-      "version": "4.0.0-alpha.3",
+      "version": "4.0.0-alpha.4",
       "skill_count": 12,
       "path": "./domain-packs/cpt-engineering",
-      "metadata_chars": 2547
+      "metadata_chars": 2547,
+      "role_count": 18,
+      "role_ids": [
+        "analytics_engineer",
+        "api_contract_guardian",
+        "backend_architect",
+        "code_reviewer",
+        "data_architect",
+        "dependency_curator",
+        "devops_release_engineer",
+        "frontend_architect",
+        "frontend_engineer",
+        "incident_investigator",
+        "migration_planner",
+        "mobile_architect",
+        "observability_engineer",
+        "performance_engineer",
+        "qa_engineer",
+        "refactoring_specialist",
+        "solution_architect",
+        "technical_writer"
+      ]
     },
     {
       "id": "cpt-risk-operations",
       "status": "implemented",
-      "version": "4.0.0-alpha.3",
+      "version": "4.0.0-alpha.4",
       "skill_count": 5,
       "path": "./domain-packs/cpt-risk-operations",
-      "metadata_chars": 994
+      "metadata_chars": 994,
+      "role_count": 2,
+      "role_ids": [
+        "privacy_compliance_reviewer",
+        "security_reviewer"
+      ]
     },
     {
       "id": "cpt-ai-agentic",
       "status": "implemented",
-      "version": "4.0.0-alpha.3",
+      "version": "4.0.0-alpha.4",
       "skill_count": 3,
       "path": "./domain-packs/cpt-ai-agentic",
-      "metadata_chars": 568
+      "metadata_chars": 568,
+      "role_count": 3,
+      "role_ids": [
+        "ai_ml_systems_architect",
+        "ai_safety_reviewer",
+        "model_evaluation_specialist"
+      ]
     }
   ],
   "rule": "Core is self-contained. Enable only domain packs required by the current task or working profile; enabling all packs may exceed initial skill-discovery metadata budgets.",

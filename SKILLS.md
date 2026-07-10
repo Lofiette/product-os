@@ -1,6 +1,6 @@
-# CPT OS 4.0 Alpha 3 Skills
+# CPT OS 4.0 Alpha 4 Skills
 
-Alpha 3 consolidates **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
+Alpha 4 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
 
 ## Inventory
 
@@ -39,4 +39,4 @@ Do not enable all domain packs by default. Choose a profile or smaller subset wh
 
 ## Quality boundary
 
-Alpha 3 validates structure, migration coverage, metadata budgets, and deterministic trigger proxies. It does not yet provide live Codex trace certification, logical-role routing, worker archetypes, hooks/rules enforcement, Product Knowledge schemas, or external adapters.
+Alpha 4 preserves the skill validation, migration coverage, metadata budgets, and deterministic trigger proxies. It adds logical-role and gate routing, but still does not provide live Codex trace certification, executable worker archetypes, hooks/rules enforcement, Product Knowledge schemas, or external adapters.

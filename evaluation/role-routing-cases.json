@@ -1,0 +1,355 @@
+{
+  "schema": "cpt-role-routing-cases-v1",
+  "version": "4.0.0-alpha.4",
+  "cases": [
+    {
+      "id": "profile-micro_change",
+      "profile": "micro_change",
+      "prompt": "A small, obvious, reversible, low-risk change with local scope and clear verification.",
+      "expected_accountable_roles": [
+        "frontend_engineer"
+      ],
+      "expected_supporting_roles": [
+        "qa_engineer"
+      ],
+      "expected_skills": [
+        "cpt-runtime",
+        "cpt-frontend-integration"
+      ],
+      "expected_gates": [
+        "gate-verification"
+      ],
+      "expected_default_execution": "main_thread"
+    },
+    {
+      "id": "profile-product_discovery",
+      "profile": "product_discovery",
+      "prompt": "The product outcome, opportunity, user problem, market, or MVP boundary is uncertain.",
+      "expected_accountable_roles": [
+        "product_strategist"
+      ],
+      "expected_supporting_roles": [
+        "ux_researcher",
+        "market_researcher",
+        "business_analyst",
+        "domain_expert"
+      ],
+      "expected_skills": [
+        "cpt-product-scope",
+        "cpt-evidence-research-plan",
+        "cpt-ux-research",
+        "cpt-market-research"
+      ],
+      "expected_gates": [
+        "gate-product-value",
+        "gate-research-validity",
+        "gate-evidence-integrity"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-ux_research",
+      "profile": "ux_research",
+      "prompt": "A user-behavior, usability, or concept question needs decision-grade evidence.",
+      "expected_accountable_roles": [
+        "ux_researcher"
+      ],
+      "expected_supporting_roles": [
+        "product_strategist",
+        "product_designer",
+        "cx_researcher"
+      ],
+      "expected_skills": [
+        "cpt-ux-research",
+        "cpt-evidence-research-plan"
+      ],
+      "expected_gates": [
+        "gate-research-validity",
+        "gate-evidence-integrity"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-screen_or_module_design",
+      "profile": "screen_or_module_design",
+      "prompt": "A user-facing screen, module, flow, or interaction system must be created or redesigned.",
+      "expected_accountable_roles": [
+        "product_designer"
+      ],
+      "expected_supporting_roles": [
+        "information_architect",
+        "ux_writer",
+        "ux_interaction_reviewer",
+        "design_system_guardian",
+        "accessibility_specialist"
+      ],
+      "expected_skills": [
+        "cpt-screen-module-design",
+        "cpt-interaction-state-model",
+        "cpt-information-architecture",
+        "cpt-content-design"
+      ],
+      "expected_gates": [
+        "gate-design-quality",
+        "gate-content-quality",
+        "gate-accessibility"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-ui_implementation",
+      "profile": "ui_implementation",
+      "prompt": "Approved product/UI behavior must be integrated into frontend code.",
+      "expected_accountable_roles": [
+        "frontend_engineer"
+      ],
+      "expected_supporting_roles": [
+        "design_engineer",
+        "design_system_guardian",
+        "qa_engineer",
+        "code_reviewer",
+        "frontend_architect"
+      ],
+      "expected_skills": [
+        "cpt-frontend-integration",
+        "cpt-visual-acceptance-review",
+        "cpt-implementation-review"
+      ],
+      "expected_gates": [
+        "gate-frontend-integration",
+        "gate-design-system-fidelity",
+        "gate-accessibility",
+        "gate-verification"
+      ],
+      "expected_default_execution": "main_thread"
+    },
+    {
+      "id": "profile-design_system_work",
+      "profile": "design_system_work",
+      "prompt": "A design-system component, token, pattern, variant, or governed source is created, changed, or audited.",
+      "expected_accountable_roles": [
+        "design_system_guardian"
+      ],
+      "expected_supporting_roles": [
+        "design_engineer",
+        "frontend_engineer",
+        "visual_design_director",
+        "accessibility_specialist"
+      ],
+      "expected_skills": [
+        "cpt-design-system-governance",
+        "cpt-design-system-code-audit",
+        "cpt-visual-acceptance-review"
+      ],
+      "expected_gates": [
+        "gate-design-system-fidelity",
+        "gate-accessibility",
+        "gate-verification"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-api_dependent_ui",
+      "profile": "api_dependent_ui",
+      "prompt": "A UI change depends on API/data contracts, mutations, persistence, errors, or server/client behavior.",
+      "expected_accountable_roles": [
+        "frontend_engineer"
+      ],
+      "expected_supporting_roles": [
+        "api_contract_guardian",
+        "design_engineer",
+        "backend_architect",
+        "qa_engineer",
+        "data_architect"
+      ],
+      "expected_skills": [
+        "cpt-frontend-integration",
+        "cpt-api-contract",
+        "cpt-implementation-review"
+      ],
+      "expected_gates": [
+        "gate-frontend-integration",
+        "gate-api-contract",
+        "gate-data-integrity",
+        "gate-verification"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-backend_service",
+      "profile": "backend_service",
+      "prompt": "Backend/domain-service behavior, consistency, asynchronous workflow, or service contract changes.",
+      "expected_accountable_roles": [
+        "backend_architect"
+      ],
+      "expected_supporting_roles": [
+        "api_contract_guardian",
+        "data_architect",
+        "security_reviewer",
+        "observability_engineer",
+        "qa_engineer"
+      ],
+      "expected_skills": [
+        "cpt-architecture-plan",
+        "cpt-api-contract",
+        "cpt-data-architecture"
+      ],
+      "expected_gates": [
+        "gate-architecture",
+        "gate-api-contract",
+        "gate-security",
+        "gate-production-readiness"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-data_and_analytics",
+      "profile": "data_and_analytics",
+      "prompt": "Data models, lineage, metrics, instrumentation, semantic layers, or analytics decisions change.",
+      "expected_accountable_roles": [
+        "data_architect"
+      ],
+      "expected_supporting_roles": [
+        "analytics_engineer",
+        "experimentation_specialist",
+        "privacy_compliance_reviewer",
+        "business_analyst"
+      ],
+      "expected_skills": [
+        "cpt-data-architecture",
+        "cpt-analytics-measurement",
+        "cpt-experiment-design"
+      ],
+      "expected_gates": [
+        "gate-data-integrity",
+        "gate-analytics-quality",
+        "gate-privacy"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-ai_product",
+      "profile": "ai_product",
+      "prompt": "Model behavior, retrieval, generation, tools, memory, evals, or AI safety are material.",
+      "expected_accountable_roles": [
+        "ai_ml_systems_architect"
+      ],
+      "expected_supporting_roles": [
+        "model_evaluation_specialist",
+        "ai_safety_reviewer",
+        "security_reviewer",
+        "privacy_compliance_reviewer",
+        "conversation_designer"
+      ],
+      "expected_skills": [
+        "cpt-ai-system-plan",
+        "cpt-model-evaluation",
+        "cpt-ai-safety-review"
+      ],
+      "expected_gates": [
+        "gate-ai-quality",
+        "gate-ai-safety",
+        "gate-security",
+        "gate-privacy"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-security_privacy",
+      "profile": "security_privacy",
+      "prompt": "Sensitive data, identity, permissions, secrets, trust boundaries, privileged actions, or compliance risk are involved.",
+      "expected_accountable_roles": [
+        "security_reviewer"
+      ],
+      "expected_supporting_roles": [
+        "privacy_compliance_reviewer",
+        "solution_architect",
+        "data_architect"
+      ],
+      "expected_skills": [
+        "cpt-threat-model",
+        "cpt-privacy-impact",
+        "cpt-cross-cutting-risk"
+      ],
+      "expected_gates": [
+        "gate-security",
+        "gate-privacy",
+        "gate-evidence-integrity"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-migration_release",
+      "profile": "migration_release",
+      "prompt": "A staged migration, cutover, deployment, data/backfill, compatibility, or production rollout is required.",
+      "expected_accountable_roles": [
+        "migration_planner"
+      ],
+      "expected_supporting_roles": [
+        "devops_release_engineer",
+        "data_architect",
+        "observability_engineer",
+        "qa_engineer",
+        "delivery_manager"
+      ],
+      "expected_skills": [
+        "cpt-migration-plan",
+        "cpt-production-readiness",
+        "cpt-observability-plan"
+      ],
+      "expected_gates": [
+        "gate-migration-safety",
+        "gate-production-readiness",
+        "gate-verification"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-incident",
+      "profile": "incident",
+      "prompt": "A production incident, outage, data loss, security event, or root-cause analysis is required.",
+      "expected_accountable_roles": [
+        "incident_investigator"
+      ],
+      "expected_supporting_roles": [
+        "observability_engineer",
+        "security_reviewer",
+        "delivery_manager",
+        "domain_expert"
+      ],
+      "expected_skills": [
+        "cpt-incident-review",
+        "cpt-observability-plan"
+      ],
+      "expected_gates": [
+        "gate-incident-learning",
+        "gate-evidence-integrity"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    },
+    {
+      "id": "profile-framework_maintenance",
+      "profile": "framework_maintenance",
+      "prompt": "The Codex operating environment, routing, context, skills, roles, plugins, or evaluations are being changed.",
+      "expected_accountable_roles": [
+        "ai_workflow_auditor"
+      ],
+      "expected_supporting_roles": [
+        "team_architect",
+        "consistency_auditor",
+        "chronicle_keeper"
+      ],
+      "expected_skills": [
+        "cpt-framework-audit",
+        "cpt-task-planning",
+        "cpt-knowledge-lifecycle"
+      ],
+      "expected_gates": [
+        "gate-evidence-integrity",
+        "gate-verification",
+        "gate-knowledge-freshness"
+      ],
+      "expected_default_execution": "main_thread_with_lenses"
+    }
+  ]
+}

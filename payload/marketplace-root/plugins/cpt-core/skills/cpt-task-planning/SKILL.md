@@ -66,3 +66,23 @@ Produce a compact artifact containing:
 - Loading all roles or skills “just in case”.
 - Treating every logical role as a worker.
 - Performing an Impact Map as ceremony after implementation has already started.
+
+## Expertise routing references
+
+Use the canonical role layer only after the task profile and meaningful decisions are known:
+
+- `references/EXPERTISE_BUNDLE.json`, which contains the compact role router, task profiles, selected deep methods, and gate contracts.
+
+Routing procedure:
+
+1. Choose the nearest routing profile.
+2. Name the decisions and artifacts that require ownership.
+3. Assign exactly one accountable role to each meaningful decision or artifact.
+4. Add supporting roles only when they change evidence, risk detection, gate ownership, or independent challenge.
+5. Use the compact router first. Consult deep method entries only for accountable owners or material specialists.
+6. Validate that selected roles map to available canonical skills and required gates.
+7. Keep roles in the main thread by default. Worker eligibility is not spawn permission.
+8. Report skipped roles and stop conditions.
+
+Do not install or invent one custom agent per logical role.
+

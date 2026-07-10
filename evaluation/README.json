@@ -1,4 +1,11 @@
 {
   "schema": "cpt-evaluation-readme-v1",
-  "note": "Trigger proxy evals test metadata distinctness; Phase 8 will add executable Codex traces."
+  "note": "Trigger proxy evals test metadata distinctness; Phase 8 will add executable Codex traces.",
+  "version": "4.0.0-alpha.4",
+  "role_evaluation": {
+    "trigger_cases": "role-trigger-cases.json",
+    "routing_cases": "role-routing-cases.json",
+    "report": "role-routing-eval-report.json",
+    "limitation": "deterministic metadata proxy and registry contract test; not a live Codex trace"
+  }
 }

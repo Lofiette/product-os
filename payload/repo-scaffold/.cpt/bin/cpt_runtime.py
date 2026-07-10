@@ -21,7 +21,7 @@ try:
     from jsonschema import Draft202012Validator, FormatChecker
 except ImportError as exc:
     raise SystemExit(
-        "Missing runtime dependencies. Run: python -m pip install -r .cpt/requirements.txt"
+        "Missing runtime dependencies. Install PyYAML and jsonschema using the CPT package requirements."
     ) from exc
 
 SCHEMA_VERSION = "4.0-alpha2"

@@ -12,7 +12,7 @@ from cpt_dist import metadata_budget_for_plugins, validate_plugin
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.3': errors.append('VERSION is not 4.0.0-alpha.3')
+if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.4': errors.append('VERSION is not 4.0.0-alpha.4')
 
 # Core/plugin validation.
 for plugin in plugins:
@@ -41,7 +41,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
 
 catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
-if catalog.get('version')!='4.0.0-alpha.3': errors.append('PACK_CATALOG version mismatch')
+if catalog.get('version')!='4.0.0-alpha.4': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
 actual_ids={p.name for p in plugins[1:]}
 if cat_ids!=actual_ids: errors.append(f'catalog/domain directory mismatch: {cat_ids ^ actual_ids}')
@@ -65,6 +65,8 @@ for plugin in plugins:
     if pack.get('skill_count')!=len(expected) or sorted(pack.get('skill_ids',[]))!=expected: errors.append(f'{plugin.name}: pack inventory mismatch')
     legacy=pack.get('legacy_source',{})
     if legacy.get('package')!='codex-product-team-3.0-ultra-beta2': errors.append(f'{plugin.name}: missing legacy package provenance')
+    if pack.get('role_model')!='logical_lenses_in_cpt_core_references': errors.append(f'{plugin.name}: missing role_model')
+    if pack.get('role_count')!=len(pack.get('role_ids',[])): errors.append(f'{plugin.name}: role_count mismatch')
 
 # Current docs should not claim Alpha 2 as current.
 for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT/'AUDIT_REPORT.md',ROOT/'CHANGELOG.md']:
@@ -72,8 +74,14 @@ for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT
         text=current.read_text()
         if 'Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit' in text: errors.append(f'stale Alpha 2 audit wording in {current.relative_to(ROOT)}')
 
-# Required Alpha 3 assets.
-for rel in ['skills/SKILL_REGISTRY.json','migration/SKILL_MIGRATION.json','migration/SKILL_MIGRATION.csv','evaluation/skill-trigger-cases.json','docs/SKILL_AUTHORING_STANDARD.md','docs/SKILL_INVOCATION_POLICY.md']:
+# Required Alpha 4 assets.
+for rel in [
+    'skills/SKILL_REGISTRY.json','migration/SKILL_MIGRATION.json','migration/SKILL_MIGRATION.csv',
+    'evaluation/skill-trigger-cases.json','docs/SKILL_AUTHORING_STANDARD.md','docs/SKILL_INVOCATION_POLICY.md',
+    'roles/ROLE_REGISTRY.json','roles/ROLE_ROUTING_PROFILES.json','roles/GATE_REGISTRY.json',
+    'migration/ROLE_MIGRATION.json','evaluation/role-trigger-cases.json','evaluation/role-routing-cases.json',
+    'docs/ROLE_SOURCES.md','ROLES.md'
+]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
 
 if errors:

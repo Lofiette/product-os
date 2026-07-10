@@ -14,7 +14,10 @@
     "optional",
     "skill_count",
     "skill_ids",
-    "legacy_source"
+    "legacy_source",
+    "role_count",
+    "role_ids",
+    "role_model"
   ],
   "properties": {
     "schema_version": {
@@ -82,6 +85,21 @@
           "minimum": 0
         }
       }
+    },
+    "role_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "role_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "uniqueItems": true
+    },
+    "role_model": {
+      "const": "logical_lenses_in_cpt_core_references"
     }
   }
 }

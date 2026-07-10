@@ -40,6 +40,14 @@
       "estimated_discovery_chars": 564
     },
     {
+      "profile": "product_discovery",
+      "plugins": [
+        "cpt-core",
+        "cpt-product-research"
+      ],
+      "estimated_discovery_chars": 2616
+    },
+    {
       "profile": "ui_implementation",
       "plugins": [
         "cpt-core",
@@ -49,12 +57,21 @@
       "estimated_discovery_chars": 5666
     },
     {
-      "profile": "product_discovery",
+      "profile": "engineering_change",
       "plugins": [
         "cpt-core",
-        "cpt-product-research"
+        "cpt-engineering"
       ],
-      "estimated_discovery_chars": 2616
+      "estimated_discovery_chars": 3111
+    },
+    {
+      "profile": "risk_sensitive_change",
+      "plugins": [
+        "cpt-core",
+        "cpt-engineering",
+        "cpt-risk-operations"
+      ],
+      "estimated_discovery_chars": 4105
     },
     {
       "profile": "ai_product",
@@ -68,6 +85,7 @@
     }
   ],
   "all_plugins_chars": 9280,
-  "all_plugins_note": "All optional packs are not intended to be enabled simultaneously; Codex may truncate initial skill metadata above its budget.",
+  "all_plugins_warning": true,
+  "all_plugins_note": "All optional packs are not intended to be enabled simultaneously; select packs by task domain.",
   "errors": []
 }

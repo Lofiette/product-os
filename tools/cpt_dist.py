@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-PACKAGE_VERSION = "4.0.0-alpha.3"
+PACKAGE_VERSION = "4.0.0-alpha.4"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -418,7 +418,6 @@ def core_scaffold_files() -> list[tuple[str, bool]]:
         (".cpt/task-index.yaml", True),
         (".cpt/runtime-summary.md", True),
         (".cpt/OPERATIONS.md", False),
-        (".cpt/requirements.txt", False),
         (".cpt/bin/cpt_runtime.py", False),
         (".cpt/schema-bundle.json", False),
     ]

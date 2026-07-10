@@ -1,0 +1,795 @@
+{
+  "schema": "cpt-gate-registry-v1",
+  "version": "4.0.0-alpha.4",
+  "gate_count": 25,
+  "gates": [
+    {
+      "id": "gate-task-scope",
+      "title": "Task Scope Gate",
+      "owner_roles": [
+        "intake_orchestrator",
+        "delivery_manager"
+      ],
+      "when": "Before implementation when scope, acceptance criteria, work mode, or approval boundary may be ambiguous.",
+      "pass": [
+        "Objective and intended outcome are explicit.",
+        "In-scope and out-of-scope boundaries are recorded.",
+        "Acceptance evidence and approval lease are sufficient for the next operation."
+      ],
+      "block": [
+        "A plausible interpretation would materially change files, risks, or acceptance criteria.",
+        "The user request is discovery-only but implementation is about to begin.",
+        "The approved scope cannot be distinguished from optional improvement ideas."
+      ],
+      "evidence": [
+        "Active task or micro-change record",
+        "Impact Map or compact scope note",
+        "User approval or lease"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-task-scope.md"
+    },
+    {
+      "id": "gate-evidence-integrity",
+      "title": "Evidence Integrity Gate",
+      "owner_roles": [
+        "consistency_auditor",
+        "domain_expert"
+      ],
+      "when": "Whenever conclusions depend on research, product claims, external facts, inferred behavior, or incomplete code evidence.",
+      "pass": [
+        "Claims distinguish confirmed evidence, inference, hypothesis, and unknown.",
+        "Each load-bearing claim points to an approved source.",
+        "Contradictions and missing evidence are visible."
+      ],
+      "block": [
+        "A hypothesis is presented as a finding.",
+        "A generated artifact validates itself without an independent source.",
+        "The result cannot show how its conclusion was reached."
+      ],
+      "evidence": [
+        "Evidence table or citations",
+        "Claim-status markers",
+        "Contradiction log"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-evidence-integrity.md"
+    },
+    {
+      "id": "gate-product-value",
+      "title": "Product Value Gate",
+      "owner_roles": [
+        "product_strategist",
+        "product_designer"
+      ],
+      "when": "For product scope, MVP, roadmap, major workflow, or feature-priority decisions.",
+      "pass": [
+        "User and business outcome are explicit.",
+        "The proposed solution addresses the target job or problem.",
+        "Success signals and major assumptions are identified."
+      ],
+      "block": [
+        "The work is feature-first with no outcome rationale.",
+        "Scope expands without a decision-changing benefit.",
+        "The proposed solution solves an internal convenience at user expense without approval."
+      ],
+      "evidence": [
+        "Outcome frame",
+        "Assumption map",
+        "Success measures or decision criteria"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-product-value.md"
+    },
+    {
+      "id": "gate-research-validity",
+      "title": "Research Validity Gate",
+      "owner_roles": [
+        "ux_researcher",
+        "market_researcher",
+        "cx_researcher"
+      ],
+      "when": "Before treating research output as decision-grade evidence.",
+      "pass": [
+        "Method matches the decision question.",
+        "Sampling, limitations, bias risks, and confidence are documented.",
+        "Findings are grounded in observed evidence rather than opinion alone."
+      ],
+      "block": [
+        "Research questions and method do not align.",
+        "Stakeholder assumptions are labelled as user findings.",
+        "The sample cannot support the claimed generalization."
+      ],
+      "evidence": [
+        "Research plan",
+        "Participant/source profile",
+        "Raw-evidence trace",
+        "Synthesis with confidence"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-research-validity.md"
+    },
+    {
+      "id": "gate-design-quality",
+      "title": "Product Design Quality Gate",
+      "owner_roles": [
+        "product_designer",
+        "ux_interaction_reviewer"
+      ],
+      "when": "For new or redesigned screens, flows, modules, or interaction behavior.",
+      "pass": [
+        "User goal, information hierarchy, primary action, states, and edge cases are explicit.",
+        "The design can be handed off without inventing missing behavior.",
+        "Alternatives and rationale are visible for material decisions."
+      ],
+      "block": [
+        "The screen is visually composed but behavior/states are undefined.",
+        "Multiple primary actions compete without rationale.",
+        "The implementation team must infer core interaction decisions."
+      ],
+      "evidence": [
+        "Screen/module design spec",
+        "State matrix",
+        "Interaction rationale",
+        "Design QA notes"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-design-quality.md"
+    },
+    {
+      "id": "gate-design-system-fidelity",
+      "title": "Design-System Fidelity Gate",
+      "owner_roles": [
+        "design_system_guardian",
+        "design_engineer"
+      ],
+      "when": "Whenever a design system, component library, token system, or governed UI source applies.",
+      "pass": [
+        "Canonical components, variants, tokens, and patterns are identified.",
+        "Custom UI or deviations have explicit rationale and approval.",
+        "Rendered result follows the source authority, not a self-generated manifest."
+      ],
+      "block": [
+        "An existing component is reimplemented locally without approval.",
+        "Raw values or one-off variants bypass governed sources.",
+        "A manifest created during the same task is used as sole proof of compliance."
+      ],
+      "evidence": [
+        "Component/token usage map",
+        "Source-authority record",
+        "Approved deviation",
+        "Rendered comparison"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-design-system-fidelity.md"
+    },
+    {
+      "id": "gate-accessibility",
+      "title": "Accessibility Gate",
+      "owner_roles": [
+        "accessibility_specialist",
+        "design_engineer"
+      ],
+      "when": "For user-facing interactions, forms, dialogs, navigation, data displays, or component changes.",
+      "pass": [
+        "Semantics, keyboard operation, focus, names/labels, announcements, contrast, motion, and recovery are reviewed as applicable.",
+        "Blocking accessibility defects are fixed or explicitly accepted."
+      ],
+      "block": [
+        "A primary flow is inaccessible by keyboard.",
+        "Controls lack an accessible name or error association.",
+        "Color is the only carrier of critical meaning."
+      ],
+      "evidence": [
+        "Accessibility checklist",
+        "Keyboard/focus trace",
+        "Automated and manual findings"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-accessibility.md"
+    },
+    {
+      "id": "gate-content-quality",
+      "title": "Content Quality Gate",
+      "owner_roles": [
+        "ux_writer",
+        "conversation_designer"
+      ],
+      "when": "For user-facing copy, terminology, states, errors, onboarding, or conversational behavior.",
+      "pass": [
+        "Terminology is consistent and audience-appropriate.",
+        "Messages explain action, status, and recovery.",
+        "Voice/tone and localization constraints are respected."
+      ],
+      "block": [
+        "Technical identifiers leak into user copy without intent.",
+        "Errors do not support recovery.",
+        "Critical actions are ambiguous or misleading."
+      ],
+      "evidence": [
+        "Content matrix",
+        "Terminology decisions",
+        "State/message review"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-content-quality.md"
+    },
+    {
+      "id": "gate-localization-readiness",
+      "title": "Localization Readiness Gate",
+      "owner_roles": [
+        "localization_specialist",
+        "ux_writer"
+      ],
+      "when": "For multilingual products or changes that affect locale-sensitive content/layout.",
+      "pass": [
+        "Strings are externalizable and context-rich.",
+        "Plural, date, number, expansion, directionality, and cultural risks are covered as relevant.",
+        "Pseudo-localization or representative locales have been considered."
+      ],
+      "block": [
+        "Concatenated strings prevent correct grammar.",
+        "Layout assumes one language length or direction.",
+        "Locale-sensitive values are formatted manually."
+      ],
+      "evidence": [
+        "String inventory",
+        "Locale-risk checklist",
+        "Pseudo-localization result"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-localization-readiness.md"
+    },
+    {
+      "id": "gate-frontend-integration",
+      "title": "Frontend Integration Gate",
+      "owner_roles": [
+        "frontend_engineer",
+        "frontend_architect"
+      ],
+      "when": "For frontend implementation, component integration, routing, client/server boundaries, state, or data-flow changes.",
+      "pass": [
+        "Change location and ownership are correct.",
+        "States, async behavior, errors, accessibility, and responsive behavior are integrated.",
+        "Verification covers systemic usages and regression risk."
+      ],
+      "block": [
+        "A systemic pattern is patched on one screen only.",
+        "State ownership or client/server boundary is unclear.",
+        "The result compiles but leaves visible or behavioral regressions."
+      ],
+      "evidence": [
+        "Impact Map",
+        "Changed-file rationale",
+        "Test/render evidence",
+        "Integration notes"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-frontend-integration.md"
+    },
+    {
+      "id": "gate-architecture",
+      "title": "Architecture Gate",
+      "owner_roles": [
+        "solution_architect",
+        "frontend_architect",
+        "backend_architect",
+        "mobile_architect"
+      ],
+      "when": "For changes to boundaries, shared infrastructure, quality attributes, system decomposition, or platform architecture.",
+      "pass": [
+        "Quality attributes and constraints are explicit.",
+        "Alternatives and trade-offs are compared.",
+        "Boundaries, dependencies, failure modes, and migration/rollback are defined."
+      ],
+      "block": [
+        "Architecture is selected by familiarity alone.",
+        "A cross-cutting dependency is introduced without ownership.",
+        "The design cannot explain failure containment or evolution."
+      ],
+      "evidence": [
+        "Architecture decision record",
+        "Boundary/context diagram",
+        "Trade-off matrix",
+        "Validation plan"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-architecture.md"
+    },
+    {
+      "id": "gate-api-contract",
+      "title": "API Contract Gate",
+      "owner_roles": [
+        "api_contract_guardian",
+        "backend_architect",
+        "frontend_engineer"
+      ],
+      "when": "For endpoint, schema, event, client/server contract, pagination, error, or compatibility changes.",
+      "pass": [
+        "Consumers and compatibility class are known.",
+        "Schemas, errors, idempotency, pagination, versioning, and deprecation are covered as applicable.",
+        "Contract tests or equivalent verification exist."
+      ],
+      "block": [
+        "A breaking change is treated as additive.",
+        "Error or nullability behavior is implicit.",
+        "Frontend behavior depends on undocumented backend semantics."
+      ],
+      "evidence": [
+        "Contract diff",
+        "Compatibility assessment",
+        "Consumer map",
+        "Contract-test evidence"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-api-contract.md"
+    },
+    {
+      "id": "gate-data-integrity",
+      "title": "Data Integrity Gate",
+      "owner_roles": [
+        "data_architect",
+        "analytics_engineer"
+      ],
+      "when": "For data models, migrations, lineage, retention, metrics, or event semantics.",
+      "pass": [
+        "Ownership, lifecycle, constraints, lineage, evolution, and quality controls are explicit.",
+        "Backfill/rollback and reconciliation are defined when data changes.",
+        "Metric/event semantics are stable and testable."
+      ],
+      "block": [
+        "A migration can silently lose or reinterpret data.",
+        "Two teams can compute the same metric differently.",
+        "Retention or sensitive-data lifecycle is undefined."
+      ],
+      "evidence": [
+        "Data model/contract",
+        "Lineage map",
+        "Migration/reconciliation plan",
+        "Quality checks"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-data-integrity.md"
+    },
+    {
+      "id": "gate-analytics-quality",
+      "title": "Analytics Quality Gate",
+      "owner_roles": [
+        "analytics_engineer",
+        "experimentation_specialist"
+      ],
+      "when": "For event instrumentation, metrics, dashboards, funnels, or experiment analysis.",
+      "pass": [
+        "Decision, metric formula, event grain, properties, segmentation, and data-quality checks align.",
+        "Exposure and attribution rules are defined where applicable."
+      ],
+      "block": [
+        "A metric name lacks an executable formula.",
+        "Events cannot distinguish user intent or outcome.",
+        "Experiment exposure or denominator is ambiguous."
+      ],
+      "evidence": [
+        "Metric/event specification",
+        "Validation queries",
+        "Dashboard/experiment review"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-analytics-quality.md"
+    },
+    {
+      "id": "gate-security",
+      "title": "Security Gate",
+      "owner_roles": [
+        "security_reviewer",
+        "solution_architect"
+      ],
+      "when": "For auth, permissions, sensitive actions, network boundaries, dependencies, secrets, or elevated risk.",
+      "pass": [
+        "Assets, actors, trust boundaries, attack paths, controls, and residual risk are explicit.",
+        "Security-critical behaviors are verified, not assumed."
+      ],
+      "block": [
+        "An irreversible or privileged action lacks authorization/confirmation.",
+        "Untrusted input crosses a boundary without validation.",
+        "A critical threat has no control or explicit acceptance."
+      ],
+      "evidence": [
+        "Threat model",
+        "Control map",
+        "Security tests/findings",
+        "Residual-risk decision"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-security.md"
+    },
+    {
+      "id": "gate-privacy",
+      "title": "Privacy Gate",
+      "owner_roles": [
+        "privacy_compliance_reviewer",
+        "data_architect"
+      ],
+      "when": "For personal/sensitive data, telemetry, retention, sharing, profiling, or user rights.",
+      "pass": [
+        "Data inventory, purpose, minimization, flow, access, retention, deletion, and user-right implications are explicit.",
+        "Unknown legal requirements are escalated rather than invented."
+      ],
+      "block": [
+        "Data is collected without an articulated purpose.",
+        "Retention/deletion behavior is undefined.",
+        "Sensitive data appears in logs or prompts without controls."
+      ],
+      "evidence": [
+        "Privacy impact assessment",
+        "Data-flow map",
+        "Retention/access decisions"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-privacy.md"
+    },
+    {
+      "id": "gate-performance",
+      "title": "Performance Gate",
+      "owner_roles": [
+        "performance_engineer",
+        "frontend_architect",
+        "backend_architect"
+      ],
+      "when": "For latency, throughput, bundle/runtime cost, rendering, query, scaling, or resource-sensitive changes.",
+      "pass": [
+        "Budget and baseline are defined.",
+        "Measurements isolate the bottleneck.",
+        "Before/after evidence and regression protection exist."
+      ],
+      "block": [
+        "Optimization is made without measurement.",
+        "A visible regression exceeds the agreed budget.",
+        "Load or scale assumptions are untested."
+      ],
+      "evidence": [
+        "Budget",
+        "Profile/benchmark",
+        "Before/after result",
+        "Regression check"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-performance.md"
+    },
+    {
+      "id": "gate-ai-quality",
+      "title": "AI Quality Gate",
+      "owner_roles": [
+        "model_evaluation_specialist",
+        "ai_ml_systems_architect"
+      ],
+      "when": "For model behavior, retrieval, classification, generation, ranking, or agent quality.",
+      "pass": [
+        "Behavior contract, evaluation set, metrics/rubrics, slices, baseline, threshold, and regression plan are explicit.",
+        "Uncertainty and fallback are handled."
+      ],
+      "block": [
+        "A few demos are treated as sufficient evaluation.",
+        "Critical slices or failure classes are absent.",
+        "Quality cannot be reproduced."
+      ],
+      "evidence": [
+        "Eval dataset/version",
+        "Metrics/rubric",
+        "Baseline comparison",
+        "Failure taxonomy"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-ai-quality.md"
+    },
+    {
+      "id": "gate-ai-safety",
+      "title": "AI Safety Gate",
+      "owner_roles": [
+        "ai_safety_reviewer",
+        "security_reviewer"
+      ],
+      "when": "For generative AI, tool use, untrusted context, sensitive decisions, irreversible actions, or abuse risk.",
+      "pass": [
+        "Harms, abuse cases, prompt injection, tool permissions, confirmation, escalation, and fallback are reviewed.",
+        "High-risk actions have bounded authority and auditable controls."
+      ],
+      "block": [
+        "The model can perform irreversible actions without confirmation.",
+        "Untrusted content can silently change system instructions.",
+        "Safety-critical uncertainty has no escalation path."
+      ],
+      "evidence": [
+        "Safety review",
+        "Permission matrix",
+        "Adversarial evals",
+        "Fallback/escalation design"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-ai-safety.md"
+    },
+    {
+      "id": "gate-production-readiness",
+      "title": "Production Readiness Gate",
+      "owner_roles": [
+        "devops_release_engineer",
+        "qa_engineer",
+        "observability_engineer"
+      ],
+      "when": "Before production release or enabling a production-facing capability.",
+      "pass": [
+        "Build/test/review evidence, rollout, rollback, configuration, observability, ownership, runbook, and support readiness are sufficient.",
+        "Open risks are accepted explicitly."
+      ],
+      "block": [
+        "No rollback exists for a material change.",
+        "Critical telemetry or ownership is missing.",
+        "Verification is incomplete for the release risk."
+      ],
+      "evidence": [
+        "Readiness report",
+        "Rollout/rollback plan",
+        "Runbook",
+        "Release evidence"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-production-readiness.md"
+    },
+    {
+      "id": "gate-migration-safety",
+      "title": "Migration Safety Gate",
+      "owner_roles": [
+        "migration_planner",
+        "data_architect",
+        "devops_release_engineer"
+      ],
+      "when": "For schema, storage, platform, dependency, API, or architecture migrations.",
+      "pass": [
+        "Current/target states, compatibility window, phases, backfill, cutover, rollback, observability, and ownership are explicit.",
+        "Rehearsal or validation matches risk."
+      ],
+      "block": [
+        "Cutover is irreversible without approval.",
+        "Dual-read/write or compatibility behavior is undefined where needed.",
+        "Backfill/reconciliation cannot prove completeness."
+      ],
+      "evidence": [
+        "Migration plan",
+        "Rehearsal result",
+        "Rollback procedure",
+        "Reconciliation evidence"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-migration-safety.md"
+    },
+    {
+      "id": "gate-experiment-validity",
+      "title": "Experiment Validity Gate",
+      "owner_roles": [
+        "experimentation_specialist",
+        "analytics_engineer"
+      ],
+      "when": "For experiments, feature flags used as experiments, or causal claims.",
+      "pass": [
+        "Hypothesis, unit, exposure, primary/guardrail metrics, sample/duration, analysis and stopping rules are defined.",
+        "Decision rule is known before results."
+      ],
+      "block": [
+        "Users are analyzed without reliable exposure.",
+        "Multiple metrics enable post-hoc success.",
+        "The experiment cannot distinguish implementation failure from hypothesis failure."
+      ],
+      "evidence": [
+        "Experiment design",
+        "Instrumentation validation",
+        "Analysis plan",
+        "Result decision"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-experiment-validity.md"
+    },
+    {
+      "id": "gate-verification",
+      "title": "Verification Gate",
+      "owner_roles": [
+        "qa_engineer",
+        "code_reviewer"
+      ],
+      "when": "Before declaring an implementation or review task complete.",
+      "pass": [
+        "Verification strategy matches risk.",
+        "Changed behavior, edges, regressions, and visual/runtime evidence are covered as applicable.",
+        "Commands and results are reported honestly."
+      ],
+      "block": [
+        "No evidence supports the completion claim.",
+        "Only compilation is used to validate user-facing behavior.",
+        "Known blockers are hidden as warnings."
+      ],
+      "evidence": [
+        "Test matrix/results",
+        "Review findings",
+        "Rendered/runtime evidence",
+        "Residual risks"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-verification.md"
+    },
+    {
+      "id": "gate-incident-learning",
+      "title": "Incident Learning Gate",
+      "owner_roles": [
+        "incident_investigator",
+        "observability_engineer"
+      ],
+      "when": "For incident closure, root-cause claims, or corrective action planning.",
+      "pass": [
+        "Impact, timeline, evidence, root/contributing causes, containment, corrective actions, owners, and validation are explicit.",
+        "Learning is systemic rather than blame-focused."
+      ],
+      "block": [
+        "Root cause is asserted without evidence.",
+        "Actions only tell people to be more careful.",
+        "Recurrence detection or validation is missing."
+      ],
+      "evidence": [
+        "Incident timeline",
+        "Evidence/hypothesis log",
+        "Corrective action register",
+        "Validation plan"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-incident-learning.md"
+    },
+    {
+      "id": "gate-knowledge-freshness",
+      "title": "Knowledge Freshness Gate",
+      "owner_roles": [
+        "chronicle_keeper",
+        "consistency_auditor"
+      ],
+      "when": "When task output changes product boundaries, flows, contracts, decisions, or future routing knowledge.",
+      "pass": [
+        "Affected knowledge artifacts and review triggers are identified.",
+        "Confirmed knowledge, inference, stale claims, and task-local notes remain separated.",
+        "Only durable, affected knowledge is updated."
+      ],
+      "block": [
+        "A completed change leaves routing knowledge materially wrong.",
+        "Task transcript is copied into durable knowledge.",
+        "Stale claims remain marked current."
+      ],
+      "evidence": [
+        "Knowledge update diff",
+        "Freshness markers",
+        "Source revision/evidence references"
+      ],
+      "verdicts": [
+        "PASS",
+        "PASS_WITH_WARNINGS",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "path": "roles/gates/gate-knowledge-freshness.md"
+    }
+  ]
+}

@@ -1,196 +1,215 @@
-# Codex Product Operating System 4.0 Alpha 3 — Skills Consolidation Audit
+# Codex Product Operating System 4.0 Alpha 4 — Role Expertise and Routing Audit
 
 Date: 2026-07-10  
-Version: `4.0.0-alpha.3`  
-Phase: **Phase 3 — Skills Consolidation**
+Version: `4.0.0-alpha.4`  
+Phase: **Phase 4 — Role Expertise and Routing Overhaul**
 
 ## Verdict
 
-**PASS for Alpha 3 Skills Consolidation, with explicitly documented behavioral-evaluation and role-integration boundaries.**
+**PASS for Alpha 4 role-layer scope, with worker orchestration, live-model routing, and automated gate enforcement explicitly deferred.**
 
-Alpha 3 preserves the Alpha 2 Runtime Kernel and distribution split, replaces the 3.x skill sprawl with a complete canonical migration, and keeps realistic activation profiles below the package metadata budget. It does not yet claim live-model routing certification or integration of the 50 logical roles.
+Alpha 4 preserves the Alpha 1 Runtime Kernel, Alpha 2 distribution model, and Alpha 3 skill consolidation. It rewrites the complete 50-role library as typed accountability lenses, connects roles to the 45 canonical skills and 25 evidence-based gates, and keeps the installed project footprint below the distribution budget.
 
 ## Implemented
 
-- complete inventory of 95 legacy skills;
-- one-to-one legacy mapping coverage with no duplicate source mappings;
-- 45 active canonical skills;
-- one required core plugin and five optional domain plugins;
-- exact `cpt-pack-v2` inventories and legacy provenance;
-- domain-specific method, output contract, evidence standard, stop conditions, and failure modes for every active skill;
-- `agents/openai.yaml` for every active skill;
-- implicit/explicit invocation policy;
-- central skill registry and migration registry;
-- 135 deterministic trigger proxy cases;
-- pack and working-profile metadata-budget validation;
-- bundled-pack installation and independent removal;
-- preserved Alpha 2 install/update/doctor/uninstall behavior;
-- preserved Alpha 1 task, micro-change, lease, checkpoint, and recovery runtime.
+- all 50 logical roles from `codex-product-team-3.0-ultra-beta2` retained;
+- zero new logical roles and zero deprecated roles;
+- 50 compact role lenses;
+- 50 deep, role-specific method references;
+- explicit decision rights, activation/non-activation, artifacts, evidence, handoffs, skills, gates, task types, execution modes, and worker eligibility;
+- 25 quality gates with four-state verdict contracts;
+- 14 task routing profiles;
+- role-to-skill and role-to-gate matrices;
+- complete role migration registry;
+- compact runtime expertise bundle inside `cpt-core`;
+- deterministic role trigger and routing proxy evaluations;
+- preserved installer/update/uninstall/runtime behavior.
 
-## Inventory and consolidation metrics
+## Inventory
 
 | Metric | Result |
 |---|---:|
-| Legacy skills | 95 |
-| Active canonical skills | 45 |
-| Consolidation ratio | 52.6% fewer active skills |
-| Legacy source mappings | 95 / 95 |
-| Active compatibility aliases | 0 |
-| Plugins | 6 total: 1 core + 5 domain |
-| Implicit skills | 41 |
-| Explicit-only skills | 4 |
-| Trigger cases | 135 |
-| Trigger proxy result | 135 / 135 PASS |
-| Duplicate active method bodies | 0 |
-| Skills missing output/evidence/stop/failure sections | 0 |
-| Skills missing `agents/openai.yaml` | 0 |
+| Logical roles | 50 |
+| Roles retained from 3.0 | 50 / 50 |
+| New roles | 0 |
+| Role lenses | 50 |
+| Deep role methods | 50 |
+| Canonical skills | 45 |
+| Quality gates | 25 |
+| Routing profiles | 14 |
+| Role trigger cases | 150 |
+| Routing-profile cases | 14 |
+| Role proxy cases passed | 164 / 164 |
+| Lens lines | 3,325 |
+| Method-reference lines | 3,083 |
+| Gate-contract lines | 988 |
+| Team-mode project framework files | 19 |
 
-Explicit-only skills:
+## Role distribution
 
-- `cpt-delegation`;
-- `cpt-design-system-code-audit`;
-- `cpt-framework-audit`;
-- `cpt-opportunity-ideation`.
+| Plugin | Primary roles |
+|---|---:|
+| `cpt-core` | 6 |
+| `cpt-product-research` | 9 |
+| `cpt-design-ui` | 12 |
+| `cpt-engineering` | 18 |
+| `cpt-risk-operations` | 2 |
+| `cpt-ai-agentic` | 3 |
 
-## Plugin inventory
+## Role model
 
-| Plugin | Active skills | Legacy skills represented | Estimated discovery metadata |
-|---|---:|---:|---:|
-| `cpt-core` | 3 | 18 | 564 chars |
-| `cpt-product-research` | 10 | 19 | 2,052 chars |
-| `cpt-design-ui` | 12 | 31 | 2,555 chars |
-| `cpt-engineering` | 12 | 16 | 2,547 chars |
-| `cpt-risk-operations` | 5 | 8 | 994 chars |
-| `cpt-ai-agentic` | 3 | 3 | 568 chars |
-
-The combined engineering pack is an intentional Alpha 3 decision. Its metadata remains within the domain-pack budget, while common UI/API/data tasks frequently cross the proposed frontend/backend boundary. Future splitting requires live routing evidence rather than file-count preference.
-
-## Supported activation-profile budgets
-
-| Profile | Packs | Estimated metadata |
-|---|---|---:|
-| Core only | core | 564 chars |
-| Product discovery | core + product/research | 2,616 chars |
-| UI review | core + design/UI | 3,119 chars |
-| UI implementation | core + design/UI + engineering | 5,666 chars |
-| Risk review | core + risk/operations | 1,558 chars |
-| AI product | core + product/research + AI + risk/operations | 4,178 chars |
-
-All supported default profiles stay below the Alpha 3 release target of 7,000 estimated characters. Enabling every optional pack yields about 9,280 characters and is intentionally **not** a supported default discovery profile.
-
-## Consolidation quality
-
-The migration removes active aliases rather than preserving them as metadata-consuming skills. Examples:
-
-- runtime, intake, ticket, context, and checkpoint fragments consolidate into `cpt-runtime`;
-- bounded discovery, repo recon, framework loading, Impact Map, and team routing consolidate into `cpt-task-planning`;
-- greenfield/onboarding/freshness/update fragments consolidate into `cpt-knowledge-lifecycle`;
-- reference, taste, example-board, and critique fragments consolidate into `cpt-reference-taste-calibration`;
-- UI review, screenshot comparison, heuristic audit, and visual QA fragments consolidate into `cpt-visual-acceptance-review`;
-- subagent orchestration, bounded contract, and failure recovery consolidate into explicit-only `cpt-delegation`.
-
-Every canonical method has a unique method body and a named output contract. The 3.x five-step generic placeholder procedure is rejected by validation.
-
-## Static validation
+Alpha 4 enforces the following separation:
 
 ```text
-SKILL VALIDATION PASSED: 45 active skills, 95 legacy mappings, 6 plugins
+Role   = accountable professional lens
+Skill  = reusable method
+Gate   = evidence required to accept a result
+Worker = bounded execution container, deferred to the Execution Plane
+```
+
+Roles default to the main thread. Worker eligibility records whether a bounded independent contribution could be delegated later; it never grants spawn permission.
+
+## Expertise depth
+
+Every role now includes:
+
+- explicit decision rights;
+- at least two professional mental models;
+- a role-specific multi-step method;
+- evidence requirements;
+- professional anti-patterns;
+- an output contract;
+- stop and escalation rules;
+- canonical skill and gate mappings.
+
+The legacy role-card/playbook template was not copied forward as the active method. The stable role IDs and competency coverage were preserved, while the method content was rewritten.
+
+## Quality gates
+
+Twenty-five gates cover:
+
+- scope and evidence integrity;
+- product value and research validity;
+- design, design-system fidelity, content, accessibility, localization;
+- frontend, architecture, API, data, analytics;
+- security, privacy, performance;
+- AI quality and AI safety;
+- production, migration, experimentation, verification;
+- incident learning and knowledge freshness.
+
+Every gate supports:
+
+```text
+PASS
+PASS_WITH_WARNINGS
+BLOCKED
+INSUFFICIENT_EVIDENCE
+```
+
+A warning cannot hide a blocker, and missing evidence cannot become a clean pass.
+
+## Runtime loading
+
+The full role library remains in the distribution package for authoring, audit, and migration.
+
+The installed core plugin carries one task-planning reference file:
+
+```text
+references/EXPERTISE_BUNDLE.json
+```
+
+It contains the compact role router, routing profiles, selected deep methods, and gate contracts. It is loaded only after `cpt-task-planning` is invoked; it does not add skill-discovery metadata.
+
+The team-mode project footprint remains at 19 framework files.
+
+## Migration
+
+`migration/ROLE_MIGRATION.json` and `.csv` map all 50 source roles to the same stable role IDs with status:
+
+```text
+retained_rewritten
+```
+
+Migration adds:
+
+- typed ownership;
+- skill/gate routing;
+- method depth;
+- worker-eligibility separation;
+- canonical runtime references.
+
+It does not install legacy role aliases or 50 custom agents.
+
+## Static and proxy validation
+
+```text
+ROLE VALIDATION PASSED: 50 logical roles, 25 gates, 14 routing profiles
+ROLE ROUTING PROXY EVAL: 164/164 passed
+SKILL VALIDATION PASSED: 45 active skills, 95 unique legacy mappings, 6 plugins
 TRIGGER PROXY EVAL: 135/135 passed
 DISTRIBUTION STATIC VALIDATION PASSED
-PYTHON COMPILE PASS
 ```
 
 Validated:
 
-- skill frontmatter and exact path/name identity;
-- discriminative description length and trigger-oriented wording;
-- eight required operational sections;
-- minimum method depth;
-- output-contract depth;
-- absence of legacy boilerplate and duplicate method bodies;
-- valid `agents/openai.yaml`, display metadata, and boolean invocation policy;
-- exact trigger-case coverage;
-- exact 95-source migration coverage;
-- active registry / installed skill identity;
-- `cpt-pack-v2` exact inventories and legacy provenance;
-- pack catalog/profile references;
-- plugin manifests and marketplace paths;
-- compact root `AGENTS.md` loader;
-- absence of private product/design-system names in universal package files.
+- exact 50-role preservation;
+- role IDs, plugins, skills, gates, and handoffs;
+- lens/method/gate required sections;
+- method depth and evidence obligations;
+- one accountable role per routing profile;
+- complete migration coverage;
+- plugin role inventories;
+- compact expertise-bundle consistency;
+- trigger/routing case coverage;
+- absence of one-custom-agent-per-role packaging.
 
 ## Behavioral distribution tests
 
-Passed individually:
+All 15 distribution cases passed, including:
 
-1. local install remains Git-clean and below repo-file budget;
-2. team install with repo core remains below budget;
-3. existing tracked `AGENTS.md` is preserved in local mode;
-4. update preserves mutable runtime state;
-5. update blocks modified managed tooling without force;
-6. uninstall preserves application source;
-7. personal marketplace preserves unrelated entries;
-8. domain pack removal preserves core;
-9. team uninstall preserves pre-existing AGENTS content;
-10. personal core survives project uninstall by default;
-11. core metadata budget remains small;
-12. bundled domain pack installs by name and removes independently;
-13. doctor passes after local installation.
+- local Git-clean installation;
+- team installation below 20 framework files;
+- tracked `AGENTS.md` protection;
+- runtime-state-preserving update;
+- managed-file conflict detection;
+- safe uninstall;
+- marketplace preservation;
+- independent domain-pack lifecycle;
+- core metadata budget;
+- doctor and legacy-skill resolution.
 
-## Runtime and pack integration
-
-A clean local installation successfully:
-
-```text
-installed cpt-core
-installed cpt-design-ui and cpt-engineering independently
-reported Git-clean project state
-created and activated a Standard Task
-created a scoped lease
-created a checkpoint
-validated runtime pointers and schemas
-reported doctor PASS
-```
-
-All five bundled domain packs were also exposed through a synthetic personal marketplace and selected packs were removed without changing the remaining entries.
-
-## Safety and context behavior
-
-- only `cpt-core` is required;
-- optional domain packs are independently enabled;
-- no active legacy aliases consume metadata;
-- real delegation is explicit-only;
-- framework audits and broad design-system code audits are explicit-only;
-- realistic profiles stay below release metadata budget;
-- all-pack activation is measured and clearly documented as non-default;
-- canonical task/runtime state remains in the repo scaffold rather than plugin state;
-- installer still performs no `git add`, commit, branch, reset, or clean.
+Role tests: 4 / 4 PASS.  
+Skill tests: 5 / 5 PASS.
 
 ## Honest limitations
 
-- The trigger evaluator is a deterministic metadata proxy, not a live Codex trace.
-- The 50 logical roles and role-to-skill/gate routing are not migrated yet.
-- Domain plugins are exposed but not automatically enabled by installation.
-- Hooks, rules, native approval profiles, SQLite, MCP, Product Knowledge schemas, workers, and external adapters are absent.
-- Legacy aliases require migration lookup; they are not executable compatibility skills.
-- The authorization lease remains a runtime contract, not a sandbox boundary.
-- Full production CI across all operating systems and Codex hosts remains later work.
+- Role selection evaluation is a deterministic metadata proxy, not a live Codex trace.
+- Quality gates are contracts, not hook-enforced runtime barriers yet.
+- Worker archetypes, timeout, cancellation, quorum, and worktree isolation are not implemented.
+- Product Knowledge schemas and claim provenance are not migrated.
+- Role method references do not yet include a curated external bibliography or worked example for every domain.
+- The runtime expertise bundle is intentionally compact in file count but can still be context-heavy if a model reads it indiscriminately; `cpt-task-planning` instructs router-first, selected-method loading.
+- No SQLite, MCP, external adapters, or observability backend are included.
 
-## Phase 3 exit assessment
+## Phase 4 exit assessment
 
 | Criterion | Status |
 |---|---|
-| Inventory every 3.x skill | PASS |
-| Map every legacy skill exactly once | PASS |
-| Remove active aliases and obvious fragments | PASS |
-| Replace generic active skills with domain methods | PASS |
-| Add output/evidence/stop/failure contracts | PASS |
-| Add invocation metadata | PASS |
-| Keep supported profiles within metadata budget | PASS |
-| Add trigger regression proxy | PASS |
-| Preserve Alpha 2 distribution behavior | PASS |
-| Live Codex routing evals | DEFERRED to Evaluation Plane |
-| Logical-role integration | DEFERRED to Phase 4 |
+| Preserve all 50 logical roles | PASS |
+| Add no unproven new roles | PASS |
+| Replace generic role methods | PASS |
+| Define decision rights and evidence | PASS |
+| Map roles to canonical skills | PASS |
+| Map roles to evidence gates | PASS |
+| Add routing profiles | PASS |
+| Separate roles from workers | PASS |
+| Preserve distribution file budget | PASS |
+| Add role migration and proxy evals | PASS |
+| Live Codex role-routing certification | DEFERRED |
+| Executable worker archetypes | DEFERRED to Execution Plane |
 
 ## Recommendation
 
-Freeze this package as the **Alpha 3 Skills Consolidation baseline** and proceed to Phase 4: Role Expertise and Routing Overhaul. Do not add new skills by default; Phase 4 should connect the preserved 50 logical roles to these 45 methods, gates, and a smaller worker-archetype surface.
+Freeze Alpha 4 as the role/expertise baseline and proceed to Phase 5: Product Knowledge Schema and Lifecycle.
+
+The next phase should type Product Map, Knowledge Index, Area/Flow Maps, Decision Records, API/Data contracts, claim provenance, freshness dependencies, and task-specific context packets without expanding the always-on runtime surface.

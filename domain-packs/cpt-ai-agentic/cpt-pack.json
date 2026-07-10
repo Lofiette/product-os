@@ -2,8 +2,8 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-ai-agentic",
   "kind": "domain",
-  "version": "4.0.0-alpha.3",
-  "requires_core": ">=4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
+  "requires_core": ">=4.0.0-alpha.4",
   "domains": [
     "ai-agentic"
   ],
@@ -18,5 +18,12 @@
   "legacy_source": {
     "package": "codex-product-team-3.0-ultra-beta2",
     "skill_count": 3
-  }
+  },
+  "role_count": 3,
+  "role_ids": [
+    "ai_ml_systems_architect",
+    "ai_safety_reviewer",
+    "model_evaluation_specialist"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
 }

@@ -1,0 +1,5158 @@
+{
+  "schema": "cpt-role-registry-v1",
+  "version": "4.0.0-alpha.4",
+  "role_count": 50,
+  "principles": [
+    "Roles are logical accountability lenses, not subagents.",
+    "Exactly one role owns each meaningful decision or artifact.",
+    "Skills are methods; gates are evidence-based acceptance contracts.",
+    "Worker eligibility does not grant spawn permission.",
+    "Load only selected lenses; load deep methods only for accountable owners or material specialists."
+  ],
+  "roles": [
+    {
+      "id": "intake_orchestrator",
+      "title": "Task Intake Orchestrator",
+      "category": "System",
+      "primary_plugin": "cpt-core",
+      "mission": "Turns an unclear request into a scoped task brief, chooses intake depth, and prevents premature implementation.",
+      "decision_rights": [
+        "Own intake depth, work-mode classification, initial scope, and the decision to stop questioning and route work."
+      ],
+      "mental_models": [
+        "Decision-changing questions",
+        "Progressive disclosure",
+        "Risk-first intake",
+        "Minimum sufficient brief"
+      ],
+      "activation_signals": [
+        "new request",
+        "major scope change",
+        "ambiguous work mode",
+        "missing acceptance evidence"
+      ],
+      "non_activation": [
+        "obvious eligible micro change after classification"
+      ],
+      "owned_artifacts": [
+        "Task brief",
+        "Question budget",
+        "Work-mode classification",
+        "Initial routing note"
+      ],
+      "required_skills": [
+        "cpt-task-planning"
+      ],
+      "optional_skills": [
+        "cpt-product-scope",
+        "cpt-cross-cutting-risk",
+        "cpt-runtime"
+      ],
+      "required_gates": [
+        "gate-task-scope",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "User request and clarifications",
+        "Current runtime state",
+        "Known constraints and artifacts",
+        "Explicit unanswered decision-changing questions"
+      ],
+      "handoffs": [
+        "team_architect",
+        "delivery_manager",
+        "product_strategist"
+      ],
+      "task_types": [
+        "new_task",
+        "scope_change",
+        "intake"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens"
+      ],
+      "worker_eligibility": "never",
+      "preferred_worker_archetype": "none",
+      "load_cost": "tiny",
+      "lens_path": "roles/lenses/intake_orchestrator.md",
+      "method_path": "roles/methods/intake_orchestrator.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/intake_orchestrator.md",
+        "playbook": ".agents/playbooks/00-intake_orchestrator.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Restate the request as an outcome and identify the next irreversible decision.",
+        "Classify the work mode, surface, lifecycle stage, and obvious risk triggers.",
+        "Ask only questions whose answers can change scope, acceptance evidence, role/skill selection, or approval boundaries.",
+        "Separate known inputs, assumptions, unknowns, and deferred questions.",
+        "Produce the smallest useful task brief and route it to an accountable owner."
+      ],
+      "anti_patterns": [
+        "Exhaustive questionnaires",
+        "Asking implementation details before work mode is known",
+        "Turning assumptions into acceptance criteria",
+        "Beginning implementation during intake"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "team_architect",
+      "title": "Team Architect",
+      "category": "System",
+      "primary_plugin": "cpt-core",
+      "mission": "Assembles the smallest sufficient team, maps roles to skills, and chooses orchestration mode without wasting context.",
+      "decision_rights": [
+        "Own the minimal expertise composition, role-to-decision ownership, skill/gate routing, and proposed execution mode."
+      ],
+      "mental_models": [
+        "Decision ownership",
+        "Capability coverage",
+        "Minimal sufficient team",
+        "Independent evidence value",
+        "Coordination cost"
+      ],
+      "activation_signals": [
+        "multiple decision domains",
+        "uncertain role ownership",
+        "worker proposal"
+      ],
+      "non_activation": [
+        "single-domain micro change with obvious owner"
+      ],
+      "owned_artifacts": [
+        "Expertise contract",
+        "Role/skill/gate plan",
+        "Execution-mode proposal",
+        "Skipped-role rationale"
+      ],
+      "required_skills": [
+        "cpt-task-planning"
+      ],
+      "optional_skills": [
+        "cpt-delegation",
+        "cpt-framework-audit",
+        "cpt-cross-cutting-risk"
+      ],
+      "required_gates": [
+        "gate-task-scope",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "Task brief",
+        "Role registry",
+        "Skill registry",
+        "Risk triggers",
+        "Artifact and gate requirements"
+      ],
+      "handoffs": [
+        "delivery_manager",
+        "consistency_auditor"
+      ],
+      "task_types": [
+        "expertise_routing",
+        "multi_domain_task",
+        "delegation_plan"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens"
+      ],
+      "worker_eligibility": "never",
+      "preferred_worker_archetype": "none",
+      "load_cost": "tiny",
+      "lens_path": "roles/lenses/team_architect.md",
+      "method_path": "roles/methods/team_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/team_architect.md",
+        "playbook": ".agents/playbooks/01-team_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "List the meaningful decisions and required artifacts before listing roles.",
+        "Assign exactly one accountable role to each decision or artifact.",
+        "Add specialist lenses only when they change evidence, risk detection, gate ownership, or challenge quality.",
+        "Map each selected role to canonical skills and required gates.",
+        "Choose main-thread lenses by default; propose a worker only for bounded independent output.",
+        "Record skipped roles and stop conditions."
+      ],
+      "anti_patterns": [
+        "Selecting roles by prestige",
+        "One worker per role",
+        "Loading all playbooks",
+        "Using more roles to compensate for unclear ownership"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "delivery_manager",
+      "title": "Delivery Manager",
+      "category": "System",
+      "primary_plugin": "cpt-core",
+      "mission": "Controls sequence, milestones, approval checkpoints, and scope discipline for multi-step work.",
+      "decision_rights": [
+        "Own execution sequencing, dependency visibility, milestones, approval checkpoints, and delivery-scope discipline."
+      ],
+      "mental_models": [
+        "Critical path",
+        "Dependency-first planning",
+        "Decision latency",
+        "Incremental delivery",
+        "Reversible milestones"
+      ],
+      "activation_signals": [
+        "multi-phase work",
+        "cross-area dependency",
+        "deadline/release coordination"
+      ],
+      "non_activation": [
+        "single reversible change with one owner"
+      ],
+      "owned_artifacts": [
+        "Execution plan",
+        "Dependency map",
+        "Milestones",
+        "Approval schedule"
+      ],
+      "required_skills": [
+        "cpt-task-planning"
+      ],
+      "optional_skills": [
+        "cpt-production-readiness",
+        "cpt-migration-plan",
+        "cpt-runtime"
+      ],
+      "required_gates": [
+        "gate-task-scope",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "Approved task and Impact Map",
+        "Dependency map",
+        "Owner/approval availability",
+        "Verification constraints"
+      ],
+      "handoffs": [
+        "qa_engineer",
+        "devops_release_engineer",
+        "chronicle_keeper"
+      ],
+      "task_types": [
+        "multi_phase_delivery",
+        "release_plan",
+        "cross_functional_execution"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens"
+      ],
+      "worker_eligibility": "never",
+      "preferred_worker_archetype": "none",
+      "load_cost": "tiny",
+      "lens_path": "roles/lenses/delivery_manager.md",
+      "method_path": "roles/methods/delivery_manager.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/delivery_manager.md",
+        "playbook": ".agents/playbooks/02-delivery_manager.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Decompose the approved outcome into verifiable increments.",
+        "Map dependencies, approvals, external waits, and integration points.",
+        "Order work by uncertainty reduction and critical path rather than role hierarchy.",
+        "Define milestone exit evidence, owner, and rollback point.",
+        "Track scope changes separately from execution progress.",
+        "Escalate blocked decisions before downstream work accumulates."
+      ],
+      "anti_patterns": [
+        "Ceremonial project plans",
+        "Dates without dependency reasoning",
+        "Hiding scope growth inside progress",
+        "Milestones with no evidence"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "chronicle_keeper",
+      "title": "Chronicle Keeper",
+      "category": "System",
+      "primary_plugin": "cpt-core",
+      "mission": "Maintains durable project memory so work survives context compression and handoffs.",
+      "decision_rights": [
+        "Own durable runtime summary, checkpoint usefulness, decision continuity, and compaction-safe recovery state."
+      ],
+      "mental_models": [
+        "Durable versus transient knowledge",
+        "Recovery point objective",
+        "State compression",
+        "Source-of-truth separation"
+      ],
+      "activation_signals": [
+        "phase transition",
+        "pre/post compaction",
+        "task closure",
+        "recovery"
+      ],
+      "non_activation": [
+        "no durable state change"
+      ],
+      "owned_artifacts": [
+        "Runtime summary",
+        "Checkpoint note",
+        "Recovery mismatch report"
+      ],
+      "required_skills": [
+        "cpt-runtime",
+        "cpt-knowledge-lifecycle"
+      ],
+      "optional_skills": [
+        "cpt-task-planning"
+      ],
+      "required_gates": [
+        "gate-knowledge-freshness",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "Current task state",
+        "Approval lease",
+        "Decision records",
+        "Verification status",
+        "Subagent/worker status if any"
+      ],
+      "handoffs": [
+        "consistency_auditor",
+        "delivery_manager"
+      ],
+      "task_types": [
+        "runtime_summary",
+        "checkpoint",
+        "compaction_recovery"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens"
+      ],
+      "worker_eligibility": "never",
+      "preferred_worker_archetype": "none",
+      "load_cost": "tiny",
+      "lens_path": "roles/lenses/chronicle_keeper.md",
+      "method_path": "roles/methods/chronicle_keeper.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/chronicle_keeper.md",
+        "playbook": ".agents/playbooks/03-chronicle_keeper.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify what a fresh session must know to take the next correct action.",
+        "Persist active objective, approved scope, decisions, blockers, unfinished verification, and next operation.",
+        "Move historical detail out of the active summary rather than appending indefinitely.",
+        "Link to canonical task, knowledge, and evidence artifacts instead of duplicating them.",
+        "Before compaction or phase transition, verify that recovery state is sufficient and current.",
+        "After recovery, compare checkpoint state with runtime state and surface mismatches."
+      ],
+      "anti_patterns": [
+        "Writing a transcript",
+        "Copying tool outputs",
+        "Keeping stale decisions current",
+        "Using summary as canonical product knowledge"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "consistency_auditor",
+      "title": "Consistency Auditor",
+      "category": "System",
+      "primary_plugin": "cpt-core",
+      "mission": "Finds contradictions, missing ownership, unsupported claims, risk gaps, and process drift.",
+      "decision_rights": [
+        "Own cross-artifact invariant checking, instruction conflict detection, traceability, and unresolved contradiction escalation."
+      ],
+      "mental_models": [
+        "Invariant map",
+        "Bidirectional traceability",
+        "Source authority",
+        "Contradiction matrix",
+        "Semantic drift"
+      ],
+      "activation_signals": [
+        "multiple artifacts or policies",
+        "mirrored sources",
+        "final integration review",
+        "conflicting outputs"
+      ],
+      "non_activation": [
+        "single obvious local change with one source of truth"
+      ],
+      "owned_artifacts": [
+        "Invariant matrix",
+        "Traceability report",
+        "Conflict verdict"
+      ],
+      "required_skills": [
+        "cpt-framework-audit"
+      ],
+      "optional_skills": [
+        "cpt-implementation-review",
+        "cpt-knowledge-lifecycle"
+      ],
+      "required_gates": [
+        "gate-evidence-integrity",
+        "gate-knowledge-freshness",
+        "gate-verification"
+      ],
+      "evidence_requirements": [
+        "Applicable policies and schemas",
+        "Task/Impact Map",
+        "Changed artifacts",
+        "Validation results",
+        "Source-authority records"
+      ],
+      "handoffs": [
+        "team_architect",
+        "delivery_manager"
+      ],
+      "task_types": [
+        "consistency_audit",
+        "release_audit",
+        "framework_validation"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "tiny",
+      "lens_path": "roles/lenses/consistency_auditor.md",
+      "method_path": "roles/methods/consistency_auditor.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/consistency_auditor.md",
+        "playbook": ".agents/playbooks/04-consistency_auditor.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Enumerate applicable invariants, sources, artifacts, and decision owners.",
+        "Trace each requirement or rule to implementation/output evidence and each material output back to an approved requirement.",
+        "Compare duplicate or mirrored sources and identify canonical authority.",
+        "Classify conflicts as wording drift, scope conflict, ownership conflict, or behavioral contradiction.",
+        "Recommend the smallest correction and escalate unresolved decision conflicts to the accountable owner.",
+        "Issue PASS, PASS_WITH_WARNINGS, BLOCKED, or INSUFFICIENT_EVIDENCE."
+      ],
+      "anti_patterns": [
+        "Style-only review presented as consistency",
+        "Resolving product decisions without owner",
+        "Ignoring contradictory mirrors",
+        "Treating absence of evidence as pass"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "ai_workflow_auditor",
+      "title": "AI Workflow Auditor",
+      "category": "System",
+      "primary_plugin": "cpt-core",
+      "mission": "Improves the agent operating system itself: prompts, skills, roles, validators, and failure patterns.",
+      "decision_rights": [
+        "Own trace-based diagnosis of the Codex operating environment, routing behavior, context cost, and framework failure modes."
+      ],
+      "mental_models": [
+        "Observed trace over claimed process",
+        "Context surface accounting",
+        "Trigger-to-action chain",
+        "Failure taxonomy",
+        "Regression comparison"
+      ],
+      "activation_signals": [
+        "unexpected runtime behavior",
+        "context overload",
+        "routing failure",
+        "agent hang",
+        "framework regression"
+      ],
+      "non_activation": [
+        "ordinary product task with no framework symptom"
+      ],
+      "owned_artifacts": [
+        "Framework failure analysis",
+        "Trace comparison",
+        "Regression case",
+        "Patch recommendation"
+      ],
+      "required_skills": [
+        "cpt-framework-audit"
+      ],
+      "optional_skills": [
+        "cpt-task-planning",
+        "cpt-knowledge-lifecycle",
+        "cpt-delegation"
+      ],
+      "required_gates": [
+        "gate-evidence-integrity",
+        "gate-verification",
+        "gate-knowledge-freshness"
+      ],
+      "evidence_requirements": [
+        "Session/diagnostic extract",
+        "Runtime artifacts",
+        "Expected protocol",
+        "Tool/approval trace",
+        "Output and verification evidence"
+      ],
+      "handoffs": [
+        "team_architect",
+        "consistency_auditor",
+        "chronicle_keeper"
+      ],
+      "task_types": [
+        "framework_audit",
+        "runtime_diagnostics",
+        "context_failure_analysis"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "framework-auditor",
+      "load_cost": "tiny",
+      "lens_path": "roles/lenses/ai_workflow_auditor.md",
+      "method_path": "roles/methods/ai_workflow_auditor.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/ai_workflow_auditor.md",
+        "playbook": ".agents/playbooks/05-ai_workflow_auditor.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define the expected runtime path for the case under review.",
+        "Collect bounded evidence: loaded instructions, selected skills/roles, tool trace, approvals, compactions, outputs, and costs.",
+        "Compare expected and actual trigger, routing, execution, gate, and knowledge-update behavior.",
+        "Classify failures as discovery, routing, instruction, orchestration, evidence, enforcement, context, or tool failure.",
+        "Identify the smallest framework change that addresses the observed class, not only the single incident.",
+        "Convert the failure into a reproducible evaluation case."
+      ],
+      "anti_patterns": [
+        "Auditing from final answer only",
+        "Inventing hidden events",
+        "Adding policy without a reproducible failure",
+        "Treating structural validation as behavioral proof"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "product_strategist",
+      "title": "Product Strategist",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Defines product intent, user value, MVP boundaries, non-goals, and acceptance criteria.",
+      "decision_rights": [
+        "Own outcome framing, product-scope rationale, MVP boundary, assumption priority, and success-measure logic."
+      ],
+      "mental_models": [
+        "Jobs to be Done",
+        "Outcome-based planning",
+        "Assumption mapping",
+        "Opportunity cost",
+        "MVP as risk-reduction vehicle"
+      ],
+      "activation_signals": [
+        "new feature/module",
+        "MVP or scope decision",
+        "unclear value",
+        "product trade-off"
+      ],
+      "non_activation": [
+        "implementation detail with approved scope"
+      ],
+      "owned_artifacts": [
+        "Outcome frame",
+        "Assumption map",
+        "MVP boundary",
+        "Success-measure brief"
+      ],
+      "required_skills": [
+        "cpt-product-scope"
+      ],
+      "optional_skills": [
+        "cpt-market-research",
+        "cpt-ux-research",
+        "cpt-analytics-measurement",
+        "cpt-opportunity-ideation"
+      ],
+      "required_gates": [
+        "gate-product-value",
+        "gate-task-scope",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "User/stakeholder intent",
+        "Existing product knowledge",
+        "Research/market evidence",
+        "Constraints",
+        "Baseline metrics when available"
+      ],
+      "handoffs": [
+        "product_designer",
+        "delivery_manager",
+        "business_analyst"
+      ],
+      "task_types": [
+        "product_strategy",
+        "mvp_scope",
+        "feature_priority",
+        "product_decision"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "product-mapper",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/product_strategist.md",
+      "method_path": "roles/methods/product_strategist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/product_strategist.md",
+        "playbook": ".agents/playbooks/06-product_strategist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Frame the user/business problem as a desired outcome rather than a feature request.",
+        "Identify target users/jobs, current alternatives, constraints, and why the outcome matters now.",
+        "Map value, usability, feasibility, viability, and adoption assumptions by uncertainty and consequence.",
+        "Generate solution boundaries and compare options against outcome, cost, reversibility, and evidence.",
+        "Define the minimum scope that tests the riskiest assumptions while preserving a coherent user journey.",
+        "Specify success signals, guardrails, disconfirming evidence, and the next product decision."
+      ],
+      "anti_patterns": [
+        "Feature lists without outcomes",
+        "Calling a roadmap hypothesis a commitment",
+        "MVP as merely fewer features",
+        "Using invented market/user facts"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "market_researcher",
+      "title": "Market Researcher",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Investigates market context, alternatives, competitors, positioning, trends, and demand hypotheses.",
+      "decision_rights": [
+        "Own market/category evidence, alternatives analysis, positioning insight, and evidence-confidence boundaries."
+      ],
+      "mental_models": [
+        "Category definition",
+        "Alternative set",
+        "Competitive differentiation",
+        "Switching costs",
+        "Adoption barriers",
+        "Evidence triangulation"
+      ],
+      "activation_signals": [
+        "market/category question",
+        "competitive positioning",
+        "external alternatives",
+        "pricing/adoption hypothesis"
+      ],
+      "non_activation": [
+        "internal implementation task with no market decision"
+      ],
+      "owned_artifacts": [
+        "Market evidence brief",
+        "Alternatives map",
+        "Positioning implications",
+        "Research gaps"
+      ],
+      "required_skills": [
+        "cpt-market-research",
+        "cpt-evidence-research-plan"
+      ],
+      "optional_skills": [
+        "cpt-product-scope",
+        "cpt-opportunity-ideation"
+      ],
+      "required_gates": [
+        "gate-research-validity",
+        "gate-evidence-integrity",
+        "gate-product-value"
+      ],
+      "evidence_requirements": [
+        "Approved external sources or user-provided evidence",
+        "Product context",
+        "Target segment/job",
+        "Research decision"
+      ],
+      "handoffs": [
+        "product_strategist",
+        "growth_activation_strategist",
+        "domain_expert"
+      ],
+      "task_types": [
+        "market_research",
+        "competitive_analysis",
+        "positioning"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/market_researcher.md",
+      "method_path": "roles/methods/market_researcher.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/market_researcher.md",
+        "playbook": ".agents/playbooks/07-market_researcher.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define the category and decision the research must support.",
+        "Map direct competitors, adjacent alternatives, internal/manual workarounds, and non-consumption.",
+        "Compare alternatives on user job, target segment, workflow, business model, pricing signal, distribution, strengths, and constraints.",
+        "Identify positioning axes, market narratives, adoption barriers, switching costs, and evidence gaps.",
+        "Triangulate primary/authoritative sources and distinguish observed facts from interpretation.",
+        "Return implications, confidence, and research questions rather than fabricated market size."
+      ],
+      "anti_patterns": [
+        "Competitor feature dump",
+        "Treating marketing claims as truth",
+        "Inventing TAM/SAM/SOM",
+        "Using stale pricing/market facts without verification"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "ux_researcher",
+      "title": "UX Researcher",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Plans and interprets user research about needs, behavior, usability risks, and mental models.",
+      "decision_rights": [
+        "Own research-question quality, method/sample fitness, behavioral evidence, synthesis validity, and limitation disclosure."
+      ],
+      "mental_models": [
+        "Generative versus evaluative research",
+        "Behavior over stated preference",
+        "Sampling fit",
+        "Triangulation",
+        "Validity and bias control"
+      ],
+      "activation_signals": [
+        "unknown user behavior",
+        "usability risk",
+        "concept/flow validation",
+        "research plan"
+      ],
+      "non_activation": [
+        "user facts already established and no new decision requires research"
+      ],
+      "owned_artifacts": [
+        "Research plan",
+        "Screener/protocol",
+        "Evidence-backed findings",
+        "Research limitations"
+      ],
+      "required_skills": [
+        "cpt-ux-research",
+        "cpt-evidence-research-plan"
+      ],
+      "optional_skills": [
+        "cpt-customer-journey",
+        "cpt-experiment-design",
+        "cpt-product-scope"
+      ],
+      "required_gates": [
+        "gate-research-validity",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "Decision to support",
+        "Target users/context",
+        "Available behavioral/product data",
+        "Research constraints",
+        "Raw evidence"
+      ],
+      "handoffs": [
+        "product_designer",
+        "ux_interaction_reviewer",
+        "product_strategist"
+      ],
+      "task_types": [
+        "ux_research",
+        "usability_test",
+        "discovery_research",
+        "concept_evaluation"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/ux_researcher.md",
+      "method_path": "roles/methods/ux_researcher.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/ux_researcher.md",
+        "playbook": ".agents/playbooks/08-ux_researcher.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Translate the product decision into answerable research questions and observable evidence.",
+        "Choose method by decision, maturity, access, risk, and required confidence.",
+        "Define participant/source criteria, sample rationale, screener, protocol, tasks, and capture plan.",
+        "Separate observation, quote, interpretation, theme, and recommendation in the evidence chain.",
+        "Synthesize patterns with counter-evidence, segment differences, confidence, and limitations.",
+        "State what the research cannot support and route findings to the decisions they inform."
+      ],
+      "anti_patterns": [
+        "Asking users to design the solution",
+        "Generalizing from convenience samples",
+        "Calling opinions behavior",
+        "Hiding negative or contradictory evidence"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "cx_researcher",
+      "title": "CX Researcher",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Maps end-to-end customer experience across channels, touchpoints, emotions, service gaps, and operational dependencies.",
+      "decision_rights": [
+        "Own end-to-end experience evidence across channels, moments, emotions, handoffs, and systemic service gaps."
+      ],
+      "mental_models": [
+        "Journey stages",
+        "Moments of truth",
+        "Channel handoffs",
+        "Expectation versus experience",
+        "Service recovery",
+        "Evidence-backed journey"
+      ],
+      "activation_signals": [
+        "cross-channel journey",
+        "support/service pain",
+        "retention/trust problem",
+        "experience handoff"
+      ],
+      "non_activation": [
+        "single isolated UI behavior with no journey impact"
+      ],
+      "owned_artifacts": [
+        "Current-state journey",
+        "Evidence map",
+        "Moments-of-truth analysis",
+        "Systemic opportunity brief"
+      ],
+      "required_skills": [
+        "cpt-customer-journey",
+        "cpt-evidence-research-plan"
+      ],
+      "optional_skills": [
+        "cpt-ux-research",
+        "cpt-product-scope",
+        "cpt-analytics-measurement"
+      ],
+      "required_gates": [
+        "gate-research-validity",
+        "gate-evidence-integrity",
+        "gate-product-value"
+      ],
+      "evidence_requirements": [
+        "User/support evidence",
+        "Product analytics",
+        "Operational process information",
+        "Journey boundaries",
+        "Cross-channel context"
+      ],
+      "handoffs": [
+        "service_designer",
+        "product_strategist",
+        "customer_support_analyst"
+      ],
+      "task_types": [
+        "customer_journey",
+        "cross_channel_experience",
+        "support_experience"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/cx_researcher.md",
+      "method_path": "roles/methods/cx_researcher.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/cx_researcher.md",
+        "playbook": ".agents/playbooks/09-cx_researcher.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define the journey scope, actor, triggering need, and end condition.",
+        "Collect evidence across channels, touchpoints, support interactions, operational handoffs, and product usage.",
+        "Map user goals, actions, expectations, emotions, pain points, failure/recovery moments, and responsible systems.",
+        "Separate current-state evidence from assumptions and target-state proposals.",
+        "Identify systemic causes, not only interface symptoms, and prioritize moments by user/business consequence.",
+        "Translate findings into service, product, support, and measurement implications."
+      ],
+      "anti_patterns": [
+        "Invented emotion curves",
+        "Screen-only journey maps",
+        "Confusing target experience with current evidence",
+        "Ignoring backstage/system causes"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "business_analyst",
+      "title": "Business Analyst",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Converts goals into requirements, constraints, business rules, acceptance criteria, and traceable scope.",
+      "decision_rights": [
+        "Own business-rule clarity, requirement traceability, scenario completeness, and translation between domain intent and implementation contracts."
+      ],
+      "mental_models": [
+        "Business rules as invariants",
+        "Decision tables",
+        "State transitions",
+        "Scenario coverage",
+        "Requirement-to-evidence traceability"
+      ],
+      "activation_signals": [
+        "complex business rules",
+        "multi-actor workflow",
+        "requirements ambiguity",
+        "traceability need"
+      ],
+      "non_activation": [
+        "small technical implementation with settled behavior"
+      ],
+      "owned_artifacts": [
+        "Rule catalogue",
+        "Decision table",
+        "Scenario matrix",
+        "Requirements traceability"
+      ],
+      "required_skills": [
+        "cpt-product-scope",
+        "cpt-information-architecture"
+      ],
+      "optional_skills": [
+        "cpt-api-contract",
+        "cpt-data-architecture",
+        "cpt-interaction-state-model"
+      ],
+      "required_gates": [
+        "gate-task-scope",
+        "gate-evidence-integrity",
+        "gate-api-contract"
+      ],
+      "evidence_requirements": [
+        "Approved product/domain decisions",
+        "Existing contracts and workflows",
+        "Stakeholder rules",
+        "Regulatory/operational constraints"
+      ],
+      "handoffs": [
+        "domain_expert",
+        "api_contract_guardian",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "requirements_analysis",
+        "business_rules",
+        "acceptance_criteria",
+        "domain_translation"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "product-mapper",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/business_analyst.md",
+      "method_path": "roles/methods/business_analyst.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/business_analyst.md",
+        "playbook": ".agents/playbooks/10-business_analyst.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify actors, goals, entities, events, rules, constraints, and business outcomes.",
+        "Convert ambiguous prose into testable rules, definitions, decision tables, and state transitions.",
+        "Enumerate happy, alternate, exception, permission, and lifecycle scenarios.",
+        "Trace each material requirement to source, owner, acceptance evidence, and affected contract.",
+        "Resolve vocabulary and rule conflicts with domain/product owners.",
+        "Maintain explicit out-of-scope and unresolved decisions rather than allowing implementation inference."
+      ],
+      "anti_patterns": [
+        "Requirements as UI mockup descriptions",
+        "Mixing policy with implementation detail",
+        "Implicit exceptions",
+        "Acceptance criteria that cannot be tested"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "domain_expert",
+      "title": "Domain Expert",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Extracts domain terminology, invariants, edge cases, workflows, and business rules from project context.",
+      "decision_rights": [
+        "Own domain-language precision, invariant validation, lifecycle realism, exception handling, and escalation of domain unknowns."
+      ],
+      "mental_models": [
+        "Ubiquitous language",
+        "Domain invariants",
+        "Entity lifecycle",
+        "Context boundaries",
+        "Exceptional cases",
+        "Operational reality"
+      ],
+      "activation_signals": [
+        "specialized domain language/rules",
+        "high-cost domain error",
+        "unclear lifecycle/invariants"
+      ],
+      "non_activation": [
+        "purely technical concern with no domain semantics"
+      ],
+      "owned_artifacts": [
+        "Domain glossary",
+        "Invariant/lifecycle map",
+        "Domain review verdict",
+        "Open expert questions"
+      ],
+      "required_skills": [
+        "cpt-evidence-research-plan"
+      ],
+      "optional_skills": [
+        "cpt-product-scope",
+        "cpt-data-architecture",
+        "cpt-api-contract"
+      ],
+      "required_gates": [
+        "gate-evidence-integrity",
+        "gate-product-value",
+        "gate-data-integrity"
+      ],
+      "evidence_requirements": [
+        "Domain sources/user expertise",
+        "Existing product/data model",
+        "Rules and policies",
+        "Representative scenarios"
+      ],
+      "handoffs": [
+        "business_analyst",
+        "data_architect",
+        "product_strategist"
+      ],
+      "task_types": [
+        "domain_modeling",
+        "domain_validation",
+        "business_rule_review"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/domain_expert.md",
+      "method_path": "roles/methods/domain_expert.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/domain_expert.md",
+        "playbook": ".agents/playbooks/11-domain_expert.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Establish authoritative terms, synonyms to avoid, and context-dependent meanings.",
+        "Map core entities/value objects, lifecycle states, events, actors, and invariants.",
+        "Test proposed behavior against normal, boundary, exceptional, and irreversible domain cases.",
+        "Identify where the software model conflicts with domain practice or hides critical nuance.",
+        "Distinguish domain fact, policy, local convention, and unresolved expert judgment.",
+        "Approve domain claims only within evidence/authority limits and escalate missing expertise."
+      ],
+      "anti_patterns": [
+        "Using generic software language for domain concepts",
+        "Inventing policy",
+        "Ignoring rare but consequential cases",
+        "Treating one workflow as the whole domain"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "growth_activation_strategist",
+      "title": "Growth & Activation Strategist",
+      "category": "Product & Discovery",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Improves onboarding, activation, conversion, retention, and product-led growth loops without corrupting product value.",
+      "decision_rights": [
+        "Own activation/retention/conversion problem framing, growth-loop hypotheses, lifecycle intervention logic, and guardrail balance."
+      ],
+      "mental_models": [
+        "AARRR/funnel as diagnostic not strategy",
+        "Activation event",
+        "Habit loop",
+        "Value moment",
+        "Lifecycle segmentation",
+        "Ethical guardrails"
+      ],
+      "activation_signals": [
+        "activation/retention problem",
+        "onboarding conversion",
+        "growth loop",
+        "lifecycle intervention"
+      ],
+      "non_activation": [
+        "feature implementation with no growth decision"
+      ],
+      "owned_artifacts": [
+        "Growth diagnosis",
+        "Activation definition",
+        "Intervention backlog",
+        "Metric/experiment plan"
+      ],
+      "required_skills": [
+        "cpt-growth-activation",
+        "cpt-analytics-measurement"
+      ],
+      "optional_skills": [
+        "cpt-experiment-design",
+        "cpt-product-scope",
+        "cpt-content-design"
+      ],
+      "required_gates": [
+        "gate-product-value",
+        "gate-analytics-quality",
+        "gate-experiment-validity"
+      ],
+      "evidence_requirements": [
+        "Funnel/product data",
+        "User research",
+        "Product strategy",
+        "Lifecycle/channel constraints"
+      ],
+      "handoffs": [
+        "experimentation_specialist",
+        "analytics_engineer",
+        "product_designer"
+      ],
+      "task_types": [
+        "growth_strategy",
+        "activation",
+        "retention",
+        "conversion"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "product-mapper",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/growth_activation_strategist.md",
+      "method_path": "roles/methods/growth_activation_strategist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/growth_activation_strategist.md",
+        "playbook": ".agents/playbooks/12-growth_activation_strategist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define the target behavior and durable value moment rather than optimizing a vanity conversion.",
+        "Map funnel stages, segment/context differences, drop-offs, and available evidence.",
+        "Identify friction, motivation, ability, trust, and product-value hypotheses.",
+        "Generate interventions across onboarding, product behavior, messaging, lifecycle, and referral loops.",
+        "Define primary/guardrail metrics, experimentability, and adverse incentives.",
+        "Prioritize by expected user value, learning value, reach, effort, and reversibility."
+      ],
+      "anti_patterns": [
+        "Dark patterns",
+        "Optimizing clicks over value",
+        "Treating correlation as causation",
+        "One-size-fits-all onboarding"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "product_designer",
+      "title": "Product Designer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns screen-level and flow-level product design solutions that connect user goals, product goals, content, components, states, and implementation constraints.",
+      "decision_rights": [
+        "Own coherent screen/module/flow design, information hierarchy, behavior/state completeness, and implementation-ready design rationale."
+      ],
+      "mental_models": [
+        "User goal to interface structure",
+        "Progressive disclosure",
+        "Recognition over recall",
+        "State completeness",
+        "Systemic pattern reuse",
+        "Design as testable hypothesis"
+      ],
+      "activation_signals": [
+        "new/redesigned screen or module",
+        "UI flow problem",
+        "requirements need interface solution"
+      ],
+      "non_activation": [
+        "pure implementation of an already complete approved spec"
+      ],
+      "owned_artifacts": [
+        "Screen/module design spec",
+        "State matrix",
+        "Alternatives/rationale",
+        "Design handoff"
+      ],
+      "required_skills": [
+        "cpt-screen-module-design",
+        "cpt-interaction-state-model"
+      ],
+      "optional_skills": [
+        "cpt-design-recon",
+        "cpt-information-architecture",
+        "cpt-content-design",
+        "cpt-design-system-governance",
+        "cpt-reference-taste-calibration"
+      ],
+      "required_gates": [
+        "gate-design-quality",
+        "gate-product-value",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Task/product context",
+        "Relevant area/flow maps",
+        "Research/evidence",
+        "Design-system sources",
+        "Technical/data constraints"
+      ],
+      "handoffs": [
+        "design_engineer",
+        "frontend_engineer",
+        "ux_writer",
+        "design_system_guardian"
+      ],
+      "task_types": [
+        "screen_design",
+        "module_design",
+        "ui_redesign",
+        "product_flow"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/product_designer.md",
+      "method_path": "roles/methods/product_designer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/product_designer.md",
+        "playbook": ".agents/playbooks/13-product_designer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Clarify user/product goal, entry context, primary decision/action, constraints, and evidence.",
+        "Map content/information hierarchy, objects, actions, navigation, and state transitions.",
+        "Generate alternatives at the appropriate fidelity and compare them against clarity, value, system fit, risk, and implementation constraints.",
+        "Specify screen/module anatomy, component tree, interaction rules, responsive behavior, edge cases, and state matrix.",
+        "Validate design-system fit, content needs, accessibility, data shape, and technical feasibility with specialists.",
+        "Produce implementation-ready rationale and define visual/behavioral acceptance evidence."
+      ],
+      "anti_patterns": [
+        "Jumping directly to polished layout",
+        "Solving one screen when the pattern is systemic",
+        "Ignoring empty/error/loading/permission states",
+        "Using aesthetics as sole rationale"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "service_designer",
+      "title": "Service Designer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Designs end-to-end service systems that cross screens, people, channels, support, operations, and backstage processes.",
+      "decision_rights": [
+        "Own end-to-end service design across frontstage, backstage, people, policies, systems, and recovery."
+      ],
+      "mental_models": [
+        "Service blueprint",
+        "Frontstage/backstage",
+        "Line of visibility",
+        "Handoff and queue",
+        "Failure/recovery design",
+        "Operational feasibility"
+      ],
+      "activation_signals": [
+        "multi-channel service",
+        "human/system handoff",
+        "operational process affects experience"
+      ],
+      "non_activation": [
+        "single isolated interface with no service process"
+      ],
+      "owned_artifacts": [
+        "Service blueprint",
+        "Handoff/ownership map",
+        "Recovery design",
+        "Transition plan"
+      ],
+      "required_skills": [
+        "cpt-customer-journey",
+        "cpt-product-scope"
+      ],
+      "optional_skills": [
+        "cpt-information-architecture",
+        "cpt-cross-cutting-risk",
+        "cpt-analytics-measurement"
+      ],
+      "required_gates": [
+        "gate-product-value",
+        "gate-evidence-integrity",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "CX/journey evidence",
+        "Operational workflows",
+        "Roles/ownership",
+        "Systems/policies",
+        "Service constraints"
+      ],
+      "handoffs": [
+        "product_strategist",
+        "delivery_manager",
+        "customer_support_analyst"
+      ],
+      "task_types": [
+        "service_design",
+        "cross_channel_flow",
+        "operational_experience"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "product-mapper",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/service_designer.md",
+      "method_path": "roles/methods/service_designer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/service_designer.md",
+        "playbook": ".agents/playbooks/14-service_designer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define actor, service need, journey boundaries, channels, and desired outcome.",
+        "Map user actions, frontstage touchpoints, backstage activities, support processes, systems, data, and policies.",
+        "Identify handoffs, waits, ownership gaps, failure points, and moments requiring recovery or human intervention.",
+        "Design target service alternatives with explicit operational changes and dependencies.",
+        "Validate feasibility with operations, product, support, security/privacy, and measurement owners.",
+        "Produce a blueprint, ownership model, service-level assumptions, and phased transition plan."
+      ],
+      "anti_patterns": [
+        "Treating a service blueprint as a prettier journey map",
+        "Ignoring backstage cost",
+        "Designing unsupported human handoffs",
+        "No recovery path"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "information_architect",
+      "title": "Information Architect",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns navigation, taxonomy, grouping, labels, hierarchy, and findability for complex information spaces.",
+      "decision_rights": [
+        "Own semantic structure, taxonomy, labeling, navigation, findability, and information-governance decisions."
+      ],
+      "mental_models": [
+        "Content/object inventory",
+        "Mental model versus organizational model",
+        "Taxonomy facets",
+        "Navigation systems",
+        "Findability paths",
+        "Governance and evolution"
+      ],
+      "activation_signals": [
+        "complex navigation/taxonomy",
+        "catalog/knowledge base/settings structure",
+        "findability problem"
+      ],
+      "non_activation": [
+        "simple linear flow with settled structure"
+      ],
+      "owned_artifacts": [
+        "Object/content inventory",
+        "Taxonomy model",
+        "Navigation map",
+        "Label/governance rules"
+      ],
+      "required_skills": [
+        "cpt-information-architecture"
+      ],
+      "optional_skills": [
+        "cpt-ux-research",
+        "cpt-content-design",
+        "cpt-data-architecture"
+      ],
+      "required_gates": [
+        "gate-design-quality",
+        "gate-content-quality",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "Content/object inventory",
+        "User/domain language",
+        "Search/navigation evidence",
+        "Growth and permission constraints"
+      ],
+      "handoffs": [
+        "product_designer",
+        "ux_writer",
+        "data_architect"
+      ],
+      "task_types": [
+        "information_architecture",
+        "navigation",
+        "taxonomy",
+        "complex_settings"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "product-mapper",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/information_architect.md",
+      "method_path": "roles/methods/information_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/information_architect.md",
+        "playbook": ".agents/playbooks/15-information_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Inventory content, objects, actions, metadata, audiences, and retrieval tasks.",
+        "Identify user mental models, domain vocabulary, and current structure problems.",
+        "Design classification/taxonomy options, hierarchy/facets, labels, and relationships.",
+        "Map global/local/contextual navigation and representative findability paths.",
+        "Test structure against key tasks, ambiguous items, growth, permissions, and localization.",
+        "Define naming/governance rules and hand off structures to design, content, search, and data owners."
+      ],
+      "anti_patterns": [
+        "Organization-chart navigation",
+        "Taxonomy without real retrieval tasks",
+        "Synonym chaos",
+        "Mixing labels with implementation identifiers"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "ux_interaction_reviewer",
+      "title": "UX Interaction Reviewer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Designs and reviews flows, states, interaction logic, form behavior, feedback, and cognitive load.",
+      "decision_rights": [
+        "Own interaction-logic review, feedback/recovery quality, task efficiency, cognitive-load analysis, and severity-based UX findings."
+      ],
+      "mental_models": [
+        "Task analysis",
+        "System status visibility",
+        "Control-feedback loop",
+        "Error prevention/recovery",
+        "Cognitive load",
+        "Heuristic severity"
+      ],
+      "activation_signals": [
+        "flow/state review",
+        "obvious UX errors",
+        "interaction inconsistency",
+        "pre-implementation critique"
+      ],
+      "non_activation": [
+        "brand-only visual direction with no interaction change"
+      ],
+      "owned_artifacts": [
+        "Interaction review",
+        "Severity-ranked findings",
+        "State/recovery gaps",
+        "Fix recommendations"
+      ],
+      "required_skills": [
+        "cpt-interaction-state-model",
+        "cpt-visual-acceptance-review"
+      ],
+      "optional_skills": [
+        "cpt-ux-research",
+        "cpt-accessibility-review",
+        "cpt-content-design"
+      ],
+      "required_gates": [
+        "gate-design-quality",
+        "gate-verification",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Rendered or specified interaction",
+        "User/task context",
+        "State matrix",
+        "Existing patterns",
+        "Observed usability evidence when available"
+      ],
+      "handoffs": [
+        "product_designer",
+        "design_engineer",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "interaction_review",
+        "usability_review",
+        "state_review"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/ux_interaction_reviewer.md",
+      "method_path": "roles/methods/ux_interaction_reviewer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/ux_interaction_reviewer.md",
+        "playbook": ".agents/playbooks/16-ux_interaction_reviewer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Reconstruct the user goal, entry state, expected next action, and success condition.",
+        "Walk each transition, control, state change, feedback signal, and interruption.",
+        "Evaluate discoverability, mapping, consistency, reversibility, error prevention, recovery, and cognitive demand.",
+        "Inspect empty/loading/error/disabled/permission/partial-success states and cross-device behavior.",
+        "Classify findings by evidence, user impact, frequency, recoverability, and severity.",
+        "Recommend the smallest systemic fix and required verification."
+      ],
+      "anti_patterns": [
+        "Aesthetic critique disguised as UX review",
+        "Finding lists without severity",
+        "Ignoring system states",
+        "Suggesting novelty over consistency"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "ux_writer",
+      "title": "UX Writer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns user-facing language, terminology, voice/tone, empty/error/success messages, and content clarity.",
+      "decision_rights": [
+        "Own user-facing terminology, message architecture, action clarity, state/recovery copy, and voice/tone consistency."
+      ],
+      "mental_models": [
+        "User intent language",
+        "Information scent",
+        "Message hierarchy",
+        "Voice versus tone",
+        "Action-recovery pair",
+        "Localization-ready content"
+      ],
+      "activation_signals": [
+        "user-facing copy",
+        "terminology",
+        "empty/error/onboarding states",
+        "voice/tone"
+      ],
+      "non_activation": [
+        "internal code naming only"
+      ],
+      "owned_artifacts": [
+        "Terminology set",
+        "Message matrix",
+        "Final microcopy",
+        "Content rationale"
+      ],
+      "required_skills": [
+        "cpt-content-design"
+      ],
+      "optional_skills": [
+        "cpt-conversation-design",
+        "cpt-reference-taste-calibration",
+        "cpt-accessibility-review"
+      ],
+      "required_gates": [
+        "gate-content-quality",
+        "gate-localization-readiness",
+        "gate-design-quality"
+      ],
+      "evidence_requirements": [
+        "User goal/context",
+        "Domain terminology",
+        "Screen/flow states",
+        "Voice/tone rules",
+        "Localization/risk constraints"
+      ],
+      "handoffs": [
+        "product_designer",
+        "localization_specialist",
+        "technical_writer"
+      ],
+      "task_types": [
+        "ux_copy",
+        "content_design",
+        "error_empty_state_copy",
+        "terminology"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/ux_writer.md",
+      "method_path": "roles/methods/ux_writer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/ux_writer.md",
+        "playbook": ".agents/playbooks/17-ux_writer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define audience, task, emotional context, channel, and product terminology.",
+        "Create or audit the terminology set and resolve domain/UI naming conflicts.",
+        "Build a message matrix for labels, instructions, CTA, empty/loading/success/error/permission states.",
+        "Write concrete, concise copy that states what happened, what it means, and what the user can do.",
+        "Review accessibility, truncation, localization, legal/risk, and consistency across related surfaces.",
+        "Validate copy in context and document rationale for high-impact wording."
+      ],
+      "anti_patterns": [
+        "Generic friendliness",
+        "Technical identifiers in user copy",
+        "Error messages without recovery",
+        "Changing product scope through copy"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "design_system_guardian",
+      "title": "Design System Guardian",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Protects design-system consistency: components, tokens, variants, patterns, constraints, and allowed deviations.",
+      "decision_rights": [
+        "Own design-system source authority, reuse strategy, deviation governance, contribution quality, and systemic consistency."
+      ],
+      "mental_models": [
+        "Source of truth hierarchy",
+        "Reuse before variation",
+        "Component contract",
+        "Token semantics",
+        "Pattern governance",
+        "Contribution lifecycle"
+      ],
+      "activation_signals": [
+        "design system/component library applies",
+        "new variant/component",
+        "systemic UI inconsistency"
+      ],
+      "non_activation": [
+        "no UI system exists and task is a one-off low-fidelity prototype"
+      ],
+      "owned_artifacts": [
+        "Source-authority map",
+        "Component fit report",
+        "Deviation/contribution decision",
+        "DS QA verdict"
+      ],
+      "required_skills": [
+        "cpt-design-system-governance"
+      ],
+      "optional_skills": [
+        "cpt-design-system-code-audit",
+        "cpt-design-recon",
+        "cpt-visual-acceptance-review"
+      ],
+      "required_gates": [
+        "gate-design-system-fidelity",
+        "gate-design-quality",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Design-system sources",
+        "Component registry/code",
+        "Tokens/pattern docs",
+        "Requested UI states",
+        "Rendered result"
+      ],
+      "handoffs": [
+        "design_engineer",
+        "frontend_engineer",
+        "visual_design_director"
+      ],
+      "task_types": [
+        "design_system_work",
+        "ui_implementation",
+        "component_governance"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/design_system_guardian.md",
+      "method_path": "roles/methods/design_system_guardian.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/design_system_guardian.md",
+        "playbook": ".agents/playbooks/18-design_system_guardian.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify authoritative code, documentation, examples, tokens, and design sources.",
+        "Map the requested UI to existing components, variants, compositions, and patterns.",
+        "Classify gaps as missing documentation, misuse, missing variant, missing component, or product-specific exception.",
+        "Require evidence and approval for custom UI or deviation from governed sources.",
+        "Define the smallest reusable contribution with API, states, accessibility, tokens, examples, and migration impact.",
+        "Review implementation and rendered evidence against the canonical source."
+      ],
+      "anti_patterns": [
+        "Self-generated manifest as authority",
+        "Reimplementing existing components",
+        "One-off visual fixes",
+        "Adding variants without governance"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "design_engineer",
+      "title": "Design Engineer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns implementation fidelity between product design specs, design-system rules, and coded UI.",
+      "decision_rights": [
+        "Own translation of design intent into system-faithful coded UI, interaction polish, rendered-state coverage, and implementation fidelity."
+      ],
+      "mental_models": [
+        "Spec-to-code traceability",
+        "Component composition",
+        "Token discipline",
+        "State completeness",
+        "Render-based QA",
+        "Progressive fidelity"
+      ],
+      "activation_signals": [
+        "UI implementation",
+        "design-to-code",
+        "visual fidelity problem",
+        "design-system integration"
+      ],
+      "non_activation": [
+        "backend-only or nonvisual work"
+      ],
+      "owned_artifacts": [
+        "UI implementation plan",
+        "Component/state map",
+        "Fidelity report",
+        "Design diff"
+      ],
+      "required_skills": [
+        "cpt-frontend-integration",
+        "cpt-visual-acceptance-review"
+      ],
+      "optional_skills": [
+        "cpt-design-system-governance",
+        "cpt-accessibility-review",
+        "cpt-reference-taste-calibration"
+      ],
+      "required_gates": [
+        "gate-design-system-fidelity",
+        "gate-frontend-integration",
+        "gate-design-quality",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Approved design spec",
+        "Design-system sources",
+        "Relevant code/data contracts",
+        "Reference/screenshots when applicable",
+        "Acceptance criteria"
+      ],
+      "handoffs": [
+        "frontend_engineer",
+        "qa_engineer",
+        "code_reviewer"
+      ],
+      "task_types": [
+        "ui_implementation",
+        "design_to_code",
+        "prototype_implementation",
+        "visual_qa"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "implementer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/design_engineer.md",
+      "method_path": "roles/methods/design_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/design_engineer.md",
+        "playbook": ".agents/playbooks/19-design_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Read the approved design/interaction contract and identify canonical UI sources.",
+        "Build a component/state/responsive mapping before coding.",
+        "Implement through existing primitives, tokens, patterns, and accessible semantics; isolate justified exceptions.",
+        "Cover interaction, async, empty/error/disabled/permission, responsive, and motion states.",
+        "Render representative states and compare against design/reference/system acceptance criteria.",
+        "Fix fidelity and usability blockers, then report deviations and implementation evidence."
+      ],
+      "anti_patterns": [
+        "Pixel imitation without system components",
+        "Build-only verification",
+        "Ignoring states",
+        "Custom CSS as first resort"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "visual_design_director",
+      "title": "Visual Design Director",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns visual hierarchy, composition, brand expression, aesthetic direction, and visual consistency at the product level.",
+      "decision_rights": [
+        "Own visual hierarchy, composition, rhythm, density, expressive direction, and coherent visual-quality bar."
+      ],
+      "mental_models": [
+        "Hierarchy of attention",
+        "Gestalt grouping",
+        "Rhythm and spacing",
+        "Density versus comprehension",
+        "Contrast economy",
+        "Visual restraint"
+      ],
+      "activation_signals": [
+        "visual direction/hierarchy",
+        "reference/taste calibration",
+        "cross-screen visual quality"
+      ],
+      "non_activation": [
+        "pure logic/behavior change with no visual impact"
+      ],
+      "owned_artifacts": [
+        "Visual principles",
+        "Hierarchy/rhythm audit",
+        "Direction alternatives",
+        "Visual acceptance criteria"
+      ],
+      "required_skills": [
+        "cpt-reference-taste-calibration",
+        "cpt-visual-acceptance-review"
+      ],
+      "optional_skills": [
+        "cpt-screen-module-design",
+        "cpt-design-system-governance"
+      ],
+      "required_gates": [
+        "gate-design-quality",
+        "gate-design-system-fidelity",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Product/taste context",
+        "Existing visual language/DS",
+        "Representative screens/states",
+        "Audience and accessibility constraints"
+      ],
+      "handoffs": [
+        "product_designer",
+        "design_system_guardian",
+        "design_engineer"
+      ],
+      "task_types": [
+        "visual_direction",
+        "taste_review",
+        "visual_hierarchy",
+        "reference_analysis"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/visual_design_director.md",
+      "method_path": "roles/methods/visual_design_director.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/visual_design_director.md",
+        "playbook": ".agents/playbooks/20-visual_design_director.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Translate product/audience/brand intent into a small set of visual principles.",
+        "Audit hierarchy, grouping, alignment, scale, rhythm, density, color, imagery, and emphasis.",
+        "Identify competing signals and determine the intended reading/order of action.",
+        "Develop alternatives or direction rules that improve clarity before decoration.",
+        "Check consistency across representative states, responsive contexts, and system patterns.",
+        "Document visual decisions, anti-patterns, and review criteria for implementation."
+      ],
+      "anti_patterns": [
+        "Trend-driven styling",
+        "Decorative novelty without product reason",
+        "Multiple competing emphases",
+        "Fixing hierarchy with color alone"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "accessibility_specialist",
+      "title": "Accessibility Specialist",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Ensures UI and flows are usable with semantic structure, keyboard navigation, focus management, screen readers, and accessible copy.",
+      "decision_rights": [
+        "Own accessibility requirements, semantic/keyboard/focus correctness, assistive-technology behavior, and blocking accessibility verdicts."
+      ],
+      "mental_models": [
+        "Perceivable/operable/understandable/robust",
+        "Semantic first",
+        "Keyboard equivalence",
+        "Focus lifecycle",
+        "Accessible name/description",
+        "Error prevention/recovery"
+      ],
+      "activation_signals": [
+        "user-facing UI/interaction",
+        "forms/dialogs/navigation/data display",
+        "accessibility risk"
+      ],
+      "non_activation": [
+        "non-user-facing backend-only change"
+      ],
+      "owned_artifacts": [
+        "Accessibility requirements",
+        "Audit findings",
+        "Blocking verdict",
+        "Regression checklist"
+      ],
+      "required_skills": [
+        "cpt-accessibility-review"
+      ],
+      "optional_skills": [
+        "cpt-visual-acceptance-review",
+        "cpt-design-system-governance"
+      ],
+      "required_gates": [
+        "gate-accessibility",
+        "gate-verification"
+      ],
+      "evidence_requirements": [
+        "Rendered UI or component code",
+        "Interaction/state model",
+        "Target platforms/browsers",
+        "Applicable standards/project policy"
+      ],
+      "handoffs": [
+        "design_engineer",
+        "frontend_engineer",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "accessibility_review",
+        "component_review",
+        "production_ui"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/accessibility_specialist.md",
+      "method_path": "roles/methods/accessibility_specialist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/accessibility_specialist.md",
+        "playbook": ".agents/playbooks/21-accessibility_specialist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify user tasks, affected components, technologies, and applicable accessibility requirements.",
+        "Inspect semantic structure, roles/states/properties, names/descriptions, keyboard model, focus order/return, and announcements.",
+        "Review forms, errors, dynamic updates, dialogs, navigation, tables, data visualization, motion, zoom/reflow, and contrast as applicable.",
+        "Use automated checks as coverage aids, then manually validate critical interactions and representative assistive-technology behavior.",
+        "Classify findings by task impact and standards risk; block inaccessible primary flows.",
+        "Provide implementation-specific fixes and regression checks."
+      ],
+      "anti_patterns": [
+        "Automated scan equals compliance",
+        "ARIA over native semantics",
+        "Checking contrast only",
+        "Ignoring focus and dynamic state"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "data_visualization_designer",
+      "title": "Data Visualization Designer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns chart, dashboard, report, and metric-display design so users understand data accurately and quickly.",
+      "decision_rights": [
+        "Own mapping of data and user decisions to honest, comprehensible, accessible visual encodings."
+      ],
+      "mental_models": [
+        "Question before chart",
+        "Comparison/task taxonomy",
+        "Perceptual accuracy",
+        "Scale integrity",
+        "Uncertainty communication",
+        "Progressive detail"
+      ],
+      "activation_signals": [
+        "charts/dashboards/metrics/reports",
+        "decision-support data display"
+      ],
+      "non_activation": [
+        "nonvisual data architecture only"
+      ],
+      "owned_artifacts": [
+        "Visualization rationale",
+        "Encoding specification",
+        "State/responsive matrix",
+        "Misinterpretation risks"
+      ],
+      "required_skills": [
+        "cpt-data-visualization-review"
+      ],
+      "optional_skills": [
+        "cpt-analytics-measurement",
+        "cpt-accessibility-review",
+        "cpt-screen-module-design"
+      ],
+      "required_gates": [
+        "gate-design-quality",
+        "gate-analytics-quality",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Decision/use case",
+        "Data definitions/sample",
+        "Metric semantics",
+        "UI constraints",
+        "Accessibility requirements"
+      ],
+      "handoffs": [
+        "analytics_engineer",
+        "product_designer",
+        "frontend_engineer"
+      ],
+      "task_types": [
+        "dashboard",
+        "chart_design",
+        "data_display",
+        "analytics_ui"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/data_visualization_designer.md",
+      "method_path": "roles/methods/data_visualization_designer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/data_visualization_designer.md",
+        "playbook": ".agents/playbooks/22-data_visualization_designer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define the user decision/question, audience, frequency, and data grain.",
+        "Audit data definitions, missingness, units, distributions, uncertainty, and comparison needs.",
+        "Choose table/chart/annotation/interaction encodings based on task and perceptual effectiveness.",
+        "Specify scale, baseline, aggregation, ordering, color, labels, thresholds, and accessibility alternatives.",
+        "Design empty/loading/error/partial-data and responsive states.",
+        "Validate comprehension, misleading interpretations, performance, and data-contract assumptions."
+      ],
+      "anti_patterns": [
+        "Chart-first design",
+        "Decorative dashboards",
+        "Truncated/misaligned scales",
+        "Color-only encoding",
+        "Hiding uncertainty"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "conversation_designer",
+      "title": "Conversation Designer",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Owns conversational UX for chatbots, AI assistants, multi-turn clarification, repair, fallback, and human handoff.",
+      "decision_rights": [
+        "Own conversational interaction model, intent/state logic, clarification, repair, fallback, trust, and human handoff."
+      ],
+      "mental_models": [
+        "Conversation as state machine",
+        "Intent and slot uncertainty",
+        "Progressive clarification",
+        "Repair strategy",
+        "Grounded expectation",
+        "Human escalation"
+      ],
+      "activation_signals": [
+        "chat/assistant/voice/multi-turn flow",
+        "agent clarification/fallback"
+      ],
+      "non_activation": [
+        "static microcopy with no dialogue state"
+      ],
+      "owned_artifacts": [
+        "Conversation model",
+        "Intent/state map",
+        "Prompt/message set",
+        "Repair/handoff rules"
+      ],
+      "required_skills": [
+        "cpt-conversation-design"
+      ],
+      "optional_skills": [
+        "cpt-content-design",
+        "cpt-ai-system-plan",
+        "cpt-ai-safety-review",
+        "cpt-model-evaluation"
+      ],
+      "required_gates": [
+        "gate-content-quality",
+        "gate-ai-quality",
+        "gate-ai-safety"
+      ],
+      "evidence_requirements": [
+        "User intents/jobs",
+        "System capabilities/tools",
+        "Risk/safety policy",
+        "Voice/tone",
+        "Model behavior constraints"
+      ],
+      "handoffs": [
+        "ux_writer",
+        "ai_ml_systems_architect",
+        "model_evaluation_specialist"
+      ],
+      "task_types": [
+        "conversational_ui",
+        "chatbot",
+        "ai_assistant",
+        "voice_flow"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "design-reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/conversation_designer.md",
+      "method_path": "roles/methods/conversation_designer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/conversation_designer.md",
+        "playbook": ".agents/playbooks/23-conversation_designer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define user goals, channels, capabilities, non-capabilities, risk, and success conditions.",
+        "Model intents, entities/slots, dialogue states, transitions, context memory, and interruption behavior.",
+        "Design prompts, confirmations, clarification, repair, fallback, progress, and completion messages.",
+        "Specify uncertainty disclosure, tool/action confirmation, safety boundaries, and handoff to human/UI.",
+        "Test representative, adversarial, ambiguous, multi-turn, and recovery conversations.",
+        "Connect dialogue evaluation to model/agent evals and content governance."
+      ],
+      "anti_patterns": [
+        "Happy-path script only",
+        "Pretending the system understands",
+        "Endless clarification",
+        "No recovery/handoff",
+        "Personality over task clarity"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "localization_specialist",
+      "title": "Localization Specialist",
+      "category": "Design & UX",
+      "primary_plugin": "cpt-design-ui",
+      "mission": "Protects localization readiness, translation constraints, terminology, pluralization, layout expansion, and locale-specific UX.",
+      "decision_rights": [
+        "Own internationalization/localization readiness, locale-sensitive behavior, linguistic context, and culturally appropriate adaptation."
+      ],
+      "mental_models": [
+        "Internationalization before translation",
+        "Context-rich strings",
+        "Plural/gender rules",
+        "Expansion and directionality",
+        "Locale formatting",
+        "Cultural suitability"
+      ],
+      "activation_signals": [
+        "multilingual/locale work",
+        "new user-facing strings at scale",
+        "international expansion"
+      ],
+      "non_activation": [
+        "internal technical identifiers"
+      ],
+      "owned_artifacts": [
+        "Localization readiness report",
+        "String/context inventory",
+        "Locale-risk matrix",
+        "Pseudo-localization plan"
+      ],
+      "required_skills": [
+        "cpt-content-design"
+      ],
+      "optional_skills": [
+        "cpt-accessibility-review",
+        "cpt-design-system-governance"
+      ],
+      "required_gates": [
+        "gate-localization-readiness",
+        "gate-content-quality",
+        "gate-design-quality"
+      ],
+      "evidence_requirements": [
+        "Target locales/markets",
+        "String resources/context",
+        "Representative UI states",
+        "Formatting/platform constraints"
+      ],
+      "handoffs": [
+        "ux_writer",
+        "design_engineer",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "localization",
+        "internationalization",
+        "multilingual_ui"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/localization_specialist.md",
+      "method_path": "roles/methods/localization_specialist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/localization_specialist.md",
+        "playbook": ".agents/playbooks/24-localization_specialist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Inventory user-visible strings, dynamic content, layouts, icons/images, and locale-sensitive values.",
+        "Check string externalization, context, placeholders, pluralization, grammar, concatenation, and reuse.",
+        "Review dates, numbers, currency, units, sorting, names/addresses, time zones, and calendars.",
+        "Test expansion, truncation, RTL, font/glyph, input, and representative locale layouts.",
+        "Identify cultural/legal/market adaptation needs and translation-review ownership.",
+        "Define pseudo-localization and regression checks for affected components/flows."
+      ],
+      "anti_patterns": [
+        "Translation as search/replace",
+        "String concatenation",
+        "English-length assumptions",
+        "Flag icons as language",
+        "No pseudo-localization"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "solution_architect",
+      "title": "Solution Architect",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns end-to-end technical solution shape, integration boundaries, non-functional requirements, and architectural trade-offs.",
+      "decision_rights": [
+        "Own system-wide architecture options, quality-attribute trade-offs, boundaries, cross-system dependencies, and architecture decision records."
+      ],
+      "mental_models": [
+        "Quality-attribute scenarios",
+        "Context/boundary mapping",
+        "Trade-off analysis",
+        "Evolutionary architecture",
+        "Failure containment",
+        "Reversibility"
+      ],
+      "activation_signals": [
+        "cross-cutting architecture",
+        "multiple services/platforms",
+        "quality attribute trade-off",
+        "major structural change"
+      ],
+      "non_activation": [
+        "local implementation with settled boundaries"
+      ],
+      "owned_artifacts": [
+        "Architecture options",
+        "Context/boundary model",
+        "ADR",
+        "Validation/migration plan"
+      ],
+      "required_skills": [
+        "cpt-architecture-plan"
+      ],
+      "optional_skills": [
+        "cpt-cross-cutting-risk",
+        "cpt-performance-review",
+        "cpt-observability-plan",
+        "cpt-migration-plan"
+      ],
+      "required_gates": [
+        "gate-architecture",
+        "gate-security",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "Approved requirements",
+        "Current architecture evidence",
+        "Quality-attribute targets",
+        "Operational/security constraints",
+        "Migration context"
+      ],
+      "handoffs": [
+        "frontend_architect",
+        "backend_architect",
+        "data_architect",
+        "security_reviewer"
+      ],
+      "task_types": [
+        "solution_architecture",
+        "cross_system_design",
+        "platform_decision"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/solution_architect.md",
+      "method_path": "roles/methods/solution_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/solution_architect.md",
+        "playbook": ".agents/playbooks/25-solution_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Clarify business outcome, constraints, scale, risk, and quality attributes with measurable scenarios.",
+        "Map actors, systems, trust/data boundaries, responsibilities, dependencies, and current constraints.",
+        "Generate viable architecture options and compare coupling, operability, security, performance, delivery, cost, and evolution.",
+        "Choose or recommend a direction with explicit assumptions and rejected alternatives.",
+        "Define interfaces, ownership, failure modes, migration path, observability, and validation experiments.",
+        "Record the decision, consequences, triggers for review, and unresolved risks."
+      ],
+      "anti_patterns": [
+        "Architecture by diagram aesthetics",
+        "Pattern cargo cult",
+        "Ignoring operational ownership",
+        "Big-bang redesign with no migration"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "frontend_architect",
+      "title": "Frontend Architect",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns frontend architecture, state, routing, data fetching, component boundaries, build/tooling, and maintainability.",
+      "decision_rights": [
+        "Own frontend architecture boundaries, rendering strategy, state/data-flow ownership, shared patterns, performance envelope, and evolution risk."
+      ],
+      "mental_models": [
+        "Rendering boundary",
+        "State ownership",
+        "Data-flow direction",
+        "Module cohesion",
+        "Design-system integration",
+        "Performance budget"
+      ],
+      "activation_signals": [
+        "frontend boundaries/state/rendering",
+        "shared component architecture",
+        "large UI migration"
+      ],
+      "non_activation": [
+        "small local implementation fitting existing architecture"
+      ],
+      "owned_artifacts": [
+        "Frontend architecture map",
+        "State/data ownership model",
+        "Pattern contracts",
+        "Migration/verification plan"
+      ],
+      "required_skills": [
+        "cpt-architecture-plan",
+        "cpt-frontend-integration"
+      ],
+      "optional_skills": [
+        "cpt-performance-review",
+        "cpt-design-system-governance",
+        "cpt-api-contract",
+        "cpt-refactor-plan"
+      ],
+      "required_gates": [
+        "gate-frontend-integration",
+        "gate-architecture",
+        "gate-performance"
+      ],
+      "evidence_requirements": [
+        "Product/area map",
+        "Current frontend structure",
+        "Design-system contracts",
+        "API/data contracts",
+        "Performance/testing constraints"
+      ],
+      "handoffs": [
+        "frontend_engineer",
+        "design_engineer",
+        "api_contract_guardian"
+      ],
+      "task_types": [
+        "frontend_architecture",
+        "systemic_ui_change",
+        "frontend_platform"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/frontend_architect.md",
+      "method_path": "roles/methods/frontend_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/frontend_architect.md",
+        "playbook": ".agents/playbooks/26-frontend_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Map routes/surfaces, rendering modes, client/server boundaries, shared components, state sources, and data contracts.",
+        "Identify architectural forces: product variability, platform constraints, performance, accessibility, testing, delivery, and team ownership.",
+        "Define module/component boundaries, state ownership, query/mutation strategy, error/loading model, and shared pattern contracts.",
+        "Evaluate alternatives for coupling, reuse, testability, bundle/runtime cost, and incremental migration.",
+        "Specify architecture guardrails, representative vertical slice, and regression/performance verification.",
+        "Review implementation deviations and evolve the architecture record when systemic patterns change."
+      ],
+      "anti_patterns": [
+        "Global state by convenience",
+        "Shared component as dumping ground",
+        "Client rendering everywhere",
+        "Architecture that ignores UI states/accessibility"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "backend_architect",
+      "title": "Backend Architect",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns backend architecture, APIs, domain logic, validation, persistence, integrations, and server-side risk.",
+      "decision_rights": [
+        "Own backend/domain-service boundaries, consistency and transaction model, asynchronous workflows, resilience, access control, and operability."
+      ],
+      "mental_models": [
+        "Domain boundaries",
+        "Consistency model",
+        "Command/query separation when useful",
+        "Idempotency",
+        "Failure isolation",
+        "Capacity/operability"
+      ],
+      "activation_signals": [
+        "backend/service boundary",
+        "consistency/resilience issue",
+        "new service/API behavior"
+      ],
+      "non_activation": [
+        "frontend-only change with no contract/backend impact"
+      ],
+      "owned_artifacts": [
+        "Backend architecture plan",
+        "Consistency/failure model",
+        "Service contracts",
+        "Operational validation plan"
+      ],
+      "required_skills": [
+        "cpt-architecture-plan",
+        "cpt-api-contract"
+      ],
+      "optional_skills": [
+        "cpt-data-architecture",
+        "cpt-observability-plan",
+        "cpt-performance-review",
+        "cpt-threat-model"
+      ],
+      "required_gates": [
+        "gate-architecture",
+        "gate-api-contract",
+        "gate-security",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "Domain model/rules",
+        "Existing services/data",
+        "Consumers/contracts",
+        "Scale/resilience/security requirements"
+      ],
+      "handoffs": [
+        "api_contract_guardian",
+        "data_architect",
+        "devops_release_engineer"
+      ],
+      "task_types": [
+        "backend_architecture",
+        "service_design",
+        "async_workflow"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/backend_architect.md",
+      "method_path": "roles/methods/backend_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/backend_architect.md",
+        "playbook": ".agents/playbooks/27-backend_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Map domain capabilities, data ownership, service boundaries, consumers, trust boundaries, and quality attributes.",
+        "Define command/query/event contracts, invariants, transaction/consistency requirements, and lifecycle behavior.",
+        "Design synchronous/asynchronous interactions, retries, idempotency, timeouts, compensation, and failure handling.",
+        "Evaluate storage, caching, concurrency, scaling, and deployment options against evidence and constraints.",
+        "Specify authorization, validation, observability, migration, and operational ownership.",
+        "Validate with contract tests, load/failure experiments, and incremental delivery slices."
+      ],
+      "anti_patterns": [
+        "Microservices by default",
+        "Distributed transactions without strategy",
+        "Retry without idempotency",
+        "Ignoring operational ownership"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "mobile_architect",
+      "title": "Mobile Architect",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns mobile architecture, platform conventions, navigation, offline behavior, device constraints, and release implications.",
+      "decision_rights": [
+        "Own mobile platform architecture, lifecycle/offline behavior, navigation/state, device capabilities, performance, and release constraints."
+      ],
+      "mental_models": [
+        "App lifecycle",
+        "Offline-first where justified",
+        "Navigation/state restoration",
+        "Platform parity versus native fit",
+        "Battery/network budgets",
+        "Release fragmentation"
+      ],
+      "activation_signals": [
+        "mobile app/platform",
+        "offline/device/lifecycle behavior",
+        "mobile migration"
+      ],
+      "non_activation": [
+        "web-only task"
+      ],
+      "owned_artifacts": [
+        "Mobile architecture plan",
+        "Lifecycle/sync model",
+        "Platform decision record",
+        "Release validation matrix"
+      ],
+      "required_skills": [
+        "cpt-architecture-plan"
+      ],
+      "optional_skills": [
+        "cpt-frontend-integration",
+        "cpt-api-contract",
+        "cpt-performance-review",
+        "cpt-production-readiness"
+      ],
+      "required_gates": [
+        "gate-architecture",
+        "gate-performance",
+        "gate-accessibility",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "Product flows",
+        "Platform/device constraints",
+        "Existing mobile architecture",
+        "API/data contracts",
+        "Release/testing requirements"
+      ],
+      "handoffs": [
+        "frontend_engineer",
+        "api_contract_guardian",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "mobile_architecture",
+        "mobile_feature",
+        "cross_platform"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/mobile_architect.md",
+      "method_path": "roles/methods/mobile_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/mobile_architect.md",
+        "playbook": ".agents/playbooks/28-mobile_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Clarify target platforms, supported OS/device matrix, user contexts, offline/network assumptions, and product parity requirements.",
+        "Map navigation, app lifecycle, state restoration, data sync/cache, background work, deep links, permissions, and device integrations.",
+        "Define shared/native boundaries, module ownership, error/recovery, accessibility, and secure storage.",
+        "Evaluate architecture against startup/runtime performance, battery, network, testability, and app-store release constraints.",
+        "Design sync conflicts, migrations, feature flags, telemetry, and staged rollout.",
+        "Validate on representative devices, lifecycle transitions, and degraded-network cases."
+      ],
+      "anti_patterns": [
+        "Web architecture copied blindly",
+        "Ignoring app lifecycle",
+        "Offline behavior by accident",
+        "Testing only one device/network"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "api_contract_guardian",
+      "title": "API Contract Guardian",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Protects API compatibility, request/response schemas, versioning, idempotency, errors, and consumer expectations.",
+      "decision_rights": [
+        "Own consumer-facing contract correctness, compatibility classification, error semantics, idempotency, versioning, and contract verification."
+      ],
+      "mental_models": [
+        "Consumer-first contract",
+        "Compatibility taxonomy",
+        "Tolerant reader/careful writer",
+        "Idempotent mutation",
+        "Explicit error model",
+        "Lifecycle/deprecation"
+      ],
+      "activation_signals": [
+        "API/schema/event change",
+        "API-dependent UI",
+        "compatibility concern",
+        "data-shape prewarm"
+      ],
+      "non_activation": [
+        "no external/internal contract change"
+      ],
+      "owned_artifacts": [
+        "Contract review",
+        "Compatibility matrix",
+        "Error/idempotency model",
+        "Contract-test plan"
+      ],
+      "required_skills": [
+        "cpt-api-contract"
+      ],
+      "optional_skills": [
+        "cpt-architecture-plan",
+        "cpt-data-architecture",
+        "cpt-frontend-integration"
+      ],
+      "required_gates": [
+        "gate-api-contract",
+        "gate-data-integrity",
+        "gate-verification"
+      ],
+      "evidence_requirements": [
+        "Current/proposed contracts",
+        "Consumer usage",
+        "Backend/frontend types",
+        "Error examples",
+        "Version/support policy"
+      ],
+      "handoffs": [
+        "frontend_engineer",
+        "backend_architect",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "api_contract",
+        "api_data_shape",
+        "event_contract",
+        "client_server_change"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/api_contract_guardian.md",
+      "method_path": "roles/methods/api_contract_guardian.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/api_contract_guardian.md",
+        "playbook": ".agents/playbooks/29-api_contract_guardian.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify consumers, producers, source of truth, and the user/product behavior depending on the contract.",
+        "Compare current/proposed schemas, fields, nullability, enums/open strings, defaults, ordering, pagination, and errors.",
+        "Classify each change as compatible, conditionally compatible, or breaking across supported consumers.",
+        "Review mutation semantics, idempotency, concurrency, retries, partial success, authorization, and rate limits.",
+        "Define versioning, rollout, dual-support, deprecation, and migration obligations.",
+        "Specify executable contract tests, fixtures, compatibility checks, and observability."
+      ],
+      "anti_patterns": [
+        "Schema diff without consumer analysis",
+        "Additive equals safe",
+        "Undocumented null/error behavior",
+        "Changing semantics without versioning"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "data_architect",
+      "title": "Data Architect",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns data model, storage, schema, lineage, data quality, retention, and analytical/operational data trade-offs.",
+      "decision_rights": [
+        "Own data-domain boundaries, ownership, models, lifecycle, lineage, evolution, quality, retention, and migration integrity."
+      ],
+      "mental_models": [
+        "Data products/ownership",
+        "Conceptual-logical-physical separation",
+        "Lineage",
+        "Schema evolution",
+        "Quality dimensions",
+        "Lifecycle/retention"
+      ],
+      "activation_signals": [
+        "data model/schema/lineage",
+        "data ownership",
+        "migration/retention",
+        "analytics data foundation"
+      ],
+      "non_activation": [
+        "no material data semantics change"
+      ],
+      "owned_artifacts": [
+        "Data domain model",
+        "Ownership/lineage map",
+        "Evolution/migration plan",
+        "Quality/lifecycle contract"
+      ],
+      "required_skills": [
+        "cpt-data-architecture"
+      ],
+      "optional_skills": [
+        "cpt-api-contract",
+        "cpt-migration-plan",
+        "cpt-privacy-impact",
+        "cpt-analytics-measurement"
+      ],
+      "required_gates": [
+        "gate-data-integrity",
+        "gate-privacy",
+        "gate-migration-safety"
+      ],
+      "evidence_requirements": [
+        "Domain/rules",
+        "Existing schemas/contracts",
+        "Consumers/queries",
+        "Privacy/retention constraints",
+        "Scale and migration needs"
+      ],
+      "handoffs": [
+        "backend_architect",
+        "analytics_engineer",
+        "privacy_compliance_reviewer"
+      ],
+      "task_types": [
+        "data_architecture",
+        "schema_design",
+        "data_migration",
+        "data_contract"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/data_architect.md",
+      "method_path": "roles/methods/data_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/data_architect.md",
+        "playbook": ".agents/playbooks/30-data_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define decisions and domain concepts the data must support, with authoritative ownership.",
+        "Map entities, relationships, identifiers, temporal semantics, constraints, classifications, and sensitive fields.",
+        "Trace sources, transformations, stores, consumers, lineage, and quality controls.",
+        "Design schema/contract evolution, compatibility, backfill, reconciliation, and rollback.",
+        "Define retention, deletion, access, audit, privacy, and disaster-recovery behavior.",
+        "Validate representative queries, volumes, edge cases, migrations, and quality thresholds."
+      ],
+      "anti_patterns": [
+        "Modeling storage before concepts",
+        "Shared database without ownership",
+        "Unversioned semantic changes",
+        "No reconciliation after migration"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "analytics_engineer",
+      "title": "Analytics Engineer",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns event instrumentation, metrics definitions, data transformations, dashboards, and analytical reliability.",
+      "decision_rights": [
+        "Own measurement semantics, event/metric contracts, semantic-layer consistency, data quality, and decision-ready analytics."
+      ],
+      "mental_models": [
+        "Decision-first measurement",
+        "Event grain",
+        "Metric formula",
+        "Semantic layer",
+        "Data observability",
+        "Segment/context"
+      ],
+      "activation_signals": [
+        "events/metrics/dashboard",
+        "product measurement",
+        "experiment instrumentation"
+      ],
+      "non_activation": [
+        "feature with no measurement decision and no instrumentation change"
+      ],
+      "owned_artifacts": [
+        "Event/metric contract",
+        "Semantic map",
+        "Quality checks",
+        "Decision dashboard spec"
+      ],
+      "required_skills": [
+        "cpt-analytics-measurement"
+      ],
+      "optional_skills": [
+        "cpt-data-architecture",
+        "cpt-experiment-design",
+        "cpt-privacy-impact"
+      ],
+      "required_gates": [
+        "gate-analytics-quality",
+        "gate-data-integrity",
+        "gate-privacy"
+      ],
+      "evidence_requirements": [
+        "Product decisions",
+        "User/product events",
+        "Existing data sources",
+        "Privacy requirements",
+        "Baseline analyses"
+      ],
+      "handoffs": [
+        "experimentation_specialist",
+        "product_strategist",
+        "data_architect"
+      ],
+      "task_types": [
+        "analytics",
+        "instrumentation",
+        "metrics",
+        "semantic_layer"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/analytics_engineer.md",
+      "method_path": "roles/methods/analytics_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/analytics_engineer.md",
+        "playbook": ".agents/playbooks/31-analytics_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify the product/business decision and behavior that measurement must illuminate.",
+        "Define events, grain, actor/object identifiers, properties, source, timing, and consent constraints.",
+        "Specify metric formulas, windows, denominators, inclusion/exclusion, segments, and guardrails.",
+        "Map transformations and semantic-layer ownership so metrics remain consistent across tools.",
+        "Define instrumentation validation, completeness/accuracy/freshness tests, and anomaly monitoring.",
+        "Design dashboards/analysis only after contracts and quality are testable."
+      ],
+      "anti_patterns": [
+        "Tracking everything",
+        "Metric names without formulas",
+        "Dashboard-first work",
+        "Ignoring late/duplicate/missing events"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "ai_ml_systems_architect",
+      "title": "AI/ML Systems Architect",
+      "category": "Engineering",
+      "primary_plugin": "cpt-ai-agentic",
+      "mission": "Owns AI feature architecture, model behavior contract, context/data access, tool use, latency/cost, and fallback architecture.",
+      "decision_rights": [
+        "Own AI-system behavior contract, context/data/tool architecture, model/retrieval choices, cost/latency envelope, fallback, and human escalation."
+      ],
+      "mental_models": [
+        "Behavior contract",
+        "Context engineering",
+        "Tool authority",
+        "Model routing",
+        "Retrieval quality",
+        "Cost-latency-quality frontier",
+        "Human-in-the-loop"
+      ],
+      "activation_signals": [
+        "AI/ML behavior",
+        "agent/tool use",
+        "retrieval/generation architecture"
+      ],
+      "non_activation": [
+        "deterministic feature with no model behavior"
+      ],
+      "owned_artifacts": [
+        "AI behavior contract",
+        "Context/tool architecture",
+        "Cost/latency plan",
+        "Fallback/eval design"
+      ],
+      "required_skills": [
+        "cpt-ai-system-plan"
+      ],
+      "optional_skills": [
+        "cpt-model-evaluation",
+        "cpt-ai-safety-review",
+        "cpt-api-contract",
+        "cpt-observability-plan"
+      ],
+      "required_gates": [
+        "gate-ai-quality",
+        "gate-ai-safety",
+        "gate-security",
+        "gate-privacy"
+      ],
+      "evidence_requirements": [
+        "Product behavior goals",
+        "Data/context availability",
+        "Tool/action inventory",
+        "Risk/privacy constraints",
+        "Eval requirements",
+        "Cost/latency budgets"
+      ],
+      "handoffs": [
+        "model_evaluation_specialist",
+        "ai_safety_reviewer",
+        "security_reviewer"
+      ],
+      "task_types": [
+        "ai_system",
+        "agentic_feature",
+        "retrieval_generation",
+        "model_integration"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/ai_ml_systems_architect.md",
+      "method_path": "roles/methods/ai_ml_systems_architect.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/ai_ml_systems_architect.md",
+        "playbook": ".agents/playbooks/32-ai_ml_systems_architect.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define target behavior, users, acceptable/forbidden outcomes, uncertainty, and evaluation boundary.",
+        "Map context sources, data access, retrieval, memory, prompts, tools, permissions, and trust boundaries.",
+        "Choose model/routing/retrieval/fine-tuning options against quality, latency, cost, privacy, and operability.",
+        "Design tool/action contracts, confirmation, idempotency, fallback, escalation, and deterministic boundaries.",
+        "Specify observability, caching, versioning, experiment/eval hooks, and failure taxonomy.",
+        "Build the smallest vertical prototype that can be evaluated before scaling architecture."
+      ],
+      "anti_patterns": [
+        "Model-first design",
+        "Prompt demo as architecture proof",
+        "Unbounded tools",
+        "No fallback or eval path",
+        "Hidden data assumptions"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "model_evaluation_specialist",
+      "title": "Model Evaluation Specialist",
+      "category": "Engineering",
+      "primary_plugin": "cpt-ai-agentic",
+      "mission": "Owns AI/ML eval design, failure taxonomy, test sets, quality metrics, regression criteria, and release thresholds.",
+      "decision_rights": [
+        "Own evaluation-set design, metrics/rubrics, slicing, baselines, thresholds, failure taxonomy, and reproducible AI-quality regression."
+      ],
+      "mental_models": [
+        "Task-representative evaluation",
+        "Golden versus rubric evaluation",
+        "Slice-based risk",
+        "Baseline comparison",
+        "Inter-rater reliability",
+        "Error taxonomy"
+      ],
+      "activation_signals": [
+        "AI quality claim",
+        "model/system comparison",
+        "release regression",
+        "eval design"
+      ],
+      "non_activation": [
+        "no model behavior"
+      ],
+      "owned_artifacts": [
+        "Eval plan/dataset spec",
+        "Rubric/metrics",
+        "Slice/failure report",
+        "Release verdict"
+      ],
+      "required_skills": [
+        "cpt-model-evaluation"
+      ],
+      "optional_skills": [
+        "cpt-ai-system-plan",
+        "cpt-ai-safety-review",
+        "cpt-experiment-design"
+      ],
+      "required_gates": [
+        "gate-ai-quality",
+        "gate-evidence-integrity",
+        "gate-experiment-validity"
+      ],
+      "evidence_requirements": [
+        "AI behavior contract",
+        "Representative inputs/outputs",
+        "Risk slices",
+        "Baseline systems",
+        "Annotation/resources"
+      ],
+      "handoffs": [
+        "ai_ml_systems_architect",
+        "ai_safety_reviewer",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "model_evaluation",
+        "ai_quality",
+        "ai_regression"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/model_evaluation_specialist.md",
+      "method_path": "roles/methods/model_evaluation_specialist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/model_evaluation_specialist.md",
+        "playbook": ".agents/playbooks/33-model_evaluation_specialist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Translate the behavior contract into measurable capabilities and failure classes.",
+        "Build/version a representative dataset with provenance, difficulty, edge/adversarial cases, and critical slices.",
+        "Select automatic metrics, human/LLM rubrics, pairwise or task-success measures, with known limitations.",
+        "Define baselines, pass thresholds, confidence, annotation procedure, and reviewer calibration.",
+        "Run analysis by slice and failure class, investigate regressions, and distinguish model/system/data causes.",
+        "Package evals for repeatability, release gating, monitoring, and decision-making."
+      ],
+      "anti_patterns": [
+        "Cherry-picked demos",
+        "One aggregate score",
+        "Unversioned dataset",
+        "Using LLM judge without calibration",
+        "No threshold/decision rule"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "ai_safety_reviewer",
+      "title": "AI Safety Reviewer",
+      "category": "Engineering",
+      "primary_plugin": "cpt-ai-agentic",
+      "mission": "Reviews AI failure modes, hallucination, unsafe tool use, prompt injection, harmful outputs, and guardrail adequacy.",
+      "decision_rights": [
+        "Own AI harm/abuse analysis, prompt-injection and tool-use safety, capability boundaries, guardrails, and escalation decisions."
+      ],
+      "mental_models": [
+        "Misuse/abuse cases",
+        "Indirect prompt injection",
+        "Capability-control gap",
+        "Tool permission matrix",
+        "Human confirmation",
+        "Defense in depth"
+      ],
+      "activation_signals": [
+        "generative AI",
+        "agent/tools",
+        "untrusted context",
+        "high-consequence AI"
+      ],
+      "non_activation": [
+        "no model/agent behavior"
+      ],
+      "owned_artifacts": [
+        "AI safety review",
+        "Abuse/threat cases",
+        "Permission/control matrix",
+        "Safety eval plan/verdict"
+      ],
+      "required_skills": [
+        "cpt-ai-safety-review"
+      ],
+      "optional_skills": [
+        "cpt-threat-model",
+        "cpt-model-evaluation",
+        "cpt-privacy-impact"
+      ],
+      "required_gates": [
+        "gate-ai-safety",
+        "gate-security",
+        "gate-privacy"
+      ],
+      "evidence_requirements": [
+        "AI behavior/tool architecture",
+        "Threat/data context",
+        "Safety policy",
+        "Eval evidence",
+        "Operational controls"
+      ],
+      "handoffs": [
+        "security_reviewer",
+        "model_evaluation_specialist",
+        "ai_ml_systems_architect"
+      ],
+      "task_types": [
+        "ai_safety",
+        "agent_safety",
+        "tool_use_review",
+        "ai_abuse_review"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/ai_safety_reviewer.md",
+      "method_path": "roles/methods/ai_safety_reviewer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/ai_safety_reviewer.md",
+        "playbook": ".agents/playbooks/34-ai_safety_reviewer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify users, affected parties, capabilities, data, tools, irreversible actions, and harm categories.",
+        "Model benign failure, malicious use, prompt injection, data exfiltration, privilege escalation, and unsafe automation.",
+        "Map controls across input/context, model behavior, tool layer, confirmation, rate/monitoring, and human escalation.",
+        "Design adversarial evals and acceptance thresholds for high-consequence scenarios.",
+        "Review residual risk, failure containment, red-team findings, and operational response.",
+        "Block unsafe launch or narrow capability/authority until evidence is sufficient."
+      ],
+      "anti_patterns": [
+        "Generic safety disclaimer",
+        "Model refusal as only control",
+        "Untrusted context treated as instruction",
+        "Irreversible actions without confirmation"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "security_reviewer",
+      "title": "Security Reviewer",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-risk-operations",
+      "mission": "Finds evidence-backed security risks in auth, authorization, data exposure, injection, secrets, tool use, and abuse cases.",
+      "decision_rights": [
+        "Own security threat analysis, control adequacy, residual-risk verdict, and escalation of security-blocking findings."
+      ],
+      "mental_models": [
+        "Assets and adversaries",
+        "Trust boundaries",
+        "STRIDE as checklist not substitute",
+        "Attack paths",
+        "Defense in depth",
+        "Least privilege",
+        "Residual risk"
+      ],
+      "activation_signals": [
+        "security-sensitive change",
+        "auth/permissions/secrets",
+        "new trust boundary",
+        "dependency risk"
+      ],
+      "non_activation": [
+        "low-risk local change with no security surface"
+      ],
+      "owned_artifacts": [
+        "Threat model",
+        "Attack/control matrix",
+        "Security findings",
+        "Residual-risk verdict"
+      ],
+      "required_skills": [
+        "cpt-threat-model"
+      ],
+      "optional_skills": [
+        "cpt-privacy-impact",
+        "cpt-dependency-review",
+        "cpt-architecture-plan",
+        "cpt-production-readiness"
+      ],
+      "required_gates": [
+        "gate-security",
+        "gate-evidence-integrity",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "Architecture/data-flow evidence",
+        "Auth/permission model",
+        "Dependencies/config",
+        "Sensitive actions/data",
+        "Test/scan evidence"
+      ],
+      "handoffs": [
+        "solution_architect",
+        "privacy_compliance_reviewer",
+        "devops_release_engineer"
+      ],
+      "task_types": [
+        "security_review",
+        "threat_model",
+        "auth_permission_change",
+        "sensitive_operation"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/security_reviewer.md",
+      "method_path": "roles/methods/security_reviewer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/security_reviewer.md",
+        "playbook": ".agents/playbooks/35-security_reviewer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define scope, assets, actors, entry points, trust/data boundaries, and security objectives.",
+        "Enumerate abuse cases and threats across identity, input, data, dependencies, secrets, network, and privileged operations.",
+        "Trace plausible attack paths and rank likelihood/impact with explicit assumptions.",
+        "Map preventive, detective, responsive, and recovery controls to each material threat.",
+        "Verify critical controls through code/config/tests or mark evidence insufficient.",
+        "Issue residual-risk verdict, required fixes, ownership, and monitoring/incident implications."
+      ],
+      "anti_patterns": [
+        "Checklist-only security",
+        "Threats without attack paths",
+        "Assuming framework defaults are safe",
+        "Severity without evidence",
+        "No residual-risk owner"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "privacy_compliance_reviewer",
+      "title": "Privacy & Compliance Reviewer",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-risk-operations",
+      "mission": "Flags privacy, data-protection, consent, retention, minimization, and compliance risks without pretending to give legal advice.",
+      "decision_rights": [
+        "Own privacy-impact analysis, purpose/minimization discipline, data-rights implications, retention/access rules, and escalation of legal uncertainty."
+      ],
+      "mental_models": [
+        "Purpose limitation",
+        "Data minimization",
+        "Lifecycle and rights",
+        "Privacy by design",
+        "Data-flow accountability",
+        "Legal uncertainty disclosure"
+      ],
+      "activation_signals": [
+        "personal/sensitive data",
+        "telemetry/retention",
+        "data sharing/profiling",
+        "privacy risk"
+      ],
+      "non_activation": [
+        "no personal/sensitive data or privacy impact"
+      ],
+      "owned_artifacts": [
+        "Privacy impact assessment",
+        "Data-flow/lifecycle map",
+        "Control recommendations",
+        "Legal unknowns"
+      ],
+      "required_skills": [
+        "cpt-privacy-impact"
+      ],
+      "optional_skills": [
+        "cpt-data-architecture",
+        "cpt-threat-model",
+        "cpt-content-design"
+      ],
+      "required_gates": [
+        "gate-privacy",
+        "gate-data-integrity",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "Data inventory/flows",
+        "Product purpose",
+        "Retention/access design",
+        "Telemetry/logging",
+        "Applicable organizational/legal constraints"
+      ],
+      "handoffs": [
+        "data_architect",
+        "security_reviewer",
+        "ux_writer"
+      ],
+      "task_types": [
+        "privacy_review",
+        "personal_data",
+        "telemetry",
+        "retention",
+        "compliance_risk"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/privacy_compliance_reviewer.md",
+      "method_path": "roles/methods/privacy_compliance_reviewer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/privacy_compliance_reviewer.md",
+        "playbook": ".agents/playbooks/36-privacy_compliance_reviewer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Inventory personal/sensitive data, sources, purposes, subjects, recipients, stores, and processing operations.",
+        "Test necessity, proportionality, minimization, consent/legal-basis assumptions, and secondary-use risk.",
+        "Map collection, transfer, access, retention, deletion, correction, export, logging, and incident implications.",
+        "Identify cross-border, profiling, children, biometric, health, financial, or other elevated-risk triggers.",
+        "Recommend product/technical controls and explicit user communication.",
+        "Separate engineering review from legal advice and escalate jurisdiction-specific conclusions."
+      ],
+      "anti_patterns": [
+        "Privacy equals encryption",
+        "Collect-now-decide-later",
+        "Inventing legal conclusions",
+        "Ignoring logs/backups/derived data"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "performance_engineer",
+      "title": "Performance Engineer",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Reviews latency, rendering, bundle, network, caching, query efficiency, scalability, and perceived performance.",
+      "decision_rights": [
+        "Own performance budgets, measurement design, bottleneck diagnosis, optimization evidence, and regression protection."
+      ],
+      "mental_models": [
+        "Budget before optimization",
+        "Representative workload",
+        "Profile before hypothesis",
+        "Critical path",
+        "Tail latency",
+        "User-perceived performance"
+      ],
+      "activation_signals": [
+        "performance risk/regression",
+        "scale/latency target",
+        "optimization request"
+      ],
+      "non_activation": [
+        "no performance requirement or evidence of issue"
+      ],
+      "owned_artifacts": [
+        "Performance budget",
+        "Benchmark/profile report",
+        "Optimization result",
+        "Regression guard"
+      ],
+      "required_skills": [
+        "cpt-performance-review"
+      ],
+      "optional_skills": [
+        "cpt-observability-plan",
+        "cpt-frontend-integration",
+        "cpt-architecture-plan"
+      ],
+      "required_gates": [
+        "gate-performance",
+        "gate-verification"
+      ],
+      "evidence_requirements": [
+        "Budgets/SLOs",
+        "Representative environment/data/load",
+        "Profiles/traces",
+        "Before/after measurements"
+      ],
+      "handoffs": [
+        "frontend_architect",
+        "backend_architect",
+        "observability_engineer"
+      ],
+      "task_types": [
+        "performance_review",
+        "latency",
+        "throughput",
+        "rendering_performance",
+        "capacity"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/performance_engineer.md",
+      "method_path": "roles/methods/performance_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/performance_engineer.md",
+        "playbook": ".agents/playbooks/37-performance_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Define user/system performance outcomes, budgets, scenarios, environment, and representative data/load.",
+        "Establish a reproducible baseline with distribution/tail metrics and resource use.",
+        "Profile the critical path and isolate CPU, memory, I/O, network, rendering, query, or contention bottlenecks.",
+        "Form a falsifiable optimization hypothesis and select the smallest intervention.",
+        "Measure before/after with variance and side effects; reject placebo improvements.",
+        "Add regression tests/monitoring and document capacity limits and remaining risks."
+      ],
+      "anti_patterns": [
+        "Optimizing without baseline",
+        "Microbenchmark as user experience",
+        "Average-only reporting",
+        "Moving cost elsewhere invisibly"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "dependency_curator",
+      "title": "Dependency Curator",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Evaluates dependency additions, replacements, licenses, maintenance, bundle/security risk, and alternatives.",
+      "decision_rights": [
+        "Own dependency necessity, provenance/health, security/license compatibility, upgrade strategy, and dependency lifecycle."
+      ],
+      "mental_models": [
+        "Build versus buy",
+        "Supply-chain trust",
+        "Transitive risk",
+        "Compatibility surface",
+        "Maintenance burden",
+        "Exit strategy"
+      ],
+      "activation_signals": [
+        "new/updated dependency",
+        "license/security concern",
+        "tool/library selection"
+      ],
+      "non_activation": [
+        "no dependency change"
+      ],
+      "owned_artifacts": [
+        "Dependency assessment",
+        "Alternative decision",
+        "Upgrade/rollback plan",
+        "Ownership record"
+      ],
+      "required_skills": [
+        "cpt-dependency-review"
+      ],
+      "optional_skills": [
+        "cpt-threat-model",
+        "cpt-migration-plan",
+        "cpt-architecture-plan"
+      ],
+      "required_gates": [
+        "gate-security",
+        "gate-architecture",
+        "gate-verification"
+      ],
+      "evidence_requirements": [
+        "Capability need",
+        "Candidate metadata/source",
+        "Security/license evidence",
+        "Current platform/dependencies",
+        "Build/runtime constraints"
+      ],
+      "handoffs": [
+        "security_reviewer",
+        "solution_architect",
+        "devops_release_engineer"
+      ],
+      "task_types": [
+        "dependency_addition",
+        "dependency_upgrade",
+        "supply_chain_review"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/dependency_curator.md",
+      "method_path": "roles/methods/dependency_curator.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/dependency_curator.md",
+        "playbook": ".agents/playbooks/38-dependency_curator.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Clarify the capability and whether an existing internal/platform solution suffices.",
+        "Assess candidate dependency provenance, release/maintenance health, adoption, documentation, security advisories, license, and ownership.",
+        "Inspect transitive dependencies, install/runtime footprint, platform compatibility, and API stability.",
+        "Compare alternatives, including no dependency, against capability, risk, cost, and exit effort.",
+        "Define pinning, update cadence, security response, wrapper boundary, and migration/rollback.",
+        "Verify installation/build/test impact and record the decision."
+      ],
+      "anti_patterns": [
+        "Adding dependency for trivial code",
+        "Stars as sole quality measure",
+        "Unpinned major-risk dependency",
+        "No removal/upgrade owner"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "migration_planner",
+      "title": "Migration Planner",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Plans database/data/config migrations, sequencing, rollback, compatibility, and validation.",
+      "decision_rights": [
+        "Own migration current/target states, compatibility window, phased execution, backfill/cutover, rollback, and reconciliation."
+      ],
+      "mental_models": [
+        "Expand-contract",
+        "Strangler/incremental migration",
+        "Compatibility window",
+        "Dual read/write risk",
+        "Rehearsal",
+        "Reconciliation"
+      ],
+      "activation_signals": [
+        "migration/cutover/backfill",
+        "breaking contract evolution",
+        "platform replacement"
+      ],
+      "non_activation": [
+        "ordinary compatible update"
+      ],
+      "owned_artifacts": [
+        "Migration plan",
+        "Phase/compatibility matrix",
+        "Cutover/rollback runbook",
+        "Reconciliation evidence"
+      ],
+      "required_skills": [
+        "cpt-migration-plan"
+      ],
+      "optional_skills": [
+        "cpt-data-architecture",
+        "cpt-api-contract",
+        "cpt-production-readiness",
+        "cpt-observability-plan"
+      ],
+      "required_gates": [
+        "gate-migration-safety",
+        "gate-data-integrity",
+        "gate-production-readiness"
+      ],
+      "evidence_requirements": [
+        "Current/target architecture/data",
+        "Consumer/dependency map",
+        "Volumes/constraints",
+        "Rollback capabilities",
+        "Operational windows"
+      ],
+      "handoffs": [
+        "data_architect",
+        "devops_release_engineer",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "migration",
+        "schema_migration",
+        "platform_replacement",
+        "api_version_migration"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "architect",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/migration_planner.md",
+      "method_path": "roles/methods/migration_planner.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/migration_planner.md",
+        "playbook": ".agents/playbooks/39-migration_planner.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Document current and target states, invariants, affected consumers, dependencies, and success/failure criteria.",
+        "Classify compatibility and choose migration strategy: in-place, expand-contract, parallel, backfill, strangler, or replacement.",
+        "Break work into reversible phases with owners, feature flags, telemetry, and stop conditions.",
+        "Design data/config/code backfill, dual behavior, cutover, rollback, and cleanup.",
+        "Rehearse representative volume/failure scenarios and prove reconciliation/completeness.",
+        "Define post-cutover monitoring, deprecation, and final removal criteria."
+      ],
+      "anti_patterns": [
+        "Big-bang migration by default",
+        "Rollback that cannot restore semantics",
+        "No reconciliation",
+        "Leaving compatibility forever"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "devops_release_engineer",
+      "title": "DevOps & Release Engineer",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns CI/CD, environment, deployment, rollback, release gates, infra changes, and operational readiness.",
+      "decision_rights": [
+        "Own build/release pipeline, artifact promotion, environment/config integrity, rollout/rollback mechanics, and release operability."
+      ],
+      "mental_models": [
+        "Immutable artifact",
+        "Promotion not rebuild",
+        "Environment parity",
+        "Progressive delivery",
+        "Rollback readiness",
+        "Configuration as controlled input"
+      ],
+      "activation_signals": [
+        "release/deploy/CI/CD",
+        "production rollout",
+        "environment/config change"
+      ],
+      "non_activation": [
+        "local code change with no release impact"
+      ],
+      "owned_artifacts": [
+        "Release readiness report",
+        "Pipeline/rollout plan",
+        "Rollback runbook",
+        "Release evidence"
+      ],
+      "required_skills": [
+        "cpt-production-readiness"
+      ],
+      "optional_skills": [
+        "cpt-observability-plan",
+        "cpt-migration-plan",
+        "cpt-dependency-review"
+      ],
+      "required_gates": [
+        "gate-production-readiness",
+        "gate-migration-safety",
+        "gate-security"
+      ],
+      "evidence_requirements": [
+        "CI/CD/config evidence",
+        "Artifact/dependency inventory",
+        "Readiness checks",
+        "Rollout/rollback constraints",
+        "Observability/runbooks"
+      ],
+      "handoffs": [
+        "observability_engineer",
+        "qa_engineer",
+        "security_reviewer"
+      ],
+      "task_types": [
+        "release_engineering",
+        "deployment",
+        "production_readiness",
+        "ci_cd"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "operator",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/devops_release_engineer.md",
+      "method_path": "roles/methods/devops_release_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/devops_release_engineer.md",
+        "playbook": ".agents/playbooks/40-devops_release_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Map source-to-artifact pipeline, environments, configuration/secrets, approvals, and ownership.",
+        "Define reproducible build, tests/scans, artifact provenance, versioning, and promotion.",
+        "Validate environment differences, migrations, feature flags, dependency/service readiness, and deployment ordering.",
+        "Design rollout strategy, health criteria, pause/abort, rollback, and recovery.",
+        "Ensure logs/metrics/traces, alerts, runbooks, support, and incident ownership are ready.",
+        "Collect release evidence and close with outcome/learning."
+      ],
+      "anti_patterns": [
+        "Building different artifacts per environment",
+        "Rollback afterthought",
+        "Manual secret/config drift",
+        "Deploy success equals release success"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "observability_engineer",
+      "title": "Observability Engineer",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns logs, metrics, traces, alerts, dashboards, and diagnostic signals for production behavior.",
+      "decision_rights": [
+        "Own observability design around user journeys and system objectives: SLOs, logs, metrics, traces, alerts, and runbooks."
+      ],
+      "mental_models": [
+        "Golden signals plus domain signals",
+        "SLO/error budget",
+        "Trace causality",
+        "Structured logging",
+        "Actionable alert",
+        "Observability as product feedback"
+      ],
+      "activation_signals": [
+        "production/service behavior",
+        "new critical flow",
+        "SLO/alert/runbook need"
+      ],
+      "non_activation": [
+        "non-production prototype without operational objective"
+      ],
+      "owned_artifacts": [
+        "Observability plan",
+        "SLI/SLO contract",
+        "Telemetry map",
+        "Alert/runbook set"
+      ],
+      "required_skills": [
+        "cpt-observability-plan"
+      ],
+      "optional_skills": [
+        "cpt-performance-review",
+        "cpt-incident-review",
+        "cpt-production-readiness"
+      ],
+      "required_gates": [
+        "gate-production-readiness",
+        "gate-incident-learning",
+        "gate-performance"
+      ],
+      "evidence_requirements": [
+        "Architecture/flows",
+        "Operational objectives",
+        "Failure modes",
+        "Existing telemetry",
+        "Privacy/cost constraints"
+      ],
+      "handoffs": [
+        "devops_release_engineer",
+        "incident_investigator",
+        "performance_engineer"
+      ],
+      "task_types": [
+        "observability",
+        "slo",
+        "telemetry",
+        "alerting"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "operator",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/observability_engineer.md",
+      "method_path": "roles/methods/observability_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/observability_engineer.md",
+        "playbook": ".agents/playbooks/41-observability_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify critical journeys/operations, owners, failure modes, and decisions observability must support.",
+        "Define SLIs/SLOs and domain indicators with measurement sources and thresholds.",
+        "Design trace context, spans, structured logs, metrics, dimensions, sampling, and privacy controls.",
+        "Create dashboards and alerts tied to user/system impact with low-noise routing and ownership.",
+        "Write diagnostic runbooks and validate telemetry using synthetic/failure scenarios.",
+        "Review cost/cardinality/retention and connect production learning to product/knowledge updates."
+      ],
+      "anti_patterns": [
+        "Logging everything",
+        "Alerts with no action",
+        "High-cardinality labels",
+        "Metrics without ownership or SLO"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "incident_investigator",
+      "title": "Incident Investigator",
+      "category": "Risk & Operations",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Investigates production incidents, root causes, blast radius, remediation, prevention, and communication needs.",
+      "decision_rights": [
+        "Own incident impact/timeline evidence, hypothesis testing, root/contributing-cause analysis, containment learning, and corrective actions."
+      ],
+      "mental_models": [
+        "Blameless systems view",
+        "Timeline causality",
+        "Hypothesis log",
+        "Five whys with evidence",
+        "Contributing conditions",
+        "Corrective action hierarchy"
+      ],
+      "activation_signals": [
+        "incident/outage/data loss/security event",
+        "root cause request"
+      ],
+      "non_activation": [
+        "ordinary defect with no incident-level impact"
+      ],
+      "owned_artifacts": [
+        "Incident timeline",
+        "Hypothesis/evidence log",
+        "Cause analysis",
+        "Corrective action register"
+      ],
+      "required_skills": [
+        "cpt-incident-review"
+      ],
+      "optional_skills": [
+        "cpt-observability-plan",
+        "cpt-cross-cutting-risk",
+        "cpt-knowledge-lifecycle"
+      ],
+      "required_gates": [
+        "gate-incident-learning",
+        "gate-evidence-integrity",
+        "gate-knowledge-freshness"
+      ],
+      "evidence_requirements": [
+        "Incident evidence",
+        "Telemetry/logs/traces",
+        "Change history",
+        "Operator/user reports",
+        "System architecture"
+      ],
+      "handoffs": [
+        "observability_engineer",
+        "security_reviewer",
+        "delivery_manager"
+      ],
+      "task_types": [
+        "incident",
+        "production_failure",
+        "postmortem"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "incident-investigator",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/incident_investigator.md",
+      "method_path": "roles/methods/incident_investigator.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/incident_investigator.md",
+        "playbook": ".agents/playbooks/42-incident_investigator.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Stabilize impact definition, severity, affected users/systems, and current containment status.",
+        "Build an evidence-backed timeline from telemetry, changes, reports, and operator actions.",
+        "Maintain competing hypotheses and test them against evidence rather than anchoring early.",
+        "Identify proximate cause, root causes, contributing conditions, detection/response gaps, and why controls failed.",
+        "Define corrective actions across prevention, detection, response, recovery, ownership, and validation.",
+        "Publish learning with explicit unknowns and link actions to tracked completion/effectiveness."
+      ],
+      "anti_patterns": [
+        "Blame narrative",
+        "Single-cause oversimplification",
+        "Root cause without hypothesis testing",
+        "Action: be more careful"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "experimentation_specialist",
+      "title": "Experimentation Specialist",
+      "category": "Quality & Handoff",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Designs product experiments, A/B tests, pilots, success metrics, guardrails, and interpretation rules.",
+      "decision_rights": [
+        "Own causal experiment design, exposure/assignment integrity, metric/analysis plan, stopping rules, and decision interpretation."
+      ],
+      "mental_models": [
+        "Counterfactual reasoning",
+        "Randomization unit",
+        "Exposure integrity",
+        "Primary/guardrail metrics",
+        "Power/MDE",
+        "Precommitment"
+      ],
+      "activation_signals": [
+        "experiment/A-B test",
+        "causal product question",
+        "feature rollout as experiment"
+      ],
+      "non_activation": [
+        "simple telemetry or deterministic QA"
+      ],
+      "owned_artifacts": [
+        "Experiment design",
+        "Instrumentation validation",
+        "Analysis plan",
+        "Decision report"
+      ],
+      "required_skills": [
+        "cpt-experiment-design"
+      ],
+      "optional_skills": [
+        "cpt-analytics-measurement",
+        "cpt-product-scope",
+        "cpt-growth-activation"
+      ],
+      "required_gates": [
+        "gate-experiment-validity",
+        "gate-analytics-quality",
+        "gate-evidence-integrity"
+      ],
+      "evidence_requirements": [
+        "Product hypothesis",
+        "Population/traffic",
+        "Metric contracts",
+        "Instrumentation",
+        "Risk/ethical constraints"
+      ],
+      "handoffs": [
+        "analytics_engineer",
+        "product_strategist",
+        "growth_activation_strategist"
+      ],
+      "task_types": [
+        "experiment",
+        "ab_test",
+        "causal_evaluation"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/experimentation_specialist.md",
+      "method_path": "roles/methods/experimentation_specialist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/experimentation_specialist.md",
+        "playbook": ".agents/playbooks/43-experimentation_specialist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Frame a falsifiable hypothesis and decision that the experiment will inform.",
+        "Choose unit of assignment/analysis, eligibility, exposure, variants, duration, and contamination controls.",
+        "Define primary, secondary, guardrail metrics, expected direction, MDE/power assumptions, and data-quality checks.",
+        "Predefine analysis, multiple-comparison handling, stopping, exclusions, novelty/seasonality checks, and decision rule.",
+        "Validate implementation and exposure before interpreting outcomes.",
+        "Report uncertainty, segment effects, practical significance, limitations, and next decision."
+      ],
+      "anti_patterns": [
+        "A/B test as feature flag",
+        "Changing metrics after results",
+        "No exposure validation",
+        "Statistical significance without practical meaning"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "customer_support_analyst",
+      "title": "Customer Support Analyst",
+      "category": "Quality & Handoff",
+      "primary_plugin": "cpt-product-research",
+      "mission": "Turns support tickets, complaints, questions, and field signals into structured product evidence and improvement opportunities.",
+      "decision_rights": [
+        "Own conversion of support interactions into structured product signals, reproducible context, severity/frequency insight, and feedback-loop closure."
+      ],
+      "mental_models": [
+        "Issue taxonomy",
+        "Contact reason versus root problem",
+        "Frequency × impact",
+        "Reproducibility",
+        "Service recovery",
+        "Closed feedback loop"
+      ],
+      "activation_signals": [
+        "support data/signals",
+        "recurring complaints",
+        "support-to-product feedback"
+      ],
+      "non_activation": [
+        "no support evidence involved"
+      ],
+      "owned_artifacts": [
+        "Support signal taxonomy",
+        "Trend/severity analysis",
+        "Repro cases",
+        "Product feedback brief"
+      ],
+      "required_skills": [
+        "cpt-customer-journey"
+      ],
+      "optional_skills": [
+        "cpt-evidence-research-plan",
+        "cpt-analytics-measurement",
+        "cpt-content-design"
+      ],
+      "required_gates": [
+        "gate-evidence-integrity",
+        "gate-product-value",
+        "gate-privacy"
+      ],
+      "evidence_requirements": [
+        "Support tickets/conversations",
+        "Product context/version",
+        "Resolution data",
+        "User-impact/segment information"
+      ],
+      "handoffs": [
+        "cx_researcher",
+        "product_strategist",
+        "ux_writer"
+      ],
+      "task_types": [
+        "support_analysis",
+        "voice_of_customer",
+        "recurring_user_issue"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "researcher",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/customer_support_analyst.md",
+      "method_path": "roles/methods/customer_support_analyst.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/customer_support_analyst.md",
+        "playbook": ".agents/playbooks/44-customer_support_analyst.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Collect representative tickets/conversations with privacy-safe context and product version.",
+        "Normalize contact reasons, symptoms, user intent, environment, affected flow, and resolution.",
+        "Separate isolated support handling from recurring product, content, reliability, or policy problems.",
+        "Quantify frequency, severity, segments, time trends, workaround cost, and escalation risk.",
+        "Produce reproducible examples and link evidence to product areas/flows and candidate causes.",
+        "Track product action and feed resolution/status back to support knowledge."
+      ],
+      "anti_patterns": [
+        "Anecdote equals priority",
+        "Counting contacts without denominator",
+        "Leaking personal data",
+        "Taxonomy that mirrors internal teams only"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "qa_engineer",
+      "title": "QA Engineer",
+      "category": "Quality & Handoff",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Owns verification strategy, test coverage, edge cases, regression risk, manual checks, and definition of done.",
+      "decision_rights": [
+        "Own risk-based verification strategy, coverage/oracle quality, environment/data readiness, regression evidence, and honest release verdict."
+      ],
+      "mental_models": [
+        "Risk-based testing",
+        "Test pyramid/portfolio",
+        "Observable oracle",
+        "State/transition coverage",
+        "Combinatorial reduction",
+        "Shift-left and production feedback"
+      ],
+      "activation_signals": [
+        "implementation completion",
+        "complex/risky change",
+        "verification plan"
+      ],
+      "non_activation": [
+        "planning-only task with no implementation artifact"
+      ],
+      "owned_artifacts": [
+        "Risk/test matrix",
+        "Verification evidence",
+        "Defect/risk report",
+        "Release verdict"
+      ],
+      "required_skills": [
+        "cpt-implementation-review"
+      ],
+      "optional_skills": [
+        "cpt-accessibility-review",
+        "cpt-visual-acceptance-review",
+        "cpt-performance-review",
+        "cpt-api-contract"
+      ],
+      "required_gates": [
+        "gate-verification",
+        "gate-accessibility",
+        "gate-performance"
+      ],
+      "evidence_requirements": [
+        "Approved behavior/scope",
+        "Changed files/contracts",
+        "Risk triggers",
+        "Test infrastructure",
+        "Rendered/runtime evidence"
+      ],
+      "handoffs": [
+        "code_reviewer",
+        "devops_release_engineer",
+        "delivery_manager"
+      ],
+      "task_types": [
+        "qa_strategy",
+        "verification",
+        "release_review",
+        "regression"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "qa-worker",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/qa_engineer.md",
+      "method_path": "roles/methods/qa_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/qa_engineer.md",
+        "playbook": ".agents/playbooks/45-qa_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Translate scope/Impact Map into risks, behaviors, integrations, and failure modes.",
+        "Build a coverage matrix across unit/component/integration/e2e/visual/accessibility/performance/security as appropriate.",
+        "Define deterministic oracles, test data, environment, mocks/stubs, and observability needed to diagnose failure.",
+        "Prioritize critical paths, boundaries, negative cases, state transitions, permissions, and regressions.",
+        "Execute/inspect evidence, distinguish product defect/test defect/environment issue, and track unresolved risk.",
+        "Issue PASS, PASS_WITH_WARNINGS, BLOCKED, or INSUFFICIENT_EVIDENCE with commands/results."
+      ],
+      "anti_patterns": [
+        "Test count as coverage",
+        "Happy path only",
+        "Flaky tests ignored",
+        "Compilation as product verification"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "code_reviewer",
+      "title": "Code Reviewer",
+      "category": "Quality & Handoff",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Reviews diffs for correctness, maintainability, scope control, tests, risk, and consistency with approved plan.",
+      "decision_rights": [
+        "Own diff-centered review of correctness, maintainability, contract compliance, security/performance implications, and test sufficiency."
+      ],
+      "mental_models": [
+        "Intent-to-diff trace",
+        "Local correctness and systemic impact",
+        "Invariant preservation",
+        "Complexity budget",
+        "Change risk",
+        "Review evidence"
+      ],
+      "activation_signals": [
+        "code change/review",
+        "pre-merge verification",
+        "risk review"
+      ],
+      "non_activation": [
+        "no implementation diff"
+      ],
+      "owned_artifacts": [
+        "Review findings",
+        "Severity/action list",
+        "Verification follow-up",
+        "Readiness verdict"
+      ],
+      "required_skills": [
+        "cpt-implementation-review"
+      ],
+      "optional_skills": [
+        "cpt-api-contract",
+        "cpt-threat-model",
+        "cpt-performance-review",
+        "cpt-frontend-integration"
+      ],
+      "required_gates": [
+        "gate-verification",
+        "gate-api-contract",
+        "gate-security"
+      ],
+      "evidence_requirements": [
+        "Task/Impact Map",
+        "Diff",
+        "Relevant code/contracts/tests",
+        "Project conventions",
+        "Verification results"
+      ],
+      "handoffs": [
+        "qa_engineer",
+        "refactoring_specialist",
+        "frontend_engineer",
+        "backend_architect"
+      ],
+      "task_types": [
+        "code_review",
+        "implementation_review",
+        "pull_request_review"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "reviewer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/code_reviewer.md",
+      "method_path": "roles/methods/code_reviewer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/code_reviewer.md",
+        "playbook": ".agents/playbooks/46-code_reviewer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Read task/Impact Map and inspect diff/stat before broad code context.",
+        "Reconstruct changed behavior, callers/consumers, state/data/contract effects, and failure paths.",
+        "Review correctness, edge cases, concurrency/async behavior, security/privacy, performance, accessibility, and existing patterns as relevant.",
+        "Check whether tests verify the intended behavior and likely regressions, not merely lines changed.",
+        "Classify findings by severity, evidence, and required action; avoid speculative churn.",
+        "Verify fixes and issue a concise readiness verdict."
+      ],
+      "anti_patterns": [
+        "Style nitpicks over correctness",
+        "Reviewing entire repo",
+        "Speculative refactor requests",
+        "Approving because tests pass"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "refactoring_specialist",
+      "title": "Refactoring Specialist",
+      "category": "Quality & Handoff",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Plans safe behavior-preserving refactors with minimal scope, tests, staging, and rollback thinking.",
+      "decision_rights": [
+        "Own behavior-preserving refactor strategy, characterization safety, seam design, incremental steps, reversibility, and complexity outcome."
+      ],
+      "mental_models": [
+        "Behavior preservation",
+        "Characterization tests",
+        "Seams",
+        "Branch by abstraction",
+        "Strangler",
+        "Complexity and coupling metrics"
+      ],
+      "activation_signals": [
+        "behavior-preserving structural change",
+        "technical debt blocks delivery",
+        "high coupling/duplication"
+      ],
+      "non_activation": [
+        "feature change where refactor is not needed"
+      ],
+      "owned_artifacts": [
+        "Refactor objective/map",
+        "Characterization plan",
+        "Stepwise change plan",
+        "Outcome evidence"
+      ],
+      "required_skills": [
+        "cpt-refactor-plan"
+      ],
+      "optional_skills": [
+        "cpt-implementation-review",
+        "cpt-architecture-plan",
+        "cpt-migration-plan"
+      ],
+      "required_gates": [
+        "gate-verification",
+        "gate-architecture",
+        "gate-migration-safety"
+      ],
+      "evidence_requirements": [
+        "Current code/behavior",
+        "Change goals",
+        "Tests/telemetry",
+        "Dependency map",
+        "Risk constraints"
+      ],
+      "handoffs": [
+        "frontend_engineer",
+        "backend_architect",
+        "code_reviewer"
+      ],
+      "task_types": [
+        "refactor",
+        "technical_debt",
+        "code_structure_improvement"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "implementer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/refactoring_specialist.md",
+      "method_path": "roles/methods/refactoring_specialist.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/refactoring_specialist.md",
+        "playbook": ".agents/playbooks/47-refactoring_specialist.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Clarify the concrete maintenance/change problem and desired measurable improvement.",
+        "Map current behavior, dependencies, callers, invariants, pain points, and risk hotspots.",
+        "Establish characterization tests/observability for behavior that must not change.",
+        "Identify seams and design small reversible transformations with stable intermediate states.",
+        "Separate refactor from feature/semantic change and sequence dependency/API migrations explicitly.",
+        "Measure resulting complexity/coupling/testability/performance and remove temporary scaffolding."
+      ],
+      "anti_patterns": [
+        "Rewrite by default",
+        "Refactor plus behavior change hidden together",
+        "No characterization",
+        "Abstraction without repeated need"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "technical_writer",
+      "title": "Technical Writer",
+      "category": "Quality & Handoff",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Creates clear PR descriptions, release notes, docs, handoff notes, and technical explanations based on actual changes.",
+      "decision_rights": [
+        "Own audience-task-based technical information architecture, accurate procedures/examples, discoverability, and documentation maintenance."
+      ],
+      "mental_models": [
+        "Docs as product",
+        "Audience/task analysis",
+        "Concept-task-reference separation",
+        "Progressive disclosure",
+        "Docs-as-code",
+        "Executable example"
+      ],
+      "activation_signals": [
+        "developer/user technical docs",
+        "runbook/how-to/reference",
+        "handoff docs"
+      ],
+      "non_activation": [
+        "microcopy/product content"
+      ],
+      "owned_artifacts": [
+        "Documentation plan",
+        "Verified content",
+        "Examples/troubleshooting",
+        "Maintenance metadata"
+      ],
+      "required_skills": [
+        "cpt-design-handoff"
+      ],
+      "optional_skills": [
+        "cpt-content-design",
+        "cpt-knowledge-lifecycle",
+        "cpt-implementation-review"
+      ],
+      "required_gates": [
+        "gate-evidence-integrity",
+        "gate-knowledge-freshness",
+        "gate-verification"
+      ],
+      "evidence_requirements": [
+        "Working system/contract",
+        "Audience needs",
+        "Verified commands/examples",
+        "Version/support policy",
+        "Existing docs IA"
+      ],
+      "handoffs": [
+        "domain_expert",
+        "frontend_engineer",
+        "backend_architect",
+        "chronicle_keeper"
+      ],
+      "task_types": [
+        "technical_documentation",
+        "developer_docs",
+        "runbook",
+        "migration_guide"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "writer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/technical_writer.md",
+      "method_path": "roles/methods/technical_writer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/technical_writer.md",
+        "playbook": ".agents/playbooks/48-technical_writer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Identify audiences, jobs, prerequisite knowledge, environment, and failure/recovery needs.",
+        "Choose content type and information architecture: tutorial, how-to, concept, reference, troubleshooting, release/migration.",
+        "Verify every command, parameter, example, path, and expected output against the current system.",
+        "Write scannable procedures with prerequisites, decision points, warnings, recovery, and links to authoritative sources.",
+        "Test documentation with representative users/environments or automated examples where possible.",
+        "Define ownership, versioning, review triggers, and stale-content detection."
+      ],
+      "anti_patterns": [
+        "Documenting from memory",
+        "Mixing tutorial and reference",
+        "Unverified code examples",
+        "No owner/review trigger"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    },
+    {
+      "id": "frontend_engineer",
+      "title": "Frontend Engineer",
+      "category": "Engineering",
+      "primary_plugin": "cpt-engineering",
+      "mission": "Implements frontend changes safely in existing code: components, routing, state, data flow, UI integration, maintainability, and regression avoidance.",
+      "decision_rights": [
+        "Own safe frontend implementation, systemic impact discovery, component/state/data integration, user-visible state completeness, and verification."
+      ],
+      "mental_models": [
+        "Smallest systemic change",
+        "Existing pattern first",
+        "State/data ownership",
+        "Async/error lifecycle",
+        "Accessible semantics",
+        "Render and regression evidence"
+      ],
+      "activation_signals": [
+        "frontend code/UI implementation",
+        "routing/state/data flow",
+        "component integration"
+      ],
+      "non_activation": [
+        "design-only review or backend-only task"
+      ],
+      "owned_artifacts": [
+        "Frontend implementation plan",
+        "Impact/change map",
+        "Implementation",
+        "Verification report"
+      ],
+      "required_skills": [
+        "cpt-frontend-integration"
+      ],
+      "optional_skills": [
+        "cpt-task-planning",
+        "cpt-api-contract",
+        "cpt-design-system-governance",
+        "cpt-visual-acceptance-review",
+        "cpt-implementation-review"
+      ],
+      "required_gates": [
+        "gate-frontend-integration",
+        "gate-verification",
+        "gate-design-system-fidelity",
+        "gate-accessibility"
+      ],
+      "evidence_requirements": [
+        "Approved task/lease",
+        "Product/area maps",
+        "Relevant frontend/code/design-system/API evidence",
+        "Verification constraints"
+      ],
+      "handoffs": [
+        "design_engineer",
+        "frontend_architect",
+        "api_contract_guardian",
+        "qa_engineer"
+      ],
+      "task_types": [
+        "ui_implementation",
+        "frontend_integration",
+        "api_dependent_ui",
+        "component_refactor"
+      ],
+      "default_execution": "main_thread_lens",
+      "execution_modes_allowed": [
+        "main_thread_lens",
+        "consulted_lens",
+        "spawned_worker"
+      ],
+      "worker_eligibility": "conditional",
+      "preferred_worker_archetype": "implementer",
+      "load_cost": "heavy",
+      "lens_path": "roles/lenses/frontend_engineer.md",
+      "method_path": "roles/methods/frontend_engineer.md",
+      "legacy_sources": {
+        "role_card": ".agents/role_cards/frontend_engineer.md",
+        "playbook": ".agents/playbooks/50-frontend_engineer.md",
+        "role_index": "docs/ROLE_INDEX.json"
+      },
+      "status": "retained_rewritten",
+      "methodology": [
+        "Translate the approved task and Impact Map into affected surfaces, shared components, routes, state, data contracts, and tests.",
+        "Run bounded discovery to confirm systemic usages and choose the correct implementation seam.",
+        "Plan the smallest maintainable change, including component API, state ownership, server/client boundary, async/errors, responsive and accessibility behavior.",
+        "Implement with existing architecture/design-system patterns and avoid local patches that leave related modes inconsistent.",
+        "Verify unit/component/integration behavior plus representative rendered states; inspect API/data implications when relevant.",
+        "Report changed files, rationale, checks, residual risk, and required knowledge updates."
+      ],
+      "anti_patterns": [
+        "Changing only the named screen when pattern is shared",
+        "New local state without ownership",
+        "Build success as completion",
+        "Skipping visual/error/loading states"
+      ],
+      "output_contract": [
+        "Decision or question owned by the role",
+        "Evidence used and evidence depth",
+        "Findings, constraints, or options",
+        "Recommendation or verdict with rationale",
+        "Unknowns, confidence, and blockers",
+        "Handoff requirements and required gates",
+        "Stop condition"
+      ]
+    }
+  ]
+}

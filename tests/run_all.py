@@ -28,12 +28,25 @@ def run(command: list[str], *, timeout: int = 120) -> None:
 
 # Run each distribution case in an isolated interpreter. This keeps temporary
 # HOME/CODEX_HOME state and installer subprocesses from leaking across cases.
-suite = unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution")
+suite = unittest.TestSuite([
+    unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution"),
+    unittest.defaultTestLoader.loadTestsFromName("tests.test_skills"),
+    unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
+])
 test_ids = [test.id() for test in flatten(suite)]
 for test_id in test_ids:
     run([sys.executable, "-m", "unittest", "-v", test_id], timeout=120)
 
 commands = [
+    [sys.executable, str(ROOT / "tools" / "validate_roles.py"), "--root", str(ROOT)],
+    [
+        sys.executable,
+        str(ROOT / "tools" / "eval_role_routing.py"),
+        "--root",
+        str(ROOT),
+        "--write-report",
+        str(ROOT / "evaluation" / "role-routing-eval-report.json"),
+    ],
     [sys.executable, str(ROOT / "tools" / "validate_distribution.py")],
     [sys.executable, str(ROOT / "tools" / "validate_skills.py"), "--root", str(ROOT)],
     [
@@ -49,4 +62,4 @@ commands = [
 for command in commands:
     run(command, timeout=180)
 
-print(f"ALPHA 3 COMPLETE TEST SUITE PASSED: {len(test_ids)} distribution cases")
+print(f"ALPHA 4 COMPLETE TEST SUITE PASSED: {len(test_ids)} distribution cases")

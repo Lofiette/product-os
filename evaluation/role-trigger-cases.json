@@ -1,0 +1,906 @@
+{
+  "schema": "cpt-role-trigger-cases-v1",
+  "version": "4.0.0-alpha.4",
+  "cases": [
+    {
+      "id": "intake_orchestrator-positive-1",
+      "role": "intake_orchestrator",
+      "expected": "select",
+      "prompt": "new request. Apply Decision-changing questions, Progressive disclosure, Risk-first intake and produce Task brief with evidence."
+    },
+    {
+      "id": "intake_orchestrator-positive-2",
+      "role": "intake_orchestrator",
+      "expected": "select",
+      "prompt": "Own Own intake depth, work-mode classification, initial scope, and the decision to stop questioning and route work. Use a method covering Restate the request as an outcome and identify the next irreversible decision. Then deliver Initial routing note and satisfy gate-task-scope, gate-evidence-integrity."
+    },
+    {
+      "id": "intake_orchestrator-negative-1",
+      "role": "intake_orchestrator",
+      "expected": "do_not_select",
+      "prompt": "multiple decision domains. Apply Decision ownership, Capability coverage, Minimal sufficient team and produce Expertise contract with evidence."
+    },
+    {
+      "id": "team_architect-positive-1",
+      "role": "team_architect",
+      "expected": "select",
+      "prompt": "multiple decision domains. Apply Decision ownership, Capability coverage, Minimal sufficient team and produce Expertise contract with evidence."
+    },
+    {
+      "id": "team_architect-positive-2",
+      "role": "team_architect",
+      "expected": "select",
+      "prompt": "Own Own the minimal expertise composition, role-to-decision ownership, skill/gate routing, and proposed execution mode. Use a method covering List the meaningful decisions and required artifacts before listing roles. Then deliver Skipped-role rationale and satisfy gate-task-scope, gate-evidence-integrity."
+    },
+    {
+      "id": "team_architect-negative-1",
+      "role": "team_architect",
+      "expected": "do_not_select",
+      "prompt": "multi-phase work. Apply Critical path, Dependency-first planning, Decision latency and produce Execution plan with evidence."
+    },
+    {
+      "id": "delivery_manager-positive-1",
+      "role": "delivery_manager",
+      "expected": "select",
+      "prompt": "multi-phase work. Apply Critical path, Dependency-first planning, Decision latency and produce Execution plan with evidence."
+    },
+    {
+      "id": "delivery_manager-positive-2",
+      "role": "delivery_manager",
+      "expected": "select",
+      "prompt": "Own Own execution sequencing, dependency visibility, milestones, approval checkpoints, and delivery-scope discipline. Use a method covering Decompose the approved outcome into verifiable increments. Then deliver Approval schedule and satisfy gate-task-scope, gate-production-readiness."
+    },
+    {
+      "id": "delivery_manager-negative-1",
+      "role": "delivery_manager",
+      "expected": "do_not_select",
+      "prompt": "phase transition. Apply Durable versus transient knowledge, Recovery point objective, State compression and produce Runtime summary with evidence."
+    },
+    {
+      "id": "chronicle_keeper-positive-1",
+      "role": "chronicle_keeper",
+      "expected": "select",
+      "prompt": "phase transition. Apply Durable versus transient knowledge, Recovery point objective, State compression and produce Runtime summary with evidence."
+    },
+    {
+      "id": "chronicle_keeper-positive-2",
+      "role": "chronicle_keeper",
+      "expected": "select",
+      "prompt": "Own Own durable runtime summary, checkpoint usefulness, decision continuity, and compaction-safe recovery state. Use a method covering Identify what a fresh session must know to take the next correct action. Then deliver Recovery mismatch report and satisfy gate-knowledge-freshness, gate-evidence-integrity."
+    },
+    {
+      "id": "chronicle_keeper-negative-1",
+      "role": "chronicle_keeper",
+      "expected": "do_not_select",
+      "prompt": "multiple artifacts or policies. Apply Invariant map, Bidirectional traceability, Source authority and produce Invariant matrix with evidence."
+    },
+    {
+      "id": "consistency_auditor-positive-1",
+      "role": "consistency_auditor",
+      "expected": "select",
+      "prompt": "multiple artifacts or policies. Apply Invariant map, Bidirectional traceability, Source authority and produce Invariant matrix with evidence."
+    },
+    {
+      "id": "consistency_auditor-positive-2",
+      "role": "consistency_auditor",
+      "expected": "select",
+      "prompt": "Own Own cross-artifact invariant checking, instruction conflict detection, traceability, and unresolved contradiction escalation. Use a method covering Enumerate applicable invariants, sources, artifacts, and decision owners. Then deliver Conflict verdict and satisfy gate-evidence-integrity, gate-knowledge-freshness, gate-verification."
+    },
+    {
+      "id": "consistency_auditor-negative-1",
+      "role": "consistency_auditor",
+      "expected": "do_not_select",
+      "prompt": "unexpected runtime behavior. Apply Observed trace over claimed process, Context surface accounting, Trigger-to-action chain and produce Framework failure analysis with evidence."
+    },
+    {
+      "id": "ai_workflow_auditor-positive-1",
+      "role": "ai_workflow_auditor",
+      "expected": "select",
+      "prompt": "unexpected runtime behavior. Apply Observed trace over claimed process, Context surface accounting, Trigger-to-action chain and produce Framework failure analysis with evidence."
+    },
+    {
+      "id": "ai_workflow_auditor-positive-2",
+      "role": "ai_workflow_auditor",
+      "expected": "select",
+      "prompt": "Own Own trace-based diagnosis of the Codex operating environment, routing behavior, context cost, and framework failure modes. Use a method covering Define the expected runtime path for the case under review. Then deliver Patch recommendation and satisfy gate-evidence-integrity, gate-verification, gate-knowledge-freshness."
+    },
+    {
+      "id": "ai_workflow_auditor-negative-1",
+      "role": "ai_workflow_auditor",
+      "expected": "do_not_select",
+      "prompt": "new feature/module. Apply Jobs to be Done, Outcome-based planning, Assumption mapping and produce Outcome frame with evidence."
+    },
+    {
+      "id": "product_strategist-positive-1",
+      "role": "product_strategist",
+      "expected": "select",
+      "prompt": "new feature/module. Apply Jobs to be Done, Outcome-based planning, Assumption mapping and produce Outcome frame with evidence."
+    },
+    {
+      "id": "product_strategist-positive-2",
+      "role": "product_strategist",
+      "expected": "select",
+      "prompt": "Own Own outcome framing, product-scope rationale, MVP boundary, assumption priority, and success-measure logic. Use a method covering Frame the user/business problem as a desired outcome rather than a feature request. Then deliver Success-measure brief and satisfy gate-product-value, gate-task-scope, gate-evidence-integrity."
+    },
+    {
+      "id": "product_strategist-negative-1",
+      "role": "product_strategist",
+      "expected": "do_not_select",
+      "prompt": "market/category question. Apply Category definition, Alternative set, Competitive differentiation and produce Market evidence brief with evidence."
+    },
+    {
+      "id": "market_researcher-positive-1",
+      "role": "market_researcher",
+      "expected": "select",
+      "prompt": "market/category question. Apply Category definition, Alternative set, Competitive differentiation and produce Market evidence brief with evidence."
+    },
+    {
+      "id": "market_researcher-positive-2",
+      "role": "market_researcher",
+      "expected": "select",
+      "prompt": "Own Own market/category evidence, alternatives analysis, positioning insight, and evidence-confidence boundaries. Use a method covering Define the category and decision the research must support. Then deliver Research gaps and satisfy gate-research-validity, gate-evidence-integrity, gate-product-value."
+    },
+    {
+      "id": "market_researcher-negative-1",
+      "role": "market_researcher",
+      "expected": "do_not_select",
+      "prompt": "unknown user behavior. Apply Generative versus evaluative research, Behavior over stated preference, Sampling fit and produce Research plan with evidence."
+    },
+    {
+      "id": "ux_researcher-positive-1",
+      "role": "ux_researcher",
+      "expected": "select",
+      "prompt": "unknown user behavior. Apply Generative versus evaluative research, Behavior over stated preference, Sampling fit and produce Research plan with evidence."
+    },
+    {
+      "id": "ux_researcher-positive-2",
+      "role": "ux_researcher",
+      "expected": "select",
+      "prompt": "Own Own research-question quality, method/sample fitness, behavioral evidence, synthesis validity, and limitation disclosure. Use a method covering Translate the product decision into answerable research questions and observable evidence. Then deliver Research limitations and satisfy gate-research-validity, gate-evidence-integrity."
+    },
+    {
+      "id": "ux_researcher-negative-1",
+      "role": "ux_researcher",
+      "expected": "do_not_select",
+      "prompt": "cross-channel journey. Apply Journey stages, Moments of truth, Channel handoffs and produce Current-state journey with evidence."
+    },
+    {
+      "id": "cx_researcher-positive-1",
+      "role": "cx_researcher",
+      "expected": "select",
+      "prompt": "cross-channel journey. Apply Journey stages, Moments of truth, Channel handoffs and produce Current-state journey with evidence."
+    },
+    {
+      "id": "cx_researcher-positive-2",
+      "role": "cx_researcher",
+      "expected": "select",
+      "prompt": "Own Own end-to-end experience evidence across channels, moments, emotions, handoffs, and systemic service gaps. Use a method covering Define the journey scope, actor, triggering need, and end condition. Then deliver Systemic opportunity brief and satisfy gate-research-validity, gate-evidence-integrity, gate-product-value."
+    },
+    {
+      "id": "cx_researcher-negative-1",
+      "role": "cx_researcher",
+      "expected": "do_not_select",
+      "prompt": "complex business rules. Apply Business rules as invariants, Decision tables, State transitions and produce Rule catalogue with evidence."
+    },
+    {
+      "id": "business_analyst-positive-1",
+      "role": "business_analyst",
+      "expected": "select",
+      "prompt": "complex business rules. Apply Business rules as invariants, Decision tables, State transitions and produce Rule catalogue with evidence."
+    },
+    {
+      "id": "business_analyst-positive-2",
+      "role": "business_analyst",
+      "expected": "select",
+      "prompt": "Own Own business-rule clarity, requirement traceability, scenario completeness, and translation between domain intent and implementation contracts. Use a method covering Identify actors, goals, entities, events, rules, constraints, and business outcomes. Then deliver Requirements traceability and satisfy gate-task-scope, gate-evidence-integrity, gate-api-contract."
+    },
+    {
+      "id": "business_analyst-negative-1",
+      "role": "business_analyst",
+      "expected": "do_not_select",
+      "prompt": "specialized domain language/rules. Apply Ubiquitous language, Domain invariants, Entity lifecycle and produce Domain glossary with evidence."
+    },
+    {
+      "id": "domain_expert-positive-1",
+      "role": "domain_expert",
+      "expected": "select",
+      "prompt": "specialized domain language/rules. Apply Ubiquitous language, Domain invariants, Entity lifecycle and produce Domain glossary with evidence."
+    },
+    {
+      "id": "domain_expert-positive-2",
+      "role": "domain_expert",
+      "expected": "select",
+      "prompt": "Own Own domain-language precision, invariant validation, lifecycle realism, exception handling, and escalation of domain unknowns. Use a method covering Establish authoritative terms, synonyms to avoid, and context-dependent meanings. Then deliver Open expert questions and satisfy gate-evidence-integrity, gate-product-value, gate-data-integrity."
+    },
+    {
+      "id": "domain_expert-negative-1",
+      "role": "domain_expert",
+      "expected": "do_not_select",
+      "prompt": "activation/retention problem. Apply AARRR/funnel as diagnostic not strategy, Activation event, Habit loop and produce Growth diagnosis with evidence."
+    },
+    {
+      "id": "growth_activation_strategist-positive-1",
+      "role": "growth_activation_strategist",
+      "expected": "select",
+      "prompt": "activation/retention problem. Apply AARRR/funnel as diagnostic not strategy, Activation event, Habit loop and produce Growth diagnosis with evidence."
+    },
+    {
+      "id": "growth_activation_strategist-positive-2",
+      "role": "growth_activation_strategist",
+      "expected": "select",
+      "prompt": "Own Own activation/retention/conversion problem framing, growth-loop hypotheses, lifecycle intervention logic, and guardrail balance. Use a method covering Define the target behavior and durable value moment rather than optimizing a vanity conversion. Then deliver Metric/experiment plan and satisfy gate-product-value, gate-analytics-quality, gate-experiment-validity."
+    },
+    {
+      "id": "growth_activation_strategist-negative-1",
+      "role": "growth_activation_strategist",
+      "expected": "do_not_select",
+      "prompt": "new/redesigned screen or module. Apply User goal to interface structure, Progressive disclosure, Recognition over recall and produce Screen/module design spec with evidence."
+    },
+    {
+      "id": "product_designer-positive-1",
+      "role": "product_designer",
+      "expected": "select",
+      "prompt": "new/redesigned screen or module. Apply User goal to interface structure, Progressive disclosure, Recognition over recall and produce Screen/module design spec with evidence."
+    },
+    {
+      "id": "product_designer-positive-2",
+      "role": "product_designer",
+      "expected": "select",
+      "prompt": "Own Own coherent screen/module/flow design, information hierarchy, behavior/state completeness, and implementation-ready design rationale. Use a method covering Clarify user/product goal, entry context, primary decision/action, constraints, and evidence. Then deliver Design handoff and satisfy gate-design-quality, gate-product-value, gate-accessibility."
+    },
+    {
+      "id": "product_designer-negative-1",
+      "role": "product_designer",
+      "expected": "do_not_select",
+      "prompt": "multi-channel service. Apply Service blueprint, Frontstage/backstage, Line of visibility and produce Service blueprint with evidence."
+    },
+    {
+      "id": "service_designer-positive-1",
+      "role": "service_designer",
+      "expected": "select",
+      "prompt": "multi-channel service. Apply Service blueprint, Frontstage/backstage, Line of visibility and produce Service blueprint with evidence."
+    },
+    {
+      "id": "service_designer-positive-2",
+      "role": "service_designer",
+      "expected": "select",
+      "prompt": "Own Own end-to-end service design across frontstage, backstage, people, policies, systems, and recovery. Use a method covering Define actor, service need, journey boundaries, channels, and desired outcome. Then deliver Transition plan and satisfy gate-product-value, gate-evidence-integrity, gate-production-readiness."
+    },
+    {
+      "id": "service_designer-negative-1",
+      "role": "service_designer",
+      "expected": "do_not_select",
+      "prompt": "complex navigation/taxonomy. Apply Content/object inventory, Mental model versus organizational model, Taxonomy facets and produce Object/content inventory with evidence."
+    },
+    {
+      "id": "information_architect-positive-1",
+      "role": "information_architect",
+      "expected": "select",
+      "prompt": "complex navigation/taxonomy. Apply Content/object inventory, Mental model versus organizational model, Taxonomy facets and produce Object/content inventory with evidence."
+    },
+    {
+      "id": "information_architect-positive-2",
+      "role": "information_architect",
+      "expected": "select",
+      "prompt": "Own Own semantic structure, taxonomy, labeling, navigation, findability, and information-governance decisions. Use a method covering Inventory content, objects, actions, metadata, audiences, and retrieval tasks. Then deliver Label/governance rules and satisfy gate-design-quality, gate-content-quality, gate-evidence-integrity."
+    },
+    {
+      "id": "information_architect-negative-1",
+      "role": "information_architect",
+      "expected": "do_not_select",
+      "prompt": "flow/state review. Apply Task analysis, System status visibility, Control-feedback loop and produce Interaction review with evidence."
+    },
+    {
+      "id": "ux_interaction_reviewer-positive-1",
+      "role": "ux_interaction_reviewer",
+      "expected": "select",
+      "prompt": "flow/state review. Apply Task analysis, System status visibility, Control-feedback loop and produce Interaction review with evidence."
+    },
+    {
+      "id": "ux_interaction_reviewer-positive-2",
+      "role": "ux_interaction_reviewer",
+      "expected": "select",
+      "prompt": "Own Own interaction-logic review, feedback/recovery quality, task efficiency, cognitive-load analysis, and severity-based UX findings. Use a method covering Reconstruct the user goal, entry state, expected next action, and success condition. Then deliver Fix recommendations and satisfy gate-design-quality, gate-verification, gate-accessibility."
+    },
+    {
+      "id": "ux_interaction_reviewer-negative-1",
+      "role": "ux_interaction_reviewer",
+      "expected": "do_not_select",
+      "prompt": "user-facing copy. Apply User intent language, Information scent, Message hierarchy and produce Terminology set with evidence."
+    },
+    {
+      "id": "ux_writer-positive-1",
+      "role": "ux_writer",
+      "expected": "select",
+      "prompt": "user-facing copy. Apply User intent language, Information scent, Message hierarchy and produce Terminology set with evidence."
+    },
+    {
+      "id": "ux_writer-positive-2",
+      "role": "ux_writer",
+      "expected": "select",
+      "prompt": "Own Own user-facing terminology, message architecture, action clarity, state/recovery copy, and voice/tone consistency. Use a method covering Define audience, task, emotional context, channel, and product terminology. Then deliver Content rationale and satisfy gate-content-quality, gate-localization-readiness, gate-design-quality."
+    },
+    {
+      "id": "ux_writer-negative-1",
+      "role": "ux_writer",
+      "expected": "do_not_select",
+      "prompt": "design system/component library applies. Apply Source of truth hierarchy, Reuse before variation, Component contract and produce Source-authority map with evidence."
+    },
+    {
+      "id": "design_system_guardian-positive-1",
+      "role": "design_system_guardian",
+      "expected": "select",
+      "prompt": "design system/component library applies. Apply Source of truth hierarchy, Reuse before variation, Component contract and produce Source-authority map with evidence."
+    },
+    {
+      "id": "design_system_guardian-positive-2",
+      "role": "design_system_guardian",
+      "expected": "select",
+      "prompt": "Own Own design-system source authority, reuse strategy, deviation governance, contribution quality, and systemic consistency. Use a method covering Identify authoritative code, documentation, examples, tokens, and design sources. Then deliver DS QA verdict and satisfy gate-design-system-fidelity, gate-design-quality, gate-accessibility."
+    },
+    {
+      "id": "design_system_guardian-negative-1",
+      "role": "design_system_guardian",
+      "expected": "do_not_select",
+      "prompt": "UI implementation. Apply Spec-to-code traceability, Component composition, Token discipline and produce UI implementation plan with evidence."
+    },
+    {
+      "id": "design_engineer-positive-1",
+      "role": "design_engineer",
+      "expected": "select",
+      "prompt": "UI implementation. Apply Spec-to-code traceability, Component composition, Token discipline and produce UI implementation plan with evidence."
+    },
+    {
+      "id": "design_engineer-positive-2",
+      "role": "design_engineer",
+      "expected": "select",
+      "prompt": "Own Own translation of design intent into system-faithful coded UI, interaction polish, rendered-state coverage, and implementation fidelity. Use a method covering Read the approved design/interaction contract and identify canonical UI sources. Then deliver Design diff and satisfy gate-design-system-fidelity, gate-frontend-integration, gate-design-quality, gate-accessibility."
+    },
+    {
+      "id": "design_engineer-negative-1",
+      "role": "design_engineer",
+      "expected": "do_not_select",
+      "prompt": "visual direction/hierarchy. Apply Hierarchy of attention, Gestalt grouping, Rhythm and spacing and produce Visual principles with evidence."
+    },
+    {
+      "id": "visual_design_director-positive-1",
+      "role": "visual_design_director",
+      "expected": "select",
+      "prompt": "visual direction/hierarchy. Apply Hierarchy of attention, Gestalt grouping, Rhythm and spacing and produce Visual principles with evidence."
+    },
+    {
+      "id": "visual_design_director-positive-2",
+      "role": "visual_design_director",
+      "expected": "select",
+      "prompt": "Own Own visual hierarchy, composition, rhythm, density, expressive direction, and coherent visual-quality bar. Use a method covering Translate product/audience/brand intent into a small set of visual principles. Then deliver Visual acceptance criteria and satisfy gate-design-quality, gate-design-system-fidelity, gate-accessibility."
+    },
+    {
+      "id": "visual_design_director-negative-1",
+      "role": "visual_design_director",
+      "expected": "do_not_select",
+      "prompt": "user-facing UI/interaction. Apply Perceivable/operable/understandable/robust, Semantic first, Keyboard equivalence and produce Accessibility requirements with evidence."
+    },
+    {
+      "id": "accessibility_specialist-positive-1",
+      "role": "accessibility_specialist",
+      "expected": "select",
+      "prompt": "user-facing UI/interaction. Apply Perceivable/operable/understandable/robust, Semantic first, Keyboard equivalence and produce Accessibility requirements with evidence."
+    },
+    {
+      "id": "accessibility_specialist-positive-2",
+      "role": "accessibility_specialist",
+      "expected": "select",
+      "prompt": "Own Own accessibility requirements, semantic/keyboard/focus correctness, assistive-technology behavior, and blocking accessibility verdicts. Use a method covering Identify user tasks, affected components, technologies, and applicable accessibility requirements. Then deliver Regression checklist and satisfy gate-accessibility, gate-verification."
+    },
+    {
+      "id": "accessibility_specialist-negative-1",
+      "role": "accessibility_specialist",
+      "expected": "do_not_select",
+      "prompt": "charts/dashboards/metrics/reports. Apply Question before chart, Comparison/task taxonomy, Perceptual accuracy and produce Visualization rationale with evidence."
+    },
+    {
+      "id": "data_visualization_designer-positive-1",
+      "role": "data_visualization_designer",
+      "expected": "select",
+      "prompt": "charts/dashboards/metrics/reports. Apply Question before chart, Comparison/task taxonomy, Perceptual accuracy and produce Visualization rationale with evidence."
+    },
+    {
+      "id": "data_visualization_designer-positive-2",
+      "role": "data_visualization_designer",
+      "expected": "select",
+      "prompt": "Own Own mapping of data and user decisions to honest, comprehensible, accessible visual encodings. Use a method covering Define the user decision/question, audience, frequency, and data grain. Then deliver Misinterpretation risks and satisfy gate-design-quality, gate-analytics-quality, gate-accessibility."
+    },
+    {
+      "id": "data_visualization_designer-negative-1",
+      "role": "data_visualization_designer",
+      "expected": "do_not_select",
+      "prompt": "chat/assistant/voice/multi-turn flow. Apply Conversation as state machine, Intent and slot uncertainty, Progressive clarification and produce Conversation model with evidence."
+    },
+    {
+      "id": "conversation_designer-positive-1",
+      "role": "conversation_designer",
+      "expected": "select",
+      "prompt": "chat/assistant/voice/multi-turn flow. Apply Conversation as state machine, Intent and slot uncertainty, Progressive clarification and produce Conversation model with evidence."
+    },
+    {
+      "id": "conversation_designer-positive-2",
+      "role": "conversation_designer",
+      "expected": "select",
+      "prompt": "Own Own conversational interaction model, intent/state logic, clarification, repair, fallback, trust, and human handoff. Use a method covering Define user goals, channels, capabilities, non-capabilities, risk, and success conditions. Then deliver Repair/handoff rules and satisfy gate-content-quality, gate-ai-quality, gate-ai-safety."
+    },
+    {
+      "id": "conversation_designer-negative-1",
+      "role": "conversation_designer",
+      "expected": "do_not_select",
+      "prompt": "multilingual/locale work. Apply Internationalization before translation, Context-rich strings, Plural/gender rules and produce Localization readiness report with evidence."
+    },
+    {
+      "id": "localization_specialist-positive-1",
+      "role": "localization_specialist",
+      "expected": "select",
+      "prompt": "multilingual/locale work. Apply Internationalization before translation, Context-rich strings, Plural/gender rules and produce Localization readiness report with evidence."
+    },
+    {
+      "id": "localization_specialist-positive-2",
+      "role": "localization_specialist",
+      "expected": "select",
+      "prompt": "Own Own internationalization/localization readiness, locale-sensitive behavior, linguistic context, and culturally appropriate adaptation. Use a method covering Inventory user-visible strings, dynamic content, layouts, icons/images, and locale-sensitive values. Then deliver Pseudo-localization plan and satisfy gate-localization-readiness, gate-content-quality, gate-design-quality."
+    },
+    {
+      "id": "localization_specialist-negative-1",
+      "role": "localization_specialist",
+      "expected": "do_not_select",
+      "prompt": "cross-cutting architecture. Apply Quality-attribute scenarios, Context/boundary mapping, Trade-off analysis and produce Architecture options with evidence."
+    },
+    {
+      "id": "solution_architect-positive-1",
+      "role": "solution_architect",
+      "expected": "select",
+      "prompt": "cross-cutting architecture. Apply Quality-attribute scenarios, Context/boundary mapping, Trade-off analysis and produce Architecture options with evidence."
+    },
+    {
+      "id": "solution_architect-positive-2",
+      "role": "solution_architect",
+      "expected": "select",
+      "prompt": "Own Own system-wide architecture options, quality-attribute trade-offs, boundaries, cross-system dependencies, and architecture decision records. Use a method covering Clarify business outcome, constraints, scale, risk, and quality attributes with measurable scenarios. Then deliver Validation/migration plan and satisfy gate-architecture, gate-security, gate-production-readiness."
+    },
+    {
+      "id": "solution_architect-negative-1",
+      "role": "solution_architect",
+      "expected": "do_not_select",
+      "prompt": "frontend boundaries/state/rendering. Apply Rendering boundary, State ownership, Data-flow direction and produce Frontend architecture map with evidence."
+    },
+    {
+      "id": "frontend_architect-positive-1",
+      "role": "frontend_architect",
+      "expected": "select",
+      "prompt": "frontend boundaries/state/rendering. Apply Rendering boundary, State ownership, Data-flow direction and produce Frontend architecture map with evidence."
+    },
+    {
+      "id": "frontend_architect-positive-2",
+      "role": "frontend_architect",
+      "expected": "select",
+      "prompt": "Own Own frontend architecture boundaries, rendering strategy, state/data-flow ownership, shared patterns, performance envelope, and evolution risk. Use a method covering Map routes/surfaces, rendering modes, client/server boundaries, shared components, state sources, and data contracts. Then deliver Migration/verification plan and satisfy gate-frontend-integration, gate-architecture, gate-performance."
+    },
+    {
+      "id": "frontend_architect-negative-1",
+      "role": "frontend_architect",
+      "expected": "do_not_select",
+      "prompt": "backend/service boundary. Apply Domain boundaries, Consistency model, Command/query separation when useful and produce Backend architecture plan with evidence."
+    },
+    {
+      "id": "backend_architect-positive-1",
+      "role": "backend_architect",
+      "expected": "select",
+      "prompt": "backend/service boundary. Apply Domain boundaries, Consistency model, Command/query separation when useful and produce Backend architecture plan with evidence."
+    },
+    {
+      "id": "backend_architect-positive-2",
+      "role": "backend_architect",
+      "expected": "select",
+      "prompt": "Own Own backend/domain-service boundaries, consistency and transaction model, asynchronous workflows, resilience, access control, and operability. Use a method covering Map domain capabilities, data ownership, service boundaries, consumers, trust boundaries, and quality attributes. Then deliver Operational validation plan and satisfy gate-architecture, gate-api-contract, gate-security, gate-production-readiness."
+    },
+    {
+      "id": "backend_architect-negative-1",
+      "role": "backend_architect",
+      "expected": "do_not_select",
+      "prompt": "mobile app/platform. Apply App lifecycle, Offline-first where justified, Navigation/state restoration and produce Mobile architecture plan with evidence."
+    },
+    {
+      "id": "mobile_architect-positive-1",
+      "role": "mobile_architect",
+      "expected": "select",
+      "prompt": "mobile app/platform. Apply App lifecycle, Offline-first where justified, Navigation/state restoration and produce Mobile architecture plan with evidence."
+    },
+    {
+      "id": "mobile_architect-positive-2",
+      "role": "mobile_architect",
+      "expected": "select",
+      "prompt": "Own Own mobile platform architecture, lifecycle/offline behavior, navigation/state, device capabilities, performance, and release constraints. Use a method covering Clarify target platforms, supported OS/device matrix, user contexts, offline/network assumptions, and product parity requirements. Then deliver Release validation matrix and satisfy gate-architecture, gate-performance, gate-accessibility, gate-production-readiness."
+    },
+    {
+      "id": "mobile_architect-negative-1",
+      "role": "mobile_architect",
+      "expected": "do_not_select",
+      "prompt": "API/schema/event change. Apply Consumer-first contract, Compatibility taxonomy, Tolerant reader/careful writer and produce Contract review with evidence."
+    },
+    {
+      "id": "api_contract_guardian-positive-1",
+      "role": "api_contract_guardian",
+      "expected": "select",
+      "prompt": "API/schema/event change. Apply Consumer-first contract, Compatibility taxonomy, Tolerant reader/careful writer and produce Contract review with evidence."
+    },
+    {
+      "id": "api_contract_guardian-positive-2",
+      "role": "api_contract_guardian",
+      "expected": "select",
+      "prompt": "Own Own consumer-facing contract correctness, compatibility classification, error semantics, idempotency, versioning, and contract verification. Use a method covering Identify consumers, producers, source of truth, and the user/product behavior depending on the contract. Then deliver Contract-test plan and satisfy gate-api-contract, gate-data-integrity, gate-verification."
+    },
+    {
+      "id": "api_contract_guardian-negative-1",
+      "role": "api_contract_guardian",
+      "expected": "do_not_select",
+      "prompt": "data model/schema/lineage. Apply Data products/ownership, Conceptual-logical-physical separation, Lineage and produce Data domain model with evidence."
+    },
+    {
+      "id": "data_architect-positive-1",
+      "role": "data_architect",
+      "expected": "select",
+      "prompt": "data model/schema/lineage. Apply Data products/ownership, Conceptual-logical-physical separation, Lineage and produce Data domain model with evidence."
+    },
+    {
+      "id": "data_architect-positive-2",
+      "role": "data_architect",
+      "expected": "select",
+      "prompt": "Own Own data-domain boundaries, ownership, models, lifecycle, lineage, evolution, quality, retention, and migration integrity. Use a method covering Define decisions and domain concepts the data must support, with authoritative ownership. Then deliver Quality/lifecycle contract and satisfy gate-data-integrity, gate-privacy, gate-migration-safety."
+    },
+    {
+      "id": "data_architect-negative-1",
+      "role": "data_architect",
+      "expected": "do_not_select",
+      "prompt": "events/metrics/dashboard. Apply Decision-first measurement, Event grain, Metric formula and produce Event/metric contract with evidence."
+    },
+    {
+      "id": "analytics_engineer-positive-1",
+      "role": "analytics_engineer",
+      "expected": "select",
+      "prompt": "events/metrics/dashboard. Apply Decision-first measurement, Event grain, Metric formula and produce Event/metric contract with evidence."
+    },
+    {
+      "id": "analytics_engineer-positive-2",
+      "role": "analytics_engineer",
+      "expected": "select",
+      "prompt": "Own Own measurement semantics, event/metric contracts, semantic-layer consistency, data quality, and decision-ready analytics. Use a method covering Identify the product/business decision and behavior that measurement must illuminate. Then deliver Decision dashboard spec and satisfy gate-analytics-quality, gate-data-integrity, gate-privacy."
+    },
+    {
+      "id": "analytics_engineer-negative-1",
+      "role": "analytics_engineer",
+      "expected": "do_not_select",
+      "prompt": "AI/ML behavior. Apply Behavior contract, Context engineering, Tool authority and produce AI behavior contract with evidence."
+    },
+    {
+      "id": "ai_ml_systems_architect-positive-1",
+      "role": "ai_ml_systems_architect",
+      "expected": "select",
+      "prompt": "AI/ML behavior. Apply Behavior contract, Context engineering, Tool authority and produce AI behavior contract with evidence."
+    },
+    {
+      "id": "ai_ml_systems_architect-positive-2",
+      "role": "ai_ml_systems_architect",
+      "expected": "select",
+      "prompt": "Own Own AI-system behavior contract, context/data/tool architecture, model/retrieval choices, cost/latency envelope, fallback, and human escalation. Use a method covering Define target behavior, users, acceptable/forbidden outcomes, uncertainty, and evaluation boundary. Then deliver Fallback/eval design and satisfy gate-ai-quality, gate-ai-safety, gate-security, gate-privacy."
+    },
+    {
+      "id": "ai_ml_systems_architect-negative-1",
+      "role": "ai_ml_systems_architect",
+      "expected": "do_not_select",
+      "prompt": "AI quality claim. Apply Task-representative evaluation, Golden versus rubric evaluation, Slice-based risk and produce Eval plan/dataset spec with evidence."
+    },
+    {
+      "id": "model_evaluation_specialist-positive-1",
+      "role": "model_evaluation_specialist",
+      "expected": "select",
+      "prompt": "AI quality claim. Apply Task-representative evaluation, Golden versus rubric evaluation, Slice-based risk and produce Eval plan/dataset spec with evidence."
+    },
+    {
+      "id": "model_evaluation_specialist-positive-2",
+      "role": "model_evaluation_specialist",
+      "expected": "select",
+      "prompt": "Own Own evaluation-set design, metrics/rubrics, slicing, baselines, thresholds, failure taxonomy, and reproducible AI-quality regression. Use a method covering Translate the behavior contract into measurable capabilities and failure classes. Then deliver Release verdict and satisfy gate-ai-quality, gate-evidence-integrity, gate-experiment-validity."
+    },
+    {
+      "id": "model_evaluation_specialist-negative-1",
+      "role": "model_evaluation_specialist",
+      "expected": "do_not_select",
+      "prompt": "generative AI. Apply Misuse/abuse cases, Indirect prompt injection, Capability-control gap and produce AI safety review with evidence."
+    },
+    {
+      "id": "ai_safety_reviewer-positive-1",
+      "role": "ai_safety_reviewer",
+      "expected": "select",
+      "prompt": "generative AI. Apply Misuse/abuse cases, Indirect prompt injection, Capability-control gap and produce AI safety review with evidence."
+    },
+    {
+      "id": "ai_safety_reviewer-positive-2",
+      "role": "ai_safety_reviewer",
+      "expected": "select",
+      "prompt": "Own Own AI harm/abuse analysis, prompt-injection and tool-use safety, capability boundaries, guardrails, and escalation decisions. Use a method covering Identify users, affected parties, capabilities, data, tools, irreversible actions, and harm categories. Then deliver Safety eval plan/verdict and satisfy gate-ai-safety, gate-security, gate-privacy."
+    },
+    {
+      "id": "ai_safety_reviewer-negative-1",
+      "role": "ai_safety_reviewer",
+      "expected": "do_not_select",
+      "prompt": "security-sensitive change. Apply Assets and adversaries, Trust boundaries, STRIDE as checklist not substitute and produce Threat model with evidence."
+    },
+    {
+      "id": "security_reviewer-positive-1",
+      "role": "security_reviewer",
+      "expected": "select",
+      "prompt": "security-sensitive change. Apply Assets and adversaries, Trust boundaries, STRIDE as checklist not substitute and produce Threat model with evidence."
+    },
+    {
+      "id": "security_reviewer-positive-2",
+      "role": "security_reviewer",
+      "expected": "select",
+      "prompt": "Own Own security threat analysis, control adequacy, residual-risk verdict, and escalation of security-blocking findings. Use a method covering Define scope, assets, actors, entry points, trust/data boundaries, and security objectives. Then deliver Residual-risk verdict and satisfy gate-security, gate-evidence-integrity, gate-production-readiness."
+    },
+    {
+      "id": "security_reviewer-negative-1",
+      "role": "security_reviewer",
+      "expected": "do_not_select",
+      "prompt": "personal/sensitive data. Apply Purpose limitation, Data minimization, Lifecycle and rights and produce Privacy impact assessment with evidence."
+    },
+    {
+      "id": "privacy_compliance_reviewer-positive-1",
+      "role": "privacy_compliance_reviewer",
+      "expected": "select",
+      "prompt": "personal/sensitive data. Apply Purpose limitation, Data minimization, Lifecycle and rights and produce Privacy impact assessment with evidence."
+    },
+    {
+      "id": "privacy_compliance_reviewer-positive-2",
+      "role": "privacy_compliance_reviewer",
+      "expected": "select",
+      "prompt": "Own Own privacy-impact analysis, purpose/minimization discipline, data-rights implications, retention/access rules, and escalation of legal uncertainty. Use a method covering Inventory personal/sensitive data, sources, purposes, subjects, recipients, stores, and processing operations. Then deliver Legal unknowns and satisfy gate-privacy, gate-data-integrity, gate-evidence-integrity."
+    },
+    {
+      "id": "privacy_compliance_reviewer-negative-1",
+      "role": "privacy_compliance_reviewer",
+      "expected": "do_not_select",
+      "prompt": "performance risk/regression. Apply Budget before optimization, Representative workload, Profile before hypothesis and produce Performance budget with evidence."
+    },
+    {
+      "id": "performance_engineer-positive-1",
+      "role": "performance_engineer",
+      "expected": "select",
+      "prompt": "performance risk/regression. Apply Budget before optimization, Representative workload, Profile before hypothesis and produce Performance budget with evidence."
+    },
+    {
+      "id": "performance_engineer-positive-2",
+      "role": "performance_engineer",
+      "expected": "select",
+      "prompt": "Own Own performance budgets, measurement design, bottleneck diagnosis, optimization evidence, and regression protection. Use a method covering Define user/system performance outcomes, budgets, scenarios, environment, and representative data/load. Then deliver Regression guard and satisfy gate-performance, gate-verification."
+    },
+    {
+      "id": "performance_engineer-negative-1",
+      "role": "performance_engineer",
+      "expected": "do_not_select",
+      "prompt": "new/updated dependency. Apply Build versus buy, Supply-chain trust, Transitive risk and produce Dependency assessment with evidence."
+    },
+    {
+      "id": "dependency_curator-positive-1",
+      "role": "dependency_curator",
+      "expected": "select",
+      "prompt": "new/updated dependency. Apply Build versus buy, Supply-chain trust, Transitive risk and produce Dependency assessment with evidence."
+    },
+    {
+      "id": "dependency_curator-positive-2",
+      "role": "dependency_curator",
+      "expected": "select",
+      "prompt": "Own Own dependency necessity, provenance/health, security/license compatibility, upgrade strategy, and dependency lifecycle. Use a method covering Clarify the capability and whether an existing internal/platform solution suffices. Then deliver Ownership record and satisfy gate-security, gate-architecture, gate-verification."
+    },
+    {
+      "id": "dependency_curator-negative-1",
+      "role": "dependency_curator",
+      "expected": "do_not_select",
+      "prompt": "migration/cutover/backfill. Apply Expand-contract, Strangler/incremental migration, Compatibility window and produce Migration plan with evidence."
+    },
+    {
+      "id": "migration_planner-positive-1",
+      "role": "migration_planner",
+      "expected": "select",
+      "prompt": "migration/cutover/backfill. Apply Expand-contract, Strangler/incremental migration, Compatibility window and produce Migration plan with evidence."
+    },
+    {
+      "id": "migration_planner-positive-2",
+      "role": "migration_planner",
+      "expected": "select",
+      "prompt": "Own Own migration current/target states, compatibility window, phased execution, backfill/cutover, rollback, and reconciliation. Use a method covering Document current and target states, invariants, affected consumers, dependencies, and success/failure criteria. Then deliver Reconciliation evidence and satisfy gate-migration-safety, gate-data-integrity, gate-production-readiness."
+    },
+    {
+      "id": "migration_planner-negative-1",
+      "role": "migration_planner",
+      "expected": "do_not_select",
+      "prompt": "release/deploy/CI/CD. Apply Immutable artifact, Promotion not rebuild, Environment parity and produce Release readiness report with evidence."
+    },
+    {
+      "id": "devops_release_engineer-positive-1",
+      "role": "devops_release_engineer",
+      "expected": "select",
+      "prompt": "release/deploy/CI/CD. Apply Immutable artifact, Promotion not rebuild, Environment parity and produce Release readiness report with evidence."
+    },
+    {
+      "id": "devops_release_engineer-positive-2",
+      "role": "devops_release_engineer",
+      "expected": "select",
+      "prompt": "Own Own build/release pipeline, artifact promotion, environment/config integrity, rollout/rollback mechanics, and release operability. Use a method covering Map source-to-artifact pipeline, environments, configuration/secrets, approvals, and ownership. Then deliver Release evidence and satisfy gate-production-readiness, gate-migration-safety, gate-security."
+    },
+    {
+      "id": "devops_release_engineer-negative-1",
+      "role": "devops_release_engineer",
+      "expected": "do_not_select",
+      "prompt": "production/service behavior. Apply Golden signals plus domain signals, SLO/error budget, Trace causality and produce Observability plan with evidence."
+    },
+    {
+      "id": "observability_engineer-positive-1",
+      "role": "observability_engineer",
+      "expected": "select",
+      "prompt": "production/service behavior. Apply Golden signals plus domain signals, SLO/error budget, Trace causality and produce Observability plan with evidence."
+    },
+    {
+      "id": "observability_engineer-positive-2",
+      "role": "observability_engineer",
+      "expected": "select",
+      "prompt": "Own Own observability design around user journeys and system objectives: SLOs, logs, metrics, traces, alerts, and runbooks. Use a method covering Identify critical journeys/operations, owners, failure modes, and decisions observability must support. Then deliver Alert/runbook set and satisfy gate-production-readiness, gate-incident-learning, gate-performance."
+    },
+    {
+      "id": "observability_engineer-negative-1",
+      "role": "observability_engineer",
+      "expected": "do_not_select",
+      "prompt": "incident/outage/data loss/security event. Apply Blameless systems view, Timeline causality, Hypothesis log and produce Incident timeline with evidence."
+    },
+    {
+      "id": "incident_investigator-positive-1",
+      "role": "incident_investigator",
+      "expected": "select",
+      "prompt": "incident/outage/data loss/security event. Apply Blameless systems view, Timeline causality, Hypothesis log and produce Incident timeline with evidence."
+    },
+    {
+      "id": "incident_investigator-positive-2",
+      "role": "incident_investigator",
+      "expected": "select",
+      "prompt": "Own Own incident impact/timeline evidence, hypothesis testing, root/contributing-cause analysis, containment learning, and corrective actions. Use a method covering Stabilize impact definition, severity, affected users/systems, and current containment status. Then deliver Corrective action register and satisfy gate-incident-learning, gate-evidence-integrity, gate-knowledge-freshness."
+    },
+    {
+      "id": "incident_investigator-negative-1",
+      "role": "incident_investigator",
+      "expected": "do_not_select",
+      "prompt": "experiment/A-B test. Apply Counterfactual reasoning, Randomization unit, Exposure integrity and produce Experiment design with evidence."
+    },
+    {
+      "id": "experimentation_specialist-positive-1",
+      "role": "experimentation_specialist",
+      "expected": "select",
+      "prompt": "experiment/A-B test. Apply Counterfactual reasoning, Randomization unit, Exposure integrity and produce Experiment design with evidence."
+    },
+    {
+      "id": "experimentation_specialist-positive-2",
+      "role": "experimentation_specialist",
+      "expected": "select",
+      "prompt": "Own Own causal experiment design, exposure/assignment integrity, metric/analysis plan, stopping rules, and decision interpretation. Use a method covering Frame a falsifiable hypothesis and decision that the experiment will inform. Then deliver Decision report and satisfy gate-experiment-validity, gate-analytics-quality, gate-evidence-integrity."
+    },
+    {
+      "id": "experimentation_specialist-negative-1",
+      "role": "experimentation_specialist",
+      "expected": "do_not_select",
+      "prompt": "support data/signals. Apply Issue taxonomy, Contact reason versus root problem, Frequency × impact and produce Support signal taxonomy with evidence."
+    },
+    {
+      "id": "customer_support_analyst-positive-1",
+      "role": "customer_support_analyst",
+      "expected": "select",
+      "prompt": "support data/signals. Apply Issue taxonomy, Contact reason versus root problem, Frequency × impact and produce Support signal taxonomy with evidence."
+    },
+    {
+      "id": "customer_support_analyst-positive-2",
+      "role": "customer_support_analyst",
+      "expected": "select",
+      "prompt": "Own Own conversion of support interactions into structured product signals, reproducible context, severity/frequency insight, and feedback-loop closure. Use a method covering Collect representative tickets/conversations with privacy-safe context and product version. Then deliver Product feedback brief and satisfy gate-evidence-integrity, gate-product-value, gate-privacy."
+    },
+    {
+      "id": "customer_support_analyst-negative-1",
+      "role": "customer_support_analyst",
+      "expected": "do_not_select",
+      "prompt": "implementation completion. Apply Risk-based testing, Test pyramid/portfolio, Observable oracle and produce Risk/test matrix with evidence."
+    },
+    {
+      "id": "qa_engineer-positive-1",
+      "role": "qa_engineer",
+      "expected": "select",
+      "prompt": "implementation completion. Apply Risk-based testing, Test pyramid/portfolio, Observable oracle and produce Risk/test matrix with evidence."
+    },
+    {
+      "id": "qa_engineer-positive-2",
+      "role": "qa_engineer",
+      "expected": "select",
+      "prompt": "Own Own risk-based verification strategy, coverage/oracle quality, environment/data readiness, regression evidence, and honest release verdict. Use a method covering Translate scope/Impact Map into risks, behaviors, integrations, and failure modes. Then deliver Release verdict and satisfy gate-verification, gate-accessibility, gate-performance."
+    },
+    {
+      "id": "qa_engineer-negative-1",
+      "role": "qa_engineer",
+      "expected": "do_not_select",
+      "prompt": "code change/review. Apply Intent-to-diff trace, Local correctness and systemic impact, Invariant preservation and produce Review findings with evidence."
+    },
+    {
+      "id": "code_reviewer-positive-1",
+      "role": "code_reviewer",
+      "expected": "select",
+      "prompt": "code change/review. Apply Intent-to-diff trace, Local correctness and systemic impact, Invariant preservation and produce Review findings with evidence."
+    },
+    {
+      "id": "code_reviewer-positive-2",
+      "role": "code_reviewer",
+      "expected": "select",
+      "prompt": "Own Own diff-centered review of correctness, maintainability, contract compliance, security/performance implications, and test sufficiency. Use a method covering Read task/Impact Map and inspect diff/stat before broad code context. Then deliver Readiness verdict and satisfy gate-verification, gate-api-contract, gate-security."
+    },
+    {
+      "id": "code_reviewer-negative-1",
+      "role": "code_reviewer",
+      "expected": "do_not_select",
+      "prompt": "behavior-preserving structural change. Apply Behavior preservation, Characterization tests, Seams and produce Refactor objective/map with evidence."
+    },
+    {
+      "id": "refactoring_specialist-positive-1",
+      "role": "refactoring_specialist",
+      "expected": "select",
+      "prompt": "behavior-preserving structural change. Apply Behavior preservation, Characterization tests, Seams and produce Refactor objective/map with evidence."
+    },
+    {
+      "id": "refactoring_specialist-positive-2",
+      "role": "refactoring_specialist",
+      "expected": "select",
+      "prompt": "Own Own behavior-preserving refactor strategy, characterization safety, seam design, incremental steps, reversibility, and complexity outcome. Use a method covering Clarify the concrete maintenance/change problem and desired measurable improvement. Then deliver Outcome evidence and satisfy gate-verification, gate-architecture, gate-migration-safety."
+    },
+    {
+      "id": "refactoring_specialist-negative-1",
+      "role": "refactoring_specialist",
+      "expected": "do_not_select",
+      "prompt": "developer/user technical docs. Apply Docs as product, Audience/task analysis, Concept-task-reference separation and produce Documentation plan with evidence."
+    },
+    {
+      "id": "technical_writer-positive-1",
+      "role": "technical_writer",
+      "expected": "select",
+      "prompt": "developer/user technical docs. Apply Docs as product, Audience/task analysis, Concept-task-reference separation and produce Documentation plan with evidence."
+    },
+    {
+      "id": "technical_writer-positive-2",
+      "role": "technical_writer",
+      "expected": "select",
+      "prompt": "Own Own audience-task-based technical information architecture, accurate procedures/examples, discoverability, and documentation maintenance. Use a method covering Identify audiences, jobs, prerequisite knowledge, environment, and failure/recovery needs. Then deliver Maintenance metadata and satisfy gate-evidence-integrity, gate-knowledge-freshness, gate-verification."
+    },
+    {
+      "id": "technical_writer-negative-1",
+      "role": "technical_writer",
+      "expected": "do_not_select",
+      "prompt": "frontend code/UI implementation. Apply Smallest systemic change, Existing pattern first, State/data ownership and produce Frontend implementation plan with evidence."
+    },
+    {
+      "id": "frontend_engineer-positive-1",
+      "role": "frontend_engineer",
+      "expected": "select",
+      "prompt": "frontend code/UI implementation. Apply Smallest systemic change, Existing pattern first, State/data ownership and produce Frontend implementation plan with evidence."
+    },
+    {
+      "id": "frontend_engineer-positive-2",
+      "role": "frontend_engineer",
+      "expected": "select",
+      "prompt": "Own Own safe frontend implementation, systemic impact discovery, component/state/data integration, user-visible state completeness, and verification. Use a method covering Translate the approved task and Impact Map into affected surfaces, shared components, routes, state, data contracts, and tests. Then deliver Verification report and satisfy gate-frontend-integration, gate-verification, gate-design-system-fidelity, gate-accessibility."
+    },
+    {
+      "id": "frontend_engineer-negative-1",
+      "role": "frontend_engineer",
+      "expected": "do_not_select",
+      "prompt": "new request. Apply Decision-changing questions, Progressive disclosure, Risk-first intake and produce Task brief with evidence."
+    }
+  ]
+}

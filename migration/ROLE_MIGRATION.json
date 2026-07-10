@@ -1,0 +1,709 @@
+{
+  "schema": "cpt-role-migration-v1",
+  "source_package": "codex-product-team-3.0-ultra-beta2",
+  "source_count": 50,
+  "target_version": "4.0.0-alpha.4",
+  "target_count": 50,
+  "mappings": [
+    {
+      "source_role": "intake_orchestrator",
+      "source_title": "Task Intake Orchestrator",
+      "target_role": "intake_orchestrator",
+      "target_plugin": "cpt-core",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "team_architect",
+      "source_title": "Team Architect",
+      "target_role": "team_architect",
+      "target_plugin": "cpt-core",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "delivery_manager",
+      "source_title": "Delivery Manager",
+      "target_role": "delivery_manager",
+      "target_plugin": "cpt-core",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "chronicle_keeper",
+      "source_title": "Chronicle Keeper",
+      "target_role": "chronicle_keeper",
+      "target_plugin": "cpt-core",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "consistency_auditor",
+      "source_title": "Consistency Auditor",
+      "target_role": "consistency_auditor",
+      "target_plugin": "cpt-core",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "ai_workflow_auditor",
+      "source_title": "AI Workflow Auditor",
+      "target_role": "ai_workflow_auditor",
+      "target_plugin": "cpt-core",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "product_strategist",
+      "source_title": "Product Strategist",
+      "target_role": "product_strategist",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "market_researcher",
+      "source_title": "Market Researcher",
+      "target_role": "market_researcher",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "ux_researcher",
+      "source_title": "UX Researcher",
+      "target_role": "ux_researcher",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "cx_researcher",
+      "source_title": "CX Researcher",
+      "target_role": "cx_researcher",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "business_analyst",
+      "source_title": "Business Analyst",
+      "target_role": "business_analyst",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "domain_expert",
+      "source_title": "Domain Expert",
+      "target_role": "domain_expert",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "growth_activation_strategist",
+      "source_title": "Growth & Activation Strategist",
+      "target_role": "growth_activation_strategist",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "product_designer",
+      "source_title": "Product Designer",
+      "target_role": "product_designer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "service_designer",
+      "source_title": "Service Designer",
+      "target_role": "service_designer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "information_architect",
+      "source_title": "Information Architect",
+      "target_role": "information_architect",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "ux_interaction_reviewer",
+      "source_title": "UX Interaction Reviewer",
+      "target_role": "ux_interaction_reviewer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "ux_writer",
+      "source_title": "UX Writer",
+      "target_role": "ux_writer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "design_system_guardian",
+      "source_title": "Design System Guardian",
+      "target_role": "design_system_guardian",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "design_engineer",
+      "source_title": "Design Engineer",
+      "target_role": "design_engineer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "visual_design_director",
+      "source_title": "Visual Design Director",
+      "target_role": "visual_design_director",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "accessibility_specialist",
+      "source_title": "Accessibility Specialist",
+      "target_role": "accessibility_specialist",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "data_visualization_designer",
+      "source_title": "Data Visualization Designer",
+      "target_role": "data_visualization_designer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "conversation_designer",
+      "source_title": "Conversation Designer",
+      "target_role": "conversation_designer",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "localization_specialist",
+      "source_title": "Localization Specialist",
+      "target_role": "localization_specialist",
+      "target_plugin": "cpt-design-ui",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "solution_architect",
+      "source_title": "Solution Architect",
+      "target_role": "solution_architect",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "frontend_architect",
+      "source_title": "Frontend Architect",
+      "target_role": "frontend_architect",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "backend_architect",
+      "source_title": "Backend Architect",
+      "target_role": "backend_architect",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "mobile_architect",
+      "source_title": "Mobile Architect",
+      "target_role": "mobile_architect",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "api_contract_guardian",
+      "source_title": "API Contract Guardian",
+      "target_role": "api_contract_guardian",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "data_architect",
+      "source_title": "Data Architect",
+      "target_role": "data_architect",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "analytics_engineer",
+      "source_title": "Analytics Engineer",
+      "target_role": "analytics_engineer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "ai_ml_systems_architect",
+      "source_title": "AI/ML Systems Architect",
+      "target_role": "ai_ml_systems_architect",
+      "target_plugin": "cpt-ai-agentic",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "model_evaluation_specialist",
+      "source_title": "Model Evaluation Specialist",
+      "target_role": "model_evaluation_specialist",
+      "target_plugin": "cpt-ai-agentic",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "ai_safety_reviewer",
+      "source_title": "AI Safety Reviewer",
+      "target_role": "ai_safety_reviewer",
+      "target_plugin": "cpt-ai-agentic",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "security_reviewer",
+      "source_title": "Security Reviewer",
+      "target_role": "security_reviewer",
+      "target_plugin": "cpt-risk-operations",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "privacy_compliance_reviewer",
+      "source_title": "Privacy & Compliance Reviewer",
+      "target_role": "privacy_compliance_reviewer",
+      "target_plugin": "cpt-risk-operations",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "performance_engineer",
+      "source_title": "Performance Engineer",
+      "target_role": "performance_engineer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "dependency_curator",
+      "source_title": "Dependency Curator",
+      "target_role": "dependency_curator",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "migration_planner",
+      "source_title": "Migration Planner",
+      "target_role": "migration_planner",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "devops_release_engineer",
+      "source_title": "DevOps & Release Engineer",
+      "target_role": "devops_release_engineer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "observability_engineer",
+      "source_title": "Observability Engineer",
+      "target_role": "observability_engineer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "incident_investigator",
+      "source_title": "Incident Investigator",
+      "target_role": "incident_investigator",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "experimentation_specialist",
+      "source_title": "Experimentation Specialist",
+      "target_role": "experimentation_specialist",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "customer_support_analyst",
+      "source_title": "Customer Support Analyst",
+      "target_role": "customer_support_analyst",
+      "target_plugin": "cpt-product-research",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "qa_engineer",
+      "source_title": "QA Engineer",
+      "target_role": "qa_engineer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "code_reviewer",
+      "source_title": "Code Reviewer",
+      "target_role": "code_reviewer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "refactoring_specialist",
+      "source_title": "Refactoring Specialist",
+      "target_role": "refactoring_specialist",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "technical_writer",
+      "source_title": "Technical Writer",
+      "target_role": "technical_writer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    },
+    {
+      "source_role": "frontend_engineer",
+      "source_title": "Frontend Engineer",
+      "target_role": "frontend_engineer",
+      "target_plugin": "cpt-engineering",
+      "status": "retained_rewritten",
+      "changes": [
+        "role kept as logical accountability lens",
+        "decision rights and evidence obligations made explicit",
+        "canonical skills and gates mapped",
+        "deep role-specific method reference added",
+        "worker eligibility separated from role identity"
+      ]
+    }
+  ]
+}

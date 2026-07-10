@@ -1,0 +1,5 @@
+interface:
+  display_name: "Example"
+  short_description: "Replace with domain-specific metadata"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,35 @@
+{
+  "schema_version": "cpt-pack-catalog-v1",
+  "core": {
+    "name": "cpt-core",
+    "status": "implemented",
+    "version": "4.0.0-alpha.2"
+  },
+  "planned_domains": [
+    {
+      "id": "product-research",
+      "status": "planned"
+    },
+    {
+      "id": "design-ui",
+      "status": "planned"
+    },
+    {
+      "id": "frontend",
+      "status": "planned"
+    },
+    {
+      "id": "backend-api-data",
+      "status": "planned"
+    },
+    {
+      "id": "risk-operations",
+      "status": "planned"
+    },
+    {
+      "id": "ai-agentic",
+      "status": "planned"
+    }
+  ],
+  "rule": "Core must operate without any planned domain pack."
+}

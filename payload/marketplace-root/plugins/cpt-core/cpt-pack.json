@@ -1,0 +1,12 @@
+{
+  "schema_version": "cpt-pack-v1",
+  "name": "cpt-core",
+  "kind": "core",
+  "version": "4.0.0-alpha.2",
+  "requires_core": null,
+  "domains": [
+    "runtime"
+  ],
+  "canonical_state_owner": false,
+  "optional": false
+}

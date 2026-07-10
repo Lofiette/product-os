@@ -1,0 +1,7 @@
+interface:
+  display_name: "CPT Runtime"
+  short_description: "Route tasks and preserve bounded runtime state"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $cpt-runtime to route and manage this task with bounded scope."
+policy:
+  allow_implicit_invocation: true

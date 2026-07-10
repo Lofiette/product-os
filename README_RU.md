@@ -1,30 +1,25 @@
-# Codex Product Operating System 4.0 — Alpha 1 Runtime Kernel
+# Codex Product Operating System 4.0 — Alpha 2
 
-Это первый исполняемый фрагмент 4.0. Он реализует только **Runtime Plane**:
+Это второй исполняемый инкремент 4.0. Он превращает Runtime Kernel Alpha 1 в устанавливаемую систему.
 
-- маленький root `AGENTS.md`;
-- машинно-читаемое состояние под `.cpt/`;
-- штатное состояние без активной задачи;
-- опциональный `TKT-000`;
-- Standard Task и Micro Change;
-- scoped authorization lease;
-- компактный recovery summary;
-- checkpoint/recovery;
-- JSON Schema и cross-file validation;
-- синтетический тест восстановления после потери контекста.
+## Что появилось
 
-## Проверка
+- минимальный scaffold проекта;
+- отдельный Codex plugin `cpt-core`;
+- local-ignored и team-shared режимы;
+- безопасные install / update / doctor / uninstall;
+- независимое подключение domain packs;
+- измерение metadata budget skills;
+- installation receipt и безопасный rollback;
+- автоматические тесты установки и удаления.
+
+## Быстрый старт
 
 ```bash
-python -m pip install -r requirements.txt
-python scripts/cpt_runtime.py validate
-python scripts/cpt_runtime.py status
-python scripts/simulate_compaction_recovery.py
-python -m unittest discover -s tests -v
+python tools/cpt_dist.py install --project /путь/к/репозиторию --mode local
+python tools/cpt_dist.py doctor --project /путь/к/репозиторию
 ```
 
-## Что пока отсутствует
+После установки перезапустите Codex и включите CPT Core в разделе Plugins.
 
-В этот alpha-пакет намеренно не входят роли, domain skills, Product Knowledge, workers, plugins, hooks, внешние сервисы и migration assistant. Они будут подключаться последующими фазами, не раздувая always-on kernel.
-
-`Authorization lease` в Alpha 1 является проверяемой записью согласованного scope, но ещё не техническим security boundary. Нативные permissions и sandbox Codex остаются обязательными.
+Alpha 2 пока не переносит роли, domain skills, Product Knowledge и hooks. Core полностью работает без них и без внешних сервисов.

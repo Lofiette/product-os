@@ -1,0 +1,12 @@
+schema_version: 4.0-alpha2
+runtime_status: ready
+current_task: null
+current_micro_change: null
+current_lease: null
+latest_checkpoint: null
+blockers: []
+next_operation:
+  type: await_user_task
+  summary: Await a user task and select Micro Change or Standard Task workflow.
+state_revision: 0
+updated_at: '2026-07-10T12:45:20Z'

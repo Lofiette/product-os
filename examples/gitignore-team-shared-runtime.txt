@@ -1,4 +1,0 @@
-# Commit runtime configuration and durable task/knowledge files selectively.
-# Ignore volatile locks and recovery backups.
-.cpt/.runtime.lock
-.cpt/checkpoints/recovery-backup-*

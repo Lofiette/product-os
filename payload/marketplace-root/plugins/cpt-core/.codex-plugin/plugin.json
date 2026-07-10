@@ -1,0 +1,28 @@
+{
+  "name": "cpt-core",
+  "version": "4.0.0-alpha.2",
+  "description": "Manage bounded task, micro-change, authorization, checkpoint, and recovery workflows for CPT OS projects.",
+  "keywords": [
+    "runtime",
+    "task-management",
+    "context-engineering",
+    "recovery"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CPT Core",
+    "shortDescription": "Bounded task runtime and recovery",
+    "longDescription": "Route work through Micro Change or Standard Task workflows, maintain scoped authorization, and preserve runtime continuity.",
+    "developerName": "CPT OS",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use CPT Core to route this task through the smallest safe workflow.",
+      "Use CPT Core to validate runtime state and recover after context loss."
+    ],
+    "brandColor": "#3B82F6"
+  }
+}

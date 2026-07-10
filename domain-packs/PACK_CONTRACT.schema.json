@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CPT Pack Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "name",
+    "kind",
+    "version",
+    "domains",
+    "canonical_state_owner",
+    "optional"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpt-pack-v1"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "kind": {
+      "enum": [
+        "core",
+        "domain",
+        "integration",
+        "worker"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "requires_core": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "canonical_state_owner": {
+      "const": false
+    },
+    "optional": {
+      "type": "boolean"
+    }
+  }
+}

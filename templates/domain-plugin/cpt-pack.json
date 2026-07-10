@@ -1,0 +1,12 @@
+{
+  "schema_version": "cpt-pack-v1",
+  "name": "cpt-domain-example",
+  "kind": "domain",
+  "version": "0.1.0",
+  "requires_core": ">=4.0.0-alpha.2",
+  "domains": [
+    "example"
+  ],
+  "canonical_state_owner": false,
+  "optional": true
+}

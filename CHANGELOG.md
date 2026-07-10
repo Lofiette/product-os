@@ -1,12 +1,13 @@
 # Changelog
 
-## 4.0.0-alpha.1 — 2026-07-10
+## 4.0.0-alpha.2
 
-- Added tiny runtime loader.
-- Added file-only typed runtime state.
-- Added no-active-task state and optional TKT-000 example.
-- Added Micro Change Protocol.
-- Added scoped authorization lease schema and CLI support.
-- Added checkpoint creation, verification, and recovery.
-- Added runtime summary generation.
-- Added cross-file validation and synthetic recovery tests.
+- Packaged Runtime Kernel as a minimal repo scaffold.
+- Added native Codex `cpt-core` plugin.
+- Added personal and repo marketplace exposure.
+- Added local ignored and team shared modes.
+- Added safe installer, updater, doctor, status, and uninstaller.
+- Added independent domain-pack add/remove commands.
+- Added plugin metadata-budget measurement.
+- Added distribution behavioral tests and package validation.
+- Preserved Alpha 1 runtime behavior with an Alpha 2 schema revision.

@@ -1,132 +1,152 @@
-# Codex Product Operating System 4.0 Alpha 1 — Runtime Kernel Audit
+# Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit
 
-Дата проверки: 2026-07-10  
-Версия: `4.0.0-alpha.1`
+Date: 2026-07-10  
+Version: `4.0.0-alpha.2`  
+Phase: **Phase 2 — Distribution Split**
 
-## Вердикт
+## Verdict
 
-**PASS для Phase 1 / Alpha 1 с явно зафиксированными ограничениями.**
+**PASS for Phase 2 / Alpha 2 Distribution Split, with explicitly documented boundaries.**
 
-Пакет реализует исполняемый Runtime Kernel и соответствует критериям Alpha 1, но ещё не является готовой полной средой 4.0.
+The package converts the Alpha 1 Runtime Kernel into a safe, independently distributable architecture. It does not yet claim the full Alpha 2 Expertise acceptance criteria: role migration and skill consolidation remain later workstreams.
 
-## Реализовано
+## Implemented
 
-- tiny root `AGENTS.md`;
-- machine-readable runtime state на YAML;
-- штатное состояние `current_task: null`;
-- опциональный, но не активный по умолчанию `TKT-000`;
-- Standard Task lifecycle;
-- Micro Change Protocol без обязательного полного тикета;
-- escalation из Micro Change в Standard Task intake;
-- scoped authorization lease;
-- compact generated `runtime-summary.md`;
-- file-only storage adapter;
-- checkpoint с integrity digest;
-- mismatch detection;
-- explicit recovery с pre-recovery backup;
-- JSON Schema validation;
-- cross-file invariants;
-- synthetic compaction-recovery test;
-- negative tests для битых current pointers и tampered checkpoint.
+- minimal repo scaffold;
+- native Codex `cpt-core` plugin;
+- personal and repo marketplace exposure;
+- local-ignored mode;
+- team-shared mode;
+- managed `AGENTS.md` block;
+- safe handling of existing tracked `AGENTS.md`;
+- installation receipt;
+- conflict-aware update;
+- state-preserving uninstall backup;
+- independent domain-pack add/remove boundary;
+- domain pack template and contract;
+- plugin metadata-budget measurement;
+- static distribution validator;
+- behavioral distribution tests;
+- preserved Alpha 1 runtime task/micro/lease/checkpoint behavior.
 
-## Метрики kernel
+## Metrics
 
-| Метрика | Значение |
+| Metric | Result |
 |---|---:|
-| `AGENTS.md` | 4 609 bytes / 105 строк |
-| Runtime YAML files | 3 |
-| JSON Schemas | 7 |
-| Protocol docs | 10 |
-| Runtime CLI | 1 |
-| Behavioral unit tests | 8 |
-| External network services | 0 |
-| Active task at startup | none |
+| Repo files after local install | 10 |
+| Repo files after team install with repo plugin | 15 |
+| Required maximum | `< 20` |
+| Root managed `AGENTS.md` block | 2,156 bytes / 46 lines |
+| Core plugins | 1 |
+| Core skills | 1 |
+| Estimated core skill discovery metadata | 375 characters |
+| Distribution behavioral tests | 12 |
+| External services required | 0 |
+| Application source files touched by install | 0 |
 
-Целевой размер root loader соблюдён как guidance, не как hard cap.
+## Phase 2 exit criteria
 
-## Проверки
-
-### Static/runtime validation
-
-```text
-RUNTIME VALIDATION PASSED
-KERNEL CHECK PASSED: AGENTS.md=4609 bytes; templates=5
-```
-
-### Behavioral tests
-
-Пройдены:
-
-1. no-active-task state;
-2. Standard Task lifecycle;
-3. Micro Change without full ticket;
-4. Micro Change escalation;
-5. checkpoint mismatch detection and recovery;
-6. tampered checkpoint rejection;
-7. invalid current task rejection;
-8. optional TKT-000 semantics.
-
-### Synthetic compaction recovery
-
-```text
-SYNTHETIC COMPACTION RECOVERY PASSED
-```
-
-Сценарий:
-
-1. создан активный task;
-2. создан scoped lease;
-3. сохранён checkpoint;
-4. current/task state намеренно повреждены;
-5. mismatch обнаружен;
-6. state восстановлен;
-7. повторная verification показывает `CHECKPOINT MATCH`;
-8. runtime validation проходит.
-
-### Schema/template validation
-
-Проверены:
-
-- task template;
-- authorization lease template;
-- checkpoint template;
-- micro change template;
-- optional TKT-000 example.
-
-### Универсальность
-
-В package не обнаружены названия конкретных продуктов, организаций или дизайн-систем из приватных кейсов. Runtime использует только нейтральные абстракции.
-
-## Alpha 1 acceptance criteria
-
-| Критерий | Статус | Evidence |
+| Criterion | Status | Evidence |
 |---|---|---|
-| Root `AGENTS.md` является небольшим loader | PASS | 4 609 bytes; kernel check |
-| Machine-readable runtime state | PASS | `.cpt/*.yaml` + schemas |
-| `current_task: null` поддерживается | PASS | initial state + unit test |
-| `TKT-000` опционален | PASS | example only + unit test |
-| Micro Change Protocol работает | PASS | lifecycle + escalation tests |
-| Authorization lease schema валидируется | PASS | schema, CLI, lifecycle test |
-| Runtime checkpoint восстанавливается | PASS | synthetic recovery + negative test |
-| Core не зависит от внешних сервисов | PASS | file-only local execution |
+| New project receives fewer than 20 repo-local framework files | PASS | local: 10; team + repo plugin: 15 |
+| Core works without domain packs | PASS | runtime integration with `--plugin-scope none` |
+| Packs can be exposed/removed independently | PASS | synthetic domain pack test; core preserved |
+| Uninstall does not damage the project | PASS | application source survived uninstall unchanged |
 
-## Критические границы честности
+## Static validation
 
-- Lease является declarative runtime record, а не security boundary.
-- Нативные Codex permissions, sandbox, rules и approval prompts остаются обязательными.
-- Hooks ещё не установлены и не enforcement-ят checkpoint автоматически.
-- Recovery test синтетический; реальный `PreCompact/PostCompact` trace относится к Phase 6.
-- YAML state пока является exact registry; SQLite появится позднее.
-- Runtime validation не доказывает продуктовую или инженерную корректность результата.
+```text
+DISTRIBUTION STATIC VALIDATION PASSED
+core metadata estimate: 375 chars
+Python syntax validation: PASS
+```
 
-## Риски следующей фазы
+Validated:
 
-1. Не раздувать root `AGENTS.md` при добавлении plugin distribution.
-2. Не дублировать YAML и будущий SQLite без single write path.
-3. Не превращать lease в ложное обещание технической изоляции до hooks/rules.
-4. Сохранить Micro Change как реальный быстрый путь.
-5. Проверить Linux/WSL, macOS и Windows behavior отдельно.
+- plugin manifest and path rules;
+- skill frontmatter;
+- `agents/openai.yaml` parseability;
+- marketplace relative path;
+- managed AGENTS markers;
+- root loader guidance size;
+- absence of private product or design-system names;
+- domain pack contract shape.
 
-## Рекомендация
+## Behavioral tests
 
-Зафиксировать этот package как **Alpha 1 Runtime Kernel baseline** и переходить к Phase 2: distribution split, plugin scaffold и installer/uninstaller, не добавляя Product Knowledge или экспертные packs в always-on runtime.
+Passed individually:
+
+1. local install remains Git-clean and below file budget;
+2. team install with repo plugin remains below file budget;
+3. existing tracked `AGENTS.md` is not modified in local mode;
+4. update preserves mutable runtime state;
+5. update refuses modified managed tooling without `--force`;
+6. uninstall preserves application files;
+7. personal marketplace preserves unrelated plugin entries;
+8. domain pack removal preserves core;
+9. team-mode managed block uninstall preserves existing AGENTS content;
+10. personal core plugin survives project uninstall by default;
+11. core metadata stays within the test budget;
+12. doctor passes after local install.
+
+## Runtime integration
+
+The installed scaffold successfully completed:
+
+```text
+create Standard Task
+create scoped lease
+create checkpoint
+verify checkpoint
+validate runtime
+complete task
+start Micro Change
+complete Micro Change
+validate runtime
+```
+
+Result:
+
+```text
+ALPHA2-RUNTIME-INTEGRATION-PASSED
+```
+
+## Safety behavior
+
+- installer never runs `git add`, commit, branch, reset, or clean;
+- existing tracked AGENTS stays untouched in local mode by default;
+- AGENTS ownership is limited to an explicit marked block;
+- updates replace only receipt-owned tooling files;
+- mutable runtime records are preserved;
+- uninstall backs up state outside the project unless explicitly discarded;
+- personal plugin removal requires an explicit flag;
+- plugin does not own canonical runtime state;
+- no optional service is required.
+
+## Honest limitations
+
+- Marketplace exposure does not enable the plugin automatically.
+- Codex restart or plugin UI installation may be required.
+- Existing manually copied Alpha 1 installs are not adopted automatically.
+- YAML remains the exact registry; SQLite is not implemented yet.
+- Domain packs contain only a packaging contract/template.
+- The 50-role and 95-skill expertise library is not migrated.
+- Hooks, rules, permission profiles, Product Knowledge, workers, and external adapters are absent.
+- Full cross-platform execution is not yet CI-verified.
+- The authorization lease remains a runtime contract, not a native security boundary.
+
+## Official compatibility basis
+
+The package follows current Codex documentation for:
+
+- `.codex-plugin/plugin.json` plugin manifests;
+- `skills/` packaging;
+- personal and repo marketplaces;
+- relative `./` plugin source paths;
+- `agents/openai.yaml` skill metadata;
+- independent plugin enable/disable behavior;
+- project trust boundaries.
+
+## Recommendation
+
+Freeze this package as **Alpha 2 Distribution baseline** and proceed to Phase 3: Skills Consolidation. Do not add Product Knowledge or role content to the always-on repo scaffold.

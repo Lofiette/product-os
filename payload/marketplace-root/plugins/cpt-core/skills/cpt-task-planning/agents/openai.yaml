@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Task Planning
+  short_description: Use to discover bounded scope, select expertise, build an Impact
+    Map, and request one approval
+  brand_color: '#3B82F6'
+  default_prompt: Use $cpt-task-planning for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

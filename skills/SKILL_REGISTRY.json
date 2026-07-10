@@ -1,0 +1,686 @@
+{
+  "schema": "cpt-skill-registry-v1",
+  "version": "4.0.0-alpha.3",
+  "skills": [
+    {
+      "id": "cpt-accessibility-review",
+      "plugin": "cpt-design-ui",
+      "description": "Use to review semantics, keyboard, focus, labels, ARIA, announcements, contrast, motion, and accessible error/recovery behavior.",
+      "implicit": true,
+      "positive_examples": [
+        "Audit a modal form for keyboard, focus, errors, and screen-reader behavior.",
+        "Review a design-system component for accessible states and announcements."
+      ],
+      "negative_example": "Plan an infrastructure rollback.",
+      "source_skills": [
+        "accessibility-check"
+      ]
+    },
+    {
+      "id": "cpt-ai-safety-review",
+      "plugin": "cpt-ai-agentic",
+      "description": "Use to review AI-specific misuse, harmful behavior, prompt injection, tool abuse, uncertainty, escalation, and safety controls.",
+      "implicit": true,
+      "positive_examples": [
+        "Review a tool-using agent for prompt injection and irreversible actions.",
+        "Design safety controls and evals for a customer-facing AI assistant."
+      ],
+      "negative_example": "Review static dashboard spacing.",
+      "source_skills": [
+        "ai-safety-review"
+      ]
+    },
+    {
+      "id": "cpt-ai-system-plan",
+      "plugin": "cpt-ai-agentic",
+      "description": "Use to design AI/agent behavior, context/data access, tools, permissions, latency/cost, fallback, and human escalation.",
+      "implicit": true,
+      "positive_examples": [
+        "Plan an AI assistant that reads documents and performs approved actions.",
+        "Design retrieval, fallback, cost, and evaluation for an AI feature."
+      ],
+      "negative_example": "Review a deterministic CRUD API with no model behavior.",
+      "source_skills": [
+        "ai-ml-planning"
+      ]
+    },
+    {
+      "id": "cpt-analytics-measurement",
+      "plugin": "cpt-product-research",
+      "description": "Use to define event taxonomy, metrics, properties, data sources, segmentation, dashboards, and data-quality checks.",
+      "implicit": true,
+      "positive_examples": [
+        "Define product analytics for onboarding activation and retention.",
+        "Specify events and metric formulas for a new workflow feature."
+      ],
+      "negative_example": "Design the database schema for raw event storage.",
+      "source_skills": [
+        "analytics-planning"
+      ]
+    },
+    {
+      "id": "cpt-api-contract",
+      "plugin": "cpt-engineering",
+      "description": "Use for API/data-shape prewarm or review of schemas, compatibility, errors, idempotency, pagination, versioning, and contract tests.",
+      "implicit": true,
+      "positive_examples": [
+        "Review whether an API field addition breaks existing clients.",
+        "Map frontend-facing API and data types before redesigning a form."
+      ],
+      "negative_example": "Review visual alignment against a screenshot.",
+      "source_skills": [
+        "api-contract-review",
+        "api-data-shape-prewarm"
+      ]
+    },
+    {
+      "id": "cpt-architecture-plan",
+      "plugin": "cpt-engineering",
+      "description": "Use to plan system boundaries, interfaces, NFRs, trade-offs, sequencing, and architecture decisions; not for trivial local implementation.",
+      "implicit": true,
+      "positive_examples": [
+        "Plan the architecture for a new service with reliability and migration constraints.",
+        "Compare modular-monolith and service boundary options for a product area."
+      ],
+      "negative_example": "Change a local CSS token.",
+      "source_skills": [
+        "architecture-planning"
+      ]
+    },
+    {
+      "id": "cpt-content-design",
+      "plugin": "cpt-design-ui",
+      "description": "Use to design or review UX copy, terminology, messages, content realism, and localization readiness; not for brand campaigns.",
+      "implicit": true,
+      "positive_examples": [
+        "Rewrite form errors and empty states with recovery and localization readiness.",
+        "Review prototype data so the layout is tested with realistic content."
+      ],
+      "negative_example": "Plan a CI/CD rollout.",
+      "source_skills": [
+        "content-pattern-review",
+        "content-realism-review",
+        "localization-review"
+      ]
+    },
+    {
+      "id": "cpt-conversation-design",
+      "plugin": "cpt-design-ui",
+      "description": "Use for chat, assistant, voice, or multi-turn flows including clarification, repair, confirmations, fallback, and human handoff.",
+      "implicit": true,
+      "positive_examples": [
+        "Design a multi-turn AI assistant with clarification and human handoff.",
+        "Create repair and confirmation flows for a conversational form."
+      ],
+      "negative_example": "Review chart axes for misleading scale.",
+      "source_skills": [
+        "conversation-design"
+      ]
+    },
+    {
+      "id": "cpt-cross-cutting-risk",
+      "plugin": "cpt-risk-operations",
+      "description": "Use to integrate security, privacy, reliability, safety, compliance, migration, and operational risks into one decision verdict.",
+      "implicit": true,
+      "positive_examples": [
+        "Consolidate security, privacy, and reliability findings for a release decision.",
+        "Review cross-cutting risk for a data migration with user impact."
+      ],
+      "negative_example": "Write UX copy for a success state.",
+      "source_skills": [
+        "risk-review"
+      ]
+    },
+    {
+      "id": "cpt-customer-journey",
+      "plugin": "cpt-product-research",
+      "description": "Use to map end-to-end customer journeys, service blueprints, channels, support signals, handoffs, and backstage dependencies.",
+      "implicit": true,
+      "positive_examples": [
+        "Map onboarding across product, email, support, and operations.",
+        "Synthesize support tickets into journey failures and service opportunities."
+      ],
+      "negative_example": "Choose navigation labels for one settings page.",
+      "source_skills": [
+        "customer-support-analysis",
+        "cx-journey-mapping",
+        "service-blueprint"
+      ]
+    },
+    {
+      "id": "cpt-data-architecture",
+      "plugin": "cpt-engineering",
+      "description": "Use to review data models, storage, lineage, quality, retention, access, lifecycle, and evolution; not for product analytics instrumentation alone.",
+      "implicit": true,
+      "positive_examples": [
+        "Review a new persistent entity and its lifecycle, lineage, and migration.",
+        "Design data architecture for documents, chunks, and derived search indexes."
+      ],
+      "negative_example": "Define product activation metrics.",
+      "source_skills": [
+        "data-architecture-review"
+      ]
+    },
+    {
+      "id": "cpt-data-visualization-review",
+      "plugin": "cpt-design-ui",
+      "description": "Use to design or review charts, dashboards, reports, metric semantics, scales, aggregation, comparison, and cognitive load.",
+      "implicit": true,
+      "positive_examples": [
+        "Review a dashboard for misleading scales and cognitive overload.",
+        "Choose visualizations for comparing model performance over time."
+      ],
+      "negative_example": "Design a conversational repair flow.",
+      "source_skills": [
+        "data-visualization-review"
+      ]
+    },
+    {
+      "id": "cpt-delegation",
+      "plugin": "cpt-risk-operations",
+      "description": "Use explicitly to plan, launch, monitor, and recover bounded worker delegation; not for simple or tightly coupled tasks.",
+      "implicit": false,
+      "positive_examples": [
+        "Delegate independent security and accessibility reviews with two read-only workers.",
+        "Recover a timed-out reviewer and continue with an explicit quorum fallback."
+      ],
+      "negative_example": "Rename one button label in a known component.",
+      "source_skills": [
+        "subagent-failure-recovery",
+        "subagent-orchestration",
+        "subagent-run-contract"
+      ]
+    },
+    {
+      "id": "cpt-dependency-review",
+      "plugin": "cpt-engineering",
+      "description": "Use to assess dependency necessity, alternatives, maintenance, license, security, bundle/runtime cost, integration, and rollback.",
+      "implicit": true,
+      "positive_examples": [
+        "Review whether to add a charting library and its bundle/security cost.",
+        "Assess a major dependency upgrade and rollback path."
+      ],
+      "negative_example": "Design an empty state message.",
+      "source_skills": [
+        "dependency-review"
+      ]
+    },
+    {
+      "id": "cpt-design-handoff",
+      "plugin": "cpt-design-ui",
+      "description": "Use to produce and validate design-to-development handoff so implementation does not require guessing structure, states, components, content, or constraints.",
+      "implicit": true,
+      "positive_examples": [
+        "Create a rebuild-ready handoff package for a new product module.",
+        "Audit whether a design package is sufficient for another developer."
+      ],
+      "negative_example": "Implement the frontend code directly.",
+      "source_skills": [
+        "design-handoff-qa"
+      ]
+    },
+    {
+      "id": "cpt-design-recon",
+      "plugin": "cpt-design-ui",
+      "description": "Use to discover design-system mode, components, tokens, patterns, references, and UI constraints before design or coded UI work.",
+      "implicit": true,
+      "positive_examples": [
+        "Discover which components and tokens govern a settings screen before implementing it.",
+        "Determine whether a repository has a real design system or only local styles."
+      ],
+      "negative_example": "Investigate a backend timeout with no UI impact.",
+      "source_skills": [
+        "design-recon"
+      ]
+    },
+    {
+      "id": "cpt-design-system-code-audit",
+      "plugin": "cpt-design-ui",
+      "description": "Use to run deterministic code-level checks for design-system imports, raw values, duplicate primitives, and contract deviations.",
+      "implicit": false,
+      "positive_examples": [
+        "Scan changed React files for raw UI values and duplicate button implementations.",
+        "Enforce governed component imports before a UI release."
+      ],
+      "negative_example": "Draft a screen information hierarchy before coding.",
+      "source_skills": [
+        "component-contract-scan",
+        "ds-code-contract-enforcement"
+      ]
+    },
+    {
+      "id": "cpt-design-system-governance",
+      "plugin": "cpt-design-ui",
+      "description": "Use to establish design-source authority, component/token contracts, manifest lifecycle, compliance, and approved deviations.",
+      "implicit": true,
+      "positive_examples": [
+        "Determine whether a new form may use a custom control or must extend the design system.",
+        "Audit a manifest change before claiming UI compliance."
+      ],
+      "negative_example": "Plan a user interview study.",
+      "source_skills": [
+        "design-source-authority",
+        "design-system-compliance",
+        "design-system-manifest",
+        "manifest-freeze-check"
+      ]
+    },
+    {
+      "id": "cpt-evidence-research-plan",
+      "plugin": "cpt-product-research",
+      "description": "Use to plan evidence gathering, source strategy, method, synthesis, and confidence when facts are missing; not to invent findings.",
+      "implicit": true,
+      "positive_examples": [
+        "Plan evidence collection for an unfamiliar market where external browsing is not available.",
+        "Design a mixed-method study to decide whether to redesign a workflow."
+      ],
+      "negative_example": "Brainstorm five speculative interface concepts.",
+      "source_skills": [
+        "external-evidence-protocol",
+        "research-planning"
+      ]
+    },
+    {
+      "id": "cpt-experiment-design",
+      "plugin": "cpt-product-research",
+      "description": "Use to design A/B tests, pilots, quasi-experiments, hypotheses, guardrails, sample logic, and decision rules.",
+      "implicit": true,
+      "positive_examples": [
+        "Design an A/B test for a new onboarding sequence.",
+        "Plan a pilot and decision thresholds for a risky workflow change."
+      ],
+      "negative_example": "Run five user interviews to understand mental models.",
+      "source_skills": [
+        "experiment-design"
+      ]
+    },
+    {
+      "id": "cpt-framework-audit",
+      "plugin": "cpt-risk-operations",
+      "description": "Use explicitly to audit CPT routing, runtime, skills, gates, artifacts, and contradictions; not as routine task review.",
+      "implicit": false,
+      "positive_examples": [
+        "Audit the 4.0 skill packs before release and find routing collisions.",
+        "Compare a frozen framework baseline against a new runtime architecture."
+      ],
+      "negative_example": "Review this feature branch for code correctness.",
+      "source_skills": [
+        "self-audit"
+      ]
+    },
+    {
+      "id": "cpt-frontend-integration",
+      "plugin": "cpt-engineering",
+      "description": "Use for coded UI implementation/review across components, routing, state, async data, boundaries, accessibility, performance, and maintainability.",
+      "implicit": true,
+      "positive_examples": [
+        "Implement a systemic edit-mode button change across shared frontend patterns.",
+        "Review a new UI feature for routing, state, data fetching, and regressions."
+      ],
+      "negative_example": "Create a user research discussion guide.",
+      "source_skills": [
+        "frontend-integration-review"
+      ]
+    },
+    {
+      "id": "cpt-growth-activation",
+      "plugin": "cpt-product-research",
+      "description": "Use to design ethical onboarding, activation, retention, conversion, and product growth loops with measurable value.",
+      "implicit": true,
+      "positive_examples": [
+        "Improve activation for a multi-step B2B onboarding flow.",
+        "Design a retention loop with ethical guardrails and experiments."
+      ],
+      "negative_example": "Review a REST API for backward compatibility.",
+      "source_skills": [
+        "growth-activation-planning"
+      ]
+    },
+    {
+      "id": "cpt-implementation-review",
+      "plugin": "cpt-engineering",
+      "description": "Use to review implementation against approved scope, contracts, tests, quality gates, risk, and handoff; not as a replacement for domain-specific review.",
+      "implicit": true,
+      "positive_examples": [
+        "Review a frontend feature against its Impact Map and API/design contracts.",
+        "Produce blocker findings and handoff notes for a multi-file implementation."
+      ],
+      "negative_example": "Brainstorm alternative product concepts.",
+      "source_skills": [
+        "handoff-docs",
+        "implementation-review"
+      ]
+    },
+    {
+      "id": "cpt-incident-review",
+      "plugin": "cpt-engineering",
+      "description": "Use to investigate incidents with timeline, impact, contributing factors, root causes, remediation, and prevention; not to assign blame.",
+      "implicit": true,
+      "positive_examples": [
+        "Run a blameless post-incident review for an outage.",
+        "Analyze a failed deployment and improve detection and rollback."
+      ],
+      "negative_example": "Review a design handoff package.",
+      "source_skills": [
+        "incident-review"
+      ]
+    },
+    {
+      "id": "cpt-information-architecture",
+      "plugin": "cpt-product-research",
+      "description": "Use to design taxonomy, hierarchy, navigation, labeling, grouping, and findability for complex information spaces.",
+      "implicit": true,
+      "positive_examples": [
+        "Redesign the information architecture of a large settings module.",
+        "Create taxonomy and navigation for a knowledge library."
+      ],
+      "negative_example": "Tune the contrast of existing buttons.",
+      "source_skills": [
+        "information-architecture"
+      ]
+    },
+    {
+      "id": "cpt-interaction-state-model",
+      "plugin": "cpt-design-ui",
+      "description": "Use to define interaction behavior and complete state coverage across empty, loading, success, error, permission, responsive, and edge cases.",
+      "implicit": true,
+      "positive_examples": [
+        "Define every state for document upload and processing.",
+        "Model validation, save, run, error, and dirty states for an editor."
+      ],
+      "negative_example": "Choose a market research sample.",
+      "source_skills": [
+        "state-matrix"
+      ]
+    },
+    {
+      "id": "cpt-knowledge-lifecycle",
+      "plugin": "cpt-core",
+      "description": "Use to create, validate, refresh, or update hierarchical Product Knowledge; not as a substitute for current code or task evidence.",
+      "implicit": true,
+      "positive_examples": [
+        "Update only the workflows area map after implementing a new editor mode.",
+        "Create a greenfield Product Map from approved decisions and mark unimplemented flows as planned."
+      ],
+      "negative_example": "Write release notes for a dependency patch that changes no product behavior.",
+      "source_skills": [
+        "greenfield-onboarding",
+        "knowledge-freshness-review",
+        "knowledge-update",
+        "product-knowledge-onboarding"
+      ]
+    },
+    {
+      "id": "cpt-market-research",
+      "plugin": "cpt-product-research",
+      "description": "Use for market/category, alternatives, competitor, adoption, pricing, and positioning research; not for unsupported market claims.",
+      "implicit": true,
+      "positive_examples": [
+        "Map competitors, substitutes, and switching barriers for a new B2B product.",
+        "Research category and pricing hypotheses before product positioning."
+      ],
+      "negative_example": "Test whether users understand an error message.",
+      "source_skills": [
+        "market-research-planning"
+      ]
+    },
+    {
+      "id": "cpt-migration-plan",
+      "plugin": "cpt-engineering",
+      "description": "Use to plan schema, data, config, API, platform, or dependency migrations with compatibility, backfill, validation, rollback, and observability.",
+      "implicit": true,
+      "positive_examples": [
+        "Plan a zero-downtime schema migration with backfill and rollback.",
+        "Migrate an API version with expand-contract compatibility."
+      ],
+      "negative_example": "Reorganize frontend components without data changes.",
+      "source_skills": [
+        "migration-planning"
+      ]
+    },
+    {
+      "id": "cpt-model-evaluation",
+      "plugin": "cpt-ai-agentic",
+      "description": "Use to build AI evaluation matrices, cases, rubrics, thresholds, failure taxonomy, and regression criteria.",
+      "implicit": true,
+      "positive_examples": [
+        "Create an eval suite for summarization faithfulness and safety.",
+        "Compare model/prompt variants with slice thresholds and regression cases."
+      ],
+      "negative_example": "Design a standard SQL schema migration.",
+      "source_skills": [
+        "model-evaluation"
+      ]
+    },
+    {
+      "id": "cpt-observability-plan",
+      "plugin": "cpt-engineering",
+      "description": "Use to design logs, metrics, traces, dashboards, alerts, debug context, and runbook signals around decisions and failures.",
+      "implicit": true,
+      "positive_examples": [
+        "Design observability for an async execution pipeline.",
+        "Add migration progress, failure, and rollback signals."
+      ],
+      "negative_example": "Define A/B experiment metrics.",
+      "source_skills": [
+        "observability-planning"
+      ]
+    },
+    {
+      "id": "cpt-opportunity-ideation",
+      "plugin": "cpt-product-research",
+      "description": "Use explicitly for controlled opportunity discovery and ideation with approval-gated scope; not as evidence or mandatory ceremony.",
+      "implicit": false,
+      "positive_examples": [
+        "Generate and evaluate alternatives for a confusing dashboard without expanding scope silently.",
+        "Triages a support idea and proposes an approval-gated improvement."
+      ],
+      "negative_example": "Confirm whether a button meets keyboard accessibility requirements.",
+      "source_skills": [
+        "anticipation-radar",
+        "creative-improvement-loop",
+        "creative-tension-review",
+        "expectation-anticipation",
+        "opportunity-event-triage",
+        "proactive-proposal-review"
+      ]
+    },
+    {
+      "id": "cpt-performance-review",
+      "plugin": "cpt-engineering",
+      "description": "Use to assess and measure performance risks across UI, API, data, and infrastructure; not to optimize without a baseline.",
+      "implicit": true,
+      "positive_examples": [
+        "Review a dashboard for rendering and bundle regressions.",
+        "Plan API latency measurements and optimization for a high-percentile SLO."
+      ],
+      "negative_example": "Map customer support pain points.",
+      "source_skills": [
+        "performance-review"
+      ]
+    },
+    {
+      "id": "cpt-privacy-impact",
+      "plugin": "cpt-risk-operations",
+      "description": "Use to map personal/sensitive data, purpose, access, sharing, retention, rights, consent, and privacy risk; not as legal advice.",
+      "implicit": true,
+      "positive_examples": [
+        "Review a feature that stores user documents and derived embeddings.",
+        "Map privacy impact of analytics identifiers and retention."
+      ],
+      "negative_example": "Create a taxonomy for navigation labels.",
+      "source_skills": [
+        "privacy-impact-review"
+      ]
+    },
+    {
+      "id": "cpt-product-scope",
+      "plugin": "cpt-product-research",
+      "description": "Use to frame product outcome, users, scope, MVP slice, non-goals, acceptance, and success measures; not for code-level planning.",
+      "implicit": true,
+      "positive_examples": [
+        "Define the MVP and non-goals for a new analytics module.",
+        "Clarify the user outcome and success metrics before redesigning onboarding."
+      ],
+      "negative_example": "Plan a database index migration with no product behavior change.",
+      "source_skills": [
+        "product-planning"
+      ]
+    },
+    {
+      "id": "cpt-production-readiness",
+      "plugin": "cpt-engineering",
+      "description": "Use to plan or review production service/release readiness across architecture, security, privacy, performance, rollout, rollback, support, and verification.",
+      "implicit": true,
+      "positive_examples": [
+        "Run a production readiness review for a new web service.",
+        "Plan CI/CD, feature-flag rollout, rollback, and support for a major feature."
+      ],
+      "negative_example": "Create a low-fidelity prototype only.",
+      "source_skills": [
+        "devops-release-planning",
+        "production-readiness-review",
+        "production-service-planning"
+      ]
+    },
+    {
+      "id": "cpt-refactor-plan",
+      "plugin": "cpt-engineering",
+      "description": "Use to plan behavior-preserving refactoring with characterization tests, staged changes, invariants, and rollback.",
+      "implicit": true,
+      "positive_examples": [
+        "Plan a behavior-preserving extraction of shared edit controls.",
+        "Refactor a legacy hook into smaller modules with characterization tests."
+      ],
+      "negative_example": "Migrate production data to a new schema.",
+      "source_skills": [
+        "refactoring-planning"
+      ]
+    },
+    {
+      "id": "cpt-reference-taste-calibration",
+      "plugin": "cpt-design-ui",
+      "description": "Use to extract a reference/taste contract, good-bad examples, and design criteria before choosing or critiquing a direction.",
+      "implicit": true,
+      "positive_examples": [
+        "Extract a design contract from a reference screenshot and two anti-examples.",
+        "Critique three screen alternatives against approved taste and product goals."
+      ],
+      "negative_example": "Run browser screenshots after implementation.",
+      "source_skills": [
+        "design-critique",
+        "example-taste-board",
+        "reference-fidelity",
+        "taste-calibration"
+      ]
+    },
+    {
+      "id": "cpt-runtime",
+      "plugin": "cpt-core",
+      "description": "Use for CPT task lifecycle, micro changes, scoped authorization, checkpoints, completion, or recovery; not for domain judgment.",
+      "implicit": true,
+      "positive_examples": [
+        "Start a CPT task and record a bounded lease before editing.",
+        "Recover the current CPT task after context compaction and verify the checkpoint."
+      ],
+      "negative_example": "Review the visual hierarchy of this dashboard without changing runtime state.",
+      "source_skills": [
+        "chronicle-compaction",
+        "context-prune",
+        "context-snapshot",
+        "memory-integrity-check",
+        "new-task-protocol",
+        "progress-chronicle",
+        "task-intake",
+        "task-ledger",
+        "ticket-router"
+      ]
+    },
+    {
+      "id": "cpt-screen-module-design",
+      "plugin": "cpt-design-ui",
+      "description": "Use to create or redesign a screen, flow, module, or prototype with hierarchy, states, components, content, and implementation handoff.",
+      "implicit": true,
+      "positive_examples": [
+        "Redesign an analytics screen and provide a rebuild-ready design specification.",
+        "Create a consistent multi-screen prototype when no design system exists."
+      ],
+      "negative_example": "Compare an implemented page screenshot against an approved reference.",
+      "source_skills": [
+        "module-design",
+        "prototype-ui-kit",
+        "screen-redesign"
+      ]
+    },
+    {
+      "id": "cpt-task-planning",
+      "plugin": "cpt-core",
+      "description": "Use to discover bounded scope, select expertise, build an Impact Map, and request one approval lease before meaningful work.",
+      "implicit": true,
+      "positive_examples": [
+        "Find every related edit-mode action, select the right skills, and propose a bounded Impact Map.",
+        "Scope an API-dependent UI change and request one approval lease before editing."
+      ],
+      "negative_example": "Review keyboard focus and ARIA labels in this dialog.",
+      "source_skills": [
+        "bounded-discovery",
+        "framework-loading",
+        "impact-map",
+        "repo-recon",
+        "team-routing"
+      ]
+    },
+    {
+      "id": "cpt-threat-model",
+      "plugin": "cpt-risk-operations",
+      "description": "Use for security threat modeling and evidence-backed security review of trust boundaries, assets, abuse cases, controls, and tests.",
+      "implicit": true,
+      "positive_examples": [
+        "Threat-model an agent that can perform irreversible tool actions.",
+        "Review authorization and input boundaries for a new API."
+      ],
+      "negative_example": "Optimize a page rendering waterfall.",
+      "source_skills": [
+        "security-review",
+        "threat-modeling"
+      ]
+    },
+    {
+      "id": "cpt-ux-research",
+      "plugin": "cpt-product-research",
+      "description": "Use to design UX research, usability evaluation, recruiting, protocol, synthesis, and validity; not to treat assumptions as insights.",
+      "implicit": true,
+      "positive_examples": [
+        "Plan a usability test for a complex editing workflow.",
+        "Design generative interviews and recruiting for a new user segment."
+      ],
+      "negative_example": "Estimate market size and competitor pricing.",
+      "source_skills": [
+        "research-ops",
+        "ux-research-planning"
+      ]
+    },
+    {
+      "id": "cpt-visual-acceptance-review",
+      "plugin": "cpt-design-ui",
+      "description": "Use to review rendered UI and coded interaction against specs, references, design system, states, taste, responsiveness, and obvious defects.",
+      "implicit": true,
+      "positive_examples": [
+        "Review the implemented dashboard against its reference and all critical states.",
+        "Capture responsive screenshots and block design-system drift before completion."
+      ],
+      "negative_example": "Create a market competitor matrix.",
+      "source_skills": [
+        "current-page-ui-review",
+        "debug-control-review",
+        "design-qa",
+        "e2e-visual-state-capture",
+        "screenshot-reference-comparison",
+        "taste-review",
+        "ui-heuristic-audit",
+        "ui-review-packet",
+        "visual-qa-loop"
+      ]
+    }
+  ]
+}

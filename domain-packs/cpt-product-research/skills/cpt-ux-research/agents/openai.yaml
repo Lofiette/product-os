@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Ux Research
+  short_description: Use to design UX research, usability evaluation, recruiting,
+    protocol, synthesis, and validity
+  brand_color: '#7C3AED'
+  default_prompt: Use $cpt-ux-research for this workflow and return its defined output
+    contract.
+policy:
+  allow_implicit_invocation: true

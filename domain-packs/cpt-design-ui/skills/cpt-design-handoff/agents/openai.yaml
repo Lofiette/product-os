@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Design Handoff
+  short_description: Use to produce and validate design-to-development handoff so
+    implementation does not require
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-design-handoff for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

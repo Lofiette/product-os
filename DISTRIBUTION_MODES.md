@@ -2,11 +2,11 @@
 
 ## Separation of concerns
 
-CPT OS 4.0 distribution has three independent layers:
+CPT OS 4.0 Alpha 3 has three independent layers:
 
-1. **Repo scaffold** — tiny `AGENTS.md`, `.cpt/` state, runtime CLI, schemas.
-2. **Core plugin** — one focused runtime skill, install-surface metadata.
-3. **Domain packs** — optional plugins that can be exposed and enabled independently.
+1. **Repo scaffold** — tiny `AGENTS.md`, `.cpt/` runtime state, runtime CLI, and schemas.
+2. **Core plugin** — three focused runtime/planning/knowledge skills.
+3. **Domain packs** — 42 optional skills in five independently enabled plugins.
 
 ## Local ignored mode
 
@@ -32,8 +32,4 @@ Use when runtime state and kernel guidance should be visible to the team.
 - `repo`: plugin source under `plugins/`; repo marketplace.
 - `none`: scaffold only.
 
-Exposing a plugin is not the same as enabling it. Codex users can install, enable, or disable plugins independently through supported plugin surfaces.
-
-## Domain packs
-
-Domain packs use the same native plugin boundary. Core has no dependency on any domain pack. A domain pack may declare a CPT compatibility range in `cpt-pack.json`, but canonical runtime state remains in the project scaffold.
+Exposing a plugin is not the same as enabling it. Domain packs remain independent and canonical runtime state remains in the project scaffold.

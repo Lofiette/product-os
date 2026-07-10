@@ -1,3 +1,5 @@
-# Domain Plugin Template
+# CPT Domain Pack Template
 
-Rename the plugin and replace the example skill. Keep each pack independently installable and removable. A domain pack may enrich reasoning, methods, gates, and tools, but it must not own canonical runtime state.
+Rename the plugin, pack, skill directory, skill frontmatter, and invocation metadata. Keep `cpt-pack.json` `skill_count` and `skill_ids` synchronized with the actual `skills/*/SKILL.md` files.
+
+A valid skill must follow `docs/SKILL_AUTHORING_STANDARD.md`. Do not publish a pack whose only contribution is a legacy alias or generic procedure.

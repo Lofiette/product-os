@@ -1,0 +1,26 @@
+{
+  "name": "cpt-product-research",
+  "version": "4.0.0-alpha.3",
+  "description": "Product strategy and evidence workflows for product teams.",
+  "keywords": [
+    "cpt",
+    "product-engineering",
+    "product-research"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CPT Product & Research",
+    "shortDescription": "Product scope, research, journey, IA, analytics, experiments, growth, and ideation",
+    "longDescription": "Product strategy and evidence workflows for product teams.",
+    "developerName": "CPT OS",
+    "category": "Research",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use CPT Product & Research for the smallest relevant workflow; do not load unrelated skills."
+    ],
+    "brandColor": "#7C3AED"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "plugins": [
+    {
+      "plugin": "cpt-core",
+      "skills": 3,
+      "estimated_discovery_chars": 564
+    },
+    {
+      "plugin": "cpt-ai-agentic",
+      "skills": 3,
+      "estimated_discovery_chars": 568
+    },
+    {
+      "plugin": "cpt-design-ui",
+      "skills": 12,
+      "estimated_discovery_chars": 2555
+    },
+    {
+      "plugin": "cpt-engineering",
+      "skills": 12,
+      "estimated_discovery_chars": 2547
+    },
+    {
+      "plugin": "cpt-product-research",
+      "skills": 10,
+      "estimated_discovery_chars": 2052
+    },
+    {
+      "plugin": "cpt-risk-operations",
+      "skills": 5,
+      "estimated_discovery_chars": 994
+    }
+  ],
+  "profiles": [
+    {
+      "profile": "core_only",
+      "plugins": [
+        "cpt-core"
+      ],
+      "estimated_discovery_chars": 564
+    },
+    {
+      "profile": "ui_implementation",
+      "plugins": [
+        "cpt-core",
+        "cpt-design-ui",
+        "cpt-engineering"
+      ],
+      "estimated_discovery_chars": 5666
+    },
+    {
+      "profile": "product_discovery",
+      "plugins": [
+        "cpt-core",
+        "cpt-product-research"
+      ],
+      "estimated_discovery_chars": 2616
+    },
+    {
+      "profile": "ai_product",
+      "plugins": [
+        "cpt-core",
+        "cpt-product-research",
+        "cpt-ai-agentic",
+        "cpt-risk-operations"
+      ],
+      "estimated_discovery_chars": 4178
+    }
+  ],
+  "all_plugins_chars": 9280,
+  "all_plugins_note": "All optional packs are not intended to be enabled simultaneously; Codex may truncate initial skill metadata above its budget.",
+  "errors": []
+}

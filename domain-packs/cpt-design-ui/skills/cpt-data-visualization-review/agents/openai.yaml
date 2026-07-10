@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Data Visualization Review
+  short_description: Use to design or review charts, dashboards, reports, metric semantics,
+    scales, aggregation
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-data-visualization-review for this workflow and return
+    its defined output contract.
+policy:
+  allow_implicit_invocation: true

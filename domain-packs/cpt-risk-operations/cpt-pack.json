@@ -1,0 +1,24 @@
+{
+  "schema_version": "cpt-pack-v2",
+  "name": "cpt-risk-operations",
+  "kind": "domain",
+  "version": "4.0.0-alpha.3",
+  "requires_core": ">=4.0.0-alpha.3",
+  "domains": [
+    "risk-operations"
+  ],
+  "canonical_state_owner": false,
+  "optional": true,
+  "skill_count": 5,
+  "skill_ids": [
+    "cpt-cross-cutting-risk",
+    "cpt-delegation",
+    "cpt-framework-audit",
+    "cpt-privacy-impact",
+    "cpt-threat-model"
+  ],
+  "legacy_source": {
+    "package": "codex-product-team-3.0-ultra-beta2",
+    "skill_count": 8
+  }
+}

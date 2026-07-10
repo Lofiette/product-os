@@ -1,54 +1,60 @@
 ---
 name: cpt-runtime
-description: Manage task routing, micro changes, scoped authorization, checkpoints, completion, and recovery in a repository containing .cpt/runtime.yaml. Use when starting or finishing meaningful work, deciding Micro Change versus Standard Task, authorizing a bounded operation, validating runtime state, or recovering after context loss.
+description: Use for CPT task lifecycle, micro changes, scoped authorization, checkpoints, completion, or recovery; not for domain judgment.
 ---
 
 # CPT Runtime
 
-Operate the project runtime; do not replace product or engineering judgment.
+## Use when
 
-## Trigger
+- A repository contains `.cpt/runtime.yaml`.
+- Work must start, change scope, complete, checkpoint, or recover after context loss.
 
-Use when `.cpt/runtime.yaml` exists and the request needs task lifecycle, scope authorization, runtime validation, checkpointing, or recovery.
+## Do not use when
 
-Do not use for ordinary repositories without CPT state.
+- The repository has no CPT runtime.
+- The request only needs domain analysis and runtime state is already valid.
 
-## Procedure
+## Required inputs
 
-1. Read `.cpt/runtime.yaml`, `.cpt/current.yaml`, `.cpt/task-index.yaml`, and `.cpt/runtime-summary.md` only.
-2. Run `python .cpt/bin/cpt_runtime.py validate` if state may have changed manually or after recovery.
-3. Choose the smallest safe workflow:
-   - Micro Change for obvious, local, reversible, low-risk work with clear verification.
-   - Standard Task for meaningful discovery, design, implementation, API/data, architecture, or multi-file work.
-4. State the proposed read, write, verification, delegation, and forbidden scope.
-5. For Standard Task implementation, require an active scoped lease and a compact Impact Map or equivalent scope artifact.
-6. Create a checkpoint before major handoff, risky runtime change, or compaction when possible.
-7. On context loss, verify against the latest checkpoint and stop on mismatch.
-8. Complete the runtime record only after outcome, verification, and remaining limitations are recorded.
+- `.cpt/runtime.yaml`, `.cpt/current.yaml`, `.cpt/task-index.yaml`, `.cpt/runtime-summary.md`.
+- User intent and any existing task, micro-change, lease, or checkpoint identifier.
 
-## Commands
+## Method
 
-Use `.cpt/OPERATIONS.md` and `python .cpt/bin/cpt_runtime.py --help` for exact commands.
+1. Validate runtime pointers before making lifecycle decisions.
+2. Classify the request as Micro Change, Standard Task, or clarification-only.
+3. For a Micro Change, record the smallest reversible scope and verification; escalate when impact becomes systemic.
+4. For a Standard Task, create or activate a task and keep current/task-index pointers consistent.
+5. Before writes, record a scoped authorization lease covering read, write, verification, delegation, forbidden operations, and expiry.
+6. Create a checkpoint before compaction, risky handoff, or runtime mutation.
+7. Complete only after outcome, verification, limitations, and next state are recorded.
+8. On recovery, verify checkpoint integrity and stop on mismatch rather than guessing.
 
-## Output
+## Output contract
 
-Report:
+Produce a compact artifact containing:
 
-- selected workflow;
-- current or proposed task/unit;
-- bounded scope;
-- authorization state;
-- verification state;
-- checkpoint/recovery state;
-- next operation.
+- `Selected workflow and active runtime unit.`
+- `Approved and forbidden scope.`
+- `Authorization and checkpoint state.`
+- `Verification status, blockers, and next operation.`
 
-## Failure modes
+## Evidence standard
 
-Stop and request clarification or a renewed lease when:
+- Runtime CLI output is authoritative for pointer and schema validity.
+- User approval is authoritative for lease scope.
+- Do not infer a completed verification from an intended command.
 
-- scope expands;
-- runtime pointers are invalid;
-- checkpoint integrity fails;
-- approval is missing;
-- required verification cannot run;
-- a Micro Change reveals systemic impact.
+## Stop and escalate
+
+- Runtime pointers or checkpoint hashes are invalid.
+- Scope expands beyond the active lease.
+- A Micro Change reveals systemic or risky impact.
+- Required verification cannot run or is inconclusive.
+
+## Failure modes to avoid
+
+- Using a full ticket for a trivial local edit.
+- Continuing after compaction without checking disk state.
+- Treating the lease as a security sandbox rather than an authorization record.

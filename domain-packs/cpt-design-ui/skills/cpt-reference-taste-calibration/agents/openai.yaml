@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Reference Taste Calibration
+  short_description: Use to extract a reference/taste contract, good-bad examples,
+    and design criteria before
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-reference-taste-calibration for this workflow and return
+    its defined output contract.
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Model Evaluation
+  short_description: Use to build AI evaluation matrices, cases, rubrics, thresholds,
+    failure taxonomy, and
+  brand_color: '#0891B2'
+  default_prompt: Use $cpt-model-evaluation for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Interaction State Model
+  short_description: Use to define interaction behavior and complete state coverage
+    across empty, loading, success
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-interaction-state-model for this workflow and return its
+    defined output contract.
+policy:
+  allow_implicit_invocation: true

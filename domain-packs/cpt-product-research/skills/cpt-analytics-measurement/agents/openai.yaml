@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Analytics Measurement
+  short_description: Use to define event taxonomy, metrics, properties, data sources,
+    segmentation, dashboards, and
+  brand_color: '#7C3AED'
+  default_prompt: Use $cpt-analytics-measurement for this workflow and return its
+    defined output contract.
+policy:
+  allow_implicit_invocation: true

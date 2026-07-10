@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Design System Code Audit
+  short_description: Use to run deterministic code-level checks for design-system
+    imports, raw values, duplicate
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-design-system-code-audit for this workflow and return its
+    defined output contract.
+policy:
+  allow_implicit_invocation: false

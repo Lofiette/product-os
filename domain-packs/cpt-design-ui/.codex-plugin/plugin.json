@@ -1,0 +1,26 @@
+{
+  "name": "cpt-design-ui",
+  "version": "4.0.0-alpha.3",
+  "description": "Design and coded UI quality workflows.",
+  "keywords": [
+    "cpt",
+    "product-engineering",
+    "design-ui"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CPT Design & UI",
+    "shortDescription": "Product design, design systems, content, accessibility, visual acceptance, and handoff",
+    "longDescription": "Design and coded UI quality workflows.",
+    "developerName": "CPT OS",
+    "category": "Design",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use CPT Design & UI for the smallest relevant workflow; do not load unrelated skills."
+    ],
+    "brandColor": "#DB2777"
+  }
+}

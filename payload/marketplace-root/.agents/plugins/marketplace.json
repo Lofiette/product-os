@@ -1,7 +1,7 @@
 {
-  "name": "cpt-alpha2-marketplace",
+  "name": "cpt-alpha3-marketplace",
   "interface": {
-    "displayName": "CPT OS Alpha 2"
+    "displayName": "CPT OS Alpha 3"
   },
   "plugins": [
     {

@@ -1,152 +1,196 @@
-# Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit
+# Codex Product Operating System 4.0 Alpha 3 — Skills Consolidation Audit
 
 Date: 2026-07-10  
-Version: `4.0.0-alpha.2`  
-Phase: **Phase 2 — Distribution Split**
+Version: `4.0.0-alpha.3`  
+Phase: **Phase 3 — Skills Consolidation**
 
 ## Verdict
 
-**PASS for Phase 2 / Alpha 2 Distribution Split, with explicitly documented boundaries.**
+**PASS for Alpha 3 Skills Consolidation, with explicitly documented behavioral-evaluation and role-integration boundaries.**
 
-The package converts the Alpha 1 Runtime Kernel into a safe, independently distributable architecture. It does not yet claim the full Alpha 2 Expertise acceptance criteria: role migration and skill consolidation remain later workstreams.
+Alpha 3 preserves the Alpha 2 Runtime Kernel and distribution split, replaces the 3.x skill sprawl with a complete canonical migration, and keeps realistic activation profiles below the package metadata budget. It does not yet claim live-model routing certification or integration of the 50 logical roles.
 
 ## Implemented
 
-- minimal repo scaffold;
-- native Codex `cpt-core` plugin;
-- personal and repo marketplace exposure;
-- local-ignored mode;
-- team-shared mode;
-- managed `AGENTS.md` block;
-- safe handling of existing tracked `AGENTS.md`;
-- installation receipt;
-- conflict-aware update;
-- state-preserving uninstall backup;
-- independent domain-pack add/remove boundary;
-- domain pack template and contract;
-- plugin metadata-budget measurement;
-- static distribution validator;
-- behavioral distribution tests;
-- preserved Alpha 1 runtime task/micro/lease/checkpoint behavior.
+- complete inventory of 95 legacy skills;
+- one-to-one legacy mapping coverage with no duplicate source mappings;
+- 45 active canonical skills;
+- one required core plugin and five optional domain plugins;
+- exact `cpt-pack-v2` inventories and legacy provenance;
+- domain-specific method, output contract, evidence standard, stop conditions, and failure modes for every active skill;
+- `agents/openai.yaml` for every active skill;
+- implicit/explicit invocation policy;
+- central skill registry and migration registry;
+- 135 deterministic trigger proxy cases;
+- pack and working-profile metadata-budget validation;
+- bundled-pack installation and independent removal;
+- preserved Alpha 2 install/update/doctor/uninstall behavior;
+- preserved Alpha 1 task, micro-change, lease, checkpoint, and recovery runtime.
 
-## Metrics
+## Inventory and consolidation metrics
 
 | Metric | Result |
 |---|---:|
-| Repo files after local install | 10 |
-| Repo files after team install with repo plugin | 15 |
-| Required maximum | `< 20` |
-| Root managed `AGENTS.md` block | 2,156 bytes / 46 lines |
-| Core plugins | 1 |
-| Core skills | 1 |
-| Estimated core skill discovery metadata | 375 characters |
-| Distribution behavioral tests | 12 |
-| External services required | 0 |
-| Application source files touched by install | 0 |
+| Legacy skills | 95 |
+| Active canonical skills | 45 |
+| Consolidation ratio | 52.6% fewer active skills |
+| Legacy source mappings | 95 / 95 |
+| Active compatibility aliases | 0 |
+| Plugins | 6 total: 1 core + 5 domain |
+| Implicit skills | 41 |
+| Explicit-only skills | 4 |
+| Trigger cases | 135 |
+| Trigger proxy result | 135 / 135 PASS |
+| Duplicate active method bodies | 0 |
+| Skills missing output/evidence/stop/failure sections | 0 |
+| Skills missing `agents/openai.yaml` | 0 |
 
-## Phase 2 exit criteria
+Explicit-only skills:
 
-| Criterion | Status | Evidence |
-|---|---|---|
-| New project receives fewer than 20 repo-local framework files | PASS | local: 10; team + repo plugin: 15 |
-| Core works without domain packs | PASS | runtime integration with `--plugin-scope none` |
-| Packs can be exposed/removed independently | PASS | synthetic domain pack test; core preserved |
-| Uninstall does not damage the project | PASS | application source survived uninstall unchanged |
+- `cpt-delegation`;
+- `cpt-design-system-code-audit`;
+- `cpt-framework-audit`;
+- `cpt-opportunity-ideation`.
+
+## Plugin inventory
+
+| Plugin | Active skills | Legacy skills represented | Estimated discovery metadata |
+|---|---:|---:|---:|
+| `cpt-core` | 3 | 18 | 564 chars |
+| `cpt-product-research` | 10 | 19 | 2,052 chars |
+| `cpt-design-ui` | 12 | 31 | 2,555 chars |
+| `cpt-engineering` | 12 | 16 | 2,547 chars |
+| `cpt-risk-operations` | 5 | 8 | 994 chars |
+| `cpt-ai-agentic` | 3 | 3 | 568 chars |
+
+The combined engineering pack is an intentional Alpha 3 decision. Its metadata remains within the domain-pack budget, while common UI/API/data tasks frequently cross the proposed frontend/backend boundary. Future splitting requires live routing evidence rather than file-count preference.
+
+## Supported activation-profile budgets
+
+| Profile | Packs | Estimated metadata |
+|---|---|---:|
+| Core only | core | 564 chars |
+| Product discovery | core + product/research | 2,616 chars |
+| UI review | core + design/UI | 3,119 chars |
+| UI implementation | core + design/UI + engineering | 5,666 chars |
+| Risk review | core + risk/operations | 1,558 chars |
+| AI product | core + product/research + AI + risk/operations | 4,178 chars |
+
+All supported default profiles stay below the Alpha 3 release target of 7,000 estimated characters. Enabling every optional pack yields about 9,280 characters and is intentionally **not** a supported default discovery profile.
+
+## Consolidation quality
+
+The migration removes active aliases rather than preserving them as metadata-consuming skills. Examples:
+
+- runtime, intake, ticket, context, and checkpoint fragments consolidate into `cpt-runtime`;
+- bounded discovery, repo recon, framework loading, Impact Map, and team routing consolidate into `cpt-task-planning`;
+- greenfield/onboarding/freshness/update fragments consolidate into `cpt-knowledge-lifecycle`;
+- reference, taste, example-board, and critique fragments consolidate into `cpt-reference-taste-calibration`;
+- UI review, screenshot comparison, heuristic audit, and visual QA fragments consolidate into `cpt-visual-acceptance-review`;
+- subagent orchestration, bounded contract, and failure recovery consolidate into explicit-only `cpt-delegation`.
+
+Every canonical method has a unique method body and a named output contract. The 3.x five-step generic placeholder procedure is rejected by validation.
 
 ## Static validation
 
 ```text
+SKILL VALIDATION PASSED: 45 active skills, 95 legacy mappings, 6 plugins
+TRIGGER PROXY EVAL: 135/135 passed
 DISTRIBUTION STATIC VALIDATION PASSED
-core metadata estimate: 375 chars
-Python syntax validation: PASS
+PYTHON COMPILE PASS
 ```
 
 Validated:
 
-- plugin manifest and path rules;
-- skill frontmatter;
-- `agents/openai.yaml` parseability;
-- marketplace relative path;
-- managed AGENTS markers;
-- root loader guidance size;
-- absence of private product or design-system names;
-- domain pack contract shape.
+- skill frontmatter and exact path/name identity;
+- discriminative description length and trigger-oriented wording;
+- eight required operational sections;
+- minimum method depth;
+- output-contract depth;
+- absence of legacy boilerplate and duplicate method bodies;
+- valid `agents/openai.yaml`, display metadata, and boolean invocation policy;
+- exact trigger-case coverage;
+- exact 95-source migration coverage;
+- active registry / installed skill identity;
+- `cpt-pack-v2` exact inventories and legacy provenance;
+- pack catalog/profile references;
+- plugin manifests and marketplace paths;
+- compact root `AGENTS.md` loader;
+- absence of private product/design-system names in universal package files.
 
-## Behavioral tests
+## Behavioral distribution tests
 
 Passed individually:
 
-1. local install remains Git-clean and below file budget;
-2. team install with repo plugin remains below file budget;
-3. existing tracked `AGENTS.md` is not modified in local mode;
+1. local install remains Git-clean and below repo-file budget;
+2. team install with repo core remains below budget;
+3. existing tracked `AGENTS.md` is preserved in local mode;
 4. update preserves mutable runtime state;
-5. update refuses modified managed tooling without `--force`;
-6. uninstall preserves application files;
-7. personal marketplace preserves unrelated plugin entries;
+5. update blocks modified managed tooling without force;
+6. uninstall preserves application source;
+7. personal marketplace preserves unrelated entries;
 8. domain pack removal preserves core;
-9. team-mode managed block uninstall preserves existing AGENTS content;
-10. personal core plugin survives project uninstall by default;
-11. core metadata stays within the test budget;
-12. doctor passes after local install.
+9. team uninstall preserves pre-existing AGENTS content;
+10. personal core survives project uninstall by default;
+11. core metadata budget remains small;
+12. bundled domain pack installs by name and removes independently;
+13. doctor passes after local installation.
 
-## Runtime integration
+## Runtime and pack integration
 
-The installed scaffold successfully completed:
-
-```text
-create Standard Task
-create scoped lease
-create checkpoint
-verify checkpoint
-validate runtime
-complete task
-start Micro Change
-complete Micro Change
-validate runtime
-```
-
-Result:
+A clean local installation successfully:
 
 ```text
-ALPHA2-RUNTIME-INTEGRATION-PASSED
+installed cpt-core
+installed cpt-design-ui and cpt-engineering independently
+reported Git-clean project state
+created and activated a Standard Task
+created a scoped lease
+created a checkpoint
+validated runtime pointers and schemas
+reported doctor PASS
 ```
 
-## Safety behavior
+All five bundled domain packs were also exposed through a synthetic personal marketplace and selected packs were removed without changing the remaining entries.
 
-- installer never runs `git add`, commit, branch, reset, or clean;
-- existing tracked AGENTS stays untouched in local mode by default;
-- AGENTS ownership is limited to an explicit marked block;
-- updates replace only receipt-owned tooling files;
-- mutable runtime records are preserved;
-- uninstall backs up state outside the project unless explicitly discarded;
-- personal plugin removal requires an explicit flag;
-- plugin does not own canonical runtime state;
-- no optional service is required.
+## Safety and context behavior
+
+- only `cpt-core` is required;
+- optional domain packs are independently enabled;
+- no active legacy aliases consume metadata;
+- real delegation is explicit-only;
+- framework audits and broad design-system code audits are explicit-only;
+- realistic profiles stay below release metadata budget;
+- all-pack activation is measured and clearly documented as non-default;
+- canonical task/runtime state remains in the repo scaffold rather than plugin state;
+- installer still performs no `git add`, commit, branch, reset, or clean.
 
 ## Honest limitations
 
-- Marketplace exposure does not enable the plugin automatically.
-- Codex restart or plugin UI installation may be required.
-- Existing manually copied Alpha 1 installs are not adopted automatically.
-- YAML remains the exact registry; SQLite is not implemented yet.
-- Domain packs contain only a packaging contract/template.
-- The 50-role and 95-skill expertise library is not migrated.
-- Hooks, rules, permission profiles, Product Knowledge, workers, and external adapters are absent.
-- Full cross-platform execution is not yet CI-verified.
-- The authorization lease remains a runtime contract, not a native security boundary.
+- The trigger evaluator is a deterministic metadata proxy, not a live Codex trace.
+- The 50 logical roles and role-to-skill/gate routing are not migrated yet.
+- Domain plugins are exposed but not automatically enabled by installation.
+- Hooks, rules, native approval profiles, SQLite, MCP, Product Knowledge schemas, workers, and external adapters are absent.
+- Legacy aliases require migration lookup; they are not executable compatibility skills.
+- The authorization lease remains a runtime contract, not a sandbox boundary.
+- Full production CI across all operating systems and Codex hosts remains later work.
 
-## Official compatibility basis
+## Phase 3 exit assessment
 
-The package follows current Codex documentation for:
-
-- `.codex-plugin/plugin.json` plugin manifests;
-- `skills/` packaging;
-- personal and repo marketplaces;
-- relative `./` plugin source paths;
-- `agents/openai.yaml` skill metadata;
-- independent plugin enable/disable behavior;
-- project trust boundaries.
+| Criterion | Status |
+|---|---|
+| Inventory every 3.x skill | PASS |
+| Map every legacy skill exactly once | PASS |
+| Remove active aliases and obvious fragments | PASS |
+| Replace generic active skills with domain methods | PASS |
+| Add output/evidence/stop/failure contracts | PASS |
+| Add invocation metadata | PASS |
+| Keep supported profiles within metadata budget | PASS |
+| Add trigger regression proxy | PASS |
+| Preserve Alpha 2 distribution behavior | PASS |
+| Live Codex routing evals | DEFERRED to Evaluation Plane |
+| Logical-role integration | DEFERRED to Phase 4 |
 
 ## Recommendation
 
-Freeze this package as **Alpha 2 Distribution baseline** and proceed to Phase 3: Skills Consolidation. Do not add Product Knowledge or role content to the always-on repo scaffold.
+Freeze this package as the **Alpha 3 Skills Consolidation baseline** and proceed to Phase 4: Role Expertise and Routing Overhaul. Do not add new skills by default; Phase 4 should connect the preserved 50 logical roles to these 45 methods, gates, and a smaller worker-archetype surface.

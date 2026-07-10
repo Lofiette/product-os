@@ -1,35 +1,112 @@
 {
-  "schema_version": "cpt-pack-catalog-v1",
+  "schema_version": "cpt-pack-catalog-v3",
+  "version": "4.0.0-alpha.3",
   "core": {
     "name": "cpt-core",
     "status": "implemented",
-    "version": "4.0.0-alpha.2"
+    "version": "4.0.0-alpha.3",
+    "skill_count": 3,
+    "metadata_chars": 564
   },
-  "planned_domains": [
+  "domains": [
     {
-      "id": "product-research",
-      "status": "planned"
+      "id": "cpt-product-research",
+      "status": "implemented",
+      "version": "4.0.0-alpha.3",
+      "skill_count": 10,
+      "path": "./domain-packs/cpt-product-research",
+      "metadata_chars": 2052
     },
     {
-      "id": "design-ui",
-      "status": "planned"
+      "id": "cpt-design-ui",
+      "status": "implemented",
+      "version": "4.0.0-alpha.3",
+      "skill_count": 12,
+      "path": "./domain-packs/cpt-design-ui",
+      "metadata_chars": 2555
     },
     {
-      "id": "frontend",
-      "status": "planned"
+      "id": "cpt-engineering",
+      "status": "implemented",
+      "version": "4.0.0-alpha.3",
+      "skill_count": 12,
+      "path": "./domain-packs/cpt-engineering",
+      "metadata_chars": 2547
     },
     {
-      "id": "backend-api-data",
-      "status": "planned"
+      "id": "cpt-risk-operations",
+      "status": "implemented",
+      "version": "4.0.0-alpha.3",
+      "skill_count": 5,
+      "path": "./domain-packs/cpt-risk-operations",
+      "metadata_chars": 994
     },
     {
-      "id": "risk-operations",
-      "status": "planned"
-    },
-    {
-      "id": "ai-agentic",
-      "status": "planned"
+      "id": "cpt-ai-agentic",
+      "status": "implemented",
+      "version": "4.0.0-alpha.3",
+      "skill_count": 3,
+      "path": "./domain-packs/cpt-ai-agentic",
+      "metadata_chars": 568
     }
   ],
-  "rule": "Core must operate without any planned domain pack."
+  "rule": "Core is self-contained. Enable only domain packs required by the current task or working profile; enabling all packs may exceed initial skill-discovery metadata budgets.",
+  "profiles": [
+    {
+      "id": "core-only",
+      "purpose": "Runtime lifecycle, planning, recovery, and Product Knowledge",
+      "packs": [
+        "cpt-core"
+      ],
+      "estimated_discovery_chars": 564
+    },
+    {
+      "id": "product-discovery",
+      "purpose": "Product strategy and evidence/research work",
+      "packs": [
+        "cpt-core",
+        "cpt-product-research"
+      ],
+      "estimated_discovery_chars": 2616
+    },
+    {
+      "id": "ui-review",
+      "purpose": "UI/design planning and acceptance without engineering implementation",
+      "packs": [
+        "cpt-core",
+        "cpt-design-ui"
+      ],
+      "estimated_discovery_chars": 3119
+    },
+    {
+      "id": "ui-implementation",
+      "purpose": "UI/product implementation with design and engineering responsibility",
+      "packs": [
+        "cpt-core",
+        "cpt-design-ui",
+        "cpt-engineering"
+      ],
+      "estimated_discovery_chars": 5666
+    },
+    {
+      "id": "risk-review",
+      "purpose": "Security, privacy, cross-cutting risk, delegation, and framework assurance",
+      "packs": [
+        "cpt-core",
+        "cpt-risk-operations"
+      ],
+      "estimated_discovery_chars": 1558
+    },
+    {
+      "id": "ai-product",
+      "purpose": "AI product planning, evaluation, safety, research, and risk",
+      "packs": [
+        "cpt-core",
+        "cpt-product-research",
+        "cpt-ai-agentic",
+        "cpt-risk-operations"
+      ],
+      "estimated_discovery_chars": 4178
+    }
+  ]
 }

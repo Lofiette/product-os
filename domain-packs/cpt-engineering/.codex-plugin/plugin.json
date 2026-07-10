@@ -1,0 +1,26 @@
+{
+  "name": "cpt-engineering",
+  "version": "4.0.0-alpha.3",
+  "description": "Software engineering planning, implementation review, and operations workflows.",
+  "keywords": [
+    "cpt",
+    "product-engineering",
+    "engineering"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CPT Engineering",
+    "shortDescription": "Frontend, architecture, API/data, implementation review, performance, release, and incidents",
+    "longDescription": "Software engineering planning, implementation review, and operations workflows.",
+    "developerName": "CPT OS",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use CPT Engineering for the smallest relevant workflow; do not load unrelated skills."
+    ],
+    "brandColor": "#059669"
+  }
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: CPT Domain Example Skill
+  short_description: Replace with a precise domain workflow trigger
+  default_prompt: Use $cpt-domain-example-skill and return its output contract.
+policy:
+  allow_implicit_invocation: false

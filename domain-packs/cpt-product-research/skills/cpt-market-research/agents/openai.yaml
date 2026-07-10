@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Market Research
+  short_description: Use for market/category, alternatives, competitor, adoption,
+    pricing, and positioning research
+  brand_color: '#7C3AED'
+  default_prompt: Use $cpt-market-research for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

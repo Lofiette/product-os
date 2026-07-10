@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Design Recon
+  short_description: Use to discover design-system mode, components, tokens, patterns,
+    references, and UI constraints
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-design-recon for this workflow and return its defined output
+    contract.
+policy:
+  allow_implicit_invocation: true

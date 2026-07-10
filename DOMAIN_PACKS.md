@@ -1,37 +1,49 @@
 # Domain Packs
 
-Alpha 2 defines the packaging boundary but does not migrate the 3.0 expertise library yet.
+Alpha 3 ships five implemented, optional domain plugins. Core operates without them.
 
-A CPT domain pack is a native Codex plugin plus `cpt-pack.json`.
-
-```text
-my-domain-pack/
-  .codex-plugin/plugin.json
-  cpt-pack.json
-  skills/
-```
-
-Validate and expose a pack:
+## Bundled catalog
 
 ```bash
-python tools/cpt_dist.py pack-add \
-  --path /path/to/pack \
-  --scope personal
+python tools/cpt_dist.py pack-catalog
 ```
 
-Or repo scope:
+Bundled packs:
+
+- `cpt-product-research`
+- `cpt-design-ui`
+- `cpt-engineering`
+- `cpt-risk-operations`
+- `cpt-ai-agentic`
+
+## Install a bundled pack
+
+Personal scope:
 
 ```bash
-python tools/cpt_dist.py pack-add \
-  --path /path/to/pack \
-  --scope repo \
-  --project /path/to/repo
+python tools/cpt_dist.py pack-add   --name cpt-design-ui   --scope personal
 ```
 
-Remove one pack without affecting core or other packs:
+Repository scope:
 
 ```bash
-python tools/cpt_dist.py pack-remove --name cpt-example --scope personal
+python tools/cpt_dist.py pack-add   --name cpt-engineering   --scope repo   --project /path/to/repo
 ```
 
-The Codex plugin UI remains the authority for enabling and disabling exposed plugins.
+## Install a third-party pack
+
+```bash
+python tools/cpt_dist.py pack-add   --path /path/to/plugin   --scope personal
+```
+
+## Remove independently
+
+```bash
+python tools/cpt_dist.py pack-remove   --name cpt-design-ui   --scope personal
+```
+
+Removing one pack does not remove core or another pack. Plugin exposure is not the same as enablement; Codex plugin controls remain authoritative.
+
+## Loading rule
+
+Enable only packs relevant to the work. Typical profiles are measured in `tools/measure_all_skill_metadata.py`. Activating every optional pack simultaneously is supported as a diagnostic condition, not recommended as the default discovery surface.

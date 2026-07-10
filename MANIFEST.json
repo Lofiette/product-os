@@ -1,274 +1,879 @@
 {
-  "package": "codex-product-os-4.0-alpha2-distribution-v0.2",
-  "version": "4.0.0-alpha.2",
-  "runtime_schema_version": "4.0-alpha2",
-  "phase": "Phase 2 — Distribution Split",
-  "file_count": 54,
+  "schema": "cpt-package-manifest-v3",
+  "name": "codex-product-os",
+  "version": "4.0.0-alpha.3",
+  "phase": "skills-consolidation",
+  "file_count": 174,
   "files": [
     {
-      "path": "ALPHA2_LIMITATIONS.md",
-      "bytes": 635,
-      "sha256": "20d2fef1d7bfbc078c1954ff0092aa4a0bcbd2651aa8431afecadc8f1dcade8f"
+      "path": "ALPHA3_LIMITATIONS.md",
+      "size": 984,
+      "sha256": "dd9a092d53c2dc7ac4663ac5b988642ca0904cb9d66110fd2e3517d5ea45e1b8"
     },
     {
       "path": "AUDIT_REPORT.md",
-      "bytes": 5139,
-      "sha256": "bb1d752c13105ee697e379b5a231262c217eac25599af1a2c6f4179f1c88349c"
+      "size": 8695,
+      "sha256": "a486b2f2770f76d46bafaad795762bf91804315c01464de1edb4954efa405c07"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 513,
-      "sha256": "d38586c4db893be899cac486b22849d975b1754ffc0527c407075f54c823d6a8"
+      "size": 1070,
+      "sha256": "46a06601510975602124a6008b553f5a9842036bbb5e6f9cd6a8720a42709b3d"
     },
     {
       "path": "DISTRIBUTION_MODES.md",
-      "bytes": 1519,
-      "sha256": "5e171e4955ec9be32dc00a81f4bfce248031e0ec8be93dc83c2caae94fe6e7b0"
+      "size": 1264,
+      "sha256": "e3ebdd5483fc4a741b97572563f914918b62f4790b3e67647ce8cb3f0a99a9f4"
     },
     {
       "path": "DOMAIN_PACKS.md",
-      "bytes": 740,
-      "sha256": "1c669a82ac3f2f64c55f2a13f69e92a3c18709adaff959dfcd42c0f3e1f716c4"
+      "size": 1213,
+      "sha256": "543cf77c2a21dfa4f8efeb14e22443aa3e2b9e38c655daa43cb47fe8b7412dd3"
     },
     {
       "path": "INSTALL.md",
-      "bytes": 1757,
+      "size": 1757,
       "sha256": "e45b37a22558579bc31e53ebb10562c4b88f00954b234fc37be77450ad091da8"
     },
     {
       "path": "README.md",
-      "bytes": 1726,
-      "sha256": "7dd17324fb7da29973759ed629fa0b7cc696d707cfaa7fe184c69c9120721dae"
+      "size": 1894,
+      "sha256": "199d5b49564ab5b27c6bee96b6baab22bd27828d83c3bb604ee56f20ba6470d5"
     },
     {
       "path": "README_RU.md",
-      "bytes": 1222,
-      "sha256": "047876acd5efa60492245e9f30a6254429f40406ae470f903d713138e507d443"
+      "size": 2246,
+      "sha256": "d65ada02cf56ef6696b47a49c9e9bfcdd883af07b28f8b2e52fe242702f4f308"
+    },
+    {
+      "path": "SKILLS.md",
+      "size": 2431,
+      "sha256": "f74d659ccffa431aa2e67ec0dbdd9e3104fc43dae4f4ac4484f31206b4ac5221"
     },
     {
       "path": "UPDATE_AND_ROLLBACK.md",
-      "bytes": 1230,
+      "size": 1230,
       "sha256": "079c9c2c1426d825398c9f14eafa572064deb5e755a0f8efe86f00a283f8bb0f"
     },
     {
       "path": "VERSION",
-      "bytes": 14,
-      "sha256": "e67e1db08235019e53d4b136a607fb4817959f95ecf656dcca8f8959c986b385"
+      "size": 14,
+      "sha256": "a7177af07121a664302225c3101c2af7fc5df1edd5a574d33416e7e628e1ab58"
     },
     {
-      "path": "docs/ALPHA1_TO_ALPHA2.md",
-      "bytes": 552,
+      "path": "archive/alpha2/ALPHA1_TO_ALPHA2.md",
+      "size": 552,
       "sha256": "1f2813eb324fe961bff188b85242a45229a76339da6723f43d5fc2d602775061"
     },
     {
+      "path": "archive/alpha2/ALPHA2_LIMITATIONS.md",
+      "size": 635,
+      "sha256": "1c195eac7216247f58a389ed5f8b8d50245d4ca54b3ed71cdd50b9df95e0ac29"
+    },
+    {
+      "path": "docs/ALPHA2_TO_ALPHA3.md",
+      "size": 1579,
+      "sha256": "e38939510d5b18a3a13c91bcd45f0c768157ae1bdac4638f94b2092dc1c8f176"
+    },
+    {
       "path": "docs/DOMAIN_PACK_CONTRACT.md",
-      "bytes": 439,
-      "sha256": "978719f346f7c69d2a453026915fb33cb0d793794c7559e4fcec9b4585f8e95e"
+      "size": 2287,
+      "sha256": "fdebd9bffe4dbb298f0eef64464e27325cdfed0e6d495a84d3985d712deff176"
     },
     {
       "path": "docs/INSTALLER_CONTRACT.md",
-      "bytes": 493,
+      "size": 493,
       "sha256": "c4e309697e6cc5a5775e6539fc41d2dc724af7cb4d5402f25375a568c7a38181"
     },
     {
       "path": "docs/METADATA_BUDGET.md",
-      "bytes": 541,
-      "sha256": "9eaa0695ac739fc89c0d81d9c8efe1771d94a24aff8cf5a9f1afc5c619341fdd"
+      "size": 741,
+      "sha256": "a0625ffee57838033a493c34aba6934d60edf0f9081947a6f82984a8c3cfa16c"
     },
     {
       "path": "docs/PLUGIN_AND_MARKETPLACE.md",
-      "bytes": 576,
+      "size": 576,
       "sha256": "84ecdeb31708f5264f52daa79d6077d3fd7497f74a11ea1ec845b347b66c64a5"
     },
     {
       "path": "docs/REPO_SCAFFOLD_CONTRACT.md",
-      "bytes": 417,
+      "size": 417,
       "sha256": "4620a6c6a42a7b2eefd29604a386bdda30831bc07082bcc00c2f54faf7696ac0"
     },
     {
+      "path": "docs/SKILL_AUTHORING_STANDARD.md",
+      "size": 3986,
+      "sha256": "9fa5577dd2f5f7a2cec7ebc3c22360a535ce591066f7039f73a0bf767324ed18"
+    },
+    {
+      "path": "docs/SKILL_CONSOLIDATION.md",
+      "size": 2860,
+      "sha256": "49bc87a05c6a813134e8102b58e625756ddea44a22cfe76527fc41efa355846b"
+    },
+    {
+      "path": "docs/SKILL_INVOCATION_POLICY.md",
+      "size": 2704,
+      "sha256": "8eadfcf0761f7a13b9641a11470642c5a30e6f010aa8c8763a9afc84b7c1a0f9"
+    },
+    {
       "path": "docs/SOURCES.md",
-      "bytes": 716,
-      "sha256": "ea2ab2f4eaa576d5239296590229afcacf562cbd9554047ae22e0837ca1bf08e"
+      "size": 864,
+      "sha256": "4128c6961a16917b880422162ad015f8269b8b24b34ca29897520a0201f59ef3"
+    },
+    {
+      "path": "docs/TRIGGER_EVALS.md",
+      "size": 1575,
+      "sha256": "c903a3c193724aefbf2566813ed5b27fdc9baf7ac0294c170fbc206b53586751"
     },
     {
       "path": "domain-packs/PACK_CATALOG.json",
-      "bytes": 642,
-      "sha256": "779888f70a86c260a0db74308ead7a54b9a738f278d81bd70d444a71bb50852f"
+      "size": 2994,
+      "sha256": "4f373033994ecebb1c338dd18ab01e11447a34193b0f3b64ce69d0a0b9c25c03"
     },
     {
       "path": "domain-packs/PACK_CONTRACT.schema.json",
-      "bytes": 933,
-      "sha256": "ef7d072d808f5d1bf23e57b90871f15ac4fdb0e3acdf0258f4653c4bba21b886"
+      "size": 1588,
+      "sha256": "24ef229fc0bdac42106a8c8f1396a05504aab88f76738beddf152b6b7681997c"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/.codex-plugin/plugin.json",
+      "size": 695,
+      "sha256": "09667c6d8d48bd858d1de02c04260ae9b3ee0345a12dba717f9ac514b9e1bbe4"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/README.md",
+      "size": 516,
+      "sha256": "209f752854e5fcec61fc25663dea5165ed28513cb9d69a3adf264873240214ed"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/cpt-pack.json",
+      "size": 468,
+      "sha256": "1a8a7b09fc2991e89102ac171b36ada973eb4a9a2407447993cffc77f7a89392"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/skills/cpt-ai-safety-review/SKILL.md",
+      "size": 1752,
+      "sha256": "19c24415aee3309375ca99b8bfc23808aa590e2b7c13c79cbbeaaf7033859899"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/skills/cpt-ai-safety-review/agents/openai.yaml",
+      "size": 340,
+      "sha256": "b5c32a22cdec9c9ca75365a69cb15748084fdc3795d9e598d56ad35045ef3d98"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/skills/cpt-ai-system-plan/SKILL.md",
+      "size": 1746,
+      "sha256": "7a7e8838e765c210457e5c1ec8296643f70aa126c38d2d3229af738d987c14fb"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/skills/cpt-ai-system-plan/agents/openai.yaml",
+      "size": 329,
+      "sha256": "2a6ef3b6d81c49c9951d0880b53b1145e753b6ec44ebf6a2a5af06294ce73ad4"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/skills/cpt-model-evaluation/SKILL.md",
+      "size": 1769,
+      "sha256": "0465c52078fef4de4fcbaa7cec5f2bb14a7881c96d0b7e778edb344256afc4ad"
+    },
+    {
+      "path": "domain-packs/cpt-ai-agentic/skills/cpt-model-evaluation/agents/openai.yaml",
+      "size": 333,
+      "sha256": "3366bcc6f8a6129194b3183c0080199ffcbec70dcd835e0eda0ba72b9a615f92"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/.codex-plugin/plugin.json",
+      "size": 724,
+      "sha256": "10f31ff4a0334f5139e3aca606a52c5535491ac65f426157e93d663c0e21625c"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/README.md",
+      "size": 2067,
+      "sha256": "43e55175d92096767c7b16c30a97d8e271fc859f77106a32d7a6699ad1b4da51"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/cpt-pack.json",
+      "size": 776,
+      "sha256": "365eaec026eb2ce74571f17a20dd51ebeb135db75c0e7588e3805b17811305b0"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-accessibility-review/SKILL.md",
+      "size": 1709,
+      "sha256": "ac163e008b52fd42553e141fad69b68e090646e95c90e2dde45d40e867d4ee2a"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-accessibility-review/agents/openai.yaml",
+      "size": 347,
+      "sha256": "ac76222716a4e8bbb82df98f75027dbaa0a3c6532c43cab25cad15861063cd08"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-content-design/SKILL.md",
+      "size": 1781,
+      "sha256": "996f9b46072e1a38bf5c79eec6bcaeed8703f9e0f563f300cde5f82d10a25eb9"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-content-design/agents/openai.yaml",
+      "size": 332,
+      "sha256": "f3064dd439241fe546f326893ff4d647ae0e8937328782365cae87f75446d3b9"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-conversation-design/SKILL.md",
+      "size": 1632,
+      "sha256": "fdb63bacdd05b9e5aee228e06999adff32a802b4b990722a635276c4523e63c8"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-conversation-design/agents/openai.yaml",
+      "size": 336,
+      "sha256": "13d20031fc525fd436d2c734ace236c7c235e9ea920771ba81e0104c1af744a7"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-data-visualization-review/SKILL.md",
+      "size": 1689,
+      "sha256": "a677d1373061c1e8cb4247e92627a5aca48e3194f44a68b0f0d2a7dc051ae3b4"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-data-visualization-review/agents/openai.yaml",
+      "size": 355,
+      "sha256": "5ba1ac37b5effa5eb5f211c2dbe32cc6372d46849607318b926618c43eb3bdb6"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-handoff/SKILL.md",
+      "size": 1750,
+      "sha256": "da79cc2925abe1efed6897eefb305ea1c0a030d4195191684becc765610402f4"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-handoff/agents/openai.yaml",
+      "size": 335,
+      "sha256": "8e846b3920bd1ef30b0899ba3e4c133f14d7b96501e459af3d0b8005e4913212"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-recon/SKILL.md",
+      "size": 1839,
+      "sha256": "bf9980a5df0472adeb83d607d0afefdefb9bd741239905c501f9d8157426925e"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-recon/agents/openai.yaml",
+      "size": 335,
+      "sha256": "73b8f8a5e61ceaf5e9ed07709e2c1f6a23569db70d7e76a1604d1b3c377cb4bc"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-code-audit/SKILL.md",
+      "size": 1823,
+      "sha256": "ea9a17b4b61e7a0ee204c500f1f3a9a4589393427f7c0ace9b7349265ab32141"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-code-audit/agents/openai.yaml",
+      "size": 355,
+      "sha256": "f5008363bd283297105bf321a6c52fabbbcf4c8749128ceee64a3b2a300dc6a6"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-code-audit/references/SCANNER_LIMITATIONS.md",
+      "size": 237,
+      "sha256": "e9bf88feb1ef50ce80da83d9626bb1f8da79c566bb0e6ff7aca993612c926e47"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-code-audit/scripts/check-component-imports.mjs",
+      "size": 8360,
+      "sha256": "1165af40ec2d31fb7ae8e97c47f94aeaabfd708b633544df485d9ce1838c2cbc"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-code-audit/scripts/check-design-source-authority.mjs",
+      "size": 1499,
+      "sha256": "4a7ea5a0119bf4721af9e24c2891c634b0c0444a541950a4bb40e5ad49031075"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-code-audit/scripts/find-raw-ui-values.mjs",
+      "size": 2296,
+      "sha256": "ace237600595d504bd16be65bac8296525907f60d6f5b9d34eed64e2fc9b3392"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-governance/SKILL.md",
+      "size": 1878,
+      "sha256": "13595bf94d5e28cda635fcfd8c31ee8ac169be356804ed7a1606c93f425dc6b1"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-design-system-governance/agents/openai.yaml",
+      "size": 350,
+      "sha256": "9da82d3a193064f4679ff6d3d45465263ff2854b479d04a0779cd09a41d28cc6"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-interaction-state-model/SKILL.md",
+      "size": 1660,
+      "sha256": "de6a83d021dbd0261b233213479188717225b24b041f937e5403c166a4cb9984"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-interaction-state-model/agents/openai.yaml",
+      "size": 354,
+      "sha256": "69029f0d04f1a253c8a9c681aa673f5b9b1e90234218d29b5bb76dacdf6a8154"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-reference-taste-calibration/SKILL.md",
+      "size": 1872,
+      "sha256": "614a878b2c8ebc6611c2104cb1bebc076a69a3b8156bd0e45aabef9ef904d8e5"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-reference-taste-calibration/agents/openai.yaml",
+      "size": 357,
+      "sha256": "7a934099b8f5e60c816bb2e9ef14dc7338b7f650951f7572aba079245ef55a3f"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-screen-module-design/SKILL.md",
+      "size": 2034,
+      "sha256": "f10526b4c00a19de7cf9ef66a24c2d6f7a9e9d9062d1248528a4b2fa4f753886"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-screen-module-design/agents/openai.yaml",
+      "size": 340,
+      "sha256": "11765145e534a56d731b1a7d32467ea31faa55c39c5214ac65316618ea2ac6d1"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-visual-acceptance-review/SKILL.md",
+      "size": 2004,
+      "sha256": "d0c10def0551183128c749f122dea06bdcdbb769f4fe724203eb06e7fb570762"
+    },
+    {
+      "path": "domain-packs/cpt-design-ui/skills/cpt-visual-acceptance-review/agents/openai.yaml",
+      "size": 351,
+      "sha256": "7c8303281b355196d77a2f59725e5807a3cf485999ebc6d993007a2202bf0101"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/.codex-plugin/plugin.json",
+      "size": 825,
+      "sha256": "bd905702d591ada0084c26e85e3e62a2a3ff133eac75f04f423c8ef1e137a198"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/README.md",
+      "size": 2120,
+      "sha256": "dbbfbcea56f88d438a54c24beec91a91e514233a8ac61f262f8685ab2a1361b5"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/cpt-pack.json",
+      "size": 736,
+      "sha256": "2a9fc571e23fac4ec90ada44f8a5535da108fc0d9ecae9687e09461cdd47b57c"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-api-contract/SKILL.md",
+      "size": 2041,
+      "sha256": "256d561e378c79ce393a7a6d7818e7cea7a188b9790c77508868279f5a5f54f2"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-api-contract/agents/openai.yaml",
+      "size": 326,
+      "sha256": "121f19c41fa255a126ab5f6868ba63f0f40c121de2a383edbb23dfd53f8da9bb"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-architecture-plan/SKILL.md",
+      "size": 1782,
+      "sha256": "28e9c8d68a3fb058263243fe047d0e86bc4d4b31efc9651a394dff5e6191a40d"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-architecture-plan/agents/openai.yaml",
+      "size": 338,
+      "sha256": "5106cb96fb8c18f91d2160afebe7a75d0428bf00b6ecb3429d1f85389fc61bb4"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-data-architecture/SKILL.md",
+      "size": 1729,
+      "sha256": "d493f2dafdf3da56737402d89fef1c81fd427f15c2c3f437afbfc91082d84817"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-data-architecture/agents/openai.yaml",
+      "size": 336,
+      "sha256": "83bc94f184bb747d8583c9a4d927b00543bad353078f6be0b70025e001420251"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-dependency-review/SKILL.md",
+      "size": 1623,
+      "sha256": "d0d27cac9ea5436fe7e035d6be276910339033303c570deeaef8220fe712bc07"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-dependency-review/agents/openai.yaml",
+      "size": 345,
+      "sha256": "9c83927cec1b15b7ec8f9bb53722dcb23589f70212a48c784c4f9a0265fcbdfc"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-frontend-integration/SKILL.md",
+      "size": 1889,
+      "sha256": "fb6d09cce1939e056897315ca97db909a3c190f8faded18ca7b4e9f8627e7e0d"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-frontend-integration/agents/openai.yaml",
+      "size": 339,
+      "sha256": "75e655a7d5672da67a916c694072e2be547ca9432e55620bf586f9cd7a1424f8"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-implementation-review/SKILL.md",
+      "size": 1802,
+      "sha256": "89e0827cd77bf8b91b873d178abdda7ebef3c3a208d7feaa736e4114894f6297"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-implementation-review/agents/openai.yaml",
+      "size": 352,
+      "sha256": "e63425de106a017c97239bcaa0418b8bc242ed49311954c28a6944f3c92d7cd8"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-incident-review/SKILL.md",
+      "size": 1652,
+      "sha256": "f8c4814be84604d9e9aad0f677c4745e9cdbeb68535a34126f60347eb6c0baac"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-incident-review/agents/openai.yaml",
+      "size": 330,
+      "sha256": "441d3a820ccabfea3df36018840a6d133015e96a72d3ca344e853fda4da2ab3a"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-migration-plan/SKILL.md",
+      "size": 1697,
+      "sha256": "fd9c436d6aa55b902e0c5b0fc3c8bd5a66c3223faef463b584b6c3d5394b3c57"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-migration-plan/agents/openai.yaml",
+      "size": 335,
+      "sha256": "f78f91b2f770e695ca5e26c213dc21edcad8fe524ed1f07303dbe8912b0635a4"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-observability-plan/SKILL.md",
+      "size": 1558,
+      "sha256": "93a6126d4f8f43b8015fa7982026c2c9d1efe396d5a045c5f7ef3df8d42ae7ef"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-observability-plan/agents/openai.yaml",
+      "size": 342,
+      "sha256": "d5716a98164f1d8ff9facde90dd751e9b88a18186b0597df33773f80fd8be6d8"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-performance-review/SKILL.md",
+      "size": 1620,
+      "sha256": "d879477d460ab92f8d2fec783c684ce62ed37d3c81667be3ec3f5905e90e5bcf"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-performance-review/agents/openai.yaml",
+      "size": 343,
+      "sha256": "c0003a3b218e7d17be46784e243f01b01e908eb2695efdea427956ca41efab2b"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-production-readiness/SKILL.md",
+      "size": 1773,
+      "sha256": "d9741807795f46260e827083f94e4e3bb2e6544af0aaf2f3045f3620d204a628"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-production-readiness/agents/openai.yaml",
+      "size": 343,
+      "sha256": "7559dbd92be9a815b0ebb7e044cd66d2dbbc51361e5ed1db4c22085052933866"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-refactor-plan/SKILL.md",
+      "size": 1518,
+      "sha256": "1a27f711cbb4b28bfed12394101580f97fff57da4c85cdc0e3b4cfc3c8447a94"
+    },
+    {
+      "path": "domain-packs/cpt-engineering/skills/cpt-refactor-plan/agents/openai.yaml",
+      "size": 328,
+      "sha256": "1ea2a363c126bdb0bedf8bfadd0234bedf512f92474c79ca729fd9c27acef015"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/.codex-plugin/plugin.json",
+      "size": 790,
+      "sha256": "a5a3bc7189cdeb5bb93d6dfc28e2afd66e07e75fa6d64dc99ed450c5448e0782"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/README.md",
+      "size": 1643,
+      "sha256": "8e597857e0365ee8d0e2bd7c296960f736413dc2211d2a4c7206c50360afc62a"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/cpt-pack.json",
+      "size": 696,
+      "sha256": "9ad2b6ad092b015cfe7bc8b71a30c9e7bcad11fea67d67f59ae80b4bcac4d312"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-analytics-measurement/SKILL.md",
+      "size": 1672,
+      "sha256": "7cdee763c1ae0d288bcc18df21bbcd9f298e2011a8b706eea2022841116b8630"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-analytics-measurement/agents/openai.yaml",
+      "size": 351,
+      "sha256": "c02d6a8ae7e2dc53674cd507fd542018f2e2049555aea7e308aa90e29923bb6e"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-customer-journey/SKILL.md",
+      "size": 1860,
+      "sha256": "602d0144acd51740cdfaff1489f980853af39fc3a15462210938bf05b499ab3a"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-customer-journey/agents/openai.yaml",
+      "size": 333,
+      "sha256": "7680d4b6c95ce0dbeb100f503a126408c575b072d513e682a8930af80c7c9d67"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-evidence-research-plan/SKILL.md",
+      "size": 1844,
+      "sha256": "15398492b7f5cda0efa54d2295b24a04f1b4eb90518b9cbcb44baf7aba8ba84f"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-evidence-research-plan/agents/openai.yaml",
+      "size": 352,
+      "sha256": "38ae2551732057baa0c5540fcaf54939dec8d6c18fa43878deb74caab2726cf2"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-experiment-design/SKILL.md",
+      "size": 1729,
+      "sha256": "6eb7467bcd5f7cdc816b3fbbb2431a7b61aa8c3d457dc12087295923d8626b64"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-experiment-design/agents/openai.yaml",
+      "size": 342,
+      "sha256": "a5f49c108e05deaca0c94113a1e3a9a5a33b01b0e0bb4f1a0f4bbc6e322d5849"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-growth-activation/SKILL.md",
+      "size": 1622,
+      "sha256": "9fab95da9ad6dd5e80f7f2d6804539c3a73383cd860a2c87ae57e6543d382984"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-growth-activation/agents/openai.yaml",
+      "size": 342,
+      "sha256": "b06ad99d88d66a406ef223993af6feefac0c3b3309611fbd3bf9abbdb23c3ff7"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-information-architecture/SKILL.md",
+      "size": 1756,
+      "sha256": "c87d878027727973d19835793fe102395b11aa33de70b9db25197105bcfc8661"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-information-architecture/agents/openai.yaml",
+      "size": 357,
+      "sha256": "e8012014ce765edcd74f315747ae9757a5f2fa1d31dd31d666ee876063b007e0"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-market-research/SKILL.md",
+      "size": 1647,
+      "sha256": "98ec575475e86d094750aef481655fe864ce90fcb34769d780885ed00f40c606"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-market-research/agents/openai.yaml",
+      "size": 339,
+      "sha256": "f4b947bb588ed0f23519bb3162b7ded31c9cc6d5d07e800d5cacda4361d2fa57"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-opportunity-ideation/SKILL.md",
+      "size": 1874,
+      "sha256": "4a751bf53c9edf55265fc07037997807212a63a166320d8853421d632cb3a4b5"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-opportunity-ideation/agents/openai.yaml",
+      "size": 351,
+      "sha256": "8b19ea57067ba023d7a09d2ad9ec2a4f8ff11c3ee0d9aa5a5a087b54cc22d961"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-product-scope/SKILL.md",
+      "size": 1739,
+      "sha256": "5b310c3a3b2d2681c8c6f413b06f5028be0fe751880ce07ab0dd6c0002ec42aa"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-product-scope/agents/openai.yaml",
+      "size": 330,
+      "sha256": "b49d9101197b1e8ebf6ac6f277b6b9e5f386047bca65b8a3227ca93cf362ab6d"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-ux-research/SKILL.md",
+      "size": 1930,
+      "sha256": "4f4297bc02d87fbaacb32da445ee6a0d2e8c68d4fefa227b5ad6c4556e210eae"
+    },
+    {
+      "path": "domain-packs/cpt-product-research/skills/cpt-ux-research/agents/openai.yaml",
+      "size": 331,
+      "sha256": "bf1658f0fe8da09bc00cbc8650b6b035af05fb1dd4e31bda06dfcbe05bbf206d"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/.codex-plugin/plugin.json",
+      "size": 783,
+      "sha256": "68ec4eb430fcd4cbecc7e8812811a67ae026b108e2536e37764417380d7d3c77"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/README.md",
+      "size": 880,
+      "sha256": "3db0649fce4c18581f6d5aa9eb9f6dcbec2a04b86b6cf4f5bb5f915f0bc034b5"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/cpt-pack.json",
+      "size": 525,
+      "sha256": "b3f5ab736d18f24146df0d2ddaf331094947eaa45b09e754bc790b50e056d1cf"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-cross-cutting-risk/SKILL.md",
+      "size": 1537,
+      "sha256": "e911907e060d956b4e68f7a08e98fb9e0348f4efbdf54de22c8f57714f6268c7"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-cross-cutting-risk/agents/openai.yaml",
+      "size": 346,
+      "sha256": "587737e22ecdfa54b3af581be1a40c2146209bac9af50aa8e712f9fbc2b12b15"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-delegation/SKILL.md",
+      "size": 2184,
+      "sha256": "b10d915595a6b5b2c43ac56b540942309b61b890d6cdc602d13e7afb793a7679"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-delegation/agents/openai.yaml",
+      "size": 330,
+      "sha256": "cb86bf6722587ccabe89392e39b9cce694731240574e33dfc46342600313c59e"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-framework-audit/SKILL.md",
+      "size": 2035,
+      "sha256": "6ca68edf9c0fded083282458c1a61220ebb5d5c3277d52d83fa3f159fccdae6c"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-framework-audit/agents/openai.yaml",
+      "size": 341,
+      "sha256": "cb404f94d5acc03c68fbf61c4ed8e2449f03648052ce2730293a9f84eb2d969b"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-privacy-impact/SKILL.md",
+      "size": 1830,
+      "sha256": "d3e8d336d54b9ceed567eac82392ee1c3f5edae8c64cbeebc7b1fa9ec265b1e4"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-privacy-impact/agents/openai.yaml",
+      "size": 336,
+      "sha256": "7df56e357244088788d91a9400dde7173510e9046d0e6193ca0078409f1e317b"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-threat-model/SKILL.md",
+      "size": 1742,
+      "sha256": "a30111d353aa2b0ed544e359af992cd2cc180d36b7187e39c11d670eea836cce"
+    },
+    {
+      "path": "domain-packs/cpt-risk-operations/skills/cpt-threat-model/agents/openai.yaml",
+      "size": 327,
+      "sha256": "5670b610541826803c1047627cc1c6eddd4f9eed6d55ad812df6aa494d6a1f2f"
+    },
+    {
+      "path": "evaluation/README.json",
+      "size": 146,
+      "sha256": "7a08ed5042977c6404a3a1a209af4d5ad933b6cd9ca6dc192d5315c43e455b69"
+    },
+    {
+      "path": "evaluation/metadata-budget-report.json",
+      "size": 1588,
+      "sha256": "dd4c834941531b1ff2bbbb7b4ac3cd683a89d4f101313fa48281039db9e67663"
+    },
+    {
+      "path": "evaluation/skill-trigger-cases.json",
+      "size": 22075,
+      "sha256": "d2dd490051eebaaf6ce75f2eb0dc910c5a38815771313ff3179b60c62ea206b7"
+    },
+    {
+      "path": "evaluation/trigger-eval-report.json",
+      "size": 38110,
+      "sha256": "a87f5fde95ec28b5a7002952d3cdd20ff6b094fb449098585961d3b2c6663420"
+    },
+    {
+      "path": "migration/DEPRECATED_SKILL_ALIASES.md",
+      "size": 421,
+      "sha256": "2310d41177a385f6f27323f3c1e47aecd5da7e76a60ae807017ac2eb33586228"
+    },
+    {
+      "path": "migration/LEGACY_SKILL_INVENTORY.csv",
+      "size": 8576,
+      "sha256": "2518b88817a55504b5eeedfd5127ee835947afb3e8238a4a04168ce15cc844ab"
+    },
+    {
+      "path": "migration/README.md",
+      "size": 456,
+      "sha256": "db63339b7f376388334a417c3724c1ced73cd96cba9ef631cef751bbd5f1c535"
+    },
+    {
+      "path": "migration/SKILL_MIGRATION.csv",
+      "size": 13964,
+      "sha256": "5cdad24b8cd2ee935c4a5d25d97ddc898141f1995b571ad7a9bf5aec8d6096d3"
+    },
+    {
+      "path": "migration/SKILL_MIGRATION.json",
+      "size": 27187,
+      "sha256": "d3c3eaf90a57ec7057e3c16cd8fdaec918521e042284daba20624b16cdd336ef"
     },
     {
       "path": "payload/marketplace-root/.agents/plugins/marketplace.json",
-      "bytes": 382,
-      "sha256": "2be14c57582d2bd6817c09f903be337a38c16ec8c2a1ecf572039d204c363e42"
+      "size": 382,
+      "sha256": "65327425e4b6a26ce0cd6eaf004fc8280dc968ed5a4c7efd36de7e0f282e9e1e"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/.codex-plugin/plugin.json",
-      "bytes": 905,
-      "sha256": "1336f29d88dce3b5c9d36f6eb02b4026387cdeac55fd5315b0bc36529f12bbb2"
+      "size": 839,
+      "sha256": "8dbec0f98367e24a42ea1851d4a407aa30f2de60b82bfe00a83ad0d1a3c41aa3"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/cpt-pack.json",
-      "bytes": 222,
-      "sha256": "34c018799a1e771f537e1842db3ef2ad6b2780e4d7aa0b4e7576111c5a43abde"
+      "size": 436,
+      "sha256": "dd12ded4d23e6f5908663894b36da0ca59e209036836aa031de1639c853df14f"
+    },
+    {
+      "path": "payload/marketplace-root/plugins/cpt-core/skills/cpt-knowledge-lifecycle/SKILL.md",
+      "size": 2487,
+      "sha256": "c042f48fc3b4323c3277875617606e8efecc27d21a05e08403caa17e133bdb02"
+    },
+    {
+      "path": "payload/marketplace-root/plugins/cpt-core/skills/cpt-knowledge-lifecycle/agents/openai.yaml",
+      "size": 348,
+      "sha256": "19927a5212d172beefe8b90ecbb83b7598b878c1b5819b91f2f68436981519ac"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/skills/cpt-runtime/SKILL.md",
-      "bytes": 2168,
-      "sha256": "8a8b146ad16a2ec36904981eeff45dd440fbafb1f1b4f8465f315606da5f94f8"
+      "size": 2307,
+      "sha256": "67896cb426ac6ff8c37d5507de756ee864078222bae6870f018d90694bbea38c"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/skills/cpt-runtime/agents/openai.yaml",
-      "bytes": 265,
-      "sha256": "d9feba4f17d7bbf9fdb2ce9db77d9cddeaaf7938e32a10a3e06ce9fa5d5584ff"
+      "size": 321,
+      "sha256": "894d351d3d505213262d000aa1d6ee8bb8fcd0a9364b654e1e928b90be745517"
+    },
+    {
+      "path": "payload/marketplace-root/plugins/cpt-core/skills/cpt-task-planning/SKILL.md",
+      "size": 3292,
+      "sha256": "f9cf192688ffa2cad39c29c25e810c7e9c7fd3f345fd4ada007d6bcde5a86911"
+    },
+    {
+      "path": "payload/marketplace-root/plugins/cpt-core/skills/cpt-task-planning/agents/openai.yaml",
+      "size": 335,
+      "sha256": "9e4646b57620f9981fb8eee393288a84fc9277d4557a05f7dc42039b3c13efd6"
     },
     {
       "path": "payload/repo-scaffold/.cpt/OPERATIONS.md",
-      "bytes": 1355,
+      "size": 1355,
       "sha256": "1f24115115d7a0136ef7384f5adf809b32d5af1e3e67108db847912cdbdb51e6"
     },
     {
-      "path": "payload/repo-scaffold/.cpt/bin/__pycache__/cpt_runtime.cpython-313.pyc",
-      "bytes": 55455,
-      "sha256": "9c02c92ae7fb142af697b45f68add4a1e4980c42e7c88a53c6d6a7cc6b5699aa"
-    },
-    {
       "path": "payload/repo-scaffold/.cpt/bin/cpt_runtime.py",
-      "bytes": 39580,
+      "size": 39580,
       "sha256": "b89282cd00a921ad7082e8304f3ecc0aefb547cb9083948ba1f6048234b76abb"
     },
     {
       "path": "payload/repo-scaffold/.cpt/current.yaml",
-      "bytes": 325,
+      "size": 325,
       "sha256": "c33337bd761ebdd2d47ade80e02dc4113b59ab3a9c030c20ee0a118a710a9704"
     },
     {
       "path": "payload/repo-scaffold/.cpt/requirements.txt",
-      "bytes": 35,
+      "size": 35,
       "sha256": "9e725fa2edb0b48146061b5f664388a0413b392f261300d609c7930e8cde090a"
     },
     {
       "path": "payload/repo-scaffold/.cpt/runtime-summary.md",
-      "bytes": 385,
+      "size": 385,
       "sha256": "2c67cfb50b11a2d50dea2afc9a36098f525f731ce3c1a3982dbab2f0fe73ab90"
     },
     {
       "path": "payload/repo-scaffold/.cpt/runtime.yaml",
-      "bytes": 630,
+      "size": 630,
       "sha256": "43581e2f7464b027fa85b7cf08b7f43d09acb1cc66aa93b4d0deaff84071da11"
     },
     {
       "path": "payload/repo-scaffold/.cpt/schema-bundle.json",
-      "bytes": 26159,
+      "size": 26159,
       "sha256": "020287f603b307c55c1fa175371759ec8ddd8c40f4016da91ae0c3dd5932664f"
     },
     {
       "path": "payload/repo-scaffold/.cpt/task-index.yaml",
-      "bytes": 72,
+      "size": 72,
       "sha256": "62c014d565bf08a44e488e5c645cdafc558363e44356988cdab2760214bf564d"
     },
     {
       "path": "payload/repo-scaffold/AGENTS.md",
-      "bytes": 2156,
+      "size": 2156,
       "sha256": "463b0ba5d3b468a5efe2a1f68af8d0fc46bcb6c6d629a83f5e111101932ba681"
     },
     {
       "path": "pyproject.toml",
-      "bytes": 347,
-      "sha256": "727acee7c73ae0b32fbf93854b3fa3a127a6f886656f44ff7a60ca002238ee24"
+      "size": 359,
+      "sha256": "33dc188a092d49216edd4ca6d95035925bc960a9913f6ea5eec0af7939cb2b62"
     },
     {
       "path": "requirements.txt",
-      "bytes": 35,
+      "size": 35,
       "sha256": "9e725fa2edb0b48146061b5f664388a0413b392f261300d609c7930e8cde090a"
     },
     {
+      "path": "skills/SKILL_REGISTRY.json",
+      "size": 28606,
+      "sha256": "0757b666bcc4da6c0412377b66ec8d46d1d85fdca6a4753492dc41f3f62802ad"
+    },
+    {
       "path": "templates/domain-plugin/.codex-plugin/plugin.json",
-      "bytes": 152,
+      "size": 152,
       "sha256": "6a9cca636f9d205e62c8ad565a7ba33bb3ee1c5cce4ae9f185722c73effbce49"
     },
     {
       "path": "templates/domain-plugin/README.md",
-      "bytes": 239,
-      "sha256": "190ce69d6feecf2ea7289c770a95404743dfdaac2d1c62a2689a0972aaf811f7"
+      "size": 370,
+      "sha256": "065a2fc5bde82e6d355e3c31acd896167465f7b133b53a75db2c5d042ad9761a"
     },
     {
       "path": "templates/domain-plugin/cpt-pack.json",
-      "bytes": 238,
-      "sha256": "236ec6d154f3d7feb830d6d11655b000f71c21985873e95e1f595707be7c0a21"
+      "size": 365,
+      "sha256": "a0ed0e73066a65ac0f24c500ed59b2162d3c40bcd99b4f075b73adf4e5cbd3ef"
     },
     {
-      "path": "templates/domain-plugin/skills/example/SKILL.md",
-      "bytes": 217,
-      "sha256": "131948615244564a350f16bf0a8525d2a57487b0cf41a28374b00903de01d481"
+      "path": "templates/domain-plugin/skills/cpt-domain-example-skill/SKILL.md",
+      "size": 1128,
+      "sha256": "103b836fd3e8d0f77e35d258d5a9d83dd9d6cd15af02ba714a229d442f5faa01"
     },
     {
-      "path": "templates/domain-plugin/skills/example/agents/openai.yaml",
-      "bytes": 141,
-      "sha256": "39d4c4b130dbb2124aa39ae58e1a4dfc4ee5401eb9fff40e52b5901b7a0fb01c"
+      "path": "templates/domain-plugin/skills/cpt-domain-example-skill/agents/openai.yaml",
+      "size": 243,
+      "sha256": "3859ce61e7364679ee4f3bd549189c6d8c59e81d63106303c2c53ee24c9a46e4"
     },
     {
       "path": "tests/__init__.py",
-      "bytes": 1,
+      "size": 1,
       "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
     },
     {
-      "path": "tests/__pycache__/__init__.cpython-313.pyc",
-      "bytes": 114,
-      "sha256": "14f6d176769e715974bae95ebea7079f54e7b9cdc278ffc9387f06a53f3a08c0"
-    },
-    {
-      "path": "tests/__pycache__/run_all.cpython-313.pyc",
-      "bytes": 1471,
-      "sha256": "aff30209e5a957a67f0bdcf74247e07f395a191debe47dad2ca204ce70233afe"
-    },
-    {
-      "path": "tests/__pycache__/test_distribution.cpython-313.pyc",
-      "bytes": 14970,
-      "sha256": "fad09df809351cafb84be114364001eced1a795cff067839b2ba9c656bcae345"
-    },
-    {
       "path": "tests/run_all.py",
-      "bytes": 1119,
-      "sha256": "907c167088482483f3578aef6979dea75581da8b7603b3472bfc4c99be7e0e0a"
+      "size": 1690,
+      "sha256": "456d005f2e2e76877d8d1ef2206e932295275445dd483a0fcb68c3b6b4d0d1d2"
     },
     {
       "path": "tests/test_distribution.py",
-      "bytes": 7834,
-      "sha256": "f93f857a718c7bbf6b8c3eaa625ad17a9a8f9a4ccd353fc8dd1441522e1e581d"
+      "size": 9795,
+      "sha256": "04f0e3bfece4b5161d04a2c07de1bebe754886a7a0a2ab5c5f4cc89cb357e9aa"
     },
     {
-      "path": "tools/__pycache__/cpt_dist.cpython-313.pyc",
-      "bytes": 48486,
-      "sha256": "963827d6c6773e3c5fd7890bb256f1bc165b7662c19e915472f4576b7fa21a61"
-    },
-    {
-      "path": "tools/__pycache__/measure_metadata_budget.cpython-313.pyc",
-      "bytes": 1306,
-      "sha256": "ebc20d846f82f2e20f12bd1d26204eed7f82e1fdf909681e6fb767092cf93970"
-    },
-    {
-      "path": "tools/__pycache__/validate_distribution.cpython-313.pyc",
-      "bytes": 3206,
-      "sha256": "be4006f47644ce804a5f0ad0d2cae54228a5425736c9ba10cba0fd4256a8e06f"
+      "path": "tests/test_skills.py",
+      "size": 2482,
+      "sha256": "62fdccc3d717da8cf1feeeb0d65a556d7554b17dff5c2d011f1157c2854c0dde"
     },
     {
       "path": "tools/cpt_dist.py",
-      "bytes": 33359,
-      "sha256": "f1637913b11fe7ec979c228b0ef6432c63a00e00ab33652c5629bf8823884e3d"
+      "size": 36704,
+      "sha256": "4ea95133fe61d894cb24c612941c853934dc907c68fba03fa903a95511a7dba8"
+    },
+    {
+      "path": "tools/eval_skill_triggers.py",
+      "size": 2254,
+      "sha256": "2e1d3b91ace8cd506d62ebfd4c6addd1705e7d6e0c18e7b8e0484c75b6de4d87"
+    },
+    {
+      "path": "tools/measure_all_skill_metadata.py",
+      "size": 2252,
+      "sha256": "1cc72e191d8412780c2ba0f2c2dd1823b13a0997867cc9c38fa5d13592b1bf87"
     },
     {
       "path": "tools/measure_metadata_budget.py",
-      "bytes": 598,
+      "size": 598,
       "sha256": "e68596cfeabb1be6eca52279c5fbac94379715d21fe0e6d2e841d7a240312f1f"
     },
     {
       "path": "tools/validate_distribution.py",
-      "bytes": 2004,
-      "sha256": "048236201edfd07d490e6be45d7c69ad5c452241e7677572a5aacaa8c8c61bb8"
+      "size": 4739,
+      "sha256": "a68e2b36ba9f99d9702eefc7ff46e975ac3d4e9e1e9a2563eb1392a907405bcc"
+    },
+    {
+      "path": "tools/validate_skills.py",
+      "size": 6767,
+      "sha256": "53ad7e70655369550b8d025e2674bb77a51d8d1b0cb95f5e6e7c1fc85ac0e58d"
     }
   ]
 }

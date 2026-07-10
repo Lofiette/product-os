@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-PACKAGE_VERSION = "4.0.0-alpha.2"
+PACKAGE_VERSION = "4.0.0-alpha.3"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -40,6 +40,14 @@ def scaffold_root() -> Path:
 
 def core_plugin_root() -> Path:
     return payload_root() / "marketplace-root" / "plugins" / "cpt-core"
+
+
+def bundled_pack_root(name: str) -> Path:
+    return package_root() / "domain-packs" / name
+
+
+def pack_catalog_data() -> dict[str, Any]:
+    return read_json(package_root() / "domain-packs" / "PACK_CATALOG.json", {}) or {}
 
 
 def read_json(path: Path, default: Any = None) -> Any:
@@ -181,7 +189,7 @@ def load_receipt(project: Path) -> dict[str, Any]:
     path = project / ".cpt" / "install.json"
     data = read_json(path)
     if not isinstance(data, dict) or data.get("schema") != RECEIPT_SCHEMA:
-        raise RuntimeError("No valid CPT Alpha 2 installation receipt found")
+        raise RuntimeError("No valid CPT installation receipt found")
     return data
 
 
@@ -423,7 +431,7 @@ def install(args: argparse.Namespace) -> int:
     if receipt_path.exists():
         if not args.force:
             raise RuntimeError("CPT is already installed. Use update or uninstall.")
-        print("Existing Alpha 2 receipt found; --force delegates to a conflict-aware update.")
+        print("Existing CPT receipt found; --force delegates to a conflict-aware update.")
         return update(argparse.Namespace(project=str(project), force=True))
 
     plugin_scope = args.plugin_scope
@@ -679,6 +687,8 @@ def validate_plugin(path: Path, require_pack: bool = True) -> dict[str, Any]:
         pack = read_json(path / "cpt-pack.json")
         if not isinstance(pack, dict) or pack.get("name") != name:
             raise RuntimeError(f"Missing or mismatched cpt-pack.json in {path}")
+        if pack.get("schema_version") != "cpt-pack-v2":
+            raise RuntimeError(f"Unsupported cpt-pack schema in {path}: {pack.get('schema_version')}")
     skills_dir = path / manifest.get("skills", "./skills/")
     skills = []
     if skills_dir.exists():
@@ -686,7 +696,20 @@ def validate_plugin(path: Path, require_pack: bool = True) -> dict[str, Any]:
             meta = parse_frontmatter(skill)
             if not meta.get("name") or not meta.get("description"):
                 raise RuntimeError(f"Skill frontmatter missing name/description: {skill}")
+            if meta.get("name") != skill.parent.name:
+                raise RuntimeError(f"Skill name/path mismatch: {skill}")
             skills.append(meta)
+    if require_pack:
+        names = sorted(skill["name"] for skill in skills)
+        if pack.get("skill_count") != len(skills):
+            raise RuntimeError(
+                f"cpt-pack.json skill_count={pack.get('skill_count')} does not match {len(skills)} skills in {path}"
+            )
+        if sorted(pack.get("skill_ids", [])) != names:
+            raise RuntimeError(f"cpt-pack.json skill_ids do not match installed skills in {path}")
+        legacy = pack.get("legacy_source")
+        if not isinstance(legacy, dict) or not legacy.get("package") or not isinstance(legacy.get("skill_count"), int):
+            raise RuntimeError(f"cpt-pack.json legacy_source is missing or invalid in {path}")
     return {"manifest": manifest, "skills": skills}
 
 
@@ -750,7 +773,12 @@ def doctor(args: argparse.Namespace) -> int:
 
 
 def pack_add(args: argparse.Namespace) -> int:
-    source = Path(args.path).resolve()
+    if getattr(args, "name", None):
+        source = bundled_pack_root(args.name).resolve()
+        if not source.exists():
+            raise RuntimeError(f"Unknown bundled pack: {args.name}")
+    else:
+        source = Path(args.path).resolve()
     validated = validate_plugin(source)
     name = validated["manifest"]["name"]
     if name == "cpt-core":
@@ -801,6 +829,15 @@ def pack_remove(args: argparse.Namespace) -> int:
     return 0
 
 
+def pack_catalog(args: argparse.Namespace) -> int:
+    data = pack_catalog_data()
+    core = data.get("core", {})
+    print(f"{core.get('name')}\t{core.get('status')}\t{core.get('skill_count')}")
+    for pack in data.get("domains", []):
+        print(f"{pack.get('id')}\t{pack.get('status')}\t{pack.get('skill_count')}")
+    return 0
+
+
 def pack_list(args: argparse.Namespace) -> int:
     if args.scope == "repo":
         if not args.project:
@@ -811,6 +848,33 @@ def pack_list(args: argparse.Namespace) -> int:
     data = read_json(market, {}) or {}
     for plugin in data.get("plugins", []):
         print(f"{plugin.get('name')}\t{plugin.get('source', {}).get('path')}\t{plugin.get('policy', {}).get('installation')}")
+    return 0
+
+
+def skill_resolve(args: argparse.Namespace) -> int:
+    migration = read_json(package_root() / "migration" / "SKILL_MIGRATION.json", {}) or {}
+    registry = read_json(package_root() / "skills" / "SKILL_REGISTRY.json", {}) or {}
+    by_source = {item.get("source_skill"): item for item in migration.get("mappings", [])}
+    by_id = {item.get("id"): item for item in registry.get("skills", [])}
+    item = by_source.get(args.name) or by_id.get(args.name)
+    if not item:
+        raise RuntimeError(f"Unknown legacy or active skill: {args.name}")
+    target = item.get("target_skill") or item.get("id")
+    active = by_id.get(target, {})
+    result = {
+        "query": args.name,
+        "target_skill": target,
+        "plugin": active.get("plugin") or item.get("target_plugin"),
+        "implicit": active.get("implicit"),
+        "description": active.get("description"),
+        "migration_note": item.get("migration_note"),
+    }
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        print(f"{result['query']} -> {result['target_skill']} ({result['plugin']})")
+        if result.get("migration_note"):
+            print(result["migration_note"])
     return 0
 
 
@@ -856,7 +920,9 @@ def parser() -> argparse.ArgumentParser:
     doctor_p.set_defaults(func=doctor)
 
     add_p = sub.add_parser("pack-add")
-    add_p.add_argument("--path", required=True)
+    add_src = add_p.add_mutually_exclusive_group(required=True)
+    add_src.add_argument("--path")
+    add_src.add_argument("--name")
     add_p.add_argument("--scope", choices=["personal", "repo"], required=True)
     add_p.add_argument("--project")
     add_p.set_defaults(func=pack_add)
@@ -866,6 +932,14 @@ def parser() -> argparse.ArgumentParser:
     remove_p.add_argument("--scope", choices=["personal", "repo"], required=True)
     remove_p.add_argument("--project")
     remove_p.set_defaults(func=pack_remove)
+
+    catalog_p = sub.add_parser("pack-catalog")
+    catalog_p.set_defaults(func=pack_catalog)
+
+    resolve_p = sub.add_parser("skill-resolve")
+    resolve_p.add_argument("--name", required=True)
+    resolve_p.add_argument("--json", action="store_true")
+    resolve_p.set_defaults(func=skill_resolve)
 
     list_p = sub.add_parser("pack-list")
     list_p.add_argument("--scope", choices=["personal", "repo"], required=True)

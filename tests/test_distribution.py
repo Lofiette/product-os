@@ -149,8 +149,19 @@ class DistributionTests(unittest.TestCase):
         plugin = ROOT / 'payload/marketplace-root/plugins/cpt-core'
         result = run('metadata-budget', '--plugin', str(plugin), env=self.env)
         data = json.loads(result.stdout)
-        self.assertEqual(data['skill_count'], 1)
+        self.assertEqual(data['skill_count'], 3)
         self.assertLess(data['estimated_discovery_chars'], 2000)
+
+    def test_bundled_pack_can_be_added_by_name(self):
+        repo = self.tmp / 'bundled-pack'
+        self.init_git(repo)
+        run('install', '--project', str(repo), '--mode', 'team', env=self.env)
+        run('pack-add', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
+        self.assertTrue((repo / 'plugins/cpt-design-ui/.codex-plugin/plugin.json').exists())
+        receipt = json.loads((repo / '.cpt/install.json').read_text())
+        self.assertTrue(any(p['name'] == 'cpt-design-ui' for p in receipt['packs']))
+        run('pack-remove', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
+        self.assertFalse((repo / 'plugins/cpt-design-ui').exists())
 
     def test_doctor_passes(self):
         repo = self.tmp / 'doctor'
@@ -158,6 +169,26 @@ class DistributionTests(unittest.TestCase):
         run('install', '--project', str(repo), '--mode', 'local', env=self.env)
         result = run('doctor', '--project', str(repo), env=self.env)
         self.assertIn('runtime: PASS', result.stdout)
+
+    def test_bundled_pack_catalog_and_install(self):
+        catalog = run('pack-catalog', env=self.env).stdout
+        self.assertIn('cpt-design-ui', catalog)
+        self.assertIn('cpt-engineering', catalog)
+        repo = self.tmp / 'bundled-pack'
+        self.init_git(repo)
+        run('install', '--project', str(repo), '--mode', 'team', env=self.env)
+        run('pack-add', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
+        self.assertTrue((repo / 'plugins/cpt-design-ui/skills/cpt-design-recon/SKILL.md').exists())
+        run('pack-remove', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
+        self.assertFalse((repo / 'plugins/cpt-design-ui').exists())
+
+    def test_skill_resolve_legacy_and_active(self):
+        legacy = run('skill-resolve', '--name', 'bounded-discovery', '--json', env=self.env)
+        legacy_data = json.loads(legacy.stdout)
+        self.assertEqual(legacy_data['target_skill'], 'cpt-task-planning')
+        active = run('skill-resolve', '--name', 'cpt-api-contract', '--json', env=self.env)
+        active_data = json.loads(active.stdout)
+        self.assertEqual(active_data['plugin'], 'cpt-engineering')
 
 
 if __name__ == '__main__':

@@ -1,17 +1,17 @@
-# Official Sources
+# Sources
 
-Checked: 2026-07-10.
+Current OpenAI guidance used for Alpha 3:
 
-- Plugin structure, marketplaces, installation, path rules, hooks: https://developers.openai.com/codex/plugins/build
-- Skills distribution and `agents/openai.yaml`: https://developers.openai.com/codex/skills
-- Project-scoped configuration and trust: https://developers.openai.com/codex/config-reference
-- AGENTS.md loading: https://developers.openai.com/codex/guides/agents-md
+- https://developers.openai.com/codex/skills
+- https://developers.openai.com/codex/plugins/build
 
-Design consequences:
+Platform assumptions used by the package:
 
-- reusable distribution uses plugins;
-- repo and personal marketplaces are both supported;
-- plugin enable/disable remains native Codex behavior;
-- skill metadata is kept small;
-- no plugin owns canonical runtime state;
-- hooks remain unbundled until the enforcement phase.
+- Skills use progressive disclosure: initial discovery sees name, description, and path; full instructions load after selection.
+- Initial skill metadata is bounded, so active-pack selection and concise descriptions matter.
+- Skill descriptions influence implicit activation.
+- `agents/openai.yaml` may expose interface metadata and set `policy.allow_implicit_invocation`.
+- Plugins are the reusable distribution boundary for skills and, in later phases, related hooks or MCP configuration.
+- Marketplace exposure and plugin enablement are separate operations.
+
+These assumptions should be revalidated against current official documentation before a release candidate.

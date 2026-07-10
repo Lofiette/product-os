@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Migration Plan
+  short_description: Use to plan schema, data, config, API, platform, or dependency
+    migrations with compatibility
+  brand_color: '#059669'
+  default_prompt: Use $cpt-migration-plan for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

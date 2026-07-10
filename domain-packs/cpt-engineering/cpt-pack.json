@@ -1,0 +1,31 @@
+{
+  "schema_version": "cpt-pack-v2",
+  "name": "cpt-engineering",
+  "kind": "domain",
+  "version": "4.0.0-alpha.3",
+  "requires_core": ">=4.0.0-alpha.3",
+  "domains": [
+    "engineering"
+  ],
+  "canonical_state_owner": false,
+  "optional": true,
+  "skill_count": 12,
+  "skill_ids": [
+    "cpt-api-contract",
+    "cpt-architecture-plan",
+    "cpt-data-architecture",
+    "cpt-dependency-review",
+    "cpt-frontend-integration",
+    "cpt-implementation-review",
+    "cpt-incident-review",
+    "cpt-migration-plan",
+    "cpt-observability-plan",
+    "cpt-performance-review",
+    "cpt-production-readiness",
+    "cpt-refactor-plan"
+  ],
+  "legacy_source": {
+    "package": "codex-product-team-3.0-ultra-beta2",
+    "skill_count": 16
+  }
+}

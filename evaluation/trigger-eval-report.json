@@ -1,0 +1,1359 @@
+{
+  "schema": "cpt-trigger-eval-report-v1",
+  "skill_count": 45,
+  "case_count": 135,
+  "passed": 135,
+  "failed": 0,
+  "cases": [
+    {
+      "prompt": "Audit a modal form for keyboard, focus, errors, and screen-reader behavior.",
+      "expected": "cpt-accessibility-review",
+      "top": [
+        "cpt-accessibility-review",
+        "cpt-content-design",
+        "cpt-api-contract"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a design-system component for accessible states and announcements.",
+      "expected": "cpt-accessibility-review",
+      "top": [
+        "cpt-accessibility-review",
+        "cpt-design-system-governance",
+        "cpt-design-system-code-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan an infrastructure rollback.",
+      "expected_not": "cpt-accessibility-review",
+      "top": [
+        "cpt-performance-review",
+        "cpt-refactor-plan",
+        "cpt-production-readiness"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a tool-using agent for prompt injection and irreversible actions.",
+      "expected": "cpt-ai-safety-review",
+      "top": [
+        "cpt-ai-safety-review",
+        "cpt-threat-model",
+        "cpt-ai-system-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design safety controls and evals for a customer-facing AI assistant.",
+      "expected": "cpt-ai-safety-review",
+      "top": [
+        "cpt-ai-safety-review",
+        "cpt-conversation-design",
+        "cpt-ai-system-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review static dashboard spacing.",
+      "expected_not": "cpt-ai-safety-review",
+      "top": [
+        "cpt-visual-acceptance-review",
+        "cpt-performance-review",
+        "cpt-opportunity-ideation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan an AI assistant that reads documents and performs approved actions.",
+      "expected": "cpt-ai-system-plan",
+      "top": [
+        "cpt-ai-system-plan",
+        "cpt-ai-safety-review",
+        "cpt-threat-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design retrieval, fallback, cost, and evaluation for an AI feature.",
+      "expected": "cpt-ai-system-plan",
+      "top": [
+        "cpt-ai-system-plan",
+        "cpt-ux-research",
+        "cpt-conversation-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a deterministic CRUD API with no model behavior.",
+      "expected_not": "cpt-ai-system-plan",
+      "top": [
+        "cpt-interaction-state-model",
+        "cpt-threat-model",
+        "cpt-design-system-code-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Define product analytics for onboarding activation and retention.",
+      "expected": "cpt-analytics-measurement",
+      "top": [
+        "cpt-analytics-measurement",
+        "cpt-growth-activation",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Specify events and metric formulas for a new workflow feature.",
+      "expected": "cpt-analytics-measurement",
+      "top": [
+        "cpt-analytics-measurement",
+        "cpt-ux-research",
+        "cpt-experiment-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design the database schema for raw event storage.",
+      "expected_not": "cpt-analytics-measurement",
+      "top": [
+        "cpt-design-system-code-audit",
+        "cpt-data-architecture",
+        "cpt-migration-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review whether an API field addition breaks existing clients.",
+      "expected": "cpt-api-contract",
+      "top": [
+        "cpt-api-contract",
+        "cpt-threat-model",
+        "cpt-task-planning"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Map frontend-facing API and data types before redesigning a form.",
+      "expected": "cpt-api-contract",
+      "top": [
+        "cpt-api-contract",
+        "cpt-implementation-review",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review visual alignment against a screenshot.",
+      "expected_not": "cpt-api-contract",
+      "top": [
+        "cpt-reference-taste-calibration",
+        "cpt-visual-acceptance-review",
+        "cpt-implementation-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan the architecture for a new service with reliability and migration constraints.",
+      "expected": "cpt-architecture-plan",
+      "top": [
+        "cpt-architecture-plan",
+        "cpt-production-readiness",
+        "cpt-data-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Compare modular-monolith and service boundary options for a product area.",
+      "expected": "cpt-architecture-plan",
+      "top": [
+        "cpt-architecture-plan",
+        "cpt-knowledge-lifecycle",
+        "cpt-customer-journey"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Change a local CSS token.",
+      "expected_not": "cpt-architecture-plan",
+      "top": [
+        "cpt-design-system-governance",
+        "cpt-design-recon",
+        "cpt-architecture-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Rewrite form errors and empty states with recovery and localization readiness.",
+      "expected": "cpt-content-design",
+      "top": [
+        "cpt-content-design",
+        "cpt-accessibility-review",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review prototype data so the layout is tested with realistic content.",
+      "expected": "cpt-content-design",
+      "top": [
+        "cpt-content-design",
+        "cpt-screen-module-design",
+        "cpt-design-handoff"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a CI/CD rollout.",
+      "expected_not": "cpt-content-design",
+      "top": [
+        "cpt-production-readiness",
+        "cpt-visual-acceptance-review",
+        "cpt-ux-research"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design a multi-turn AI assistant with clarification and human handoff.",
+      "expected": "cpt-conversation-design",
+      "top": [
+        "cpt-conversation-design",
+        "cpt-ai-system-plan",
+        "cpt-screen-module-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create repair and confirmation flows for a conversational form.",
+      "expected": "cpt-conversation-design",
+      "top": [
+        "cpt-conversation-design",
+        "cpt-knowledge-lifecycle",
+        "cpt-design-system-governance"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review chart axes for misleading scale.",
+      "expected_not": "cpt-conversation-design",
+      "top": [
+        "cpt-data-visualization-review",
+        "cpt-visual-acceptance-review",
+        "cpt-ux-research"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Consolidate security, privacy, and reliability findings for a release decision.",
+      "expected": "cpt-cross-cutting-risk",
+      "top": [
+        "cpt-cross-cutting-risk",
+        "cpt-production-readiness",
+        "cpt-experiment-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review cross-cutting risk for a data migration with user impact.",
+      "expected": "cpt-cross-cutting-risk",
+      "top": [
+        "cpt-cross-cutting-risk",
+        "cpt-privacy-impact",
+        "cpt-implementation-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Write UX copy for a success state.",
+      "expected_not": "cpt-cross-cutting-risk",
+      "top": [
+        "cpt-interaction-state-model",
+        "cpt-content-design",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Map onboarding across product, email, support, and operations.",
+      "expected": "cpt-customer-journey",
+      "top": [
+        "cpt-customer-journey",
+        "cpt-production-readiness",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Synthesize support tickets into journey failures and service opportunities.",
+      "expected": "cpt-customer-journey",
+      "top": [
+        "cpt-customer-journey",
+        "cpt-production-readiness",
+        "cpt-observability-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Choose navigation labels for one settings page.",
+      "expected_not": "cpt-customer-journey",
+      "top": [
+        "cpt-information-architecture",
+        "cpt-data-visualization-review",
+        "cpt-accessibility-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a new persistent entity and its lifecycle, lineage, and migration.",
+      "expected": "cpt-data-architecture",
+      "top": [
+        "cpt-data-architecture",
+        "cpt-design-system-governance",
+        "cpt-architecture-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design data architecture for documents, chunks, and derived search indexes.",
+      "expected": "cpt-data-architecture",
+      "top": [
+        "cpt-data-architecture",
+        "cpt-privacy-impact",
+        "cpt-ai-system-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Define product activation metrics.",
+      "expected_not": "cpt-data-architecture",
+      "top": [
+        "cpt-analytics-measurement",
+        "cpt-product-scope",
+        "cpt-growth-activation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a dashboard for misleading scales and cognitive overload.",
+      "expected": "cpt-data-visualization-review",
+      "top": [
+        "cpt-data-visualization-review",
+        "cpt-visual-acceptance-review",
+        "cpt-performance-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Choose visualizations for comparing model performance over time.",
+      "expected": "cpt-data-visualization-review",
+      "top": [
+        "cpt-data-visualization-review",
+        "cpt-threat-model",
+        "cpt-production-readiness"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design a conversational repair flow.",
+      "expected_not": "cpt-data-visualization-review",
+      "top": [
+        "cpt-conversation-design",
+        "cpt-screen-module-design",
+        "cpt-growth-activation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Delegate independent security and accessibility reviews with two read-only workers.",
+      "expected": "cpt-delegation",
+      "top": [
+        "cpt-delegation",
+        "cpt-reference-taste-calibration",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Recover a timed-out reviewer and continue with an explicit quorum fallback.",
+      "expected": "cpt-delegation",
+      "top": [
+        "cpt-delegation",
+        "cpt-runtime",
+        "cpt-conversation-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Rename one button label in a known component.",
+      "expected_not": "cpt-delegation",
+      "top": [
+        "cpt-design-system-code-audit",
+        "cpt-task-planning",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review whether to add a charting library and its bundle/security cost.",
+      "expected": "cpt-dependency-review",
+      "top": [
+        "cpt-dependency-review",
+        "cpt-performance-review",
+        "cpt-observability-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Assess a major dependency upgrade and rollback path.",
+      "expected": "cpt-dependency-review",
+      "top": [
+        "cpt-dependency-review",
+        "cpt-production-readiness",
+        "cpt-migration-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design an empty state message.",
+      "expected_not": "cpt-dependency-review",
+      "top": [
+        "cpt-interaction-state-model",
+        "cpt-content-design",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a rebuild-ready handoff package for a new product module.",
+      "expected": "cpt-design-handoff",
+      "top": [
+        "cpt-design-handoff",
+        "cpt-screen-module-design",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Audit whether a design package is sufficient for another developer.",
+      "expected": "cpt-design-handoff",
+      "top": [
+        "cpt-design-handoff",
+        "cpt-design-system-governance",
+        "cpt-accessibility-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Implement the frontend code directly.",
+      "expected_not": "cpt-design-handoff",
+      "top": [
+        "cpt-frontend-integration",
+        "cpt-product-scope",
+        "cpt-knowledge-lifecycle"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Discover which components and tokens govern a settings screen before implementing it.",
+      "expected": "cpt-design-recon",
+      "top": [
+        "cpt-design-recon",
+        "cpt-screen-module-design",
+        "cpt-task-planning"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Determine whether a repository has a real design system or only local styles.",
+      "expected": "cpt-design-recon",
+      "top": [
+        "cpt-design-recon",
+        "cpt-design-system-governance",
+        "cpt-architecture-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Investigate a backend timeout with no UI impact.",
+      "expected_not": "cpt-design-recon",
+      "top": [
+        "cpt-incident-review",
+        "cpt-task-planning",
+        "cpt-privacy-impact"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Scan changed React files for raw UI values and duplicate button implementations.",
+      "expected": "cpt-design-system-code-audit",
+      "top": [
+        "cpt-design-system-code-audit",
+        "cpt-frontend-integration",
+        "cpt-visual-acceptance-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Enforce governed component imports before a UI release.",
+      "expected": "cpt-design-system-code-audit",
+      "top": [
+        "cpt-design-system-code-audit",
+        "cpt-design-system-governance",
+        "cpt-accessibility-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Draft a screen information hierarchy before coding.",
+      "expected_not": "cpt-design-system-code-audit",
+      "top": [
+        "cpt-information-architecture",
+        "cpt-screen-module-design",
+        "cpt-reference-taste-calibration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Determine whether a new form may use a custom control or must extend the design system.",
+      "expected": "cpt-design-system-governance",
+      "top": [
+        "cpt-design-system-governance",
+        "cpt-design-recon",
+        "cpt-accessibility-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Audit a manifest change before claiming UI compliance.",
+      "expected": "cpt-design-system-governance",
+      "top": [
+        "cpt-design-system-governance",
+        "cpt-cross-cutting-risk",
+        "cpt-task-planning"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a user interview study.",
+      "expected_not": "cpt-design-system-governance",
+      "top": [
+        "cpt-evidence-research-plan",
+        "cpt-ux-research",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan evidence collection for an unfamiliar market where external browsing is not available.",
+      "expected": "cpt-evidence-research-plan",
+      "top": [
+        "cpt-evidence-research-plan",
+        "cpt-market-research",
+        "cpt-opportunity-ideation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design a mixed-method study to decide whether to redesign a workflow.",
+      "expected": "cpt-evidence-research-plan",
+      "top": [
+        "cpt-evidence-research-plan",
+        "cpt-screen-module-design",
+        "cpt-information-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Brainstorm five speculative interface concepts.",
+      "expected_not": "cpt-evidence-research-plan",
+      "top": [
+        "cpt-visual-acceptance-review",
+        "cpt-ux-research",
+        "cpt-threat-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design an A/B test for a new onboarding sequence.",
+      "expected": "cpt-experiment-design",
+      "top": [
+        "cpt-experiment-design",
+        "cpt-ux-research",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a pilot and decision thresholds for a risky workflow change.",
+      "expected": "cpt-experiment-design",
+      "top": [
+        "cpt-experiment-design",
+        "cpt-model-evaluation",
+        "cpt-cross-cutting-risk"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Run five user interviews to understand mental models.",
+      "expected_not": "cpt-experiment-design",
+      "top": [
+        "cpt-ux-research",
+        "cpt-data-architecture",
+        "cpt-production-readiness"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Audit the 4.0 skill packs before release and find routing collisions.",
+      "expected": "cpt-framework-audit",
+      "top": [
+        "cpt-framework-audit",
+        "cpt-task-planning",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Compare a frozen framework baseline against a new runtime architecture.",
+      "expected": "cpt-framework-audit",
+      "top": [
+        "cpt-framework-audit",
+        "cpt-architecture-plan",
+        "cpt-production-readiness"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review this feature branch for code correctness.",
+      "expected_not": "cpt-framework-audit",
+      "top": [
+        "cpt-product-scope",
+        "cpt-knowledge-lifecycle",
+        "cpt-design-system-code-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Implement a systemic edit-mode button change across shared frontend patterns.",
+      "expected": "cpt-frontend-integration",
+      "top": [
+        "cpt-frontend-integration",
+        "cpt-task-planning",
+        "cpt-refactor-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a new UI feature for routing, state, data fetching, and regressions.",
+      "expected": "cpt-frontend-integration",
+      "top": [
+        "cpt-frontend-integration",
+        "cpt-analytics-measurement",
+        "cpt-performance-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a user research discussion guide.",
+      "expected_not": "cpt-frontend-integration",
+      "top": [
+        "cpt-ux-research",
+        "cpt-market-research",
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Improve activation for a multi-step B2B onboarding flow.",
+      "expected": "cpt-growth-activation",
+      "top": [
+        "cpt-growth-activation",
+        "cpt-screen-module-design",
+        "cpt-analytics-measurement"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design a retention loop with ethical guardrails and experiments.",
+      "expected": "cpt-growth-activation",
+      "top": [
+        "cpt-growth-activation",
+        "cpt-experiment-design",
+        "cpt-data-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a REST API for backward compatibility.",
+      "expected_not": "cpt-growth-activation",
+      "top": [
+        "cpt-migration-plan",
+        "cpt-api-contract",
+        "cpt-threat-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a frontend feature against its Impact Map and API/design contracts.",
+      "expected": "cpt-implementation-review",
+      "top": [
+        "cpt-implementation-review",
+        "cpt-api-contract",
+        "cpt-task-planning"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Produce blocker findings and handoff notes for a multi-file implementation.",
+      "expected": "cpt-implementation-review",
+      "top": [
+        "cpt-implementation-review",
+        "cpt-design-handoff",
+        "cpt-screen-module-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Brainstorm alternative product concepts.",
+      "expected_not": "cpt-implementation-review",
+      "top": [
+        "cpt-reference-taste-calibration",
+        "cpt-product-scope",
+        "cpt-market-research"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Run a blameless post-incident review for an outage.",
+      "expected": "cpt-incident-review",
+      "top": [
+        "cpt-incident-review",
+        "cpt-production-readiness",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Analyze a failed deployment and improve detection and rollback.",
+      "expected": "cpt-incident-review",
+      "top": [
+        "cpt-incident-review",
+        "cpt-growth-activation",
+        "cpt-refactor-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a design handoff package.",
+      "expected_not": "cpt-incident-review",
+      "top": [
+        "cpt-design-handoff",
+        "cpt-screen-module-design",
+        "cpt-implementation-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Redesign the information architecture of a large settings module.",
+      "expected": "cpt-information-architecture",
+      "top": [
+        "cpt-information-architecture",
+        "cpt-screen-module-design",
+        "cpt-design-recon"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create taxonomy and navigation for a knowledge library.",
+      "expected": "cpt-information-architecture",
+      "top": [
+        "cpt-information-architecture",
+        "cpt-knowledge-lifecycle",
+        "cpt-dependency-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Tune the contrast of existing buttons.",
+      "expected_not": "cpt-information-architecture",
+      "top": [
+        "cpt-api-contract",
+        "cpt-accessibility-review",
+        "cpt-visual-acceptance-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Define every state for document upload and processing.",
+      "expected": "cpt-interaction-state-model",
+      "top": [
+        "cpt-interaction-state-model",
+        "cpt-task-planning",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Model validation, save, run, error, and dirty states for an editor.",
+      "expected": "cpt-interaction-state-model",
+      "top": [
+        "cpt-interaction-state-model",
+        "cpt-accessibility-review",
+        "cpt-migration-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Choose a market research sample.",
+      "expected_not": "cpt-interaction-state-model",
+      "top": [
+        "cpt-market-research",
+        "cpt-experiment-design",
+        "cpt-data-visualization-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Update only the workflows area map after implementing a new editor mode.",
+      "expected": "cpt-knowledge-lifecycle",
+      "top": [
+        "cpt-knowledge-lifecycle",
+        "cpt-design-recon",
+        "cpt-task-planning"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a greenfield Product Map from approved decisions and mark unimplemented flows as planned.",
+      "expected": "cpt-knowledge-lifecycle",
+      "top": [
+        "cpt-knowledge-lifecycle",
+        "cpt-reference-taste-calibration",
+        "cpt-architecture-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Write release notes for a dependency patch that changes no product behavior.",
+      "expected_not": "cpt-knowledge-lifecycle",
+      "top": [
+        "cpt-refactor-plan",
+        "cpt-implementation-review",
+        "cpt-runtime"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Map competitors, substitutes, and switching barriers for a new B2B product.",
+      "expected": "cpt-market-research",
+      "top": [
+        "cpt-market-research",
+        "cpt-knowledge-lifecycle",
+        "cpt-growth-activation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Research category and pricing hypotheses before product positioning.",
+      "expected": "cpt-market-research",
+      "top": [
+        "cpt-market-research",
+        "cpt-ux-research",
+        "cpt-experiment-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Test whether users understand an error message.",
+      "expected_not": "cpt-market-research",
+      "top": [
+        "cpt-product-scope",
+        "cpt-ux-research",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a zero-downtime schema migration with backfill and rollback.",
+      "expected": "cpt-migration-plan",
+      "top": [
+        "cpt-migration-plan",
+        "cpt-observability-plan",
+        "cpt-data-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Migrate an API version with expand-contract compatibility.",
+      "expected": "cpt-migration-plan",
+      "top": [
+        "cpt-migration-plan",
+        "cpt-api-contract",
+        "cpt-reference-taste-calibration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Reorganize frontend components without data changes.",
+      "expected_not": "cpt-migration-plan",
+      "top": [
+        "cpt-frontend-integration",
+        "cpt-performance-review",
+        "cpt-api-contract"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create an eval suite for summarization faithfulness and safety.",
+      "expected": "cpt-model-evaluation",
+      "top": [
+        "cpt-model-evaluation",
+        "cpt-cross-cutting-risk",
+        "cpt-ai-safety-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Compare model/prompt variants with slice thresholds and regression cases.",
+      "expected": "cpt-model-evaluation",
+      "top": [
+        "cpt-model-evaluation",
+        "cpt-threat-model",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design a standard SQL schema migration.",
+      "expected_not": "cpt-model-evaluation",
+      "top": [
+        "cpt-migration-plan",
+        "cpt-observability-plan",
+        "cpt-data-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design observability for an async execution pipeline.",
+      "expected": "cpt-observability-plan",
+      "top": [
+        "cpt-observability-plan",
+        "cpt-migration-plan",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Add migration progress, failure, and rollback signals.",
+      "expected": "cpt-observability-plan",
+      "top": [
+        "cpt-observability-plan",
+        "cpt-dependency-review",
+        "cpt-migration-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Define A/B experiment metrics.",
+      "expected_not": "cpt-observability-plan",
+      "top": [
+        "cpt-product-scope",
+        "cpt-analytics-measurement",
+        "cpt-observability-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Generate and evaluate alternatives for a confusing dashboard without expanding scope silently.",
+      "expected": "cpt-opportunity-ideation",
+      "top": [
+        "cpt-opportunity-ideation",
+        "cpt-performance-review",
+        "cpt-visual-acceptance-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Triages a support idea and proposes an approval-gated improvement.",
+      "expected": "cpt-opportunity-ideation",
+      "top": [
+        "cpt-opportunity-ideation",
+        "cpt-task-planning",
+        "cpt-production-readiness"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Confirm whether a button meets keyboard accessibility requirements.",
+      "expected_not": "cpt-opportunity-ideation",
+      "top": [
+        "cpt-frontend-integration",
+        "cpt-accessibility-review",
+        "cpt-design-system-code-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a dashboard for rendering and bundle regressions.",
+      "expected": "cpt-performance-review",
+      "top": [
+        "cpt-performance-review",
+        "cpt-frontend-integration",
+        "cpt-dependency-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan API latency measurements and optimization for a high-percentile SLO.",
+      "expected": "cpt-performance-review",
+      "top": [
+        "cpt-performance-review",
+        "cpt-ai-system-plan",
+        "cpt-threat-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Map customer support pain points.",
+      "expected_not": "cpt-performance-review",
+      "top": [
+        "cpt-customer-journey",
+        "cpt-ai-safety-review",
+        "cpt-production-readiness"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review a feature that stores user documents and derived embeddings.",
+      "expected": "cpt-privacy-impact",
+      "top": [
+        "cpt-privacy-impact",
+        "cpt-data-architecture",
+        "cpt-ai-system-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Map privacy impact of analytics identifiers and retention.",
+      "expected": "cpt-privacy-impact",
+      "top": [
+        "cpt-privacy-impact",
+        "cpt-cross-cutting-risk",
+        "cpt-data-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a taxonomy for navigation labels.",
+      "expected_not": "cpt-privacy-impact",
+      "top": [
+        "cpt-information-architecture",
+        "cpt-accessibility-review",
+        "cpt-model-evaluation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Define the MVP and non-goals for a new analytics module.",
+      "expected": "cpt-product-scope",
+      "top": [
+        "cpt-product-scope",
+        "cpt-analytics-measurement",
+        "cpt-screen-module-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Clarify the user outcome and success metrics before redesigning onboarding.",
+      "expected": "cpt-product-scope",
+      "top": [
+        "cpt-product-scope",
+        "cpt-analytics-measurement",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a database index migration with no product behavior change.",
+      "expected_not": "cpt-product-scope",
+      "top": [
+        "cpt-data-architecture",
+        "cpt-architecture-plan",
+        "cpt-task-planning"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Run a production readiness review for a new web service.",
+      "expected": "cpt-production-readiness",
+      "top": [
+        "cpt-production-readiness",
+        "cpt-architecture-plan",
+        "cpt-content-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan CI/CD, feature-flag rollout, rollback, and support for a major feature.",
+      "expected": "cpt-production-readiness",
+      "top": [
+        "cpt-production-readiness",
+        "cpt-dependency-review",
+        "cpt-opportunity-ideation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a low-fidelity prototype only.",
+      "expected_not": "cpt-production-readiness",
+      "top": [
+        "cpt-screen-module-design",
+        "cpt-content-design",
+        "cpt-knowledge-lifecycle"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a behavior-preserving extraction of shared edit controls.",
+      "expected": "cpt-refactor-plan",
+      "top": [
+        "cpt-refactor-plan",
+        "cpt-frontend-integration",
+        "cpt-ai-safety-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Refactor a legacy hook into smaller modules with characterization tests.",
+      "expected": "cpt-refactor-plan",
+      "top": [
+        "cpt-refactor-plan",
+        "cpt-customer-journey",
+        "cpt-cross-cutting-risk"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Migrate production data to a new schema.",
+      "expected_not": "cpt-refactor-plan",
+      "top": [
+        "cpt-migration-plan",
+        "cpt-production-readiness",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Extract a design contract from a reference screenshot and two anti-examples.",
+      "expected": "cpt-reference-taste-calibration",
+      "top": [
+        "cpt-reference-taste-calibration",
+        "cpt-visual-acceptance-review",
+        "cpt-design-system-code-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Critique three screen alternatives against approved taste and product goals.",
+      "expected": "cpt-reference-taste-calibration",
+      "top": [
+        "cpt-reference-taste-calibration",
+        "cpt-visual-acceptance-review",
+        "cpt-implementation-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Run browser screenshots after implementation.",
+      "expected_not": "cpt-reference-taste-calibration",
+      "top": [
+        "cpt-visual-acceptance-review",
+        "cpt-production-readiness",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Start a CPT task and record a bounded lease before editing.",
+      "expected": "cpt-runtime",
+      "top": [
+        "cpt-runtime",
+        "cpt-task-planning",
+        "cpt-framework-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Recover the current CPT task after context compaction and verify the checkpoint.",
+      "expected": "cpt-runtime",
+      "top": [
+        "cpt-runtime",
+        "cpt-knowledge-lifecycle",
+        "cpt-framework-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review the visual hierarchy of this dashboard without changing runtime state.",
+      "expected_not": "cpt-runtime",
+      "top": [
+        "cpt-performance-review",
+        "cpt-opportunity-ideation",
+        "cpt-screen-module-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Redesign an analytics screen and provide a rebuild-ready design specification.",
+      "expected": "cpt-screen-module-design",
+      "top": [
+        "cpt-screen-module-design",
+        "cpt-design-handoff",
+        "cpt-information-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a consistent multi-screen prototype when no design system exists.",
+      "expected": "cpt-screen-module-design",
+      "top": [
+        "cpt-screen-module-design",
+        "cpt-design-recon",
+        "cpt-accessibility-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Compare an implemented page screenshot against an approved reference.",
+      "expected_not": "cpt-screen-module-design",
+      "top": [
+        "cpt-reference-taste-calibration",
+        "cpt-visual-acceptance-review",
+        "cpt-framework-audit"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Find every related edit-mode action, select the right skills, and propose a bounded Impact Map.",
+      "expected": "cpt-task-planning",
+      "top": [
+        "cpt-task-planning",
+        "cpt-framework-audit",
+        "cpt-frontend-integration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Scope an API-dependent UI change and request one approval lease before editing.",
+      "expected": "cpt-task-planning",
+      "top": [
+        "cpt-task-planning",
+        "cpt-runtime",
+        "cpt-opportunity-ideation"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review keyboard focus and ARIA labels in this dialog.",
+      "expected_not": "cpt-task-planning",
+      "top": [
+        "cpt-accessibility-review",
+        "cpt-visual-acceptance-review",
+        "cpt-ux-research"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Threat-model an agent that can perform irreversible tool actions.",
+      "expected": "cpt-threat-model",
+      "top": [
+        "cpt-threat-model",
+        "cpt-ai-safety-review",
+        "cpt-ai-system-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review authorization and input boundaries for a new API.",
+      "expected": "cpt-threat-model",
+      "top": [
+        "cpt-threat-model",
+        "cpt-frontend-integration",
+        "cpt-architecture-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Optimize a page rendering waterfall.",
+      "expected_not": "cpt-threat-model",
+      "top": [
+        "cpt-performance-review",
+        "cpt-visual-acceptance-review",
+        "cpt-ux-research"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Plan a usability test for a complex editing workflow.",
+      "expected": "cpt-ux-research",
+      "top": [
+        "cpt-ux-research",
+        "cpt-experiment-design",
+        "cpt-information-architecture"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design generative interviews and recruiting for a new user segment.",
+      "expected": "cpt-ux-research",
+      "top": [
+        "cpt-ux-research",
+        "cpt-product-scope",
+        "cpt-experiment-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Estimate market size and competitor pricing.",
+      "expected_not": "cpt-ux-research",
+      "top": [
+        "cpt-market-research",
+        "cpt-evidence-research-plan",
+        "cpt-visual-acceptance-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Review the implemented dashboard against its reference and all critical states.",
+      "expected": "cpt-visual-acceptance-review",
+      "top": [
+        "cpt-visual-acceptance-review",
+        "cpt-reference-taste-calibration",
+        "cpt-implementation-review"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Capture responsive screenshots and block design-system drift before completion.",
+      "expected": "cpt-visual-acceptance-review",
+      "top": [
+        "cpt-visual-acceptance-review",
+        "cpt-screen-module-design",
+        "cpt-design-system-governance"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a market competitor matrix.",
+      "expected_not": "cpt-visual-acceptance-review",
+      "top": [
+        "cpt-market-research",
+        "cpt-evidence-research-plan",
+        "cpt-visual-acceptance-review"
+      ],
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "cpt-pack-v2",
+  "name": "cpt-ai-agentic",
+  "kind": "domain",
+  "version": "4.0.0-alpha.3",
+  "requires_core": ">=4.0.0-alpha.3",
+  "domains": [
+    "ai-agentic"
+  ],
+  "canonical_state_owner": false,
+  "optional": true,
+  "skill_count": 3,
+  "skill_ids": [
+    "cpt-ai-safety-review",
+    "cpt-ai-system-plan",
+    "cpt-model-evaluation"
+  ],
+  "legacy_source": {
+    "package": "codex-product-team-3.0-ultra-beta2",
+    "skill_count": 3
+  }
+}

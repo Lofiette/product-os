@@ -1,0 +1,674 @@
+{
+  "schema": "cpt-skill-migration-v1",
+  "source_version": "3.0-ultra-beta2",
+  "target_version": "4.0.0-alpha.3",
+  "source_count": 95,
+  "target_count": 45,
+  "mappings": [
+    {
+      "source_skill": "accessibility-check",
+      "target_skill": "cpt-accessibility-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-accessibility-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ai-ml-planning",
+      "target_skill": "cpt-ai-system-plan",
+      "target_plugin": "cpt-ai-agentic",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-ai-system-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ai-safety-review",
+      "target_skill": "cpt-ai-safety-review",
+      "target_plugin": "cpt-ai-agentic",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-ai-safety-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "analytics-planning",
+      "target_skill": "cpt-analytics-measurement",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-analytics-measurement; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "anticipation-radar",
+      "target_skill": "cpt-opportunity-ideation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-opportunity-ideation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "api-contract-review",
+      "target_skill": "cpt-api-contract",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-api-contract; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "api-data-shape-prewarm",
+      "target_skill": "cpt-api-contract",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-api-contract; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "architecture-planning",
+      "target_skill": "cpt-architecture-plan",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-architecture-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "bounded-discovery",
+      "target_skill": "cpt-task-planning",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-task-planning; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "chronicle-compaction",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "component-contract-scan",
+      "target_skill": "cpt-design-system-code-audit",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-system-code-audit; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "content-pattern-review",
+      "target_skill": "cpt-content-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-content-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "content-realism-review",
+      "target_skill": "cpt-content-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-content-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "context-prune",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "context-snapshot",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "conversation-design",
+      "target_skill": "cpt-conversation-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-conversation-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "creative-improvement-loop",
+      "target_skill": "cpt-opportunity-ideation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-opportunity-ideation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "creative-tension-review",
+      "target_skill": "cpt-opportunity-ideation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-opportunity-ideation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "current-page-ui-review",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "customer-support-analysis",
+      "target_skill": "cpt-customer-journey",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-customer-journey; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "cx-journey-mapping",
+      "target_skill": "cpt-customer-journey",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-customer-journey; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "data-architecture-review",
+      "target_skill": "cpt-data-architecture",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-data-architecture; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "data-visualization-review",
+      "target_skill": "cpt-data-visualization-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-data-visualization-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "debug-control-review",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "dependency-review",
+      "target_skill": "cpt-dependency-review",
+      "target_plugin": "cpt-engineering",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-dependency-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-critique",
+      "target_skill": "cpt-reference-taste-calibration",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-reference-taste-calibration; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-handoff-qa",
+      "target_skill": "cpt-design-handoff",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-handoff; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-qa",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-recon",
+      "target_skill": "cpt-design-recon",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-design-recon; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-source-authority",
+      "target_skill": "cpt-design-system-governance",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-system-governance; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-system-compliance",
+      "target_skill": "cpt-design-system-governance",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-system-governance; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "design-system-manifest",
+      "target_skill": "cpt-design-system-governance",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-system-governance; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "devops-release-planning",
+      "target_skill": "cpt-production-readiness",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-production-readiness; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ds-code-contract-enforcement",
+      "target_skill": "cpt-design-system-code-audit",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-system-code-audit; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "e2e-visual-state-capture",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "example-taste-board",
+      "target_skill": "cpt-reference-taste-calibration",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-reference-taste-calibration; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "expectation-anticipation",
+      "target_skill": "cpt-opportunity-ideation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-opportunity-ideation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "experiment-design",
+      "target_skill": "cpt-experiment-design",
+      "target_plugin": "cpt-product-research",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-experiment-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "external-evidence-protocol",
+      "target_skill": "cpt-evidence-research-plan",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-evidence-research-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "framework-loading",
+      "target_skill": "cpt-task-planning",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-task-planning; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "frontend-integration-review",
+      "target_skill": "cpt-frontend-integration",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-frontend-integration; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "greenfield-onboarding",
+      "target_skill": "cpt-knowledge-lifecycle",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-knowledge-lifecycle; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "growth-activation-planning",
+      "target_skill": "cpt-growth-activation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-growth-activation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "handoff-docs",
+      "target_skill": "cpt-implementation-review",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-implementation-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "impact-map",
+      "target_skill": "cpt-task-planning",
+      "target_plugin": "cpt-core",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-task-planning; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "implementation-review",
+      "target_skill": "cpt-implementation-review",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-implementation-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "incident-review",
+      "target_skill": "cpt-incident-review",
+      "target_plugin": "cpt-engineering",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-incident-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "information-architecture",
+      "target_skill": "cpt-information-architecture",
+      "target_plugin": "cpt-product-research",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-information-architecture; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "knowledge-freshness-review",
+      "target_skill": "cpt-knowledge-lifecycle",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-knowledge-lifecycle; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "knowledge-update",
+      "target_skill": "cpt-knowledge-lifecycle",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-knowledge-lifecycle; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "localization-review",
+      "target_skill": "cpt-content-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-content-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "manifest-freeze-check",
+      "target_skill": "cpt-design-system-governance",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-design-system-governance; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "market-research-planning",
+      "target_skill": "cpt-market-research",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-market-research; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "memory-integrity-check",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "migration-planning",
+      "target_skill": "cpt-migration-plan",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-migration-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "model-evaluation",
+      "target_skill": "cpt-model-evaluation",
+      "target_plugin": "cpt-ai-agentic",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-model-evaluation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "module-design",
+      "target_skill": "cpt-screen-module-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-screen-module-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "new-task-protocol",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "observability-planning",
+      "target_skill": "cpt-observability-plan",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-observability-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "opportunity-event-triage",
+      "target_skill": "cpt-opportunity-ideation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-opportunity-ideation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "performance-review",
+      "target_skill": "cpt-performance-review",
+      "target_plugin": "cpt-engineering",
+      "disposition": "retained_rewritten",
+      "migration_note": "Use $cpt-performance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "privacy-impact-review",
+      "target_skill": "cpt-privacy-impact",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-privacy-impact; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "proactive-proposal-review",
+      "target_skill": "cpt-opportunity-ideation",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-opportunity-ideation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "product-knowledge-onboarding",
+      "target_skill": "cpt-knowledge-lifecycle",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-knowledge-lifecycle; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "product-planning",
+      "target_skill": "cpt-product-scope",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-product-scope; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "production-readiness-review",
+      "target_skill": "cpt-production-readiness",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-production-readiness; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "production-service-planning",
+      "target_skill": "cpt-production-readiness",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-production-readiness; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "progress-chronicle",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "prototype-ui-kit",
+      "target_skill": "cpt-screen-module-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-screen-module-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "refactoring-planning",
+      "target_skill": "cpt-refactor-plan",
+      "target_plugin": "cpt-engineering",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-refactor-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "reference-fidelity",
+      "target_skill": "cpt-reference-taste-calibration",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-reference-taste-calibration; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "repo-recon",
+      "target_skill": "cpt-task-planning",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-task-planning; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "research-ops",
+      "target_skill": "cpt-ux-research",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-ux-research; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "research-planning",
+      "target_skill": "cpt-evidence-research-plan",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-evidence-research-plan; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "risk-review",
+      "target_skill": "cpt-cross-cutting-risk",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-cross-cutting-risk; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "screen-redesign",
+      "target_skill": "cpt-screen-module-design",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-screen-module-design; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "screenshot-reference-comparison",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "security-review",
+      "target_skill": "cpt-threat-model",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "alias_deprecated",
+      "migration_note": "Use $cpt-threat-model; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "self-audit",
+      "target_skill": "cpt-framework-audit",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-framework-audit; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "service-blueprint",
+      "target_skill": "cpt-customer-journey",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-customer-journey; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "state-matrix",
+      "target_skill": "cpt-interaction-state-model",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-interaction-state-model; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "subagent-failure-recovery",
+      "target_skill": "cpt-delegation",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-delegation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "subagent-orchestration",
+      "target_skill": "cpt-delegation",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-delegation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "subagent-run-contract",
+      "target_skill": "cpt-delegation",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-delegation; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "task-intake",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "task-ledger",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "taste-calibration",
+      "target_skill": "cpt-reference-taste-calibration",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-reference-taste-calibration; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "taste-review",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "team-routing",
+      "target_skill": "cpt-task-planning",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-task-planning; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "threat-modeling",
+      "target_skill": "cpt-threat-model",
+      "target_plugin": "cpt-risk-operations",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-threat-model; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ticket-router",
+      "target_skill": "cpt-runtime",
+      "target_plugin": "cpt-core",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-runtime; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ui-heuristic-audit",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ui-review-packet",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "ux-research-planning",
+      "target_skill": "cpt-ux-research",
+      "target_plugin": "cpt-product-research",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-ux-research; the legacy skill is not activated in 4.0."
+    },
+    {
+      "source_skill": "visual-qa-loop",
+      "target_skill": "cpt-visual-acceptance-review",
+      "target_plugin": "cpt-design-ui",
+      "disposition": "merged_rewritten",
+      "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
+    }
+  ]
+}

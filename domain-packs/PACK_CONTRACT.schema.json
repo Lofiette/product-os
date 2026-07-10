@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "CPT Pack Contract",
+  "title": "CPT Pack Contract v2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -8,13 +8,17 @@
     "name",
     "kind",
     "version",
+    "requires_core",
     "domains",
     "canonical_state_owner",
-    "optional"
+    "optional",
+    "skill_count",
+    "skill_ids",
+    "legacy_source"
   ],
   "properties": {
     "schema_version": {
-      "const": "cpt-pack-v1"
+      "const": "cpt-pack-v2"
     },
     "name": {
       "type": "string",
@@ -49,6 +53,35 @@
     },
     "optional": {
       "type": "boolean"
+    },
+    "skill_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^cpt-[a-z0-9-]+$"
+      },
+      "uniqueItems": true
+    },
+    "legacy_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "skill_count"
+      ],
+      "properties": {
+        "package": {
+          "type": "string"
+        },
+        "skill_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
     }
   }
 }

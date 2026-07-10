@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Ai Safety Review
+  short_description: Use to review AI-specific misuse, harmful behavior, prompt injection,
+    tool abuse, uncertainty
+  brand_color: '#0891B2'
+  default_prompt: Use $cpt-ai-safety-review for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,26 @@
+{
+  "name": "cpt-ai-agentic",
+  "version": "4.0.0-alpha.3",
+  "description": "Agentic and model-based product workflows.",
+  "keywords": [
+    "cpt",
+    "product-engineering",
+    "ai-agentic"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CPT AI & Agentic",
+    "shortDescription": "AI system design, model evaluation, and AI safety",
+    "longDescription": "Agentic and model-based product workflows.",
+    "developerName": "CPT OS",
+    "category": "AI",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use CPT AI & Agentic for the smallest relevant workflow; do not load unrelated skills."
+    ],
+    "brandColor": "#0891B2"
+  }
+}

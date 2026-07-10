@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Evidence Research Plan
+  short_description: Use to plan evidence gathering, source strategy, method, synthesis,
+    and confidence when facts
+  brand_color: '#7C3AED'
+  default_prompt: Use $cpt-evidence-research-plan for this workflow and return its
+    defined output contract.
+policy:
+  allow_implicit_invocation: true

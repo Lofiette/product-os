@@ -1,12 +1,22 @@
 {
-  "schema_version": "cpt-pack-v1",
+  "schema_version": "cpt-pack-v2",
   "name": "cpt-core",
   "kind": "core",
-  "version": "4.0.0-alpha.2",
+  "version": "4.0.0-alpha.3",
   "requires_core": null,
   "domains": [
-    "runtime"
+    "core"
   ],
   "canonical_state_owner": false,
-  "optional": false
+  "optional": false,
+  "skill_count": 3,
+  "skill_ids": [
+    "cpt-knowledge-lifecycle",
+    "cpt-runtime",
+    "cpt-task-planning"
+  ],
+  "legacy_source": {
+    "package": "codex-product-team-3.0-ultra-beta2",
+    "skill_count": 18
+  }
 }

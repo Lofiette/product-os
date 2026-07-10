@@ -1,0 +1,26 @@
+{
+  "name": "cpt-risk-operations",
+  "version": "4.0.0-alpha.3",
+  "description": "Security, privacy, risk, worker delegation, and framework assurance workflows.",
+  "keywords": [
+    "cpt",
+    "product-engineering",
+    "risk-operations"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CPT Risk & Assurance",
+    "shortDescription": "Risk, delegation, and framework assurance",
+    "longDescription": "Security, privacy, risk, worker delegation, and framework assurance workflows.",
+    "developerName": "CPT OS",
+    "category": "Security",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use CPT Risk & Assurance for the smallest relevant workflow; do not load unrelated skills."
+    ],
+    "brandColor": "#DC2626"
+  }
+}

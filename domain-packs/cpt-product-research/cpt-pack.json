@@ -1,0 +1,29 @@
+{
+  "schema_version": "cpt-pack-v2",
+  "name": "cpt-product-research",
+  "kind": "domain",
+  "version": "4.0.0-alpha.3",
+  "requires_core": ">=4.0.0-alpha.3",
+  "domains": [
+    "product-research"
+  ],
+  "canonical_state_owner": false,
+  "optional": true,
+  "skill_count": 10,
+  "skill_ids": [
+    "cpt-analytics-measurement",
+    "cpt-customer-journey",
+    "cpt-evidence-research-plan",
+    "cpt-experiment-design",
+    "cpt-growth-activation",
+    "cpt-information-architecture",
+    "cpt-market-research",
+    "cpt-opportunity-ideation",
+    "cpt-product-scope",
+    "cpt-ux-research"
+  ],
+  "legacy_source": {
+    "package": "codex-product-team-3.0-ultra-beta2",
+    "skill_count": 19
+  }
+}

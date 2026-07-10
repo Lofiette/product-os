@@ -1,12 +1,16 @@
 {
-  "schema_version": "cpt-pack-v1",
+  "schema_version": "cpt-pack-v2",
   "name": "cpt-domain-example",
   "kind": "domain",
   "version": "0.1.0",
-  "requires_core": ">=4.0.0-alpha.2",
-  "domains": [
-    "example"
-  ],
+  "requires_core": ">=4.0.0-alpha.3",
+  "domains": ["example"],
   "canonical_state_owner": false,
-  "optional": true
+  "optional": true,
+  "skill_count": 1,
+  "skill_ids": ["cpt-domain-example-skill"],
+  "legacy_source": {
+    "package": "none",
+    "skill_count": 0
+  }
 }

@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Framework Audit
+  short_description: Use explicitly to audit CPT routing, runtime, skills, gates,
+    artifacts, and contradictions; not
+  brand_color: '#3B82F6'
+  default_prompt: Use $cpt-framework-audit for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: false

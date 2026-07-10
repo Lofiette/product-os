@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Screen Module Design
+  short_description: Use to create or redesign a screen, flow, module, or prototype
+    with hierarchy, states
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-screen-module-design for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

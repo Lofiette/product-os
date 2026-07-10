@@ -1,0 +1,680 @@
+{
+  "schema": "cpt-skill-trigger-cases-v1",
+  "cases": [
+    {
+      "skill": "cpt-accessibility-review",
+      "prompt": "Audit a modal form for keyboard, focus, errors, and screen-reader behavior.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-accessibility-review",
+      "prompt": "Review a design-system component for accessible states and announcements.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-accessibility-review",
+      "prompt": "Plan an infrastructure rollback.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-ai-safety-review",
+      "prompt": "Review a tool-using agent for prompt injection and irreversible actions.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-ai-safety-review",
+      "prompt": "Design safety controls and evals for a customer-facing AI assistant.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-ai-safety-review",
+      "prompt": "Review static dashboard spacing.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-ai-system-plan",
+      "prompt": "Plan an AI assistant that reads documents and performs approved actions.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-ai-system-plan",
+      "prompt": "Design retrieval, fallback, cost, and evaluation for an AI feature.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-ai-system-plan",
+      "prompt": "Review a deterministic CRUD API with no model behavior.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-analytics-measurement",
+      "prompt": "Define product analytics for onboarding activation and retention.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-analytics-measurement",
+      "prompt": "Specify events and metric formulas for a new workflow feature.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-analytics-measurement",
+      "prompt": "Design the database schema for raw event storage.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-api-contract",
+      "prompt": "Review whether an API field addition breaks existing clients.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-api-contract",
+      "prompt": "Map frontend-facing API and data types before redesigning a form.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-api-contract",
+      "prompt": "Review visual alignment against a screenshot.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-architecture-plan",
+      "prompt": "Plan the architecture for a new service with reliability and migration constraints.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-architecture-plan",
+      "prompt": "Compare modular-monolith and service boundary options for a product area.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-architecture-plan",
+      "prompt": "Change a local CSS token.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-content-design",
+      "prompt": "Rewrite form errors and empty states with recovery and localization readiness.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-content-design",
+      "prompt": "Review prototype data so the layout is tested with realistic content.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-content-design",
+      "prompt": "Plan a CI/CD rollout.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-conversation-design",
+      "prompt": "Design a multi-turn AI assistant with clarification and human handoff.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-conversation-design",
+      "prompt": "Create repair and confirmation flows for a conversational form.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-conversation-design",
+      "prompt": "Review chart axes for misleading scale.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-cross-cutting-risk",
+      "prompt": "Consolidate security, privacy, and reliability findings for a release decision.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-cross-cutting-risk",
+      "prompt": "Review cross-cutting risk for a data migration with user impact.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-cross-cutting-risk",
+      "prompt": "Write UX copy for a success state.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-customer-journey",
+      "prompt": "Map onboarding across product, email, support, and operations.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-customer-journey",
+      "prompt": "Synthesize support tickets into journey failures and service opportunities.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-customer-journey",
+      "prompt": "Choose navigation labels for one settings page.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-data-architecture",
+      "prompt": "Review a new persistent entity and its lifecycle, lineage, and migration.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-data-architecture",
+      "prompt": "Design data architecture for documents, chunks, and derived search indexes.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-data-architecture",
+      "prompt": "Define product activation metrics.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-data-visualization-review",
+      "prompt": "Review a dashboard for misleading scales and cognitive overload.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-data-visualization-review",
+      "prompt": "Choose visualizations for comparing model performance over time.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-data-visualization-review",
+      "prompt": "Design a conversational repair flow.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-delegation",
+      "prompt": "Delegate independent security and accessibility reviews with two read-only workers.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-delegation",
+      "prompt": "Recover a timed-out reviewer and continue with an explicit quorum fallback.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-delegation",
+      "prompt": "Rename one button label in a known component.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-dependency-review",
+      "prompt": "Review whether to add a charting library and its bundle/security cost.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-dependency-review",
+      "prompt": "Assess a major dependency upgrade and rollback path.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-dependency-review",
+      "prompt": "Design an empty state message.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-design-handoff",
+      "prompt": "Create a rebuild-ready handoff package for a new product module.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-handoff",
+      "prompt": "Audit whether a design package is sufficient for another developer.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-handoff",
+      "prompt": "Implement the frontend code directly.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-design-recon",
+      "prompt": "Discover which components and tokens govern a settings screen before implementing it.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-recon",
+      "prompt": "Determine whether a repository has a real design system or only local styles.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-recon",
+      "prompt": "Investigate a backend timeout with no UI impact.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-design-system-code-audit",
+      "prompt": "Scan changed React files for raw UI values and duplicate button implementations.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-system-code-audit",
+      "prompt": "Enforce governed component imports before a UI release.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-system-code-audit",
+      "prompt": "Draft a screen information hierarchy before coding.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-design-system-governance",
+      "prompt": "Determine whether a new form may use a custom control or must extend the design system.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-system-governance",
+      "prompt": "Audit a manifest change before claiming UI compliance.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-system-governance",
+      "prompt": "Plan a user interview study.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-evidence-research-plan",
+      "prompt": "Plan evidence collection for an unfamiliar market where external browsing is not available.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-evidence-research-plan",
+      "prompt": "Design a mixed-method study to decide whether to redesign a workflow.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-evidence-research-plan",
+      "prompt": "Brainstorm five speculative interface concepts.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-experiment-design",
+      "prompt": "Design an A/B test for a new onboarding sequence.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-experiment-design",
+      "prompt": "Plan a pilot and decision thresholds for a risky workflow change.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-experiment-design",
+      "prompt": "Run five user interviews to understand mental models.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-framework-audit",
+      "prompt": "Audit the 4.0 skill packs before release and find routing collisions.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-framework-audit",
+      "prompt": "Compare a frozen framework baseline against a new runtime architecture.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-framework-audit",
+      "prompt": "Review this feature branch for code correctness.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-frontend-integration",
+      "prompt": "Implement a systemic edit-mode button change across shared frontend patterns.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-frontend-integration",
+      "prompt": "Review a new UI feature for routing, state, data fetching, and regressions.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-frontend-integration",
+      "prompt": "Create a user research discussion guide.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-growth-activation",
+      "prompt": "Improve activation for a multi-step B2B onboarding flow.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-growth-activation",
+      "prompt": "Design a retention loop with ethical guardrails and experiments.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-growth-activation",
+      "prompt": "Review a REST API for backward compatibility.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-implementation-review",
+      "prompt": "Review a frontend feature against its Impact Map and API/design contracts.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-implementation-review",
+      "prompt": "Produce blocker findings and handoff notes for a multi-file implementation.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-implementation-review",
+      "prompt": "Brainstorm alternative product concepts.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-incident-review",
+      "prompt": "Run a blameless post-incident review for an outage.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-incident-review",
+      "prompt": "Analyze a failed deployment and improve detection and rollback.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-incident-review",
+      "prompt": "Review a design handoff package.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-information-architecture",
+      "prompt": "Redesign the information architecture of a large settings module.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-information-architecture",
+      "prompt": "Create taxonomy and navigation for a knowledge library.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-information-architecture",
+      "prompt": "Tune the contrast of existing buttons.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-interaction-state-model",
+      "prompt": "Define every state for document upload and processing.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-interaction-state-model",
+      "prompt": "Model validation, save, run, error, and dirty states for an editor.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-interaction-state-model",
+      "prompt": "Choose a market research sample.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-knowledge-lifecycle",
+      "prompt": "Update only the workflows area map after implementing a new editor mode.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-knowledge-lifecycle",
+      "prompt": "Create a greenfield Product Map from approved decisions and mark unimplemented flows as planned.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-knowledge-lifecycle",
+      "prompt": "Write release notes for a dependency patch that changes no product behavior.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-market-research",
+      "prompt": "Map competitors, substitutes, and switching barriers for a new B2B product.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-market-research",
+      "prompt": "Research category and pricing hypotheses before product positioning.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-market-research",
+      "prompt": "Test whether users understand an error message.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-migration-plan",
+      "prompt": "Plan a zero-downtime schema migration with backfill and rollback.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-migration-plan",
+      "prompt": "Migrate an API version with expand-contract compatibility.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-migration-plan",
+      "prompt": "Reorganize frontend components without data changes.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-model-evaluation",
+      "prompt": "Create an eval suite for summarization faithfulness and safety.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-model-evaluation",
+      "prompt": "Compare model/prompt variants with slice thresholds and regression cases.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-model-evaluation",
+      "prompt": "Design a standard SQL schema migration.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-observability-plan",
+      "prompt": "Design observability for an async execution pipeline.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-observability-plan",
+      "prompt": "Add migration progress, failure, and rollback signals.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-observability-plan",
+      "prompt": "Define A/B experiment metrics.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-opportunity-ideation",
+      "prompt": "Generate and evaluate alternatives for a confusing dashboard without expanding scope silently.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-opportunity-ideation",
+      "prompt": "Triages a support idea and proposes an approval-gated improvement.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-opportunity-ideation",
+      "prompt": "Confirm whether a button meets keyboard accessibility requirements.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-performance-review",
+      "prompt": "Review a dashboard for rendering and bundle regressions.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-performance-review",
+      "prompt": "Plan API latency measurements and optimization for a high-percentile SLO.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-performance-review",
+      "prompt": "Map customer support pain points.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-privacy-impact",
+      "prompt": "Review a feature that stores user documents and derived embeddings.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-privacy-impact",
+      "prompt": "Map privacy impact of analytics identifiers and retention.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-privacy-impact",
+      "prompt": "Create a taxonomy for navigation labels.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-product-scope",
+      "prompt": "Define the MVP and non-goals for a new analytics module.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-product-scope",
+      "prompt": "Clarify the user outcome and success metrics before redesigning onboarding.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-product-scope",
+      "prompt": "Plan a database index migration with no product behavior change.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-production-readiness",
+      "prompt": "Run a production readiness review for a new web service.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-production-readiness",
+      "prompt": "Plan CI/CD, feature-flag rollout, rollback, and support for a major feature.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-production-readiness",
+      "prompt": "Create a low-fidelity prototype only.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-refactor-plan",
+      "prompt": "Plan a behavior-preserving extraction of shared edit controls.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-refactor-plan",
+      "prompt": "Refactor a legacy hook into smaller modules with characterization tests.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-refactor-plan",
+      "prompt": "Migrate production data to a new schema.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-reference-taste-calibration",
+      "prompt": "Extract a design contract from a reference screenshot and two anti-examples.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-reference-taste-calibration",
+      "prompt": "Critique three screen alternatives against approved taste and product goals.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-reference-taste-calibration",
+      "prompt": "Run browser screenshots after implementation.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-runtime",
+      "prompt": "Start a CPT task and record a bounded lease before editing.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-runtime",
+      "prompt": "Recover the current CPT task after context compaction and verify the checkpoint.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-runtime",
+      "prompt": "Review the visual hierarchy of this dashboard without changing runtime state.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-screen-module-design",
+      "prompt": "Redesign an analytics screen and provide a rebuild-ready design specification.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-screen-module-design",
+      "prompt": "Create a consistent multi-screen prototype when no design system exists.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-screen-module-design",
+      "prompt": "Compare an implemented page screenshot against an approved reference.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-task-planning",
+      "prompt": "Find every related edit-mode action, select the right skills, and propose a bounded Impact Map.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-task-planning",
+      "prompt": "Scope an API-dependent UI change and request one approval lease before editing.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-task-planning",
+      "prompt": "Review keyboard focus and ARIA labels in this dialog.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-threat-model",
+      "prompt": "Threat-model an agent that can perform irreversible tool actions.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-threat-model",
+      "prompt": "Review authorization and input boundaries for a new API.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-threat-model",
+      "prompt": "Optimize a page rendering waterfall.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-ux-research",
+      "prompt": "Plan a usability test for a complex editing workflow.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-ux-research",
+      "prompt": "Design generative interviews and recruiting for a new user segment.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-ux-research",
+      "prompt": "Estimate market size and competitor pricing.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-visual-acceptance-review",
+      "prompt": "Review the implemented dashboard against its reference and all critical states.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-visual-acceptance-review",
+      "prompt": "Capture responsive screenshots and block design-system drift before completion.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-visual-acceptance-review",
+      "prompt": "Create a market competitor matrix.",
+      "expected": "do_not_invoke"
+    }
+  ]
+}

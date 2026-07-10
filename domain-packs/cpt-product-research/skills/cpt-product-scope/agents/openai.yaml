@@ -1,0 +1,9 @@
+interface:
+  display_name: CPT Product Scope
+  short_description: Use to frame product outcome, users, scope, MVP slice, non-goals,
+    acceptance, and success
+  brand_color: '#7C3AED'
+  default_prompt: Use $cpt-product-scope for this workflow and return its defined
+    output contract.
+policy:
+  allow_implicit_invocation: true

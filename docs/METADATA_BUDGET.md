@@ -1,15 +1,18 @@
-# Plugin Metadata Budget
+# Skill metadata budget
 
-Codex initially discovers skills from lightweight metadata before loading full `SKILL.md` content. The distribution tools estimate the active discovery surface as:
+Codex initially sees skill names, descriptions, and paths under a bounded discovery budget. Alpha 3 therefore treats plugin selection as part of context engineering.
 
-```text
-skill name + description + plugin-relative skill path
-```
+## Release budgets
 
-Use:
+- `cpt-core`: target maximum 2,000 estimated characters.
+- Each optional domain pack: target maximum 3,000 estimated characters.
+- Recommended task profiles: target maximum 7,000 estimated characters.
+- All domain packs are **not** expected to be enabled simultaneously.
+
+If every optional pack is enabled, Codex may shorten or omit entries from the initial skill list. This is not a reason to damage skill descriptions; it is a reason to enable only relevant packs.
+
+Run:
 
 ```bash
-python tools/measure_metadata_budget.py payload/marketplace-root/plugins/cpt-core
+python tools/measure_all_skill_metadata.py
 ```
-
-The official initial discovery budget is context-sensitive and may be limited. Alpha 2 keeps core to one precise skill and reports combined pack metadata before expertise migration.

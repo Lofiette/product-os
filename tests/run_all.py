@@ -3,30 +3,50 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TESTS = [
-    'test_local_install_is_git_clean_and_small',
-    'test_team_repo_plugin_stays_below_twenty_files',
-    'test_local_existing_tracked_agents_is_not_modified',
-    'test_update_preserves_mutable_runtime_state',
-    'test_update_refuses_modified_managed_tool',
-    'test_uninstall_does_not_touch_application_files',
-    'test_personal_marketplace_preserves_other_plugins',
-    'test_domain_pack_is_independent',
-    'test_team_merge_and_uninstall_preserves_existing_agents',
-    'test_personal_plugin_survives_project_uninstall_by_default',
-    'test_metadata_budget_is_small',
-    'test_doctor_passes',
-]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-for name in TESTS:
-    print(f'=== {name} ===', flush=True)
-    result = subprocess.run(
-        [sys.executable, '-m', 'unittest', '-v', f'tests.test_distribution.DistributionTests.{name}'],
-        cwd=ROOT,
-    )
-    if result.returncode:
-        raise SystemExit(result.returncode)
-print(f'DISTRIBUTION BEHAVIOR TESTS PASSED: {len(TESTS)}')
+
+def flatten(suite: unittest.TestSuite):
+    for item in suite:
+        if isinstance(item, unittest.TestSuite):
+            yield from flatten(item)
+        else:
+            yield item
+
+
+def run(command: list[str], *, timeout: int = 120) -> None:
+    print("+", " ".join(map(str, command)), flush=True)
+    completed = subprocess.run(command, cwd=ROOT, text=True, timeout=timeout)
+    if completed.returncode:
+        raise SystemExit(completed.returncode)
+
+
+# Run each distribution case in an isolated interpreter. This keeps temporary
+# HOME/CODEX_HOME state and installer subprocesses from leaking across cases.
+suite = unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution")
+test_ids = [test.id() for test in flatten(suite)]
+for test_id in test_ids:
+    run([sys.executable, "-m", "unittest", "-v", test_id], timeout=120)
+
+commands = [
+    [sys.executable, str(ROOT / "tools" / "validate_distribution.py")],
+    [sys.executable, str(ROOT / "tools" / "validate_skills.py"), "--root", str(ROOT)],
+    [
+        sys.executable,
+        str(ROOT / "tools" / "eval_skill_triggers.py"),
+        "--root",
+        str(ROOT),
+        "--write-report",
+        str(ROOT / "evaluation" / "trigger-eval-report.json"),
+    ],
+    [sys.executable, str(ROOT / "tools" / "measure_all_skill_metadata.py")],
+]
+for command in commands:
+    run(command, timeout=180)
+
+print(f"ALPHA 3 COMPLETE TEST SUITE PASSED: {len(test_ids)} distribution cases")

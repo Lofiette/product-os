@@ -1,0 +1,76 @@
+schema_version: 4.0-alpha6
+mode: 'off'
+hooks:
+  bundled_with_core_plugin: true
+  trust_state: unknown
+  project_trust_required: true
+lease_policy:
+  require_for_project_writes: true
+  require_for_expensive_verification: true
+  read_scope_mode: audit
+  unknown_write_target: deny
+  runtime_path_exemptions:
+  - .cpt/**
+command_policy:
+  deny_globally:
+  - destructive_git
+  - filesystem_root_delete
+  dependency_changes_require_lease: true
+  network_requires_lease: true
+  migrations_require_lease: true
+  public_contract_changes_require_lease: true
+  dependency_manifest_paths:
+  - package.json
+  - package-lock.json
+  - pnpm-lock.yaml
+  - yarn.lock
+  - bun.lock*
+  - requirements*.txt
+  - pyproject.toml
+  - poetry.lock
+  - uv.lock
+  - Pipfile
+  - Pipfile.lock
+  - Cargo.toml
+  - Cargo.lock
+  - go.mod
+  - go.sum
+  - composer.json
+  - composer.lock
+  migration_paths:
+  - migrations/**
+  - db/migrate/**
+  - alembic/**
+  - prisma/migrations/**
+  - drizzle/**
+  public_contract_paths: []
+compaction:
+  checkpoint_before_compaction: true
+  block_when_checkpoint_fails: true
+  verify_after_compaction: true
+  block_on_mismatch: true
+  block_with_active_workers: true
+  retain_automatic_checkpoints: 5
+knowledge:
+  stale_scan_after_project_write: true
+  exclude_paths:
+  - .cpt/**
+  - .codex/**
+  - .git/**
+audit:
+  log_path: .cpt/audit/events.jsonl
+  command_preview_chars: 240
+  tool_output_soft_chars: 12000
+  tool_output_hard_chars: 50000
+  rotate_bytes: 5242880
+  retain_files: 5
+  redact_sensitive_values: true
+subagents:
+  record_lifecycle: true
+  default_max_active: 3
+stop:
+  validate_runtime: true
+  continue_once_when_invalid: true
+approval:
+  auto_allow_within_lease: false
+updated_at: '2026-07-10T18:00:00Z'

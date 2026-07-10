@@ -1,0 +1,63 @@
+{
+  "schema_version": "4.0-alpha6",
+  "total": 13,
+  "passed": 13,
+  "checks": [
+    {
+      "name": "install",
+      "passed": true
+    },
+    {
+      "name": "local_git_clean",
+      "passed": true
+    },
+    {
+      "name": "doctor",
+      "passed": true
+    },
+    {
+      "name": "task_and_lease",
+      "passed": true
+    },
+    {
+      "name": "allowed_write_in_lease",
+      "passed": true
+    },
+    {
+      "name": "denied_write_outside_lease",
+      "passed": true
+    },
+    {
+      "name": "denied_destructive_git",
+      "passed": true
+    },
+    {
+      "name": "knowledge_freshness",
+      "passed": true
+    },
+    {
+      "name": "precompact_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "postcompact_verify",
+      "passed": true
+    },
+    {
+      "name": "worker_record",
+      "passed": true
+    },
+    {
+      "name": "audit_valid",
+      "passed": true
+    },
+    {
+      "name": "runtime_valid",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "This is a deterministic runtime integration test, not a live Codex behavioral certification.",
+    "Plugin hook trust and Codex rule parsing require a live Codex installation."
+  ]
+}

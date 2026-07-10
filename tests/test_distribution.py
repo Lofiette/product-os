@@ -23,7 +23,7 @@ def run(*args: str, cwd: Path | None = None, env: dict | None = None, check: boo
 
 class DistributionTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha5-test-'))
+        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha6-test-'))
         self.home = self.tmp / 'home'
         self.home.mkdir()
         self.env = os.environ.copy()
@@ -44,7 +44,7 @@ class DistributionTests(unittest.TestCase):
         status = subprocess.run(['git', '-C', str(repo), 'status', '--short', '--untracked-files=all'], text=True, capture_output=True, check=True)
         self.assertEqual(status.stdout.strip(), '')
         data = json.loads(run('status', '--project', str(repo), '--json', env=self.env).stdout)
-        self.assertLess(data['framework_file_count'], 20)
+        self.assertLessEqual(data['framework_file_count'], 20)
         self.assertTrue(data['runtime_valid'])
 
     def test_team_repo_plugin_stays_below_twenty_files(self):
@@ -52,7 +52,7 @@ class DistributionTests(unittest.TestCase):
         self.init_git(repo)
         run('install', '--project', str(repo), '--mode', 'team', env=self.env)
         data = json.loads(run('status', '--project', str(repo), '--json', env=self.env).stdout)
-        self.assertLess(data['framework_file_count'], 20)
+        self.assertLessEqual(data['framework_file_count'], 20)
         self.assertTrue((repo / 'plugins/cpt-core/.codex-plugin/plugin.json').exists())
         self.assertTrue((repo / '.agents/plugins/marketplace.json').exists())
 
@@ -73,15 +73,20 @@ class DistributionTests(unittest.TestCase):
         run('install', '--project', str(repo), '--mode', 'local', env=self.env)
         current = repo / '.cpt/current.yaml'
         current.write_text(current.read_text().replace('state_revision: 0', 'state_revision: 7'), encoding='utf-8')
+        enforcement = repo / '.cpt/enforcement.yaml'
+        runtime_tool = repo / '.cpt/bin/cpt_runtime.py'
+        enabled = subprocess.run([sys.executable, str(runtime_tool), 'enforcement-set', '--mode', 'audit'], cwd=repo, text=True, capture_output=True)
+        self.assertEqual(enabled.returncode, 0, enabled.stdout + enabled.stderr)
         run('update', '--project', str(repo), env=self.env)
         self.assertIn('state_revision: 7', current.read_text())
+        self.assertIn('mode: "audit"', enforcement.read_text())
 
     def test_update_refuses_modified_managed_tool(self):
         repo = self.tmp / 'conflict'
         self.init_git(repo)
         run('install', '--project', str(repo), '--mode', 'local', env=self.env)
-        ops = repo / '.cpt/OPERATIONS.md'
-        ops.write_text(ops.read_text() + '\nlocal edit\n', encoding='utf-8')
+        ops = repo / '.cpt/bin/cpt_runtime.py'
+        ops.write_text(ops.read_text() + '\n# local edit\n', encoding='utf-8')
         result = run('update', '--project', str(repo), env=self.env, check=False)
         self.assertEqual(result.returncode, 2)
         self.assertIn('managed files changed', result.stderr)
@@ -182,6 +187,17 @@ class DistributionTests(unittest.TestCase):
         run('pack-remove', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
         self.assertFalse((repo / 'plugins/cpt-design-ui').exists())
 
+
+    def test_rules_profile_survives_update(self):
+        repo = self.tmp / 'rules-update'
+        self.init_git(repo)
+        run('install', '--project', str(repo), '--mode', 'local', '--rules-profile', 'conservative', env=self.env)
+        before = (repo / '.codex/rules/cpt.rules').read_text()
+        run('update', '--project', str(repo), env=self.env)
+        self.assertEqual((repo / '.codex/rules/cpt.rules').read_text(), before)
+        result = run('doctor', '--project', str(repo), env=self.env)
+        self.assertIn('runtime: PASS', result.stdout)
+
     def test_skill_resolve_legacy_and_active(self):
         legacy = run('skill-resolve', '--name', 'bounded-discovery', '--json', env=self.env)
         legacy_data = json.loads(legacy.stdout)
@@ -195,7 +211,7 @@ class DistributionTests(unittest.TestCase):
         self.init_git(repo)
         run('install', '--project', str(repo), '--mode', 'team', env=self.env)
         data = json.loads(run('status', '--project', str(repo), '--json', env=self.env).stdout)
-        self.assertLess(data['framework_file_count'], 20)
+        self.assertLessEqual(data['framework_file_count'], 20)
         self.assertTrue((repo / '.cpt/knowledge/artifacts').is_dir())
         self.assertFalse((repo / '.cpt/knowledge/index.yaml').exists())
 

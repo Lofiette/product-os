@@ -14,7 +14,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-PACKAGE_VERSION = "4.0.0-alpha.5"
+import yaml
+
+PACKAGE_VERSION = "4.0.0-alpha.6"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -96,7 +98,7 @@ def copy_file(src: Path, dst: Path) -> None:
 def copy_tree(src: Path, dst: Path) -> None:
     if dst.exists():
         shutil.rmtree(dst)
-    shutil.copytree(src, dst)
+    shutil.copytree(src, dst, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"))
 
 
 def remove_empty_parents(path: Path, stop: Path) -> None:
@@ -373,6 +375,7 @@ def install_core_plugin(project: Path, receipt: dict[str, Any], scope: str) -> N
     if scope == "personal":
         target = codex_home() / "plugins" / "cpt-core"
         copy_tree(core_plugin_root(), target)
+        (target / "cpt-pack.json").unlink(missing_ok=True)
         market = personal_marketplace()
         existed, _ = upsert_marketplace(
             market,
@@ -390,6 +393,7 @@ def install_core_plugin(project: Path, receipt: dict[str, Any], scope: str) -> N
     if scope == "repo":
         target = project / "plugins" / "cpt-core"
         copy_tree(core_plugin_root(), target)
+        (target / "cpt-pack.json").unlink(missing_ok=True)
         market = project / ".agents" / "plugins" / "marketplace.json"
         existed, _ = upsert_marketplace(
             market,
@@ -417,11 +421,45 @@ def core_scaffold_files() -> list[tuple[str, bool]]:
         (".cpt/current.yaml", True),
         (".cpt/task-index.yaml", True),
         (".cpt/runtime-summary.md", True),
-        (".cpt/OPERATIONS.md", False),
+        (".cpt/enforcement.yaml", True),
         (".cpt/bin/cpt_runtime.py", False),
         (".cpt/schema-bundle.json", False),
     ]
 
+
+
+def patch_enforcement_mode(project: Path, mode: str) -> None:
+    path = project / ".cpt" / "enforcement.yaml"
+    if not path.exists():
+        copy_file(scaffold_root() / ".cpt" / "enforcement.yaml", path)
+    text = path.read_text(encoding="utf-8")
+    text = re.sub(r"^mode:\s*\S+\s*$", f'mode: "{mode}"', text, flags=re.M)
+    text = re.sub(r"^(\s*)trust_state:\s*\S+\s*$", lambda m: f"{m.group(1)}trust_state: unknown", text, count=1, flags=re.M)
+    text = re.sub(r"^updated_at:.*$", f"updated_at: '{now()}'", text, flags=re.M)
+    atomic_write(path, text)
+
+
+def rules_source(profile: str) -> Path:
+    return package_root() / "policies" / "rules" / f"cpt-{profile}.rules"
+
+
+def install_rules(project: Path, receipt: dict[str, Any], profile: str) -> None:
+    if profile == "none":
+        receipt["rules"] = {"profile": "none", "status": "not_installed"}
+        return
+    source = rules_source(profile)
+    if not source.exists():
+        raise RuntimeError(f"Unknown rules profile: {profile}")
+    target = project / ".codex" / "rules" / "cpt.rules"
+    created = not target.exists()
+    if target.exists() and sha256(target) != sha256(source):
+        key = rel(target, project)
+        owned = receipt.get("managed_files", {}).get(key)
+        if not owned or sha256(target) != owned.get("sha256"):
+            raise RuntimeError("Refusing to overwrite an existing non-matching .codex/rules/cpt.rules")
+    copy_file(source, target)
+    register_managed(receipt, project, target, created=created)
+    receipt["rules"] = {"profile": profile, "path": rel(target, project), "status": "installed_requires_trusted_project"}
 
 def install(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
@@ -445,12 +483,16 @@ def install(args: argparse.Namespace) -> int:
         project / ".cpt" / "checkpoints",
         project / ".cpt" / "knowledge" / "artifacts",
         project / ".cpt" / "knowledge" / "views",
+        project / ".cpt" / "audit",
+        project / ".cpt" / "workers",
     ]:
         path.mkdir(parents=True, exist_ok=True)
 
     for file, mutable in core_scaffold_files():
         copy_initial(project, receipt, file, file, mutable=mutable)
     patch_runtime_mode(project, args.mode)
+    patch_enforcement_mode(project, args.enforcement_mode)
+    runtime_render_summary(project)
 
     agents_result, agents_active = install_agents(
         project,
@@ -460,6 +502,7 @@ def install(args: argparse.Namespace) -> int:
         allow_tracked_change=args.allow_tracked_agents_change,
     )
     install_core_plugin(project, receipt, plugin_scope)
+    install_rules(project, receipt, args.rules_profile)
 
     if args.mode == "local":
         ignore_paths = ["/.cpt/"]
@@ -467,20 +510,25 @@ def install(args: argparse.Namespace) -> int:
             ignore_paths.append("/AGENTS.md")
         if plugin_scope == "repo":
             ignore_paths += ["/.agents/plugins/marketplace.json", "/plugins/cpt-core/"]
+        if args.rules_profile != "none":
+            ignore_paths.append("/.codex/rules/cpt.rules")
         if not update_exclude(project, ignore_paths):
             receipt["warnings"].append(
                 "Local mode requested, but no Git repository was detected. Runtime files are not automatically hidden from VCS."
             )
     else:
-        update_exclude(project, None)
+        # Audit logs and worker lifecycle records are machine-local even in team-shared mode.
+        update_exclude(project, ["/.cpt/audit/", "/.cpt/workers/"])
 
     save_receipt(project, receipt)
     print(f"CPT OS {PACKAGE_VERSION} installed in {project}")
-    print(f"mode={args.mode}; plugin_scope={plugin_scope}; agents={agents_result}")
+    print(f"mode={args.mode}; plugin_scope={plugin_scope}; agents={agents_result}; enforcement={args.enforcement_mode}; rules={args.rules_profile}")
     if not agents_active:
         print("WARNING: automatic AGENTS kernel guidance is not active; see .cpt/AGENTS_SNIPPET.md")
     if plugin_scope != "none":
         print("Plugin is exposed through a marketplace. Restart Codex and install/enable CPT Core in the plugin UI.")
+        if args.enforcement_mode != "off":
+            print("Review and trust the CPT Core plugin hooks before relying on audit or enforcement mode.")
     if receipt["warnings"]:
         for warning in receipt["warnings"]:
             print(f"WARNING: {warning}")
@@ -535,11 +583,14 @@ def update(args: argparse.Namespace) -> int:
     for file, mutable in core_scaffold_files():
         dst = project / file
         if mutable:
+            if not dst.exists():
+                copy_file(scaffold_root() / file, dst)
             continue
         copy_file(scaffold_root() / file, dst)
         new_managed[file] = {"sha256": sha256(dst), "created": receipt.get("managed_files", {}).get(file, {}).get("created", False)}
     receipt["managed_files"].update(new_managed)
     patch_runtime_mode(project, receipt["mode"])
+    runtime_render_summary(project)
 
     agents = receipt.get("agents", {})
     if agents.get("result") in {"created", "merged"} and (project / "AGENTS.md").exists():
@@ -552,6 +603,9 @@ def update(args: argparse.Namespace) -> int:
 
     scope = receipt.get("plugin_scope", "none")
     install_core_plugin(project, receipt, scope)
+    rules = receipt.get("rules", {})
+    if rules.get("profile") not in {None, "none"}:
+        install_rules(project, receipt, rules["profile"])
     receipt["version"] = PACKAGE_VERSION
     save_receipt(project, receipt)
     print(f"CPT OS updated to {PACKAGE_VERSION}; mutable runtime state was preserved.")
@@ -604,6 +658,13 @@ def uninstall(args: argparse.Namespace) -> int:
         market = Path(plugin.get("marketplace_path", personal_marketplace()))
         remove_marketplace_entry(market, "cpt-core", remove_if_empty_and_created=not plugin.get("marketplace_existed", True))
 
+    rules = receipt.get("rules", {})
+    if rules.get("path"):
+        rule_path = project / rules["path"]
+        if rule_path.exists():
+            rule_path.unlink()
+            remove_empty_parents(rule_path.parent, project)
+
     update_exclude(project, None)
     if (project / ".cpt").exists():
         shutil.rmtree(project / ".cpt")
@@ -611,6 +672,20 @@ def uninstall(args: argparse.Namespace) -> int:
     if scope == "personal" and not args.remove_personal_plugin:
         print("Personal CPT Core plugin was left installed because it may be used by other projects.")
     return 0
+
+
+def runtime_render_summary(project: Path) -> None:
+    script = project / ".cpt" / "bin" / "cpt_runtime.py"
+    if not script.exists():
+        raise RuntimeError("runtime CLI missing; cannot render runtime summary")
+    result = subprocess.run(
+        [sys.executable, str(script), "render-summary"],
+        cwd=project,
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"runtime summary render failed: {(result.stdout + result.stderr).strip()}")
 
 
 def runtime_validate(project: Path) -> tuple[bool, str]:
@@ -635,6 +710,21 @@ def count_framework_files(project: Path, receipt: dict[str, Any]) -> int:
     return len(paths)
 
 
+
+def read_enforcement_status(project: Path) -> dict[str, Any]:
+    path = project / ".cpt" / "enforcement.yaml"
+    if not path.exists():
+        return {"mode": "off", "trust_state": "unknown", "plugin_hooks_require_review": True}
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return {"mode": "invalid", "trust_state": "unknown", "plugin_hooks_require_review": True}
+    return {
+        "mode": str(data.get("mode", "unknown")),
+        "trust_state": str((data.get("hooks") or {}).get("trust_state", "unknown")),
+        "plugin_hooks_require_review": True,
+    }
+
 def status(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
@@ -648,6 +738,8 @@ def status(args: argparse.Namespace) -> int:
         "framework_file_count": count_framework_files(project, receipt),
         "runtime_valid": ok,
         "runtime_validation": validation,
+        "enforcement": read_enforcement_status(project),
+        "rules": receipt.get("rules", {}),
         "warnings": receipt.get("warnings", []),
     }
     if args.json:
@@ -741,8 +833,10 @@ def doctor(args: argparse.Namespace) -> int:
     if not agents.get("kernel_guidance_active"):
         warnings.append("Automatic AGENTS kernel guidance is inactive")
     count = count_framework_files(project, receipt)
-    if count >= 20:
-        problems.append(f"Repo-local framework file count is {count}; expected < 20")
+    rules_installed = receipt.get("rules", {}).get("profile") not in {None, "none"}
+    file_budget = 21 if rules_installed else 20
+    if count > file_budget:
+        problems.append(f"Repo-local framework file count is {count}; expected <= {file_budget}")
 
     scope = receipt.get("plugin_scope")
     plugin_paths: list[Path] = []
@@ -753,9 +847,16 @@ def doctor(args: argparse.Namespace) -> int:
         plugin_paths.append(Path(receipt["plugin"]["plugin_path"]))
     for plugin_path in plugin_paths:
         try:
-            validate_plugin(plugin_path)
+            manifest = read_json(plugin_path / ".codex-plugin" / "plugin.json") or {}
+            validate_plugin(plugin_path, require_pack=manifest.get("name") != "cpt-core")
         except RuntimeError as exc:
             problems.append(str(exc))
+    enforcement = read_enforcement_status(project)
+    if enforcement.get("mode") in {"audit", "enforce"} and enforcement.get("trust_state") != "trusted":
+        warnings.append("Enforcement mode is active but hook trust is not recorded as trusted; review hooks in Codex, then run enforcement-set --trust-state trusted")
+    for plugin_path in plugin_paths:
+        if not (plugin_path / "hooks" / "hooks.json").exists():
+            problems.append(f"CPT Core hook bundle missing: {plugin_path}")
     if plugin_paths:
         budget = metadata_budget_for_plugins(plugin_paths)
         if budget["estimated_discovery_chars"] > 8000:
@@ -896,6 +997,8 @@ def parser() -> argparse.ArgumentParser:
     install_p.add_argument("--plugin-scope", choices=["auto", "personal", "repo", "none"], default="auto")
     install_p.add_argument("--agents-policy", choices=["auto", "create", "merge", "skip"], default="auto")
     install_p.add_argument("--allow-tracked-agents-change", action="store_true")
+    install_p.add_argument("--enforcement-mode", choices=["off","audit"], default="off")
+    install_p.add_argument("--rules-profile", choices=["none","conservative","strict"], default="none")
     install_p.add_argument("--force", action="store_true")
     install_p.set_defaults(func=install)
 

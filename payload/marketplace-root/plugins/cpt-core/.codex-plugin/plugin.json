@@ -1,7 +1,7 @@
 {
   "name": "cpt-core",
-  "version": "4.0.0-alpha.5",
-  "description": "Task lifecycle, bounded planning, scoped authorization, recovery, and Product Knowledge lifecycle for CPT OS.",
+  "version": "4.0.0-alpha.6",
+  "description": "Task lifecycle, bounded planning, scoped authorization, recovery, deterministic hooks, and Product Knowledge lifecycle for CPT OS.",
   "keywords": [
     "cpt",
     "product-engineering",
@@ -11,7 +11,7 @@
   "interface": {
     "displayName": "CPT Core",
     "shortDescription": "Runtime lifecycle, task planning, recovery, and Product Knowledge",
-    "longDescription": "Task lifecycle, bounded planning, scoped authorization, recovery, and Product Knowledge lifecycle for CPT OS.",
+    "longDescription": "Task lifecycle, bounded planning, scoped authorization, recovery, deterministic hooks, and Product Knowledge lifecycle for CPT OS.",
     "developerName": "CPT OS",
     "category": "Productivity",
     "capabilities": [
@@ -22,5 +22,6 @@
       "Use the smallest CPT Core workflow that fits the task; do not load unrelated domain packs."
     ],
     "brandColor": "#3B82F6"
-  }
+  },
+  "hooks": "./hooks/hooks.json"
 }

@@ -1,0 +1,129 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 30,
+            "statusMessage": "Loading CPT runtime state"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 30,
+            "statusMessage": "Checking CPT scope and lease"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "Bash|apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 30,
+            "statusMessage": "Checking CPT authorization lease"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 45,
+            "statusMessage": "Recording CPT audit and freshness"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "manual|auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 60,
+            "statusMessage": "Creating CPT compaction checkpoint"
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "manual|auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 60,
+            "statusMessage": "Verifying CPT state after compaction"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 30,
+            "statusMessage": "Recording CPT worker start"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 30,
+            "statusMessage": "Recording CPT worker stop"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 45,
+            "statusMessage": "Validating CPT runtime before stop"
+          }
+        ]
+      }
+    ]
+  }
+}

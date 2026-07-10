@@ -7,6 +7,6 @@ Every Standard Task must account for durable knowledge before completion:
 - `applied`: required updates are complete and validated;
 - `deferred`: an explicit bounded follow-up remains, with rationale.
 
-The runtime refuses to complete a new Alpha 5 task while knowledge update status is `not_assessed` or `planned`.
+The runtime refuses to complete a new Standard Task while knowledge update status is `not_assessed` or `planned`.
 
 Update only affected artifacts. A local change must not trigger a broad remap. Context packets remain task-specific and should not become canonical product maps.

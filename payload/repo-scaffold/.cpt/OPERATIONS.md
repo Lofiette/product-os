@@ -89,3 +89,25 @@ python .cpt/bin/cpt_runtime.py knowledge-task-assess --task TKT-001 --status not
 ```
 
 Target sizes are guidance only. Validation never truncates knowledge.
+
+
+## Deterministic enforcement
+
+```bash
+python .cpt/bin/cpt_runtime.py enforcement-status
+python .cpt/bin/cpt_runtime.py enforcement-set --mode audit
+python .cpt/bin/cpt_runtime.py enforcement-set --mode enforce --trust-state trusted
+python .cpt/bin/cpt_runtime.py policy-check --tool-name Bash --command 'npm run test'
+python .cpt/bin/cpt_runtime.py audit-tail --limit 20
+python .cpt/bin/cpt_runtime.py audit-validate
+python .cpt/bin/cpt_runtime.py worker-status
+```
+
+Recommended rollout:
+
+1. Enable CPT Core plugin and review/trust its hooks.
+2. Start in `audit` mode.
+3. Inspect the audit log and tune leases/scopes.
+4. Move to `enforce` mode only after the workflow is understood.
+
+Hooks are optional. If they are disabled, keep using leases, checkpoints, runtime validation, and targeted knowledge freshness scans manually.

@@ -1,0 +1,58 @@
+
+# CPT OS strict command rules. Rules affect commands outside the sandbox.
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Destructive reset is blocked. Use a reversible restore path after explicit user review.",
+    match = ["git reset --hard", "git reset --hard HEAD~1"],
+    not_match = ["git reset --soft HEAD~1"],
+)
+
+prefix_rule(
+    pattern = ["git", "clean", ["-fd", "-fdx", "-df", "-xdf"]],
+    decision = "forbidden",
+    justification = "Destructive cleanup is blocked. Inspect untracked files and remove only an explicitly approved bounded set.",
+    match = ["git clean -fd", "git clean -fdx"],
+    not_match = ["git clean -n"],
+)
+
+prefix_rule(
+    pattern = ["git", "push", ["--force", "-f", "--force-with-lease"]],
+    decision = "forbidden",
+    justification = "Force-push is outside CPT default safety policy.",
+    match = ["git push --force", "git push -f origin main"],
+    not_match = ["git push origin main"],
+)
+
+prefix_rule(
+    pattern = [["npm", "pnpm", "yarn", "pip", "pip3", "uv", "poetry"], ["install", "add", "remove", "uninstall"]],
+    decision = "prompt",
+    justification = "Dependency changes require an explicit CPT authorization lease and user confirmation.",
+    match = ["npm install react", "pnpm add zod", "pip install pydantic", "uv add httpx"],
+    not_match = ["npm run test", "uv run pytest"],
+)
+
+prefix_rule(
+    pattern = [["curl", "wget"]],
+    decision = "prompt",
+    justification = "Outbound downloads require explicit network authorization and source review.",
+    match = ["curl https://example.com", "wget https://example.com/file"],
+    not_match = ["python -m http.server"],
+)
+
+
+prefix_rule(
+    pattern = ["git", ["add", "commit", "push"]],
+    decision = "prompt",
+    justification = "Repository publication and staging require explicit user approval.",
+    match = ["git add src/app.ts", "git commit -m fix", "git push origin main"],
+    not_match = ["git status", "git diff --stat"],
+)
+
+prefix_rule(
+    pattern = ["rm", ["-rf", "-fr"]],
+    decision = "prompt",
+    justification = "Recursive deletion requires explicit bounded approval.",
+    match = ["rm -rf build", "rm -fr tmp"],
+    not_match = ["rm file.txt"],
+)

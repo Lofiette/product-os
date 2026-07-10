@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha5
+schema_version: 4.0-alpha6
 runtime_id: cpt-runtime
 storage_mode: file_only
 sharing_mode: local_ignored
@@ -13,6 +13,9 @@ paths:
   knowledge_index: .cpt/knowledge/index.yaml
   knowledge_artifacts: .cpt/knowledge/artifacts
   knowledge_views: .cpt/knowledge/views
+  enforcement: .cpt/enforcement.yaml
+  audit_log: .cpt/audit/events.jsonl
+  workers: .cpt/workers
 policies:
   no_active_task_allowed: true
   optional_tkt_000: true
@@ -23,5 +26,6 @@ policies:
   knowledge_enabled: true
   knowledge_update_accounting: true
   knowledge_size_limits_are_soft: true
+  deterministic_enforcement_supported: true
 created_at: '2026-07-10T12:45:20Z'
 updated_at: '2026-07-10T12:45:20Z'

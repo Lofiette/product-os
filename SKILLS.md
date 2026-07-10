@@ -1,6 +1,6 @@
-# CPT OS 4.0 Alpha 5 Skills
+# CPT OS 4.0 Alpha 6 Skills
 
-Alpha 5 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
+Alpha 6 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
 
 ## Inventory
 
@@ -39,4 +39,4 @@ Do not enable all domain packs by default. Choose a profile or smaller subset wh
 
 ## Quality boundary
 
-Alpha 5 preserves the skill validation, migration coverage, metadata budgets, and deterministic trigger proxies. It adds logical-role and gate routing, but still does not provide live Codex trace certification, executable worker archetypes, hooks/rules enforcement, Product Knowledge schemas, or external adapters.
+Alpha 6 preserves the skill validation, migration coverage, metadata budgets, role/gate routing, and typed Product Knowledge lifecycle. It adds optional hooks, rules profiles, lease-aware policy checks, compaction checkpoints, freshness automation, audit records, and worker lifecycle records. Live Codex trace certification, executable worker archetype orchestration, SQLite/MCP adapters, and external observability remain deferred.

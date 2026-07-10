@@ -1,0 +1,51 @@
+{
+  "total": 5,
+  "passed": 5,
+  "cases": [
+    {
+      "id": "write-without-lease",
+      "mode": "enforce",
+      "tool_name": "apply_patch",
+      "command": "*** Update File: src/a.py",
+      "expected": "deny",
+      "actual": "deny",
+      "passed": true
+    },
+    {
+      "id": "destructive-git",
+      "mode": "enforce",
+      "tool_name": "Bash",
+      "command": "git reset --hard HEAD~1",
+      "expected": "deny",
+      "actual": "deny",
+      "passed": true
+    },
+    {
+      "id": "dependency-change",
+      "mode": "enforce",
+      "tool_name": "Bash",
+      "command": "pnpm add zod",
+      "expected": "deny",
+      "actual": "deny",
+      "passed": true
+    },
+    {
+      "id": "runtime-write",
+      "mode": "enforce",
+      "tool_name": "Bash",
+      "command": "python .cpt/bin/cpt_runtime.py status",
+      "expected": "allow",
+      "actual": "allow",
+      "passed": true
+    },
+    {
+      "id": "broad-read-audit",
+      "mode": "audit",
+      "tool_name": "Bash",
+      "command": "rg --files .",
+      "expected": "warn",
+      "actual": "warn",
+      "passed": true
+    }
+  ]
+}

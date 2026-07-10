@@ -10,6 +10,8 @@ import json
 import os
 import re
 import shutil
+import shlex
+import uuid
 import sys
 import tempfile
 import time
@@ -26,8 +28,8 @@ except ImportError as exc:
         "Missing runtime dependencies. Install PyYAML and fastjsonschema using the CPT package requirements."
     ) from exc
 
-SCHEMA_VERSION = "4.0-alpha5"
-KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha5"
+SCHEMA_VERSION = "4.0-alpha6"
+KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha6"
 
 
 def utc_now() -> str:
@@ -135,6 +137,9 @@ def paths(root: Path) -> dict[str, Path]:
         "knowledge_index": cpt / "knowledge" / "index.yaml",
         "knowledge_artifacts": cpt / "knowledge" / "artifacts",
         "knowledge_views": cpt / "knowledge" / "views",
+        "enforcement": cpt / "enforcement.yaml",
+        "audit": cpt / "audit" / "events.jsonl",
+        "workers": cpt / "workers",
     }
 
 
@@ -387,6 +392,13 @@ def validate_runtime(root: Path) -> tuple[list[str], list[str]]:
     expected_summary = render_summary(root, current, index)
     if summary != expected_summary:
         warnings.append("runtime-summary: content differs from generated projection; run render-summary")
+
+    enforcement_path = p["enforcement"]
+    if enforcement_path.exists():
+        enforcement = load_yaml(enforcement_path)
+        errors += validate_schema(enforcement, "enforcement.schema.json", ".cpt/enforcement.yaml")
+    for worker in sorted(p["workers"].glob("*.yaml")):
+        errors += validate_schema(load_yaml(worker), "worker-record.schema.json", str(worker.relative_to(root)))
 
     knowledge_errors, knowledge_warnings = validate_knowledge(root, check_views=True)
     errors += knowledge_errors
@@ -713,6 +725,9 @@ def command_lease_create(root: Path, args) -> int:
             serial += 1
         ts = utc_now()
         verify = [{"command": cmd, "cwd": args.cwd, "purpose": "Verify approved task outcome"} for cmd in args.verify]
+        default_forbidden = {"dependency_change", "migration", "public_api_change", "network_access", "destructive_git"}
+        allowed_operations = set(args.allow_operation or [])
+        forbidden_operations = sorted((default_forbidden | set(args.forbid or [])) - allowed_operations)
         lease = {
             "schema_version": SCHEMA_VERSION,
             "id": lease_id,
@@ -723,7 +738,7 @@ def command_lease_create(root: Path, args) -> int:
             "write_scope": args.write,
             "verification_scope": verify,
             "delegation": {"allowed": bool(args.worker), "max_workers": len(args.worker), "read_only": args.workers_read_only, "allowed_worker_archetypes": args.worker},
-            "forbidden_operations": args.forbid,
+            "forbidden_operations": forbidden_operations,
             "expires": {"task_completion": True, "scope_change": True, "manual_revoke": True, "at": args.expires_at},
             "granted_by": "user",
             "rationale": args.rationale,
@@ -776,7 +791,7 @@ def make_checkpoint(root: Path, source: str, reason: str) -> dict:
         "created_at": utc_now(),
         "runtime_revision": current["state_revision"],
         "snapshot": {"current": copy.deepcopy(current), "task_index": copy.deepcopy(index), "active_task": active_task, "active_micro_change": active_micro, "active_lease": active_lease},
-        "unresolved_work": {"blockers": copy.deepcopy(current.get("blockers", [])), "unfinished_verification": [], "next_operation": copy.deepcopy(current.get("next_operation")), "worker_registry": []},
+        "unresolved_work": {"blockers": copy.deepcopy(current.get("blockers", [])), "unfinished_verification": [], "next_operation": copy.deepcopy(current.get("next_operation")), "worker_registry": copy.deepcopy(worker_records(root))},
         "integrity": {},
     }
     cp["integrity"] = {
@@ -854,6 +869,9 @@ def snapshot_diff(root: Path, cp: dict) -> list[str]:
         live = load_yaml(path) if path.exists() else None
         if live != snap["active_lease"]:
             diffs.append("active lease differs")
+    checkpoint_workers = cp.get("unresolved_work", {}).get("worker_registry", [])
+    if worker_records(root) != checkpoint_workers:
+        diffs.append("worker lifecycle state differs")
     return diffs
 
 
@@ -1578,14 +1596,872 @@ def command_knowledge_sanitize_check(root: Path, args) -> int:
     return 1 if findings or policy_errors else 0
 
 
+
+# ---------------------------------------------------------------------------
+# Alpha 6 deterministic runtime enforcement
+# ---------------------------------------------------------------------------
+
+SENSITIVE_REDACTIONS = [
+    re.compile(r"sk-[A-Za-z0-9_-]{20,}"),
+    re.compile(r"gh[pousr]_[A-Za-z0-9_]{20,}"),
+    re.compile(r"AKIA[0-9A-Z]{16}"),
+    re.compile(r"(?i)(authorization:\s*bearer\s+)[^\s]+"),
+    re.compile(r"(?i)(password|token|secret|api[_-]?key)\s*[=:]\s*[^\s]+"),
+]
+
+
+def enforcement_file(root: Path) -> Path:
+    return paths(root)["enforcement"]
+
+
+def default_enforcement_config() -> dict:
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "mode": "off",
+        "hooks": {
+            "bundled_with_core_plugin": True,
+            "trust_state": "unknown",
+            "project_trust_required": True,
+        },
+        "lease_policy": {
+            "require_for_project_writes": True,
+            "require_for_expensive_verification": True,
+            "read_scope_mode": "audit",
+            "unknown_write_target": "deny",
+            "runtime_path_exemptions": [".cpt/**"],
+        },
+        "command_policy": {
+            "deny_globally": ["destructive_git", "filesystem_root_delete"],
+            "dependency_changes_require_lease": True,
+            "network_requires_lease": True,
+            "migrations_require_lease": True,
+            "public_contract_changes_require_lease": True,
+            "dependency_manifest_paths": [
+                "package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock*",
+                "requirements*.txt", "pyproject.toml", "poetry.lock", "uv.lock", "Pipfile", "Pipfile.lock",
+                "Cargo.toml", "Cargo.lock", "go.mod", "go.sum", "composer.json", "composer.lock"
+            ],
+            "migration_paths": ["migrations/**", "db/migrate/**", "alembic/**", "prisma/migrations/**", "drizzle/**"],
+            "public_contract_paths": [],
+        },
+        "compaction": {
+            "checkpoint_before_compaction": True,
+            "block_when_checkpoint_fails": True,
+            "verify_after_compaction": True,
+            "block_on_mismatch": True,
+            "block_with_active_workers": True,
+            "retain_automatic_checkpoints": 5,
+        },
+        "knowledge": {
+            "stale_scan_after_project_write": True,
+            "exclude_paths": [".cpt/**", ".codex/**", ".git/**"],
+        },
+        "audit": {
+            "log_path": ".cpt/audit/events.jsonl",
+            "command_preview_chars": 240,
+            "tool_output_soft_chars": 12000,
+            "tool_output_hard_chars": 50000,
+            "rotate_bytes": 5242880,
+            "retain_files": 5,
+            "redact_sensitive_values": True,
+        },
+        "subagents": {"record_lifecycle": True, "default_max_active": 3},
+        "stop": {"validate_runtime": True, "continue_once_when_invalid": True},
+        "approval": {"auto_allow_within_lease": False},
+        "updated_at": utc_now(),
+    }
+
+
+def load_enforcement(root: Path) -> dict:
+    path = enforcement_file(root)
+    if not path.exists():
+        return default_enforcement_config()
+    return load_yaml(path)
+
+
+def sanitize_preview(text: str, limit: int) -> str:
+    value = text or ""
+    for pattern in SENSITIVE_REDACTIONS:
+        value = pattern.sub(lambda m: (m.group(1) if m.lastindex else "") + "[REDACTED]", value)
+    value = value.replace("\x00", "")
+    return value[:limit]
+
+
+def sanitize_audit_value(value: Any, string_limit: int = 2000) -> Any:
+    if isinstance(value, str):
+        return sanitize_preview(value, string_limit)
+    if isinstance(value, list):
+        return [sanitize_audit_value(item, string_limit) for item in value]
+    if isinstance(value, dict):
+        return {key: sanitize_audit_value(item, string_limit) for key, item in value.items()}
+    return value
+
+
+def audit_log_path(root: Path, config: dict) -> Path:
+    configured = config.get("audit", {}).get("log_path", ".cpt/audit/events.jsonl")
+    return root / configured
+
+
+@contextmanager
+def audit_lock(root: Path, timeout: float = 5.0):
+    lock = root / ".cpt" / ".audit.lock"
+    deadline = time.time() + timeout
+    fd = None
+    while fd is None:
+        try:
+            fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            if time.time() >= deadline:
+                raise RuntimeError(f"Audit lock timeout: {lock}")
+            time.sleep(0.05)
+    try:
+        yield
+    finally:
+        if fd is not None:
+            os.close(fd)
+        try:
+            lock.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def rotate_audit(root: Path, config: dict) -> None:
+    path = audit_log_path(root, config)
+    if not path.exists():
+        return
+    audit = config.get("audit", {})
+    threshold = int(audit.get("rotate_bytes", 5 * 1024 * 1024))
+    if path.stat().st_size < threshold:
+        return
+    retain = int(audit.get("retain_files", 5))
+    for index in range(retain - 1, 0, -1):
+        src = path.with_name(f"{path.name}.{index}")
+        dst = path.with_name(f"{path.name}.{index + 1}")
+        if src.exists():
+            if index + 1 > retain:
+                src.unlink()
+            else:
+                os.replace(src, dst)
+    os.replace(path, path.with_name(f"{path.name}.1"))
+
+
+def append_audit(root: Path, config: dict, *, event: str, decision: str, summary: str,
+                 payload: dict | None = None, tool_name: str | None = None,
+                 command: str | None = None, paths_seen: list[str] | None = None,
+                 violations: list[str] | None = None, metadata: dict | None = None) -> dict:
+    audit = config.get("audit", {})
+    preview_limit = int(audit.get("command_preview_chars", 240))
+    command_hash = hashlib.sha256(command.encode("utf-8")).hexdigest() if command else None
+    record = {
+        "schema_version": SCHEMA_VERSION,
+        "id": f"EVT-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}-{uuid.uuid4().hex[:8]}",
+        "timestamp": utc_now(),
+        "event": event,
+        "mode": config.get("mode", "off"),
+        "decision": decision,
+        "summary": summary,
+        "session_id": (payload or {}).get("session_id"),
+        "turn_id": (payload or {}).get("turn_id"),
+        "tool_name": tool_name,
+        "command_sha256": command_hash,
+        "command_preview": sanitize_preview(command or "", preview_limit) if command else None,
+        "paths": sanitize_audit_value(sorted(set(paths_seen or []))),
+        "violations": sanitize_audit_value(list(violations or [])),
+        "metadata": sanitize_audit_value(metadata or {}),
+    }
+    errors = validate_schema(record, "audit-event.schema.json", "audit event")
+    if errors:
+        raise RuntimeError("; ".join(errors))
+    path = audit_log_path(root, config)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with audit_lock(root):
+        rotate_audit(root, config)
+        with path.open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+    return record
+
+
+def normalize_command(command: str) -> str:
+    return re.sub(r"\s+", " ", command.strip())
+
+
+def normalize_rel_path(root: Path, value: str) -> str:
+    value = value.strip().strip('"').strip("'")
+    if not value or value in {"/dev/null", "NUL"}:
+        return value
+    path = Path(value)
+    if path.is_absolute():
+        try:
+            return path.resolve().relative_to(root.resolve()).as_posix()
+        except ValueError:
+            return path.resolve().as_posix()
+    return Path(os.path.normpath(value)).as_posix().lstrip("./") or "."
+
+
+def matches_scope(path: str, scopes: list[str]) -> bool:
+    if not path:
+        return False
+    for scope in scopes:
+        normalized = scope.strip().lstrip("./")
+        if normalized in {".", "**", "*"}:
+            return True
+        if fnmatch.fnmatch(path, normalized) or fnmatch.fnmatch(path + "/", normalized):
+            return True
+        if normalized.endswith("/**") and (path == normalized[:-3].rstrip("/") or path.startswith(normalized[:-3])):
+            return True
+    return False
+
+
+def extract_patch_paths(command: str, root: Path) -> list[str]:
+    found: list[str] = []
+    for line in command.splitlines():
+        match = re.match(r"^\*\*\* (?:Update|Add|Delete) File:\s+(.+)$", line)
+        if match:
+            found.append(normalize_rel_path(root, match.group(1)))
+            continue
+        match = re.match(r"^(?:\+\+\+|---) [ab]/(.+)$", line)
+        if match:
+            found.append(normalize_rel_path(root, match.group(1)))
+    return sorted(set(p for p in found if p))
+
+
+def extract_bash_paths(command: str, root: Path) -> list[str]:
+    paths_found: list[str] = []
+    for match in re.finditer(r"(?:>|>>)\s*([^|;&\s]+)", command):
+        paths_found.append(normalize_rel_path(root, match.group(1)))
+    try:
+        tokens = shlex.split(command, posix=True)
+    except ValueError:
+        tokens = []
+    if tokens:
+        base = Path(tokens[0]).name
+        if base in {"cp", "mv", "install"} and len(tokens) >= 3:
+            paths_found.extend(normalize_rel_path(root, item) for item in tokens[-2:])
+        elif base in {"rm", "touch", "mkdir", "rmdir"}:
+            paths_found.extend(normalize_rel_path(root, item) for item in tokens[1:] if not item.startswith("-"))
+        elif base == "sed" and any(item.startswith("-i") for item in tokens[1:]):
+            paths_found.extend(normalize_rel_path(root, item) for item in tokens[1:] if not item.startswith("-") and not item.startswith("s"))
+        elif base == "git" and len(tokens) >= 3 and tokens[1] in {"restore", "checkout", "rm", "mv"}:
+            paths_found.extend(normalize_rel_path(root, item) for item in tokens[2:] if not item.startswith("-"))
+        elif base == "rg" and "--files" in tokens:
+            candidates = [item for item in tokens[tokens.index("--files") + 1:] if not item.startswith("-")]
+            paths_found.extend(normalize_rel_path(root, item) for item in candidates or ["."])
+        elif base in {"find", "tree", "ls"}:
+            candidates = [item for item in tokens[1:] if not item.startswith("-")]
+            paths_found.extend(normalize_rel_path(root, item) for item in candidates or ["."])
+        elif base in {"cat", "head", "tail"}:
+            candidates = [item for item in tokens[1:] if not item.startswith("-") and not item.isdigit()]
+            paths_found.extend(normalize_rel_path(root, item) for item in candidates)
+        elif base == "sed" and "-n" in tokens:
+            candidates = [item for item in tokens[1:] if not item.startswith("-")]
+            if len(candidates) > 1:
+                candidates = candidates[1:]
+            paths_found.extend(normalize_rel_path(root, item) for item in candidates)
+        elif base in {"grep", "rg"} and len(tokens) >= 3:
+            candidates = [item for item in tokens[2:] if not item.startswith("-")]
+            paths_found.extend(normalize_rel_path(root, item) for item in candidates)
+    return sorted(set(p for p in paths_found if p and p != "-"))
+
+
+def operation_tags_for_paths(paths_seen: list[str], config: dict) -> list[str]:
+    policy = config.get("command_policy", {})
+    tagged: list[str] = []
+    mappings = {
+        "dependency_change": policy.get("dependency_manifest_paths", []),
+        "migration": policy.get("migration_paths", []),
+        "public_api_change": policy.get("public_contract_paths", []),
+    }
+    for tag, patterns in mappings.items():
+        if patterns and any(matches_scope(path, patterns) for path in paths_seen):
+            tagged.append(tag)
+    return tagged
+
+
+def classify_command(command: str, tool_name: str, root: Path) -> dict:
+    normalized = normalize_command(command)
+    lower = normalized.lower()
+    tags: list[str] = []
+    write = tool_name == "apply_patch"
+    read = False
+    broad_read = False
+    verification = bool(re.search(r"(?:^|\s)(?:pytest|unittest|jest|vitest|playwright|eslint|ruff|mypy|tsc|cargo test|go test|npm (?:run )?(?:test|lint|build)|pnpm (?:test|lint|build)|yarn (?:test|lint|build))(?:\s|$)", lower))
+    if re.search(r"\bgit\s+reset\s+--hard\b|\bgit\s+clean\s+-[^\s]*(?:f[^\s]*d|d[^\s]*f)|\bgit\s+push\b[^\n]*(?:--force(?:-with-lease)?|\s-f(?:\s|$))", lower):
+        tags.append("destructive_git")
+        write = True
+    if re.search(r"\brm\s+-[^\s]*r[^\s]*f[^\s]*\s+/(?:\s|$)", lower):
+        tags.append("filesystem_root_delete")
+        write = True
+    if re.search(r"(?:^|[;&|]\s*)(?:npm|pnpm|yarn|pip3?|uv|poetry)\s+(?:install|i|add|remove|uninstall)\b", lower):
+        tags.append("dependency_change")
+        write = True
+    if re.search(r"(?:^|[;&|]\s*)(?:curl|wget|ssh|scp|rsync\s+[^ ]+@|gh\s+api)\b", lower):
+        tags.append("network_access")
+    if re.search(r"\b(?:alembic|prisma\s+migrate|manage\.py\s+migrate|rails\s+db:migrate|typeorm\s+migration|flyway|liquibase)\b", lower):
+        tags.append("migration")
+        write = True
+    if tool_name == "Bash":
+        if re.search(r"(?:>|>>)|\b(?:tee|sed\s+-i|perl\s+-pi|cp|mv|rm|touch|mkdir|rmdir|git\s+(?:checkout|restore|add|commit|merge|rebase|cherry-pick))\b", lower):
+            write = True
+        if re.match(r"^(?:cat|head|tail|sed\s+-n|rg|grep|find|ls|tree|git\s+(?:status|diff|show|log)|python\s+-m\s+json\.tool)\b", lower):
+            read = True
+        if re.match(r"^(?:find|tree)\s+(?:\.|/)|^rg\s+--files(?:\s+\.|\s*$)|^git\s+grep\b", lower):
+            broad_read = True
+    paths_seen = extract_patch_paths(command, root) if tool_name == "apply_patch" else extract_bash_paths(command, root)
+    return {"write": write, "read": read, "broad_read": broad_read, "verification": verification, "tags": sorted(set(tags)), "paths": paths_seen, "normalized": normalized}
+
+
+def active_lease(root: Path) -> dict | None:
+    current = load_yaml(paths(root)["current"])
+    lease_id = current.get("current_lease")
+    if not lease_id:
+        return None
+    path = lease_file(root, lease_id)
+    if not path.exists():
+        return None
+    lease = load_yaml(path)
+    if lease.get("status") != "active":
+        return None
+    expires_at = lease.get("expires", {}).get("at")
+    if expires_at:
+        try:
+            if datetime.fromisoformat(expires_at.replace("Z", "+00:00")) <= datetime.now(timezone.utc):
+                return None
+        except ValueError:
+            return None
+    return lease
+
+
+def is_runtime_exempt(path: str, config: dict) -> bool:
+    return matches_scope(path, config.get("lease_policy", {}).get("runtime_path_exemptions", [".cpt/**"]))
+
+
+def command_policy(root: Path, config: dict, tool_name: str, command: str) -> dict:
+    info = classify_command(command, tool_name, root)
+    info["tags"] = sorted(set(info.get("tags", []) + operation_tags_for_paths(info.get("paths", []), config)))
+    lease = active_lease(root)
+    violations: list[str] = []
+    warnings: list[str] = []
+    denied_tags = set(config.get("command_policy", {}).get("deny_globally", []))
+    for tag in info["tags"]:
+        if tag in denied_tags:
+            violations.append(f"globally forbidden operation: {tag}")
+    if lease:
+        forbidden = set(lease.get("forbidden_operations", []))
+        for tag in info["tags"]:
+            if tag in forbidden:
+                violations.append(f"lease forbids operation: {tag}")
+    elif any(tag in {"dependency_change", "network_access", "migration", "public_api_change"} for tag in info["tags"]):
+        violations.append("operation requires an active scoped lease")
+    if info["write"]:
+        non_runtime = [path for path in info["paths"] if not is_runtime_exempt(path, config)]
+        if non_runtime:
+            if not lease and config.get("lease_policy", {}).get("require_for_project_writes", True):
+                violations.append("project write requires an active scoped lease")
+            elif lease:
+                outside = [path for path in non_runtime if not matches_scope(path, lease.get("write_scope", []))]
+                if outside:
+                    violations.append("write target outside lease scope: " + ", ".join(outside))
+        elif not info["paths"] and tool_name == "apply_patch":
+            violations.append("apply_patch target could not be determined")
+        elif not info["paths"] and config.get("lease_policy", {}).get("unknown_write_target") == "deny":
+            runtime_command = info["normalized"].startswith("python .cpt/bin/cpt_runtime.py") or info["normalized"].startswith("python3 .cpt/bin/cpt_runtime.py")
+            broad_lease = bool(lease and any(scope.strip() in {".", "*", "**", "./**"} for scope in lease.get("write_scope", [])))
+            if not runtime_command and not broad_lease:
+                violations.append("write command target could not be determined; use an explicit broad write scope only when the operation is intentionally project-wide")
+    if info["verification"] and config.get("lease_policy", {}).get("require_for_expensive_verification", True):
+        approved = [] if not lease else [normalize_command(item["command"]) for item in lease.get("verification_scope", [])]
+        if info["normalized"] not in approved:
+            violations.append("verification command is not listed in the active lease")
+    if info["broad_read"]:
+        read_mode = config.get("lease_policy", {}).get("read_scope_mode", "audit")
+        in_scope = bool(lease and any(matches_scope(path, lease.get("read_scope", [])) for path in info["paths"]))
+        message = "broad read should be bounded by an approved read scope"
+        if read_mode == "enforce" and not in_scope:
+            violations.append(message)
+        elif read_mode == "audit" and not in_scope:
+            warnings.append(message)
+    decision = "deny" if violations else ("warn" if warnings else "allow")
+    return {"decision": decision, "violations": violations, "warnings": warnings, "classification": info, "lease_id": None if lease is None else lease["id"]}
+
+
+def tool_command(payload: dict) -> tuple[str | None, str]:
+    tool_name = payload.get("tool_name")
+    tool_input = payload.get("tool_input") or {}
+    if isinstance(tool_input, dict):
+        command = tool_input.get("command")
+        if isinstance(command, str):
+            return tool_name, command
+    return tool_name, json.dumps(tool_input, ensure_ascii=False, sort_keys=True)
+
+
+def hook_json(**kwargs) -> int:
+    if "continue_" in kwargs:
+        kwargs["continue"] = kwargs.pop("continue_")
+    kwargs = {key: value for key, value in kwargs.items() if value is not None}
+    print(json.dumps(kwargs, ensure_ascii=False))
+    return 0
+
+
+def mode_blocks(config: dict) -> bool:
+    return config.get("mode") == "enforce"
+
+
+def git_changed_paths(root: Path) -> list[str]:
+    try:
+        result = subprocess.run(["git", "-C", str(root), "status", "--porcelain=v1", "-z", "--untracked-files=all"], text=False, capture_output=True, timeout=20)
+    except (OSError, subprocess.TimeoutExpired):
+        return []
+    if result.returncode != 0:
+        return []
+    items = result.stdout.split(b"\x00")
+    found: list[str] = []
+    for item in items:
+        if not item:
+            continue
+        text = item.decode("utf-8", errors="replace")
+        if len(text) < 4:
+            continue
+        path = text[3:]
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        found.append(Path(path).as_posix())
+    return sorted(set(found))
+
+
+def knowledge_changed_paths(root: Path, config: dict, changed: list[str]) -> list[str]:
+    excluded = config.get("knowledge", {}).get("exclude_paths", [])
+    return [path for path in changed if not matches_scope(path, excluded)]
+
+
+def tool_response_size(value: Any) -> int:
+    try:
+        return len(json.dumps(value, ensure_ascii=False))
+    except Exception:
+        return len(str(value))
+
+
+def worker_path(root: Path, agent_id: str) -> Path:
+    safe = re.sub(r"[^A-Za-z0-9._-]+", "-", agent_id)
+    return paths(root)["workers"] / f"{safe}.yaml"
+
+
+def worker_records(root: Path) -> list[dict]:
+    result = []
+    for path in sorted(paths(root)["workers"].glob("*.yaml")):
+        try:
+            result.append(load_yaml(path))
+        except Exception:
+            continue
+    return result
+
+
+def active_worker_limit(root: Path, config: dict) -> int:
+    lease = active_lease(root)
+    if lease and lease.get("delegation", {}).get("allowed"):
+        return int(lease["delegation"].get("max_workers", 0))
+    return int(config.get("subagents", {}).get("default_max_active", 3))
+
+
+def record_worker_start(root: Path, config: dict, payload: dict) -> tuple[dict, list[str]]:
+    current = load_yaml(paths(root)["current"])
+    record = {
+        "schema_version": SCHEMA_VERSION,
+        "agent_id": payload.get("agent_id") or "unknown",
+        "agent_type": payload.get("agent_type") or "unknown",
+        "status": "running",
+        "session_id": payload.get("session_id"),
+        "turn_id": payload.get("turn_id"),
+        "task_id": current.get("current_task"),
+        "lease_id": current.get("current_lease"),
+        "permission_mode": payload.get("permission_mode"),
+        "started_at": utc_now(),
+        "stopped_at": None,
+        "transcript_path": None,
+        "last_message_sha256": None,
+        "updated_at": utc_now(),
+    }
+    errors = validate_schema(record, "worker-record.schema.json", "worker record")
+    if errors:
+        raise RuntimeError("; ".join(errors))
+    path = worker_path(root, record["agent_id"])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write_yaml(path, record)
+    running = [item for item in worker_records(root) if item.get("status") == "running"]
+    warnings = []
+    limit = active_worker_limit(root, config)
+    if len(running) > limit:
+        warnings.append(f"active workers {len(running)} exceed approved limit {limit}")
+    lease = active_lease(root)
+    if lease and not lease.get("delegation", {}).get("allowed"):
+        warnings.append("active lease does not allow delegation")
+    return record, warnings
+
+
+def record_worker_stop(root: Path, payload: dict) -> dict:
+    agent_id = payload.get("agent_id") or "unknown"
+    path = worker_path(root, agent_id)
+    record = load_yaml(path) if path.exists() else {
+        "schema_version": SCHEMA_VERSION,
+        "agent_id": agent_id,
+        "agent_type": payload.get("agent_type") or "unknown",
+        "status": "unknown",
+        "session_id": payload.get("session_id"),
+        "turn_id": payload.get("turn_id"),
+        "task_id": None,
+        "lease_id": None,
+        "permission_mode": payload.get("permission_mode"),
+        "started_at": None,
+        "stopped_at": None,
+        "transcript_path": None,
+        "last_message_sha256": None,
+        "updated_at": utc_now(),
+    }
+    message = payload.get("last_assistant_message")
+    record["status"] = "completed" if message else "interrupted"
+    record["stopped_at"] = utc_now()
+    record["transcript_path"] = payload.get("agent_transcript_path")
+    record["last_message_sha256"] = hashlib.sha256(message.encode("utf-8")).hexdigest() if message else None
+    record["updated_at"] = utc_now()
+    errors = validate_schema(record, "worker-record.schema.json", "worker record")
+    if errors:
+        raise RuntimeError("; ".join(errors))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write_yaml(path, record)
+    return record
+
+
+def prune_automatic_checkpoints(root: Path, retain: int) -> None:
+    candidates = []
+    for path in paths(root)["checkpoints"].glob("CP-*.yaml"):
+        try:
+            data = load_yaml(path)
+        except Exception:
+            continue
+        if data.get("source") == "pre_compact":
+            candidates.append((data.get("created_at", ""), path))
+    candidates.sort(reverse=True)
+    for _, path in candidates[retain:]:
+        path.unlink(missing_ok=True)
+
+
+def handle_session_start(root: Path, config: dict, payload: dict) -> int:
+    errors, warnings = validate_runtime(root)
+    current = load_yaml(paths(root)["current"])
+    summary = f"CPT mode={config.get('mode')}; runtime={current.get('runtime_status')}; task={current.get('current_task') or 'none'}; lease={current.get('current_lease') or 'none'}."
+    if errors:
+        append_audit(root, config, event="SessionStart", decision="stop" if mode_blocks(config) else "warn", summary="Runtime validation failed at session start", payload=payload, violations=errors, metadata={"warnings": warnings})
+        message = "CPT runtime is invalid: " + "; ".join(errors[:5])
+        if mode_blocks(config):
+            return hook_json(continue_=False, stopReason=message, systemMessage=message)
+        return hook_json(systemMessage=message, hookSpecificOutput={"hookEventName":"SessionStart","additionalContext":summary + " Validate runtime before making project changes."})
+    append_audit(root, config, event="SessionStart", decision="record", summary=summary, payload=payload, metadata={"warnings": warnings})
+    return hook_json(hookSpecificOutput={"hookEventName":"SessionStart","additionalContext":summary + " Load .cpt/runtime-summary.md and referenced active records only."})
+
+
+def handle_pre_tool(root: Path, config: dict, payload: dict, permission_request: bool = False) -> int:
+    tool_name, command = tool_command(payload)
+    policy = command_policy(root, config, tool_name or "unknown", command)
+    violations = policy["violations"]
+    warnings = policy["warnings"]
+    decision = "deny" if violations and mode_blocks(config) else ("warn" if violations or warnings else "allow")
+    append_audit(root, config, event="PermissionRequest" if permission_request else "PreToolUse", decision=decision, summary="; ".join(violations or warnings) or "Tool request within CPT policy", payload=payload, tool_name=tool_name, command=command, paths_seen=policy["classification"]["paths"], violations=violations, metadata={"warnings":warnings,"lease_id":policy["lease_id"],"classification":policy["classification"]})
+    if violations and mode_blocks(config):
+        reason = "CPT enforcement blocked the request: " + "; ".join(violations)
+        if permission_request:
+            return hook_json(hookSpecificOutput={"hookEventName":"PermissionRequest","decision":{"behavior":"deny","message":reason}})
+        return hook_json(hookSpecificOutput={"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":reason})
+    if permission_request and not violations and config.get("approval", {}).get("auto_allow_within_lease") and policy.get("lease_id"):
+        return hook_json(hookSpecificOutput={"hookEventName":"PermissionRequest","decision":{"behavior":"allow"}})
+    context = "; ".join(violations or warnings)
+    if context:
+        if permission_request:
+            return hook_json(systemMessage="CPT audit warning: " + context)
+        return hook_json(hookSpecificOutput={"hookEventName":"PreToolUse","additionalContext":"CPT audit warning: " + context})
+    return 0
+
+
+def handle_post_tool(root: Path, config: dict, payload: dict) -> int:
+    tool_name, command = tool_command(payload)
+    policy = command_policy(root, config, tool_name or "unknown", command)
+    response_size = tool_response_size(payload.get("tool_response"))
+    warnings = list(policy.get("warnings", []))
+    soft = int(config.get("audit", {}).get("tool_output_soft_chars", 12000))
+    hard = int(config.get("audit", {}).get("tool_output_hard_chars", 50000))
+    if response_size > soft:
+        warnings.append(f"tool output was {response_size} chars; prefer a narrower command or summarized evidence")
+    changed: list[str] = []
+    if policy.get("classification", {}).get("write"):
+        detected = list(policy.get("classification", {}).get("paths", []))
+        changed = detected or git_changed_paths(root)
+    relevant = knowledge_changed_paths(root, config, changed)
+    marked: list[str] = []
+    if relevant and config.get("knowledge", {}).get("stale_scan_after_project_write") and paths(root)["knowledge_index"].exists():
+        args = argparse.Namespace(changed=relevant, event=[], git_base=None, source_kind=None, source_value=None)
+        capture = []
+        original_stdout = sys.stdout
+        try:
+            from io import StringIO
+            buffer = StringIO(); sys.stdout = buffer
+            command_knowledge_stale_scan(root, args)
+            capture_text = buffer.getvalue()
+            capture.append(capture_text)
+            try:
+                marked = json.loads(capture_text).get("marked_artifacts", [])
+            except Exception:
+                pass
+        finally:
+            sys.stdout = original_stdout
+    errors, runtime_warnings = validate_runtime(root)
+    decision = "stop" if errors and mode_blocks(config) else ("warn" if errors or warnings or runtime_warnings else "record")
+    append_audit(root, config, event="PostToolUse", decision=decision, summary="Post-tool audit", payload=payload, tool_name=tool_name, command=command, paths_seen=changed, violations=errors, metadata={"tool_output_chars":response_size,"warnings":warnings+runtime_warnings,"knowledge_marked":marked})
+    messages = warnings + runtime_warnings
+    if response_size > hard:
+        messages.append(f"tool output exceeded hard guidance ({hard} chars)")
+    if errors and mode_blocks(config):
+        reason = "CPT runtime invalid after tool use: " + "; ".join(errors[:5])
+        return hook_json(continue_=False, stopReason=reason, systemMessage=reason)
+    if messages:
+        return hook_json(systemMessage="CPT post-tool warning: " + "; ".join(messages[:5]), hookSpecificOutput={"hookEventName":"PostToolUse","additionalContext":"Review the CPT warnings before the next operation."})
+    return 0
+
+
+def handle_pre_compact(root: Path, config: dict, payload: dict) -> int:
+    if not config.get("compaction", {}).get("checkpoint_before_compaction", True):
+        return 0
+    active_workers = [item for item in worker_records(root) if item.get("status") == "running"]
+    worker_warning = None
+    if active_workers:
+        worker_warning = f"{len(active_workers)} subagent worker(s) are still active"
+        if mode_blocks(config) and config.get("compaction", {}).get("block_with_active_workers", True):
+            append_audit(root, config, event="PreCompact", decision="stop", summary=worker_warning, payload=payload, violations=[worker_warning])
+            return hook_json(continue_=False, stopReason=worker_warning, systemMessage=worker_warning)
+    try:
+        with runtime_lock(root):
+            errors, _ = validate_runtime(root)
+            if errors:
+                raise RuntimeError("; ".join(errors))
+            cp = make_checkpoint(root, "pre_compact", f"Automatic checkpoint before {payload.get('trigger','unknown')} compaction")
+            current = load_yaml(paths(root)["current"]); index = load_yaml(paths(root)["task_index"])
+            current["latest_checkpoint"] = cp["id"]; bump(current)
+            atomic_write_yaml(checkpoint_file(root, cp["id"]), cp); atomic_write_yaml(paths(root)["current"], current); write_summary(root,current,index)
+            prune_automatic_checkpoints(root, int(config.get("compaction", {}).get("retain_automatic_checkpoints", 5)))
+        append_audit(root, config, event="PreCompact", decision="warn" if worker_warning else "record", summary=f"Created checkpoint {cp['id']}", payload=payload, violations=[worker_warning] if worker_warning else [], metadata={"checkpoint_id":cp["id"]})
+        message = f"CPT checkpoint {cp['id']} created before compaction."
+        if worker_warning:
+            message += " Warning: " + worker_warning
+        return hook_json(systemMessage=message)
+    except Exception as exc:
+        message = f"CPT could not checkpoint before compaction: {exc}"
+        append_audit(root, config, event="PreCompact", decision="stop" if mode_blocks(config) else "warn", summary=message, payload=payload, violations=[str(exc)])
+        if mode_blocks(config) and config.get("compaction", {}).get("block_when_checkpoint_fails", True):
+            return hook_json(continue_=False, stopReason=message, systemMessage=message)
+        return hook_json(systemMessage=message)
+
+
+def handle_post_compact(root: Path, config: dict, payload: dict) -> int:
+    if not config.get("compaction", {}).get("verify_after_compaction", True):
+        return 0
+    try:
+        cp_path = resolve_checkpoint(root, "latest")
+        cp = load_yaml(cp_path)
+        diffs = verify_checkpoint_integrity(cp) + snapshot_diff(root, cp)
+        errors, warnings = validate_runtime(root)
+        diffs += errors
+        if diffs:
+            raise RuntimeError("; ".join(diffs))
+        append_audit(root, config, event="PostCompact", decision="record", summary=f"Verified checkpoint {cp['id']} after compaction", payload=payload, metadata={"checkpoint_id":cp["id"],"warnings":warnings})
+        return hook_json(systemMessage=f"CPT checkpoint {cp['id']} verified. Reload .cpt/runtime-summary.md and the referenced active records before continuing.")
+    except Exception as exc:
+        message = f"CPT state mismatch after compaction: {exc}"
+        append_audit(root, config, event="PostCompact", decision="stop" if mode_blocks(config) else "warn", summary=message, payload=payload, violations=[str(exc)])
+        if mode_blocks(config) and config.get("compaction", {}).get("block_on_mismatch", True):
+            return hook_json(continue_=False, stopReason=message, systemMessage=message)
+        return hook_json(systemMessage=message)
+
+
+def handle_subagent_start(root: Path, config: dict, payload: dict) -> int:
+    if not config.get("subagents", {}).get("record_lifecycle", True):
+        return 0
+    record, warnings = record_worker_start(root, config, payload)
+    append_audit(root, config, event="SubagentStart", decision="warn" if warnings else "record", summary=f"Worker {record['agent_id']} started", payload=payload, violations=warnings, metadata={"agent_type":record["agent_type"],"task_id":record["task_id"],"lease_id":record["lease_id"]})
+    context = f"CPT worker record: task={record['task_id'] or 'none'}, lease={record['lease_id'] or 'none'}. Stay inside the delegated bounded contract and return a compact evidence-backed artifact."
+    if warnings:
+        context += " Warnings: " + "; ".join(warnings)
+    return hook_json(hookSpecificOutput={"hookEventName":"SubagentStart","additionalContext":context}, systemMessage="; ".join(warnings) if warnings else None)
+
+
+def handle_subagent_stop(root: Path, config: dict, payload: dict) -> int:
+    if not config.get("subagents", {}).get("record_lifecycle", True):
+        return 0
+    record = record_worker_stop(root, payload)
+    append_audit(root, config, event="SubagentStop", decision="record", summary=f"Worker {record['agent_id']} stopped with status {record['status']}", payload=payload, metadata={"agent_type":record["agent_type"],"status":record["status"]})
+    return hook_json(systemMessage=f"CPT recorded worker {record['agent_id']} as {record['status']}.")
+
+
+def handle_stop(root: Path, config: dict, payload: dict) -> int:
+    if not config.get("stop", {}).get("validate_runtime", True):
+        return 0
+    errors, warnings = validate_runtime(root)
+    if not errors:
+        append_audit(root, config, event="Stop", decision="record", summary="Runtime valid at stop", payload=payload, metadata={"warnings":warnings})
+        return 0
+    message = "CPT runtime invalid at stop: " + "; ".join(errors[:5])
+    append_audit(root, config, event="Stop", decision="stop" if mode_blocks(config) else "warn", summary=message, payload=payload, violations=errors, metadata={"warnings":warnings})
+    if mode_blocks(config) and config.get("stop", {}).get("continue_once_when_invalid", True) and not payload.get("stop_hook_active"):
+        return hook_json(decision="block", reason=message + " Repair or explicitly defer the runtime inconsistency before finishing.")
+    return hook_json(continue_=False, stopReason=message, systemMessage=message) if mode_blocks(config) else hook_json(systemMessage=message)
+
+
+def command_hook_handle(root: Path, _args) -> int:
+    try:
+        payload = json.load(sys.stdin)
+    except Exception as exc:
+        print(f"Invalid hook input: {exc}", file=sys.stderr)
+        return 1
+    config = load_enforcement(root)
+    if config.get("mode", "off") == "off":
+        return 0
+    event = payload.get("hook_event_name")
+    try:
+        if event == "SessionStart": return handle_session_start(root, config, payload)
+        if event == "PreToolUse": return handle_pre_tool(root, config, payload, False)
+        if event == "PermissionRequest": return handle_pre_tool(root, config, payload, True)
+        if event == "PostToolUse": return handle_post_tool(root, config, payload)
+        if event == "PreCompact": return handle_pre_compact(root, config, payload)
+        if event == "PostCompact": return handle_post_compact(root, config, payload)
+        if event == "SubagentStart": return handle_subagent_start(root, config, payload)
+        if event == "SubagentStop": return handle_subagent_stop(root, config, payload)
+        if event == "Stop": return handle_stop(root, config, payload)
+        append_audit(root, config, event=event or "unknown", decision="record", summary="Unhandled hook event", payload=payload)
+        return 0
+    except Exception as exc:
+        try:
+            append_audit(root, config, event=event or "unknown", decision="error", summary=str(exc), payload=payload, violations=[str(exc)])
+        except Exception:
+            pass
+        if mode_blocks(config):
+            if event in {"PreToolUse"}:
+                return hook_json(hookSpecificOutput={"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":f"CPT enforcement error: {exc}"})
+            if event == "PermissionRequest":
+                return hook_json(hookSpecificOutput={"hookEventName":"PermissionRequest","decision":{"behavior":"deny","message":f"CPT enforcement error: {exc}"}})
+            return hook_json(continue_=False, stopReason=f"CPT enforcement error: {exc}", systemMessage=f"CPT enforcement error: {exc}")
+        return hook_json(systemMessage=f"CPT enforcement audit error: {exc}")
+
+
+def command_enforcement_status(root: Path, _args) -> int:
+    config = load_enforcement(root)
+    log = audit_log_path(root, config)
+    workers = worker_records(root)
+    data = {
+        "mode": config.get("mode", "off"),
+        "hook_trust": config.get("hooks", {}).get("trust_state", "unknown"),
+        "plugin_hooks_bundled": config.get("hooks", {}).get("bundled_with_core_plugin", False),
+        "audit_log": str(log.relative_to(root)),
+        "audit_bytes": log.stat().st_size if log.exists() else 0,
+        "active_workers": sum(1 for item in workers if item.get("status") == "running"),
+        "worker_records": len(workers),
+        "latest_checkpoint": load_yaml(paths(root)["current"]).get("latest_checkpoint"),
+        "native_boundary_note": "CPT enforcement is a guardrail. Native Codex sandbox, permissions, approvals, and rules remain authoritative.",
+    }
+    print(json.dumps(data, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_enforcement_set(root: Path, args) -> int:
+    with runtime_lock(root):
+        config = load_enforcement(root)
+        effective_trust = args.trust_state or config.get("hooks", {}).get("trust_state", "unknown")
+        if args.mode == "enforce" and effective_trust != "trusted":
+            raise RuntimeError("enforce mode requires an explicit trusted hook review record; use --trust-state trusted after reviewing the bundled hooks")
+        config["mode"] = args.mode
+        if args.trust_state:
+            config.setdefault("hooks", {})["trust_state"] = args.trust_state
+        config["updated_at"] = utc_now()
+        errors = validate_schema(config, "enforcement.schema.json", ".cpt/enforcement.yaml")
+        if errors:
+            raise RuntimeError("; ".join(errors))
+        atomic_write_yaml(enforcement_file(root), config)
+    print(f"Enforcement mode set to {args.mode}")
+    return 0
+
+
+def command_policy_check(root: Path, args) -> int:
+    config = load_enforcement(root)
+    result = command_policy(root, config, args.tool_name, args.command_text)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 2 if result["decision"] == "deny" else 0
+
+
+def audit_log_files(root: Path, config: dict) -> list[Path]:
+    path = audit_log_path(root, config)
+    retain = int(config.get("audit", {}).get("retain_files", 5))
+    rotated = [path.with_name(f"{path.name}.{index}") for index in range(retain, 0, -1)]
+    return [item for item in rotated + [path] if item.exists()]
+
+
+def command_audit_tail(root: Path, args) -> int:
+    config = load_enforcement(root)
+    lines: list[str] = []
+    for path in audit_log_files(root, config):
+        lines.extend(path.read_text(encoding="utf-8").splitlines())
+    records = [json.loads(line) for line in lines[-args.limit:] if line.strip()]
+    print(json.dumps(records, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_audit_validate(root: Path, _args) -> int:
+    config = load_enforcement(root)
+    errors: list[str] = []
+    count = 0
+    files = audit_log_files(root, config)
+    for path in files:
+        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            count += 1
+            label = str(path.relative_to(root))
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError as exc:
+                errors.append(f"{label} line {number}: invalid JSON: {exc}")
+                continue
+            errors += validate_schema(record, "audit-event.schema.json", f"{label} line {number}")
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}")
+        return 1
+    print(f"AUDIT LOG VALIDATION PASSED: {count} events across {len(files)} file(s)")
+    return 0
+
+
+def command_worker_status(root: Path, _args) -> int:
+    print(json.dumps(worker_records(root), ensure_ascii=False, indent=2))
+    return 0
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 5 runtime and Product Knowledge CLI")
+    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 6 runtime, Product Knowledge, and deterministic enforcement CLI")
     parser.add_argument("--root", type=Path, help="Runtime root; defaults to nearest parent containing .cpt/runtime.yaml")
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("status")
     sub.add_parser("validate")
     sub.add_parser("render-summary")
+
+    sub.add_parser("hook-handle")
+    sub.add_parser("enforcement-status")
+
+    p = sub.add_parser("enforcement-set")
+    p.add_argument("--mode", choices=["off","audit","enforce"], required=True)
+    p.add_argument("--trust-state", choices=["unknown","trusted","untrusted","disabled"])
+
+    p = sub.add_parser("policy-check")
+    p.add_argument("--tool-name", choices=["Bash","apply_patch"], required=True)
+    p.add_argument("--command", dest="command_text", required=True)
+
+    p = sub.add_parser("audit-tail")
+    p.add_argument("--limit", type=int, default=20)
+    sub.add_parser("audit-validate")
+    sub.add_parser("worker-status")
 
     p = sub.add_parser("create-task")
     p.add_argument("--title", required=True)
@@ -1626,7 +2502,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--worker", action="append", default=[])
     p.set_defaults(workers_read_only=True)
     p.add_argument("--workers-may-write", action="store_false", dest="workers_read_only", help="Allow approved workers to write; read-only is the safe default")
-    p.add_argument("--forbid", action="append", default=["dependency_change","migration","public_api_change","network_access","destructive_git"])
+    p.add_argument("--forbid", action="append", default=[])
+    p.add_argument("--allow-operation", action="append", default=[], choices=["dependency_change","migration","public_api_change","network_access"], help="Explicitly remove a normally forbidden operation class from this lease; global destructive operations remain blocked")
     p.add_argument("--expires-at")
     p.add_argument("--rationale")
 
@@ -1734,6 +2611,13 @@ def main(argv: list[str] | None = None) -> int:
             "status": command_status,
             "validate": command_validate,
             "render-summary": command_render_summary,
+            "hook-handle": command_hook_handle,
+            "enforcement-status": command_enforcement_status,
+            "enforcement-set": command_enforcement_set,
+            "policy-check": command_policy_check,
+            "audit-tail": command_audit_tail,
+            "audit-validate": command_audit_validate,
+            "worker-status": command_worker_status,
             "create-task": command_create_task,
             "activate-task": command_activate_task,
             "complete-task": command_complete_task,

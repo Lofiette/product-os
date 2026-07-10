@@ -28,6 +28,10 @@ Before standard-task writes, broad reads, expensive verification, dependency/pub
 
 Read only what can change the next decision. Do not load whole knowledge, expertise, archive, log, generated, or external-module trees at startup.
 
+## Deterministic enforcement
+
+If `.cpt/enforcement.yaml` is `audit` or `enforce`, CPT Core plugin hooks may checkpoint compaction, validate leases, record worker lifecycle, mark knowledge for review, and maintain an audit trail. Hooks require explicit Codex trust and are guardrails, not sandbox boundaries. When hooks are unavailable, use the runtime CLI fallback described in `.cpt/OPERATIONS.md`.
+
 ## Continuity
 
 Create checkpoints before major handoffs, risky state changes, and compaction when possible. After suspected context loss, compare current state with the latest checkpoint and stop on mismatch.

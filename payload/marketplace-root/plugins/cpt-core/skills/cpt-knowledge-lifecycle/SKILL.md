@@ -82,3 +82,8 @@ Return:
 - Editing generated Markdown views instead of canonical YAML.
 - Cutting useful knowledge merely to satisfy a target size.
 - Exporting internal knowledge without an explicit sanitization review.
+
+
+## Freshness enforcement
+
+When hooks are trusted and enabled, project writes may trigger targeted freshness scans. Treat those marks as review signals, not automatic proof that knowledge is wrong. When hooks are unavailable, run a targeted stale scan before task completion if durable product behavior changed.

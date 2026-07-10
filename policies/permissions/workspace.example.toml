@@ -1,0 +1,5 @@
+
+default_permissions = "cpt-workspace"
+
+[permissions.cpt-workspace]
+extends = ":workspace"

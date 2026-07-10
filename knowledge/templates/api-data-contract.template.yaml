@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha5
+schema_version: 4.0-alpha6
 id: template-api-data-contract
 artifact_type: api_data_contract
 title: Api Data Contract Template

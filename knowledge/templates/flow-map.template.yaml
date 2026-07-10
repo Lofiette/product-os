@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha5
+schema_version: 4.0-alpha6
 id: template-flow-map
 artifact_type: flow_map
 title: Flow Map Template

@@ -11,7 +11,10 @@ Update replaces only managed tooling files whose hashes still match the installa
 - current task state;
 - task index;
 - runtime summary;
-- tasks, leases, micro changes, and checkpoints.
+- tasks, leases, micro changes, and checkpoints;
+- Product Knowledge artifacts and generated views;
+- enforcement mode and trust annotation;
+- audit logs and worker lifecycle records.
 
 If a managed tooling file changed, update stops. `--force` creates a local backup before replacement.
 

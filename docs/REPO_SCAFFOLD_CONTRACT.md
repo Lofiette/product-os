@@ -1,6 +1,6 @@
 # Repo Scaffold Contract
 
-A complete team-mode install with repo plugin exposure must remain below 20 repo-local framework files.
+A base team-mode install with repo plugin exposure must remain at 20 or fewer repo-local framework files. An explicitly installed rules profile may add one policy file.
 
 The scaffold contains only:
 

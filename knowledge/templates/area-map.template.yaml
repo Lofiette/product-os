@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha5
+schema_version: 4.0-alpha6
 id: template-area-map
 artifact_type: area_map
 title: Area Map Template

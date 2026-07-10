@@ -2,8 +2,8 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-product-research",
   "kind": "domain",
-  "version": "4.0.0-alpha.5",
-  "requires_core": ">=4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
+  "requires_core": ">=4.0.0-alpha.6",
   "domains": [
     "product-research"
   ],

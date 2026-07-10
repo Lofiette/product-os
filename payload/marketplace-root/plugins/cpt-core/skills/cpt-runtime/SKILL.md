@@ -58,3 +58,13 @@ Produce a compact artifact containing:
 - Using a full ticket for a trivial local edit.
 - Continuing after compaction without checking disk state.
 - Treating the lease as a security sandbox rather than an authorization record.
+
+
+## Deterministic enforcement
+
+- Inspect `.cpt/enforcement.yaml` and `enforcement-status` before relying on hooks.
+- Treat CPT hooks as guardrails, not as replacements for Codex sandbox, native permissions, approvals, or rules.
+- In `audit` mode, violations are recorded and surfaced without blocking.
+- In `enforce` mode, supported write, verification, compaction, and stop invariants may block progress.
+- If hooks are disabled or untrusted, use `policy-check`, `validate`, `checkpoint`, and `knowledge-stale-scan` explicitly.
+- Never claim that hook trust or native permission enforcement has been verified unless evidence exists.

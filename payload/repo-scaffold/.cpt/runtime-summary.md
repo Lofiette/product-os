@@ -10,6 +10,7 @@ Generated from `.cpt/current.yaml` and `.cpt/task-index.yaml`. Do not edit manua
 - Current micro change: `none`
 - Current lease: `none`
 - Latest checkpoint: `none`
+- Product Knowledge: not initialized
 
 ## Blockers
 

@@ -1,0 +1,14 @@
+
+default_permissions = "cpt-readonly-net"
+
+[permissions.cpt-readonly-net.filesystem]
+":minimal" = "read"
+
+[permissions.cpt-readonly-net.filesystem.":workspace_roots"]
+"." = "read"
+
+[permissions.cpt-readonly-net.network]
+enabled = true
+
+[permissions.cpt-readonly-net.network.domains]
+"example.com" = "allow"

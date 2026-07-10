@@ -1,0 +1,5 @@
+
+default_permissions = "cpt-readonly"
+
+[permissions.cpt-readonly]
+extends = ":read-only"

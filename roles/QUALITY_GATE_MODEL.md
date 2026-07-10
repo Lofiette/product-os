@@ -19,4 +19,4 @@ A gate is an evidence-based acceptance contract. It is not a role, checklist dec
 - The same agent may implement and self-check low-risk work, but material independent-review gates should use an independent reviewer when practical.
 - Gate output must link to evidence and identify remaining risk/owner.
 
-`GATE_REGISTRY.json` and `roles/gates/*.md` are canonical for Alpha 5.
+`GATE_REGISTRY.json` and `roles/gates/*.md` are canonical for Alpha 6.

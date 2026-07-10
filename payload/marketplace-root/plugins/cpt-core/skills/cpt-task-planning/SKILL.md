@@ -86,3 +86,8 @@ Routing procedure:
 
 Do not install or invent one custom agent per logical role.
 
+
+
+## Lease-aware planning
+
+Impact Maps must propose bounded read scope, write scope, verification commands, forbidden operations, and worker budget in a form that can become a scoped authorization lease. Do not request a broad lease when smaller paths or commands are sufficient.

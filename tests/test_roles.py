@@ -35,7 +35,7 @@ class RoleTests(unittest.TestCase):
         self.assertTrue(all(x["status"]=="retained_rewritten" for x in data["mappings"]))
 
     def test_roles_are_not_custom_agents(self):
-        # Alpha 5 deliberately carries role references, not one TOML worker per role.
+        # Alpha 6 deliberately carries role references, not one TOML worker per role.
         self.assertFalse((ROOT/".codex/agents").exists())
         registry=json.loads((ROOT/"roles/ROLE_REGISTRY.json").read_text())
         self.assertEqual(len(registry["roles"]),50)

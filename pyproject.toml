@@ -1,7 +1,7 @@
 [project]
 name = "codex-product-os-distribution"
-version = "4.0.0a5"
-description = "Runtime, consolidated skills, and typed role expertise for Codex Product Operating System 4.0 Alpha 5"
+version = "4.0.0a6"
+description = "Runtime, deterministic enforcement, Product Knowledge, consolidated skills, and typed role expertise for Codex Product Operating System 4.0 Alpha 6"
 requires-python = ">=3.10"
 dependencies = [
   "PyYAML>=6.0,<7",
@@ -10,5 +10,5 @@ dependencies = [
 ]
 
 [tool.cpt]
-package_version = "4.0.0-alpha.5"
+package_version = "4.0.0-alpha.6"
 runtime_schema_version = "4.0-alpha2"

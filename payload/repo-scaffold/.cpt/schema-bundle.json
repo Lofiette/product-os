@@ -26,7 +26,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "id": {
@@ -251,7 +252,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "id": {
@@ -445,7 +447,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "runtime_status": {
@@ -630,7 +633,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "id": {
@@ -768,7 +772,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "runtime_id": {
@@ -837,6 +842,18 @@
           "knowledge_views": {
             "type": "string",
             "pattern": "^\\.cpt/"
+          },
+          "enforcement": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "audit_log": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "workers": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
           }
         }
       },
@@ -878,6 +895,9 @@
           },
           "knowledge_size_limits_are_soft": {
             "type": "boolean"
+          },
+          "deterministic_enforcement_supported": {
+            "type": "boolean"
           }
         }
       },
@@ -906,7 +926,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "tasks": {
@@ -989,7 +1010,8 @@
       "schema_version": {
         "enum": [
           "4.0-alpha2",
-          "4.0-alpha5"
+          "4.0-alpha5",
+          "4.0-alpha6"
         ]
       },
       "id": {
@@ -1304,7 +1326,7 @@
     ],
     "properties": {
       "schema_version": {
-        "const": "4.0-alpha5"
+        "const": "4.0-alpha6"
       },
       "id": {
         "type": "string",
@@ -1694,7 +1716,7 @@
     ],
     "properties": {
       "schema_version": {
-        "const": "4.0-alpha5"
+        "const": "4.0-alpha6"
       },
       "id": {
         "type": "string",
@@ -3108,5 +3130,520 @@
         }
       }
     ]
+  },
+  "enforcement.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/enforcement.schema.json",
+    "title": "CPT Deterministic Enforcement Configuration",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "mode",
+      "hooks",
+      "lease_policy",
+      "command_policy",
+      "compaction",
+      "knowledge",
+      "audit",
+      "subagents",
+      "stop",
+      "approval",
+      "updated_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha6"
+        ]
+      },
+      "mode": {
+        "enum": [
+          "off",
+          "audit",
+          "enforce"
+        ]
+      },
+      "hooks": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bundled_with_core_plugin",
+          "trust_state",
+          "project_trust_required"
+        ],
+        "properties": {
+          "bundled_with_core_plugin": {
+            "type": "boolean"
+          },
+          "trust_state": {
+            "enum": [
+              "unknown",
+              "trusted",
+              "untrusted",
+              "disabled"
+            ]
+          },
+          "project_trust_required": {
+            "type": "boolean"
+          }
+        }
+      },
+      "lease_policy": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "require_for_project_writes",
+          "require_for_expensive_verification",
+          "read_scope_mode",
+          "unknown_write_target",
+          "runtime_path_exemptions"
+        ],
+        "properties": {
+          "require_for_project_writes": {
+            "type": "boolean"
+          },
+          "require_for_expensive_verification": {
+            "type": "boolean"
+          },
+          "read_scope_mode": {
+            "enum": [
+              "off",
+              "audit",
+              "enforce"
+            ]
+          },
+          "unknown_write_target": {
+            "enum": [
+              "allow",
+              "audit",
+              "deny"
+            ]
+          },
+          "runtime_path_exemptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "command_policy": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deny_globally",
+          "dependency_changes_require_lease",
+          "network_requires_lease",
+          "migrations_require_lease",
+          "public_contract_changes_require_lease",
+          "dependency_manifest_paths",
+          "migration_paths",
+          "public_contract_paths"
+        ],
+        "properties": {
+          "deny_globally": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dependency_changes_require_lease": {
+            "type": "boolean"
+          },
+          "network_requires_lease": {
+            "type": "boolean"
+          },
+          "migrations_require_lease": {
+            "type": "boolean"
+          },
+          "public_contract_changes_require_lease": {
+            "type": "boolean"
+          },
+          "dependency_manifest_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "migration_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "public_contract_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "compaction": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "checkpoint_before_compaction",
+          "block_when_checkpoint_fails",
+          "verify_after_compaction",
+          "block_on_mismatch",
+          "block_with_active_workers",
+          "retain_automatic_checkpoints"
+        ],
+        "properties": {
+          "checkpoint_before_compaction": {
+            "type": "boolean"
+          },
+          "block_when_checkpoint_fails": {
+            "type": "boolean"
+          },
+          "verify_after_compaction": {
+            "type": "boolean"
+          },
+          "block_on_mismatch": {
+            "type": "boolean"
+          },
+          "retain_automatic_checkpoints": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "block_with_active_workers": {
+            "type": "boolean"
+          }
+        }
+      },
+      "knowledge": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stale_scan_after_project_write",
+          "exclude_paths"
+        ],
+        "properties": {
+          "stale_scan_after_project_write": {
+            "type": "boolean"
+          },
+          "exclude_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "audit": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "log_path",
+          "command_preview_chars",
+          "tool_output_soft_chars",
+          "tool_output_hard_chars",
+          "rotate_bytes",
+          "retain_files",
+          "redact_sensitive_values"
+        ],
+        "properties": {
+          "log_path": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "command_preview_chars": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4000
+          },
+          "tool_output_soft_chars": {
+            "type": "integer",
+            "minimum": 1000
+          },
+          "tool_output_hard_chars": {
+            "type": "integer",
+            "minimum": 1000
+          },
+          "rotate_bytes": {
+            "type": "integer",
+            "minimum": 1024
+          },
+          "retain_files": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "redact_sensitive_values": {
+            "type": "boolean"
+          }
+        }
+      },
+      "subagents": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record_lifecycle",
+          "default_max_active"
+        ],
+        "properties": {
+          "record_lifecycle": {
+            "type": "boolean"
+          },
+          "default_max_active": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12
+          }
+        }
+      },
+      "stop": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "validate_runtime",
+          "continue_once_when_invalid"
+        ],
+        "properties": {
+          "validate_runtime": {
+            "type": "boolean"
+          },
+          "continue_once_when_invalid": {
+            "type": "boolean"
+          }
+        }
+      },
+      "approval": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "auto_allow_within_lease"
+        ],
+        "properties": {
+          "auto_allow_within_lease": {
+            "type": "boolean"
+          }
+        }
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "worker-record.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/worker-record.schema.json",
+    "title": "CPT Subagent Lifecycle Record",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "agent_id",
+      "agent_type",
+      "status",
+      "session_id",
+      "turn_id",
+      "task_id",
+      "lease_id",
+      "permission_mode",
+      "started_at",
+      "stopped_at",
+      "transcript_path",
+      "last_message_sha256",
+      "updated_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha6"
+        ]
+      },
+      "agent_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "agent_type": {
+        "type": "string",
+        "minLength": 1
+      },
+      "status": {
+        "enum": [
+          "running",
+          "completed",
+          "interrupted",
+          "failed",
+          "unknown"
+        ]
+      },
+      "session_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "turn_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "task_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "lease_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "permission_mode": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "started_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "stopped_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "transcript_path": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "last_message_sha256": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "audit-event.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/audit-event.schema.json",
+    "title": "CPT Runtime Audit Event",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "id",
+      "timestamp",
+      "event",
+      "mode",
+      "decision",
+      "summary",
+      "session_id",
+      "turn_id",
+      "tool_name",
+      "command_sha256",
+      "command_preview",
+      "paths",
+      "violations",
+      "metadata"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha6"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "pattern": "^EVT-[A-Za-z0-9._-]+$"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "event": {
+        "type": "string",
+        "minLength": 1
+      },
+      "mode": {
+        "enum": [
+          "off",
+          "audit",
+          "enforce"
+        ]
+      },
+      "decision": {
+        "enum": [
+          "allow",
+          "warn",
+          "deny",
+          "stop",
+          "record",
+          "error"
+        ]
+      },
+      "summary": {
+        "type": "string"
+      },
+      "session_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "turn_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "tool_name": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "command_sha256": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "command_preview": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "paths": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "violations": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "metadata": {
+        "type": "object"
+      }
+    }
   }
 }

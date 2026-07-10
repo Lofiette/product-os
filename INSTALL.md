@@ -15,8 +15,11 @@ python -m pip install -r requirements.txt
 ```bash
 python tools/cpt_dist.py install \
   --project /path/to/repo \
-  --mode local
+  --mode local \
+  --enforcement-mode off
 ```
+
+`--enforcement-mode` accepts `off`, `audit`, or `enforce`. Start with `off` or `audit`; `enforce` should only be enabled after reviewing and trusting the hooks.
 
 Defaults:
 
@@ -33,15 +36,19 @@ If a tracked `AGENTS.md` already exists, the installer creates `.cpt/AGENTS_SNIP
 ```bash
 python tools/cpt_dist.py install \
   --project /path/to/repo \
-  --mode team
+  --mode team \
+  --enforcement-mode audit \
+  --rules-profile conservative
 ```
+
+Rules profiles are optional. Project-scoped hooks and rules require a trusted project, and plugin hooks require explicit hook review/trust.
 
 Defaults:
 
 - runtime files are shareable and not ignored;
 - the managed kernel block is appended to an existing `AGENTS.md`;
 - `cpt-core` is exposed through a repo marketplace;
-- the complete repo-local footprint remains below 20 framework files.
+- the base repo-local footprint remains 20 or fewer framework files, including the dedicated mutable enforcement config; an explicitly installed rules profile adds one policy file.
 
 The installer never runs `git add`, creates a branch, or commits.
 

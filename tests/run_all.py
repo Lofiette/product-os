@@ -33,13 +33,17 @@ suite = unittest.TestSuite([
     unittest.defaultTestLoader.loadTestsFromName("tests.test_skills"),
     unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
     unittest.defaultTestLoader.loadTestsFromName("tests.test_knowledge"),
+    unittest.defaultTestLoader.loadTestsFromName("tests.test_enforcement"),
 ])
 test_ids = [test.id() for test in flatten(suite)]
 for test_id in test_ids:
     run([sys.executable, "-m", "unittest", "-v", test_id], timeout=300)
 
 commands = [
+    [sys.executable, str(ROOT / "tools" / "validate_enforcement.py")],
+    [sys.executable, str(ROOT / "tools" / "eval_enforcement.py")],
     [sys.executable, str(ROOT / 'tools' / 'validate_knowledge_assets.py')],
+    [sys.executable, str(ROOT / 'tools' / 'validate_knowledge.py'), '--project', str(ROOT / 'payload' / 'repo-scaffold')],
     [sys.executable, str(ROOT / "tools" / "validate_roles.py"), "--root", str(ROOT)],
     [sys.executable, str(ROOT / "tools" / "eval_knowledge_lifecycle.py"), "--root", str(ROOT), "--write-report", str(ROOT / "evaluation" / "knowledge-lifecycle-eval-report.json")],
     [
@@ -65,4 +69,4 @@ commands = [
 for command in commands:
     run(command, timeout=180)
 
-print(f"ALPHA 5 COMPLETE TEST SUITE PASSED: {len(test_ids)} distribution cases")
+print(f"ALPHA 6 COMPLETE TEST SUITE PASSED: {len(test_ids)} behavioral cases")

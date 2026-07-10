@@ -1,19 +1,13 @@
-# Sources and Platform Assumptions
 
-Official guidance used by the 4.0 Alpha series:
+# Sources
 
-- https://developers.openai.com/codex/skills
-- https://developers.openai.com/codex/plugins/build
-- https://developers.openai.com/codex/hooks
-- https://developers.openai.com/codex/config-reference
-- https://json-schema.org/draft/2020-12
+Alpha 6 enforcement design follows the current Codex documentation for:
 
-Platform assumptions:
+- lifecycle hooks and hook trust;
+- `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `SubagentStart`, `SubagentStop`, and `Stop` event behavior;
+- project trust and project-scoped configuration;
+- command rules and `codex execpolicy check`;
+- permission profiles, sandboxing, and approval policies;
+- plugin-bundled hooks and plugin trust.
 
-- Skills use progressive disclosure; concise metadata and task-specific pack activation matter.
-- `agents/openai.yaml` controls interface metadata and implicit invocation policy.
-- Plugins are the reusable boundary for skills and later hooks/MCP configuration.
-- Project hooks require separate trust and are deliberately deferred from Alpha 5.
-- JSON Schema Draft 2020-12 is the machine-validation contract for Product Knowledge artifacts.
-
-These assumptions must be revalidated against current official documentation before a release candidate.
+CPT documentation intentionally distinguishes workflow guardrails from native Codex security boundaries.

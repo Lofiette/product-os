@@ -21,7 +21,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "4.0-alpha5"
+      "const": "4.0-alpha6"
     },
     "id": {
       "type": "string",

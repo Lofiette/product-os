@@ -11,13 +11,13 @@ def run_tool(repo,*args,check=True):
 
 def install(repo,home):
     env=os.environ.copy(); env['HOME']=str(home); env['CODEX_HOME']=str(home/'.codex')
-    r=subprocess.run([sys.executable,str(DIST),'install','--project',str(repo),'--mode','local'],text=True,capture_output=True,env=env)
+    r=subprocess.run([sys.executable,str(DIST),'install','--project',str(repo),'--mode','local','--plugin-scope','none'],text=True,capture_output=True,env=env)
     if r.returncode: raise AssertionError(r.stderr)
 
 class KnowledgeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.base_tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha5-knowledge-base-'))
+        cls.base_tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha6-knowledge-base-'))
         cls.base_repo=cls.base_tmp/'repo'; cls.base_repo.mkdir()
         subprocess.run(['git','init','-q',str(cls.base_repo)],check=True)
         home=cls.base_tmp/'home'; home.mkdir(); install(cls.base_repo,home)
@@ -25,7 +25,7 @@ class KnowledgeTests(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.base_tmp)
     def setUp(self):
-        self.tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha5-knowledge-case-'))
+        self.tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha6-knowledge-case-'))
         self.repo=self.tmp/'repo'; shutil.copytree(self.base_repo,self.repo)
     def tearDown(self): shutil.rmtree(self.tmp)
     def init_kb(self,mode='existing'):

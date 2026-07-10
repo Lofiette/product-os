@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cpt://schemas/current.schema.json",
+  "title": "CPT Current State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "runtime_status",
+    "current_task",
+    "current_micro_change",
+    "current_lease",
+    "latest_checkpoint",
+    "blockers",
+    "next_operation",
+    "state_revision",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4.0-alpha1"
+    },
+    "runtime_status": {
+      "enum": [
+        "ready",
+        "active",
+        "blocked",
+        "recovering",
+        "degraded"
+      ]
+    },
+    "current_task": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^TKT-[0-9]{3,}$"
+        }
+      ]
+    },
+    "current_micro_change": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^MC-[0-9]{3,}$"
+        }
+      ]
+    },
+    "current_lease": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^LEASE-[A-Z0-9-]+$"
+        }
+      ]
+    },
+    "latest_checkpoint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^CP-[A-Za-z0-9._-]+$"
+        }
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "summary",
+          "severity"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          }
+        }
+      }
+    },
+    "next_operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "summary"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "await_user_task",
+            "intake",
+            "bounded_discovery",
+            "impact_map",
+            "implementation",
+            "verification",
+            "recovery",
+            "blocked",
+            "complete"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "state_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "required": [
+          "current_task",
+          "current_micro_change"
+        ],
+        "properties": {
+          "current_task": {
+            "type": "string"
+          },
+          "current_micro_change": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "runtime_status": {
+            "const": "ready"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "current_task": {
+            "type": "null"
+          },
+          "current_micro_change": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

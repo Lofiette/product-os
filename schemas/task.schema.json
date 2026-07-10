@@ -1,0 +1,272 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cpt://schemas/task.schema.json",
+  "title": "CPT Standard Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "status",
+    "task_type",
+    "complexity",
+    "user_intent",
+    "objective",
+    "scope",
+    "acceptance_criteria",
+    "product_knowledge",
+    "expertise",
+    "impact_map",
+    "authorization_lease",
+    "verification",
+    "blockers",
+    "next_operation",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4.0-alpha1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^TKT-[0-9]{3,}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "ready",
+        "active",
+        "blocked",
+        "review",
+        "done",
+        "cancelled"
+      ]
+    },
+    "task_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "complexity": {
+      "enum": [
+        "tiny",
+        "fast",
+        "standard",
+        "complex",
+        "high_risk"
+      ]
+    },
+    "user_intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "in",
+        "out"
+      ],
+      "properties": {
+        "in": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "out": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "open",
+              "met",
+              "not_met",
+              "waived"
+            ]
+          }
+        }
+      }
+    },
+    "product_knowledge": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expertise": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roles",
+        "skills",
+        "gates"
+      ],
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "impact_map": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "path"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_started",
+            "draft",
+            "approved",
+            "not_required"
+          ]
+        },
+        "path": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "authorization_lease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "path"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "none",
+            "proposed",
+            "active",
+            "expired",
+            "revoked",
+            "consumed",
+            "not_required"
+          ]
+        },
+        "path": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan",
+        "results"
+      ],
+      "properties": {
+        "plan": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "summary"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

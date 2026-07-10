@@ -1,0 +1,32 @@
+schema_version: 4.0-alpha1
+id: TKT-001
+title: Example standard task
+status: proposed
+task_type: implementation
+complexity: standard
+user_intent: Describe the user request without inventing requirements.
+objective: Define the observable outcome.
+scope:
+  in: []
+  out: []
+acceptance_criteria: []
+product_knowledge: []
+expertise:
+  roles: []
+  skills: []
+  gates: []
+impact_map:
+  status: not_started
+  path: null
+authorization_lease:
+  status: none
+  path: null
+verification:
+  plan: []
+  results: []
+blockers: []
+next_operation:
+  type: bounded_discovery
+  summary: Perform bounded discovery and prepare the Impact Map.
+created_at: '2026-07-10T11:46:06Z'
+updated_at: '2026-07-10T11:46:06Z'

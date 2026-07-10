@@ -1,50 +1,76 @@
-# Codex Product Operating System 4.0
-## Foundation package v0.1
+# Codex Product Operating System 4.0 — Alpha 1 Runtime Kernel
 
-Дата: 2026-07-10  
-Статус: архитектурный foundation, до начала переписывания runtime  
-Базовая версия: Codex Product Team 3.0 Ultra beta 2
+This package is the first executable slice of CPT OS 4.0. It implements the **Runtime Plane** only:
 
-## Зачем существует этот пакет
+- a small root `AGENTS.md` loader;
+- machine-readable file-based runtime state;
+- a valid no-active-task state;
+- optional `TKT-000` semantics;
+- Standard Task and Micro Change lifecycles;
+- scoped authorization leases;
+- compact `RUNTIME_SUMMARY` projection;
+- checkpoint creation, verification, and recovery;
+- schema validation and cross-file integrity checks;
+- a synthetic compaction-recovery test.
 
-Этот пакет фиксирует согласованную основу версии 4.0 до внесения изменений в рабочую сборку. Он не является новой средой и не заменяет 3.0. Его задача — заморозить baseline, определить архитектурные решения, порядок работ, критерии готовности и границы внешних интеграций.
+It intentionally does **not** include Product Knowledge, the 50-role expertise library, skills consolidation, worker orchestration, plugin distribution, hooks, external services, or migration tooling. Those belong to later phases.
 
-Главная цель 4.0:
+## Quick check
 
-> Превратить экспертный framework с runtime-слоем в воспроизводимую операционную систему для Codex: с маленьким ядром, типизированным знанием продукта, устанавливаемыми экспертными пакетами, управляемой автономией и исполняемыми проверками поведения.
+```bash
+python -m pip install -r requirements.txt
+python scripts/cpt_runtime.py validate
+python scripts/cpt_runtime.py status
+python scripts/simulate_compaction_recovery.py
+python -m unittest discover -s tests -v
+```
 
-## Жёсткие принципы
+## Core commands
 
-1. **Никаких проектно-специфичных сущностей в универсальном core.**
-   Core оперирует абстракциями: продукт, область, flow, дизайн-система, внешний модуль, API-контракт, runtime state.
-2. **Основная среда самодостаточна.**
-   Внешние сервисы могут улучшать поиск, наблюдаемость, командную работу и долговременную память, но отсутствие любого из них не блокирует штатный workflow.
-3. **`AGENTS.override.md` находится вне архитектурного контракта 4.0.**
-   Это нативный механизм полного пользовательского переопределения. 4.0 не блокирует, не валидирует и не пытается сохранять своё поведение при активном override.
-4. **`TKT-000` допустим, но не обязан быть активной задачей.**
-   Пустое состояние runtime должно быть явным: `current_task: none`.
-5. **Не добавлять роли и skills без доказанной необходимости.**
-   Сначала углубляются, консолидируются и корректно маршрутизируются существующие 50 ролей и 95 skills.
-6. **Размер документа — мягкий ориентир, а не гильотина.**
-   Нельзя удалять важное знание ради количества строк. При росте документ разделяется по уровням ответственности.
-7. **Canonical state не хранится только во внешнем сервисе.**
-   Обязательные правила, задачи, решения и знания должны оставаться доступными локально и проверяемо.
+```bash
+# Show current state
+python scripts/cpt_runtime.py status
 
-## Состав пакета
+# Create and activate a standard task
+python scripts/cpt_runtime.py create-task \
+  --title "Implement a bounded change" \
+  --objective "Deliver the requested outcome with scoped discovery" \
+  --task-type implementation \
+  --complexity standard \
+  --activate
 
-- `00_DECISIONS.md` — утверждённые архитектурные решения.
-- `01_BASELINE_FREEZE.md` — замороженное состояние 3.0 beta 2.
-- `02_TARGET_ARCHITECTURE.md` — целевая архитектура 4.0.
-- `03_WORKSTREAM_PLAN.md` — поэтапный план реализации.
-- `04_ACCEPTANCE_CRITERIA.md` — критерии готовности alpha, beta и RC.
-- `05_EXTERNAL_INTEGRATIONS_POLICY.md` — self-contained core и optional integrations.
-- `06_MIGRATION_PRINCIPLES.md` — правила миграции 3.x → 4.0.
-- `07_RISK_REGISTER.md` — основные риски и меры контроля.
-- `08_EVAL_BASELINE.md` — будущий регрессионный benchmark.
-- `09_SOURCES.md` — актуальные первичные источники.
-- `baseline/3.0-inventory.json` — machine-readable baseline.
-- `baseline/4.0-work-items.csv` — рабочий backlog следующей итерации.
+# Create an authorization lease for the active task
+python scripts/cpt_runtime.py lease-create \
+  --task TKT-001 \
+  --read 'src/feature/**' \
+  --write 'src/feature/**' \
+  --verify 'python -m unittest tests.test_feature' \
+  --forbid dependency_change \
+  --forbid network_access
 
-## Следующий шаг
+# Save a checkpoint
+python scripts/cpt_runtime.py checkpoint --reason "Before phase handoff"
 
-После утверждения foundation начинается **Phase 1: Kernel Reduction and Runtime Schema**. На этом этапе рабочая сборка 3.0 остаётся неизменной, а новый 4.0 создаётся в отдельном дереве.
+# Verify state against the latest checkpoint
+python scripts/cpt_runtime.py recover --checkpoint latest --verify-only
+
+# Start a qualified micro change
+python scripts/cpt_runtime.py micro-start \
+  --title "Correct a local label" \
+  --intent "Fix one visible label without changing behavior" \
+  --target 'src/ui/example.tsx' \
+  --verify 'python -m unittest tests.test_ui' \
+  --confirm-eligible
+```
+
+## Canonical state
+
+Human-readable runtime facts are stored under `.cpt/`. The Markdown summary is generated from YAML and should not be edited manually.
+
+This alpha uses a **file-only** adapter. SQLite becomes the default exact registry in a later phase, while file-only operation remains a supported fallback.
+
+## Safety note
+
+Authorization leases in Alpha 1 are declarative and validated. They do not bypass or replace native Codex permissions, sandbox controls, rules, or approval prompts. Deterministic hook/rule enforcement is planned for the enforcement phase.
+
+See `ALPHA1_LIMITATIONS.md` before production use.

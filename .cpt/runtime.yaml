@@ -1,0 +1,21 @@
+schema_version: 4.0-alpha1
+runtime_id: cpt-runtime
+storage_mode: file_only
+sharing_mode: local_or_team
+paths:
+  current: .cpt/current.yaml
+  task_index: .cpt/task-index.yaml
+  runtime_summary: .cpt/runtime-summary.md
+  tasks: .cpt/tasks
+  micro_changes: .cpt/micro-changes
+  leases: .cpt/leases
+  checkpoints: .cpt/checkpoints
+policies:
+  no_active_task_allowed: true
+  optional_tkt_000: true
+  micro_change_enabled: true
+  lease_required_for_project_writes: true
+  checkpoint_before_compaction: true
+  runtime_files_may_update_without_separate_approval: true
+created_at: '2026-07-10T11:46:06Z'
+updated_at: '2026-07-10T11:46:06Z'

@@ -1,0 +1,27 @@
+schema_version: 4.0-alpha1
+id: MC-001
+title: Example micro change
+status: proposed
+user_intent: Describe the direct user request.
+authorization_basis: direct_user_request
+eligibility:
+  local_scope: true
+  reversible: true
+  low_risk: true
+  no_public_api_change: true
+  no_dependency_change: true
+  no_data_migration: true
+  no_security_privacy_auth_risk: true
+  no_broad_external_read: true
+  verification_obvious: true
+target_paths:
+  - path/to/file
+read_scope:
+  - path/to/file
+write_scope:
+  - path/to/file
+verification:
+  - smallest relevant verification command
+escalation_reason: null
+created_at: '2026-07-10T11:46:06Z'
+updated_at: '2026-07-10T11:46:06Z'

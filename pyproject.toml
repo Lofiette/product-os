@@ -1,0 +1,12 @@
+[project]
+name = "cpt-runtime-kernel"
+version = "4.0.0a1"
+description = "File-based runtime kernel for Codex Product Operating System 4.0 Alpha 1"
+requires-python = ">=3.10"
+dependencies = [
+  "PyYAML>=6.0,<7",
+  "jsonschema>=4.18,<5",
+]
+
+[tool.cpt]
+schema_version = "4.0-alpha1"

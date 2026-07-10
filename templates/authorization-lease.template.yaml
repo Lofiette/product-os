@@ -1,0 +1,28 @@
+schema_version: 4.0-alpha1
+id: LEASE-TKT-001-001
+status: proposed
+task_id: TKT-001
+micro_change_id: null
+read_scope: []
+write_scope: []
+verification_scope: []
+delegation:
+  allowed: false
+  max_workers: 0
+  read_only: true
+  allowed_worker_archetypes: []
+forbidden_operations:
+  - dependency_change
+  - migration
+  - public_api_change
+  - network_access
+  - destructive_git
+expires:
+  task_completion: true
+  scope_change: true
+  manual_revoke: true
+  at: null
+granted_by: user
+rationale: null
+granted_at: null
+updated_at: '2026-07-10T11:46:06Z'

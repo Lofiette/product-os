@@ -1,0 +1,256 @@
+{
+  "package": "codex-product-os-4.0-alpha1-runtime-kernel-v0.1",
+  "version": "4.0.0-alpha.1",
+  "schema_version": "4.0-alpha1",
+  "phase": "Phase 1 — Kernel Reduction and Runtime Schema",
+  "files": [
+    {
+      "path": ".cpt/checkpoints/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cpt/current.yaml",
+      "bytes": 325,
+      "sha256": "5bf6ebbaa0c983da34ff548e71f8fa703d918f9c75edca7ef882219c177244f7"
+    },
+    {
+      "path": ".cpt/leases/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cpt/micro-changes/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".cpt/runtime-summary.md",
+      "bytes": 385,
+      "sha256": "2c67cfb50b11a2d50dea2afc9a36098f525f731ce3c1a3982dbab2f0fe73ab90"
+    },
+    {
+      "path": ".cpt/runtime.yaml",
+      "bytes": 630,
+      "sha256": "8557828637f1c73992e2a1f88ecac1017059b87cc2527639e56dccfacdee7165"
+    },
+    {
+      "path": ".cpt/task-index.yaml",
+      "bytes": 72,
+      "sha256": "da24eecad2dfdacd29329339467c73224686d8fadca02224e1f60b5b1046847a"
+    },
+    {
+      "path": ".cpt/tasks/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 4609,
+      "sha256": "464d15dcb9e76b59df2c8664ebb0276a222716cfb7f6ddb8a82578ad7eaaa2cc"
+    },
+    {
+      "path": "ALPHA1_LIMITATIONS.md",
+      "bytes": 760,
+      "sha256": "74906ddbcbad4fa75a65571e7f62446f77869a1f9dce190e2a4c87ace6ea75a8"
+    },
+    {
+      "path": "AUDIT_REPORT.md",
+      "bytes": 5410,
+      "sha256": "4d2db1f12d80d0065b1d8d04ed826d23d54648d3672777628aee37b88d366a94"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 416,
+      "sha256": "6e5d192611777760f4cc19a15319e36dc29bdd29550fdd1d493948ab57877eac"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2786,
+      "sha256": "f33a485d745b07fb9c35cf31979ace050fa34f6b1dd1ba6735ea21472c36c854"
+    },
+    {
+      "path": "README_RU.md",
+      "bytes": 1554,
+      "sha256": "729e47acf3047410726d5a6f9f4da02a4222b1f878fa98a989cc9223ca1afa7e"
+    },
+    {
+      "path": "VERSION",
+      "bytes": 14,
+      "sha256": "03580b870772623e6e3e1994ead12933591b54beee9bf196adf5d6577f7703e9"
+    },
+    {
+      "path": "docs/AUTHORIZATION_LEASE_PROTOCOL.md",
+      "bytes": 1072,
+      "sha256": "1434cf23fbb047b3f8b87eaef29eec0509446bc8b9b8ee49e0362b1b38ca8c39"
+    },
+    {
+      "path": "docs/COMPACTION_CHECKPOINT_PROTOCOL.md",
+      "bytes": 1125,
+      "sha256": "4fb06a4fdc6e49773b7807325bdcf5512d768a263ea5394ac93693d7a904d3d8"
+    },
+    {
+      "path": "docs/CONFIGURATION_NOTES.md",
+      "bytes": 596,
+      "sha256": "1f87f89c986a538f0066a515372de38011a5247c528598e65dd19f273fe32ec0"
+    },
+    {
+      "path": "docs/FILE_ONLY_FALLBACK.md",
+      "bytes": 910,
+      "sha256": "80e981f7b9b07a479d44e3c8034a6961c4428c755e5e86c21f65de112a3e6055"
+    },
+    {
+      "path": "docs/MICRO_CHANGE_PROTOCOL.md",
+      "bytes": 1155,
+      "sha256": "9df153c567e7c56eb2fa5085a8f909956487dd2f168c1e23321422e8db100fca"
+    },
+    {
+      "path": "docs/NEW_TASK_PROTOCOL.md",
+      "bytes": 1103,
+      "sha256": "c86b530a85c066ac83b609b8470cd5c8c5a16946c7adb36db2cef45dc18867ce"
+    },
+    {
+      "path": "docs/RECOVERY_RUNBOOK.md",
+      "bytes": 755,
+      "sha256": "caec33944c0cb1f2cfaffd91375cd58f39b420eb697bf6d41d6650ee3e3bb5ec"
+    },
+    {
+      "path": "docs/REFERENCES.md",
+      "bytes": 644,
+      "sha256": "828be5d096dda9da653aa1e1aad8c7de85159b99c55561861e726d29b14e5e95"
+    },
+    {
+      "path": "docs/RUNTIME_STATE_MODEL.md",
+      "bytes": 1104,
+      "sha256": "2cacb7c5c85622136a9aa091c9475911a1f9498162c547b5b6f345450d02cd21"
+    },
+    {
+      "path": "docs/STARTUP_PROTOCOL.md",
+      "bytes": 1060,
+      "sha256": "7ffcd34100b0f26dbf751acfd2eb792a1c8103cfdfd178c3d4331491db654733"
+    },
+    {
+      "path": "examples/TKT-000-system-intake.yaml",
+      "bytes": 829,
+      "sha256": "91b935a7dee32e038dc0070354320131bc46c83df82955254a89d2d447288743"
+    },
+    {
+      "path": "examples/gitignore-local-runtime.txt",
+      "bytes": 40,
+      "sha256": "8c09f96e33d3e66eda8afd9d17ff3a6db33870f0b68b22731e18768eb2726bda"
+    },
+    {
+      "path": "examples/gitignore-team-shared-runtime.txt",
+      "bytes": 177,
+      "sha256": "8e2620b91079e27a1720c3202919e81523a9342ad90e3143c3943088ba615101"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 280,
+      "sha256": "2aa7d10ca3430d3cc4b7918a5134d80c51e47889894c7624946d2da458ee2077"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 35,
+      "sha256": "9e725fa2edb0b48146061b5f664388a0413b392f261300d609c7930e8cde090a"
+    },
+    {
+      "path": "schemas/authorization-lease.schema.json",
+      "bytes": 4260,
+      "sha256": "f63a881952769df0a66f4e58da8bc41084a9981df182302b75423e606fd1d4e7"
+    },
+    {
+      "path": "schemas/checkpoint.schema.json",
+      "bytes": 3908,
+      "sha256": "19f0795d2132d67e0894a520cc7c79bc20e1ed91950455a044867bff031b2462"
+    },
+    {
+      "path": "schemas/current.schema.json",
+      "bytes": 3403,
+      "sha256": "1d4e8e769f39904a685939bc00626d8774428b33a2f0efac1cd136bc97832b16"
+    },
+    {
+      "path": "schemas/micro-change.schema.json",
+      "bytes": 2817,
+      "sha256": "f2a5f59fb2b8f9285a7528b047161ddcb203d6b2faa7f518900ec27d5eaac508"
+    },
+    {
+      "path": "schemas/runtime.schema.json",
+      "bytes": 2705,
+      "sha256": "c57e2c547fbd27902fb3053c06ad4a591430f7442833a43e31bda8c47f1914d1"
+    },
+    {
+      "path": "schemas/task-index.schema.json",
+      "bytes": 1386,
+      "sha256": "f5cc624fd007507a6be55a55fa3dad80fbe73e86abc1ab1d4f53815aaac9efbb"
+    },
+    {
+      "path": "schemas/task.schema.json",
+      "bytes": 5105,
+      "sha256": "5f17368b8efd5b4642799b3f5db3bdc38adf158773ca99e97db30c1cc9ef6868"
+    },
+    {
+      "path": "scripts/check_kernel.py",
+      "bytes": 2887,
+      "sha256": "6f90bffcf806ca3cf6f1b3b70b3b7f15cc5144a791c1da0877da2dfd205929d3"
+    },
+    {
+      "path": "scripts/cpt_runtime.py",
+      "bytes": 39418,
+      "sha256": "82751319cd8b8e114f73f5003622fb912a34da39a2b4888361239be2d7be9666"
+    },
+    {
+      "path": "scripts/simulate_compaction_recovery.py",
+      "bytes": 2937,
+      "sha256": "a26b34f0b1cd9793365f71d1550fb8873ab36fed32dcc2822e30002ebbce8bb7"
+    },
+    {
+      "path": "scripts/validate_runtime.py",
+      "bytes": 121,
+      "sha256": "1705e7b890960d5742936d676e70b0fbd03b270d263e4112f6a2d79541d21b99"
+    },
+    {
+      "path": "templates/authorization-lease.template.yaml",
+      "bytes": 546,
+      "sha256": "5eeab4ae78309df74b2c0c070611248a56e93d6273422a4b4e8c99556346cd44"
+    },
+    {
+      "path": "templates/checkpoint.template.yaml",
+      "bytes": 523,
+      "sha256": "d97973539bce3ad6adba99a38790af3ef35e55c877a6bd029f7a1ac14635fe4e"
+    },
+    {
+      "path": "templates/micro-change.template.yaml",
+      "bytes": 663,
+      "sha256": "de8dcdfe2ef32e7ccafddd2d6544b0072407b75d5cea26b1a0959c8c10c39d88"
+    },
+    {
+      "path": "templates/runtime-summary.template.md",
+      "bytes": 387,
+      "sha256": "c79bed2238dc651a86443141b2e62776ac174f247395cae34b32d517d589ce29"
+    },
+    {
+      "path": "templates/task.template.yaml",
+      "bytes": 690,
+      "sha256": "d5116fde8d9d06ca09efc67c73b1494937be37c84e72e6377457692c830ed023"
+    },
+    {
+      "path": "tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/test_runtime.py",
+      "bytes": 5486,
+      "sha256": "18d329fe0f59d01f387bac3f0fb0ab471b9a8c0b5dc560dc0bfb81ba1df46a66"
+    }
+  ],
+  "metrics": {
+    "file_count": 49,
+    "agents_bytes": 4609,
+    "schema_count": 7,
+    "protocol_doc_count": 10,
+    "behavioral_test_count": 8,
+    "external_service_dependencies": 0
+  }
+}

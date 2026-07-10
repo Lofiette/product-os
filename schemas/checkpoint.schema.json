@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cpt://schemas/checkpoint.schema.json",
+  "title": "CPT Runtime Checkpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "source",
+    "reason",
+    "created_at",
+    "runtime_revision",
+    "snapshot",
+    "unresolved_work",
+    "integrity"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4.0-alpha1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^CP-[A-Za-z0-9._-]+$"
+    },
+    "source": {
+      "enum": [
+        "manual",
+        "pre_compact",
+        "phase_handoff",
+        "pre_recovery",
+        "synthetic"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "runtime_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current",
+        "task_index",
+        "active_task",
+        "active_micro_change",
+        "active_lease"
+      ],
+      "properties": {
+        "current": {
+          "type": "object"
+        },
+        "task_index": {
+          "type": "object"
+        },
+        "active_task": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "active_micro_change": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "active_lease": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "unresolved_work": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "blockers",
+        "unfinished_verification",
+        "next_operation",
+        "worker_registry"
+      ],
+      "properties": {
+        "blockers": {
+          "type": "array"
+        },
+        "unfinished_verification": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_operation": {},
+        "worker_registry": {
+          "type": "array"
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_sha256",
+        "task_index_sha256",
+        "active_task_sha256",
+        "active_micro_change_sha256",
+        "active_lease_sha256"
+      ],
+      "properties": {
+        "current_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "task_index_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "active_task_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "active_micro_change_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "active_lease_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

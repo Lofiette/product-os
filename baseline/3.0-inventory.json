@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "freeze_date": "2026-07-10",
+  "baseline_name": "codex-product-team-3.0-ultra-beta2",
+  "archive_sha256": "0e0d3a17e2141b236746204d341c47781ee1acf902eef8cfa60f537b6ec070a9",
+  "archive_size_bytes": 484484,
+  "counts": {
+    "files": 477,
+    "directories": 129,
+    "markdown_documents": 404,
+    "roles": 50,
+    "playbooks": 50,
+    "custom_agents": 50,
+    "skills": 95,
+    "scenarios": 34,
+    "simulations": 10
+  },
+  "key_metrics": {
+    "agents_md_lines": 308,
+    "agents_md_bytes": 14982,
+    "generic_placeholder_skills": 44,
+    "thin_role_cards": 50,
+    "thin_scenarios": 34,
+    "skeletal_templates": 21
+  },
+  "hard_constraints_4_0": [
+    "universal_core_contains_no_project_specific_names",
+    "core_is_self_contained_without_external_services",
+    "agents_override_is_outside_framework_contract",
+    "tkt_000_is_optional_not_mandatory_current_task",
+    "preserve_50_logical_roles_until_ownership_audit",
+    "do_not_add_skills_before_consolidation_audit",
+    "artifact_sizes_are_soft_targets"
+  ]
+}

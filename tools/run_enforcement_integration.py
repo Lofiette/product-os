@@ -50,7 +50,7 @@ def hook(tool: Path, repo: Path, event: str, **extra) -> dict:
 
 
 def main() -> int:
-    tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha6-integration-"))
+    tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha7-integration-"))
     checks: list[dict] = []
     try:
         home = tmp / "home"
@@ -124,7 +124,7 @@ def main() -> int:
         ])
 
         report = {
-            "schema_version": "4.0-alpha6",
+            "schema_version": "4.0-alpha7",
             "total": len(checks),
             "passed": sum(1 for item in checks if item["passed"]),
             "checks": checks,

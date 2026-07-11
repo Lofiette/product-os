@@ -1,5 +1,5 @@
 {
-  "schema_version": "4.0-alpha6",
+  "schema_version": "4.0-alpha7",
   "cases": [
     {
       "id": "write-without-lease",

@@ -2,7 +2,7 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-design-ui",
   "kind": "domain",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "requires_core": ">=4.0.0-alpha.6",
   "domains": [
     "design-ui"

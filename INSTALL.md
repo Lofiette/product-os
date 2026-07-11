@@ -47,10 +47,26 @@ Defaults:
 
 - runtime files are shareable and not ignored;
 - the managed kernel block is appended to an existing `AGENTS.md`;
-- `cpt-core` is exposed through a repo marketplace;
-- the base repo-local footprint remains 20 or fewer framework files, including the dedicated mutable enforcement config; an explicitly installed rules profile adds one policy file.
+- `cpt-core` is exposed through the personal marketplace by default; use `--plugin-scope repo` only when the team intentionally vendors the plugin;
+- the default team-shared repo footprint is currently 11 framework files and remains below the 20-file target; an explicitly installed rules profile or repo-vendored plugin adds project-local files.
 
 The installer never runs `git add`, creates a branch, or commits.
+
+## Optional worker pack
+
+Worker archetypes are installed separately and never appear implicitly:
+
+```bash
+python tools/cpt_dist.py workers-install --scope personal
+```
+
+Use repo scope only when a team intentionally vendors the ten custom-agent TOML files:
+
+```bash
+python tools/cpt_dist.py workers-install --scope repo --project /path/to/repo
+```
+
+Review `WORKER_PACK.md` and the recommended `[agents]` limits before use.
 
 ## Existing tracked AGENTS.md in local mode
 

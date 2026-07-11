@@ -1,6 +1,6 @@
 # Domain Packs
 
-Alpha 6 ships five implemented, optional domain plugins. Core operates without them. Each pack now declares its primary logical roles in addition to canonical skills.
+Alpha 7 ships five implemented, optional domain plugins. Core operates without them. Each pack now declares its primary logical roles in addition to canonical skills.
 
 ## Bundled catalog
 

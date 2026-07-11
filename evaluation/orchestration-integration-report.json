@@ -1,0 +1,75 @@
+{
+  "schema_version": "4.0-alpha7",
+  "total": 16,
+  "passed": 16,
+  "checks": [
+    {
+      "name": "install",
+      "passed": true
+    },
+    {
+      "name": "local_git_clean",
+      "passed": true
+    },
+    {
+      "name": "worker_pack",
+      "passed": true
+    },
+    {
+      "name": "task_and_lease",
+      "passed": true
+    },
+    {
+      "name": "approved_contracts",
+      "passed": true
+    },
+    {
+      "name": "native_binding_1",
+      "passed": true
+    },
+    {
+      "name": "precompact_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "postcompact_recovery",
+      "passed": true
+    },
+    {
+      "name": "native_binding_2",
+      "passed": true
+    },
+    {
+      "name": "required_quorum",
+      "passed": true
+    },
+    {
+      "name": "orchestration_complete",
+      "passed": true
+    },
+    {
+      "name": "task_complete",
+      "passed": true
+    },
+    {
+      "name": "runtime_validation",
+      "passed": true
+    },
+    {
+      "name": "orchestration_validation",
+      "passed": true
+    },
+    {
+      "name": "doctor",
+      "passed": true
+    },
+    {
+      "name": "final_checkpoint",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "This simulates hook payloads and structured results; it does not launch live Codex subagent threads.",
+    "Host cancellation delivery and real reconnect ordering require live-client evaluation."
+  ]
+}

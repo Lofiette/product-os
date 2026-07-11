@@ -1,31 +1,44 @@
+# Codex Product Operating System 4.0 Alpha 7
 
-# Codex Product Operating System 4.0 Alpha 6
+Alpha 7 добавляет управляемую оркестрацию workers поверх Runtime Kernel, Product Knowledge, канонических skills, 50 логических ролей, quality gates, распределения по plugins и детерминированного enforcement.
 
-Alpha 6 добавляет опциональный детерминированный runtime-слой поверх Runtime Kernel, Skills, Roles и Product Knowledge.
-
-## Быстрый старт
-
-```bash
-python tools/cpt_dist.py install --project /path/to/repo --mode local --enforcement-mode audit
-```
-
-Затем включите CPT Core plugin, перезапустите Codex, внимательно проверьте и подтвердите доверие к plugin hooks. После наблюдения за audit-режимом можно включить блокирующий режим:
+## Установка ядра
 
 ```bash
-python .cpt/bin/cpt_runtime.py enforcement-set --mode enforce --trust-state trusted
+python tools/cpt_dist.py install \
+  --project /path/to/repo \
+  --mode local \
+  --enforcement-mode audit
 ```
 
-Нативные sandbox, permissions, approvals и rules Codex остаются главным техническим контуром безопасности. CPT lease и hooks не заменяют их.
+Core plugin по умолчанию выставляется в personal scope. После установки перезапустите Codex, включите CPT Core и внимательно проверьте его hooks перед подтверждением доверия.
 
-## Что появилось
+## Опциональный worker pack
 
-- lease-aware проверка поддерживаемых writes и verification-команд;
-- автоматический checkpoint перед compaction;
-- проверка state после compaction;
-- targeted knowledge freshness после project writes;
-- audit log с редактированными preview вместо сырых выводов;
-- записи жизненного цикла subagents;
-- optional command rules и permission-profile examples;
-- fallback через CLI, если hooks отключены.
+```bash
+python tools/cpt_dist.py workers-install --scope personal
+```
 
-Полное описание: `ENFORCEMENT.md`.
+Он содержит десять ограниченных custom-agent archetypes и никогда не устанавливается автоматически.
+
+## Главные принципы
+
+- Runtime-состояние типизировано и восстанавливается по checkpoint.
+- Product Knowledge хранится в каноническом YAML; Markdown является generated view.
+- 50 ролей остаются профессиональными линзами, а не 50 субагентами.
+- 45 skills подключаются через небольшие plugins.
+- Реальный worker требует Standard Task, lease, утверждённый contract и ограниченный scope.
+- Основной поток владеет интеграцией и финальным решением.
+- Параллельная запись идёт только через managed Git worktrees; автоматического merge нет.
+- Нативные sandbox, permissions, approvals, trust и организационные политики Codex остаются главным техническим контуром.
+
+## Документы
+
+- `INSTALL.md`
+- `ORCHESTRATION.md`
+- `WORKER_PACK.md`
+- `ENFORCEMENT.md`
+- `KNOWLEDGE.md`
+- `ROLES.md`
+- `SKILLS.md`
+- `ALPHA7_LIMITATIONS.md`

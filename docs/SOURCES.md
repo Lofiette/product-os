@@ -1,7 +1,7 @@
 
 # Sources
 
-Alpha 6 enforcement design follows the current Codex documentation for:
+Alpha 7 enforcement and orchestration design follows the current Codex documentation for:
 
 - lifecycle hooks and hook trust;
 - `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `SubagentStart`, `SubagentStop`, and `Stop` event behavior;

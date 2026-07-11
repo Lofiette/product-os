@@ -27,11 +27,14 @@ description: Use explicitly to plan, launch, monitor, and recover bounded worker
 2. Choose worker archetype and inject only the necessary role lens.
 3. Create a run contract: task, evidence, scope, output schema, deadline, stop condition, and write isolation.
 4. Request explicit user approval for the lineup and cost.
-5. Launch no more workers than the approved budget; prefer read-only workers.
-6. Track running, completed, failed, timed-out, cancelled, and superseded states on disk.
-7. Apply deadline and quorum rules; do not wait indefinitely.
-8. Consolidate conflicts through the main-thread decision owner.
-9. Close or cancel remaining workers and record missing evidence.
+5. Materialize the plan through CPT orchestration runs and bounded worker contracts.
+6. Launch no more workers than the approved budget; prefer read-only workers and one contract per archetype.
+7. Require managed Git worktrees for parallel writable workers; never auto-merge.
+8. Track approved, active, returned, completed, partial, failed, timed-out, cancel-requested, cancelled, and needs-reconcile states on disk.
+9. Require a structured result after native return; only `success` satisfies required quorum.
+10. Apply deadline, cancellation, reconciliation, and quorum rules; do not wait indefinitely.
+11. Consolidate conflicts through the main-thread decision owner.
+12. Close, skip, cancel, or explicitly defer remaining workers and record missing evidence.
 
 ## Output contract
 
@@ -59,3 +62,7 @@ Produce a compact artifact containing:
 - Spawning one worker per logical role.
 - Waiting for all results without a deadline.
 - Launching duplicate workers after one appears slow.
+
+## Runtime commands
+
+Use the managed CLI described in `ORCHESTRATION.md`: `orchestration-create`, `worker-contract-add`, `orchestration-approve`, `orchestration-activate`, `worker-result-submit`, `orchestration-reconcile`, `orchestration-integrate`, and `orchestration-complete`.

@@ -27,7 +27,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "id": {
@@ -253,7 +254,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "id": {
@@ -327,6 +329,16 @@
                 "type": "object"
               }
             ]
+          },
+          "active_orchestration": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object"
+              }
+            ]
           }
         }
       },
@@ -351,6 +363,9 @@
           },
           "next_operation": {},
           "worker_registry": {
+            "type": "array"
+          },
+          "worktree_registry": {
             "type": "array"
           }
         }
@@ -420,6 +435,17 @@
                 "pattern": "^[a-f0-9]{64}$"
               }
             ]
+          },
+          "active_orchestration_sha256": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            ]
           }
         }
       }
@@ -437,6 +463,7 @@
       "current_task",
       "current_micro_change",
       "current_lease",
+      "current_orchestration",
       "latest_checkpoint",
       "blockers",
       "next_operation",
@@ -448,7 +475,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "runtime_status": {
@@ -551,6 +579,7 @@
               "verification",
               "recovery",
               "blocked",
+              "orchestration",
               "complete"
             ]
           },
@@ -567,6 +596,17 @@
       "updated_at": {
         "type": "string",
         "format": "date-time"
+      },
+      "current_orchestration": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string",
+            "pattern": "^ORC-[0-9]{3,}$"
+          }
+        ]
       }
     },
     "allOf": [
@@ -634,7 +674,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "id": {
@@ -773,7 +814,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "runtime_id": {
@@ -800,7 +842,12 @@
           "tasks",
           "micro_changes",
           "leases",
-          "checkpoints"
+          "checkpoints",
+          "orchestrations",
+          "worker_contracts",
+          "worker_results",
+          "worktrees",
+          "worker_archetypes"
         ],
         "properties": {
           "current": {
@@ -854,6 +901,26 @@
           "workers": {
             "type": "string",
             "pattern": "^\\.cpt/"
+          },
+          "orchestrations": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "worker_contracts": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "worker_results": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "worktrees": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
+          },
+          "worker_archetypes": {
+            "type": "string",
+            "pattern": "^\\.cpt/"
           }
         }
       },
@@ -866,7 +933,8 @@
           "micro_change_enabled",
           "lease_required_for_project_writes",
           "checkpoint_before_compaction",
-          "runtime_files_may_update_without_separate_approval"
+          "runtime_files_may_update_without_separate_approval",
+          "managed_orchestration_supported"
         ],
         "properties": {
           "no_active_task_allowed": {
@@ -898,6 +966,9 @@
           },
           "deterministic_enforcement_supported": {
             "type": "boolean"
+          },
+          "managed_orchestration_supported": {
+            "type": "boolean"
           }
         }
       },
@@ -927,7 +998,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "tasks": {
@@ -1011,7 +1083,8 @@
         "enum": [
           "4.0-alpha2",
           "4.0-alpha5",
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "id": {
@@ -1326,7 +1399,10 @@
     ],
     "properties": {
       "schema_version": {
-        "const": "4.0-alpha6"
+        "enum": [
+          "4.0-alpha6",
+          "4.0-alpha7"
+        ]
       },
       "id": {
         "type": "string",
@@ -1716,7 +1792,10 @@
     ],
     "properties": {
       "schema_version": {
-        "const": "4.0-alpha6"
+        "enum": [
+          "4.0-alpha6",
+          "4.0-alpha7"
+        ]
       },
       "id": {
         "type": "string",
@@ -3154,7 +3233,8 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "mode": {
@@ -3382,7 +3462,11 @@
         "additionalProperties": false,
         "required": [
           "record_lifecycle",
-          "default_max_active"
+          "default_max_active",
+          "default_max_depth",
+          "default_timeout_seconds",
+          "block_unmanaged_on_compaction",
+          "allow_managed_readonly_compaction"
         ],
         "properties": {
           "record_lifecycle": {
@@ -3392,6 +3476,22 @@
             "type": "integer",
             "minimum": 0,
             "maximum": 12
+          },
+          "default_max_depth": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "default_timeout_seconds": {
+            "type": "integer",
+            "minimum": 30,
+            "maximum": 86400
+          },
+          "block_unmanaged_on_compaction": {
+            "type": "boolean"
+          },
+          "allow_managed_readonly_compaction": {
+            "type": "boolean"
           }
         }
       },
@@ -3454,7 +3554,8 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "agent_id": {
@@ -3471,7 +3572,9 @@
           "completed",
           "interrupted",
           "failed",
-          "unknown"
+          "unknown",
+          "cancel_requested",
+          "needs_reconcile"
         ]
       },
       "session_id": {
@@ -3534,6 +3637,23 @@
       "updated_at": {
         "type": "string",
         "format": "date-time"
+      },
+      "orchestration_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^ORC-[0-9]{3,}$"
+      },
+      "contract_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^ORC-[0-9]{3,}-W[0-9]{2,}$"
+      },
+      "managed": {
+        "type": "boolean"
       }
     }
   },
@@ -3563,7 +3683,8 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha6"
+          "4.0-alpha6",
+          "4.0-alpha7"
         ]
       },
       "id": {
@@ -3643,6 +3764,709 @@
       },
       "metadata": {
         "type": "object"
+      }
+    }
+  },
+  "orchestration-run.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/orchestration-run.schema.json",
+    "title": "CPT Managed Orchestration Run",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "id",
+      "title",
+      "purpose",
+      "task_id",
+      "lease_id",
+      "status",
+      "write_strategy",
+      "approval",
+      "quorum",
+      "quorum_state",
+      "contract_ids",
+      "integration",
+      "cancellation",
+      "created_at",
+      "updated_at",
+      "completed_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha7"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}$"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "purpose": {
+        "type": "string",
+        "minLength": 1
+      },
+      "task_id": {
+        "type": "string",
+        "pattern": "^TKT-[0-9]{3,}$"
+      },
+      "lease_id": {
+        "type": "string",
+        "pattern": "^LEASE-[A-Z0-9-]+$"
+      },
+      "status": {
+        "enum": [
+          "proposed",
+          "approved",
+          "active",
+          "satisfied",
+          "integrating",
+          "integrated",
+          "cancelling",
+          "blocked",
+          "completed",
+          "cancelled",
+          "failed",
+          "needs_reconcile"
+        ]
+      },
+      "write_strategy": {
+        "enum": [
+          "read_only",
+          "sequential_direct",
+          "parallel_worktree"
+        ]
+      },
+      "approval": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "approved_by",
+          "approved_at"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "proposed",
+              "approved",
+              "rejected"
+            ]
+          },
+          "approved_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "approved_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "quorum": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "n"
+        ],
+        "properties": {
+          "mode": {
+            "enum": [
+              "all_required",
+              "all",
+              "n_of_m"
+            ]
+          },
+          "n": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        }
+      },
+      "quorum_state": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "n",
+          "satisfied",
+          "possible",
+          "successful_contracts",
+          "required_contracts",
+          "required_failed",
+          "terminal_non_success"
+        ],
+        "properties": {
+          "mode": {
+            "enum": [
+              "all_required",
+              "all",
+              "n_of_m"
+            ]
+          },
+          "n": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "satisfied": {
+            "type": "boolean"
+          },
+          "possible": {
+            "type": "boolean"
+          },
+          "successful_contracts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_contracts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_failed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "terminal_non_success": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "contract_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^ORC-[0-9]{3,}-W[0-9]{2,}$"
+        }
+      },
+      "integration": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "owner",
+          "summary",
+          "plan",
+          "applied_at"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "not_started",
+              "planned",
+              "applied",
+              "blocked"
+            ]
+          },
+          "owner": {
+            "const": "main_thread"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "plan": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applied_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "cancellation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requested",
+          "reason",
+          "requested_at"
+        ],
+        "properties": {
+          "requested": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "requested_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "completed_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    }
+  },
+  "worker-contract.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/worker-contract.schema.json",
+    "title": "CPT Bounded Worker Contract",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "id",
+      "orchestration_id",
+      "task_id",
+      "lease_id",
+      "archetype",
+      "purpose",
+      "required",
+      "status",
+      "role_lenses",
+      "skills",
+      "read_scope",
+      "write_scope",
+      "permission_mode",
+      "isolation",
+      "timeout_seconds",
+      "output_contract",
+      "stop_conditions",
+      "fallback",
+      "native_agent_id",
+      "worktree_id",
+      "created_at",
+      "approved_at",
+      "started_at",
+      "returned_at",
+      "completed_at",
+      "updated_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha7"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}-W[0-9]{2,}$"
+      },
+      "orchestration_id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}$"
+      },
+      "task_id": {
+        "type": "string",
+        "pattern": "^TKT-[0-9]{3,}$"
+      },
+      "lease_id": {
+        "type": "string",
+        "pattern": "^LEASE-[A-Z0-9-]+$"
+      },
+      "archetype": {
+        "type": "string",
+        "pattern": "^cpt_[a-z0-9_]+$"
+      },
+      "purpose": {
+        "type": "string",
+        "minLength": 1
+      },
+      "required": {
+        "type": "boolean"
+      },
+      "status": {
+        "enum": [
+          "proposed",
+          "approved",
+          "active",
+          "returned",
+          "completed",
+          "partial",
+          "failed",
+          "insufficient_evidence",
+          "cancel_requested",
+          "cancelled",
+          "timed_out",
+          "needs_reconcile",
+          "skipped"
+        ]
+      },
+      "role_lenses": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "skills": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "read_scope": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "write_scope": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "permission_mode": {
+        "enum": [
+          "read_only",
+          "workspace_write"
+        ]
+      },
+      "isolation": {
+        "enum": [
+          "direct",
+          "worktree"
+        ]
+      },
+      "timeout_seconds": {
+        "type": "integer",
+        "minimum": 30,
+        "maximum": 86400
+      },
+      "output_contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "required_fields",
+          "format"
+        ],
+        "properties": {
+          "required_fields": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "summary",
+                "evidence",
+                "blockers",
+                "confidence",
+                "touched_paths",
+                "verification",
+                "recommendations"
+              ]
+            }
+          },
+          "format": {
+            "const": "cpt-worker-result-v1"
+          }
+        }
+      },
+      "stop_conditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "fallback": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "native_agent_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "worktree_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^WT-[0-9]{3,}$"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "approved_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "started_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "returned_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "completed_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "worker-result.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/worker-result.schema.json",
+    "title": "CPT Structured Worker Result",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "id",
+      "orchestration_id",
+      "contract_id",
+      "worker_archetype",
+      "status",
+      "summary",
+      "evidence",
+      "blockers",
+      "confidence",
+      "touched_paths",
+      "verification",
+      "recommendations",
+      "submitted_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha7"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "pattern": "^RES-ORC-[0-9]{3,}-W[0-9]{2,}$"
+      },
+      "orchestration_id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}$"
+      },
+      "contract_id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}-W[0-9]{2,}$"
+      },
+      "worker_archetype": {
+        "type": "string",
+        "pattern": "^cpt_[a-z0-9_]+$"
+      },
+      "status": {
+        "enum": [
+          "success",
+          "partial",
+          "failure",
+          "insufficient_evidence",
+          "cancelled"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reference"
+          ],
+          "properties": {
+            "reference": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "blockers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "confidence": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ]
+      },
+      "touched_paths": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "verification": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "recommendations": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "submitted_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "worktree-record.schema.json": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "cpt://schemas/worktree-record.schema.json",
+    "title": "CPT Managed Git Worktree",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "id",
+      "orchestration_id",
+      "contract_id",
+      "repo_root",
+      "path",
+      "branch",
+      "base_revision",
+      "status",
+      "write_scope",
+      "changed_paths",
+      "created_at",
+      "updated_at",
+      "removed_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "4.0-alpha7"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "pattern": "^WT-[0-9]{3,}$"
+      },
+      "orchestration_id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}$"
+      },
+      "contract_id": {
+        "type": "string",
+        "pattern": "^ORC-[0-9]{3,}-W[0-9]{2,}$"
+      },
+      "repo_root": {
+        "type": "string",
+        "minLength": 1
+      },
+      "path": {
+        "type": "string",
+        "minLength": 1
+      },
+      "branch": {
+        "type": "string",
+        "pattern": "^cpt/orc-[0-9]{3,}/orc-[0-9]{3,}-w[0-9]{2,}$"
+      },
+      "base_revision": {
+        "type": "string",
+        "minLength": 7
+      },
+      "status": {
+        "enum": [
+          "active",
+          "clean",
+          "dirty",
+          "blocked",
+          "removed"
+        ]
+      },
+      "write_scope": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "changed_paths": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "removed_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
       }
     }
   }

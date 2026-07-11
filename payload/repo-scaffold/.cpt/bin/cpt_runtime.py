@@ -28,8 +28,13 @@ except ImportError as exc:
         "Missing runtime dependencies. Install PyYAML and fastjsonschema using the CPT package requirements."
     ) from exc
 
-SCHEMA_VERSION = "4.0-alpha6"
-KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha6"
+_RUNTIME_MODULE_DIR = Path(__file__).resolve().parent
+if str(_RUNTIME_MODULE_DIR) not in sys.path:
+    sys.path.insert(0, str(_RUNTIME_MODULE_DIR))
+import cpt_orchestration as orchestration
+
+SCHEMA_VERSION = "4.0-alpha7"
+KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha7"
 
 
 def utc_now() -> str:
@@ -140,6 +145,11 @@ def paths(root: Path) -> dict[str, Path]:
         "enforcement": cpt / "enforcement.yaml",
         "audit": cpt / "audit" / "events.jsonl",
         "workers": cpt / "workers",
+        "worker_archetypes": cpt / "worker-archetypes.json",
+        "orchestrations": cpt / "orchestrations",
+        "worker_contracts": cpt / "orchestrations" / "contracts",
+        "worker_results": cpt / "orchestrations" / "results",
+        "worktrees": cpt / "worktrees",
     }
 
 
@@ -221,6 +231,7 @@ def render_summary(root: Path, current: dict | None = None, index: dict | None =
     micro_label = current.get("current_micro_change") or "none"
     lease_label = current.get("current_lease") or "none"
     checkpoint_label = current.get("latest_checkpoint") or "none"
+    orchestration_label = current.get("current_orchestration") or "none"
     blockers = current.get("blockers", [])
     blocker_text = "None." if not blockers else "\n".join(
         f"- [{b['severity']}] {b['id']}: {b['summary']}" for b in blockers
@@ -244,6 +255,7 @@ Generated from `.cpt/current.yaml` and `.cpt/task-index.yaml`. Do not edit manua
 - Current micro change: `{micro_label}`
 - Current lease: `{lease_label}`
 - Latest checkpoint: `{checkpoint_label}`
+- Current orchestration: `{orchestration_label}`
 - Product Knowledge: {knowledge_text}
 
 ## Blockers
@@ -400,6 +412,13 @@ def validate_runtime(root: Path) -> tuple[list[str], list[str]]:
     for worker in sorted(p["workers"].glob("*.yaml")):
         errors += validate_schema(load_yaml(worker), "worker-record.schema.json", str(worker.relative_to(root)))
 
+    orchestration_errors, orchestration_warnings = orchestration.validate_all(root)
+    errors += orchestration_errors
+    warnings += orchestration_warnings
+    current_orchestration = current.get("current_orchestration")
+    if current_orchestration and not current_task:
+        errors.append(f"current: orchestration {current_orchestration} exists without an active Standard Task")
+
     knowledge_errors, knowledge_warnings = validate_knowledge(root, check_views=True)
     errors += knowledge_errors
     warnings += knowledge_warnings
@@ -423,6 +442,7 @@ def verify_checkpoint_integrity(cp: dict) -> list[str]:
         "active_task_sha256": snap.get("active_task"),
         "active_micro_change_sha256": snap.get("active_micro_change"),
         "active_lease_sha256": snap.get("active_lease"),
+        "active_orchestration_sha256": snap.get("active_orchestration"),
     }
     for key, data in mapping.items():
         actual = digest(data)
@@ -449,6 +469,7 @@ def command_status(root: Path, _args) -> int:
         "current_task": current["current_task"],
         "current_micro_change": current["current_micro_change"],
         "current_lease": current["current_lease"],
+        "current_orchestration": current.get("current_orchestration"),
         "latest_checkpoint": current["latest_checkpoint"],
         "state_revision": current["state_revision"],
         "tasks": len(index.get("tasks", [])),
@@ -457,6 +478,7 @@ def command_status(root: Path, _args) -> int:
     }
     knowledge = load_knowledge_index(root, required=False)
     payload["knowledge"] = None if knowledge is None else {"id": knowledge["id"], "mode": knowledge["mode"], "status": knowledge["status"], "artifacts": len(knowledge.get("artifacts", [])), "requires_review": sum(1 for a in knowledge.get("artifacts", []) if a.get("freshness") != "current")}
+    payload["orchestration"] = orchestration.status_payload(root, current.get("current_orchestration"))
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
 
@@ -573,6 +595,11 @@ def command_complete_task(root: Path, args) -> int:
             raise RuntimeError(f"Unknown task: {task_id}")
         entry = matches[0]
         task = load_yaml(root / entry["file"])
+        current_run = current.get("current_orchestration")
+        if current_run:
+            run = orchestration.load_run(root, current_run)
+            if run.get("status") not in {"completed", "cancelled"}:
+                raise RuntimeError(f"Task cannot complete while orchestration {current_run} is {run.get('status')}")
         knowledge_update = task.get("knowledge_update")
         if knowledge_update and knowledge_update.get("status") not in {"not_required", "applied", "deferred"}:
             raise RuntimeError("Task knowledge update is not accounted for. Use knowledge-task-assess before completion.")
@@ -594,6 +621,7 @@ def command_complete_task(root: Path, args) -> int:
                 task["authorization_lease"] = {"status": "consumed", "path": f".cpt/leases/{current['current_lease']}.yaml"}
             current["current_task"] = None
             current["current_lease"] = None
+            current["current_orchestration"] = None
             current["runtime_status"] = "ready"
             current["next_operation"] = {"type": "await_user_task", "summary": "Await a user task and select Micro Change or Standard Task workflow."}
             bump(current)
@@ -724,6 +752,12 @@ def command_lease_create(root: Path, args) -> int:
                 break
             serial += 1
         ts = utc_now()
+        registry = orchestration.load_registry(root)
+        unknown_workers = sorted(set(args.worker or []) - set(registry))
+        if unknown_workers:
+            raise RuntimeError(f"Unknown worker archetypes in lease: {unknown_workers}")
+        if len(set(args.worker or [])) != len(args.worker or []):
+            raise RuntimeError("Lease worker archetypes must be unique")
         verify = [{"command": cmd, "cwd": args.cwd, "purpose": "Verify approved task outcome"} for cmd in args.verify]
         default_forbidden = {"dependency_change", "migration", "public_api_change", "network_access", "destructive_git"}
         allowed_operations = set(args.allow_operation or [])
@@ -780,6 +814,7 @@ def make_checkpoint(root: Path, source: str, reason: str) -> dict:
     active_task = load_yaml(task_file(root, current["current_task"])) if current.get("current_task") else None
     active_micro = load_yaml(micro_file(root, current["current_micro_change"])) if current.get("current_micro_change") else None
     active_lease = load_yaml(lease_file(root, current["current_lease"])) if current.get("current_lease") else None
+    active_orchestration = orchestration.bundle_for_checkpoint(root, current.get("current_orchestration"))
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     suffix = hashlib.sha256(f"{stamp}-{time.time_ns()}".encode()).hexdigest()[:6]
     cp_id = f"CP-{stamp}-{suffix}"
@@ -790,8 +825,8 @@ def make_checkpoint(root: Path, source: str, reason: str) -> dict:
         "reason": reason,
         "created_at": utc_now(),
         "runtime_revision": current["state_revision"],
-        "snapshot": {"current": copy.deepcopy(current), "task_index": copy.deepcopy(index), "active_task": active_task, "active_micro_change": active_micro, "active_lease": active_lease},
-        "unresolved_work": {"blockers": copy.deepcopy(current.get("blockers", [])), "unfinished_verification": [], "next_operation": copy.deepcopy(current.get("next_operation")), "worker_registry": copy.deepcopy(worker_records(root))},
+        "snapshot": {"current": copy.deepcopy(current), "task_index": copy.deepcopy(index), "active_task": active_task, "active_micro_change": active_micro, "active_lease": active_lease, "active_orchestration": active_orchestration},
+        "unresolved_work": {"blockers": copy.deepcopy(current.get("blockers", [])), "unfinished_verification": [], "next_operation": copy.deepcopy(current.get("next_operation")), "worker_registry": copy.deepcopy(worker_records(root)), "worktree_registry": copy.deepcopy(orchestration.worktrees_for_run(root, current.get("current_orchestration")) if current.get("current_orchestration") else [])},
         "integrity": {},
     }
     cp["integrity"] = {
@@ -800,6 +835,7 @@ def make_checkpoint(root: Path, source: str, reason: str) -> dict:
         "active_task_sha256": digest(active_task),
         "active_micro_change_sha256": digest(active_micro),
         "active_lease_sha256": digest(active_lease),
+        "active_orchestration_sha256": digest(active_orchestration),
     }
     return cp
 
@@ -839,7 +875,7 @@ def resolve_checkpoint(root: Path, value: str) -> Path:
     return path
 
 
-def snapshot_diff(root: Path, cp: dict) -> list[str]:
+def snapshot_diff(root: Path, cp: dict, *, allow_orchestration_progress: bool = False) -> list[str]:
     _, current, index = load_state(root)
     snap = cp["snapshot"]
     diffs = []
@@ -870,8 +906,17 @@ def snapshot_diff(root: Path, cp: dict) -> list[str]:
         if live != snap["active_lease"]:
             diffs.append("active lease differs")
     checkpoint_workers = cp.get("unresolved_work", {}).get("worker_registry", [])
-    if worker_records(root) != checkpoint_workers:
+    if not allow_orchestration_progress and worker_records(root) != checkpoint_workers:
         diffs.append("worker lifecycle state differs")
+    if not allow_orchestration_progress:
+        diffs.extend(orchestration.bundle_diff(root, snap.get("active_orchestration")))
+    else:
+        run_id = current.get("current_orchestration")
+        if run_id:
+            try:
+                orchestration.reconcile(root, run_id)
+            except Exception as exc:
+                diffs.append(f"orchestration reconciliation failed: {exc}")
     return diffs
 
 
@@ -891,6 +936,7 @@ def restore_checkpoint(root: Path, cp: dict) -> None:
         atomic_write_yaml(micro_file(root, snap["active_micro_change"]["id"]), snap["active_micro_change"])
     if snap["active_lease"] is not None:
         atomic_write_yaml(lease_file(root, snap["active_lease"]["id"]), snap["active_lease"])
+    orchestration.restore_bundle(root, snap.get("active_orchestration"))
     write_summary(root, current, index)
 
 
@@ -2064,6 +2110,12 @@ def active_worker_limit(root: Path, config: dict) -> int:
 
 def record_worker_start(root: Path, config: dict, payload: dict) -> tuple[dict, list[str]]:
     current = load_yaml(paths(root)["current"])
+    warnings: list[str] = []
+    bound_contract = None
+    try:
+        bound_contract = orchestration.bind_native_worker(root, payload)
+    except Exception as exc:
+        warnings.append(f"managed worker binding failed: {exc}")
     record = {
         "schema_version": SCHEMA_VERSION,
         "agent_id": payload.get("agent_id") or "unknown",
@@ -2078,6 +2130,9 @@ def record_worker_start(root: Path, config: dict, payload: dict) -> tuple[dict, 
         "stopped_at": None,
         "transcript_path": None,
         "last_message_sha256": None,
+        "orchestration_id": bound_contract.get("orchestration_id") if bound_contract else None,
+        "contract_id": bound_contract.get("id") if bound_contract else None,
+        "managed": bool(bound_contract),
         "updated_at": utc_now(),
     }
     errors = validate_schema(record, "worker-record.schema.json", "worker record")
@@ -2087,15 +2142,15 @@ def record_worker_start(root: Path, config: dict, payload: dict) -> tuple[dict, 
     path.parent.mkdir(parents=True, exist_ok=True)
     atomic_write_yaml(path, record)
     running = [item for item in worker_records(root) if item.get("status") == "running"]
-    warnings = []
     limit = active_worker_limit(root, config)
     if len(running) > limit:
         warnings.append(f"active workers {len(running)} exceed approved limit {limit}")
     lease = active_lease(root)
     if lease and not lease.get("delegation", {}).get("allowed"):
         warnings.append("active lease does not allow delegation")
+    if not bound_contract:
+        warnings.append("subagent is unmanaged by a CPT orchestration contract")
     return record, warnings
-
 
 def record_worker_stop(root: Path, payload: dict) -> dict:
     agent_id = payload.get("agent_id") or "unknown"
@@ -2114,6 +2169,9 @@ def record_worker_stop(root: Path, payload: dict) -> dict:
         "stopped_at": None,
         "transcript_path": None,
         "last_message_sha256": None,
+        "orchestration_id": None,
+        "contract_id": None,
+        "managed": False,
         "updated_at": utc_now(),
     }
     message = payload.get("last_assistant_message")
@@ -2122,13 +2180,17 @@ def record_worker_stop(root: Path, payload: dict) -> dict:
     record["transcript_path"] = payload.get("agent_transcript_path")
     record["last_message_sha256"] = hashlib.sha256(message.encode("utf-8")).hexdigest() if message else None
     record["updated_at"] = utc_now()
+    contract = orchestration.native_worker_returned(root, payload)
+    if contract:
+        record["orchestration_id"] = contract.get("orchestration_id")
+        record["contract_id"] = contract.get("id")
+        record["managed"] = True
     errors = validate_schema(record, "worker-record.schema.json", "worker record")
     if errors:
         raise RuntimeError("; ".join(errors))
     path.parent.mkdir(parents=True, exist_ok=True)
     atomic_write_yaml(path, record)
     return record
-
 
 def prune_automatic_checkpoints(root: Path, retain: int) -> None:
     candidates = []
@@ -2228,13 +2290,24 @@ def handle_post_tool(root: Path, config: dict, payload: dict) -> int:
 def handle_pre_compact(root: Path, config: dict, payload: dict) -> int:
     if not config.get("compaction", {}).get("checkpoint_before_compaction", True):
         return 0
-    active_workers = [item for item in worker_records(root) if item.get("status") == "running"]
-    worker_warning = None
-    if active_workers:
-        worker_warning = f"{len(active_workers)} subagent worker(s) are still active"
-        if mode_blocks(config) and config.get("compaction", {}).get("block_with_active_workers", True):
-            append_audit(root, config, event="PreCompact", decision="stop", summary=worker_warning, payload=payload, violations=[worker_warning])
-            return hook_json(continue_=False, stopReason=worker_warning, systemMessage=worker_warning)
+    active_workers = [item for item in worker_records(root) if item.get("status") in {"running", "cancel_requested", "needs_reconcile"}]
+    warnings: list[str] = []
+    blocking: list[str] = []
+    unmanaged = [item for item in active_workers if not item.get("managed")]
+    if unmanaged and config.get("subagents", {}).get("block_unmanaged_on_compaction", True):
+        blocking.append(f"{len(unmanaged)} unmanaged worker(s) are active")
+    run_id = load_yaml(paths(root)["current"]).get("current_orchestration")
+    if run_id:
+        blocking.extend(orchestration.managed_compaction_issues(root, run_id))
+    managed_readonly = [item for item in active_workers if item.get("managed") and item.get("permission_mode") in {None, "read-only", "read_only"}]
+    if managed_readonly and not config.get("subagents", {}).get("allow_managed_readonly_compaction", True):
+        blocking.append(f"{len(managed_readonly)} managed read-only worker(s) are active")
+    elif managed_readonly:
+        warnings.append(f"{len(managed_readonly)} managed read-only worker(s) will be reconciled after compaction")
+    if blocking and mode_blocks(config) and config.get("compaction", {}).get("block_with_active_workers", True):
+        message = "; ".join(blocking)
+        append_audit(root, config, event="PreCompact", decision="stop", summary=message, payload=payload, violations=blocking)
+        return hook_json(continue_=False, stopReason=message, systemMessage=message)
     try:
         with runtime_lock(root):
             errors, _ = validate_runtime(root)
@@ -2245,10 +2318,11 @@ def handle_pre_compact(root: Path, config: dict, payload: dict) -> int:
             current["latest_checkpoint"] = cp["id"]; bump(current)
             atomic_write_yaml(checkpoint_file(root, cp["id"]), cp); atomic_write_yaml(paths(root)["current"], current); write_summary(root,current,index)
             prune_automatic_checkpoints(root, int(config.get("compaction", {}).get("retain_automatic_checkpoints", 5)))
-        append_audit(root, config, event="PreCompact", decision="warn" if worker_warning else "record", summary=f"Created checkpoint {cp['id']}", payload=payload, violations=[worker_warning] if worker_warning else [], metadata={"checkpoint_id":cp["id"]})
+        decision = "warn" if blocking or warnings else "record"
+        append_audit(root, config, event="PreCompact", decision=decision, summary=f"Created checkpoint {cp['id']}", payload=payload, violations=blocking, metadata={"checkpoint_id":cp["id"],"warnings":warnings})
         message = f"CPT checkpoint {cp['id']} created before compaction."
-        if worker_warning:
-            message += " Warning: " + worker_warning
+        if blocking or warnings:
+            message += " Warnings: " + "; ".join(blocking + warnings)
         return hook_json(systemMessage=message)
     except Exception as exc:
         message = f"CPT could not checkpoint before compaction: {exc}"
@@ -2257,14 +2331,13 @@ def handle_pre_compact(root: Path, config: dict, payload: dict) -> int:
             return hook_json(continue_=False, stopReason=message, systemMessage=message)
         return hook_json(systemMessage=message)
 
-
 def handle_post_compact(root: Path, config: dict, payload: dict) -> int:
     if not config.get("compaction", {}).get("verify_after_compaction", True):
         return 0
     try:
         cp_path = resolve_checkpoint(root, "latest")
         cp = load_yaml(cp_path)
-        diffs = verify_checkpoint_integrity(cp) + snapshot_diff(root, cp)
+        diffs = verify_checkpoint_integrity(cp) + snapshot_diff(root, cp, allow_orchestration_progress=True)
         errors, warnings = validate_runtime(root)
         diffs += errors
         if diffs:
@@ -2283,20 +2356,44 @@ def handle_subagent_start(root: Path, config: dict, payload: dict) -> int:
     if not config.get("subagents", {}).get("record_lifecycle", True):
         return 0
     record, warnings = record_worker_start(root, config, payload)
-    append_audit(root, config, event="SubagentStart", decision="warn" if warnings else "record", summary=f"Worker {record['agent_id']} started", payload=payload, violations=warnings, metadata={"agent_type":record["agent_type"],"task_id":record["task_id"],"lease_id":record["lease_id"]})
-    context = f"CPT worker record: task={record['task_id'] or 'none'}, lease={record['lease_id'] or 'none'}. Stay inside the delegated bounded contract and return a compact evidence-backed artifact."
+    metadata = {
+        "agent_type": record["agent_type"],
+        "task_id": record["task_id"],
+        "lease_id": record["lease_id"],
+        "orchestration_id": record.get("orchestration_id"),
+        "contract_id": record.get("contract_id"),
+        "managed": record.get("managed", False),
+    }
+    decision = "warn" if warnings else "record"
+    if warnings and mode_blocks(config) and not record.get("managed"):
+        decision = "stop"
+    append_audit(root, config, event="SubagentStart", decision=decision, summary=f"Worker {record['agent_id']} started", payload=payload, violations=warnings, metadata=metadata)
+    if record.get("managed"):
+        contract = orchestration.load_contract(root, record["contract_id"])
+        context = (
+            f"CPT managed worker contract {contract['id']}: purpose={contract['purpose']}; "
+            f"read_scope={contract['read_scope']}; write_scope={contract['write_scope']}; "
+            f"role_lenses={contract['role_lenses']}; required_output_fields={contract['output_contract']['required_fields']}; "
+            f"timeout_seconds={contract['timeout_seconds']}. Stay inside this contract, do not spawn subagents, and return a compact evidence-backed result."
+        )
+    else:
+        context = "CPT did not bind this worker to a managed orchestration contract. Do not broaden scope or write project files."
     if warnings:
         context += " Warnings: " + "; ".join(warnings)
+    if warnings and mode_blocks(config) and not record.get("managed"):
+        return hook_json(continue_=False, stopReason="Unmanaged subagent blocked by CPT enforcement", systemMessage=context)
     return hook_json(hookSpecificOutput={"hookEventName":"SubagentStart","additionalContext":context}, systemMessage="; ".join(warnings) if warnings else None)
-
 
 def handle_subagent_stop(root: Path, config: dict, payload: dict) -> int:
     if not config.get("subagents", {}).get("record_lifecycle", True):
         return 0
     record = record_worker_stop(root, payload)
-    append_audit(root, config, event="SubagentStop", decision="record", summary=f"Worker {record['agent_id']} stopped with status {record['status']}", payload=payload, metadata={"agent_type":record["agent_type"],"status":record["status"]})
-    return hook_json(systemMessage=f"CPT recorded worker {record['agent_id']} as {record['status']}.")
-
+    append_audit(root, config, event="SubagentStop", decision="record", summary=f"Worker {record['agent_id']} stopped with status {record['status']}", payload=payload, metadata={"agent_type":record["agent_type"],"status":record["status"],"orchestration_id":record.get("orchestration_id"),"contract_id":record.get("contract_id"),"managed":record.get("managed",False)})
+    if record.get("managed") and record.get("contract_id"):
+        message = f"CPT recorded managed worker {record['agent_id']} as returned. The parent must submit a structured result for contract {record['contract_id']} before quorum can use it."
+    else:
+        message = f"CPT recorded worker {record['agent_id']} as {record['status']}."
+    return hook_json(systemMessage=message)
 
 def handle_stop(root: Path, config: dict, payload: dict) -> int:
     if not config.get("stop", {}).get("validate_runtime", True):
@@ -2434,12 +2531,178 @@ def command_audit_validate(root: Path, _args) -> int:
     return 0
 
 
+
+
+def sync_runtime_summary(root: Path) -> None:
+    _, current, index = load_state(root)
+    write_summary(root, current, index)
+
+
+def command_orchestration_create(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        run = orchestration.create_run(
+            root,
+            title=args.title,
+            purpose=args.purpose,
+            task_id=args.task,
+            lease_id=args.lease,
+            write_strategy=args.write_strategy,
+            quorum_mode=args.quorum_mode,
+            quorum_n=args.quorum_n,
+        )
+    sync_runtime_summary(root)
+    print(run["id"])
+    return 0
+
+
+def command_worker_contract_add(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        contract = orchestration.add_contract(
+            root,
+            args.run,
+            archetype=args.archetype,
+            purpose=args.purpose,
+            required=args.required,
+            role_lenses=args.role,
+            skills=args.skill,
+            read_scope=args.read,
+            write_scope=args.write,
+            permission_mode=args.permission_mode,
+            isolation=args.isolation,
+            timeout_seconds=args.timeout,
+            output_fields=args.output_field,
+            stop_conditions=args.stop_condition,
+            fallback=args.fallback,
+        )
+    print(contract["id"])
+    return 0
+
+
+def command_orchestration_approve(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        run = orchestration.approve_run(root, args.run, args.approved_by)
+    print(json.dumps(orchestration.status_payload(root, run["id"]), ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_orchestration_activate(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        run = orchestration.activate_run(root, args.run)
+    sync_runtime_summary(root)
+    print(run["status"])
+    return 0
+
+
+def command_orchestration_status(root: Path, args) -> int:
+    print(json.dumps(orchestration.status_payload(root, args.run), ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_worker_result_submit(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        result = orchestration.submit_result(
+            root,
+            args.contract,
+            status=args.status,
+            summary=args.summary,
+            evidence=args.evidence,
+            blockers=args.blocker,
+            confidence=args.confidence,
+            touched_paths=args.touched,
+            verification=args.verification,
+            recommendations=args.recommendation,
+        )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_worker_cancel(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        record = orchestration.request_cancel(root, contract_id=args.contract, reason=args.reason)
+    print(json.dumps({"contract_id": record["id"], "status": record["status"], "host_action_required": True}, indent=2))
+    return 0
+
+
+def command_worker_skip(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        record = orchestration.skip_contract(root, args.contract, args.reason)
+    print(json.dumps({"contract_id": record["id"], "status": record["status"]}, indent=2))
+    return 0
+
+
+def command_orchestration_cancel(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        run = orchestration.request_cancel(root, run_id=args.run, reason=args.reason)
+    print(json.dumps({"run_id": run["id"], "status": run["status"], "host_action_required": True}, indent=2))
+    return 0
+
+
+def command_orchestration_reconcile(root: Path, args) -> int:
+    run_id = args.run or orchestration.current_orchestration(root)
+    if not run_id:
+        raise RuntimeError("No current orchestration")
+    with orchestration.orchestration_lock(root):
+        run = orchestration.reconcile(root, run_id)
+    print(json.dumps(orchestration.status_payload(root, run["id"]), ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_orchestration_integrate(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        run = orchestration.integration_update(root, args.run, summary=args.summary, plan=args.plan, apply=args.apply)
+    print(json.dumps({"run_id": run["id"], "status": run["status"], "integration": run["integration"]}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_orchestration_complete(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        run = orchestration.complete_run(root, args.run)
+    sync_runtime_summary(root)
+    print(json.dumps({"run_id": run["id"], "status": run["status"]}, indent=2))
+    return 0
+
+
+def command_worktree_create(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        record = orchestration.create_worktree(root, args.contract, args.path, args.allow_dirty_base)
+    print(json.dumps(record, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_worktree_status(root: Path, args) -> int:
+    print(json.dumps(orchestration.inspect_worktree(root, args.contract), ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_worktree_plan(root: Path, args) -> int:
+    print(json.dumps(orchestration.integration_plan_for_worktree(root, args.contract), ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_worktree_remove(root: Path, args) -> int:
+    with orchestration.orchestration_lock(root):
+        record = orchestration.remove_worktree(root, args.contract, args.discard)
+    print(json.dumps(record, ensure_ascii=False, indent=2))
+    return 0
+
+
+def command_orchestration_validate(root: Path, _args) -> int:
+    errors, warnings = orchestration.validate_all(root)
+    for warning in warnings:
+        print(f"WARNING: {warning}")
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}")
+        return 1
+    print("ORCHESTRATION VALIDATION PASSED")
+    return 0
+
 def command_worker_status(root: Path, _args) -> int:
     print(json.dumps(worker_records(root), ensure_ascii=False, indent=2))
     return 0
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 6 runtime, Product Knowledge, and deterministic enforcement CLI")
+    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 7 runtime, Product Knowledge, deterministic enforcement, and managed worker orchestration CLI")
     parser.add_argument("--root", type=Path, help="Runtime root; defaults to nearest parent containing .cpt/runtime.yaml")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -2462,6 +2725,94 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--limit", type=int, default=20)
     sub.add_parser("audit-validate")
     sub.add_parser("worker-status")
+    sub.add_parser("orchestration-validate")
+
+    p = sub.add_parser("orchestration-create")
+    p.add_argument("--title", required=True)
+    p.add_argument("--purpose", required=True)
+    p.add_argument("--task")
+    p.add_argument("--lease")
+    p.add_argument("--write-strategy", choices=["read_only","sequential_direct","parallel_worktree"], default="read_only")
+    p.add_argument("--quorum-mode", choices=["all_required","all","n_of_m"], default="all_required")
+    p.add_argument("--quorum-n", type=int)
+
+    p = sub.add_parser("worker-contract-add")
+    p.add_argument("--run", required=True)
+    p.add_argument("--archetype", required=True)
+    p.add_argument("--purpose", required=True)
+    req = p.add_mutually_exclusive_group(required=True)
+    req.add_argument("--required", action="store_true")
+    req.add_argument("--optional", action="store_false", dest="required")
+    p.add_argument("--role", action="append", default=[])
+    p.add_argument("--skill", action="append", default=[])
+    p.add_argument("--read", action="append", default=[])
+    p.add_argument("--write", action="append", default=[])
+    p.add_argument("--permission-mode", choices=["read_only","workspace_write"], default="read_only")
+    p.add_argument("--isolation", choices=["direct","worktree"], default="direct")
+    p.add_argument("--timeout", type=int, default=900)
+    p.add_argument("--output-field", action="append", default=[])
+    p.add_argument("--stop-condition", action="append", default=[])
+    p.add_argument("--fallback")
+
+    p = sub.add_parser("orchestration-approve")
+    p.add_argument("--run", required=True)
+    p.add_argument("--approved-by", default="user")
+
+    p = sub.add_parser("orchestration-activate")
+    p.add_argument("--run", required=True)
+
+    p = sub.add_parser("orchestration-status")
+    p.add_argument("--run")
+
+    p = sub.add_parser("worker-result-submit")
+    p.add_argument("--contract", required=True)
+    p.add_argument("--status", choices=["success","partial","failure","insufficient_evidence","cancelled"], required=True)
+    p.add_argument("--summary", required=True)
+    p.add_argument("--evidence", action="append", default=[])
+    p.add_argument("--blocker", action="append", default=[])
+    p.add_argument("--confidence", choices=["low","medium","high"], required=True)
+    p.add_argument("--touched", action="append", default=[])
+    p.add_argument("--verification", action="append", default=[])
+    p.add_argument("--recommendation", action="append", default=[])
+
+    p = sub.add_parser("worker-cancel")
+    p.add_argument("--contract", required=True)
+    p.add_argument("--reason", required=True)
+
+    p = sub.add_parser("worker-skip")
+    p.add_argument("--contract", required=True)
+    p.add_argument("--reason", required=True)
+
+    p = sub.add_parser("orchestration-cancel")
+    p.add_argument("--run", required=True)
+    p.add_argument("--reason", required=True)
+
+    p = sub.add_parser("orchestration-reconcile")
+    p.add_argument("--run")
+
+    p = sub.add_parser("orchestration-integrate")
+    p.add_argument("--run", required=True)
+    p.add_argument("--summary", required=True)
+    p.add_argument("--plan", action="append", default=[])
+    p.add_argument("--apply", action="store_true")
+
+    p = sub.add_parser("orchestration-complete")
+    p.add_argument("--run", required=True)
+
+    p = sub.add_parser("worktree-create")
+    p.add_argument("--contract", required=True)
+    p.add_argument("--path")
+    p.add_argument("--allow-dirty-base", action="store_true")
+
+    p = sub.add_parser("worktree-status")
+    p.add_argument("--contract", required=True)
+
+    p = sub.add_parser("worktree-plan")
+    p.add_argument("--contract", required=True)
+
+    p = sub.add_parser("worktree-remove")
+    p.add_argument("--contract", required=True)
+    p.add_argument("--discard", action="store_true")
 
     p = sub.add_parser("create-task")
     p.add_argument("--title", required=True)
@@ -2618,6 +2969,23 @@ def main(argv: list[str] | None = None) -> int:
             "audit-tail": command_audit_tail,
             "audit-validate": command_audit_validate,
             "worker-status": command_worker_status,
+            "orchestration-validate": command_orchestration_validate,
+            "orchestration-create": command_orchestration_create,
+            "worker-contract-add": command_worker_contract_add,
+            "orchestration-approve": command_orchestration_approve,
+            "orchestration-activate": command_orchestration_activate,
+            "orchestration-status": command_orchestration_status,
+            "worker-result-submit": command_worker_result_submit,
+            "worker-cancel": command_worker_cancel,
+            "worker-skip": command_worker_skip,
+            "orchestration-cancel": command_orchestration_cancel,
+            "orchestration-reconcile": command_orchestration_reconcile,
+            "orchestration-integrate": command_orchestration_integrate,
+            "orchestration-complete": command_orchestration_complete,
+            "worktree-create": command_worktree_create,
+            "worktree-status": command_worktree_status,
+            "worktree-plan": command_worktree_plan,
+            "worktree-remove": command_worktree_remove,
             "create-task": command_create_task,
             "activate-task": command_activate_task,
             "complete-task": command_complete_task,

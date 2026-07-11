@@ -1,6 +1,6 @@
-# Roles in Codex Product Operating System 4.0 Alpha 6
+# Roles in Codex Product Operating System 4.0 Alpha 7
 
-Alpha 6 preserves all 50 logical roles from 3.0 and rewrites them as accountable expert lenses.
+Alpha 7 preserves all 50 logical roles from 3.0 and rewrites them as accountable expert lenses.
 
 ## Core model
 

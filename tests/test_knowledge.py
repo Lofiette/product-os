@@ -17,7 +17,7 @@ def install(repo,home):
 class KnowledgeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.base_tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha6-knowledge-base-'))
+        cls.base_tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha7-knowledge-base-'))
         cls.base_repo=cls.base_tmp/'repo'; cls.base_repo.mkdir()
         subprocess.run(['git','init','-q',str(cls.base_repo)],check=True)
         home=cls.base_tmp/'home'; home.mkdir(); install(cls.base_repo,home)
@@ -25,7 +25,7 @@ class KnowledgeTests(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.base_tmp)
     def setUp(self):
-        self.tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha6-knowledge-case-'))
+        self.tmp=Path(tempfile.mkdtemp(prefix='cpt-alpha7-knowledge-case-'))
         self.repo=self.tmp/'repo'; shutil.copytree(self.base_repo,self.repo)
     def tearDown(self): shutil.rmtree(self.tmp)
     def init_kb(self,mode='existing'):

@@ -1,5 +1,16 @@
-
 # Changelog
+
+## 4.0.0-alpha.7
+
+- Added ten optional executable worker archetypes instead of one custom agent per logical role.
+- Added typed orchestration runs, bounded worker contracts, structured results, quorum, cancellation, timeout, reconciliation, and main-thread integration.
+- Added managed Git worktrees for parallel writable workers with dirty-base, branch/path, scope, and touched-path verification.
+- Added orchestration state to checkpoints and compaction recovery.
+- Added separate worker-pack installation, receipts, status, and safe removal.
+- Made personal core plugin exposure the default for local and team installs; repository vendoring remains explicit.
+- Added orchestration validators, policy evals, integration fixtures, and behavioral tests.
+- Preserved Runtime, Product Knowledge, Skills, Roles, Gates, Distribution, and Deterministic Enforcement from Alpha 6.
+
 
 ## 4.0.0-alpha.6
 

@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha6
+schema_version: 4.0-alpha7
 mode: 'off'
 hooks:
   bundled_with_core_plugin: true
@@ -68,9 +68,13 @@ audit:
 subagents:
   record_lifecycle: true
   default_max_active: 3
+  default_max_depth: 1
+  default_timeout_seconds: 900
+  block_unmanaged_on_compaction: true
+  allow_managed_readonly_compaction: true
 stop:
   validate_runtime: true
   continue_once_when_invalid: true
 approval:
   auto_allow_within_lease: false
-updated_at: '2026-07-10T18:00:00Z'
+updated_at: '2026-07-11T06:30:00Z'

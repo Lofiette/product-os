@@ -1,0 +1,6 @@
+# Recommended CPT worker limits. Merge explicitly into your active Codex config.
+[agents]
+max_threads = 4
+max_depth = 1
+job_max_runtime_seconds = 900
+interrupt_message = true

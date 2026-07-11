@@ -86,7 +86,20 @@ Routing procedure:
 
 Do not install or invent one custom agent per logical role.
 
+## Managed worker orchestration
 
+When independent evidence, review, or implementation genuinely benefits from delegation:
+
+1. Keep roles as accountable lenses and choose one of the ten CPT worker archetypes.
+2. Create a Standard Task and scoped authorization lease with an explicit worker budget.
+3. Propose bounded worker contracts: purpose, role lenses, skills, read/write scope, permission mode, isolation, timeout, required output fields, stop conditions, and fallback.
+4. Ask the user to approve the lineup before native spawn.
+5. Prefer read-only workers. Multiple writable workers require managed worktrees.
+6. Treat native worker return as incomplete until a structured CPT result is submitted.
+7. Use required/optional quorum and let the main thread own integration.
+8. Never convert missing, partial, timed-out, or insufficient worker evidence into PASS.
+
+Use `ORCHESTRATION.md` and the runtime CLI. If lifecycle hooks are unavailable, an approved contract may use manual structured-result fallback, but do not claim native lifecycle evidence.
 
 ## Lease-aware planning
 

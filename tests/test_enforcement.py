@@ -26,7 +26,7 @@ def run_dist(*args: str, env: dict, check: bool = True):
 class EnforcementTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.base_tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha6-enforcement-base-'))
+        cls.base_tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha7-enforcement-base-'))
         cls.base_home = cls.base_tmp / 'home'; cls.base_home.mkdir()
         cls.base_repo = cls.base_tmp / 'repo'; cls.base_repo.mkdir()
         subprocess.run(['git','init','-q',str(cls.base_repo)], check=True)
@@ -40,7 +40,7 @@ class EnforcementTests(unittest.TestCase):
         shutil.rmtree(cls.base_tmp)
 
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha6-enforcement-case-'))
+        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha7-enforcement-case-'))
         self.repo = self.tmp / 'repo'
         shutil.copytree(self.base_repo, self.repo)
         self.home = self.base_home
@@ -219,14 +219,15 @@ class EnforcementTests(unittest.TestCase):
         result=self.hook('PreToolUse',tool_name='Bash',tool_input={'command':'pnpm add zod'})
         self.assertEqual(result.stdout.strip(),'')
 
-    def test_precompact_blocks_active_worker_in_enforce_mode(self):
+    def test_precompact_blocks_unmanaged_worker_in_enforce_mode(self):
         self.set_mode('enforce')
         task=self.run_tool('create-task','--title','Delegated','--objective','Review','--activate').stdout.strip()
-        self.run_tool('lease-create','--task',task,'--read','src/**','--worker','explorer')
-        self.hook('SubagentStart',agent_id='agent-live',agent_type='explorer',permission_mode='default')
+        self.run_tool('lease-create','--task',task,'--read','src/**')
+        start=self.hook('SubagentStart',agent_id='agent-live',agent_type='legacy_explorer',permission_mode='default')
+        self.assertIn('"continue": false',start.stdout)
         result=self.hook('PreCompact',trigger='auto')
         self.assertIn('"continue": false',result.stdout)
-        self.assertIn('still active',result.stdout)
+        self.assertIn('unmanaged worker',result.stdout)
 
 
 if __name__ == '__main__':

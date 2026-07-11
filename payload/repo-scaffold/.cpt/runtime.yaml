@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha6
+schema_version: 4.0-alpha7
 runtime_id: cpt-runtime
 storage_mode: file_only
 sharing_mode: local_ignored
@@ -16,6 +16,11 @@ paths:
   enforcement: .cpt/enforcement.yaml
   audit_log: .cpt/audit/events.jsonl
   workers: .cpt/workers
+  orchestrations: .cpt/orchestrations
+  worker_contracts: .cpt/orchestrations/contracts
+  worker_results: .cpt/orchestrations/results
+  worktrees: .cpt/worktrees
+  worker_archetypes: .cpt/worker-archetypes.json
 policies:
   no_active_task_allowed: true
   optional_tkt_000: true
@@ -27,5 +32,6 @@ policies:
   knowledge_update_accounting: true
   knowledge_size_limits_are_soft: true
   deterministic_enforcement_supported: true
+  managed_orchestration_supported: true
 created_at: '2026-07-10T12:45:20Z'
-updated_at: '2026-07-10T12:45:20Z'
+updated_at: '2026-07-11T06:30:00Z'

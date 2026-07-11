@@ -21,7 +21,10 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "4.0-alpha6"
+      "enum": [
+        "4.0-alpha6",
+        "4.0-alpha7"
+      ]
     },
     "id": {
       "type": "string",

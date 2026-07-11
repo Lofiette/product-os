@@ -1,0 +1,8 @@
+{
+  "schema_version": "cpt-worker-pack-v1",
+  "name": "cpt-workers",
+  "version": "4.0.0-alpha.7",
+  "agent_count": 10,
+  "agents_directory": "agents",
+  "config_example": "config/agents.example.toml"
+}

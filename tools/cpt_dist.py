@@ -16,7 +16,7 @@ from typing import Any
 
 import yaml
 
-PACKAGE_VERSION = "4.0.0-alpha.6"
+PACKAGE_VERSION = "4.0.0-alpha.7"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -152,10 +152,12 @@ def replace_marked_block(text: str, begin: str, end: str, block: str | None) -> 
 
 
 def kernel_block() -> str:
-    text = (scaffold_root() / "AGENTS.md").read_text(encoding="utf-8").strip()
-    if KERNEL_BEGIN not in text or KERNEL_END not in text:
+    text = (scaffold_root() / "AGENTS.md").read_text(encoding="utf-8")
+    pattern = re.compile(rf"{re.escape(KERNEL_BEGIN)}.*?{re.escape(KERNEL_END)}", re.S)
+    match = pattern.search(text)
+    if not match:
         raise RuntimeError("Payload AGENTS.md is missing managed markers")
-    return text
+    return match.group(0).strip()
 
 
 def exclude_block(paths: list[str]) -> str:
@@ -214,6 +216,7 @@ def default_receipt(mode: str, plugin_scope: str) -> dict[str, Any]:
         "agents": {},
         "plugin": {},
         "packs": [],
+        "workers": {"scope": "none", "status": "not_installed"},
         "warnings": [],
     }
 
@@ -423,7 +426,9 @@ def core_scaffold_files() -> list[tuple[str, bool]]:
         (".cpt/runtime-summary.md", True),
         (".cpt/enforcement.yaml", True),
         (".cpt/bin/cpt_runtime.py", False),
+        (".cpt/bin/cpt_orchestration.py", False),
         (".cpt/schema-bundle.json", False),
+        (".cpt/worker-archetypes.json", False),
     ]
 
 
@@ -473,7 +478,7 @@ def install(args: argparse.Namespace) -> int:
 
     plugin_scope = args.plugin_scope
     if plugin_scope == "auto":
-        plugin_scope = "personal" if args.mode == "local" else "repo"
+        plugin_scope = "personal"
     receipt = default_receipt(args.mode, plugin_scope)
 
     for path in [
@@ -485,6 +490,9 @@ def install(args: argparse.Namespace) -> int:
         project / ".cpt" / "knowledge" / "views",
         project / ".cpt" / "audit",
         project / ".cpt" / "workers",
+        project / ".cpt" / "orchestrations" / "contracts",
+        project / ".cpt" / "orchestrations" / "results",
+        project / ".cpt" / "worktrees",
     ]:
         path.mkdir(parents=True, exist_ok=True)
 
@@ -518,7 +526,7 @@ def install(args: argparse.Namespace) -> int:
             )
     else:
         # Audit logs and worker lifecycle records are machine-local even in team-shared mode.
-        update_exclude(project, ["/.cpt/audit/", "/.cpt/workers/"])
+        update_exclude(project, ["/.cpt/audit/", "/.cpt/workers/", "/.cpt/worktrees/"])
 
     save_receipt(project, receipt)
     print(f"CPT OS {PACKAGE_VERSION} installed in {project}")
@@ -565,6 +573,53 @@ def backup_paths(project: Path, paths: list[Path], label: str) -> Path:
     return backup
 
 
+
+
+def migrate_runtime_state(project: Path) -> None:
+    current_path = project / ".cpt" / "current.yaml"
+    if current_path.exists():
+        data = yaml.safe_load(current_path.read_text(encoding="utf-8")) or {}
+        data["schema_version"] = "4.0-alpha7"
+        data.setdefault("current_orchestration", None)
+        atomic_write(current_path, yaml.safe_dump(data, sort_keys=False, allow_unicode=True))
+    runtime_path = project / ".cpt" / "runtime.yaml"
+    if runtime_path.exists():
+        data = yaml.safe_load(runtime_path.read_text(encoding="utf-8")) or {}
+        data["schema_version"] = "4.0-alpha7"
+        paths = data.setdefault("paths", {})
+        paths.update({
+            "orchestrations": ".cpt/orchestrations",
+            "worker_contracts": ".cpt/orchestrations/contracts",
+            "worker_results": ".cpt/orchestrations/results",
+            "worktrees": ".cpt/worktrees",
+            "worker_archetypes": ".cpt/worker-archetypes.json",
+        })
+        data.setdefault("policies", {})["managed_orchestration_supported"] = True
+        data["updated_at"] = now()
+        atomic_write(runtime_path, yaml.safe_dump(data, sort_keys=False, allow_unicode=True))
+    index_path = project / ".cpt" / "task-index.yaml"
+    if index_path.exists():
+        data = yaml.safe_load(index_path.read_text(encoding="utf-8")) or {}
+        data["schema_version"] = "4.0-alpha7"
+        atomic_write(index_path, yaml.safe_dump(data, sort_keys=False, allow_unicode=True))
+    enforcement_path = project / ".cpt" / "enforcement.yaml"
+    if enforcement_path.exists():
+        data = yaml.safe_load(enforcement_path.read_text(encoding="utf-8")) or {}
+        data["schema_version"] = "4.0-alpha7"
+        subagents = data.setdefault("subagents", {})
+        subagents.setdefault("default_max_depth", 1)
+        subagents.setdefault("default_timeout_seconds", 900)
+        subagents.setdefault("block_unmanaged_on_compaction", True)
+        subagents.setdefault("allow_managed_readonly_compaction", True)
+        data["updated_at"] = now()
+        atomic_write(enforcement_path, yaml.safe_dump(data, sort_keys=False, allow_unicode=True))
+    for directory in [
+        project / ".cpt" / "orchestrations" / "contracts",
+        project / ".cpt" / "orchestrations" / "results",
+        project / ".cpt" / "worktrees",
+    ]:
+        directory.mkdir(parents=True, exist_ok=True)
+
 def update(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
@@ -589,6 +644,7 @@ def update(args: argparse.Namespace) -> int:
         copy_file(scaffold_root() / file, dst)
         new_managed[file] = {"sha256": sha256(dst), "created": receipt.get("managed_files", {}).get(file, {}).get("created", False)}
     receipt["managed_files"].update(new_managed)
+    migrate_runtime_state(project)
     patch_runtime_mode(project, receipt["mode"])
     runtime_render_summary(project)
 
@@ -627,6 +683,12 @@ def backup_runtime_outside_project(project: Path, backup_dir: str | None) -> Pat
 def uninstall(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
+    active = active_runtime_reasons(project)
+    if active and not args.force_active_runtime:
+        raise RuntimeError("Refusing uninstall while CPT runtime is active: " + "; ".join(active) + ". Use --force-active-runtime only after reviewing unfinished work.")
+
+    if receipt.get("workers", {}).get("scope") == "repo" and (project / ".cpt" / "worker-pack.json").exists():
+        workers_remove(argparse.Namespace(scope="repo", project=str(project), force=args.force_active_runtime))
 
     if not args.discard_state and (project / ".cpt").exists():
         backup = backup_runtime_outside_project(project, args.backup_dir)
@@ -725,6 +787,38 @@ def read_enforcement_status(project: Path) -> dict[str, Any]:
         "plugin_hooks_require_review": True,
     }
 
+def read_worker_pack_status(project: Path) -> dict[str, Any]:
+    try:
+        data = worker_pack_data()
+        allowed = set(data["agent_ids"])
+    except Exception as exc:
+        return {"installed": False, "valid": False, "error": str(exc)}
+    candidates = [
+        ("repo", project / ".codex" / "agents", project / ".cpt" / "worker-pack.json"),
+        ("personal", codex_home() / "agents", personal_workers_receipt()),
+    ]
+    for scope, target, receipt_path in candidates:
+        if not receipt_path.exists():
+            continue
+        try:
+            receipt = read_json(receipt_path)
+            safe = validate_workers_receipt(receipt, target, allowed)
+            files = [
+                {"name": name, "exists": (target / name).exists(), "matches_receipt": (target / name).exists() and sha256(target / name) == expected}
+                for name, expected in sorted(safe.items())
+            ]
+            return {
+                "installed": True,
+                "valid": len(files) == 10 and all(item["exists"] and item["matches_receipt"] for item in files),
+                "scope": scope,
+                "target": str(target),
+                "file_count": len(files),
+            }
+        except Exception as exc:
+            return {"installed": True, "valid": False, "scope": scope, "error": str(exc)}
+    return {"installed": False, "valid": True, "scope": "none", "file_count": 0}
+
+
 def status(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
@@ -740,6 +834,7 @@ def status(args: argparse.Namespace) -> int:
         "runtime_validation": validation,
         "enforcement": read_enforcement_status(project),
         "rules": receipt.get("rules", {}),
+        "workers": read_worker_pack_status(project),
         "warnings": receipt.get("warnings", []),
     }
     if args.json:
@@ -851,6 +946,10 @@ def doctor(args: argparse.Namespace) -> int:
             validate_plugin(plugin_path, require_pack=manifest.get("name") != "cpt-core")
         except RuntimeError as exc:
             problems.append(str(exc))
+    worker_status = read_worker_pack_status(project)
+    if worker_status.get("installed") and not worker_status.get("valid"):
+        problems.append("CPT worker pack is installed but invalid: " + str(worker_status.get("error") or worker_status))
+
     enforcement = read_enforcement_status(project)
     if enforcement.get("mode") in {"audit", "enforce"} and enforcement.get("trust_state") != "trusted":
         warnings.append("Enforcement mode is active but hook trust is not recorded as trusted; review hooks in Codex, then run enforcement-set --trust-state trusted")
@@ -867,6 +966,7 @@ def doctor(args: argparse.Namespace) -> int:
     print("DOCTOR")
     print(f"framework_files: {count}")
     print(f"runtime: {'PASS' if ok else 'FAIL'}")
+    print(f"workers: {'PASS' if worker_status.get('valid') else 'FAIL'} ({worker_status.get('scope','none')})")
     for warning in warnings:
         print(f"WARNING: {warning}")
     for problem in problems:
@@ -987,6 +1087,171 @@ def metadata(args: argparse.Namespace) -> int:
     return 0 if result["estimated_discovery_chars"] <= args.max_chars else 2
 
 
+
+
+def worker_pack_root() -> Path:
+    return payload_root() / "worker-pack"
+
+
+def worker_pack_data() -> dict[str, Any]:
+    data = read_json(worker_pack_root() / "worker-pack.json")
+    if not isinstance(data, dict) or data.get("schema_version") != "cpt-worker-pack-v1":
+        raise RuntimeError("Invalid bundled worker pack manifest")
+    agents_dir = worker_pack_root() / data.get("agents_directory", "agents")
+    files = sorted(agents_dir.glob("*.toml"))
+    if len(files) != data.get("agent_count"):
+        raise RuntimeError("Bundled worker pack agent_count does not match TOML files")
+    try:
+        import tomllib
+    except ImportError as exc:
+        raise RuntimeError("Python 3.11+ is required to validate worker TOML files") from exc
+    ids = []
+    for path in files:
+        parsed = tomllib.loads(path.read_text(encoding="utf-8"))
+        for key in ("name", "description", "developer_instructions"):
+            if not parsed.get(key):
+                raise RuntimeError(f"Worker file missing {key}: {path}")
+        if parsed["name"] != path.stem:
+            raise RuntimeError(f"Worker name/file mismatch: {path}")
+        ids.append(parsed["name"])
+    if len(ids) != len(set(ids)):
+        raise RuntimeError("Bundled worker pack contains duplicate agent names")
+    data["agent_ids"] = ids
+    data["agent_files"] = files
+    return data
+
+
+def personal_workers_receipt() -> Path:
+    return Path.home() / ".cpt-os" / "worker-packs" / "cpt-workers.json"
+
+
+def worker_target(scope: str, project: Path | None) -> tuple[Path, Path]:
+    if scope == "personal":
+        return codex_home() / "agents", personal_workers_receipt()
+    if scope == "repo":
+        if project is None:
+            raise RuntimeError("--project is required for repo-scoped workers")
+        return project / ".codex" / "agents", project / ".cpt" / "worker-pack.json"
+    raise RuntimeError(f"Unknown worker scope: {scope}")
+
+
+def validate_workers_receipt(receipt: dict[str, Any], target: Path, allowed_ids: set[str]) -> dict[str, str]:
+    if receipt.get("schema_version") != "cpt-workers-receipt-v1":
+        raise RuntimeError("Invalid CPT worker receipt")
+    files = receipt.get("files")
+    if not isinstance(files, dict):
+        raise RuntimeError("Worker receipt files are invalid")
+    safe: dict[str, str] = {}
+    for filename, expected_hash in files.items():
+        candidate = Path(filename)
+        if candidate.name != filename or candidate.suffix != ".toml" or candidate.stem not in allowed_ids:
+            raise RuntimeError(f"Unsafe worker receipt path: {filename}")
+        resolved = (target / filename).resolve()
+        if resolved.parent != target.resolve():
+            raise RuntimeError(f"Worker receipt escapes target directory: {filename}")
+        safe[filename] = expected_hash
+    return safe
+
+
+def workers_install(args: argparse.Namespace) -> int:
+    data = worker_pack_data()
+    project = Path(args.project).resolve() if args.project else None
+    target, receipt_path = worker_target(args.scope, project)
+    target.mkdir(parents=True, exist_ok=True)
+    backup_root = (project / ".cpt" / "backups" if project else Path.home() / ".cpt-os" / "backups") / f"workers-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    files: dict[str, str] = {}
+    for source in data["agent_files"]:
+        destination = target / source.name
+        if destination.exists() and sha256(destination) != sha256(source):
+            if not args.force:
+                raise RuntimeError(f"Refusing to replace modified or unrelated custom agent: {destination}")
+            backup_root.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(destination, backup_root / destination.name)
+        copy_file(source, destination)
+        files[destination.name] = sha256(destination)
+    receipt = {
+        "schema_version": "cpt-workers-receipt-v1",
+        "name": data["name"],
+        "version": data["version"],
+        "scope": args.scope,
+        "target_dir": str(target.resolve()),
+        "files": files,
+        "config_example": str((worker_pack_root() / data["config_example"]).resolve()),
+        "installed_at": now(),
+        "updated_at": now(),
+    }
+    write_json(receipt_path, receipt)
+    if project and (project / ".cpt" / "install.json").exists():
+        project_receipt = load_receipt(project)
+        project_receipt["workers"] = {"scope": args.scope, "status": "installed", "receipt_path": str(receipt_path), "version": data["version"]}
+        save_receipt(project, project_receipt)
+    print(f"Installed {len(files)} CPT worker archetypes into {target}")
+    print("Review payload/worker-pack/config/agents.example.toml and merge limits explicitly if desired.")
+    return 0
+
+
+def workers_status(args: argparse.Namespace) -> int:
+    data = worker_pack_data()
+    project = Path(args.project).resolve() if args.project else None
+    target, receipt_path = worker_target(args.scope, project)
+    result: dict[str, Any] = {"scope": args.scope, "target": str(target), "receipt": str(receipt_path), "installed": receipt_path.exists(), "files": []}
+    if receipt_path.exists():
+        receipt = read_json(receipt_path)
+        safe = validate_workers_receipt(receipt, target, set(data["agent_ids"]))
+        for filename, expected in sorted(safe.items()):
+            path = target / filename
+            result["files"].append({"name": filename, "exists": path.exists(), "matches_receipt": path.exists() and sha256(path) == expected})
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result["installed"] and all(item["exists"] and item["matches_receipt"] for item in result["files"]) else 1
+
+
+def workers_remove(args: argparse.Namespace) -> int:
+    data = worker_pack_data()
+    project = Path(args.project).resolve() if args.project else None
+    target, receipt_path = worker_target(args.scope, project)
+    if not receipt_path.exists():
+        raise RuntimeError("No CPT worker-pack receipt found")
+    receipt = read_json(receipt_path)
+    safe = validate_workers_receipt(receipt, target, set(data["agent_ids"]))
+    modified = []
+    for filename, expected in safe.items():
+        path = target / filename
+        if path.exists() and sha256(path) != expected:
+            modified.append(filename)
+    if modified and not args.force:
+        raise RuntimeError(f"Refusing to remove modified worker files without --force: {modified}")
+    for filename in safe:
+        path = target / filename
+        if path.exists():
+            path.unlink()
+    receipt_path.unlink(missing_ok=True)
+    remove_empty_parents(target, project if project else codex_home())
+    if project and (project / ".cpt" / "install.json").exists():
+        project_receipt = load_receipt(project)
+        project_receipt["workers"] = {"scope": "none", "status": "not_installed"}
+        save_receipt(project, project_receipt)
+    print(f"Removed CPT worker pack from {target}")
+    return 0
+
+
+def active_runtime_reasons(project: Path) -> list[str]:
+    reasons: list[str] = []
+    current_path = project / ".cpt" / "current.yaml"
+    if current_path.exists():
+        current = yaml.safe_load(current_path.read_text(encoding="utf-8")) or {}
+        for field in ("current_task", "current_micro_change", "current_orchestration"):
+            if current.get(field):
+                reasons.append(f"{field}={current[field]}")
+    for path in (project / ".cpt" / "workers").glob("*.yaml") if (project / ".cpt" / "workers").exists() else []:
+        record = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if record.get("status") in {"running", "cancel_requested", "needs_reconcile"}:
+            reasons.append(f"worker {record.get('agent_id')} is {record.get('status')}")
+    for path in (project / ".cpt" / "worktrees").glob("WT-*.yaml") if (project / ".cpt" / "worktrees").exists() else []:
+        record = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if record.get("status") in {"active", "dirty", "blocked"}:
+            reasons.append(f"worktree {record.get('id')} is {record.get('status')}")
+    return reasons
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Install and manage Codex Product OS 4.0 distribution")
     sub = p.add_subparsers(dest="command", required=True)
@@ -1012,6 +1277,7 @@ def parser() -> argparse.ArgumentParser:
     uninstall_p.add_argument("--discard-state", action="store_true")
     uninstall_p.add_argument("--backup-dir")
     uninstall_p.add_argument("--remove-personal-plugin", action="store_true")
+    uninstall_p.add_argument("--force-active-runtime", action="store_true", help="Allow uninstall despite active tasks, orchestrations, workers, or worktrees")
     uninstall_p.set_defaults(func=uninstall)
 
     status_p = sub.add_parser("status")
@@ -1049,6 +1315,23 @@ def parser() -> argparse.ArgumentParser:
     list_p.add_argument("--scope", choices=["personal", "repo"], required=True)
     list_p.add_argument("--project")
     list_p.set_defaults(func=pack_list)
+
+    workers_install_p = sub.add_parser("workers-install")
+    workers_install_p.add_argument("--scope", choices=["personal", "repo"], required=True)
+    workers_install_p.add_argument("--project")
+    workers_install_p.add_argument("--force", action="store_true")
+    workers_install_p.set_defaults(func=workers_install)
+
+    workers_status_p = sub.add_parser("workers-status")
+    workers_status_p.add_argument("--scope", choices=["personal", "repo"], required=True)
+    workers_status_p.add_argument("--project")
+    workers_status_p.set_defaults(func=workers_status)
+
+    workers_remove_p = sub.add_parser("workers-remove")
+    workers_remove_p.add_argument("--scope", choices=["personal", "repo"], required=True)
+    workers_remove_p.add_argument("--project")
+    workers_remove_p.add_argument("--force", action="store_true")
+    workers_remove_p.set_defaults(func=workers_remove)
 
     meta_p = sub.add_parser("metadata-budget")
     meta_p.add_argument("--plugin", action="append", required=True)

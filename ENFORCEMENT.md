@@ -1,7 +1,7 @@
 
 # Deterministic Runtime Enforcement
 
-Alpha 6 adds an optional deterministic guardrail layer around the file-only runtime.
+Alpha 7 preserves and extends an optional deterministic guardrail layer around the file-only runtime.
 
 ## Modes
 
@@ -19,7 +19,7 @@ Begin with `audit`. Move to `enforce` only after reviewing the event stream and 
 - checkpoint creation before compaction and state verification afterward;
 - runtime validity at session start, after tools, and before stop;
 - targeted Product Knowledge freshness marking after detected project writes;
-- subagent lifecycle records;
+- managed subagent lifecycle records bound to orchestration contracts;
 - audit events with redacted command previews rather than raw tool output.
 
 ## What is not guaranteed

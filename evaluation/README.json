@@ -1,11 +1,36 @@
 {
-  "schema": "cpt-evaluation-readme-v1",
-  "note": "Trigger proxy evals test metadata distinctness; Phase 8 will add executable Codex traces.",
-  "version": "4.0.0-alpha.6",
+  "schema": "cpt-evaluation-readme-v2",
+  "version": "4.0.0-alpha.7",
+  "note": "Alpha 7 combines deterministic metadata proxies, policy fixtures, isolated behavioral tests, and synthetic lifecycle integrations. Live Codex worker certification remains Phase 8 work.",
+  "skill_evaluation": {
+    "trigger_cases": "skill-trigger-cases.json",
+    "report": "trigger-eval-report.json",
+    "limitation": "deterministic metadata proxy; not a live Codex trace"
+  },
   "role_evaluation": {
     "trigger_cases": "role-trigger-cases.json",
     "routing_cases": "role-routing-cases.json",
     "report": "role-routing-eval-report.json",
     "limitation": "deterministic metadata proxy and registry contract test; not a live Codex trace"
+  },
+  "knowledge_evaluation": {
+    "cases": "knowledge-lifecycle-cases.json",
+    "lifecycle_report": "knowledge-lifecycle-eval-report.json",
+    "integration_report": "knowledge-integration-report.json"
+  },
+  "enforcement_evaluation": {
+    "cases": "enforcement-cases.json",
+    "policy_report": "enforcement-eval-report.json",
+    "integration_report": "enforcement-integration-report.json"
+  },
+  "orchestration_evaluation": {
+    "cases": "orchestration-cases.json",
+    "policy_report": "orchestration-eval-report.json",
+    "integration_report": "orchestration-integration-report.json",
+    "limitation": "hook events and structured results are simulated; live Codex subagent threads were not launched"
+  },
+  "behavioral_tests": {
+    "report": "behavior-test-report.json",
+    "execution": "isolated interpreter cases"
   }
 }

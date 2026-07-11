@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-registry-v1",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "role_count": 50,
   "principles": [
     "Roles are logical accountability lenses, not subagents.",

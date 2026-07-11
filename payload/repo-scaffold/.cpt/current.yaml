@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha6
+schema_version: 4.0-alpha7
 runtime_status: ready
 current_task: null
 current_micro_change: null
@@ -10,3 +10,4 @@ next_operation:
   summary: Await a user task and select Micro Change or Standard Task workflow.
 state_revision: 0
 updated_at: '2026-07-10T12:45:20Z'
+current_orchestration: null

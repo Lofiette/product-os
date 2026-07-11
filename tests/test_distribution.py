@@ -23,7 +23,7 @@ def run(*args: str, cwd: Path | None = None, env: dict | None = None, check: boo
 
 class DistributionTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha6-test-'))
+        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha7-test-'))
         self.home = self.tmp / 'home'
         self.home.mkdir()
         self.env = os.environ.copy()
@@ -47,14 +47,23 @@ class DistributionTests(unittest.TestCase):
         self.assertLessEqual(data['framework_file_count'], 20)
         self.assertTrue(data['runtime_valid'])
 
-    def test_team_repo_plugin_stays_below_twenty_files(self):
+    def test_team_shared_default_stays_below_twenty_files(self):
         repo = self.tmp / 'team'
         self.init_git(repo)
         run('install', '--project', str(repo), '--mode', 'team', env=self.env)
         data = json.loads(run('status', '--project', str(repo), '--json', env=self.env).stdout)
         self.assertLessEqual(data['framework_file_count'], 20)
+        self.assertFalse((repo / 'plugins/cpt-core').exists())
+        self.assertTrue((self.home / '.codex/plugins/cpt-core/.codex-plugin/plugin.json').exists())
+
+    def test_repo_core_plugin_is_explicit(self):
+        repo = self.tmp / 'team-repo-core'
+        self.init_git(repo)
+        run('install', '--project', str(repo), '--mode', 'team', '--plugin-scope', 'repo', env=self.env)
+        data = json.loads(run('status', '--project', str(repo), '--json', env=self.env).stdout)
         self.assertTrue((repo / 'plugins/cpt-core/.codex-plugin/plugin.json').exists())
         self.assertTrue((repo / '.agents/plugins/marketplace.json').exists())
+        self.assertLessEqual(data['framework_file_count'], 30)
 
     def test_local_existing_tracked_agents_is_not_modified(self):
         repo = self.tmp / 'tracked-agents'
@@ -79,7 +88,8 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(enabled.returncode, 0, enabled.stdout + enabled.stderr)
         run('update', '--project', str(repo), env=self.env)
         self.assertIn('state_revision: 7', current.read_text())
-        self.assertIn('mode: "audit"', enforcement.read_text())
+        import yaml
+        self.assertEqual(yaml.safe_load(enforcement.read_text())['mode'], 'audit')
 
     def test_update_refuses_modified_managed_tool(self):
         repo = self.tmp / 'conflict'
@@ -116,7 +126,7 @@ class DistributionTests(unittest.TestCase):
     def test_domain_pack_is_independent(self):
         repo = self.tmp / 'packs'
         self.init_git(repo)
-        run('install', '--project', str(repo), '--mode', 'team', env=self.env)
+        run('install', '--project', str(repo), '--mode', 'team', '--plugin-scope', 'repo', env=self.env)
         pack = self.tmp / 'cpt-domain-test'
         shutil.copytree(DOMAIN_TEMPLATE, pack)
         manifest = json.loads((pack / '.codex-plugin/plugin.json').read_text())

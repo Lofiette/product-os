@@ -1,0 +1,45 @@
+{
+  "schema": "cpt-behavior-test-report-v1",
+  "version": "4.0.0-alpha.7",
+  "generated_at": "2026-07-11T07:42:38Z",
+  "execution_mode": "Each unittest case executed in an isolated Python interpreter; orchestration batches were parallelized only across independent temporary repositories.",
+  "modules": [
+    {
+      "module": "distribution",
+      "total": 18,
+      "passed": 18
+    },
+    {
+      "module": "skills",
+      "total": 5,
+      "passed": 5
+    },
+    {
+      "module": "roles",
+      "total": 4,
+      "passed": 4
+    },
+    {
+      "module": "knowledge",
+      "total": 13,
+      "passed": 13
+    },
+    {
+      "module": "enforcement",
+      "total": 21,
+      "passed": 21
+    },
+    {
+      "module": "orchestration",
+      "total": 24,
+      "passed": 24
+    }
+  ],
+  "total": 85,
+  "passed": 85,
+  "failed": 0,
+  "limitations": [
+    "The test suite validates deterministic local behavior and synthetic hook payloads.",
+    "It does not launch live Codex subagent threads or certify every Codex client."
+  ]
+}

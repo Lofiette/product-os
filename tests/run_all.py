@@ -34,12 +34,16 @@ suite = unittest.TestSuite([
     unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
     unittest.defaultTestLoader.loadTestsFromName("tests.test_knowledge"),
     unittest.defaultTestLoader.loadTestsFromName("tests.test_enforcement"),
+    unittest.defaultTestLoader.loadTestsFromName("tests.test_orchestration"),
 ])
 test_ids = [test.id() for test in flatten(suite)]
 for test_id in test_ids:
     run([sys.executable, "-m", "unittest", "-v", test_id], timeout=300)
 
 commands = [
+    [sys.executable, str(ROOT / "tools" / "validate_orchestration.py")],
+    [sys.executable, str(ROOT / "tools" / "eval_orchestration.py")],
+    [sys.executable, str(ROOT / "tools" / "run_orchestration_integration.py")],
     [sys.executable, str(ROOT / "tools" / "validate_enforcement.py")],
     [sys.executable, str(ROOT / "tools" / "eval_enforcement.py")],
     [sys.executable, str(ROOT / 'tools' / 'validate_knowledge_assets.py')],
@@ -67,6 +71,6 @@ commands = [
     [sys.executable, str(ROOT / "tools" / "measure_all_skill_metadata.py")],
 ]
 for command in commands:
-    run(command, timeout=180)
+    run(command, timeout=600)
 
-print(f"ALPHA 6 COMPLETE TEST SUITE PASSED: {len(test_ids)} behavioral cases")
+print(f"ALPHA 7 COMPLETE TEST SUITE PASSED: {len(test_ids)} behavioral cases")

@@ -44,6 +44,10 @@ Create checkpoints before major handoffs, risky state changes, and compaction wh
 - Do not delete useful knowledge merely to meet a size target.
 - Do not create branches, commits, staged changes, destructive Git operations, dependencies, migrations, or network access without explicit authorization.
 
+## Delegation
+
+Real delegation remains optional. Use main-thread role lenses by default. When delegation materially helps, require an approved Standard Task, scoped lease, bounded worker contracts, structured results, quorum, and main-thread integration. Parallel writes require managed worktrees; never auto-merge.
+
 ## Product Knowledge
 
 If `.cpt/knowledge/index.yaml` exists and the task affects durable product behavior, load only the relevant indexed artifacts. Canonical knowledge is YAML; Markdown views are generated. Before Standard Task completion, account for knowledge as `not_required`, `applied`, or explicitly `deferred`. Never load the entire knowledge tree by default.

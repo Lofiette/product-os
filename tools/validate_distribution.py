@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -12,7 +13,7 @@ from cpt_dist import metadata_budget_for_plugins, validate_plugin
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.6': errors.append('VERSION is not 4.0.0-alpha.6')
+if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.7': errors.append('VERSION is not 4.0.0-alpha.7')
 
 # Core/plugin validation.
 for plugin in plugins:
@@ -41,7 +42,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
 
 catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
-if catalog.get('version')!='4.0.0-alpha.6': errors.append('PACK_CATALOG version mismatch')
+if catalog.get('version')!='4.0.0-alpha.7': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
 actual_ids={p.name for p in plugins[1:]}
 if cat_ids!=actual_ids: errors.append(f'catalog/domain directory mismatch: {cat_ids ^ actual_ids}')
@@ -68,21 +69,60 @@ for plugin in plugins:
     if pack.get('role_model')!='logical_lenses_in_cpt_core_references': errors.append(f'{plugin.name}: missing role_model')
     if pack.get('role_count')!=len(pack.get('role_ids',[])): errors.append(f'{plugin.name}: role_count mismatch')
 
+# Optional worker pack validation.
+worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text())
+worker_agents=sorted((ROOT/'payload/worker-pack/agents').glob('*.toml'))
+if worker_pack.get('version')!='4.0.0-alpha.7': errors.append('worker pack version mismatch')
+if worker_pack.get('agent_count')!=10 or len(worker_agents)!=10: errors.append('worker pack must contain 10 agents')
+registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text())
+if registry_workers.get('archetype_count')!=10: errors.append('worker archetype registry count mismatch')
+if {p.stem for p in worker_agents}!={x['id'] for x in registry_workers.get('archetypes',[])}: errors.append('worker pack/archetype registry mismatch')
+
 # Current docs should not claim Alpha 2 as current.
 for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT/'AUDIT_REPORT.md',ROOT/'CHANGELOG.md']:
     if current.exists():
         text=current.read_text()
         if 'Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit' in text: errors.append(f'stale Alpha 2 audit wording in {current.relative_to(ROOT)}')
 
-# Required Alpha 6 assets.
+# Required Alpha 7 assets.
 for rel in [
     'skills/SKILL_REGISTRY.json','migration/SKILL_MIGRATION.json','migration/SKILL_MIGRATION.csv',
     'evaluation/skill-trigger-cases.json','docs/SKILL_AUTHORING_STANDARD.md','docs/SKILL_INVOCATION_POLICY.md',
     'roles/ROLE_REGISTRY.json','roles/ROLE_ROUTING_PROFILES.json','roles/GATE_REGISTRY.json',
     'migration/ROLE_MIGRATION.json','evaluation/role-trigger-cases.json','evaluation/role-routing-cases.json',
-    'docs/ROLE_SOURCES.md','ROLES.md'
+    'docs/ROLE_SOURCES.md','ROLES.md',
+    'orchestration/WORKER_ARCHETYPES.json','payload/worker-pack/worker-pack.json',
+    'payload/worker-pack/config/agents.example.toml','payload/repo-scaffold/.cpt/bin/cpt_orchestration.py',
+    'ORCHESTRATION.md','WORKER_PACK.md','ALPHA7_LIMITATIONS.md','AUDIT_REPORT.md',
+    'evaluation/orchestration-cases.json','evaluation/orchestration-integration-report.json',
+    'evaluation/behavior-test-report.json','tools/validate_orchestration.py','tools/eval_orchestration.py',
+    'tools/run_orchestration_integration.py','tools/build_manifest.py','tests/test_orchestration.py'
 ]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
+
+# Package manifest integrity.
+manifest_path = ROOT / 'MANIFEST.json'
+if not manifest_path.exists():
+    errors.append('missing MANIFEST.json')
+else:
+    manifest = json.loads(manifest_path.read_text())
+    if manifest.get('schema') != 'cpt-package-manifest-v7': errors.append('MANIFEST schema mismatch')
+    if manifest.get('version') != '4.0.0-alpha.7': errors.append('MANIFEST version mismatch')
+    if manifest.get('phase') != 'managed-worker-orchestration': errors.append('MANIFEST phase mismatch')
+    listed = {item.get('path'): item for item in manifest.get('files', [])}
+    actual = {}
+    for path in ROOT.rglob('*'):
+        if not path.is_file(): continue
+        rel = path.relative_to(ROOT)
+        if path.name == 'MANIFEST.json' or '__pycache__' in rel.parts or path.suffix in {'.pyc', '.pyo'}: continue
+        h = hashlib.sha256(path.read_bytes()).hexdigest()
+        actual[rel.as_posix()] = {'size': path.stat().st_size, 'sha256': h}
+    if manifest.get('file_count') != len(actual): errors.append('MANIFEST file_count mismatch')
+    if set(listed) != set(actual): errors.append(f"MANIFEST path mismatch: {sorted(set(listed) ^ set(actual))[:10]}")
+    for rel, item in actual.items():
+        if rel in listed and (listed[rel].get('size') != item['size'] or listed[rel].get('sha256') != item['sha256']):
+            errors.append(f'MANIFEST hash/size mismatch: {rel}')
+            break
 
 if errors:
     print('DISTRIBUTION VALIDATION FAILED')

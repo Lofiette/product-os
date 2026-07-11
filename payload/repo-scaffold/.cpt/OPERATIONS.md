@@ -111,3 +111,43 @@ Recommended rollout:
 4. Move to `enforce` mode only after the workflow is understood.
 
 Hooks are optional. If they are disabled, keep using leases, checkpoints, runtime validation, and targeted knowledge freshness scans manually.
+
+## Managed worker orchestration
+
+Install the optional worker pack separately:
+
+```bash
+python tools/cpt_dist.py workers-install --scope personal
+```
+
+Create an approved run:
+
+```bash
+python .cpt/bin/cpt_runtime.py orchestration-create \
+  --title "Independent review" \
+  --purpose "Explore and review bounded evidence" \
+  --task TKT-001 \
+  --lease LEASE-TKT-001-001
+
+python .cpt/bin/cpt_runtime.py worker-contract-add \
+  --run ORC-001 \
+  --archetype cpt_explorer \
+  --purpose "Map the affected surface" \
+  --required \
+  --role frontend_engineer \
+  --skill cpt-task-planning \
+  --read 'src/feature/**'
+
+python .cpt/bin/cpt_runtime.py orchestration-approve --run ORC-001
+python .cpt/bin/cpt_runtime.py orchestration-activate --run ORC-001
+```
+
+After a worker returns, submit a structured result and integrate through the main thread:
+
+```bash
+python .cpt/bin/cpt_runtime.py worker-result-submit ...
+python .cpt/bin/cpt_runtime.py orchestration-integrate --run ORC-001 --summary "..." --apply
+python .cpt/bin/cpt_runtime.py orchestration-complete --run ORC-001
+```
+
+See `ORCHESTRATION.md` and `WORKER_PACK.md`. Main-thread execution remains the default.

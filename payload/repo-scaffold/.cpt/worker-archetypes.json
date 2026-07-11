@@ -1,0 +1,296 @@
+{
+  "schema_version": "cpt-worker-archetypes-v1",
+  "version": "4.0.0-alpha.7",
+  "archetype_count": 10,
+  "archetypes": [
+    {
+      "id": "cpt_explorer",
+      "title": "Explorer",
+      "description": "Read-heavy codebase and artifact explorer that maps relevant evidence without proposing broad changes.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 600,
+      "allowed_role_lenses": [
+        "business_analyst",
+        "dependency_curator",
+        "domain_expert",
+        "frontend_architect",
+        "frontend_engineer",
+        "information_architect",
+        "solution_architect",
+        "technical_writer",
+        "ux_interaction_reviewer"
+      ],
+      "recommended_skills": [
+        "cpt-task-planning",
+        "cpt-design-recon",
+        "cpt-architecture-plan"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence"
+      ]
+    },
+    {
+      "id": "cpt_researcher",
+      "title": "Researcher",
+      "description": "Evidence-focused researcher for market, UX, CX, documentation, and external-source verification.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 900,
+      "allowed_role_lenses": [
+        "cx_researcher",
+        "domain_expert",
+        "market_researcher",
+        "ux_researcher",
+        "customer_support_analyst",
+        "localization_specialist"
+      ],
+      "recommended_skills": [
+        "cpt-evidence-research-plan",
+        "cpt-market-research",
+        "cpt-ux-research"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cpt_product_mapper",
+      "title": "Product Mapper",
+      "description": "Builds bounded product maps, area maps, flow maps, and impact maps from explicit evidence.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 900,
+      "allowed_role_lenses": [
+        "business_analyst",
+        "information_architect",
+        "product_designer",
+        "product_strategist",
+        "service_designer",
+        "team_architect",
+        "ux_interaction_reviewer"
+      ],
+      "recommended_skills": [
+        "cpt-knowledge-lifecycle",
+        "cpt-task-planning",
+        "cpt-information-architecture"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cpt_design_reviewer",
+      "title": "Design Reviewer",
+      "description": "Independent UI, interaction, content, accessibility, design-system, and visual-quality reviewer.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 900,
+      "allowed_role_lenses": [
+        "accessibility_specialist",
+        "conversation_designer",
+        "data_visualization_designer",
+        "design_engineer",
+        "design_system_guardian",
+        "product_designer",
+        "ux_interaction_reviewer",
+        "ux_writer",
+        "visual_design_director"
+      ],
+      "recommended_skills": [
+        "cpt-visual-acceptance-review",
+        "cpt-design-system-governance",
+        "cpt-accessibility-review"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cpt_implementer",
+      "title": "Implementer",
+      "description": "Implementation worker for bounded code changes after discovery, impact mapping, and approval.",
+      "default_permission_mode": "workspace_write",
+      "default_isolation": "worktree",
+      "default_timeout_seconds": 1200,
+      "allowed_role_lenses": [
+        "backend_architect",
+        "data_architect",
+        "design_engineer",
+        "frontend_architect",
+        "frontend_engineer",
+        "mobile_architect",
+        "refactoring_specialist",
+        "solution_architect"
+      ],
+      "recommended_skills": [
+        "cpt-frontend-integration",
+        "cpt-architecture-plan",
+        "cpt-refactor-plan"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "touched_paths",
+        "verification"
+      ]
+    },
+    {
+      "id": "cpt_test_runner",
+      "title": "Test Runner",
+      "description": "Runs bounded verification, test, lint, and reproduction workflows and returns structured evidence.",
+      "default_permission_mode": "workspace_write",
+      "default_isolation": "worktree",
+      "default_timeout_seconds": 1200,
+      "allowed_role_lenses": [
+        "qa_engineer",
+        "performance_engineer",
+        "observability_engineer",
+        "experimentation_specialist"
+      ],
+      "recommended_skills": [
+        "cpt-implementation-review",
+        "cpt-performance-review",
+        "cpt-observability-plan"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "touched_paths",
+        "verification"
+      ]
+    },
+    {
+      "id": "cpt_code_reviewer",
+      "title": "Code Reviewer",
+      "description": "Read-only reviewer for correctness, maintainability, regressions, tests, architecture, and API-contract risks.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 900,
+      "allowed_role_lenses": [
+        "api_contract_guardian",
+        "code_reviewer",
+        "consistency_auditor",
+        "dependency_curator",
+        "frontend_architect",
+        "frontend_engineer",
+        "qa_engineer",
+        "refactoring_specialist",
+        "solution_architect"
+      ],
+      "recommended_skills": [
+        "cpt-implementation-review",
+        "cpt-api-contract",
+        "cpt-dependency-review"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cpt_risk_reviewer",
+      "title": "Risk Reviewer",
+      "description": "Independent security, privacy, AI-safety, production, migration, and cross-cutting risk reviewer.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 900,
+      "allowed_role_lenses": [
+        "ai_safety_reviewer",
+        "api_contract_guardian",
+        "devops_release_engineer",
+        "migration_planner",
+        "performance_engineer",
+        "privacy_compliance_reviewer",
+        "security_reviewer"
+      ],
+      "recommended_skills": [
+        "cpt-threat-model",
+        "cpt-privacy-impact",
+        "cpt-cross-cutting-risk"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cpt_knowledge_curator",
+      "title": "Knowledge Curator",
+      "description": "Curates Product Knowledge, evidence provenance, freshness, and compact task-specific context packets.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 600,
+      "allowed_role_lenses": [
+        "chronicle_keeper",
+        "consistency_auditor",
+        "information_architect",
+        "technical_writer",
+        "team_architect"
+      ],
+      "recommended_skills": [
+        "cpt-knowledge-lifecycle",
+        "cpt-task-planning"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cpt_incident_investigator",
+      "title": "Incident Investigator",
+      "description": "Evidence-driven incident investigator for timelines, symptoms, causal chains, observability gaps, and follow-ups.",
+      "default_permission_mode": "read_only",
+      "default_isolation": "direct",
+      "default_timeout_seconds": 900,
+      "allowed_role_lenses": [
+        "incident_investigator",
+        "observability_engineer",
+        "performance_engineer",
+        "qa_engineer",
+        "security_reviewer"
+      ],
+      "recommended_skills": [
+        "cpt-incident-review",
+        "cpt-observability-plan",
+        "cpt-performance-review"
+      ],
+      "required_output_fields": [
+        "summary",
+        "evidence",
+        "blockers",
+        "confidence",
+        "recommendations"
+      ]
+    }
+  ]
+}

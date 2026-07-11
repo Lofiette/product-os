@@ -1,0 +1,32 @@
+name: CPT migration CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "tools/cpt_migrate.py"
+      - "migration/**"
+      - "tests/test_migration.py"
+      - ".github/workflows/migration-ci.yml"
+
+jobs:
+  migration:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.10", "3.12"]
+        exclude:
+          - os: macos-latest
+            python: "3.10"
+          - os: windows-latest
+            python: "3.10"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python scripts/validate_migration_assets.py
+      - run: python tests/test_migration.py
+      - run: python tools/cpt_migrate.py platform-check --project .

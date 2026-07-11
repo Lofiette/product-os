@@ -1,6 +1,6 @@
 {
   "schema": "cpt-behavior-test-report-v1",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-alpha.9",
   "generated_at": "2026-07-11T17:08:32Z",
   "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [

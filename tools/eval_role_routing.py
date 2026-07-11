@@ -52,7 +52,7 @@ def main():
             and p.get("default_execution")==c["expected_default_execution"])
         failed+=not ok
         route_results.append({**c,"passed":bool(ok)})
-    report={"schema":"cpt-role-routing-eval-report-v1","version":"4.0.0-alpha.8",
+    report={"schema":"cpt-role-routing-eval-report-v1","version":"4.0.0-alpha.9",
             "trigger_case_count":len(cases),"routing_case_count":len(route_cases),
             "passed":len(cases)+len(route_cases)-failed,"failed":failed,
             "note":"Deterministic metadata proxy and registry contract test; not a live Codex model trace.",

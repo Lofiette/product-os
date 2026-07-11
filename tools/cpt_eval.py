@@ -25,7 +25,7 @@ EVAL_ROOT = PACKAGE_ROOT / "evaluation" / "executable"
 CASES_DIR = EVAL_ROOT / "cases"
 FIXTURES_DIR = EVAL_ROOT / "fixtures"
 SCHEMAS_DIR = EVAL_ROOT / "schemas"
-PACKAGE_VERSION = "4.0.0-alpha.8"
+PACKAGE_VERSION = "4.0.0-alpha.9"
 RUNTIME_REPORT_DIRS = {"reports", ".cpt-eval-runs", ".cpt-eval-live"}
 
 

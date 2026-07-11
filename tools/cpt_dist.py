@@ -16,7 +16,7 @@ from typing import Any
 
 import yaml
 
-PACKAGE_VERSION = "4.0.0-alpha.8"
+PACKAGE_VERSION = "4.0.0-alpha.9"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"

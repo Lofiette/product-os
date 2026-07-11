@@ -1,6 +1,6 @@
-# Codex Product Operating System 4.0 Alpha 8
+# Codex Product Operating System 4.0 Alpha 9
 
-Alpha 8 adds an **executable Evaluation Plane** to the Runtime Kernel, Product Knowledge, canonical skills, logical roles, quality gates, deterministic enforcement, and managed worker orchestration delivered in Alpha 1–7.
+Alpha 9 adds an **executable Evaluation Plane** to the Runtime Kernel, Product Knowledge, canonical skills, logical roles, quality gates, deterministic enforcement, and managed worker orchestration delivered in Alpha 1–7.
 
 ## Install the core runtime
 

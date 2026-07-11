@@ -1,4 +1,4 @@
-# CPT OS Alpha 8 Executable Evaluation Plane
+# CPT OS Alpha 9 Executable Evaluation Plane
 
 This directory contains executable, repository-isolated evaluations for the Runtime, Knowledge, Expertise, Enforcement, and Worker Orchestration planes.
 

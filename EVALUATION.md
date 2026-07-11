@@ -1,6 +1,6 @@
 # Executable Evaluation Plane
 
-Alpha 8 turns CPT scenarios into executable, repository-isolated evaluations. Each case defines a fixture repository, task prompt, activation profile, allowed and forbidden actions, expected runtime state, output contract, and resource budgets.
+Alpha 9 turns CPT scenarios into executable, repository-isolated evaluations. Each case defines a fixture repository, task prompt, activation profile, allowed and forbidden actions, expected runtime state, output contract, and resource budgets.
 
 ## Evidence levels
 

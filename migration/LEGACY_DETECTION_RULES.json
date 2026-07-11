@@ -1,0 +1,24 @@
+{
+  "schema_version": "cpt-legacy-detection-rules-v1",
+  "framework_markers": [
+    "codex product team",
+    "role-skill architecture"
+  ],
+  "legacy_directories": [
+    ".agents",
+    ".codex/agents",
+    ".codex-runtime"
+  ],
+  "root_candidates": [
+    "AGENTS.md",
+    "FIRST_PROMPT.md",
+    "TASK.md",
+    "CHRONICLE.md",
+    "TEAM.md"
+  ],
+  "override_policy": "unmanaged_preserve_exactly",
+  "notes": [
+    "Ambiguous product files are preserved.",
+    "No external service is required."
+  ]
+}

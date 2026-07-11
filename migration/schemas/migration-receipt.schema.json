@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpt/migration-receipt.schema.json",
+  "title": "CPT Migration Receipt",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "migration_id",
+    "applied_at",
+    "status",
+    "project",
+    "plan_hash",
+    "backup_path",
+    "mode"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpt-migration-receipt-v1"
+    },
+    "status": {
+      "enum": [
+        "applied",
+        "rolled_back",
+        "failed"
+      ]
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

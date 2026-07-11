@@ -1,6 +1,6 @@
 # Managed Worker Orchestration
 
-Alpha 7 introduced the optional execution plane for bounded Codex subagents. Alpha 8 preserves it and evaluates its typed contracts, timeouts, quorum, recovery, and worktree boundaries through executable fixtures. Logical roles remain accountable lenses; workers are separate execution containers.
+Alpha 7 introduced the optional execution plane for bounded Codex subagents. Alpha 9 preserves it and evaluates its typed contracts, timeouts, quorum, recovery, and worktree boundaries through executable fixtures. Logical roles remain accountable lenses; workers are separate execution containers.
 
 ## Core model
 
@@ -118,4 +118,4 @@ python .cpt/bin/cpt_runtime.py worktree-remove --contract ORC-001-W01
 
 ## Honest boundary
 
-Alpha 8 preserves deterministic validation of typed contracts, hook payload simulations, persistence, quorum, timeouts, cancellation records, worktree isolation, and recovery. The Evaluation Plane adds fixture-level orchestration cases, but it is still not live certification of every Codex client, native spawn ordering, cancellation delivery, reconnect behavior, or worker model-output quality.
+Alpha 9 preserves deterministic validation of typed contracts, hook payload simulations, persistence, quorum, timeouts, cancellation records, worktree isolation, and recovery. The Evaluation Plane adds fixture-level orchestration cases, but it is still not live certification of every Codex client, native spawn ordering, cancellation delivery, reconnect behavior, or worker model-output quality.

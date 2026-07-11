@@ -1,6 +1,6 @@
-# Codex Product Operating System 4.0 Alpha 8
+# Codex Product Operating System 4.0 Alpha 9
 
-Alpha 8 добавляет **исполняемый Evaluation Plane** поверх Runtime Kernel, Product Knowledge, канонических skills, 50 логических ролей, quality gates, детерминированного enforcement и управляемой оркестрации workers, созданных в Alpha 1–7.
+Alpha 9 добавляет **исполняемый Evaluation Plane** поверх Runtime Kernel, Product Knowledge, канонических skills, 50 логических ролей, quality gates, детерминированного enforcement и управляемой оркестрации workers, созданных в Alpha 1–7.
 
 ## Установка ядра
 

@@ -1,7 +1,7 @@
 {
   "schema": "cpt-skill-migration-v1",
   "source_version": "3.0-ultra-beta2",
-  "target_version": "4.0.0-alpha.8",
+  "target_version": "4.0.0-alpha.9",
   "source_count": 95,
   "target_count": 45,
   "mappings": [

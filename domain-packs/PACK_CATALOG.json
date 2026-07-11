@@ -1,10 +1,10 @@
 {
   "schema_version": "cpt-pack-catalog-v3",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-alpha.9",
   "core": {
     "name": "cpt-core",
     "status": "implemented",
-    "version": "4.0.0-alpha.8",
+    "version": "4.0.0-alpha.9",
     "skill_count": 3,
     "metadata_chars": 564,
     "role_count": 6,
@@ -21,7 +21,7 @@
     {
       "id": "cpt-product-research",
       "status": "implemented",
-      "version": "4.0.0-alpha.8",
+      "version": "4.0.0-alpha.9",
       "skill_count": 10,
       "path": "./domain-packs/cpt-product-research",
       "metadata_chars": 2052,
@@ -41,7 +41,7 @@
     {
       "id": "cpt-design-ui",
       "status": "implemented",
-      "version": "4.0.0-alpha.8",
+      "version": "4.0.0-alpha.9",
       "skill_count": 12,
       "path": "./domain-packs/cpt-design-ui",
       "metadata_chars": 2555,
@@ -64,7 +64,7 @@
     {
       "id": "cpt-engineering",
       "status": "implemented",
-      "version": "4.0.0-alpha.8",
+      "version": "4.0.0-alpha.9",
       "skill_count": 12,
       "path": "./domain-packs/cpt-engineering",
       "metadata_chars": 2547,
@@ -93,7 +93,7 @@
     {
       "id": "cpt-risk-operations",
       "status": "implemented",
-      "version": "4.0.0-alpha.8",
+      "version": "4.0.0-alpha.9",
       "skill_count": 5,
       "path": "./domain-packs/cpt-risk-operations",
       "metadata_chars": 994,
@@ -106,7 +106,7 @@
     {
       "id": "cpt-ai-agentic",
       "status": "implemented",
-      "version": "4.0.0-alpha.8",
+      "version": "4.0.0-alpha.9",
       "skill_count": 3,
       "path": "./domain-packs/cpt-ai-agentic",
       "metadata_chars": 568,

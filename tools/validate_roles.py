@@ -39,7 +39,7 @@ def main() -> int:
     roles=registry.get("roles",[])
     role_ids={r.get("id") for r in roles}
     if registry.get("schema")!="cpt-role-registry-v1": errors.append("ROLE_REGISTRY schema mismatch")
-    if registry.get("version")!="4.0.0-alpha.8": errors.append("ROLE_REGISTRY version mismatch")
+    if registry.get("version")!="4.0.0-alpha.9": errors.append("ROLE_REGISTRY version mismatch")
     if registry.get("role_count")!=50 or len(roles)!=50 or len(role_ids)!=50:
         errors.append("ROLE_REGISTRY must contain 50 unique roles")
 

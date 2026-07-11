@@ -2702,7 +2702,7 @@ def command_worker_status(root: Path, _args) -> int:
     return 0
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 8 runtime, Product Knowledge, deterministic enforcement, and managed worker orchestration CLI")
+    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 9 runtime, Product Knowledge, deterministic enforcement, and managed worker orchestration CLI")
     parser.add_argument("--root", type=Path, help="Runtime root; defaults to nearest parent containing .cpt/runtime.yaml")
     sub = parser.add_subparsers(dest="command", required=True)
 

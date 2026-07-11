@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpt/migration-plan.schema.json",
+  "title": "CPT Migration Plan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "migration_id",
+    "created_at",
+    "status",
+    "project",
+    "mode",
+    "source",
+    "target",
+    "options",
+    "actions",
+    "conflicts",
+    "warnings",
+    "backup",
+    "plan_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpt-migration-plan-v1"
+    },
+    "migration_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "review",
+        "blocked"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "local",
+        "team"
+      ]
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

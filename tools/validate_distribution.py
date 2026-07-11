@@ -13,7 +13,7 @@ from cpt_dist import metadata_budget_for_plugins, validate_plugin
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.8': errors.append('VERSION is not 4.0.0-alpha.8')
+if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.9': errors.append('VERSION is not 4.0.0-alpha.9')
 
 # Core/plugin validation.
 for plugin in plugins:
@@ -42,7 +42,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
 
 catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
-if catalog.get('version')!='4.0.0-alpha.8': errors.append('PACK_CATALOG version mismatch')
+if catalog.get('version')!='4.0.0-alpha.9': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
 actual_ids={p.name for p in plugins[1:]}
 if cat_ids!=actual_ids: errors.append(f'catalog/domain directory mismatch: {cat_ids ^ actual_ids}')
@@ -72,7 +72,7 @@ for plugin in plugins:
 # Optional worker pack validation.
 worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text())
 worker_agents=sorted((ROOT/'payload/worker-pack/agents').glob('*.toml'))
-if worker_pack.get('version')!='4.0.0-alpha.8': errors.append('worker pack version mismatch')
+if worker_pack.get('version')!='4.0.0-alpha.9': errors.append('worker pack version mismatch')
 if worker_pack.get('agent_count')!=10 or len(worker_agents)!=10: errors.append('worker pack must contain 10 agents')
 registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text())
 if registry_workers.get('archetype_count')!=10: errors.append('worker archetype registry count mismatch')
@@ -84,7 +84,7 @@ for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT
         text=current.read_text()
         if 'Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit' in text: errors.append(f'stale Alpha 2 audit wording in {current.relative_to(ROOT)}')
 
-# Required Alpha 8 assets.
+# Required Alpha 9 assets.
 for rel in [
     'skills/SKILL_REGISTRY.json','migration/SKILL_MIGRATION.json','migration/SKILL_MIGRATION.csv',
     'evaluation/skill-trigger-cases.json','docs/SKILL_AUTHORING_STANDARD.md','docs/SKILL_INVOCATION_POLICY.md',
@@ -112,8 +112,8 @@ if not manifest_path.exists():
 else:
     manifest = json.loads(manifest_path.read_text())
     if manifest.get('schema') != 'cpt-package-manifest-v8': errors.append('MANIFEST schema mismatch')
-    if manifest.get('version') != '4.0.0-alpha.8': errors.append('MANIFEST version mismatch')
-    if manifest.get('phase') != 'executable-evaluation-plane': errors.append('MANIFEST phase mismatch')
+    if manifest.get('version') != '4.0.0-alpha.9': errors.append('MANIFEST version mismatch')
+    if manifest.get('phase') != 'migration-release-integration': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
         'behavior_tests': 98,

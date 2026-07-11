@@ -1,12 +1,15 @@
-# Skill migration
+# CPT Migration Assistant
 
-- `LEGACY_SKILL_INVENTORY.csv` records the 95 source skills, their size, boilerplate assessment, and target.
-- `SKILL_MIGRATION.csv` and `.json` map every source ID exactly once.
-- `DEPRECATED_SKILL_ALIASES.md` explains why aliases are not installed.
+This directory defines the conservative 3.x → 4.0 migration contract.
 
-Resolve a name from the command line:
+Principles:
 
-```bash
-python tools/cpt_dist.py skill-resolve --name bounded-discovery
-python tools/cpt_dist.py skill-resolve --name cpt-api-contract --json
-```
+- inspection and planning are read-only;
+- apply is explicit;
+- backup is external and hash-verified;
+- rollback refuses concurrent managed changes by default;
+- `AGENTS.override.md` is outside the contract and is preserved exactly;
+- legacy Markdown is imported as `needs_review` evidence, never promoted silently;
+- optional plugins, workers, and external services are never required for core migration.
+
+Use `python tools/cpt_migrate.py --help`.

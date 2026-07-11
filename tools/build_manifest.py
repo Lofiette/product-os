@@ -53,8 +53,8 @@ def main() -> int:
     data = {
         "schema": "cpt-package-manifest-v8",
         "name": "codex-product-os",
-        "version": "4.0.0-alpha.8",
-        "phase": "executable-evaluation-plane",
+        "version": "4.0.0-alpha.9",
+        "phase": "migration-release-integration",
         "manifest_excludes": [
             "MANIFEST.json",
             "**/__pycache__/**",

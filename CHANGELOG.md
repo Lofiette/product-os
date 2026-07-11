@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0-alpha.8
+## 4.0.0-alpha.9
 
 - Added an executable Evaluation Plane with 20 isolated fixture-repository cases.
 - Added mandatory deterministic `offline-core` evaluations and optional live Codex backends.

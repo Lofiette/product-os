@@ -23,10 +23,10 @@ A role may be delegated only when:
 
 - `never`: system/integration responsibility must remain in the main thread.
 - `conditional`: a bounded independent contribution can be delegated.
-- `recommended`: reserved for future evidence-backed cases; none are automatic in Alpha 8.
+- `recommended`: reserved for future evidence-backed cases; none are automatic in Alpha 9.
 
 Worker eligibility never grants spawn permission.
 
 ## Parallel writes
 
-Alpha 8 supports parallel writable workers only through approved, isolated Git worktrees with disjoint bounded scopes and review-only integration.
+Alpha 9 supports parallel writable workers only through approved, isolated Git worktrees with disjoint bounded scopes and review-only integration.

@@ -1,6 +1,6 @@
 # Sources
 
-Alpha 8 design follows current Codex documentation for:
+Alpha 9 design follows current Codex documentation for:
 
 - non-interactive `codex exec`;
 - JSONL event streaming with `--json`;

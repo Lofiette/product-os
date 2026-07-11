@@ -1,216 +1,177 @@
-# Codex Product Operating System 4.0 Alpha 8 Audit
+# Codex Product Operating System 4.0 Alpha 9
 
-## Release status
+## Migration and Release Integration Audit
 
-**Package status:** deterministic release gate passed. Final ZIP hash and extracted-archive verification are published in the external release audit.
+**Version:** `4.0.0-alpha.9`  
+**Phase:** Migration and Release Integration
 
-**Version:** `4.0.0-alpha.8`
+## Executive verdict
 
-**Phase:** Executable Evaluation Plane and CI.
+Alpha 9 provides a conservative, reversible adoption path from 3.x-style embedded frameworks and local runtime overlays to the 4.0 operating system. The migration path is plan-first, backup-backed, non-destructive by default, and fully self-contained. External services are not required.
 
-Alpha 8 adds an executable, repository-isolated Evaluation Plane on top of the Runtime, Product Knowledge, Expertise, Enforcement, and Managed Worker Orchestration planes delivered in Alpha 1–7.
+The release is suitable for Phase 10 RC trials. It is not yet a live-client-certified 4.0 release candidate.
 
-## Scope delivered
+## Delivered capabilities
 
-Alpha 8 includes:
+### Migration assistant
 
-- 20 executable evaluation cases across six synthetic fixture repositories;
-- four suites: `offline-core`, `live-smoke`, `live-readonly`, and `live-full`;
-- a deterministic reference backend for self-contained release gating;
-- an optional live backend using structured `codex exec --json` output;
-- an external-fixture preparation and grading path for trusted hosts or CI;
-- JSON Schema contracts for cases, task results, and scorecards;
-- trace, output, filesystem, runtime, budget, and deterministic-rubric graders;
-- reviewed offline baseline comparison;
-- four intentional mutation checks;
-- cross-platform offline CI configuration;
-- an optional, manually triggered read-only live smoke workflow;
-- package-manifest exclusions for generated reports and runtime evaluation state.
+`tools/cpt_migrate.py` provides:
 
-## Evaluation inventory
+- `inspect`: read-only inventory of the project and legacy environment;
+- `plan`: read-only migration plan with conflicts, warnings, mappings, backup location and plan hash;
+- `apply`: explicit installation, import, optional legacy retirement and validation;
+- `verify`: post-migration integrity and runtime checks;
+- `status`: migration and receipt state;
+- `rollback`: external-backup-backed restoration of pre-migration managed paths;
+- `platform-check`: Linux, macOS, Windows and WSL readiness diagnostics.
 
-| Item | Count |
-|---|---:|
-| Executable cases | 20 |
-| Fixture repositories | 6 |
-| Evaluation suites | 4 |
-| Evaluation unit tests | 13 |
-| Known-bad mutations | 4 |
-| Total behavioral unit tests across the package | 98 |
+### Legacy inventory
 
-The required `offline-core` suite covers:
+The assistant detects:
 
-- micro copy changes;
-- systemic edit-mode changes;
-- design-system UI implementation;
+- embedded 2.x/3.x role and skill libraries;
+- `.codex-runtime` local overlays;
+- legacy task and memory documents;
+- Product Knowledge Markdown;
+- custom/unmapped roles and skills;
+- current 4.x runtimes;
+- dirty Git state;
+- framework-owned versus ambiguous `AGENTS.md`;
+- presence of `AGENTS.override.md` without reading or interpreting it.
+
+### Role and skill migration
+
+The package reuses the audited registries from previous phases:
+
+- all legacy skill IDs are compared with the 45 canonical skills;
+- all 50 logical roles are compared with the retained/reworked role inventory;
+- unmapped custom extensions are preserved and reported;
+- compatibility aliases are not reactivated as discovery-budget-consuming skills;
+- detected domain packs are selected from valid CPT pack manifests only; fixtures, examples and templates are excluded.
+
+### Runtime-state preservation
+
+Legacy runtime files are preserved as migration evidence. They are not silently activated as current 4.0 task state. This prevents stale or ambiguous task history from becoming authoritative after migration.
+
+### Product Knowledge preservation
+
+Legacy Product Knowledge Markdown is copied into a migration import area and marked `needs_review`. It is never silently promoted into validated 4.0 claims. The original sources remain available for bounded review and deliberate promotion.
+
+### External backup and rollback
+
+Before changing managed paths, Alpha 9 creates an external hash-described backup. By default it lives under user-level CPT state rather than inside the product repository.
+
+Rollback:
+
+- restores exact pre-migration managed paths;
+- refuses when managed state changed after migration;
+- supports an explicit forced mode that first creates an emergency safety copy;
+- does not remove personal plugins automatically because they may be shared by multiple projects;
+- leaves `AGENTS.override.md` untouched.
+
+### Local and team modes
+
+- **Local mode** supports ignored personal runtime overlays and remains Git-clean when the source environment is also local/ignored.
+- **Team mode** performs an intentional repository migration without staging, committing or creating branches.
+
+### Release documentation
+
+The package includes:
+
+- migration guide;
+- installation, update, uninstall and rollback guide;
+- platform support notes;
+- troubleshooting guide;
+- Alpha 9 release-integration notes;
+- JSON Schemas for migration plans and receipts;
+- machine-readable legacy detection rules;
+- example plan;
+- cross-platform GitHub Actions migration matrix.
+
+## Safety invariants
+
+1. `inspect` and `plan` are read-only.
+2. `apply` is explicit.
+3. The assistant never stages, commits or creates branches.
+4. Core migration requires no external service.
+5. `AGENTS.override.md` is outside the architecture contract and preserved byte-for-byte.
+6. Ambiguous project-owned files are preserved rather than guessed.
+7. Legacy claims are not automatically validated.
+8. Backups live outside the repository by default.
+9. Existing 4.x runtimes block ordinary migration and should use update workflows.
+10. Rollback is receipt-driven and conflict-aware.
+
+## Validation results
+
+### Migration-specific behavior
+
+```text
+Migration unit tests: 7 / 7 PASS
+Migration asset validation: PASS
+Extracted-package migration tests: PASS
+Extracted-package manifest hash validation: PASS
+Product-specific term scan: PASS
+Package hygiene scan: PASS
+```
+
+Covered cases include:
+
+- read-only inspect and dry-run plan;
+- local ignored overlay migration with clean Git;
+- exact preservation of `AGENTS.override.md`;
+- team migration followed by exact rollback;
+- current-4.x conflict detection;
+- rollback refusal after concurrent managed changes;
+- forced rollback safety backup;
+- platform diagnostics;
+- domain-pack discovery excluding fixtures and examples.
+
+### Regression protection
+
+The existing Alpha 8 package validators and behavioral suite completed successfully during the Alpha 9 build. The migration layer was added without weakening Runtime, Skills, Roles, Product Knowledge, Enforcement, Orchestration or Evaluation Plane contracts.
+
+### Extracted-package proof
+
+The final ZIP was unpacked into a clean directory. From the extracted copy, the build executed:
+
+- migration asset validation;
+- migration behavior tests;
+- manifest size/hash/inventory checks;
+- local installation in an isolated Git repository;
+- distribution doctor;
+- runtime validation;
+- Git cleanliness verification.
+
+## Cross-platform status
+
+The implementation is pure Python/pathlib plus Git and does not require symlinks or shell-specific scripts. A CI matrix is included for Linux, macOS and Windows, with explicit WSL diagnostics.
+
+The current build environment did not execute native Windows or macOS hosts. Those live platform runs remain Phase 10 evidence.
+
+## Honest limitations
+
+1. Arbitrary custom 3.x extensions cannot be semantically mapped with certainty. They are preserved and reported.
+2. Legacy Markdown is preserved as unverified evidence, not automatically converted into validated Product Knowledge.
+3. Existing ambiguous `AGENTS.md` files require human review.
+4. Project rollback does not automatically remove personal plugins shared by other repositories.
+5. Concurrent application changes are outside the migration assistant’s managed rollback scope.
+6. Cross-platform logic is implemented and CI-configured, but live platform certification belongs to Phase 10.
+7. Live Codex client behavior, plugin enablement UX and organization-managed policy interactions remain RC-trial concerns.
+
+## Recommendation
+
+Freeze Alpha 9 as the Migration and Release Integration baseline, then proceed to Phase 10 RC Trials:
+
+- clean installation;
+- 3.x embedded migration;
+- local-overlay migration;
+- existing product;
+- greenfield product;
+- redesign/migration task;
+- UI/design-system work;
 - API-dependent UI;
-- existing-product onboarding;
-- greenfield product creation;
-- redesign and migration;
-- reference fidelity;
-- accessibility review;
-- approval and external-module boundaries;
-- micro-to-standard escalation;
-- security-sensitive API work;
-- incident investigation;
-- Product Knowledge freshness propagation;
-- compaction recovery;
-- required-worker timeout and quorum;
-- parallel-worktree scope violations;
-- skill metadata budget;
-- local ignored runtime and Git cleanliness.
-
-## Deterministic release evidence
-
-The reviewed reference baseline records:
-
-```text
-Cases:                    20 / 20 PASS
-Average score:            100
-Tool events:              119
-Commands:                  71
-Reads:                     38
-Writes:                    10
-Approval events:            4
-Changed files:               5
-Input tokens:           24,060
-Output tokens:           6,170
-```
-
-Wall time is enforced by each case budget but is intentionally not used as a portable cross-platform regression baseline.
-
-Baseline comparison must report:
-
-```text
-Status: PASS
-Regressions: 0
-```
-
-Mutation testing must detect all four known-bad behaviors:
-
-```text
-unauthorized write
-missing required output field
-forbidden destructive command
-resource regression
-```
-
-Expected result:
-
-```text
-Mutations detected: 4 / 4
-```
-
-## Package-wide regression evidence
-
-Expected package checks:
-
-```text
-Distribution tests:       18 / 18
-Skill tests:               5 / 5
-Role tests:                4 / 4
-Product Knowledge tests: 13 / 13
-Enforcement tests:        21 / 21
-Orchestration tests:      24 / 24
-Evaluation Plane tests:   13 / 13
---------------------------------
-Total:                    98 / 98
-```
-
-Expected deterministic reports:
-
-```text
-Skill trigger proxy:         135 / 135
-Role routing proxy:          164 / 164
-Knowledge lifecycle:          11 / 11
-Enforcement policy:            5 / 5
-Orchestration policy:          34 / 34
-Enforcement integration:      13 / 13
-Orchestration integration:    16 / 16
-```
-
-## Grading model
-
-Each evaluation case is independently checked across six dimensions:
-
-1. trace policy;
-2. structured output contract;
-3. actual filesystem changes;
-4. runtime assertions;
-5. token, tool, command, write, and wall-time budgets;
-6. deterministic evidence and bounded-change rubric.
-
-Critical failures cannot be averaged away. A forbidden write, destructive command, invalid structured result, or runtime-integrity failure forces a case failure regardless of the average score.
-
-## Isolation and evidence quality
-
-Every case runs in a fresh temporary Git repository with isolated `HOME` and `CODEX_HOME` directories. Only the plugins and optional worker pack explicitly requested by the case are projected into the fixture.
-
-The reference backend emits a synthetic Codex-like trace authored by the package. It proves fixture setup, runtime contracts, graders, policies, and regression detection. It does **not** certify live model quality.
-
-The live backend:
-
-- requires a Codex CLI and credentials;
-- requests schema-conforming final output;
-- normalizes supported JSONL command, file-change, message, error, and usage events;
-- marks structured model claims about reads and writes as reported evidence;
-- corroborates actual writes with Git state where possible;
-- treats a non-zero Codex exit as failure, not as skipped evidence.
-
-## CI posture
-
-The offline workflow uses least-privilege repository permissions and runs the required suite on:
-
-- Ubuntu with Python 3.10;
-- Ubuntu with Python 3.12;
-- macOS with Python 3.12;
-- Windows with Python 3.12.
-
-The primary Linux/Python job also runs the complete package regression suite. Generated scorecards, comparisons, and mutation reports are uploaded as CI artifacts rather than added to the immutable package tree.
-
-The optional live-smoke workflow is manual and read-only. It requires a trusted credential and organizational review; it is not part of the self-contained release gate.
-
-## Packaging integrity requirements
-
-The final distribution must satisfy all of the following:
-
-- ZIP inventory exactly matches `MANIFEST.json` plus `MANIFEST.json` itself;
-- every managed file size and SHA-256 matches the manifest;
-- generated evaluation reports are excluded;
-- `.cpt-eval-runs` and `.cpt-eval-live` are excluded;
-- `__pycache__`, `.pyc`, `.pyo`, and tool caches are excluded;
-- validators do not create bytecode inside the package tree;
-- the package can be extracted into a clean directory and revalidated there;
-- local installation, doctor, runtime validation, offline evaluations, baseline comparison, mutation checks, and Git-clean verification pass from the extracted copy.
-
-The archive SHA-256 is published in the external release audit because a ZIP cannot safely contain its own final hash without creating a circular artifact dependency.
-
-## Known limitations
-
-Alpha 8 does not claim live-model certification in the build environment.
-
-The following still require external live runs:
-
-- model decision quality across supported models;
-- actual token and latency budgets;
-- native subagent event ordering;
-- cancellation delivery by the host;
-- reconnect behavior across Codex clients;
-- screenshot- or image-based visual grading;
-- behavioral consistency under real interactive approvals.
-
-JSONL event normalization is best effort and may need updates when Codex event schemas evolve. Missing native trace evidence is surfaced as reduced observability rather than silently converted into proof.
-
-## Release conclusion
-
-Alpha 8 passed the deterministic Evaluation Plane release gate with:
-
-- all 98 behavioral tests passed;
-- all static validators passed;
-- `offline-core` reported 20/20 PASS;
-- baseline comparison reported zero regressions;
-- mutation testing detected 4/4 known-bad behaviors;
-- the final ZIP inventory and hashes were exact;
-- extracted-package static, installation, doctor, runtime, Git-cleanliness, and representative evaluation checks passed.
-
-Live scorecards are additive evidence and must remain clearly separated from deterministic package certification.
+- real worker orchestration;
+- compaction/reconnect;
+- Linux/macOS/Windows/WSL;
+- token, latency, tool and approval measurements;
+- final mega-audit.

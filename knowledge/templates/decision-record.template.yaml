@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha7
+schema_version: 4.0-alpha8
 id: template-decision-record
 artifact_type: decision_record
 title: Decision Record Template

@@ -19,7 +19,7 @@ from typing import Any, Iterable
 import fastjsonschema
 import yaml
 
-SCHEMA_VERSION = "4.0-alpha7"
+SCHEMA_VERSION = "4.0-alpha8"
 TERMINAL_CONTRACT_STATUSES = {
     "completed",
     "partial",

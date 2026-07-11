@@ -1,0 +1,80 @@
+name: CPT offline evaluation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'evaluation/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'payload/**'
+      - 'domain-packs/**'
+      - 'roles/**'
+      - 'skills/**'
+      - '.github/workflows/offline-evals.yml'
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  offline-core:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: '3.10'
+            full_regression: false
+          - os: ubuntu-latest
+            python: '3.12'
+            full_regression: true
+          - os: macos-latest
+            python: '3.12'
+            full_regression: false
+          - os: windows-latest
+            python: '3.12'
+            full_regression: false
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install test dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Validate evaluation assets
+        run: python tools/validate_evaluation.py
+      - name: Run offline executable suite
+        run: >-
+          python tools/cpt_eval.py run
+          --suite offline-core
+          --backend reference
+          --report-dir .cpt-eval-runs/offline
+      - name: Compare reviewed baseline
+        run: >-
+          python tools/cpt_eval.py compare-baseline
+          --current .cpt-eval-runs/offline/offline-core-reference-scorecard.json
+          --baseline evaluation/executable/baselines/offline-core-alpha8.json
+          --output .cpt-eval-runs/offline/baseline-comparison.json
+      - name: Run mutation checks
+        run: >-
+          python tools/cpt_eval.py mutate
+          --scorecard .cpt-eval-runs/offline/offline-core-reference-scorecard.json
+          --output .cpt-eval-runs/offline/mutation-report.json
+      - name: Run full package regression
+        if: matrix.full_regression
+        run: python tests/run_all.py
+      - name: Upload evaluation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpt-evals-${{ matrix.os }}-py${{ matrix.python }}
+          path: .cpt-eval-runs/offline/
+          if-no-files-found: warn

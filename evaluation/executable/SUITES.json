@@ -1,0 +1,26 @@
+{
+  "schema_version": "cpt-eval-suites-v1",
+  "version": "4.0.0-alpha.8",
+  "suites": {
+    "offline-core": {
+      "backend": "reference",
+      "required": true,
+      "description": "All 20 deterministic fixture-repository cases; no Codex CLI or external service required."
+    },
+    "live-smoke": {
+      "backend": "live",
+      "required": false,
+      "description": "Small read-only and micro-change smoke set for codex exec."
+    },
+    "live-readonly": {
+      "backend": "live",
+      "required": false,
+      "description": "Read-only model-behavior checks with structured output."
+    },
+    "live-full": {
+      "backend": "live",
+      "required": false,
+      "description": "Full live behavior set including workspace-write cases."
+    }
+  }
+}

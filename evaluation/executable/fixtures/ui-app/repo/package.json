@@ -1,0 +1,8 @@
+{
+  "name": "fixture-ui-app",
+  "private": true,
+  "scripts": {
+    "test:ui": "python scripts/check_ui.py",
+    "test": "python scripts/check_ui.py"
+  }
+}

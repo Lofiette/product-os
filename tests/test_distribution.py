@@ -23,7 +23,7 @@ def run(*args: str, cwd: Path | None = None, env: dict | None = None, check: boo
 
 class DistributionTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha7-test-'))
+        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha8-test-'))
         self.home = self.tmp / 'home'
         self.home.mkdir()
         self.env = os.environ.copy()

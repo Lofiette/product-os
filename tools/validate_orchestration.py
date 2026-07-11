@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-import py_compile
+import ast
 import sys
 from pathlib import Path
 
@@ -24,14 +24,14 @@ for path in required:
         errors.append(f"missing {path.relative_to(ROOT)}")
 
 try:
-    py_compile.compile(str(required[0]), doraise=True)
+    ast.parse(required[0].read_text(encoding="utf-8"))
 except Exception as exc:
     errors.append(f"orchestration module compile: {exc}")
 
 try:
     registry_doc = json.loads(required[1].read_text(encoding="utf-8"))
     archetypes = registry_doc.get("archetypes", [])
-    if registry_doc.get("version") != "4.0.0-alpha.7":
+    if registry_doc.get("version") != "4.0.0-alpha.8":
         errors.append("worker archetype registry version mismatch")
     if registry_doc.get("archetype_count") != 10 or len(archetypes) != 10:
         errors.append("worker archetype registry must contain exactly 10 archetypes")
@@ -64,7 +64,7 @@ except Exception as exc:
 
 try:
     pack = json.loads(required[2].read_text(encoding="utf-8"))
-    if pack.get("version") != "4.0.0-alpha.7" or pack.get("agent_count") != 10:
+    if pack.get("version") != "4.0.0-alpha.8" or pack.get("agent_count") != 10:
         errors.append("worker pack metadata mismatch")
     agents = sorted((ROOT / "payload/worker-pack/agents").glob("*.toml"))
     if len(agents) != 10:

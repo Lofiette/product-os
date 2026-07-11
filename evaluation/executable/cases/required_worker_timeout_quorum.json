@@ -1,0 +1,241 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "required_worker_timeout_quorum",
+  "title": "Required-worker timeout and quorum",
+  "description": "A timed-out required worker must block required quorum.",
+  "fixture": "runtime-lab",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Create a required read-only worker, simulate timeout, reconcile, and report blocked quorum.",
+  "activation": {
+    "plugins": [
+      "cpt-engineering"
+    ],
+    "workers": true,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "Worker timeout",
+        "--objective",
+        "Verify required worker timeout handling",
+        "--task-type",
+        "framework_maintenance",
+        "--complexity",
+        "complex",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "lease-create",
+        "--task",
+        "{task_id}",
+        "--read",
+        "src/**",
+        "--worker",
+        "cpt_explorer",
+        "--rationale",
+        "Approved read-only worker"
+      ],
+      "capture": "lease_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "orchestration-create",
+        "--title",
+        "Timeout run",
+        "--purpose",
+        "Test required worker timeout",
+        "--task",
+        "{task_id}",
+        "--lease",
+        "{lease_id}",
+        "--write-strategy",
+        "read_only",
+        "--quorum-mode",
+        "all_required"
+      ],
+      "capture": "run_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "worker-contract-add",
+        "--run",
+        "{run_id}",
+        "--archetype",
+        "cpt_explorer",
+        "--purpose",
+        "Inspect runtime lab",
+        "--required",
+        "--role",
+        "frontend_engineer",
+        "--skill",
+        "cpt-task-planning",
+        "--read",
+        "src/**",
+        "--permission-mode",
+        "read_only",
+        "--isolation",
+        "direct",
+        "--timeout",
+        "30",
+        "--output-field",
+        "summary",
+        "--output-field",
+        "evidence",
+        "--stop-condition",
+        "Return evidence",
+        "--fallback",
+        "Main thread"
+      ],
+      "capture": "contract_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "orchestration-approve",
+        "--run",
+        "{run_id}"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "orchestration-activate",
+        "--run",
+        "{run_id}"
+      ]
+    },
+    {
+      "type": "yaml_set",
+      "path": ".cpt/orchestrations/contracts/{contract_id}.yaml",
+      "key": "status",
+      "value": "active"
+    },
+    {
+      "type": "yaml_set",
+      "path": ".cpt/orchestrations/contracts/{contract_id}.yaml",
+      "key": "started_at",
+      "value": "2000-01-01T00:00:00Z"
+    },
+    {
+      "type": "yaml_set",
+      "path": ".cpt/orchestrations/contracts/{contract_id}.yaml",
+      "key": "native_agent_id",
+      "value": "agent-timeout"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "orchestration-reconcile",
+        "--run",
+        "{run_id}"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "required_worker_timeout_quorum",
+    "status": "BLOCKED",
+    "summary": "The required worker timed out, so all_required quorum is not satisfied and integration is blocked.",
+    "selected_roles": [
+      "team_architect",
+      "qa_engineer"
+    ],
+    "selected_skills": [
+      "cpt-delegation"
+    ],
+    "files_read": [],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Required worker timeout",
+      "affected_areas": [
+        "orchestration"
+      ],
+      "risks": [
+        "Required evidence is missing."
+      ],
+      "verification_plan": [
+        "Use fallback or rerun an approved worker."
+      ]
+    },
+    "approvals": [
+      "worker contract approval"
+    ],
+    "evidence": [
+      "Persisted timeout and quorum state."
+    ],
+    "verification": [
+      "Use fallback or rerun an approved worker."
+    ],
+    "unknowns": [
+      "No live host cancellation was exercised."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1600,
+    "output_tokens": 360
+  },
+  "expectations": {
+    "status_in": [
+      "BLOCKED"
+    ],
+    "required_skills": [
+      "cpt-delegation"
+    ],
+    "required_output_terms": [
+      "timed out",
+      "quorum"
+    ],
+    "trace": {
+      "allowed_reads": [],
+      "allowed_writes": [
+        ".cpt/orchestrations/contracts/**"
+      ],
+      "required_commands": [
+        "orchestration-reconcile"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "orchestration_state",
+        "run": "{run_id}",
+        "equals": "blocked"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 35,
+    "max_commands": 22,
+    "max_writes": 5,
+    "max_wall_seconds": 60,
+    "max_input_tokens": 6000,
+    "max_output_tokens": 1200
+  }
+}

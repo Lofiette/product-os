@@ -1,0 +1,113 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "accessibility_review",
+  "title": "Accessibility review",
+  "description": "Accessibility blockers must not be downgraded to stylistic warnings.",
+  "fixture": "ui-app",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Audit the small editor form for labels, accessible names, and feedback semantics. Do not edit.",
+  "activation": {
+    "plugins": [
+      "cpt-design-ui"
+    ],
+    "workers": false,
+    "sandbox": "read-only"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "read",
+      "path": "src/features/editor/AccessibleForm.tsx"
+    }
+  ],
+  "reference_output": {
+    "case_id": "accessibility_review",
+    "status": "BLOCKED",
+    "summary": "Accessibility review is blocked by an unlabeled input and an icon-only action without a robust accessible name.",
+    "selected_roles": [
+      "accessibility_specialist",
+      "qa_engineer",
+      "design_engineer"
+    ],
+    "selected_skills": [
+      "cpt-accessibility-review"
+    ],
+    "files_read": [
+      "src/features/editor/AccessibleForm.tsx"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Form accessibility review",
+      "affected_areas": [
+        "editor form"
+      ],
+      "risks": [
+        "Assistive technology cannot reliably identify the input or save action."
+      ],
+      "verification_plan": [
+        "Add a programmatic label and an explicit accessible name, then run keyboard/screen-reader checks."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Static source evidence."
+    ],
+    "verification": [
+      "Add a programmatic label and an explicit accessible name, then run keyboard/screen-reader checks."
+    ],
+    "unknowns": [
+      "Focus order and rendered contrast were not measured."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 700,
+    "output_tokens": 260
+  },
+  "expectations": {
+    "status_in": [
+      "BLOCKED"
+    ],
+    "required_roles": [
+      "accessibility_specialist"
+    ],
+    "required_skills": [
+      "cpt-accessibility-review"
+    ],
+    "required_output_terms": [
+      "unlabeled",
+      "accessible name"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "src/features/editor/AccessibleForm.tsx"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    }
+  },
+  "budgets": {
+    "max_tool_events": 8,
+    "max_commands": 1,
+    "max_writes": 0,
+    "max_wall_seconds": 20,
+    "max_input_tokens": 2500,
+    "max_output_tokens": 800
+  }
+}

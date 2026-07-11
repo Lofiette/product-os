@@ -1,5 +1,5 @@
 {
-  "schema_version": "4.0-alpha7",
+  "schema_version": "4.0-alpha8",
   "cases": [
     {"id":"registry-count","expect":"exactly 10 worker archetypes"},
     {"id":"registry-unique","expect":"unique archetype identifiers"},

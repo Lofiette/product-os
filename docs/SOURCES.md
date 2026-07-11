@@ -1,13 +1,15 @@
-
 # Sources
 
-Alpha 7 enforcement and orchestration design follows the current Codex documentation for:
+Alpha 8 design follows current Codex documentation for:
 
+- non-interactive `codex exec`;
+- JSONL event streaming with `--json`;
+- schema-constrained final output with `--output-schema`;
+- ephemeral sessions and bounded sandbox selection;
+- the official Codex GitHub Action;
 - lifecycle hooks and hook trust;
-- `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `SubagentStart`, `SubagentStop`, and `Stop` event behavior;
 - project trust and project-scoped configuration;
-- command rules and `codex execpolicy check`;
-- permission profiles, sandboxing, and approval policies;
-- plugin-bundled hooks and plugin trust.
+- command rules, permission profiles, sandboxing, and approval policies;
+- plugin-bundled skills, hooks, and MCP configuration.
 
-CPT documentation intentionally distinguishes workflow guardrails from native Codex security boundaries.
+CPT documentation distinguishes deterministic package evidence, live Codex evidence, and external-host evidence. It also distinguishes CPT workflow guardrails from native Codex security boundaries.

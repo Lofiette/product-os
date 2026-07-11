@@ -26,7 +26,7 @@ def run_dist(*args: str, env: dict, check: bool = True):
 class EnforcementTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.base_tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha7-enforcement-base-'))
+        cls.base_tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha8-enforcement-base-'))
         cls.base_home = cls.base_tmp / 'home'; cls.base_home.mkdir()
         cls.base_repo = cls.base_tmp / 'repo'; cls.base_repo.mkdir()
         subprocess.run(['git','init','-q',str(cls.base_repo)], check=True)
@@ -40,7 +40,7 @@ class EnforcementTests(unittest.TestCase):
         shutil.rmtree(cls.base_tmp)
 
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha7-enforcement-case-'))
+        self.tmp = Path(tempfile.mkdtemp(prefix='cpt-alpha8-enforcement-case-'))
         self.repo = self.tmp / 'repo'
         shutil.copytree(self.base_repo, self.repo)
         self.home = self.base_home

@@ -89,3 +89,15 @@ python tools/cpt_dist.py install --project . --mode local --plugin-scope none
 ```
 
 The repo kernel continues to work without plugins. The plugin is a distribution and discoverability layer, not canonical state.
+
+
+## Evaluation Plane
+
+The deterministic suite needs no Codex CLI or external service:
+
+```bash
+python tools/validate_evaluation.py
+python tools/cpt_eval.py run --suite offline-core --backend reference --report-dir .cpt-eval-runs/offline
+```
+
+Live suites are optional. They require a Codex CLI session or a trusted CI integration and must not be confused with the deterministic baseline. See `EVALUATION.md`.

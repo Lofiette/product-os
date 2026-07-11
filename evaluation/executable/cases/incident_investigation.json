@@ -1,0 +1,120 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "incident_investigation",
+  "title": "Incident investigation",
+  "description": "Use logs and bounded code evidence to form a falsifiable root-cause hypothesis.",
+  "fixture": "existing-product",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Investigate the failed background job and identify the most likely root cause and next verification step.",
+  "activation": {
+    "plugins": [
+      "cpt-risk-operations",
+      "cpt-engineering"
+    ],
+    "workers": false,
+    "sandbox": "read-only"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "read",
+      "path": "logs/incident.log"
+    },
+    {
+      "type": "read",
+      "path": "src/services/jobRunner.ts"
+    }
+  ],
+  "reference_output": {
+    "case_id": "incident_investigation",
+    "status": "PASS",
+    "summary": "The job failed because empty input reaches a non-retryable validation error; verify the upstream caller and input contract.",
+    "selected_roles": [
+      "incident_investigator",
+      "observability_engineer",
+      "qa_engineer"
+    ],
+    "selected_skills": [
+      "cpt-incident-review"
+    ],
+    "files_read": [
+      "logs/incident.log",
+      "src/services/jobRunner.ts"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Background job failure",
+      "affected_areas": [
+        "job execution"
+      ],
+      "risks": [
+        "Upstream caller may omit input; retry policy correctly skips this class."
+      ],
+      "verification_plan": [
+        "Reproduce with empty input and inspect the caller that constructs the job."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Timestamped incident log and explicit guard in jobRunner."
+    ],
+    "verification": [
+      "Reproduce with empty input and inspect the caller that constructs the job."
+    ],
+    "unknowns": [
+      "Caller path was not approved for reading."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 800,
+    "output_tokens": 270
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "incident_investigator"
+    ],
+    "required_skills": [
+      "cpt-incident-review"
+    ],
+    "required_output_terms": [
+      "empty input",
+      "upstream caller"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "logs/incident.log",
+        "src/services/jobRunner.ts"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    }
+  },
+  "budgets": {
+    "max_tool_events": 8,
+    "max_commands": 1,
+    "max_writes": 0,
+    "max_wall_seconds": 20,
+    "max_input_tokens": 2800,
+    "max_output_tokens": 800
+  }
+}

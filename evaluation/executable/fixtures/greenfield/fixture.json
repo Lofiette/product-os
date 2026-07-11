@@ -1,0 +1,5 @@
+{
+  "schema_version": "cpt-eval-fixture-v1",
+  "id": "greenfield",
+  "description": "Synthetic fixture repository for greenfield evaluation cases."
+}

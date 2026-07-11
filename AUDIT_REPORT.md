@@ -1,346 +1,216 @@
-# Codex Product Operating System 4.0 Alpha 7
+# Codex Product Operating System 4.0 Alpha 8 Audit
 
-## Audit report: Managed Worker Orchestration
+## Release status
 
-**Version:** `4.0.0-alpha.7`  
-**Phase:** Managed Worker Orchestration  
-**Verdict:** **PASS for the Alpha 7 phase scope, with explicit live-Codex and host-control limitations**
+**Package status:** deterministic release gate passed. Final ZIP hash and extracted-archive verification are published in the external release audit.
 
-## 1. Scope of this phase
+**Version:** `4.0.0-alpha.8`
 
-Alpha 7 adds an optional managed execution plane on top of the Runtime Kernel, Product Knowledge lifecycle, canonical skills, logical roles, quality gates, distribution split, and deterministic enforcement delivered in Alpha 1–6.
+**Phase:** Executable Evaluation Plane and CI.
 
-Implemented concerns:
+Alpha 8 adds an executable, repository-isolated Evaluation Plane on top of the Runtime, Product Knowledge, Expertise, Enforcement, and Managed Worker Orchestration planes delivered in Alpha 1–7.
 
-- ten executable worker archetypes instead of one custom agent per logical role;
-- typed orchestration runs and bounded worker contracts;
-- explicit approval and activation;
-- native lifecycle binding through `SubagentStart` / `SubagentStop` hook payloads;
-- structured worker results independent of raw native return events;
-- required and optional contracts;
-- `all_required`, `all`, and `n_of_m` quorum policies;
-- cooperative cancellation and timeout reconciliation;
-- managed Git worktrees for parallel writers;
-- disjoint write-scope and actual changed-path checks;
-- disk-backed orchestration, worker, result, and worktree state;
-- compaction checkpoint integration and post-compaction reconciliation;
-- separate optional worker-pack installation, status, and removal;
-- active-runtime uninstall protection;
-- deterministic orchestration policy fixtures and synthetic lifecycle integration.
+## Scope delivered
 
-Not in scope:
+Alpha 8 includes:
 
-- live certification against real Codex subagent threads;
-- forceful cancellation of a native worker by CPT itself;
-- automatic merge or conflict resolution;
-- unrestricted multi-level delegation;
-- remote/tamper-evident orchestration storage;
-- model-output quality grading;
-- cross-client reconnect certification;
-- Phase 8 executable prompt/tool-trace evaluation.
+- 20 executable evaluation cases across six synthetic fixture repositories;
+- four suites: `offline-core`, `live-smoke`, `live-readonly`, and `live-full`;
+- a deterministic reference backend for self-contained release gating;
+- an optional live backend using structured `codex exec --json` output;
+- an external-fixture preparation and grading path for trusted hosts or CI;
+- JSON Schema contracts for cases, task results, and scorecards;
+- trace, output, filesystem, runtime, budget, and deterministic-rubric graders;
+- reviewed offline baseline comparison;
+- four intentional mutation checks;
+- cross-platform offline CI configuration;
+- an optional, manually triggered read-only live smoke workflow;
+- package-manifest exclusions for generated reports and runtime evaluation state.
 
-## 2. Architectural decisions
+## Evaluation inventory
 
-### 2.1 Roles are not workers
+| Item | Count |
+|---|---:|
+| Executable cases | 20 |
+| Fixture repositories | 6 |
+| Evaluation suites | 4 |
+| Evaluation unit tests | 13 |
+| Known-bad mutations | 4 |
+| Total behavioral unit tests across the package | 98 |
 
-Alpha 7 preserves:
+The required `offline-core` suite covers:
 
-- **50 logical roles** as accountability and expert-decision lenses;
-- **45 canonical skills** as reusable methods;
-- **25 quality gates** as evidence contracts.
+- micro copy changes;
+- systemic edit-mode changes;
+- design-system UI implementation;
+- API-dependent UI;
+- existing-product onboarding;
+- greenfield product creation;
+- redesign and migration;
+- reference fidelity;
+- accessibility review;
+- approval and external-module boundaries;
+- micro-to-standard escalation;
+- security-sensitive API work;
+- incident investigation;
+- Product Knowledge freshness propagation;
+- compaction recovery;
+- required-worker timeout and quorum;
+- parallel-worktree scope violations;
+- skill metadata budget;
+- local ignored runtime and Git cleanliness.
 
-It adds only **10 worker archetypes** as optional execution containers:
+## Deterministic release evidence
 
-1. `cpt_explorer`
-2. `cpt_researcher`
-3. `cpt_product_mapper`
-4. `cpt_design_reviewer`
-5. `cpt_implementer`
-6. `cpt_test_runner`
-7. `cpt_code_reviewer`
-8. `cpt_risk_reviewer`
-9. `cpt_knowledge_curator`
-10. `cpt_incident_investigator`
-
-The main thread remains the final integrator and decision owner. A worker receives bounded role lenses; it does not become the owner of the overall task.
-
-### 2.2 Worker pack is optional
-
-The worker pack is not installed with the core runtime. It is managed separately through:
-
-```bash
-python tools/cpt_dist.py workers-install --scope personal
-python tools/cpt_dist.py workers-status --scope personal
-python tools/cpt_dist.py workers-remove --scope personal
-```
-
-Personal scope is recommended for reuse across projects. Repository scope is explicit and intentionally creates project-local custom-agent files.
-
-### 2.3 Main-thread execution is the safe default
-
-Delegation is justified only when it improves independent evidence, parallel read-heavy work, specialized challenge, or safe isolation. A Standard Task, active authorization lease, approved orchestration, and bounded contracts are required.
-
-### 2.4 One archetype per run
-
-Native worker lifecycle events identify the custom-agent type but do not carry a CPT contract identifier. Alpha 7 therefore permits a worker archetype at most once in one orchestration run. This removes ambiguous contract binding.
-
-## 3. Orchestration lifecycle
-
-The supported lifecycle is:
+The reviewed reference baseline records:
 
 ```text
-orchestration proposal
-→ worker contracts
-→ user approval
-→ activation
-→ native worker binding or manual fallback
-→ structured results
-→ quorum
-→ main-thread integration
-→ completion
+Cases:                    20 / 20 PASS
+Average score:            100
+Tool events:              119
+Commands:                  71
+Reads:                     38
+Writes:                    10
+Approval events:            4
+Changed files:               5
+Input tokens:           24,060
+Output tokens:           6,170
 ```
 
-A contract records:
+Wall time is enforced by each case budget but is intentionally not used as a portable cross-platform regression baseline.
 
-- worker archetype;
-- purpose;
-- required or optional status;
-- role lenses;
-- canonical skills;
-- task and lease pointers;
-- read and write scope;
-- permission mode;
-- isolation mode;
-- timeout;
-- required output fields;
-- stop conditions;
-- fallback strategy.
-
-A native `SubagentStop` event means that a worker returned. It does **not** by itself satisfy a contract. The parent must submit a typed CPT result with evidence and confidence.
-
-When hooks are unavailable, an approved contract may receive a manual structured result. This preserves a usable fallback but does not claim native lifecycle evidence.
-
-## 4. Quorum and result semantics
-
-Supported quorum modes:
-
-- `all_required`: every required contract must return `success`; optional non-success does not block;
-- `all`: every contract must return `success`;
-- `n_of_m`: every required contract plus at least `n` successful contracts.
-
-Only `success` satisfies a required contract.
-
-The following statuses preserve useful evidence when present but do not satisfy required quorum:
-
-- `partial`;
-- `failure`;
-- `insufficient_evidence`;
-- `cancelled`;
-- `timed_out`;
-- `skipped`.
-
-Draft runs remain `proposed` while contracts are still being assembled. Quorum impossibility is evaluated as a blocking condition only after the contract set is approved.
-
-## 5. Cancellation, timeout, and reconciliation
-
-Cancellation is cooperative:
-
-- CPT writes `cancel_requested` with reason and timestamp;
-- the parent or Codex host must stop the live native worker;
-- contract cancellation does not cancel the entire run;
-- run cancellation requests cancellation for all unresolved contracts.
-
-Reconciliation:
-
-- applies contract timeouts;
-- marks ambiguous reconnect state as `needs_reconcile` rather than guessing;
-- preserves disk state across compaction or client reconnect;
-- requires explicit resolution before completion.
-
-## 6. Parallel write isolation
-
-Multiple writable workers require the `parallel_worktree` strategy.
-
-For each writable contract CPT:
-
-1. rejects a dirty main repository by default;
-2. creates a dedicated Git worktree and managed branch;
-3. verifies that the worktree is registered by Git;
-4. verifies branch, contract, and orchestration ownership;
-5. verifies actual changed paths against contract `write_scope`;
-6. verifies worker-reported `touched_paths` against Git status;
-7. produces a review-only integration plan;
-8. never merges automatically.
-
-Tampered worktree records cannot redirect removal to the main repository, an unrelated worktree, or an arbitrary branch. Dirty worktrees require explicit review or `--discard` before removal.
-
-## 7. Compaction and recovery
-
-Checkpoint state includes:
-
-- current runtime pointers;
-- task index and active task;
-- active lease and micro change;
-- active orchestration;
-- contracts and structured results;
-- worker lifecycle records;
-- managed worktrees;
-- blockers and unfinished verification;
-- next operation.
-
-Compaction behavior:
-
-- managed read-only workers may cross compaction and are reconciled afterward;
-- unmanaged workers block compaction in enforcement mode;
-- active writable workers block compaction in enforcement mode;
-- post-compaction verification stops on integrity or pointer mismatch.
-
-## 8. Distribution and installation
-
-Default team-shared installation currently uses **11 project-local framework files**, below the 20-file target. Core plugin exposure is personal by default for both local and team modes; repository vendoring remains explicit.
-
-Local mode remains Git-clean when Git is available. Repository-scoped worker-pack installation is explicit and therefore may create intentional project-local files.
-
-Uninstall is blocked when CPT detects:
-
-- an active task or micro change;
-- an unfinished orchestration;
-- a running, cancellation-requested, or reconcile-needed worker;
-- an active or dirty managed worktree.
-
-An explicit `--force-active-runtime` flag is required to override this guard. Personal worker packs are not removed with a single project because other repositories may use them.
-
-## 9. Native Codex boundary
-
-Worker TOML profiles, CPT contracts, and CPT leases do not replace native Codex controls. Native sandboxing, permission profiles, approvals, project trust, organization policy, and host lifecycle remain authoritative.
-
-Recommended worker limits are supplied as an example, not silently merged:
-
-```toml
-[agents]
-max_threads = 4
-max_depth = 1
-job_max_runtime_seconds = 900
-interrupt_message = true
-```
-
-Workers are instructed not to spawn nested subagents.
-
-## 10. Validation and evaluation results
-
-### Isolated behavioral tests
-
-- Distribution: **18 / 18**
-- Skills: **5 / 5**
-- Roles: **4 / 4**
-- Product Knowledge: **13 / 13**
-- Enforcement: **21 / 21**
-- Orchestration: **24 / 24**
-- **Total: 85 / 85**
-
-### Static, policy, and proxy validation
-
-- Distribution static validation: PASS
-- Skill validation: PASS
-- Role validation: PASS
-- Knowledge asset validation: PASS
-- Knowledge runtime validation: PASS
-- Enforcement asset validation: PASS
-- Orchestration asset validation: PASS
-- Skill trigger proxy eval: **135 / 135**
-- Role routing proxy eval: **164 / 164**
-- Knowledge lifecycle eval: **11 / 11**
-- Enforcement policy eval: **5 / 5**
-- Orchestration policy eval: **34 / 34**
-
-### Synthetic lifecycle integrations
-
-- Enforcement integration: **13 / 13**
-- Orchestration integration: **16 / 16**
-
-The orchestration integration covers:
+Baseline comparison must report:
 
 ```text
-local installation
-→ Git-clean core runtime
-→ optional repository worker pack
-→ Standard Task
-→ authorization lease
-→ two required read-only workers
-→ native start/stop hook simulation
-→ checkpoint before compaction
-→ post-compaction verification
-→ structured results
-→ required quorum
-→ main-thread integration
-→ orchestration completion
-→ task completion
-→ final checkpoint verification
-→ doctor
+Status: PASS
+Regressions: 0
 ```
 
-### Package integrity
+Mutation testing must detect all four known-bad behaviors:
 
-The final packaging process additionally requires:
+```text
+unauthorized write
+missing required output field
+forbidden destructive command
+resource regression
+```
 
-- Python compilation;
-- JavaScript syntax validation;
-- manifest hash validation;
-- ZIP integrity validation;
-- validation and install/doctor smoke tests from a clean extracted archive.
+Expected result:
 
-## 11. Bugs caught during final hardening
+```text
+Mutations detected: 4 / 4
+```
 
-Final regression testing caught and corrected several nontrivial issues:
+## Package-wide regression evidence
 
-1. an orchestration could become `satisfied` or `blocked` while its contract set was still being assembled;
-2. `partial` results could incorrectly satisfy required quorum;
-3. a local orchestration note outside the managed `AGENTS.md` block survived uninstall;
-4. an old enforcement test referenced the removed `explorer` worker ID;
-5. a brittle distribution test compared YAML quoting rather than semantic content;
-6. the integration fixture checked Git cleanliness after intentionally vendoring the worker pack;
-7. the checkpoint integration expected the wrong successful verification message;
-8. worktree and worker-pack receipt records required stricter tamper validation.
+Expected package checks:
 
-## 12. Known limitations
+```text
+Distribution tests:       18 / 18
+Skill tests:               5 / 5
+Role tests:                4 / 4
+Product Knowledge tests: 13 / 13
+Enforcement tests:        21 / 21
+Orchestration tests:      24 / 24
+Evaluation Plane tests:   13 / 13
+--------------------------------
+Total:                    98 / 98
+```
 
-1. Live Codex subagent sessions were unavailable in the build environment; hook lifecycle events are simulated deterministically.
-2. CPT cannot forcibly terminate a native worker; cancellation delivery belongs to the parent/host.
-3. One contract per archetype is required because native events do not carry CPT contract IDs.
-4. Real reconnect and parallel-event ordering across Codex clients require live evaluation.
-5. Worktree integration is review-only; CPT does not merge or resolve conflicts.
-6. Shell/tool classification remains incomplete for arbitrary programs.
-7. Local YAML/JSONL state is not tamper-evident remote storage.
-8. Worker outputs are schema-checked but not yet graded for model quality.
-9. Token, latency, and approval budgets are not yet enforced by an executable Evaluation Plane.
-10. The optional worker pack must be installed and enabled before CPT can claim native worker lifecycle evidence.
+Expected deterministic reports:
 
-## 13. Release recommendation
+```text
+Skill trigger proxy:         135 / 135
+Role routing proxy:          164 / 164
+Knowledge lifecycle:          11 / 11
+Enforcement policy:            5 / 5
+Orchestration policy:          34 / 34
+Enforcement integration:      13 / 13
+Orchestration integration:    16 / 16
+```
 
-Alpha 7 is accepted as the baseline for the Managed Worker Orchestration phase.
+## Grading model
 
-Recommended use:
+Each evaluation case is independently checked across six dimensions:
 
-1. keep main-thread role lenses as default;
-2. install the worker pack only when delegation is useful;
-3. prefer read-only workers;
-4. use low thread count and depth 1;
-5. require scoped leases and bounded contracts;
-6. inspect structured evidence before integration;
-7. use managed worktrees for every parallel writer;
-8. never treat synthetic integration as live-client certification.
+1. trace policy;
+2. structured output contract;
+3. actual filesystem changes;
+4. runtime assertions;
+5. token, tool, command, write, and wall-time budgets;
+6. deterministic evidence and bounded-change rubric.
 
-## 14. Next phase
+Critical failures cannot be averaged away. A forbidden write, destructive command, invalid structured result, or runtime-integrity failure forces a case failure regardless of the average score.
 
-**Phase 8: Executable Evals and CI** should add:
+## Isolation and evidence quality
 
-- fixture repositories;
-- real prompts and expected artifacts;
-- captured tool traces;
-- allowed/forbidden read and write assertions;
-- approval-boundary checks;
-- token, tool, latency, and approval budgets;
-- timeout/reconnect/compaction stress cases;
-- worker-output graders;
-- cross-platform CI;
-- live Codex certification where available.
+Every case runs in a fresh temporary Git repository with isolated `HOME` and `CODEX_HOME` directories. Only the plugins and optional worker pack explicitly requested by the case are projected into the fixture.
+
+The reference backend emits a synthetic Codex-like trace authored by the package. It proves fixture setup, runtime contracts, graders, policies, and regression detection. It does **not** certify live model quality.
+
+The live backend:
+
+- requires a Codex CLI and credentials;
+- requests schema-conforming final output;
+- normalizes supported JSONL command, file-change, message, error, and usage events;
+- marks structured model claims about reads and writes as reported evidence;
+- corroborates actual writes with Git state where possible;
+- treats a non-zero Codex exit as failure, not as skipped evidence.
+
+## CI posture
+
+The offline workflow uses least-privilege repository permissions and runs the required suite on:
+
+- Ubuntu with Python 3.10;
+- Ubuntu with Python 3.12;
+- macOS with Python 3.12;
+- Windows with Python 3.12.
+
+The primary Linux/Python job also runs the complete package regression suite. Generated scorecards, comparisons, and mutation reports are uploaded as CI artifacts rather than added to the immutable package tree.
+
+The optional live-smoke workflow is manual and read-only. It requires a trusted credential and organizational review; it is not part of the self-contained release gate.
+
+## Packaging integrity requirements
+
+The final distribution must satisfy all of the following:
+
+- ZIP inventory exactly matches `MANIFEST.json` plus `MANIFEST.json` itself;
+- every managed file size and SHA-256 matches the manifest;
+- generated evaluation reports are excluded;
+- `.cpt-eval-runs` and `.cpt-eval-live` are excluded;
+- `__pycache__`, `.pyc`, `.pyo`, and tool caches are excluded;
+- validators do not create bytecode inside the package tree;
+- the package can be extracted into a clean directory and revalidated there;
+- local installation, doctor, runtime validation, offline evaluations, baseline comparison, mutation checks, and Git-clean verification pass from the extracted copy.
+
+The archive SHA-256 is published in the external release audit because a ZIP cannot safely contain its own final hash without creating a circular artifact dependency.
+
+## Known limitations
+
+Alpha 8 does not claim live-model certification in the build environment.
+
+The following still require external live runs:
+
+- model decision quality across supported models;
+- actual token and latency budgets;
+- native subagent event ordering;
+- cancellation delivery by the host;
+- reconnect behavior across Codex clients;
+- screenshot- or image-based visual grading;
+- behavioral consistency under real interactive approvals.
+
+JSONL event normalization is best effort and may need updates when Codex event schemas evolve. Missing native trace evidence is surfaced as reduced observability rather than silently converted into proof.
+
+## Release conclusion
+
+Alpha 8 passed the deterministic Evaluation Plane release gate with:
+
+- all 98 behavioral tests passed;
+- all static validators passed;
+- `offline-core` reported 20/20 PASS;
+- baseline comparison reported zero regressions;
+- mutation testing detected 4/4 known-bad behaviors;
+- the final ZIP inventory and hashes were exact;
+- extracted-package static, installation, doctor, runtime, Git-cleanliness, and representative evaluation checks passed.
+
+Live scorecards are additive evidence and must remain clearly separated from deterministic package certification.

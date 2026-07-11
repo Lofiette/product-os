@@ -2,7 +2,7 @@
 
 ## Separation of concerns
 
-CPT OS 4.0 Alpha 7 has four independent layers:
+CPT OS 4.0 Alpha 8 has four independent layers:
 
 1. **Repo scaffold** — tiny `AGENTS.md`, `.cpt/` runtime state, runtime CLI, and schemas.
 2. **Core plugin** — three focused runtime/planning/knowledge skills.

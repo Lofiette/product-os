@@ -1,0 +1,249 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "redesign_migration",
+  "title": "Redesign / migration planning",
+  "description": "Keep current, target, and delta knowledge distinct.",
+  "fixture": "migration-app",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Plan a migration from the legacy panel to the shared-component target without overwriting current behaviour.",
+  "activation": {
+    "plugins": [
+      "cpt-design-ui",
+      "cpt-engineering"
+    ],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "Panel migration knowledge",
+        "--objective",
+        "Record current, target, and delta without implementation",
+        "--task-type",
+        "migration_release",
+        "--complexity",
+        "complex",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "read",
+      "path": "src/legacy/LegacyPanel.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/modern/Panel.tsx"
+    },
+    {
+      "type": "read",
+      "path": "migration-brief.md"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-init",
+        "--title",
+        "Migration Knowledge",
+        "--mode",
+        "redesign",
+        "--owner-role",
+        "migration_planner",
+        "--source-kind",
+        "user_approval",
+        "--source-value",
+        "migration-brief"
+      ],
+      "capture": "knowledge_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-create",
+        "--id",
+        "panel-migration",
+        "--type",
+        "decision_record",
+        "--title",
+        "Panel Migration Decision",
+        "--owner-role",
+        "migration_planner",
+        "--perspective",
+        "delta",
+        "--confidence",
+        "medium",
+        "--scope-summary",
+        "Current-to-target panel migration",
+        "--review-path",
+        "src/legacy/**",
+        "--review-path",
+        "src/modern/**",
+        "--task-id",
+        "{task_id}"
+      ],
+      "capture": "artifact_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-claim-add",
+        "--artifact",
+        "panel-migration",
+        "--statement",
+        "The migration must preserve submit behaviour while replacing the legacy presentation.",
+        "--lifecycle",
+        "confirmed",
+        "--confidence",
+        "high",
+        "--owner-role",
+        "migration_planner",
+        "--evidence-type",
+        "user_approved_decision",
+        "--evidence-source",
+        "migration-brief.md",
+        "--evidence-locator",
+        "approved migration brief",
+        "--evidence-summary",
+        "Behaviour preservation requirement"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-task-assess",
+        "--task",
+        "{task_id}",
+        "--status",
+        "applied",
+        "--artifact",
+        "panel-migration",
+        "--summary",
+        "Recorded migration delta"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "complete-task",
+        "--task",
+        "{task_id}"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "redesign_migration",
+    "status": "PASS",
+    "summary": "Recorded current, target, and delta migration knowledge without changing application code.",
+    "selected_roles": [
+      "migration_planner",
+      "product_designer",
+      "frontend_architect"
+    ],
+    "selected_skills": [
+      "cpt-migration-plan",
+      "cpt-knowledge-lifecycle"
+    ],
+    "files_read": [
+      "src/legacy/LegacyPanel.tsx",
+      "src/modern/Panel.tsx",
+      "migration-brief.md"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Panel migration plan",
+      "affected_areas": [
+        "legacy panel",
+        "target panel"
+      ],
+      "risks": [
+        "Behaviour parity needs implementation verification."
+      ],
+      "verification_plan": [
+        "Compare submit behaviour before and after implementation."
+      ]
+    },
+    "approvals": [
+      "bounded migration evidence"
+    ],
+    "evidence": [
+      "Current code, target placeholder, approved migration brief."
+    ],
+    "verification": [
+      "Compare submit behaviour before and after implementation."
+    ],
+    "unknowns": [
+      "Detailed interaction state and regression tests."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1900,
+    "output_tokens": 430
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "migration_planner"
+    ],
+    "required_skills": [
+      "cpt-migration-plan"
+    ],
+    "required_output_terms": [
+      "current",
+      "target",
+      "delta"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "src/legacy/**",
+        "src/modern/**",
+        "migration-brief.md"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "file_exists",
+        "path": ".cpt/knowledge/artifacts/panel-migration.yaml",
+        "equals": true
+      },
+      {
+        "type": "task_status",
+        "task": "{task_id}",
+        "equals": "done"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 32,
+    "max_commands": 17,
+    "max_writes": 0,
+    "max_wall_seconds": 60,
+    "max_input_tokens": 6500,
+    "max_output_tokens": 1500
+  }
+}

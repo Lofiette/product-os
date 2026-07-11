@@ -27,7 +27,7 @@ def run_dist(*args: str, env: dict[str, str], check: bool = True) -> subprocess.
 class OrchestrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.base_tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha7-orchestration-base-"))
+        cls.base_tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha8-orchestration-base-"))
         cls.base_home = cls.base_tmp / "home"
         cls.base_home.mkdir()
         cls.base_repo = cls.base_tmp / "repo"
@@ -52,7 +52,7 @@ class OrchestrationTests(unittest.TestCase):
         shutil.rmtree(cls.base_tmp, ignore_errors=True)
 
     def setUp(self) -> None:
-        self.tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha7-orchestration-case-"))
+        self.tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha8-orchestration-case-"))
         self.repo = self.tmp / "repo"
         shutil.copytree(self.base_repo, self.repo)
         self.env = self.base_env.copy()

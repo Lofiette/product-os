@@ -16,7 +16,7 @@ from typing import Any
 
 import yaml
 
-PACKAGE_VERSION = "4.0.0-alpha.7"
+PACKAGE_VERSION = "4.0.0-alpha.8"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -579,13 +579,13 @@ def migrate_runtime_state(project: Path) -> None:
     current_path = project / ".cpt" / "current.yaml"
     if current_path.exists():
         data = yaml.safe_load(current_path.read_text(encoding="utf-8")) or {}
-        data["schema_version"] = "4.0-alpha7"
+        data["schema_version"] = "4.0-alpha8"
         data.setdefault("current_orchestration", None)
         atomic_write(current_path, yaml.safe_dump(data, sort_keys=False, allow_unicode=True))
     runtime_path = project / ".cpt" / "runtime.yaml"
     if runtime_path.exists():
         data = yaml.safe_load(runtime_path.read_text(encoding="utf-8")) or {}
-        data["schema_version"] = "4.0-alpha7"
+        data["schema_version"] = "4.0-alpha8"
         paths = data.setdefault("paths", {})
         paths.update({
             "orchestrations": ".cpt/orchestrations",
@@ -600,12 +600,12 @@ def migrate_runtime_state(project: Path) -> None:
     index_path = project / ".cpt" / "task-index.yaml"
     if index_path.exists():
         data = yaml.safe_load(index_path.read_text(encoding="utf-8")) or {}
-        data["schema_version"] = "4.0-alpha7"
+        data["schema_version"] = "4.0-alpha8"
         atomic_write(index_path, yaml.safe_dump(data, sort_keys=False, allow_unicode=True))
     enforcement_path = project / ".cpt" / "enforcement.yaml"
     if enforcement_path.exists():
         data = yaml.safe_load(enforcement_path.read_text(encoding="utf-8")) or {}
-        data["schema_version"] = "4.0-alpha7"
+        data["schema_version"] = "4.0-alpha8"
         subagents = data.setdefault("subagents", {})
         subagents.setdefault("default_max_depth", 1)
         subagents.setdefault("default_timeout_seconds", 900)

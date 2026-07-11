@@ -1,0 +1,237 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "knowledge_stale_propagation",
+  "title": "Knowledge stale propagation",
+  "description": "A changed source path must mark only dependent knowledge as needing review.",
+  "fixture": "runtime-lab",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Create linked product knowledge, change the domain source, and run targeted freshness propagation.",
+  "activation": {
+    "plugins": [
+      "cpt-product-research"
+    ],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-init",
+        "--title",
+        "Runtime Lab Knowledge",
+        "--mode",
+        "existing",
+        "--owner-role",
+        "product_strategist",
+        "--source-kind",
+        "git_commit",
+        "--source-value",
+        "fixture-baseline"
+      ],
+      "capture": "knowledge_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-create",
+        "--id",
+        "domain-area",
+        "--type",
+        "area_map",
+        "--title",
+        "Domain Area",
+        "--owner-role",
+        "domain_expert",
+        "--confidence",
+        "high",
+        "--scope-summary",
+        "Domain entity surface",
+        "--review-path",
+        "src/domain/**"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-create",
+        "--id",
+        "product-map",
+        "--type",
+        "product_map",
+        "--title",
+        "Product Map",
+        "--owner-role",
+        "product_strategist",
+        "--confidence",
+        "medium",
+        "--scope-summary",
+        "Product routing"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-link",
+        "--artifact",
+        "product-map",
+        "--depends-on",
+        "domain-area",
+        "--relation",
+        "depends_on"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-claim-add",
+        "--artifact",
+        "domain-area",
+        "--statement",
+        "Entity status is displayed in the product surface.",
+        "--lifecycle",
+        "confirmed",
+        "--confidence",
+        "high",
+        "--owner-role",
+        "domain_expert",
+        "--review-path",
+        "src/domain/**",
+        "--evidence-type",
+        "source_file",
+        "--evidence-source",
+        "src/domain/entity.ts",
+        "--evidence-locator",
+        "Entity.status",
+        "--evidence-summary",
+        "Status field in entity type"
+      ]
+    },
+    {
+      "type": "write",
+      "path": "src/domain/entity.ts",
+      "replace": {
+        "old": "status: string",
+        "new": "status: string; label?: string"
+      }
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-stale-scan",
+        "--changed",
+        "src/domain/entity.ts",
+        "--source-kind",
+        "git_tree",
+        "--source-value",
+        "changed-fixture"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "knowledge_stale_propagation",
+    "status": "PASS",
+    "summary": "Targeted freshness propagation marked the domain area and dependent product map for review.",
+    "selected_roles": [
+      "consistency_auditor",
+      "domain_expert",
+      "technical_writer"
+    ],
+    "selected_skills": [
+      "cpt-knowledge-lifecycle"
+    ],
+    "files_read": [
+      "src/domain/entity.ts"
+    ],
+    "files_changed": [
+      "src/domain/entity.ts"
+    ],
+    "impact_map": {
+      "scope": "Domain source change",
+      "affected_areas": [
+        "domain area",
+        "product map"
+      ],
+      "risks": [
+        "Dependent knowledge may now be stale."
+      ],
+      "verification_plan": [
+        "Review only the affected area and parent map."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Review trigger and dependency graph."
+    ],
+    "verification": [
+      "Review only the affected area and parent map."
+    ],
+    "unknowns": [],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1500,
+    "output_tokens": 330
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_skills": [
+      "cpt-knowledge-lifecycle"
+    ],
+    "required_output_terms": [
+      "targeted",
+      "dependent"
+    ],
+    "trace": {
+      "allowed_reads": [],
+      "allowed_writes": [
+        "src/domain/entity.ts"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": [
+        "src/domain/entity.ts"
+      ],
+      "required_changes": [
+        "src/domain/entity.ts"
+      ]
+    },
+    "runtime": [
+      {
+        "type": "knowledge_freshness",
+        "artifact": "domain-area",
+        "equals": "needs_review"
+      },
+      {
+        "type": "knowledge_freshness",
+        "artifact": "product-map",
+        "equals": "needs_review"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 30,
+    "max_commands": 18,
+    "max_writes": 2,
+    "max_wall_seconds": 55,
+    "max_input_tokens": 5200,
+    "max_output_tokens": 1100
+  }
+}

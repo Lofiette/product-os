@@ -28,7 +28,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -255,7 +255,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -476,7 +476,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "runtime_status": {
@@ -675,7 +675,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -815,7 +815,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "runtime_id": {
@@ -999,7 +999,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "tasks": {
@@ -1084,7 +1084,7 @@
           "4.0-alpha2",
           "4.0-alpha5",
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -1401,7 +1401,7 @@
       "schema_version": {
         "enum": [
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -1794,7 +1794,7 @@
       "schema_version": {
         "enum": [
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -3234,7 +3234,7 @@
       "schema_version": {
         "enum": [
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "mode": {
@@ -3555,7 +3555,7 @@
       "schema_version": {
         "enum": [
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "agent_id": {
@@ -3684,7 +3684,7 @@
       "schema_version": {
         "enum": [
           "4.0-alpha6",
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -3795,7 +3795,7 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -4088,7 +4088,7 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -4291,7 +4291,7 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {
@@ -4401,7 +4401,7 @@
     "properties": {
       "schema_version": {
         "enum": [
-          "4.0-alpha7"
+          "4.0-alpha8"
         ]
       },
       "id": {

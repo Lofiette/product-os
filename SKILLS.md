@@ -1,6 +1,6 @@
-# CPT OS 4.0 Alpha 7 Skills
+# CPT OS 4.0 Alpha 8 Skills
 
-Alpha 7 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
+Alpha 8 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
 
 ## Inventory
 
@@ -39,4 +39,4 @@ Do not enable all domain packs by default. Choose a profile or smaller subset wh
 
 ## Quality boundary
 
-Alpha 7 preserves the skill validation, migration coverage, metadata budgets, role/gate routing, and typed Product Knowledge lifecycle. It adds optional hooks, rules profiles, lease-aware policy checks, compaction checkpoints, freshness automation, audit records, and worker lifecycle records. Managed worker orchestration is available through the optional worker pack. Live Codex behavioral certification, SQLite/MCP adapters, and external observability remain deferred.
+Alpha 8 preserves skill validation, migration coverage, metadata budgets, role/gate routing, Product Knowledge, enforcement, and managed workers. The executable Evaluation Plane now checks selected skills and routing expectations in fixture tasks. Live-model routing certification across models and clients, SQLite/MCP adapters, and external observability remain deferred.

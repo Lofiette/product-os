@@ -1,0 +1,109 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "skill_metadata_budget",
+  "title": "Skill metadata budget",
+  "description": "Supported activation profiles must remain below the discovery budget.",
+  "fixture": "runtime-lab",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Measure canonical skill metadata and report whether supported profiles fit the budget.",
+  "activation": {
+    "plugins": [],
+    "workers": false,
+    "sandbox": "read-only"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "command",
+      "command": [
+        "{python}",
+        "{package_root}/tools/measure_all_skill_metadata.py"
+      ],
+      "cwd": "{package_root}"
+    }
+  ],
+  "reference_output": {
+    "case_id": "skill_metadata_budget",
+    "status": "PASS",
+    "summary": "Supported skill activation profiles remain within the reviewed metadata budget.",
+    "selected_roles": [
+      "ai_workflow_auditor"
+    ],
+    "selected_skills": [
+      "cpt-framework-audit"
+    ],
+    "files_read": [],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Skill metadata budget",
+      "affected_areas": [
+        "framework"
+      ],
+      "risks": [
+        "Enabling every domain pack simultaneously is not a supported default."
+      ],
+      "verification_plan": [
+        "Re-run the budget check whenever skill metadata changes."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Canonical skill registry and plugin metadata."
+    ],
+    "verification": [
+      "Re-run the budget check whenever skill metadata changes."
+    ],
+    "unknowns": [],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 650,
+    "output_tokens": 210
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "ai_workflow_auditor"
+    ],
+    "required_skills": [
+      "cpt-framework-audit"
+    ],
+    "required_output_terms": [
+      "metadata budget"
+    ],
+    "trace": {
+      "allowed_reads": [],
+      "allowed_writes": [],
+      "required_commands": [
+        "measure_all_skill_metadata.py"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    }
+  },
+  "budgets": {
+    "max_tool_events": 8,
+    "max_commands": 3,
+    "max_writes": 0,
+    "max_wall_seconds": 30,
+    "max_input_tokens": 2400,
+    "max_output_tokens": 700
+  }
+}

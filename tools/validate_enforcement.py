@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, py_compile, sys
+import ast, json, sys
 from pathlib import Path
 import yaml
 ROOT=Path(__file__).resolve().parents[1]
@@ -25,8 +25,8 @@ try:
     expected={'SessionStart','PreToolUse','PermissionRequest','PostToolUse','PreCompact','PostCompact','SubagentStart','SubagentStop','Stop'}
     if set(hooks)!=expected: errors.append(f'hook events mismatch: {set(hooks)^expected}')
 except Exception as exc: errors.append(f'hooks json: {exc}')
-try: py_compile.compile(str(required[2]),doraise=True)
-except Exception as exc: errors.append(f'hook wrapper compile: {exc}')
+try: ast.parse(required[2].read_text(encoding='utf-8'))
+except Exception as exc: errors.append(f'hook wrapper syntax: {exc}')
 for path in [required[3],required[4]]:
     text=path.read_text();
     if 'prefix_rule(' not in text or 'match = [' not in text: errors.append(f'incomplete rules file {path.name}')

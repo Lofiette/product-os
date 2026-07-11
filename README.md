@@ -1,6 +1,6 @@
-# Codex Product Operating System 4.0 Alpha 7
+# Codex Product Operating System 4.0 Alpha 8
 
-Alpha 7 adds optional managed worker orchestration to the self-contained Runtime Kernel, Product Knowledge, canonical skills, logical roles, quality gates, distribution split, and deterministic enforcement.
+Alpha 8 adds an **executable Evaluation Plane** to the Runtime Kernel, Product Knowledge, canonical skills, logical roles, quality gates, deterministic enforcement, and managed worker orchestration delivered in Alpha 1–7.
 
 ## Install the core runtime
 
@@ -21,6 +21,27 @@ python tools/cpt_dist.py workers-install --scope personal
 
 The worker pack provides ten bounded custom-agent archetypes. It is never installed implicitly.
 
+## Executable evaluations
+
+Run the required self-contained suite:
+
+```bash
+python tools/cpt_eval.py run \
+  --suite offline-core \
+  --backend reference \
+  --report-dir evaluation/executable/reports/offline-core
+```
+
+Compare it with the reviewed baseline:
+
+```bash
+python tools/cpt_eval.py compare-baseline \
+  --current evaluation/executable/reports/offline-core/offline-core-reference-scorecard.json \
+  --baseline evaluation/executable/baselines/offline-core-alpha8.json
+```
+
+Optional live cases use `codex exec --json` when the Codex CLI and credentials are available. See `EVALUATION.md`.
+
 ## Core principles
 
 - Runtime state is typed and recoverable.
@@ -30,23 +51,26 @@ The worker pack provides ten bounded custom-agent archetypes. It is never instal
 - Real workers require a Standard Task, authorization lease, approved contracts, and bounded scope.
 - Main thread owns integration and final decisions.
 - Parallel writes require managed Git worktrees; CPT never auto-merges.
+- Evaluation results distinguish deterministic reference behavior from live-model evidence.
 - Native Codex sandbox, permission, approval, trust, and organization policy remain authoritative.
 
 ## Start here
 
 - `INSTALL.md`
+- `EVALUATION.md`
 - `ORCHESTRATION.md`
 - `WORKER_PACK.md`
 - `ENFORCEMENT.md`
 - `KNOWLEDGE.md`
 - `ROLES.md`
 - `SKILLS.md`
-- `ALPHA7_LIMITATIONS.md`
+- `ALPHA8_LIMITATIONS.md`
 
 ## Validate the package
 
 ```bash
 python tools/validate_distribution.py
+python tools/validate_evaluation.py
 python tools/validate_skills.py --root .
 python tools/validate_roles.py --root .
 python tools/validate_knowledge_assets.py

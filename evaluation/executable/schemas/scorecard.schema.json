@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpt/evaluation/scorecard.schema.json",
+  "title": "CPT executable evaluation suite scorecard",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "package_version",
+    "suite",
+    "backend",
+    "status",
+    "case_count",
+    "passed",
+    "failed",
+    "skipped",
+    "average_score",
+    "cases",
+    "totals"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpt-eval-scorecard-v1"
+    },
+    "package_version": {
+      "type": "string"
+    },
+    "suite": {
+      "type": "string"
+    },
+    "backend": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "SKIPPED",
+        "MIXED"
+      ]
+    },
+    "case_count": {
+      "type": "integer"
+    },
+    "passed": {
+      "type": "integer"
+    },
+    "failed": {
+      "type": "integer"
+    },
+    "skipped": {
+      "type": "integer"
+    },
+    "average_score": {
+      "type": "number"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "totals": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,8 +1,8 @@
 {
   "schema": "cpt-behavior-test-report-v1",
-  "version": "4.0.0-alpha.7",
-  "generated_at": "2026-07-11T07:42:38Z",
-  "execution_mode": "Each unittest case executed in an isolated Python interpreter; orchestration batches were parallelized only across independent temporary repositories.",
+  "version": "4.0.0-alpha.8",
+  "generated_at": "2026-07-11T17:08:32Z",
+  "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [
     {
       "module": "distribution",
@@ -33,13 +33,18 @@
       "module": "orchestration",
       "total": 24,
       "passed": 24
+    },
+    {
+      "module": "evaluation",
+      "total": 13,
+      "passed": 13
     }
   ],
-  "total": 85,
-  "passed": 85,
+  "total": 98,
+  "passed": 98,
   "failed": 0,
   "limitations": [
-    "The test suite validates deterministic local behavior and synthetic hook payloads.",
-    "It does not launch live Codex subagent threads or certify every Codex client."
+    "The unit suite validates deterministic local behavior, synthetic hook payloads, and the executable evaluation harness.",
+    "Live Codex model quality, real subagent ordering, cancellation delivery, and cross-client behavior require separate live scorecards."
   ]
 }

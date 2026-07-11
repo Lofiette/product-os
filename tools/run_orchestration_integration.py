@@ -28,7 +28,7 @@ def hook(tool: Path, repo: Path, event: str, **extra) -> subprocess.CompletedPro
 
 
 def main() -> int:
-    tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha7-orchestration-integration-"))
+    tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha8-orchestration-integration-"))
     checks: list[dict[str, object]] = []
     try:
         home = tmp / "home"; home.mkdir()
@@ -103,7 +103,7 @@ def main() -> int:
         checks.append({"name":"final_checkpoint", "passed": bool(final_checkpoint.stdout.strip()) and "checkpoint match" in verify.stdout.lower()})
 
         report = {
-            "schema_version":"4.0-alpha7",
+            "schema_version":"4.0-alpha8",
             "total":len(checks),
             "passed":sum(1 for item in checks if item["passed"]),
             "checks":checks,

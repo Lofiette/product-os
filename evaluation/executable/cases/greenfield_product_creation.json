@@ -1,0 +1,240 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "greenfield_product_creation",
+  "title": "Greenfield product creation",
+  "description": "Create hypothesis-grade knowledge without pretending implementation exists.",
+  "fixture": "greenfield",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Create initial Product Knowledge for the approved greenfield brief. Keep claims planned or hypothesized.",
+  "activation": {
+    "plugins": [
+      "cpt-product-research"
+    ],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "Greenfield product map",
+        "--objective",
+        "Create hypothesis-grade product knowledge",
+        "--task-type",
+        "product_discovery",
+        "--complexity",
+        "standard",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "read",
+      "path": "product-brief.md"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-init",
+        "--title",
+        "Greenfield Knowledge",
+        "--mode",
+        "greenfield",
+        "--owner-role",
+        "product_strategist",
+        "--source-kind",
+        "user_approval",
+        "--source-value",
+        "approved-brief"
+      ],
+      "capture": "knowledge_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-create",
+        "--id",
+        "product-map",
+        "--type",
+        "product_map",
+        "--title",
+        "Product Map",
+        "--owner-role",
+        "product_strategist",
+        "--perspective",
+        "planned",
+        "--confidence",
+        "low",
+        "--scope-summary",
+        "Initial planned product surfaces",
+        "--review-path",
+        "src/**"
+      ],
+      "capture": "artifact_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-claim-add",
+        "--artifact",
+        "product-map",
+        "--statement",
+        "The first increment plans event creation, participant invitations, and upcoming-event views.",
+        "--lifecycle",
+        "hypothesized",
+        "--confidence",
+        "low",
+        "--owner-role",
+        "product_strategist",
+        "--evidence-type",
+        "user_approved_decision",
+        "--evidence-source",
+        "product-brief.md",
+        "--evidence-locator",
+        "approved brief",
+        "--evidence-summary",
+        "Approved greenfield scope"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-render",
+        "--artifact",
+        "product-map"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-task-assess",
+        "--task",
+        "{task_id}",
+        "--status",
+        "applied",
+        "--artifact",
+        "product-map",
+        "--summary",
+        "Created greenfield hypothesis map"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "complete-task",
+        "--task",
+        "{task_id}"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "greenfield_product_creation",
+    "status": "PASS",
+    "summary": "Created a hypothesis-grade greenfield map without claiming implementation evidence.",
+    "selected_roles": [
+      "product_strategist",
+      "service_designer",
+      "information_architect"
+    ],
+    "selected_skills": [
+      "cpt-product-scope",
+      "cpt-knowledge-lifecycle"
+    ],
+    "files_read": [
+      "product-brief.md"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Planned first increment",
+      "affected_areas": [
+        "event creation",
+        "invitations",
+        "upcoming events"
+      ],
+      "risks": [
+        "Planned knowledge may change after design and implementation."
+      ],
+      "verification_plan": [
+        "Validate claims as implementation evidence appears."
+      ]
+    },
+    "approvals": [
+      "approved brief"
+    ],
+    "evidence": [
+      "User-approved product brief."
+    ],
+    "verification": [
+      "Validate claims as implementation evidence appears."
+    ],
+    "unknowns": [
+      "Implementation, validation, and runtime behaviour do not exist yet."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1700,
+    "output_tokens": 410
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "product_strategist"
+    ],
+    "required_skills": [
+      "cpt-knowledge-lifecycle"
+    ],
+    "required_output_terms": [
+      "hypothesis",
+      "greenfield"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "product-brief.md"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "file_exists",
+        "path": ".cpt/knowledge/artifacts/product-map.yaml",
+        "equals": true
+      },
+      {
+        "type": "task_status",
+        "task": "{task_id}",
+        "equals": "done"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 30,
+    "max_commands": 16,
+    "max_writes": 0,
+    "max_wall_seconds": 55,
+    "max_input_tokens": 6000,
+    "max_output_tokens": 1400
+  }
+}

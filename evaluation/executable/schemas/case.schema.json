@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpt/evaluation/case.schema.json",
+  "title": "CPT executable evaluation case",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "description",
+    "fixture",
+    "suites",
+    "task_prompt",
+    "activation",
+    "reference_actions",
+    "reference_output",
+    "expectations",
+    "budgets"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpt-eval-case-v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fixture": {
+      "type": "string"
+    },
+    "suites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "task_prompt": {
+      "type": "string"
+    },
+    "activation": {
+      "type": "object",
+      "required": [
+        "plugins",
+        "workers"
+      ],
+      "properties": {
+        "plugins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "workers": {
+          "type": "boolean"
+        },
+        "sandbox": {
+          "type": "string",
+          "enum": [
+            "read-only",
+            "workspace-write"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "reference_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "reference_output": {
+      "$ref": "task-result.schema.json"
+    },
+    "expectations": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "budgets": {
+      "type": "object",
+      "required": [
+        "max_tool_events",
+        "max_commands",
+        "max_writes",
+        "max_wall_seconds",
+        "max_input_tokens",
+        "max_output_tokens"
+      ],
+      "properties": {
+        "max_tool_events": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_commands": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_wall_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_input_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "live_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reference_usage": {
+      "type": "object",
+      "properties": {
+        "input_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

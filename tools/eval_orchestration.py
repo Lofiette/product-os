@@ -67,7 +67,7 @@ for case in CASES:
     passed = bool(checks.get(case["id"], False))
     results.append({**case, "passed": passed})
 report = {
-    "schema_version": "4.0-alpha7",
+    "schema_version": "4.0-alpha8",
     "total": len(results),
     "passed": sum(item["passed"] for item in results),
     "cases": results,

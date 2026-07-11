@@ -1,0 +1,151 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "micro_to_standard_escalation",
+  "title": "Micro-to-standard escalation",
+  "description": "A change that reveals systemic impact must leave Micro Change Protocol.",
+  "fixture": "runtime-lab",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Start as a micro change, then escalate after discovering systemic impact. Do not write product files.",
+  "activation": {
+    "plugins": [
+      "cpt-engineering"
+    ],
+    "workers": false,
+    "sandbox": "read-only"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "micro-start",
+        "--title",
+        "Entity label tweak",
+        "--intent",
+        "Change an entity label",
+        "--target",
+        "src/domain/entity.ts",
+        "--verify",
+        "git diff --check",
+        "--confirm-eligible"
+      ],
+      "capture": "micro_id"
+    },
+    {
+      "type": "read",
+      "path": "src/domain/entity.ts"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "micro-escalate",
+        "--micro",
+        "{micro_id}",
+        "--reason",
+        "The status type is shared across product surfaces and requires systemic impact analysis"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "micro_to_standard_escalation",
+    "status": "PASS",
+    "summary": "Escalated the micro change before project writes because shared status semantics make the scope systemic.",
+    "selected_roles": [
+      "frontend_engineer",
+      "solution_architect"
+    ],
+    "selected_skills": [
+      "cpt-runtime",
+      "cpt-task-planning"
+    ],
+    "files_read": [
+      "src/domain/entity.ts"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Shared entity status change",
+      "affected_areas": [
+        "domain types"
+      ],
+      "risks": [
+        "Changing the open-ended status may affect multiple surfaces."
+      ],
+      "verification_plan": [
+        "Create a Standard Task and Impact Map before edits."
+      ]
+    },
+    "approvals": [
+      "standard-task approval required"
+    ],
+    "evidence": [
+      "Shared exported type."
+    ],
+    "verification": [
+      "Create a Standard Task and Impact Map before edits."
+    ],
+    "unknowns": [
+      "Consumers have not yet been discovered."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 850,
+    "output_tokens": 250
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_skills": [
+      "cpt-runtime",
+      "cpt-task-planning"
+    ],
+    "required_output_terms": [
+      "escalated",
+      "systemic"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "src/domain/entity.ts"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "micro_status",
+        "micro": "{micro_id}",
+        "equals": "escalated"
+      },
+      {
+        "type": "current_field",
+        "field": "current_micro_change",
+        "equals": null
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 12,
+    "max_commands": 5,
+    "max_writes": 0,
+    "max_wall_seconds": 25,
+    "max_input_tokens": 3000,
+    "max_output_tokens": 800
+  }
+}

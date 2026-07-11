@@ -1,0 +1,113 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "local_ignored_runtime_git_cleanliness",
+  "title": "Local ignored runtime and Git cleanliness",
+  "description": "A local installation must keep the product repository clean.",
+  "fixture": "runtime-lab",
+  "suites": [
+    "offline-core",
+    "live-smoke",
+    "live-full"
+  ],
+  "task_prompt": "Verify that local ignored CPT runtime installation does not create pending Git changes.",
+  "activation": {
+    "plugins": [],
+    "workers": false,
+    "sandbox": "read-only"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "command",
+      "command": [
+        "git",
+        "status",
+        "--short",
+        "--untracked-files=all"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "local_ignored_runtime_git_cleanliness",
+    "status": "PASS",
+    "summary": "Local ignored runtime is installed and the product repository remains Git-clean.",
+    "selected_roles": [
+      "ai_workflow_auditor"
+    ],
+    "selected_skills": [
+      "cpt-runtime"
+    ],
+    "files_read": [],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Local runtime installation",
+      "affected_areas": [
+        "runtime"
+      ],
+      "risks": [
+        "Git exclude configuration is repository-local."
+      ],
+      "verification_plan": [
+        "Run doctor and git status after updates."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Empty git status."
+    ],
+    "verification": [
+      "Run doctor and git status after updates."
+    ],
+    "unknowns": [],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 450,
+    "output_tokens": 160
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_skills": [
+      "cpt-runtime"
+    ],
+    "required_output_terms": [
+      "Git-clean"
+    ],
+    "trace": {
+      "allowed_reads": [],
+      "allowed_writes": [],
+      "required_commands": [
+        "git status --short"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "git_clean"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 5,
+    "max_commands": 2,
+    "max_writes": 0,
+    "max_wall_seconds": 15,
+    "max_input_tokens": 1600,
+    "max_output_tokens": 500
+  }
+}

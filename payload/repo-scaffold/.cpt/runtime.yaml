@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha7
+schema_version: 4.0-alpha8
 runtime_id: cpt-runtime
 storage_mode: file_only
 sharing_mode: local_ignored

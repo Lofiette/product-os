@@ -33,8 +33,8 @@ if str(_RUNTIME_MODULE_DIR) not in sys.path:
     sys.path.insert(0, str(_RUNTIME_MODULE_DIR))
 import cpt_orchestration as orchestration
 
-SCHEMA_VERSION = "4.0-alpha7"
-KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha7"
+SCHEMA_VERSION = "4.0-alpha8"
+KNOWLEDGE_SCHEMA_VERSION = "4.0-alpha8"
 
 
 def utc_now() -> str:
@@ -2702,7 +2702,7 @@ def command_worker_status(root: Path, _args) -> int:
     return 0
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 7 runtime, Product Knowledge, deterministic enforcement, and managed worker orchestration CLI")
+    parser = argparse.ArgumentParser(description="CPT OS 4.0 Alpha 8 runtime, Product Knowledge, deterministic enforcement, and managed worker orchestration CLI")
     parser.add_argument("--root", type=Path, help="Runtime root; defaults to nearest parent containing .cpt/runtime.yaml")
     sub = parser.add_subparsers(dest="command", required=True)
 

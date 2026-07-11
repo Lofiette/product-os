@@ -1,0 +1,261 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "existing_product_onboarding",
+  "title": "Existing-product onboarding",
+  "description": "Build bounded Product Knowledge from representative existing-product evidence.",
+  "fixture": "existing-product",
+  "suites": [
+    "offline-core",
+    "live-readonly",
+    "live-full"
+  ],
+  "task_prompt": "Create a compact product map for the existing repository without reading the entire codebase.",
+  "activation": {
+    "plugins": [
+      "cpt-product-research"
+    ],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "Product onboarding",
+        "--objective",
+        "Create bounded existing-product knowledge",
+        "--task-type",
+        "product_discovery",
+        "--complexity",
+        "standard",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "read",
+      "path": "README.md"
+    },
+    {
+      "type": "read",
+      "path": "src/app/layout.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/app/dashboard/page.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/app/settings/page.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/components/Navigation.tsx"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-init",
+        "--title",
+        "Product Knowledge",
+        "--mode",
+        "existing",
+        "--owner-role",
+        "product_strategist",
+        "--source-kind",
+        "git_commit",
+        "--source-value",
+        "fixture-baseline"
+      ],
+      "capture": "knowledge_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-create",
+        "--id",
+        "product-map",
+        "--type",
+        "product_map",
+        "--title",
+        "Product Map",
+        "--owner-role",
+        "product_strategist",
+        "--confidence",
+        "medium",
+        "--scope-summary",
+        "Top-level product surfaces",
+        "--review-path",
+        "src/app/**"
+      ],
+      "capture": "artifact_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-claim-add",
+        "--artifact",
+        "product-map",
+        "--statement",
+        "The product has dashboard and settings surfaces linked by shared navigation.",
+        "--lifecycle",
+        "confirmed",
+        "--confidence",
+        "high",
+        "--owner-role",
+        "product_strategist",
+        "--evidence-type",
+        "component",
+        "--evidence-source",
+        "src/components/Navigation.tsx",
+        "--evidence-locator",
+        "Navigation",
+        "--evidence-summary",
+        "Navigation exposes dashboard and settings links"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-render",
+        "--artifact",
+        "product-map"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-task-assess",
+        "--task",
+        "{task_id}",
+        "--status",
+        "applied",
+        "--artifact",
+        "product-map",
+        "--summary",
+        "Created initial product map"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "complete-task",
+        "--task",
+        "{task_id}"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "existing_product_onboarding",
+    "status": "PASS",
+    "summary": "Created a bounded existing-product map from representative routes and navigation evidence.",
+    "selected_roles": [
+      "product_strategist",
+      "information_architect",
+      "technical_writer"
+    ],
+    "selected_skills": [
+      "cpt-knowledge-lifecycle"
+    ],
+    "files_read": [
+      "README.md",
+      "src/app/layout.tsx",
+      "src/app/dashboard/page.tsx",
+      "src/app/settings/page.tsx",
+      "src/components/Navigation.tsx"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Top-level product routing",
+      "affected_areas": [
+        "dashboard",
+        "settings",
+        "navigation"
+      ],
+      "risks": [
+        "Deep business behaviour remains unmapped."
+      ],
+      "verification_plan": [
+        "Validate Product Knowledge and review unknowns."
+      ]
+    },
+    "approvals": [
+      "bounded onboarding reads"
+    ],
+    "evidence": [
+      "Representative routes and shared navigation."
+    ],
+    "verification": [
+      "Validate Product Knowledge and review unknowns."
+    ],
+    "unknowns": [
+      "Detailed flows and API behaviour."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 2100,
+    "output_tokens": 460
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "product_strategist",
+      "information_architect"
+    ],
+    "required_skills": [
+      "cpt-knowledge-lifecycle"
+    ],
+    "required_output_terms": [
+      "bounded",
+      "product map"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "README.md",
+        "src/app/**",
+        "src/components/Navigation.tsx"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "file_exists",
+        "path": ".cpt/knowledge/artifacts/product-map.yaml",
+        "equals": true
+      },
+      {
+        "type": "task_status",
+        "task": "{task_id}",
+        "equals": "done"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 35,
+    "max_commands": 18,
+    "max_writes": 0,
+    "max_wall_seconds": 60,
+    "max_input_tokens": 7000,
+    "max_output_tokens": 1500
+  }
+}

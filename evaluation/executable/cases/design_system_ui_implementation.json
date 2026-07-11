@@ -1,0 +1,225 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "design_system_ui_implementation",
+  "title": "Design-system UI implementation",
+  "description": "A UI implementation must reuse the existing design-system component rather than a raw primitive.",
+  "fixture": "ui-app",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Implement the empty-state action using the existing design-system Button and verify no raw button remains in that file.",
+  "activation": {
+    "plugins": [
+      "cpt-design-ui",
+      "cpt-engineering"
+    ],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "DS empty state",
+        "--objective",
+        "Use existing Button in empty state",
+        "--task-type",
+        "ui_implementation",
+        "--complexity",
+        "standard",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "read",
+      "path": "src/features/editor/EmptyState.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/design-system/Button.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/design-system/tokens.css"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "lease-create",
+        "--task",
+        "{task_id}",
+        "--read",
+        "src/features/editor/EmptyState.tsx",
+        "--read",
+        "src/design-system/**",
+        "--write",
+        "src/features/editor/EmptyState.tsx",
+        "--verify",
+        "python scripts/check_empty_state.py",
+        "--rationale",
+        "Approved design-system implementation"
+      ],
+      "capture": "lease_id"
+    },
+    {
+      "type": "approval",
+      "scope": "implementation lease"
+    },
+    {
+      "type": "write",
+      "path": "src/features/editor/EmptyState.tsx",
+      "content": "import { Button } from \"../../design-system/Button\";\n\nexport function EmptyState() {\n  return <section><h2>No records</h2><p>Create the first record.</p><Button variant=\"primary\">Create record</Button></section>;\n}\n"
+    },
+    {
+      "type": "command",
+      "command": [
+        "python",
+        "scripts/check_empty_state.py"
+      ],
+      "reads": [
+        "src/features/editor/EmptyState.tsx",
+        "src/design-system/Button.tsx"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-task-assess",
+        "--task",
+        "{task_id}",
+        "--status",
+        "not_required",
+        "--summary",
+        "No durable product knowledge change"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "complete-task",
+        "--task",
+        "{task_id}"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "design_system_ui_implementation",
+    "status": "PASS",
+    "summary": "Replaced the raw button with the existing design-system Button.",
+    "selected_roles": [
+      "frontend_engineer",
+      "design_engineer",
+      "design_system_guardian",
+      "qa_engineer"
+    ],
+    "selected_skills": [
+      "cpt-design-system-governance",
+      "cpt-frontend-integration",
+      "cpt-design-system-code-audit"
+    ],
+    "files_read": [
+      "src/features/editor/EmptyState.tsx",
+      "src/design-system/Button.tsx",
+      "src/design-system/tokens.css"
+    ],
+    "files_changed": [
+      "src/features/editor/EmptyState.tsx"
+    ],
+    "impact_map": {
+      "scope": "Empty-state action implementation",
+      "affected_areas": [
+        "editor",
+        "design-system"
+      ],
+      "risks": [
+        "Variant semantics could differ in a larger system."
+      ],
+      "verification_plan": [
+        "Run the focused design-system check."
+      ]
+    },
+    "approvals": [
+      "implementation lease"
+    ],
+    "evidence": [
+      "Existing Button source and focused check."
+    ],
+    "verification": [
+      "Run the focused design-system check."
+    ],
+    "unknowns": [],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1500,
+    "output_tokens": 340
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "frontend_engineer",
+      "design_system_guardian"
+    ],
+    "required_skills": [
+      "cpt-frontend-integration",
+      "cpt-design-system-governance"
+    ],
+    "required_output_terms": [
+      "design-system",
+      "Button"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "src/features/editor/EmptyState.tsx",
+        "src/design-system/**"
+      ],
+      "allowed_writes": [
+        "src/features/editor/EmptyState.tsx"
+      ],
+      "required_commands": [
+        "check_empty_state.py"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": [
+        "src/features/editor/EmptyState.tsx"
+      ],
+      "required_changes": [
+        "src/features/editor/EmptyState.tsx"
+      ]
+    },
+    "runtime": [
+      {
+        "type": "task_status",
+        "task": "{task_id}",
+        "equals": "done"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 25,
+    "max_commands": 12,
+    "max_writes": 2,
+    "max_wall_seconds": 45,
+    "max_input_tokens": 5000,
+    "max_output_tokens": 1200
+  }
+}

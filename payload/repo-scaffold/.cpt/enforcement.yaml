@@ -1,4 +1,4 @@
-schema_version: 4.0-alpha7
+schema_version: 4.0-alpha8
 mode: 'off'
 hooks:
   bundled_with_core_plugin: true

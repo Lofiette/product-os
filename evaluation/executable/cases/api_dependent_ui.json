@@ -1,0 +1,233 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "api_dependent_ui",
+  "title": "API-dependent UI",
+  "description": "A UI change must use frontend-facing API and type evidence.",
+  "fixture": "api-app",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Improve account form error recovery using the API client and account types. Keep the change frontend-only.",
+  "activation": {
+    "plugins": [
+      "cpt-design-ui",
+      "cpt-engineering"
+    ],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "Account error recovery",
+        "--objective",
+        "Use API contract evidence to improve form error state",
+        "--task-type",
+        "api_dependent_ui",
+        "--complexity",
+        "standard",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "read",
+      "path": "src/api/client.ts"
+    },
+    {
+      "type": "read",
+      "path": "src/types/account.ts"
+    },
+    {
+      "type": "read",
+      "path": "src/features/account/AccountForm.tsx"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "lease-create",
+        "--task",
+        "{task_id}",
+        "--read",
+        "src/api/client.ts",
+        "--read",
+        "src/types/account.ts",
+        "--read",
+        "src/features/account/AccountForm.tsx",
+        "--write",
+        "src/features/account/AccountForm.tsx",
+        "--verify",
+        "python scripts/check_api_ui.py",
+        "--rationale",
+        "Approved API-dependent UI change"
+      ],
+      "capture": "lease_id"
+    },
+    {
+      "type": "approval",
+      "scope": "implementation lease"
+    },
+    {
+      "type": "write",
+      "path": "src/features/account/AccountForm.tsx",
+      "content": "import type { Account } from \"../../types/account\";\nexport function AccountForm({ account }: { account: Account }) {\n  return <form><label>Name<input defaultValue={account.name} /></label><p aria-live=\"polite\" className=\"error\">Check the account details and try again.</p><button>Save</button></form>;\n}\n"
+    },
+    {
+      "type": "command",
+      "command": [
+        "python",
+        "scripts/check_api_ui.py"
+      ],
+      "reads": [
+        "src/features/account/AccountForm.tsx",
+        "src/types/account.ts"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "knowledge-task-assess",
+        "--task",
+        "{task_id}",
+        "--status",
+        "not_required",
+        "--summary",
+        "No durable API contract changed"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "complete-task",
+        "--task",
+        "{task_id}"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "api_dependent_ui",
+    "status": "PASS",
+    "summary": "Improved the frontend error state without changing the API contract.",
+    "selected_roles": [
+      "frontend_engineer",
+      "api_contract_guardian",
+      "ux_writer",
+      "qa_engineer"
+    ],
+    "selected_skills": [
+      "cpt-api-contract",
+      "cpt-frontend-integration",
+      "cpt-content-design"
+    ],
+    "files_read": [
+      "src/api/client.ts",
+      "src/types/account.ts",
+      "src/features/account/AccountForm.tsx"
+    ],
+    "files_changed": [
+      "src/features/account/AccountForm.tsx"
+    ],
+    "impact_map": {
+      "scope": "Account form error recovery",
+      "affected_areas": [
+        "account-ui",
+        "api-contract"
+      ],
+      "risks": [
+        "Backend error variants remain open-ended."
+      ],
+      "verification_plan": [
+        "Run the focused account form check."
+      ]
+    },
+    "approvals": [
+      "implementation lease"
+    ],
+    "evidence": [
+      "API error detail fallback and AccountStatus type."
+    ],
+    "verification": [
+      "Run the focused account form check."
+    ],
+    "unknowns": [
+      "Exact backend error catalogue is unknown."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1800,
+    "output_tokens": 420
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_roles": [
+      "frontend_engineer",
+      "api_contract_guardian"
+    ],
+    "required_skills": [
+      "cpt-api-contract",
+      "cpt-frontend-integration"
+    ],
+    "required_output_terms": [
+      "API contract",
+      "frontend"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "src/api/client.ts",
+        "src/types/account.ts",
+        "src/features/account/AccountForm.tsx"
+      ],
+      "allowed_writes": [
+        "src/features/account/AccountForm.tsx"
+      ],
+      "required_commands": [
+        "check_api_ui.py"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": [
+        "src/features/account/AccountForm.tsx"
+      ],
+      "required_changes": [
+        "src/features/account/AccountForm.tsx"
+      ],
+      "forbidden_changes": [
+        "src/server/**"
+      ]
+    },
+    "runtime": [
+      {
+        "type": "task_status",
+        "task": "{task_id}",
+        "equals": "done"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 28,
+    "max_commands": 13,
+    "max_writes": 2,
+    "max_wall_seconds": 50,
+    "max_input_tokens": 6000,
+    "max_output_tokens": 1300
+  }
+}

@@ -1,7 +1,22 @@
 {
-  "schema": "cpt-evaluation-readme-v2",
-  "version": "4.0.0-alpha.7",
-  "note": "Alpha 7 combines deterministic metadata proxies, policy fixtures, isolated behavioral tests, and synthetic lifecycle integrations. Live Codex worker certification remains Phase 8 work.",
+  "schema": "cpt-evaluation-readme-v3",
+  "version": "4.0.0-alpha.8",
+  "note": "Alpha 8 adds executable fixture-repository evaluation, reviewed baselines, mutation checks, optional live Codex runs, and cross-platform CI. Deterministic reference results do not constitute live-model certification.",
+  "executable_evaluation": {
+    "root": "executable/",
+    "case_count": 20,
+    "fixture_repository_count": 6,
+    "suites": [
+      "offline-core",
+      "live-smoke",
+      "live-readonly",
+      "live-full"
+    ],
+    "baseline": "executable/baselines/offline-core-alpha8.json",
+    "mutation_evidence": "executable/mutations/alpha8-mutations.json",
+    "unit_tests": 13,
+    "limitation": "Reference traces certify harness and package contracts, not live-model quality."
+  },
   "skill_evaluation": {
     "trigger_cases": "skill-trigger-cases.json",
     "report": "trigger-eval-report.json",
@@ -27,7 +42,7 @@
     "cases": "orchestration-cases.json",
     "policy_report": "orchestration-eval-report.json",
     "integration_report": "orchestration-integration-report.json",
-    "limitation": "hook events and structured results are simulated; live Codex subagent threads were not launched"
+    "limitation": "hook events and structured results are simulated; live Codex subagent threads require separate certification"
   },
   "behavioral_tests": {
     "report": "behavior-test-report.json",

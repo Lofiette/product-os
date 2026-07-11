@@ -1,0 +1,184 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "compaction_recovery",
+  "title": "Compaction recovery",
+  "description": "Checkpoint integrity must restore active runtime pointers after simulated compaction damage.",
+  "fixture": "runtime-lab",
+  "suites": [
+    "offline-core",
+    "live-full"
+  ],
+  "task_prompt": "Create a checkpoint, simulate pointer loss, verify mismatch, and recover the runtime.",
+  "activation": {
+    "plugins": [],
+    "workers": false,
+    "sandbox": "workspace-write"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "runtime",
+      "args": [
+        "create-task",
+        "--title",
+        "Compaction recovery",
+        "--objective",
+        "Verify runtime checkpoint restoration",
+        "--task-type",
+        "runtime_maintenance",
+        "--complexity",
+        "standard",
+        "--activate"
+      ],
+      "capture": "task_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "lease-create",
+        "--task",
+        "{task_id}",
+        "--read",
+        "src/**",
+        "--rationale",
+        "Checkpoint recovery fixture"
+      ],
+      "capture": "lease_id"
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "checkpoint",
+        "--source",
+        "synthetic",
+        "--reason",
+        "Before simulated compaction"
+      ],
+      "capture": "checkpoint_id"
+    },
+    {
+      "type": "yaml_set",
+      "path": ".cpt/current.yaml",
+      "key": "current_task",
+      "value": null
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "recover",
+        "--checkpoint",
+        "{checkpoint_id}",
+        "--verify-only"
+      ],
+      "expect_failure": true
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "recover",
+        "--checkpoint",
+        "{checkpoint_id}"
+      ]
+    },
+    {
+      "type": "runtime",
+      "args": [
+        "validate"
+      ]
+    }
+  ],
+  "reference_output": {
+    "case_id": "compaction_recovery",
+    "status": "PASS",
+    "summary": "Checkpoint verification detected the mismatch and recovery restored the active task and lease pointers.",
+    "selected_roles": [
+      "chronicle_keeper",
+      "consistency_auditor"
+    ],
+    "selected_skills": [
+      "cpt-runtime"
+    ],
+    "files_read": [],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Runtime checkpoint recovery",
+      "affected_areas": [
+        "runtime state"
+      ],
+      "risks": [
+        "A damaged checkpoint would require manual recovery."
+      ],
+      "verification_plan": [
+        "Validate runtime after restore."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Checkpoint hash and pointer comparison."
+    ],
+    "verification": [
+      "Validate runtime after restore."
+    ],
+    "unknowns": [],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1100,
+    "output_tokens": 280
+  },
+  "expectations": {
+    "status_in": [
+      "PASS"
+    ],
+    "required_skills": [
+      "cpt-runtime"
+    ],
+    "required_output_terms": [
+      "checkpoint",
+      "restored"
+    ],
+    "trace": {
+      "allowed_reads": [],
+      "allowed_writes": [
+        ".cpt/current.yaml"
+      ],
+      "required_commands": [
+        "recover .*--verify-only",
+        "recover .*CP-"
+      ],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    },
+    "runtime": [
+      {
+        "type": "current_field",
+        "field": "current_task",
+        "equals": "{task_id}"
+      },
+      {
+        "type": "checkpoint_exists",
+        "checkpoint": "{checkpoint_id}"
+      }
+    ]
+  },
+  "budgets": {
+    "max_tool_events": 25,
+    "max_commands": 15,
+    "max_writes": 2,
+    "max_wall_seconds": 50,
+    "max_input_tokens": 4200,
+    "max_output_tokens": 900
+  }
+}

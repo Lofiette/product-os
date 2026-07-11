@@ -1,0 +1,129 @@
+{
+  "schema_version": "cpt-eval-case-v1",
+  "id": "reference_fidelity",
+  "title": "Reference fidelity review",
+  "description": "A supplied reference must become a comparison contract, not loose inspiration.",
+  "fixture": "ui-app",
+  "suites": [
+    "offline-core",
+    "live-readonly",
+    "live-full"
+  ],
+  "task_prompt": "Review the editor UI against the reference. Do not edit; return a blocking verdict for material fidelity gaps.",
+  "activation": {
+    "plugins": [
+      "cpt-design-ui"
+    ],
+    "workers": false,
+    "sandbox": "read-only"
+  },
+  "live_constraints": [
+    "Use bounded discovery.",
+    "Do not broaden scope silently.",
+    "Record evidence and unknowns."
+  ],
+  "reference_actions": [
+    {
+      "type": "read",
+      "path": "references/editor-reference.md"
+    },
+    {
+      "type": "read",
+      "path": "src/features/editor/EditActionButton.tsx"
+    },
+    {
+      "type": "read",
+      "path": "src/features/editor/AccessibleForm.tsx"
+    }
+  ],
+  "reference_output": {
+    "case_id": "reference_fidelity",
+    "status": "BLOCKED",
+    "summary": "Reference fidelity is blocked: the primary action copy and accessibility details do not match the contract.",
+    "selected_roles": [
+      "product_designer",
+      "design_engineer",
+      "visual_design_director"
+    ],
+    "selected_skills": [
+      "cpt-reference-taste-calibration",
+      "cpt-visual-acceptance-review"
+    ],
+    "files_read": [
+      "references/editor-reference.md",
+      "src/features/editor/EditActionButton.tsx",
+      "src/features/editor/AccessibleForm.tsx"
+    ],
+    "files_changed": [],
+    "impact_map": {
+      "scope": "Read-only reference review",
+      "affected_areas": [
+        "editor"
+      ],
+      "risks": [
+        "Current primary action says Save; form controls lack explicit accessible labelling."
+      ],
+      "verification_plan": [
+        "After fixes, compare the same files to the reference contract."
+      ]
+    },
+    "approvals": [],
+    "evidence": [
+      "Reference contract and current implementation."
+    ],
+    "verification": [
+      "After fixes, compare the same files to the reference contract."
+    ],
+    "unknowns": [
+      "Rendered screenshot is not available in the fixture."
+    ],
+    "notes": []
+  },
+  "reference_usage": {
+    "input_tokens": 1200,
+    "output_tokens": 350
+  },
+  "expectations": {
+    "status_in": [
+      "BLOCKED"
+    ],
+    "required_roles": [
+      "product_designer",
+      "design_engineer"
+    ],
+    "required_skills": [
+      "cpt-reference-taste-calibration",
+      "cpt-visual-acceptance-review"
+    ],
+    "required_output_terms": [
+      "blocked",
+      "reference"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "references/editor-reference.md",
+        "src/features/editor/EditActionButton.tsx",
+        "src/features/editor/AccessibleForm.tsx"
+      ],
+      "allowed_writes": [],
+      "forbidden_commands": [
+        "git\\s+reset\\s+--hard",
+        "git\\s+clean\\s+-",
+        "rm\\s+-rf\\s+/",
+        "curl\\s+",
+        "wget\\s+"
+      ]
+    },
+    "filesystem": {
+      "allowed_changes": []
+    }
+  },
+  "budgets": {
+    "max_tool_events": 10,
+    "max_commands": 2,
+    "max_writes": 0,
+    "max_wall_seconds": 25,
+    "max_input_tokens": 3500,
+    "max_output_tokens": 1000
+  }
+}

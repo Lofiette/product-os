@@ -1,6 +1,6 @@
 # Executable Evaluation Plane
 
-Alpha 9 turns CPT scenarios into executable, repository-isolated evaluations. Each case defines a fixture repository, task prompt, activation profile, allowed and forbidden actions, expected runtime state, output contract, and resource budgets.
+Beta 1 turns CPT scenarios into executable, repository-isolated evaluations. Each case defines a fixture repository, task prompt, activation profile, allowed and forbidden actions, expected runtime state, output contract, and resource budgets.
 
 ## Evidence levels
 
@@ -12,14 +12,14 @@ Alpha 9 turns CPT scenarios into executable, repository-isolated evaluations. Ea
 
 | Suite | Required | Backend | Purpose |
 |---|---:|---|---|
-| `offline-core` | yes | reference | All 20 deterministic release-gate cases. |
+| `offline-core` | yes | reference | All 21 deterministic release-gate cases. |
 | `live-smoke` | no | live | Small live checks for bounded read-only and micro work. |
 | `live-readonly` | no | live | Read-only reasoning, review, and planning behavior. |
 | `live-full` | no | live | Optional full behavior set including approved workspace writes. |
 
 ## Coverage
 
-The 20 cases cover:
+The 21 cases cover:
 
 - micro copy change;
 - systemic edit-mode change;
@@ -41,6 +41,7 @@ The 20 cases cover:
 - parallel-worktree scope violation;
 - skill metadata budget;
 - local ignored runtime and Git cleanliness.
+- offline release-readiness contract.
 
 ## Required offline release gate
 

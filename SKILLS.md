@@ -1,6 +1,6 @@
-# CPT OS 4.0 Alpha 9 Skills
+# CPT OS 4.0 Beta 1 Skills
 
-Alpha 9 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
+Beta 1 preserves the Alpha 3 consolidation of **95** legacy 3.x skills into **45** active methods distributed across one required core plugin and five optional domain plugins.
 
 ## Inventory
 
@@ -39,4 +39,4 @@ Do not enable all domain packs by default. Choose a profile or smaller subset wh
 
 ## Quality boundary
 
-Alpha 9 preserves skill validation, migration coverage, metadata budgets, role/gate routing, Product Knowledge, enforcement, and managed workers. The executable Evaluation Plane now checks selected skills and routing expectations in fixture tasks. Live-model routing certification across models and clients, SQLite/MCP adapters, and external observability remain deferred.
+Beta 1 preserves skill validation, migration coverage, metadata budgets, role/gate routing, Product Knowledge, enforcement, and managed workers. The executable Evaluation Plane now checks selected skills and routing expectations in fixture tasks. Live-model routing certification across models and clients, SQLite/MCP adapters, and external observability remain deferred.

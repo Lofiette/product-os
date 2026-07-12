@@ -33,7 +33,7 @@ class EvaluationPlaneTests(unittest.TestCase):
         )
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
         cases = cpt_eval.all_cases()
-        self.assertEqual(len(cases), 20)
+        self.assertEqual(len(cases), 21)
         self.assertEqual(
             set(json.loads((EVAL / "SUITES.json").read_text())["suites"]),
             {"offline-core", "live-smoke", "live-readonly", "live-full"},
@@ -208,6 +208,7 @@ class EvaluationPlaneTests(unittest.TestCase):
 
     def test_13_generated_reports_are_excluded_from_manifest(self) -> None:
         report = EVAL / "reports" / "unit-test-runtime-report.json"
+        report.parent.mkdir(parents=True, exist_ok=True)
         report.write_text("{}\n", encoding="utf-8")
         try:
             included = {

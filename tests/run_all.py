@@ -44,6 +44,7 @@ suite = unittest.TestSuite(
         unittest.defaultTestLoader.loadTestsFromName("tests.test_enforcement"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_orchestration"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_evaluation"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_release"),
     ]
 )
 test_ids = [test.id() for test in flatten(suite)]
@@ -80,6 +81,9 @@ commands = [
         "--write-report",
         str(ROOT / "evaluation" / "role-routing-eval-report.json"),
     ],
+    [sys.executable, str(ROOT / "tests" / "test_migration.py")],
+    [sys.executable, str(ROOT / "tools" / "validate_release.py")],
+    [sys.executable, str(ROOT / "tools" / "cpt_release.py"), "readiness", "--scope", "offline"],
     [sys.executable, str(ROOT / "tools" / "validate_evaluation.py")],
     [sys.executable, str(ROOT / "tools" / "validate_distribution.py")],
     [sys.executable, str(ROOT / "tools" / "validate_skills.py"), "--root", str(ROOT)],
@@ -98,7 +102,7 @@ for command in commands:
 
 # Generated reports live outside the immutable package tree. This both tests the
 # executable plane and proves that validation does not self-pollute MANIFEST.json.
-eval_tmp = Path(tempfile.mkdtemp(prefix="cpt-alpha8-run-all-evals-"))
+eval_tmp = Path(tempfile.mkdtemp(prefix="cpt-beta1-run-all-evals-"))
 try:
     run(
         [
@@ -146,4 +150,4 @@ try:
 finally:
     shutil.rmtree(eval_tmp, ignore_errors=True)
 
-print(f"ALPHA 8 COMPLETE TEST SUITE PASSED: {len(test_ids)} behavioral cases")
+print(f"BETA 1 COMPLETE TEST SUITE PASSED: {len(test_ids) + 7} behavioral cases")

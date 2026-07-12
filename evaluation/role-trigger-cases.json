@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-trigger-cases-v1",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-beta.1",
   "cases": [
     {
       "id": "intake_orchestrator-positive-1",

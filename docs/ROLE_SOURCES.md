@@ -1,6 +1,6 @@
 # Role Sources and Method Foundation
 
-The 50 roles originate from `codex-product-team-3.0-ultra-beta2`. Alpha 9 preserves their stable IDs and competency coverage while replacing templated role cards and shallow playbooks.
+The 50 roles originate from `codex-product-team-3.0-ultra-beta2`. Beta 1 preserves their stable IDs and competency coverage while replacing templated role cards and shallow playbooks.
 
 Role methods use established professional bodies of practice as conceptual foundations, including:
 

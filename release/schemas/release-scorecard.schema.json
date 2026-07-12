@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["schema_version","version","scope","status","generated_at","gates","summary"],
+  "properties":{
+    "schema_version":{"const":"cpt-release-scorecard-v1"},
+    "version":{"type":"string"},
+    "scope":{"enum":["offline","rc"]},
+    "status":{"enum":["BETA_READY","RC_READY","BLOCKED"]},
+    "generated_at":{"type":"string"},
+    "gates":{"type":"array","items":{"type":"object","required":["id","status","required","evidence"],"properties":{"id":{"type":"string"},"status":{"enum":["PASS","PENDING","BLOCKED"]},"required":{"type":"boolean"},"evidence":{"type":"array","items":{"type":"string"}},"notes":{"type":"array","items":{"type":"string"}}}}},
+    "summary":{"type":"object","required":["passed","pending","blocked"],"properties":{"passed":{"type":"integer"},"pending":{"type":"integer"},"blocked":{"type":"integer"}}}
+  },
+  "additionalProperties":true
+}

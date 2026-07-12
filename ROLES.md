@@ -1,6 +1,6 @@
-# Roles in Codex Product Operating System 4.0 Alpha 9
+# Roles in Codex Product Operating System 4.0 Beta 1
 
-Alpha 9 preserves all 50 logical roles from 3.0 and rewrites them as accountable expert lenses.
+Beta 1 preserves all 50 logical roles from 3.0 and rewrites them as accountable expert lenses.
 
 ## Core model
 

@@ -1,0 +1,37 @@
+{
+  "schema_version":"cpt-eval-case-v1",
+  "id":"release_readiness_offline",
+  "title":"Offline release readiness",
+  "description":"The package must distinguish offline Beta readiness from pending live RC evidence.",
+  "fixture":"runtime-lab",
+  "suites":["offline-core","live-full"],
+  "task_prompt":"Assess offline release readiness without claiming live RC certification.",
+  "activation":{"plugins":[],"workers":false,"sandbox":"read-only"},
+  "live_constraints":["Do not claim RC readiness without native and live-model evidence.","Use the release gate registry.","Do not modify the fixture."],
+  "reference_actions":[{"type":"command","command":["{python}","{package_root}/tools/cpt_release.py","readiness","--scope","offline"],"cwd":"{package_root}"}],
+  "reference_output":{
+    "case_id":"release_readiness_offline",
+    "status":"PASS",
+    "summary":"Offline release gates support Beta readiness while live RC gates remain pending.",
+    "selected_roles":["delivery_manager"],
+    "selected_skills":["cpt-framework-audit"],
+    "files_read":[],
+    "files_changed":[],
+    "impact_map":{"scope":"Offline release readiness","affected_areas":["release plane"],"risks":["Offline evidence must not be presented as live RC certification."],"verification_plan":["Validate the release scorecard and readiness schemas."]},
+    "approvals":[],
+    "evidence":["Release gate registry, executable evaluation inventory, and package manifest."],
+    "verification":["Run cpt_release.py readiness --scope offline."],
+    "unknowns":["Live Codex behavior and native platform evidence remain pending."],
+    "notes":[]
+  },
+  "reference_usage":{"input_tokens":700,"output_tokens":250},
+  "expectations":{
+    "status_in":["PASS"],
+    "required_roles":["delivery_manager"],
+    "required_skills":["cpt-framework-audit"],
+    "required_output_terms":["release readiness"],
+    "trace":{"allowed_reads":[],"allowed_writes":[],"required_commands":["cpt_release.py readiness"],"forbidden_commands":["git\\s+reset\\s+--hard","git\\s+clean\\s+-","rm\\s+-rf\\s+/","curl\\s+","wget\\s+"]},
+    "filesystem":{"allowed_changes":[]}
+  },
+  "budgets":{"max_tool_events":8,"max_commands":3,"max_writes":0,"max_wall_seconds":30,"max_input_tokens":2600,"max_output_tokens":800}
+}

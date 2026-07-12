@@ -1,6 +1,6 @@
 {
   "schema": "cpt-skill-registry-v1",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-beta.1",
   "skills": [
     {
       "id": "cpt-accessibility-review",

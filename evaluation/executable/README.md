@@ -1,4 +1,4 @@
-# CPT OS Alpha 9 Executable Evaluation Plane
+# CPT OS Beta 1 Executable Evaluation Plane
 
 This directory contains executable, repository-isolated evaluations for the Runtime, Knowledge, Expertise, Enforcement, and Worker Orchestration planes.
 
@@ -10,7 +10,7 @@ This directory contains executable, repository-isolated evaluations for the Runt
 
 ## Suites
 
-- `offline-core`: 20 required self-contained cases.
+- `offline-core`: 21 required self-contained cases.
 - `live-smoke`: a small optional live subset.
 - `live-readonly`: optional live read-only cases.
 - `live-full`: optional live cases including approved workspace writes.

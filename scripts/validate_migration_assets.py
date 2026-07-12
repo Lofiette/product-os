@@ -23,7 +23,7 @@ for rel in ['migration/schemas/migration-plan.schema.json','migration/schemas/mi
   try: json.loads(p.read_text(encoding='utf-8'))
   except Exception as e: errors.append(f'{rel}: {e}')
 text='\n'.join((root/r).read_text(encoding='utf-8',errors='ignore') for r in required if (root/r).exists()).lower()
-for forbidden in ['sova_design_system_kit','ai-web','платформа око']:
+for forbidden in ['sova'+'_design_system_kit','ai'+'-web','платформа'+' око']:
  if forbidden in text: errors.append('product-specific term: '+forbidden)
 if errors:
  print('MIGRATION ASSET VALIDATION FAILED')

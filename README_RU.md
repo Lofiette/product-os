@@ -1,8 +1,18 @@
-# Codex Product Operating System 4.0 Alpha 9
+# Codex Product Operating System 4.0 Beta 1
 
-Alpha 9 добавляет **исполняемый Evaluation Plane** поверх Runtime Kernel, Product Knowledge, канонических skills, 50 логических ролей, quality gates, детерминированного enforcement и управляемой оркестрации workers, созданных в Alpha 1–7.
+Beta 1 объединяет Runtime, Product Knowledge, экспертизу, enforcement, worker orchestration, Evaluation Plane, миграцию и release-контур. Базовая среда полностью самодостаточна и не требует внешних сервисов.
 
-## Установка ядра
+## Граница сертификации
+
+Beta 1 подтверждена для детерминированного offline-контура. Это не RC и не заявление о качестве живой модели Codex.
+
+```bash
+python tools/cpt_release.py readiness --scope offline
+```
+
+Для RC нужны нативные платформенные прогоны, живые задачи Codex, реальные worker threads, reconnect/compaction и финальная мегаревизия.
+
+## Установка
 
 ```bash
 python tools/cpt_dist.py install \
@@ -11,57 +21,23 @@ python tools/cpt_dist.py install \
   --enforcement-mode audit
 ```
 
-Core plugin по умолчанию выставляется в personal scope. После установки перезапустите Codex, включите CPT Core и внимательно проверьте его hooks перед подтверждением доверия.
-
-## Опциональный worker pack
+## Миграция
 
 ```bash
-python tools/cpt_dist.py workers-install --scope personal
+python tools/cpt_migrate.py inspect --project /path/to/repo
+python tools/cpt_migrate.py plan --project /path/to/repo --output /safe/path/plan.json
 ```
 
-Он содержит десять ограниченных custom-agent archetypes и никогда не устанавливается автоматически.
+Сначала проверяется план. Миграция создаёт внешний backup, поддерживает rollback и не интерпретирует `AGENTS.override.md`.
 
-## Исполняемые оценки
-
-Обязательный полностью локальный suite:
+## Проверка
 
 ```bash
-python tools/cpt_eval.py run \
-  --suite offline-core \
-  --backend reference \
-  --report-dir evaluation/executable/reports/offline-core
+python tools/validate_distribution.py
+python tools/validate_release.py
+python tools/validate_evaluation.py
+python scripts/validate_migration_assets.py
+python tests/run_all.py
 ```
 
-Сравнение с проверенным baseline:
-
-```bash
-python tools/cpt_eval.py compare-baseline \
-  --current evaluation/executable/reports/offline-core/offline-core-reference-scorecard.json \
-  --baseline evaluation/executable/baselines/offline-core-alpha8.json
-```
-
-Опциональные live-cases используют `codex exec --json`, если доступны Codex CLI и credentials. Подробности в `EVALUATION.md`.
-
-## Главные принципы
-
-- Runtime-состояние типизировано и восстанавливается по checkpoint.
-- Product Knowledge хранится в каноническом YAML; Markdown является generated view.
-- 50 ролей остаются профессиональными линзами, а не 50 субагентами.
-- 45 skills подключаются через небольшие plugins.
-- Реальный worker требует Standard Task, lease, утверждённый contract и ограниченный scope.
-- Основной поток владеет интеграцией и финальным решением.
-- Параллельная запись идёт только через managed Git worktrees; автоматического merge нет.
-- Evaluation Plane отделяет детерминированное эталонное поведение от evidence живой модели.
-- Нативные sandbox, permissions, approvals, trust и организационные политики Codex остаются главным техническим контуром.
-
-## Документы
-
-- `INSTALL.md`
-- `EVALUATION.md`
-- `ORCHESTRATION.md`
-- `WORKER_PACK.md`
-- `ENFORCEMENT.md`
-- `KNOWLEDGE.md`
-- `ROLES.md`
-- `SKILLS.md`
-- `ALPHA8_LIMITATIONS.md`
+Подробности: `BETA1_LIMITATIONS.md`, `EVALUATION_LIMITATIONS.md`, `docs/BETA1_RELEASE_INTEGRATION.md`, `docs/RC_TRIALS_AND_RELEASE_GATES.md`, `EVALUATION.md`, `docs/MIGRATION_3X_TO_4X.md`.

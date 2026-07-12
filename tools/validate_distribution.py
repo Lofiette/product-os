@@ -13,7 +13,13 @@ from cpt_dist import metadata_budget_for_plugins, validate_plugin
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.0.0-alpha.9': errors.append('VERSION is not 4.0.0-alpha.9')
+if (ROOT/'VERSION').read_text().strip()!='4.0.0-beta.1': errors.append('VERSION is not 4.0.0-beta.1')
+
+pyproject_text = (ROOT/'pyproject.toml').read_text(encoding='utf-8')
+if 'version = "4.0.0b1"' not in pyproject_text: errors.append('pyproject project.version is not 4.0.0b1')
+if 'package_version = "4.0.0-beta.1"' not in pyproject_text: errors.append('pyproject CPT package_version mismatch')
+if (ROOT/'ALPHA8_LIMITATIONS.md').exists(): errors.append('stale current-release filename ALPHA8_LIMITATIONS.md')
+if (ROOT/'docs/ALPHA9_RELEASE_INTEGRATION.md').exists(): errors.append('stale current-release filename ALPHA9_RELEASE_INTEGRATION.md')
 
 # Core/plugin validation.
 for plugin in plugins:
@@ -42,7 +48,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
 
 catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
-if catalog.get('version')!='4.0.0-alpha.9': errors.append('PACK_CATALOG version mismatch')
+if catalog.get('version')!='4.0.0-beta.1': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
 actual_ids={p.name for p in plugins[1:]}
 if cat_ids!=actual_ids: errors.append(f'catalog/domain directory mismatch: {cat_ids ^ actual_ids}')
@@ -72,7 +78,7 @@ for plugin in plugins:
 # Optional worker pack validation.
 worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text())
 worker_agents=sorted((ROOT/'payload/worker-pack/agents').glob('*.toml'))
-if worker_pack.get('version')!='4.0.0-alpha.9': errors.append('worker pack version mismatch')
+if worker_pack.get('version')!='4.0.0-beta.1': errors.append('worker pack version mismatch')
 if worker_pack.get('agent_count')!=10 or len(worker_agents)!=10: errors.append('worker pack must contain 10 agents')
 registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text())
 if registry_workers.get('archetype_count')!=10: errors.append('worker archetype registry count mismatch')
@@ -84,7 +90,7 @@ for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT
         text=current.read_text()
         if 'Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit' in text: errors.append(f'stale Alpha 2 audit wording in {current.relative_to(ROOT)}')
 
-# Required Alpha 9 assets.
+# Required Beta 1 assets.
 for rel in [
     'skills/SKILL_REGISTRY.json','migration/SKILL_MIGRATION.json','migration/SKILL_MIGRATION.csv',
     'evaluation/skill-trigger-cases.json','docs/SKILL_AUTHORING_STANDARD.md','docs/SKILL_INVOCATION_POLICY.md',
@@ -93,7 +99,7 @@ for rel in [
     'docs/ROLE_SOURCES.md','ROLES.md',
     'orchestration/WORKER_ARCHETYPES.json','payload/worker-pack/worker-pack.json',
     'payload/worker-pack/config/agents.example.toml','payload/repo-scaffold/.cpt/bin/cpt_orchestration.py',
-    'ORCHESTRATION.md','WORKER_PACK.md','ALPHA8_LIMITATIONS.md','EVALUATION.md','AUDIT_REPORT.md',
+    'ORCHESTRATION.md','WORKER_PACK.md','EVALUATION_LIMITATIONS.md','EVALUATION.md','AUDIT_REPORT.md',
     'evaluation/orchestration-cases.json','evaluation/orchestration-integration-report.json',
     'evaluation/behavior-test-report.json','tools/validate_orchestration.py','tools/eval_orchestration.py',
     'tools/run_orchestration_integration.py','tools/build_manifest.py','tests/test_orchestration.py',
@@ -101,7 +107,10 @@ for rel in [
     'evaluation/executable/SUITES.json','evaluation/executable/baselines/offline-core-alpha8.json',
     'evaluation/executable/mutations/offline-core-alpha8-mutations.json',
     '.github/workflows/offline-evals.yml','.github/workflows/live-smoke.yml',
-    'docs/ALPHA7_TO_ALPHA8.md'
+    'docs/ALPHA7_TO_ALPHA8.md',
+    'release/GATES.json','release/TRIALS.json','release/schemas/release-scorecard.schema.json',
+    'release/schemas/release-readiness.schema.json','tools/cpt_release.py','tools/validate_release.py',
+    'tests/test_release.py','docs/RC_TRIALS_AND_RELEASE_GATES.md','docs/BETA1_RELEASE_INTEGRATION.md','BETA1_LIMITATIONS.md'
 ]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
 
@@ -111,14 +120,18 @@ if not manifest_path.exists():
     errors.append('missing MANIFEST.json')
 else:
     manifest = json.loads(manifest_path.read_text())
-    if manifest.get('schema') != 'cpt-package-manifest-v8': errors.append('MANIFEST schema mismatch')
-    if manifest.get('version') != '4.0.0-alpha.9': errors.append('MANIFEST version mismatch')
-    if manifest.get('phase') != 'migration-release-integration': errors.append('MANIFEST phase mismatch')
+    if manifest.get('schema') != 'cpt-package-manifest-v9': errors.append('MANIFEST schema mismatch')
+    if manifest.get('version') != '4.0.0-beta.1': errors.append('MANIFEST version mismatch')
+    if manifest.get('phase') != 'rc-trials-offline-beta': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
-        'behavior_tests': 98,
+        'behavior_tests': 115,
         'evaluation_unit_tests': 13,
-        'executable_evaluation_cases': 20,
+        'migration_tests': 7,
+        'release_unit_tests': 10,
+        'release_tracks': 33,
+        'release_gates': 9,
+        'executable_evaluation_cases': 21,
         'fixture_repositories': 6,
         'evaluation_suites': 4,
         'mutation_cases': 4,

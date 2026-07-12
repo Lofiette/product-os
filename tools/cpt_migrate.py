@@ -16,7 +16,7 @@ from typing import Any
 
 SCHEMA_PLAN = 'cpt-migration-plan-v1'
 SCHEMA_RECEIPT = 'cpt-migration-receipt-v1'
-TARGET_VERSION = '4.0.0-alpha.9'
+TARGET_VERSION = '4.0.0-beta.1'
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 DIST_TOOL = PACKAGE_ROOT / 'tools' / 'cpt_dist.py'
 
@@ -238,12 +238,14 @@ def make_plan(project: Path, mode: str, legacy_action: str, agents_policy: str, 
     plan['plan_hash']=plan_hash(plan)
     return plan
 
-def file_manifest(path: Path) -> dict[str,Any]:
+def file_manifest(path: Path, exclude: set[str]|None=None) -> dict[str,Any]:
+    exclude = exclude or set()
     if not path.exists(): return {'exists':False}
     if path.is_file(): return {'exists':True,'type':'file','sha256':hash_file(path),'size':path.stat().st_size}
     files=[]
     for p in sorted(path.rglob('*')):
-        if p.is_file(): files.append({'path':str(p.relative_to(path)),'sha256':hash_file(p),'size':p.stat().st_size})
+        rel=str(p.relative_to(path)).replace('\\','/')
+        if p.is_file() and rel not in exclude: files.append({'path':rel,'sha256':hash_file(p),'size':p.stat().st_size})
     return {'exists':True,'type':'directory','files':files}
 
 def copy_path(src: Path, dst: Path):
@@ -378,13 +380,14 @@ def apply_plan(plan: dict, accept_warnings=False, force=False, backup_dir: Path|
       'removed_legacy_paths':removed,'installed_domain_packs':installed_packs,'workers_installed':workers,
       'override_sha256_before':pre_override,'override_sha256_after':post_override,'import_index':import_index,
       'post_git_status':git_status(project),'doctor_tail':doctor.stdout[-2000:],
-      'managed_state':{'cpt':file_manifest(project/'.cpt'),'agents':file_manifest(project/'AGENTS.md'),'.codex':file_manifest(project/'.codex')}
+      'managed_state':{'cpt':file_manifest(project/'.cpt', {'migration/receipt.json'}),'agents':file_manifest(project/'AGENTS.md'),'.codex':file_manifest(project/'.codex')}
     }
     dump_json(migdir/'receipt.json',receipt); dump_json(backup/'receipt.json',receipt)
     return receipt
 
 def compare_manifest(path: Path, expected: dict) -> bool:
-    current=file_manifest(path)
+    exclude={'migration/receipt.json'} if path.name=='.cpt' else set()
+    current=file_manifest(path, exclude)
     return current==expected
 
 def rollback(project: Path, receipt_path: Path|None, force=False) -> dict:
@@ -401,7 +404,7 @@ def rollback(project: Path, receipt_path: Path|None, force=False) -> dict:
         if exp is not None and not compare_manifest(project/rel,exp): changed.append(rel)
     if changed and not force: raise RuntimeError('Managed paths changed after migration: '+', '.join(changed))
     if force:
-        emergency=default_state_dir()/'rollback-safety'/receipt['migration_id']+'-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+        emergency=default_state_dir()/'rollback-safety'/(receipt['migration_id']+'-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         emergency.mkdir(parents=True,exist_ok=True)
         for rel in ['.cpt','AGENTS.md','.codex']:
             p=project/rel

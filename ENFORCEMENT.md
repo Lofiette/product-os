@@ -1,7 +1,7 @@
 
 # Deterministic Runtime Enforcement
 
-Alpha 6 introduced the optional deterministic guardrail layer around the file-only runtime. Alpha 9 preserves it and adds executable policy-boundary evaluations.
+Alpha 6 introduced the optional deterministic guardrail layer around the file-only runtime. Beta 1 preserves it and adds executable policy-boundary evaluations.
 
 ## Modes
 

@@ -51,10 +51,10 @@ def included_files() -> list[Path]:
 def main() -> int:
     files = included_files()
     data = {
-        "schema": "cpt-package-manifest-v8",
+        "schema": "cpt-package-manifest-v9",
         "name": "codex-product-os",
-        "version": "4.0.0-alpha.9",
-        "phase": "migration-release-integration",
+        "version": "4.0.0-beta.1",
+        "phase": "rc-trials-offline-beta",
         "manifest_excludes": [
             "MANIFEST.json",
             "**/__pycache__/**",
@@ -85,11 +85,15 @@ def main() -> int:
             "worker_archetypes": 10,
             "orchestration_policy_cases": 34,
             "orchestration_integration_checks": 16,
-            "behavior_tests": 98,
-            "executable_evaluation_cases": 20,
+            "behavior_tests": 115,
+            "executable_evaluation_cases": 21,
             "fixture_repositories": 6,
             "evaluation_suites": 4,
             "evaluation_unit_tests": 13,
+            "migration_tests": 7,
+            "release_unit_tests": 10,
+            "release_tracks": 33,
+            "release_gates": 9,
             "mutation_cases": 4,
             "hooks": 9,
             "rules_profiles": 2,

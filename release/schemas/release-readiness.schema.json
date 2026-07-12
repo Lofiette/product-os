@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["schema_version","version","certification_scope","status","behavioral_tests","offline_cases","release_tracks","release_gates"],
+  "properties":{
+    "schema_version":{"const":"cpt-release-readiness-v1"},
+    "version":{"type":"string"},
+    "certification_scope":{"enum":["offline","live"]},
+    "status":{"enum":["BETA_READY","RC_READY","BLOCKED"]},
+    "behavioral_tests":{"type":"integer","minimum":1},
+    "offline_cases":{"type":"integer","minimum":1},
+    "release_tracks":{"type":"integer","minimum":1},
+    "release_gates":{"type":"integer","minimum":1}
+  }
+}

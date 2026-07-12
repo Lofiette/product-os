@@ -1,6 +1,6 @@
-# Alpha 7 to Alpha 9
+# Alpha 7 to Beta 1
 
-Alpha 7 introduced managed worker orchestration. Alpha 9 adds an executable Evaluation Plane that can prove package contracts and detect regressions.
+Alpha 7 introduced managed worker orchestration. Beta 1 adds an executable Evaluation Plane that can prove package contracts and detect regressions.
 
 ## Preserved from Alpha 7
 
@@ -12,7 +12,7 @@ Alpha 7 introduced managed worker orchestration. Alpha 9 adds an executable Eval
 - ten worker archetypes;
 - quorum, timeout, cancellation records, checkpoint recovery, and worktree isolation.
 
-## Added in Alpha 9
+## Added in Beta 1
 
 - 20 executable evaluation cases;
 - six fixture repositories;

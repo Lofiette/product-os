@@ -10,7 +10,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 EVAL = ROOT / "evaluation" / "executable"
-PACKAGE_VERSION = "4.0.0-alpha.9"
+PACKAGE_VERSION = "4.0.0-beta.1"
 errors: list[str] = []
 
 
@@ -20,7 +20,7 @@ def load(path: Path):
 
 required = [
     ROOT / "EVALUATION.md",
-    ROOT / "ALPHA8_LIMITATIONS.md",
+    ROOT / "EVALUATION_LIMITATIONS.md",
     EVAL / "README.md",
     EVAL / "SUITES.json",
     EVAL / "schemas" / "case.schema.json",
@@ -139,8 +139,8 @@ for path in sorted((EVAL / "cases").glob("*.json")):
     if any(float(budgets.get(key, 0)) < 0 for key in budgets):
         errors.append(f"{case_id}: negative budget")
 
-if len(cases) != 20:
-    errors.append(f"expected 20 executable cases, found {len(cases)}")
+if len(cases) != 21:
+    errors.append(f"expected 21 executable cases, found {len(cases)}")
 fixture_dirs = [path for path in (EVAL / "fixtures").iterdir() if path.is_dir()]
 if len(fixture_dirs) != 6:
     errors.append(f"expected 6 fixture repositories, found {len(fixture_dirs)}")

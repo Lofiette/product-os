@@ -1,11 +1,11 @@
 {
   "schema_version": "cpt-eval-suites-v1",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-beta.1",
   "suites": {
     "offline-core": {
       "backend": "reference",
       "required": true,
-      "description": "All 20 deterministic fixture-repository cases; no Codex CLI or external service required."
+      "description": "All 21 deterministic fixture-repository cases; no Codex CLI or external service required."
     },
     "live-smoke": {
       "backend": "live",

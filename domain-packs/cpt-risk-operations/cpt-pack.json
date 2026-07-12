@@ -2,7 +2,7 @@
   "schema_version": "cpt-pack-v2",
   "name": "cpt-risk-operations",
   "kind": "domain",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-beta.1",
   "requires_core": ">=4.0.0-alpha.6",
   "domains": [
     "risk-operations"

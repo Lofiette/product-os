@@ -1,6 +1,6 @@
-# Alpha 9 Limitations
+# Beta 1 Limitations
 
-Alpha 9 validates the Evaluation Plane, not every model and client combination.
+Beta 1 validates the Evaluation Plane, not every model and client combination.
 
 ## No live-model certification in the build environment
 
@@ -17,7 +17,7 @@ Reference traces are package-authored and intentionally bounded. They prove grad
 
 ## Live event normalization is best effort
 
-Codex JSONL event shapes can evolve. Alpha 9 normalizes supported command, file-change, message, error, and usage events. Unknown events are retained as generic records but may require future normalizer updates.
+Codex JSONL event shapes can evolve. Beta 1 normalizes supported command, file-change, message, error, and usage events. Unknown events are retained as generic records but may require future normalizer updates.
 
 ## Approval observability varies by host
 

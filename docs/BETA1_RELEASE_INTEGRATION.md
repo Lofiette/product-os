@@ -1,6 +1,6 @@
-# Alpha 9 Release Integration
+# Beta 1 Release Integration
 
-Alpha 9 converts the 4.0 engineering package into a safely adoptable system.
+Beta 1 converts the 4.0 engineering package into a safely adoptable system.
 
 Release invariants:
 

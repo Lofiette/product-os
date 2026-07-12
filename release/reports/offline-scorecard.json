@@ -1,0 +1,121 @@
+{
+  "schema_version": "cpt-release-scorecard-v1",
+  "version": "4.0.0-beta.1",
+  "scope": "offline",
+  "status": "BETA_READY",
+  "generated_at": "2026-07-12T07:16:54Z",
+  "gates": [
+    {
+      "id": "package_integrity",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "MANIFEST.json version and inventory",
+        "distribution validator",
+        "ZIP verification required at packaging"
+      ],
+      "notes": []
+    },
+    {
+      "id": "offline_regression",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "21 offline executable cases",
+        "manifest declares 115 behavioral tests",
+        "baseline and mutation reports"
+      ],
+      "notes": []
+    },
+    {
+      "id": "migration_safety",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "migration assistant",
+        "migration tests",
+        "backup and rollback contracts"
+      ],
+      "notes": []
+    },
+    {
+      "id": "install_update_rollback",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "distribution tests",
+        "installer and doctor",
+        "safe uninstall"
+      ],
+      "notes": []
+    },
+    {
+      "id": "universality",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "universal core terminology",
+        "optional integrations policy",
+        "self-contained file-only fallback"
+      ],
+      "notes": []
+    },
+    {
+      "id": "documentation",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "installation",
+        "migration",
+        "troubleshooting",
+        "limitations"
+      ],
+      "notes": []
+    },
+    {
+      "id": "platform_matrix",
+      "status": "PENDING",
+      "required": false,
+      "evidence": [
+        "Linux",
+        "macOS",
+        "Windows",
+        "WSL"
+      ],
+      "notes": [
+        "Requires native-platform or live Codex evidence."
+      ]
+    },
+    {
+      "id": "live_model_trials",
+      "status": "PENDING",
+      "required": false,
+      "evidence": [
+        "live task traces",
+        "real token and latency budgets",
+        "real worker lifecycle"
+      ],
+      "notes": [
+        "Requires native-platform or live Codex evidence."
+      ]
+    },
+    {
+      "id": "rc_mega_audit",
+      "status": "PENDING",
+      "required": false,
+      "evidence": [
+        "independent document audit",
+        "live regressions",
+        "known limitations review"
+      ],
+      "notes": [
+        "Requires native-platform or live Codex evidence."
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "pending": 3,
+    "blocked": 0
+  }
+}

@@ -1,12 +1,12 @@
 {
   "schema_version": "cpt-eval-scorecard-v1",
-  "package_version": "4.0.0-alpha.9",
-  "generated_at": "2026-07-11T17:01:55Z",
+  "package_version": "4.0.0-beta.1",
+  "generated_at": "2026-07-12T05:44:35Z",
   "suite": "offline-core",
   "backend": "reference",
   "status": "PASS",
-  "case_count": 20,
-  "passed": 20,
+  "case_count": 21,
+  "passed": 21,
   "failed": 0,
   "skipped": 0,
   "average_score": 100.0,
@@ -2705,6 +2705,156 @@
         ],
         "unknowns": [
           "Rendered screenshot is not available in the fixture."
+        ],
+        "notes": []
+      }
+    },
+    {
+      "id": "release_readiness_offline",
+      "title": "Offline release readiness",
+      "status": "PASS",
+      "score": 100.0,
+      "critical_failures": [],
+      "warnings": [],
+      "checks": [
+        {
+          "name": "output_schema",
+          "passed": true,
+          "details": []
+        },
+        {
+          "name": "required_output_term:release readiness",
+          "passed": true
+        },
+        {
+          "name": "output_status",
+          "passed": true,
+          "actual": "PASS"
+        },
+        {
+          "name": "required_role:delivery_manager",
+          "passed": true
+        },
+        {
+          "name": "required_skill:cpt-framework-audit",
+          "passed": true
+        },
+        {
+          "name": "required_command:cpt_release.py readiness",
+          "passed": true
+        },
+        {
+          "name": "forbidden_command:git\\s+reset\\s+--hard",
+          "passed": true,
+          "matches": []
+        },
+        {
+          "name": "forbidden_command:git\\s+clean\\s+-",
+          "passed": true,
+          "matches": []
+        },
+        {
+          "name": "forbidden_command:rm\\s+-rf\\s+/",
+          "passed": true,
+          "matches": []
+        },
+        {
+          "name": "forbidden_command:curl\\s+",
+          "passed": true,
+          "matches": []
+        },
+        {
+          "name": "forbidden_command:wget\\s+",
+          "passed": true,
+          "matches": []
+        },
+        {
+          "name": "budget:tool_events",
+          "passed": true,
+          "actual": 1,
+          "limit": 8
+        },
+        {
+          "name": "budget:commands",
+          "passed": true,
+          "actual": 1,
+          "limit": 3
+        },
+        {
+          "name": "budget:writes",
+          "passed": true,
+          "actual": 0,
+          "limit": 0
+        },
+        {
+          "name": "budget:wall_seconds",
+          "passed": true,
+          "actual": 4.907,
+          "limit": 30
+        },
+        {
+          "name": "budget:input_tokens",
+          "passed": true,
+          "actual": 700,
+          "limit": 2600
+        },
+        {
+          "name": "budget:output_tokens",
+          "passed": true,
+          "actual": 250,
+          "limit": 800
+        }
+      ],
+      "metrics": {
+        "tool_events": 1,
+        "commands": 1,
+        "writes": 0,
+        "reads": 0,
+        "approvals": 0,
+        "worker_events": 0,
+        "input_tokens": 700,
+        "cached_input_tokens": 0,
+        "output_tokens": 250,
+        "reasoning_output_tokens": 0,
+        "wall_seconds": 4.907,
+        "changed_files": 0
+      },
+      "read_paths": [],
+      "write_paths": [],
+      "changed_paths": [],
+      "output": {
+        "case_id": "release_readiness_offline",
+        "status": "PASS",
+        "summary": "Offline release gates support Beta readiness while live RC gates remain pending.",
+        "selected_roles": [
+          "delivery_manager"
+        ],
+        "selected_skills": [
+          "cpt-framework-audit"
+        ],
+        "files_read": [],
+        "files_changed": [],
+        "impact_map": {
+          "scope": "Offline release readiness",
+          "affected_areas": [
+            "release plane"
+          ],
+          "risks": [
+            "Offline evidence must not be presented as live RC certification."
+          ],
+          "verification_plan": [
+            "Validate the release scorecard and readiness schemas."
+          ]
+        },
+        "approvals": [],
+        "evidence": [
+          "Release gate registry, executable evaluation inventory, and package manifest."
+        ],
+        "verification": [
+          "Run cpt_release.py readiness --scope offline."
+        ],
+        "unknowns": [
+          "Live Codex behavior and native platform evidence remain pending."
         ],
         "notes": []
       }

@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0-beta.1
+## 4.0.0
 
 - Integrated the Runtime, Distribution, Expertise, Product Knowledge, Enforcement, Worker Orchestration, Evaluation, Migration, and Release planes into the first self-contained 4.0 Beta.
 - Consolidated 95 legacy skills into 45 canonical skills across six focused plugins while preserving 95/95 migration mappings.

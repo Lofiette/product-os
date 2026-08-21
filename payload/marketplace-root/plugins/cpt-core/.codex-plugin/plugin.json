@@ -1,6 +1,6 @@
 {
   "name": "cpt-core",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "description": "Task lifecycle, bounded planning, Product Knowledge, deterministic enforcement, checkpoint recovery, and managed worker orchestration for CPT OS.",
   "keywords": [
     "cpt",

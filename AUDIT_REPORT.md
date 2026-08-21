@@ -2,7 +2,7 @@
 
 ## Offline release audit
 
-**Version:** `4.0.0-beta.1`  
+**Version:** `4.0.0`  
 **Certification scope:** deterministic offline Beta  
 **Release status:** `BETA_READY`  
 

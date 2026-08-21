@@ -1,6 +1,6 @@
 {
   "schema": "cpt-gate-registry-v1",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "gate_count": 25,
   "gates": [
     {

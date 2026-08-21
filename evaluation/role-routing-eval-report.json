@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-routing-eval-report-v1",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "trigger_case_count": 150,
   "routing_case_count": 14,
   "passed": 164,

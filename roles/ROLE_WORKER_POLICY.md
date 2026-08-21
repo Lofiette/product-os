@@ -23,10 +23,10 @@ A role may be delegated only when:
 
 - `never`: system/integration responsibility must remain in the main thread.
 - `conditional`: a bounded independent contribution can be delegated.
-- `recommended`: reserved for future evidence-backed cases; none are automatic in Beta 1.
+- `recommended`: reserved for future evidence-backed cases; none are automatic in Product OS 4.0.
 
 Worker eligibility never grants spawn permission.
 
 ## Parallel writes
 
-Beta 1 supports parallel writable workers only through approved, isolated Git worktrees with disjoint bounded scopes and review-only integration.
+Product OS 4.0 supports parallel writable workers only through approved, isolated Git worktrees with disjoint bounded scopes and review-only integration.

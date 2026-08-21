@@ -1,6 +1,6 @@
 {
   "schema_version": "cpt-worker-archetypes-v1",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "archetype_count": 10,
   "archetypes": [
     {

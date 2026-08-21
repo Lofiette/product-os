@@ -53,7 +53,7 @@ def main() -> int:
     data = {
         "schema": "cpt-package-manifest-v9",
         "name": "codex-product-os",
-        "version": "4.0.0-beta.1",
+        "version": "4.0.0",
         "phase": "rc-trials-offline-beta",
         "manifest_excludes": [
             "MANIFEST.json",

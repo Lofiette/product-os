@@ -13,11 +13,11 @@ from cpt_dist import metadata_budget_for_plugins, validate_plugin
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.0.0-beta.1': errors.append('VERSION is not 4.0.0-beta.1')
+if (ROOT/'VERSION').read_text().strip()!='4.0.0': errors.append('VERSION is not 4.0.0')
 
 pyproject_text = (ROOT/'pyproject.toml').read_text(encoding='utf-8')
 if 'version = "4.0.0b1"' not in pyproject_text: errors.append('pyproject project.version is not 4.0.0b1')
-if 'package_version = "4.0.0-beta.1"' not in pyproject_text: errors.append('pyproject CPT package_version mismatch')
+if 'package_version = "4.0.0"' not in pyproject_text: errors.append('pyproject CPT package_version mismatch')
 if (ROOT/'ALPHA8_LIMITATIONS.md').exists(): errors.append('stale current-release filename ALPHA8_LIMITATIONS.md')
 if (ROOT/'docs/ALPHA9_RELEASE_INTEGRATION.md').exists(): errors.append('stale current-release filename ALPHA9_RELEASE_INTEGRATION.md')
 
@@ -48,7 +48,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
 
 catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
-if catalog.get('version')!='4.0.0-beta.1': errors.append('PACK_CATALOG version mismatch')
+if catalog.get('version')!='4.0.0': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
 actual_ids={p.name for p in plugins[1:]}
 if cat_ids!=actual_ids: errors.append(f'catalog/domain directory mismatch: {cat_ids ^ actual_ids}')
@@ -78,7 +78,7 @@ for plugin in plugins:
 # Optional worker pack validation.
 worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text())
 worker_agents=sorted((ROOT/'payload/worker-pack/agents').glob('*.toml'))
-if worker_pack.get('version')!='4.0.0-beta.1': errors.append('worker pack version mismatch')
+if worker_pack.get('version')!='4.0.0': errors.append('worker pack version mismatch')
 if worker_pack.get('agent_count')!=10 or len(worker_agents)!=10: errors.append('worker pack must contain 10 agents')
 registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text())
 if registry_workers.get('archetype_count')!=10: errors.append('worker archetype registry count mismatch')
@@ -121,7 +121,7 @@ if not manifest_path.exists():
 else:
     manifest = json.loads(manifest_path.read_text())
     if manifest.get('schema') != 'cpt-package-manifest-v9': errors.append('MANIFEST schema mismatch')
-    if manifest.get('version') != '4.0.0-beta.1': errors.append('MANIFEST version mismatch')
+    if manifest.get('version') != '4.0.0': errors.append('MANIFEST version mismatch')
     if manifest.get('phase') != 'rc-trials-offline-beta': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {

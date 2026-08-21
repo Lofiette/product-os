@@ -1,6 +1,6 @@
 {
   "schema_version": "cpt-release-readiness-v1",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "certification_scope": "offline",
   "status": "BETA_READY",
   "behavioral_tests": 115,

@@ -1,6 +1,6 @@
 # RC trials and release gates
 
-Beta 1 is certified for the deterministic, self-contained offline scope. It is not an RC and does not claim live Codex certification.
+Product OS 4.0 is certified for the deterministic, self-contained offline scope. It is not an RC and does not claim live Codex certification.
 
 Nine release gates separate evidence that can be proven locally from evidence that requires native platforms or a live Codex client. A gate marked `PENDING` is not silently converted into `PASS`.
 

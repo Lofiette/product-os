@@ -1,6 +1,6 @@
 {
   "schema_version": "cpt-release-scorecard-v1",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "scope": "offline",
   "status": "BETA_READY",
   "generated_at": "2026-07-12T07:16:54Z",

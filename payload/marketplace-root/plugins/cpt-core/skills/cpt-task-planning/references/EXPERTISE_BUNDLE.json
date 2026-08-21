@@ -1,6 +1,6 @@
 {
   "schema": "cpt-expertise-bundle-v1",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "principles": [
     "Roles are logical accountability lenses, not subagents.",
     "Exactly one role owns each meaningful decision or artifact.",

@@ -269,9 +269,9 @@ def _plugin_inventory(context: InstallationContext, receipt: dict[str, Any] | No
             item["materialized"] = True
             item["status"] = "missing_manifest"
         else:
-            if not _is_within(manifest_path, [context.project, context.codex_home]):
+            if not _is_within(manifest_path, [payload]):
                 item["status"] = "unsafe_path"
-                item["error"] = "plugin manifest resolves outside approved payload roots"
+                item["error"] = "plugin manifest resolves outside its approved payload root"
                 result.append(item)
                 continue
             item["materialized"] = True

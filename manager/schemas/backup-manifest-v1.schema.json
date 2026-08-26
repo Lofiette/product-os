@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/product-os/backup-manifest-v1.schema.json",
+  "title": "Product OS adoption backup manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "transaction_id",
+    "plan_hash",
+    "project",
+    "installation_id",
+    "created_at",
+    "backup_root",
+    "entries",
+    "selector_snapshot",
+    "manifest_hash"
+  ],
+  "properties": {
+    "schema": {"const": "product-os-backup-manifest-v1"},
+    "transaction_id": {"type": "string", "pattern": "^TX-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"},
+    "plan_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "project": {"type": "string", "minLength": 1},
+    "installation_id": {"type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"},
+    "created_at": {"type": "string", "minLength": 1},
+    "backup_root": {"type": "string", "minLength": 1},
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "path",
+          "path_key",
+          "scope",
+          "existed",
+          "kind",
+          "sha256",
+          "size",
+          "backup_file"
+        ],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "path_key": {"type": "string", "minLength": 1},
+          "scope": {"enum": ["project", "registry", "marketplace"]},
+          "existed": {"type": "boolean"},
+          "kind": {"enum": ["absent", "file", "directory_marker"]},
+          "sha256": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            ]
+          },
+          "size": {"type": ["integer", "null"], "minimum": 0},
+          "backup_file": {"type": ["string", "null"]}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"kind": {"const": "file"}}, "required": ["kind"]},
+            "then": {
+              "properties": {
+                "existed": {"const": true},
+                "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                "size": {"type": "integer", "minimum": 0},
+                "backup_file": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          {
+            "if": {"properties": {"kind": {"const": "directory_marker"}}, "required": ["kind"]},
+            "then": {
+              "properties": {
+                "existed": {"const": true},
+                "sha256": {"type": "null"},
+                "size": {"type": "null"},
+                "backup_file": {"type": "null"}
+              }
+            }
+          },
+          {
+            "if": {"properties": {"kind": {"const": "absent"}}, "required": ["kind"]},
+            "then": {
+              "properties": {
+                "existed": {"const": false},
+                "sha256": {"type": "null"},
+                "size": {"type": "null"},
+                "backup_file": {"type": "null"}
+              }
+            }
+          }
+        ]
+      }
+    },
+    "selector_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter", "state_token", "selectors", "sha256"],
+      "properties": {
+        "adapter": {"type": "string", "minLength": 1},
+        "state_token": {"type": ["string", "null"]},
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "selector", "marketplace_identity", "enabled", "source_revision"],
+            "properties": {
+              "name": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+              "selector": {"type": "string", "minLength": 1},
+              "marketplace_identity": {"type": ["string", "null"]},
+              "enabled": {"type": "boolean"},
+              "source_revision": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "manifest_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -362,7 +362,9 @@ class DirectoryTargetProvider:
         destination.parent.mkdir(parents=True, exist_ok=True)
         if _path_is_link_like(destination.parent):
             raise RuntimeError("Provider target parent is link-like")
-        staging = destination.parent / f".{destination.name}.{transaction_id}.staging"
+        # Keep the sibling staging name short enough for legacy Windows MAX_PATH
+        # environments while the full transaction id remains bound in the journal.
+        staging = destination.parent / f".{destination.name[:8]}.s-{transaction_id[-12:]}"
         if staging.exists():
             raise RuntimeError(f"Provider staging path already exists: {staging}")
         try:
@@ -445,8 +447,21 @@ class DirectoryTargetProvider:
         transaction_id: str,
         operation_id: str,
     ) -> None:
-        del destination, operation_id
         if not TRANSACTION_PATTERN.fullmatch(transaction_id):
             raise RuntimeError("Transaction id is invalid")
+        if not re.fullmatch(r"[a-z][a-z0-9-]*", operation_id):
+            raise RuntimeError("Target cleanup operation id is invalid")
+        destination = destination.absolute()
+        sources_root = (self.context.product_os_home / "sources").absolute()
+        if not _is_within(destination, [sources_root]):
+            raise RuntimeError("Provider cleanup destination escapes immutable sources")
+        staging = destination.parent / f".{destination.name[:8]}.s-{transaction_id[-12:]}"
+        if not staging.exists():
+            return
+        if not _is_within(staging, [sources_root]) or _path_is_link_like(staging):
+            raise RuntimeError("Refusing to remove unsafe provider staging path")
+        if not staging.is_dir():
+            raise RuntimeError("Provider staging path is not a directory")
+        shutil.rmtree(staging)
         # Published roots are immutable, content-addressed caches and may be shared.
         # Transaction rollback deliberately retains them for later verified reuse/GC.

@@ -15,7 +15,14 @@ from tools import cpt_dist
 from .adapters.base import SelectorAdapterEvidence
 from .context import InstallationContext
 from .registry import RegistryStore
-from .state import canonical_json_hash, file_sha256, read_json, utc_now
+from .state import (
+    canonical_json_hash,
+    canonical_text_file_sha256,
+    file_sha256,
+    lock_is_held,
+    read_json,
+    utc_now,
+)
 
 DETECTION_SCHEMA = "product-os-detection-report-v1"
 
@@ -275,7 +282,12 @@ def _plugin_inventory(context: InstallationContext, receipt: dict[str, Any] | No
                 result.append(item)
                 continue
             item["materialized"] = True
-            item["actual_manifest_sha256"] = file_sha256(manifest_path)
+            lineage = (receipt or {}).get("source_lineage") or {}
+            item["actual_manifest_sha256"] = (
+                canonical_text_file_sha256(manifest_path)
+                if lineage.get("delivery_type") == "git_marketplace"
+                else file_sha256(manifest_path)
+            )
             try:
                 manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
                 if not isinstance(manifest, dict):
@@ -411,7 +423,7 @@ def _registry_inventory(
         "path": str(context.registry_path),
         "exists": registry_safe and context.registry_path.exists(),
         "valid": True,
-        "busy": registry_safe and context.product_os_home.joinpath("registry.lock").exists(),
+        "busy": registry_safe and lock_is_held(context.product_os_home / "registry.lock"),
         "sha256": file_sha256(context.registry_path) if registry_safe else None,
         "entry_present": False,
         "entry_matches_receipt": None,
@@ -462,6 +474,8 @@ def _selector_inventory(
         return {
             "status": "unavailable",
             "adapter": None,
+            "adapter_version": None,
+            "capability_fingerprint": None,
             "authoritative": False,
             "selectors": [],
             "sha256": None,
@@ -480,6 +494,8 @@ def _selector_inventory(
         return {
             "status": "invalid",
             "adapter": None,
+            "adapter_version": None,
+            "capability_fingerprint": None,
             "authoritative": False,
             "selectors": [],
             "sha256": canonical_json_hash(candidate),
@@ -490,6 +506,8 @@ def _selector_inventory(
         return {
             "status": "invalid",
             "adapter": candidate.get("adapter"),
+            "adapter_version": None,
+            "capability_fingerprint": None,
             "authoritative": False,
             "selectors": [],
             "sha256": canonical_json_hash(candidate),
@@ -501,6 +519,8 @@ def _selector_inventory(
             return {
                 "status": "invalid",
                 "adapter": candidate.get("adapter"),
+                "adapter_version": None,
+                "capability_fingerprint": None,
                 "authoritative": False,
                 "selectors": [],
                 "sha256": canonical_json_hash(candidate),
@@ -511,6 +531,8 @@ def _selector_inventory(
             return {
                 "status": "invalid",
                 "adapter": candidate.get("adapter"),
+                "adapter_version": None,
+                "capability_fingerprint": None,
                 "authoritative": False,
                 "selectors": [],
                 "sha256": canonical_json_hash(candidate),
@@ -530,6 +552,8 @@ def _selector_inventory(
         return {
             "status": "invalid",
             "adapter": candidate.get("adapter"),
+            "adapter_version": observation.adapter_version if evidence_from_adapter else None,
+            "capability_fingerprint": observation.capability_fingerprint if evidence_from_adapter else None,
             "authoritative": False,
             "selectors": normalized,
             "sha256": canonical_json_hash(normalized),
@@ -539,6 +563,8 @@ def _selector_inventory(
     normalized_observation = {
         "status": "observed" if evidence_from_adapter else "untrusted",
         "adapter": candidate.get("adapter"),
+        "adapter_version": observation.adapter_version if evidence_from_adapter else None,
+        "capability_fingerprint": observation.capability_fingerprint if evidence_from_adapter else None,
         "authoritative": authoritative,
         "selectors": normalized,
         "error": None if evidence_from_adapter else "external JSON cannot establish selector authority",

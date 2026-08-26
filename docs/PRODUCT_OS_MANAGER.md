@@ -48,9 +48,34 @@ preconditions before the first mutation.
 
 Plans expose two independent confirmation boundaries:
 
-1. `apply` permits backup, isolated target materialization, runtime refresh,
-   receipt/registry staging, and preparation of non-active selectors.
+1. `apply` permits backup, isolated target materialization,
+   a journaled receipt candidate, and preparation of non-active selectors. It
+   does not refresh the active runtime.
 2. `switch` permits activation only after the prepared-state hash is confirmed.
+
+## Transaction and recovery contract
+
+`prepare_adoption` and `switch_adoption` accept only registered in-process
+adapters whose id, version, and capability fingerprint exactly match the
+approved plan. The first phase creates and verifies an external backup,
+materializes an immutable target, and exposes target selectors as disabled.
+The second phase refreshes runtime-owned files, activates the complete target
+selector set, atomically writes receipt v2, updates only the installation's
+registry entry, and commits only after migration-doctor readback passes.
+
+Every transition is hash-bound in
+`PRODUCT_OS_HOME/transactions/<project-hash>/<transaction-id>/journal.json`.
+Rollback performs a read-only ownership-envelope preflight before any restore.
+Unknown resource, selector, or registry drift is never overwritten and moves
+the journal to `manual_recovery_required`. Normal rollback restores only
+project-owned resources and the current installation's registry/selector
+projection, preserving unrelated user state. Forced recovery additionally
+requires the exact observed-state hash and creates an emergency backup.
+
+Locks are process-scoped OS locks. Their small files persist for diagnostics,
+but a hard process exit releases ownership automatically. `recover_adoption`
+reconciles orphaned prepare/switch journals conservatively; an ambiguous
+partial runtime write remains manual rather than being guessed through.
 
 Legacy selectors are retained until post-switch adapter readback and the
 known-installation registry both prove they are unreferenced. An absent or
@@ -61,3 +86,5 @@ Normative schemas:
 
 - `manager/schemas/detection-report-v1.schema.json`
 - `manager/schemas/adoption-plan-v1.schema.json`
+- `manager/schemas/backup-manifest-v1.schema.json`
+- `manager/schemas/adoption-transaction-v1.schema.json`

@@ -184,6 +184,10 @@ def inspect_target_descriptor(
 ) -> dict[str, Any]:
     evidence_authoritative = isinstance(descriptor, TargetAdapterEvidence)
     evidence_adapter = descriptor.adapter_id if evidence_authoritative else None
+    evidence_adapter_version = descriptor.adapter_version if evidence_authoritative else None
+    evidence_capability_fingerprint = (
+        descriptor.capability_fingerprint if evidence_authoritative else None
+    )
     descriptor = descriptor.copy_descriptor() if evidence_authoritative else copy.deepcopy(descriptor)
     if not isinstance(descriptor, dict):
         descriptor = {}
@@ -508,6 +512,8 @@ def inspect_target_descriptor(
         "resolution_verified": evidence_verified,
         "evidence_authoritative": evidence_authoritative,
         "evidence_adapter": evidence_adapter,
+        "evidence_adapter_version": evidence_adapter_version,
+        "evidence_capability_fingerprint": evidence_capability_fingerprint,
         "materialized_root": str(root) if root else None,
         "materialization_status": materialization_status,
         "plugins": plugins,
@@ -713,7 +719,7 @@ def build_adoption_plan(
         _append_unique(warnings, _issue("CURRENT_PLUGIN_UNVERIFIED", "Current plugin provenance is incomplete", plugins=unverified_plugins))
 
     current_plugin_names = {
-        item["name"] for item in detection["plugins"] if item.get("materialized")
+        item["name"] for item in detection["plugins"] if item.get("name")
     }
     target_plugin_names = {item.get("name") for item in target["plugins"]}
     missing_target_plugins = sorted(current_plugin_names - target_plugin_names)
@@ -722,7 +728,7 @@ def build_adoption_plan(
             blockers,
             _issue(
                 "TARGET_PLUGIN_COVERAGE_INCOMPLETE",
-                "The target must cover every currently materialized Product OS plugin",
+                "The target must cover every currently recorded Product OS plugin",
                 plugins=missing_target_plugins,
             ),
         )
@@ -826,6 +832,11 @@ def build_adoption_plan(
         "plan_hash": "",
         "detection_state_hash": detection["state_hash"],
         "selector_adapter": selectors["adapter"],
+        "selector_adapter_binding": {
+            "adapter_id": selectors["adapter"],
+            "adapter_version": selectors["adapter_version"],
+            "capability_fingerprint": selectors["capability_fingerprint"],
+        } if selectors["authoritative"] else None,
         "target": target,
         "preconditions": preconditions,
         "blockers": blockers,
@@ -835,7 +846,7 @@ def build_adoption_plan(
             "apply": {
                 "required": True,
                 "confirmation": "exact plan_hash",
-                "scope": "backup, target materialization, runtime refresh, receipt/registry staging, selector preparation",
+                "scope": "backup, immutable target materialization, journaled receipt candidate, selector preparation",
             },
             "switch": {
                 "required": True,

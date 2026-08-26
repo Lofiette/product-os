@@ -118,6 +118,12 @@ def _assert_safe_ancestry(path: Path, root: Path) -> None:
         raise RuntimeError(f"Backup resource resolves outside approved root: {path}")
 
 
+def assert_safe_ancestry(path: Path, root: Path) -> None:
+    """Validate every existing component without following a link-like escape."""
+
+    _assert_safe_ancestry(path, root)
+
+
 def resource_paths(
     context: InstallationContext,
     receipt: Mapping[str, Any],

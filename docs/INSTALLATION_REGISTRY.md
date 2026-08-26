@@ -9,9 +9,11 @@ The registry is not installation truth. Each project-owned
 explicitly supplied v2 receipts; it does not scan a disk and does not invent an
 installation ID for v1.
 
-Writes use an exclusive lock, compare-and-swap against the inspected registry
-digest, fsync, and atomic replace. A stale plan or existing lock fails closed.
-Unrelated installation entries are preserved by normal upsert operations.
+Writes use an OS-backed exclusive lock, compare-and-swap against the inspected
+registry digest, fsync, and atomic replace. A live writer or stale plan fails
+closed; an abandoned lock file does not remain owned after process death.
+Unrelated installation entries are preserved by normal upsert and scoped
+rollback operations.
 
 Registry entries record the canonical project and receipt paths, semantic
 receipt digest, product/runtime versions, source lineage, plugin names, and

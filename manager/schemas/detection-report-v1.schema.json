@@ -135,6 +135,8 @@
       "required": [
         "status",
         "adapter",
+        "adapter_version",
+        "capability_fingerprint",
         "authoritative",
         "selectors",
         "sha256",

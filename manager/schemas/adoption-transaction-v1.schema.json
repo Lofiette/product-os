@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/product-os/adoption-transaction-v1.schema.json",
+  "title": "Product OS adoption transaction journal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "transaction_id",
+    "revision",
+    "state",
+    "project",
+    "project_path_key",
+    "installation_id",
+    "context",
+    "plan_hash",
+    "plan",
+    "adapters",
+    "target_request",
+    "target_contract_sha256",
+    "target_existed_before",
+    "initial",
+    "backup",
+    "prepared",
+    "switch",
+    "result",
+    "last_error",
+    "created_at",
+    "updated_at",
+    "previous_journal_hash",
+    "journal_hash"
+  ],
+  "properties": {
+    "schema": {"const": "product-os-adoption-transaction-v1"},
+    "transaction_id": {
+      "type": "string",
+      "pattern": "^TX-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "revision": {"type": "integer", "minimum": 1},
+    "state": {
+      "enum": [
+        "created",
+        "backed_up",
+        "materializing",
+        "target_verified",
+        "preparing_selectors",
+        "prepared",
+        "refreshing_runtime",
+        "runtime_refreshed",
+        "activating_selectors",
+        "selectors_activated",
+        "writing_receipt",
+        "receipt_written",
+        "writing_registry",
+        "registry_written",
+        "verifying",
+        "committed",
+        "rolling_back",
+        "rolled_back",
+        "failed_no_mutation",
+        "manual_recovery_required"
+      ]
+    },
+    "project": {"type": "string", "minLength": 1},
+    "project_path_key": {"type": "string", "minLength": 1},
+    "installation_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "context": {"type": "object"},
+    "plan_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "plan": {"type": "object"},
+    "adapters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "selector"],
+      "properties": {
+        "target": {"$ref": "#/$defs/adapter_binding"},
+        "selector": {"$ref": "#/$defs/adapter_binding"}
+      }
+    },
+    "target_request": {"type": "object"},
+    "target_contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target_existed_before": {"type": "boolean"},
+    "initial": {"type": "object"},
+    "backup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest_path", "manifest_hash"],
+      "properties": {
+        "manifest_path": {"type": ["string", "null"]},
+        "manifest_hash": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          ]
+        }
+      }
+    },
+    "prepared": {"type": ["object", "null"]},
+    "switch": {"type": "object"},
+    "result": {"type": ["object", "null"]},
+    "last_error": {"type": ["object", "null"]},
+    "created_at": {"type": "string", "minLength": 1},
+    "updated_at": {"type": "string", "minLength": 1},
+    "previous_journal_hash": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      ]
+    },
+    "journal_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "adapter_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter_id", "adapter_version", "capability_fingerprint"],
+      "properties": {
+        "adapter_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+        "adapter_version": {"type": "string", "minLength": 1},
+        "capability_fingerprint": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -443,6 +443,40 @@ class ManagerPlanningTests(unittest.TestCase):
         self.assertIn("REGISTRY_INCOMPLETE", {item["code"] for item in plan["warnings"]})
         self.assertEqual(plan["rollback"]["legacy_selector_policy"], "retain_until_proven_unreferenced")
 
+    def test_recorded_unmaterialized_plugin_must_be_covered_by_target(self) -> None:
+        receipt = self.install("personal")
+        receipt["installed_plugins"].append(
+            {
+                "name": "recorded-pack",
+                "selector": "recorded-pack@cpt-personal",
+                "marketplace_identity": "cpt-personal",
+                "version": "4.0.0",
+                "payload_path": None,
+                "manifest_sha256": None,
+                "status": "unobserved",
+            }
+        )
+        write_json(self.receipt_path, receipt)
+        detection = detect_installation(
+            self.project,
+            context=self.context,
+            selector_observation=self.selector_observation(
+                ("cpt-core", "cpt-core@cpt-personal"),
+                ("recorded-pack", "recorded-pack@cpt-personal"),
+            ),
+        )
+        plan = build_adoption_plan(
+            detection,
+            self.adapter.target(self.target_descriptor(materialized=False)),
+            context=self.context,
+        )
+        blocker = next(
+            item
+            for item in plan["blockers"]
+            if item["code"] == "TARGET_PLUGIN_COVERAGE_INCOMPLETE"
+        )
+        self.assertEqual(blocker["details"]["plugins"], ["recorded-pack"])
+
     def test_corrupt_registry_and_marketplace_block_plan(self) -> None:
         self.install()
         self.context.registry_path.write_text("{broken", encoding="utf-8")

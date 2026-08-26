@@ -13,6 +13,7 @@
     "plan_hash",
     "detection_state_hash",
     "selector_adapter",
+    "selector_adapter_binding",
     "target",
     "preconditions",
     "blockers",
@@ -53,6 +54,21 @@
     "selector_adapter": {
       "type": ["string", "null"]
     },
+    "selector_adapter_binding": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["adapter_id", "adapter_version", "capability_fingerprint"],
+          "properties": {
+            "adapter_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+            "adapter_version": {"type": "string", "minLength": 1},
+            "capability_fingerprint": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
     "target": {
       "type": "object",
       "additionalProperties": false,
@@ -74,6 +90,8 @@
         "resolution_verified",
         "evidence_authoritative",
         "evidence_adapter",
+        "evidence_adapter_version",
+        "evidence_capability_fingerprint",
         "materialized_root",
         "materialization_status",
         "plugins",
@@ -116,6 +134,8 @@
         "resolution_verified": {"type": "boolean"},
         "evidence_authoritative": {"type": "boolean"},
         "evidence_adapter": {"type": ["string", "null"]},
+        "evidence_adapter_version": {"type": ["string", "null"]},
+        "evidence_capability_fingerprint": {"type": ["string", "null"]},
         "materialized_root": {"type": ["string", "null"]},
         "materialization_status": {"type": "string"},
         "plugins": {

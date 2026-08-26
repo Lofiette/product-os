@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 import uuid
@@ -14,6 +16,7 @@ from manager.product_os_manager.registry import (
     RegistryStore,
     empty_registry,
 )
+from manager.product_os_manager.state import exclusive_lock, file_sha256
 
 
 def receipt(project: Path, *, selector: str | None = None) -> dict:
@@ -103,12 +106,37 @@ class ManagerRegistryTests(unittest.TestCase):
         with self.assertRaises(ConcurrentRegistryChange):
             self.store.save(data, expected_digest=digest)
 
-    def test_existing_lock_fails_closed_without_overwrite(self) -> None:
+    def test_stale_lock_file_does_not_block_writer(self) -> None:
         self.manager_home.mkdir(parents=True)
-        self.store.lock_path.write_text("other-owner\n", encoding="utf-8")
-        with self.assertRaisesRegex(RuntimeError, "lock already exists"):
-            self.store.save(empty_registry(), expected_digest=None)
+        self.store.lock_path.write_text("stale-owner\n", encoding="utf-8")
+        digest = self.store.save(empty_registry(), expected_digest=None)
+        self.assertEqual(digest, file_sha256(self.store.path))
+
+    def test_live_lock_fails_closed_without_overwrite(self) -> None:
+        with exclusive_lock(self.store.lock_path):
+            with self.assertRaisesRegex(RuntimeError, "lock is already held"):
+                self.store.save(empty_registry(), expected_digest=None)
         self.assertFalse(self.store.path.exists())
+
+    def test_os_releases_lock_after_hard_process_exit(self) -> None:
+        script = """
+import os
+import sys
+from pathlib import Path
+from manager.product_os_manager.state import exclusive_lock
+with exclusive_lock(Path(sys.argv[1])):
+    os._exit(0)
+"""
+        result = subprocess.run(
+            [sys.executable, "-c", script, str(self.store.lock_path)],
+            cwd=Path(__file__).resolve().parents[1],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertTrue(self.store.lock_path.exists())
+        with exclusive_lock(self.store.lock_path):
+            self.assertTrue(self.store.lock_path.exists())
 
     def test_rebuild_uses_only_explicit_v2_receipts(self) -> None:
         valid = receipt(self.project, selector="cpt-core@git")

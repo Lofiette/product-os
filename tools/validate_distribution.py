@@ -144,7 +144,11 @@ for rel in [
     'manager/schemas/installation-receipt-v2.schema.json','tests/test_receipts.py',
     'manager/schemas/installation-registry-v1.schema.json','tests/test_manager_registry.py',
     'manager/schemas/detection-report-v1.schema.json','manager/schemas/adoption-plan-v1.schema.json',
-    'manager/product_os_manager/adapters/base.py','tests/test_manager_planning.py','tools/product_os_manager.py',
+    'manager/schemas/backup-manifest-v1.schema.json','manager/schemas/adoption-transaction-v1.schema.json',
+    'manager/product_os_manager/adapters/base.py','manager/product_os_manager/adapters/repository.py',
+    'manager/product_os_manager/backup.py','manager/product_os_manager/transaction.py',
+    'tests/test_manager_planning.py','tests/test_manager_backup.py','tests/test_manager_transaction.py',
+    'tools/product_os_manager.py',
     'docs/INSTALLATION_RECEIPT_V2.md','docs/INSTALLATION_REGISTRY.md','docs/PRODUCT_OS_MANAGER.md'
 ]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
@@ -160,10 +164,12 @@ else:
     if manifest.get('phase') != 'offline-certified-live-pending': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
-        'behavior_tests': 136,
+        'behavior_tests': 159,
         'installation_receipt_tests': 5,
-        'manager_registry_tests': 5,
-        'manager_planning_tests': 10,
+        'manager_registry_tests': 7,
+        'manager_planning_tests': 11,
+        'manager_backup_tests': 5,
+        'manager_transaction_tests': 15,
         'evaluation_unit_tests': 13,
         'migration_tests': 7,
         'release_unit_tests': 10,

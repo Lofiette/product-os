@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 599,
+  "file_count": 606,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -49,10 +49,12 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 136,
+    "behavior_tests": 159,
     "installation_receipt_tests": 5,
-    "manager_registry_tests": 5,
-    "manager_planning_tests": 10,
+    "manager_registry_tests": 7,
+    "manager_planning_tests": 11,
+    "manager_backup_tests": 5,
+    "manager_transaction_tests": 15,
     "executable_evaluation_cases": 21,
     "fixture_repositories": 6,
     "evaluation_suites": 4,
@@ -304,8 +306,8 @@
     },
     {
       "path": "docs/INSTALLATION_REGISTRY.md",
-      "size": 1009,
-      "sha256": "d65fafc72dc6fb87c6ba99b0c6c777e9aca4c055f3ce8a2ff8816eebbbfd5a1b"
+      "size": 1103,
+      "sha256": "b3abf6392bf14a2b83af141e364d28bbc51d32c1e70f50fe61766059738ce274"
     },
     {
       "path": "docs/INSTALLER_CONTRACT.md",
@@ -359,8 +361,8 @@
     },
     {
       "path": "docs/PRODUCT_OS_MANAGER.md",
-      "size": 3130,
-      "sha256": "fe8e44ec27057e79358c7d37036305c109a6ed964fe7c0d9c28524f741434d92"
+      "size": 4691,
+      "sha256": "d7bce9d7349795c33ab7e5fd89a5521d355f6567786dfd0df5124886e4158ee4"
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
@@ -1119,8 +1121,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 2258,
-      "sha256": "886c434f66df542f131ebd0294b987a9e0bc4ad3c97262d9798a4862a14fb29c"
+      "size": 2490,
+      "sha256": "04befcc01ca82c480afcb7a088e2d89e1d29adcb6c74660da466f4a0b8131ec3"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -1729,23 +1731,33 @@
     },
     {
       "path": "manager/product_os_manager/__init__.py",
-      "size": 468,
-      "sha256": "ead1b55d7b3a3df5ded492e418ee8216096cf4873f27e1a8808630a42a800987"
+      "size": 851,
+      "sha256": "3b924c95a0fe1ad392426a373347922b1345b8f3e341535c876b4a8a16727ff3"
     },
     {
       "path": "manager/product_os_manager/adapters/__init__.py",
-      "size": 185,
-      "sha256": "6435ff721333bf657050e6d8eb9c841be67c8b72bbb8cbe3cb045664a4b4311b"
+      "size": 236,
+      "sha256": "035989e12ad74744b87671e5c0803728a7f01b520947d86b7191356b36f1fcdc"
     },
     {
       "path": "manager/product_os_manager/adapters/base.py",
-      "size": 1202,
-      "sha256": "36f8f0c50e6ef12fc948803ff516f22688cd8a79bc7c8e6dce5e416aba3217e8"
+      "size": 6165,
+      "sha256": "4fb109f01c54e5faa313b417eed118048a807f9ac444e296006bb9807bf93933"
     },
     {
       "path": "manager/product_os_manager/adapters/deterministic.py",
-      "size": 638,
-      "sha256": "8284eee6c68386ed34c215a520db6e86757b12f1090790bc0240af03a3a695fe"
+      "size": 15001,
+      "sha256": "0202210bb7f8a217a06a85deeea5e629816e951cced222ca3fe2d26dcc6d9a68"
+    },
+    {
+      "path": "manager/product_os_manager/adapters/repository.py",
+      "size": 21795,
+      "sha256": "893a4150f81a2b1693e29f83338c8ac1e3b5fe5eaee04c980ceda0fb9a51a2db"
+    },
+    {
+      "path": "manager/product_os_manager/backup.py",
+      "size": 21020,
+      "sha256": "99e0862335aa868bf19beecfa8a3d2d1671fc265aa9f1f26b07f6f27bb591015"
     },
     {
       "path": "manager/product_os_manager/context.py",
@@ -1754,13 +1766,13 @@
     },
     {
       "path": "manager/product_os_manager/inventory.py",
-      "size": 24719,
-      "sha256": "65e44e2e85a753261ddc9ab82bbc494682ce77815dabcf473386ecc6be728856"
+      "size": 25813,
+      "sha256": "d4b14649709034b94ae4d7be607c9cec78991685bcdbb8738639f314b01897bd"
     },
     {
       "path": "manager/product_os_manager/planning.py",
-      "size": 39325,
-      "sha256": "da0934d0f22ee0502bbba30c3c1f37cc4915e451fe5d9eee989b104520ace038"
+      "size": 39938,
+      "sha256": "f2ff8de8223c10f446bbb46c0b5ec5ee7547fee1c8bde21b941a10a237d46228"
     },
     {
       "path": "manager/product_os_manager/registry.py",
@@ -1769,18 +1781,33 @@
     },
     {
       "path": "manager/product_os_manager/state.py",
-      "size": 2648,
-      "sha256": "9483e5fd8f46a6dd30ad5adf20b9dfbdae3be94df6585756c899e8cb5c6ad054"
+      "size": 5227,
+      "sha256": "a38d60e02cb5de5f18bd0b831795220d208532dc7e993e2143d9cf9ccbabaef1"
+    },
+    {
+      "path": "manager/product_os_manager/transaction.py",
+      "size": 80139,
+      "sha256": "e229c191d57a1e3caee0199bf9cef67b16dc39f5b0fa530cd60b5142184e8d23"
     },
     {
       "path": "manager/schemas/adoption-plan-v1.schema.json",
-      "size": 9515,
-      "sha256": "69ad92211c9ce8b40fd85257adcbdf0b45d7a721b1d4a5a1e78106979452d46e"
+      "size": 10285,
+      "sha256": "299f50d9453eeeebb50392ae647a8e56cdf6a37e5de58fe1ca0f13c98286b8f3"
+    },
+    {
+      "path": "manager/schemas/adoption-transaction-v1.schema.json",
+      "size": 3742,
+      "sha256": "538a194c81121158d91f1785ac9a38d7b35d659f246c8ee712627c792db09b80"
+    },
+    {
+      "path": "manager/schemas/backup-manifest-v1.schema.json",
+      "size": 4324,
+      "sha256": "1af3cf67fb61d0870b2d5c8aa76957be21533c5c5f0bb9f5fdd62a3e33a2436f"
     },
     {
       "path": "manager/schemas/detection-report-v1.schema.json",
-      "size": 3529,
-      "sha256": "bc62ae52f4579081efbdf3a1d448a93727b7ff1a0c7d2602fe79f64816d12f49"
+      "size": 3590,
+      "sha256": "5e41b0f0be18e3cd5b9e831bf31946178536d88e9ba78a2b19db50cf5effc96c"
     },
     {
       "path": "manager/schemas/installation-receipt-v2.schema.json",
@@ -2869,8 +2896,8 @@
     },
     {
       "path": "tests/run_all.py",
-      "size": 6153,
-      "sha256": "d5900eeb27f80e2fc0226240581070d0c009ca72dcedc89c71fe6e33086d8d3b"
+      "size": 6324,
+      "sha256": "c75545cfa3c9c43ee61f5b46ca2e62af114cae7b17790aaa29804b935a9daf68"
     },
     {
       "path": "tests/test_distribution.py",
@@ -2893,14 +2920,24 @@
       "sha256": "7562628513cb5e9c2731fbdc39fcd8588d062b9fdc190a517a6fa9cba39b2530"
     },
     {
+      "path": "tests/test_manager_backup.py",
+      "size": 11012,
+      "sha256": "8347b5a18e1b37435aed318a549ffe030333152d98f9872b41bc084657340572"
+    },
+    {
       "path": "tests/test_manager_planning.py",
-      "size": 21178,
-      "sha256": "41e4291a74fc2698580d6b29fcde8548809959e899e7bab84e753ff034ed24c5"
+      "size": 22467,
+      "sha256": "bc8804914462d4d192452e05626893cd682ae5f1f83af9c4b6df1b64d7d5e2f3"
     },
     {
       "path": "tests/test_manager_registry.py",
-      "size": 4648,
-      "sha256": "bcff4bf470eb4fc957365af317241ddbf699c0484d5f576df6f738e573a7520a"
+      "size": 5732,
+      "sha256": "62d4138bbd02fb46159d087c3fad2688afbb010a56cf64d98cfd7183b56b1d02"
+    },
+    {
+      "path": "tests/test_manager_transaction.py",
+      "size": 26172,
+      "sha256": "36bb3b6127a05cfa06fc5fa618ab1b40159c7590122ca840070462ab0812f0b9"
     },
     {
       "path": "tests/test_migration.py",
@@ -2934,8 +2971,8 @@
     },
     {
       "path": "tools/build_manifest.py",
-      "size": 4709,
-      "sha256": "5ddd6636b3436858181dff68f55bdc06f6dc1ece37505f1c28b8549f81ea5265"
+      "size": 4793,
+      "sha256": "dbbbe7f7453aa4ff2de3f8a8fde3e0f0d9c2f5b43fea6f8a24b71ff353a25cdb"
     },
     {
       "path": "tools/cpt_dist.py",
@@ -3014,8 +3051,8 @@
     },
     {
       "path": "tools/validate_distribution.py",
-      "size": 12905,
-      "sha256": "90c5be2be0aeb99a0fbb9c3cc8220b77ada6d4a2cd1b9b96c760a38bb0a5d4e0"
+      "size": 13306,
+      "sha256": "b23b6d7e3c2b3f74119243880af5009a8c3725b760398e6e55ba2495bf6891cb"
     },
     {
       "path": "tools/validate_enforcement.py",

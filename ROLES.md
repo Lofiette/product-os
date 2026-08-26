@@ -1,6 +1,6 @@
-# Roles in Codex Product Operating System 4.0 Beta 1
+# Roles in Product OS 4.1
 
-Beta 1 preserves all 50 logical roles from 3.0 and rewrites them as accountable expert lenses.
+Product OS 4.1 preserves all 50 logical roles from 3.0 and rewrites them as accountable expert lenses.
 
 ## Core model
 

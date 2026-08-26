@@ -1,0 +1,90 @@
+schema: cpt-form-flow-mode-matrix-v1
+source_basis: Silver and Tidwell; transformed summary
+modes:
+- id: compact-form
+  best_for:
+  - short coherent task
+  - few dependencies
+  - single session
+  avoid_when:
+  - branching or high consequence needs staged review
+  key_obligations:
+  - clear grouping
+  - specific validation
+  - preserve input
+- id: one-thing-per-page
+  best_for:
+  - infrequent or cognitively demanding task
+  - small meaningful chunks
+  - early error correction
+  avoid_when:
+  - experts need cross-field comparison
+  - network round-trips or navigation create more burden
+  key_obligations:
+  - meaningful chunk not literal one field
+  - back preserves state
+  - research grouping
+- id: wizard
+  best_for:
+  - ordered branching process
+  - novice guidance
+  - eligibility or high-risk sequence
+  avoid_when:
+  - non-linear configuration
+  - frequent expert work
+  key_obligations:
+  - skip irrelevant steps
+  - change earlier answers safely
+  - review and resume
+- id: persistent-form
+  best_for:
+  - unknown number of repeated items
+  - simple repeated addition
+  - users may exit when done
+  avoid_when:
+  - each item has complex branching
+  key_obligations:
+  - clear completed list
+  - remove/edit
+  - stable draft and focus
+- id: add-another
+  best_for:
+  - frequent expert entry
+  - several similar items
+  - little branching
+  avoid_when:
+  - low literacy or very complex per-item form
+  key_obligations:
+  - keyboard speed
+  - focus after add/remove
+  - item identity and error locality
+- id: check-before-you-start
+  best_for:
+  - eligibility, documents, time, fees, or offline prerequisites
+  avoid_when:
+  - preconditions are trivial or cannot be known
+  key_obligations:
+  - transparent requirements
+  - alternatives
+  - do not start users on an impossible path
+- id: task-list
+  best_for:
+  - hours/days
+  - multi-session
+  - multi-actor
+  - tasks can be completed independently or revisited
+  avoid_when:
+  - a short linear flow is clearer
+  key_obligations:
+  - status, owner, dependencies, save/resume, review, final action
+- id: configuration-workspace
+  best_for:
+  - frequent professional configuration
+  - dependencies and comparison
+  - draft versus publish
+  avoid_when:
+  - one-time novice transaction
+  key_obligations:
+  - inheritance/defaults
+  - dirty/draft/published distinction
+  - comparison and explicit commitment

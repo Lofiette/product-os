@@ -51,10 +51,15 @@ def included_files() -> list[Path]:
 def main() -> int:
     files = included_files()
     data = {
-        "schema": "cpt-package-manifest-v9",
+        "schema": "cpt-package-manifest-v10",
         "name": "codex-product-os",
-        "version": "4.0.0",
-        "phase": "rc-trials-offline-beta",
+        "version": "4.1.0",
+        "phase": "offline-certified-live-pending",
+        "release_lineage": [
+            "4.0.0",
+            "4.1.0",
+        ],
+        "custom_patches": [],
         "manifest_excludes": [
             "MANIFEST.json",
             "**/__pycache__/**",
@@ -71,8 +76,16 @@ def main() -> int:
         "file_count": len(files),
         "inventories": {
             "plugins": 6,
-            "canonical_skills": 45,
+            "canonical_skills": 49,
             "legacy_skill_mappings": 95,
+            "design_intelligence_dimensions": 16,
+            "design_intelligence_cases": 20,
+            "interaction_behavior_lenses": 12,
+            "interaction_patterns": 44,
+            "form_flow_modes": 8,
+            "form_patterns": 24,
+            "professional_workflow_classes": 7,
+            "design_execution_adapters": 2,
             "logical_roles": 50,
             "quality_gates": 25,
             "routing_profiles": 14,
@@ -85,7 +98,7 @@ def main() -> int:
             "worker_archetypes": 10,
             "orchestration_policy_cases": 34,
             "orchestration_integration_checks": 16,
-            "behavior_tests": 115,
+            "behavior_tests": 116,
             "executable_evaluation_cases": 21,
             "fixture_repositories": 6,
             "evaluation_suites": 4,

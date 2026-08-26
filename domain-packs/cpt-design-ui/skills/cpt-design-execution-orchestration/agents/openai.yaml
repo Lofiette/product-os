@@ -1,0 +1,7 @@
+interface:
+  display_name: CPT Design Execution Orchestration
+  short_description: Orchestrate portable audits, prototypes, image-to-code, visual QA, and publishing
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-design-execution-orchestration to choose capabilities and return execution evidence.
+policy:
+  allow_implicit_invocation: true

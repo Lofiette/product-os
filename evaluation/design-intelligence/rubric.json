@@ -1,0 +1,181 @@
+{
+  "schema": "cpt-design-intelligence-rubric-v1",
+  "version": "1.0.0-preview.1",
+  "scale": {
+    "0": "ABSENT_OR_CONTRADICTORY",
+    "1": "MAJOR_DEFECT",
+    "2": "ACCEPTABLE_BASELINE",
+    "3": "STRONG",
+    "4": "EXCEPTIONAL"
+  },
+  "dimensions": [
+    {
+      "id": "D1",
+      "name": "Problem and product fit"
+    },
+    {
+      "id": "D2",
+      "name": "Object, action, and mental model clarity"
+    },
+    {
+      "id": "D3",
+      "name": "Task flow and efficiency"
+    },
+    {
+      "id": "D4",
+      "name": "State, feedback, error prevention, and recovery"
+    },
+    {
+      "id": "D5",
+      "name": "Information architecture and findability"
+    },
+    {
+      "id": "D6",
+      "name": "Hierarchy of attention"
+    },
+    {
+      "id": "D7",
+      "name": "Composition, grouping, alignment, and rhythm"
+    },
+    {
+      "id": "D8",
+      "name": "Typography and readability"
+    },
+    {
+      "id": "D9",
+      "name": "Color, contrast, and semantic signaling"
+    },
+    {
+      "id": "D10",
+      "name": "Affordance and control quality"
+    },
+    {
+      "id": "D11",
+      "name": "Density and expert performance"
+    },
+    {
+      "id": "D12",
+      "name": "Content and microcopy"
+    },
+    {
+      "id": "D13",
+      "name": "Responsive and adaptive behavior"
+    },
+    {
+      "id": "D14",
+      "name": "Design-system and systemic quality"
+    },
+    {
+      "id": "D15",
+      "name": "Accessibility and inclusive operation"
+    },
+    {
+      "id": "D16",
+      "name": "Restraint, polish, and implementation realism"
+    }
+  ],
+  "profiles": {
+    "general_product": {
+      "D1": 1.2,
+      "D2": 1.2,
+      "D3": 1.2,
+      "D4": 1.2,
+      "D5": 1.2,
+      "D6": 1.0,
+      "D7": 1.0,
+      "D8": 1.0,
+      "D9": 1.0,
+      "D10": 1.0,
+      "D11": 1.0,
+      "D12": 1.0,
+      "D13": 1.0,
+      "D14": 1.0,
+      "D15": 1.0,
+      "D16": 1.0
+    },
+    "enterprise_b2b": {
+      "D1": 1.2,
+      "D2": 1.2,
+      "D3": 1.2,
+      "D4": 1.2,
+      "D5": 1.2,
+      "D6": 1.0,
+      "D7": 1.0,
+      "D8": 1.0,
+      "D9": 1.0,
+      "D10": 1.0,
+      "D11": 1.5,
+      "D12": 1.1,
+      "D13": 1.1,
+      "D14": 1.1,
+      "D15": 1.1,
+      "D16": 1.1
+    },
+    "data_dense": {
+      "D1": 1.2,
+      "D2": 1.2,
+      "D3": 1.2,
+      "D4": 1.2,
+      "D5": 1.2,
+      "D6": 1.2,
+      "D7": 1.2,
+      "D8": 1.2,
+      "D9": 1.4,
+      "D10": 1.0,
+      "D11": 1.5,
+      "D12": 1.0,
+      "D13": 1.0,
+      "D14": 1.0,
+      "D15": 1.0,
+      "D16": 1.0
+    },
+    "design_system_component": {
+      "D1": 1.0,
+      "D2": 1.3,
+      "D3": 1.0,
+      "D4": 1.4,
+      "D5": 1.0,
+      "D6": 1.0,
+      "D7": 1.2,
+      "D8": 1.2,
+      "D9": 1.2,
+      "D10": 1.2,
+      "D11": 1.0,
+      "D12": 1.0,
+      "D13": 1.2,
+      "D14": 1.6,
+      "D15": 1.6,
+      "D16": 1.3
+    }
+  },
+  "verdict_defaults": {
+    "PASS": {
+      "minimum_weighted_mean": 3.0,
+      "minimum_each_applicable": 2,
+      "allow_blockers": false,
+      "requires_rendered_evidence_for_visual_claims": true
+    },
+    "PASS_WITH_WARNINGS": {
+      "minimum_weighted_mean": 2.5,
+      "minimum_each_applicable": 2,
+      "allow_blockers": false
+    },
+    "BLOCKED": {
+      "trigger": "any blocker or critical dimension scored 0-1"
+    },
+    "INSUFFICIENT_EVIDENCE": {
+      "trigger": "required evidence unavailable"
+    }
+  },
+  "blocking_conditions": [
+    "solution misses the stated problem or invents critical facts",
+    "primary task, action, consequence, location, or current state is materially ambiguous",
+    "material state or recovery path is missing",
+    "interaction and visual hierarchy contradict each other",
+    "critical accessibility issue",
+    "unapproved design-system violation",
+    "misleading or unrecoverably truncated data",
+    "implementation must invent core behavior",
+    "high-risk or destructive action lacks sufficient consequence or recovery design"
+  ]
+}

@@ -16,7 +16,7 @@ from typing import Any
 
 import yaml
 
-PACKAGE_VERSION = "4.0.0"
+PACKAGE_VERSION = "4.1.0"
 RECEIPT_SCHEMA = "cpt-install-receipt-v1"
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
@@ -620,6 +620,56 @@ def migrate_runtime_state(project: Path) -> None:
     ]:
         directory.mkdir(parents=True, exist_ok=True)
 
+def refresh_installed_packs(project: Path, receipt: dict[str, Any]) -> tuple[int, list[str]]:
+    """Refresh bundled domain packs already recorded in the project receipt.
+
+    External/custom packs are preserved because their source cannot be reconstructed
+    safely from the Product OS distribution.
+    """
+    refreshed = 0
+    warnings: list[str] = []
+    updated_entries: list[dict[str, Any]] = []
+    for entry in list(receipt.get("packs", [])):
+        name = entry.get("name")
+        scope = entry.get("scope")
+        if not name or scope not in {"personal", "repo"}:
+            updated_entries.append(entry)
+            warnings.append(f"Skipped malformed pack receipt entry: {entry}")
+            continue
+        source = bundled_pack_root(name)
+        if not source.exists():
+            updated_entries.append(entry)
+            warnings.append(f"Preserved external pack {name}; bundled source is unavailable")
+            continue
+        validated = validate_plugin(source)
+        version = validated["manifest"].get("version")
+        if scope == "repo":
+            target = project / "plugins" / name
+            market = project / ".agents" / "plugins" / "marketplace.json"
+            source_path = f"./plugins/{name}"
+            market_name = "cpt-repo"
+        else:
+            target = codex_home() / "plugins" / name
+            market = personal_marketplace()
+            source_path = f"./.codex/plugins/{name}"
+            market_name = "cpt-personal"
+        copy_tree(source, target)
+        market_existed, _ = upsert_marketplace(market, market_name, marketplace_entry(name, source_path))
+        if scope == "repo":
+            market_key = rel(market, project)
+            created = receipt.get("managed_files", {}).get(market_key, {}).get("created", not market_existed)
+            register_managed(receipt, project, market, created=created)
+        updated_entries.append({
+            **entry,
+            "path": str(target),
+            "version": version,
+            "status": "exposed_not_enabled",
+        })
+        refreshed += 1
+    receipt["packs"] = updated_entries
+    return refreshed, warnings
+
+
 def update(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
@@ -659,12 +709,19 @@ def update(args: argparse.Namespace) -> int:
 
     scope = receipt.get("plugin_scope", "none")
     install_core_plugin(project, receipt, scope)
+    refreshed_packs, pack_warnings = refresh_installed_packs(project, receipt)
+    receipt.setdefault("warnings", []).extend(pack_warnings)
     rules = receipt.get("rules", {})
     if rules.get("profile") not in {None, "none"}:
         install_rules(project, receipt, rules["profile"])
     receipt["version"] = PACKAGE_VERSION
     save_receipt(project, receipt)
-    print(f"CPT OS updated to {PACKAGE_VERSION}; mutable runtime state was preserved.")
+    print(
+        f"CPT OS updated to {PACKAGE_VERSION}; mutable runtime state was preserved; "
+        f"refreshed bundled packs={refreshed_packs}."
+    )
+    for warning in pack_warnings:
+        print(f"WARNING: {warning}")
     return 0
 
 
@@ -828,6 +885,7 @@ def status(args: argparse.Namespace) -> int:
         "version": receipt.get("version"),
         "mode": receipt.get("mode"),
         "plugin_scope": receipt.get("plugin_scope"),
+        "packs": receipt.get("packs", []),
         "agents": receipt.get("agents"),
         "framework_file_count": count_framework_files(project, receipt),
         "runtime_valid": ok,
@@ -999,11 +1057,15 @@ def pack_add(args: argparse.Namespace) -> int:
         source_path = f"./.codex/plugins/{name}"
         market_name = "cpt-personal"
     copy_tree(source, target)
-    upsert_marketplace(market, market_name, marketplace_entry(name, source_path))
+    market_existed, _ = upsert_marketplace(market, market_name, marketplace_entry(name, source_path))
     if project and (project / ".cpt" / "install.json").exists():
         receipt = load_receipt(project)
+        if args.scope == "repo":
+            market_key = rel(market, project)
+            created = receipt.get("managed_files", {}).get(market_key, {}).get("created", not market_existed)
+            register_managed(receipt, project, market, created=created)
         receipt["packs"] = [p for p in receipt.get("packs", []) if p.get("name") != name]
-        receipt["packs"].append({"name": name, "scope": args.scope, "path": str(target), "status": "exposed_not_enabled"})
+        receipt["packs"].append({"name": name, "scope": args.scope, "path": str(target), "version": validated["manifest"].get("version"), "status": "exposed_not_enabled"})
         save_receipt(project, receipt)
     print(f"Pack {name} exposed in {args.scope} marketplace. Enable it independently in Codex.")
     return 0
@@ -1025,6 +1087,13 @@ def pack_remove(args: argparse.Namespace) -> int:
     remove_marketplace_entry(market, name)
     if project and (project / ".cpt" / "install.json").exists():
         receipt = load_receipt(project)
+        if args.scope == "repo":
+            market_key = rel(market, project)
+            if market.exists():
+                created = receipt.get("managed_files", {}).get(market_key, {}).get("created", False)
+                register_managed(receipt, project, market, created=created)
+            else:
+                receipt.get("managed_files", {}).pop(market_key, None)
         receipt["packs"] = [p for p in receipt.get("packs", []) if p.get("name") != name]
         save_receipt(project, receipt)
     print(f"Pack {name} removed from {args.scope} marketplace. Other packs were preserved.")

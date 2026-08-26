@@ -1,7 +1,7 @@
 {
   "name": "cpt-design-ui",
-  "version": "4.0.0",
-  "description": "Design and coded UI quality workflows.",
+  "version": "4.1.0",
+  "description": "Product design, interaction patterns, forms, professional data UI, portable execution, systems, accessibility, and visual acceptance.",
   "keywords": [
     "cpt",
     "product-engineering",
@@ -10,8 +10,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "CPT Design & UI",
-    "shortDescription": "Product design, design systems, content, accessibility, visual acceptance, and handoff",
-    "longDescription": "Design and coded UI quality workflows.",
+    "shortDescription": "Product design, patterns, forms, professional UI, portable execution, and acceptance",
+    "longDescription": "Product design workflows from problem framing and interaction-pattern selection through UI craft, forms, professional data interfaces, capability-portable artifact execution, accessibility, handoff, and visual acceptance.",
     "developerName": "CPT OS",
     "category": "Design",
     "capabilities": [
@@ -19,8 +19,11 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use CPT Design & UI for the smallest relevant workflow; do not load unrelated skills."
+      "Use the smallest CPT Design & UI skill set that changes a decision or artifact. Discover optional execution integrations instead of assuming them."
     ],
     "brandColor": "#DB2777"
+  },
+  "author": {
+    "name": "Product OS"
   }
 }

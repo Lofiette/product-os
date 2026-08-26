@@ -76,11 +76,11 @@ def offline_evidence() -> dict[str, tuple[bool, list[str]]]:
             ["distribution tests", "installer and doctor", "safe uninstall"],
         ),
         "universality": (
-            (ROOT / "BETA1_LIMITATIONS.md").exists() and (ROOT / "docs" / "RC_TRIALS_AND_RELEASE_GATES.md").exists(),
+            (ROOT / "KNOWN_LIMITATIONS.md").exists() and (ROOT / "docs" / "RC_TRIALS_AND_RELEASE_GATES.md").exists(),
             ["universal core terminology", "optional integrations policy", "self-contained file-only fallback"],
         ),
         "documentation": (
-            all((ROOT / p).exists() for p in ["README.md", "README_RU.md", "INSTALL.md", "docs/MIGRATION_3X_TO_4X.md", "docs/TROUBLESHOOTING.md", "BETA1_LIMITATIONS.md"]),
+            all((ROOT / p).exists() for p in ["README.md", "README_RU.md", "INSTALL.md", "docs/MIGRATION_3X_TO_4X.md", "docs/TROUBLESHOOTING.md", "KNOWN_LIMITATIONS.md"]),
             ["installation", "migration", "troubleshooting", "limitations"],
         ),
     }

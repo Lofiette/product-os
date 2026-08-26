@@ -1,0 +1,81 @@
+schema: cpt-professional-task-matrix-v1
+workflows:
+- id: monitor-triage
+  primary_need: Notice exceptions and route to action quickly.
+  patterns:
+  - page.dashboard
+  - page.overview
+  - data.data-spotlight
+  critical_semantics:
+  - freshness
+  - threshold
+  - severity
+  - ownership
+  - acknowledgement
+- id: browse-compare
+  primary_need: Scan and compare many peer records.
+  patterns:
+  - page.overview
+  - list.two-panel-selector
+  - list.pagination
+  critical_semantics:
+  - stable columns
+  - sort/filter
+  - selection identity
+  - detail return
+- id: review-approve
+  primary_need: Inspect evidence, compare changes, decide, and record rationale.
+  patterns:
+  - list.two-panel-selector
+  - command.preview
+  - form.review-before-submit
+  critical_semantics:
+  - decision authority
+  - version
+  - evidence
+  - conflict
+  - audit
+- id: configure-publish
+  primary_need: Edit dependent settings while distinguishing draft, inherited, and published values.
+  patterns:
+  - pattern.settings-editor
+  - page.creation-workspace
+  - form.review-before-submit
+  critical_semantics:
+  - inheritance
+  - dirty state
+  - validation source
+  - publish consequence
+- id: repeat-entry
+  primary_need: Create many similar records with low switching cost.
+  patterns:
+  - form.add-another
+  - form.persistent-form
+  - list.new-item-row
+  critical_semantics:
+  - item identity
+  - keyboard path
+  - defaults
+  - local errors
+- id: linked-investigation
+  primary_need: Explore the same objects through several data projections.
+  patterns:
+  - data.data-brushing
+  - data.dynamic-queries
+  - data.small-multiples
+  critical_semantics:
+  - canonical selection
+  - shared filters
+  - units
+  - missing projection
+- id: multi-workspace-operation
+  primary_need: Keep several cases/documents open and preserve independent state.
+  patterns:
+  - workspace.many-workspaces
+  - workspace.canvas-palette
+  - command.command-history
+  critical_semantics:
+  - workspace identity
+  - unsaved state
+  - resource limits
+  - re-entry

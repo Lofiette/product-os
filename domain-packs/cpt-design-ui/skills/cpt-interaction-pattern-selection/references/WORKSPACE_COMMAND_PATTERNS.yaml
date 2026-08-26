@@ -1,0 +1,380 @@
+schema: cpt-interaction-pattern-catalog-v1
+source_basis: Tidwell et al., transformed summary
+patterns:
+- id: list.two-panel-selector
+  family: list-workspace
+  name: Two-Panel Selector
+  problem: Users browse a collection while retaining detail/context for the selected item.
+  use_when:
+  - Rapid list-to-detail navigation or comparison is common on sufficient width.
+  avoid_when:
+  - The detail needs full focus or small screens cannot preserve both panels.
+  forces:
+  - selection persistence
+  - keyboard
+  - responsive drilldown
+  procedure:
+  - keep list identity and selected state clear
+  - support keyboard movement
+  - transform to drilldown on narrow screens without losing position
+  alternatives:
+  - list.one-window-drilldown
+  - workspace.many-workspaces
+  state_obligations:
+  - none selected
+  - loading detail
+  - deleted item
+  evidence_to_seek:
+  - switching frequency
+  - viewport constraints
+- id: list.one-window-drilldown
+  family: list-workspace
+  name: One-Window Drilldown
+  problem: Users move from collection to detail in the same region or route.
+  use_when:
+  - Small screens or focused detail outweigh simultaneous context.
+  avoid_when:
+  - Frequent rapid comparison requires persistent list context.
+  forces:
+  - back behavior
+  - scroll position
+  - deep link
+  procedure:
+  - preserve list state and scroll
+  - make return predictable
+  - support next/previous when sequential review matters
+  alternatives:
+  - list.two-panel-selector
+  - list.list-inlay
+  state_obligations:
+  - missing item
+  - edited item
+  - return
+  evidence_to_seek:
+  - comparison cadence
+- id: list.list-inlay
+  family: list-workspace
+  name: List Inlay
+  problem: A row reveals a small amount of detail or actions in place.
+  use_when:
+  - The expansion is bounded and helps quick inspection.
+  avoid_when:
+  - Content is complex, multiple rows must be compared expanded, or layout becomes unstable.
+  forces:
+  - row height
+  - keyboard
+  - virtualization
+  procedure:
+  - keep expansion tied to row
+  - preserve selection
+  - avoid pushing users unpredictably through long lists
+  alternatives:
+  - list.two-panel-selector
+  - list.one-window-drilldown
+  state_obligations:
+  - expanded loading
+  - error
+  - multiple expanded
+  evidence_to_seek:
+  - inspection needs
+- id: list.pagination
+  family: list-workspace
+  name: Pagination
+  problem: A large result set needs stable chunks, addresses, and controlled loading.
+  use_when:
+  - Users need position, sharing, predictable performance, or batch selection boundaries.
+  avoid_when:
+  - Continuous chronological consumption is primary and location does not matter.
+  forces:
+  - selection scope
+  - sort stability
+  - page size
+  procedure:
+  - show current range and total when known
+  - preserve filters/sort
+  - define selection across pages explicitly
+  alternatives:
+  - list.jump-to-item
+  - pattern.infinite-list
+  state_obligations:
+  - dataset changes
+  - empty page
+  - partial count
+  evidence_to_seek:
+  - navigation and selection behavior
+- id: list.jump-to-item
+  family: list-workspace
+  name: Jump to Item
+  problem: Users know an identifier, index, date, or anchor and need direct access.
+  use_when:
+  - Collections are long and direct targets are meaningful.
+  avoid_when:
+  - Users do not know target identifiers.
+  forces:
+  - indexing
+  - search
+  - loading
+  procedure:
+  - offer search/anchor/index
+  - restore local context after jump
+  - handle absent target
+  alternatives:
+  - list.pagination
+  - ia.feature-search-browse
+  state_obligations:
+  - not found
+  - permission
+  evidence_to_seek:
+  - known-item retrieval
+- id: list.new-item-row
+  family: list-workspace
+  name: New-Item Row
+  problem: Users repeatedly add simple peer items directly in a list.
+  use_when:
+  - Creation is short, frequent, and benefits from immediate context.
+  avoid_when:
+  - New objects need complex validation, branching, or many fields.
+  forces:
+  - draft identity
+  - validation
+  - sorting
+  procedure:
+  - reserve or reveal an add row
+  - create a stable draft state
+  - avoid losing input when sort/filter updates
+  alternatives:
+  - form.add-another
+  - page.action-flow
+  state_obligations:
+  - draft
+  - validation
+  - cancelled
+  evidence_to_seek:
+  - add frequency
+- id: command.button-groups
+  family: command
+  name: Button Groups
+  problem: Related peer commands need visible grouping and clear selection/action semantics.
+  use_when:
+  - Commands share scope and frequency.
+  avoid_when:
+  - The group mixes destructive, navigation, and state-selection semantics.
+  forces:
+  - action hierarchy
+  - keyboard
+  - overflow
+  procedure:
+  - group by object and consequence
+  - separate destructive actions
+  - distinguish action buttons from toggles
+  alternatives:
+  - command.action-panel
+  - layout.module-tabs
+  state_obligations:
+  - disabled
+  - selected
+  - overflow
+  evidence_to_seek:
+  - command usage
+- id: command.action-panel
+  family: command
+  name: Action Panel
+  problem: A set of object- or workflow-specific commands needs a stable region.
+  use_when:
+  - Many related commands support the current object/workspace.
+  avoid_when:
+  - Only one or two obvious actions exist.
+  forces:
+  - frequency
+  - selection scope
+  - responsive collapse
+  procedure:
+  - keep scope visible
+  - prioritize frequent commands
+  - use overflow for low-frequency actions without hiding critical state
+  alternatives:
+  - command.button-groups
+  - command.hover-tools
+  state_obligations:
+  - no selection
+  - multi-selection
+  - permission
+  evidence_to_seek:
+  - frequency and error data
+- id: command.hover-tools
+  family: command
+  name: Hover or Context Tools
+  problem: Low-frequency actions can appear near an object when pointer intent is present.
+  use_when:
+  - Pointer users benefit from local commands and equivalent discoverable paths exist.
+  avoid_when:
+  - Touch/keyboard users would lose access or actions are high-risk.
+  forces:
+  - input modes
+  - discoverability
+  - occlusion
+  procedure:
+  - provide focus/touch equivalent
+  - avoid hover-only essential actions
+  - keep destructive actions deliberate
+  alternatives:
+  - command.action-panel
+  - command.button-groups
+  state_obligations:
+  - focus
+  - touch
+  - overflow
+  evidence_to_seek:
+  - input-method mix
+- id: command.prominent-done
+  family: command
+  name: Prominent Done / Assumed Next Step
+  problem: A clear completion or next action should anchor a bounded task.
+  use_when:
+  - The task has an unambiguous next or final commitment.
+  avoid_when:
+  - Several peer outcomes need equal consideration.
+  forces:
+  - commitment
+  - label clarity
+  - sticky placement
+  procedure:
+  - label the actual outcome
+  - distinguish save, publish, submit, and continue
+  - keep consequences visible
+  alternatives:
+  - page.action-flow
+  - form.review-before-submit
+  state_obligations:
+  - disabled rationale
+  - pending
+  - success
+  evidence_to_seek:
+  - task completion errors
+- id: command.preview
+  family: command
+  name: Preview
+  problem: Users need to inspect effects before commitment or publication.
+  use_when:
+  - Outcome is visual, consequential, or hard to infer from controls.
+  avoid_when:
+  - Preview cannot represent the real result and creates false confidence.
+  forces:
+  - fidelity
+  - latency
+  - data realism
+  procedure:
+  - show representative result
+  - make preview state and limitations explicit
+  - support return to editing
+  alternatives:
+  - pattern.cancelability
+  - command.multi-level-undo
+  state_obligations:
+  - loading
+  - stale preview
+  - error
+  evidence_to_seek:
+  - mismatch incidents
+- id: pattern.cancelability
+  family: recovery
+  name: Cancelability
+  problem: Users need to stop a long or risky operation without corrupting state.
+  use_when:
+  - Operations take time, can be triggered accidentally, or consume scarce resources.
+  avoid_when:
+  - Cancellation cannot be made safe or meaningful after commitment.
+  forces:
+  - rollback semantics
+  - partial work
+  - latency
+  procedure:
+  - define cancel window
+  - show what will remain
+  - make completion/cancel race safe
+  alternatives:
+  - command.multi-level-undo
+  - navigation.escape-hatch
+  state_obligations:
+  - cancelling
+  - too late
+  - partial
+  evidence_to_seek:
+  - operation timing
+- id: command.multi-level-undo
+  family: recovery
+  name: Multi-Level Undo
+  problem: Frequent reversible edits should be recoverable across several steps.
+  use_when:
+  - Users construct incrementally or habitual errors are likely.
+  avoid_when:
+  - Operations have external irreversible consequences.
+  forces:
+  - history scope
+  - collaboration
+  - memory
+  procedure:
+  - record meaningful operations
+  - make current history scope clear
+  - handle conflicts and non-undoable boundaries
+  alternatives:
+  - command.command-history
+  - command.preview
+  state_obligations:
+  - history empty
+  - conflict
+  - session restore
+  evidence_to_seek:
+  - error/recovery behavior
+- id: command.command-history
+  family: recovery
+  name: Command History
+  problem: Users need to inspect, repeat, audit, or understand prior operations.
+  use_when:
+  - Expert or high-risk workflows benefit from traceability and repeatability.
+  avoid_when:
+  - History would expose sensitive data or add noise without use.
+  forces:
+  - scope
+  - retention
+  - permissions
+  procedure:
+  - record human-readable operations
+  - allow inspect/repeat only when safe
+  - separate audit log from personal history
+  alternatives:
+  - command.multi-level-undo
+  - command.macros
+  state_obligations:
+  - empty
+  - filtered
+  - permission
+  evidence_to_seek:
+  - audit and repeat needs
+- id: command.macros
+  family: automation
+  name: Macros / Recorded Actions
+  problem: Experts repeat multi-step operations and need reusable automation.
+  use_when:
+  - A stable sequence repeats with inspectable parameters and exceptions.
+  avoid_when:
+  - The process changes often or automated mistakes have broad impact.
+  forces:
+  - parameterization
+  - preview
+  - permissions
+  - rollback
+  procedure:
+  - let users create from observed work
+  - show scope and preview
+  - support dry run, exception review, and stop
+  alternatives:
+  - command.command-history
+  - streamlined-repetition
+  state_obligations:
+  - running
+  - partial failure
+  - cancelled
+  evidence_to_seek:
+  - repetition observation
+  - error cost

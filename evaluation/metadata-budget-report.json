@@ -3,7 +3,7 @@
     {
       "plugin": "cpt-core",
       "skills": 3,
-      "estimated_discovery_chars": 564
+      "estimated_discovery_chars": 557
     },
     {
       "plugin": "cpt-ai-agentic",
@@ -12,8 +12,8 @@
     },
     {
       "plugin": "cpt-design-ui",
-      "skills": 12,
-      "estimated_discovery_chars": 2555
+      "skills": 16,
+      "estimated_discovery_chars": 3450
     },
     {
       "plugin": "cpt-engineering",
@@ -37,7 +37,7 @@
       "plugins": [
         "cpt-core"
       ],
-      "estimated_discovery_chars": 564
+      "estimated_discovery_chars": 557
     },
     {
       "profile": "product_discovery",
@@ -45,7 +45,7 @@
         "cpt-core",
         "cpt-product-research"
       ],
-      "estimated_discovery_chars": 2616
+      "estimated_discovery_chars": 2609
     },
     {
       "profile": "ui_implementation",
@@ -54,7 +54,7 @@
         "cpt-design-ui",
         "cpt-engineering"
       ],
-      "estimated_discovery_chars": 5666
+      "estimated_discovery_chars": 6554
     },
     {
       "profile": "engineering_change",
@@ -62,7 +62,7 @@
         "cpt-core",
         "cpt-engineering"
       ],
-      "estimated_discovery_chars": 3111
+      "estimated_discovery_chars": 3104
     },
     {
       "profile": "risk_sensitive_change",
@@ -71,7 +71,7 @@
         "cpt-engineering",
         "cpt-risk-operations"
       ],
-      "estimated_discovery_chars": 4105
+      "estimated_discovery_chars": 4098
     },
     {
       "profile": "ai_product",
@@ -81,10 +81,10 @@
         "cpt-ai-agentic",
         "cpt-risk-operations"
       ],
-      "estimated_discovery_chars": 4178
+      "estimated_discovery_chars": 4171
     }
   ],
-  "all_plugins_chars": 9280,
+  "all_plugins_chars": 10168,
   "all_plugins_warning": true,
   "all_plugins_note": "All optional packs are not intended to be enabled simultaneously; select packs by task domain.",
   "errors": []

@@ -1,6 +1,6 @@
 {
   "schema_version": "cpt-eval-suites-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "suites": {
     "offline-core": {
       "backend": "reference",

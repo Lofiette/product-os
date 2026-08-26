@@ -1,7 +1,7 @@
 {
   "schema": "cpt-evaluation-readme-v3",
-  "version": "4.0.0",
-  "note": "Beta 1 adds executable fixture-repository evaluation, reviewed baselines, mutation checks, optional live Codex runs, and cross-platform CI. Deterministic reference results do not constitute live-model certification.",
+  "version": "4.1.0",
+  "note": "The executable baseline adds fixture-repository evaluation, reviewed baselines, mutation checks, optional live Codex runs, and cross-platform CI. Deterministic reference results do not constitute live-model certification.",
   "executable_evaluation": {
     "root": "executable/",
     "case_count": 20,

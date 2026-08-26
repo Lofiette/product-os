@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-routing-cases-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "cases": [
     {
       "id": "profile-micro_change",
@@ -72,7 +72,7 @@
     {
       "id": "profile-screen_or_module_design",
       "profile": "screen_or_module_design",
-      "prompt": "A user-facing screen, module, flow, or interaction system must be created or redesigned.",
+      "prompt": "A user-facing screen, module, flow, form, professional workspace, or interaction system must be created or redesigned.",
       "expected_accountable_roles": [
         "product_designer"
       ],
@@ -85,6 +85,7 @@
       ],
       "expected_skills": [
         "cpt-screen-module-design",
+        "cpt-interaction-pattern-selection",
         "cpt-interaction-state-model",
         "cpt-information-architecture",
         "cpt-content-design"

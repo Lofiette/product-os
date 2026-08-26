@@ -1,8 +1,8 @@
 {
   "schema": "cpt-trigger-eval-report-v1",
-  "skill_count": 45,
-  "case_count": 135,
-  "passed": 135,
+  "skill_count": 49,
+  "case_count": 147,
+  "passed": 147,
   "failed": 0,
   "cases": [
     {
@@ -10,8 +10,8 @@
       "expected": "cpt-accessibility-review",
       "top": [
         "cpt-accessibility-review",
-        "cpt-content-design",
-        "cpt-api-contract"
+        "cpt-professional-data-interface-design",
+        "cpt-form-task-flow-design"
       ],
       "pass": true
     },
@@ -71,7 +71,7 @@
       "top": [
         "cpt-ai-system-plan",
         "cpt-ai-safety-review",
-        "cpt-threat-model"
+        "cpt-privacy-impact"
       ],
       "pass": true
     },
@@ -89,8 +89,8 @@
       "prompt": "Review a deterministic CRUD API with no model behavior.",
       "expected_not": "cpt-ai-system-plan",
       "top": [
-        "cpt-interaction-state-model",
         "cpt-threat-model",
+        "cpt-interaction-state-model",
         "cpt-design-system-code-audit"
       ],
       "pass": true
@@ -141,7 +141,7 @@
       "top": [
         "cpt-api-contract",
         "cpt-implementation-review",
-        "cpt-frontend-integration"
+        "cpt-task-planning"
       ],
       "pass": true
     },
@@ -149,9 +149,9 @@
       "prompt": "Review visual alignment against a screenshot.",
       "expected_not": "cpt-api-contract",
       "top": [
+        "cpt-design-execution-orchestration",
         "cpt-reference-taste-calibration",
-        "cpt-visual-acceptance-review",
-        "cpt-implementation-review"
+        "cpt-screen-module-design"
       ],
       "pass": true
     },
@@ -221,7 +221,7 @@
       "top": [
         "cpt-conversation-design",
         "cpt-ai-system-plan",
-        "cpt-screen-module-design"
+        "cpt-implementation-review"
       ],
       "pass": true
     },
@@ -230,8 +230,8 @@
       "expected": "cpt-conversation-design",
       "top": [
         "cpt-conversation-design",
-        "cpt-knowledge-lifecycle",
-        "cpt-design-system-governance"
+        "cpt-screen-module-design",
+        "cpt-form-task-flow-design"
       ],
       "pass": true
     },
@@ -251,7 +251,7 @@
       "top": [
         "cpt-cross-cutting-risk",
         "cpt-production-readiness",
-        "cpt-experiment-design"
+        "cpt-architecture-plan"
       ],
       "pass": true
     },
@@ -299,9 +299,9 @@
       "prompt": "Choose navigation labels for one settings page.",
       "expected_not": "cpt-customer-journey",
       "top": [
-        "cpt-information-architecture",
-        "cpt-data-visualization-review",
-        "cpt-accessibility-review"
+        "cpt-form-task-flow-design",
+        "cpt-interaction-pattern-selection",
+        "cpt-information-architecture"
       ],
       "pass": true
     },
@@ -350,8 +350,8 @@
       "expected": "cpt-data-visualization-review",
       "top": [
         "cpt-data-visualization-review",
-        "cpt-threat-model",
-        "cpt-production-readiness"
+        "cpt-form-task-flow-design",
+        "cpt-threat-model"
       ],
       "pass": true
     },
@@ -360,8 +360,8 @@
       "expected_not": "cpt-data-visualization-review",
       "top": [
         "cpt-conversation-design",
-        "cpt-screen-module-design",
-        "cpt-growth-activation"
+        "cpt-growth-activation",
+        "cpt-interaction-pattern-selection"
       ],
       "pass": true
     },
@@ -370,8 +370,8 @@
       "expected": "cpt-delegation",
       "top": [
         "cpt-delegation",
-        "cpt-reference-taste-calibration",
-        "cpt-frontend-integration"
+        "cpt-design-execution-orchestration",
+        "cpt-reference-taste-calibration"
       ],
       "pass": true
     },
@@ -381,7 +381,7 @@
       "top": [
         "cpt-delegation",
         "cpt-runtime",
-        "cpt-conversation-design"
+        "cpt-design-execution-orchestration"
       ],
       "pass": true
     },
@@ -390,8 +390,8 @@
       "expected_not": "cpt-delegation",
       "top": [
         "cpt-design-system-code-audit",
-        "cpt-task-planning",
-        "cpt-frontend-integration"
+        "cpt-frontend-integration",
+        "cpt-task-planning"
       ],
       "pass": true
     },
@@ -401,7 +401,7 @@
       "top": [
         "cpt-dependency-review",
         "cpt-performance-review",
-        "cpt-observability-plan"
+        "cpt-information-architecture"
       ],
       "pass": true
     },
@@ -426,6 +426,36 @@
       "pass": true
     },
     {
+      "prompt": "Discover the available browser, screenshot, image-generation, prototyping, code, and publishing capabilities, then build a staged design execution plan with fallbacks.",
+      "expected": "cpt-design-execution-orchestration",
+      "top": [
+        "cpt-design-execution-orchestration",
+        "cpt-task-planning",
+        "cpt-reference-taste-calibration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Use the OpenAI Product Design plugin only if it is visibly available; otherwise compose generic tools to turn this screenshot into an interactive prototype and run visual QA.",
+      "expected": "cpt-design-execution-orchestration",
+      "top": [
+        "cpt-design-execution-orchestration",
+        "cpt-screen-module-design",
+        "cpt-reference-taste-calibration"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Define the object and permission model for a policy workflow without building or publishing an artifact.",
+      "expected_not": "cpt-design-execution-orchestration",
+      "top": [
+        "cpt-interaction-state-model",
+        "cpt-analytics-measurement",
+        "cpt-design-execution-orchestration"
+      ],
+      "pass": true
+    },
+    {
       "prompt": "Create a rebuild-ready handoff package for a new product module.",
       "expected": "cpt-design-handoff",
       "top": [
@@ -441,7 +471,7 @@
       "top": [
         "cpt-design-handoff",
         "cpt-design-system-governance",
-        "cpt-accessibility-review"
+        "cpt-form-task-flow-design"
       ],
       "pass": true
     },
@@ -451,7 +481,7 @@
       "top": [
         "cpt-frontend-integration",
         "cpt-product-scope",
-        "cpt-design-system-code-audit"
+        "cpt-implementation-review"
       ],
       "pass": true
     },
@@ -460,7 +490,7 @@
       "expected": "cpt-design-recon",
       "top": [
         "cpt-design-recon",
-        "cpt-screen-module-design",
+        "cpt-knowledge-lifecycle",
         "cpt-task-planning"
       ],
       "pass": true
@@ -490,8 +520,8 @@
       "expected": "cpt-design-system-code-audit",
       "top": [
         "cpt-design-system-code-audit",
-        "cpt-frontend-integration",
-        "cpt-visual-acceptance-review"
+        "cpt-professional-data-interface-design",
+        "cpt-frontend-integration"
       ],
       "pass": true
     },
@@ -590,8 +620,8 @@
       "expected": "cpt-experiment-design",
       "top": [
         "cpt-experiment-design",
-        "cpt-model-evaluation",
-        "cpt-cross-cutting-risk"
+        "cpt-screen-module-design",
+        "cpt-model-evaluation"
       ],
       "pass": true
     },
@@ -601,7 +631,37 @@
       "top": [
         "cpt-ux-research",
         "cpt-data-architecture",
-        "cpt-production-readiness"
+        "cpt-product-scope"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Run a Question Protocol and design validation, focus, error recovery, review, and save-resume for this regulated application form.",
+      "expected": "cpt-form-task-flow-design",
+      "top": [
+        "cpt-form-task-flow-design",
+        "cpt-accessibility-review",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Choose between one-thing-per-page, persistent form, add-another, and task-list patterns for a long multi-actor data-entry process.",
+      "expected": "cpt-form-task-flow-design",
+      "top": [
+        "cpt-form-task-flow-design",
+        "cpt-screen-module-design",
+        "cpt-interaction-pattern-selection"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Choose a chart type for comparing monthly revenue trends.",
+      "expected_not": "cpt-form-task-flow-design",
+      "top": [
+        "cpt-data-visualization-review",
+        "cpt-form-task-flow-design",
+        "cpt-visual-acceptance-review"
       ],
       "pass": true
     },
@@ -631,7 +691,7 @@
       "top": [
         "cpt-product-scope",
         "cpt-design-system-code-audit",
-        "cpt-production-readiness"
+        "cpt-design-execution-orchestration"
       ],
       "pass": true
     },
@@ -670,8 +730,8 @@
       "expected": "cpt-growth-activation",
       "top": [
         "cpt-growth-activation",
-        "cpt-screen-module-design",
-        "cpt-analytics-measurement"
+        "cpt-analytics-measurement",
+        "cpt-interaction-pattern-selection"
       ],
       "pass": true
     },
@@ -719,9 +779,9 @@
       "prompt": "Brainstorm alternative product concepts.",
       "expected_not": "cpt-implementation-review",
       "top": [
-        "cpt-reference-taste-calibration",
-        "cpt-product-scope",
-        "cpt-market-research"
+        "cpt-visual-acceptance-review",
+        "cpt-screen-module-design",
+        "cpt-reference-taste-calibration"
       ],
       "pass": true
     },
@@ -750,8 +810,8 @@
       "expected_not": "cpt-incident-review",
       "top": [
         "cpt-design-handoff",
-        "cpt-screen-module-design",
-        "cpt-implementation-review"
+        "cpt-implementation-review",
+        "cpt-conversation-design"
       ],
       "pass": true
     },
@@ -761,7 +821,7 @@
       "top": [
         "cpt-information-architecture",
         "cpt-screen-module-design",
-        "cpt-design-recon"
+        "cpt-product-scope"
       ],
       "pass": true
     },
@@ -771,7 +831,7 @@
       "top": [
         "cpt-information-architecture",
         "cpt-knowledge-lifecycle",
-        "cpt-dependency-review"
+        "cpt-interaction-pattern-selection"
       ],
       "pass": true
     },
@@ -786,12 +846,42 @@
       "pass": true
     },
     {
+      "prompt": "Select an interaction pattern composition for a multi-workspace document editor with deep links, undo, and keyboard shortcuts.",
+      "expected": "cpt-interaction-pattern-selection",
+      "top": [
+        "cpt-interaction-pattern-selection",
+        "cpt-professional-data-interface-design",
+        "cpt-interaction-state-model"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Compare a wizard, settings editor, and creation workspace for this branching configuration flow and record the contextual forces.",
+      "expected": "cpt-interaction-pattern-selection",
+      "top": [
+        "cpt-interaction-pattern-selection",
+        "cpt-runtime",
+        "cpt-professional-data-interface-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Polish button shadows and typography on an approved screen without changing interaction.",
+      "expected_not": "cpt-interaction-pattern-selection",
+      "top": [
+        "cpt-reference-taste-calibration",
+        "cpt-performance-review",
+        "cpt-opportunity-ideation"
+      ],
+      "pass": true
+    },
+    {
       "prompt": "Define every state for document upload and processing.",
       "expected": "cpt-interaction-state-model",
       "top": [
         "cpt-interaction-state-model",
         "cpt-task-planning",
-        "cpt-frontend-integration"
+        "cpt-interaction-pattern-selection"
       ],
       "pass": true
     },
@@ -800,8 +890,8 @@
       "expected": "cpt-interaction-state-model",
       "top": [
         "cpt-interaction-state-model",
-        "cpt-accessibility-review",
-        "cpt-migration-plan"
+        "cpt-form-task-flow-design",
+        "cpt-accessibility-review"
       ],
       "pass": true
     },
@@ -811,7 +901,7 @@
       "top": [
         "cpt-market-research",
         "cpt-experiment-design",
-        "cpt-data-visualization-review"
+        "cpt-ux-research"
       ],
       "pass": true
     },
@@ -831,7 +921,7 @@
       "top": [
         "cpt-knowledge-lifecycle",
         "cpt-reference-taste-calibration",
-        "cpt-architecture-plan"
+        "cpt-implementation-review"
       ],
       "pass": true
     },
@@ -871,7 +961,7 @@
       "top": [
         "cpt-product-scope",
         "cpt-ux-research",
-        "cpt-interaction-state-model"
+        "cpt-experiment-design"
       ],
       "pass": true
     },
@@ -891,7 +981,7 @@
       "top": [
         "cpt-migration-plan",
         "cpt-api-contract",
-        "cpt-reference-taste-calibration"
+        "cpt-screen-module-design"
       ],
       "pass": true
     },
@@ -940,8 +1030,8 @@
       "expected": "cpt-observability-plan",
       "top": [
         "cpt-observability-plan",
-        "cpt-migration-plan",
-        "cpt-frontend-integration"
+        "cpt-design-execution-orchestration",
+        "cpt-migration-plan"
       ],
       "pass": true
     },
@@ -990,8 +1080,8 @@
       "expected_not": "cpt-opportunity-ideation",
       "top": [
         "cpt-frontend-integration",
-        "cpt-accessibility-review",
-        "cpt-design-system-code-audit"
+        "cpt-design-system-code-audit",
+        "cpt-visual-acceptance-review"
       ],
       "pass": true
     },
@@ -1051,7 +1141,7 @@
       "top": [
         "cpt-information-architecture",
         "cpt-accessibility-review",
-        "cpt-model-evaluation"
+        "cpt-interaction-pattern-selection"
       ],
       "pass": true
     },
@@ -1061,7 +1151,7 @@
       "top": [
         "cpt-product-scope",
         "cpt-analytics-measurement",
-        "cpt-screen-module-design"
+        "cpt-design-handoff"
       ],
       "pass": true
     },
@@ -1109,9 +1199,39 @@
       "prompt": "Create a low-fidelity prototype only.",
       "expected_not": "cpt-production-readiness",
       "top": [
+        "cpt-design-execution-orchestration",
         "cpt-screen-module-design",
+        "cpt-content-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Design a dense administrator table with cross-page selection, bulk actions, keyboard operation, permissions, audit, and partial-failure recovery.",
+      "expected": "cpt-professional-data-interface-design",
+      "top": [
+        "cpt-professional-data-interface-design",
+        "cpt-accessibility-review",
+        "cpt-ai-system-plan"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a professional monitoring workspace with linked data views, saved filters, exception triage, exact values, and expert shortcuts.",
+      "expected": "cpt-professional-data-interface-design",
+      "top": [
+        "cpt-professional-data-interface-design",
+        "cpt-interaction-pattern-selection",
+        "cpt-screen-module-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Write the headline and CTA copy for a consumer marketing landing page.",
+      "expected_not": "cpt-professional-data-interface-design",
+      "top": [
         "cpt-content-design",
-        "cpt-knowledge-lifecycle"
+        "cpt-professional-data-interface-design",
+        "cpt-form-task-flow-design"
       ],
       "pass": true
     },
@@ -1130,8 +1250,8 @@
       "expected": "cpt-refactor-plan",
       "top": [
         "cpt-refactor-plan",
-        "cpt-customer-journey",
-        "cpt-cross-cutting-risk"
+        "cpt-screen-module-design",
+        "cpt-design-execution-orchestration"
       ],
       "pass": true
     },
@@ -1151,7 +1271,7 @@
       "top": [
         "cpt-reference-taste-calibration",
         "cpt-visual-acceptance-review",
-        "cpt-design-system-code-audit"
+        "cpt-design-execution-orchestration"
       ],
       "pass": true
     },
@@ -1169,9 +1289,9 @@
       "prompt": "Run browser screenshots after implementation.",
       "expected_not": "cpt-reference-taste-calibration",
       "top": [
+        "cpt-design-execution-orchestration",
         "cpt-visual-acceptance-review",
-        "cpt-production-readiness",
-        "cpt-interaction-state-model"
+        "cpt-implementation-review"
       ],
       "pass": true
     },
@@ -1181,7 +1301,7 @@
       "top": [
         "cpt-runtime",
         "cpt-task-planning",
-        "cpt-framework-audit"
+        "cpt-interaction-pattern-selection"
       ],
       "pass": true
     },
@@ -1201,27 +1321,27 @@
       "top": [
         "cpt-performance-review",
         "cpt-opportunity-ideation",
-        "cpt-screen-module-design"
-      ],
-      "pass": true
-    },
-    {
-      "prompt": "Redesign an analytics screen and provide a rebuild-ready design specification.",
-      "expected": "cpt-screen-module-design",
-      "top": [
-        "cpt-screen-module-design",
-        "cpt-design-handoff",
         "cpt-information-architecture"
       ],
       "pass": true
     },
     {
-      "prompt": "Create a consistent multi-screen prototype when no design system exists.",
+      "prompt": "Redesign an analytics screen with a pattern decision, realistic states, visual contract, and rebuild-ready specification.",
       "expected": "cpt-screen-module-design",
       "top": [
         "cpt-screen-module-design",
-        "cpt-design-recon",
-        "cpt-accessibility-review"
+        "cpt-design-handoff",
+        "cpt-content-design"
+      ],
+      "pass": true
+    },
+    {
+      "prompt": "Create a multi-screen prototype with form/professional workflow rules and a capability-portable execution plan.",
+      "expected": "cpt-screen-module-design",
+      "top": [
+        "cpt-screen-module-design",
+        "cpt-design-execution-orchestration",
+        "cpt-experiment-design"
       ],
       "pass": true
     },
@@ -1260,8 +1380,8 @@
       "expected_not": "cpt-task-planning",
       "top": [
         "cpt-accessibility-review",
-        "cpt-visual-acceptance-review",
-        "cpt-ux-research"
+        "cpt-form-task-flow-design",
+        "cpt-professional-data-interface-design"
       ],
       "pass": true
     },
@@ -1290,8 +1410,8 @@
       "expected_not": "cpt-threat-model",
       "top": [
         "cpt-performance-review",
-        "cpt-visual-acceptance-review",
-        "cpt-ux-research"
+        "cpt-professional-data-interface-design",
+        "cpt-form-task-flow-design"
       ],
       "pass": true
     },
@@ -1340,8 +1460,8 @@
       "expected": "cpt-visual-acceptance-review",
       "top": [
         "cpt-visual-acceptance-review",
-        "cpt-screen-module-design",
-        "cpt-design-system-governance"
+        "cpt-design-system-governance",
+        "cpt-design-system-code-audit"
       ],
       "pass": true
     },

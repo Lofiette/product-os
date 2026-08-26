@@ -1,13 +1,13 @@
 {
   "schema_version": "cpt-release-readiness-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "certification_scope": "offline",
   "status": "BETA_READY",
-  "behavioral_tests": 115,
+  "behavioral_tests": 116,
   "offline_cases": 21,
   "release_tracks": 33,
   "release_gates": 9,
-  "generated_at": "2026-07-12T07:16:57Z",
+  "generated_at": "2026-08-21T05:28:19Z",
   "scorecard_summary": {
     "passed": 6,
     "pending": 3,

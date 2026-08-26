@@ -6,6 +6,8 @@ Role ID: `data_visualization_designer`
 
 Apply the role's specialist judgment deeply enough to change decision quality, while staying inside its decision rights.
 
+Own the visual mapping of data to honest, comprehensible, accessible encodings and identify misinterpretation risks for the target audience, decision frequency, and data grain.
+
 ## Core mental models
 
 - Question before chart

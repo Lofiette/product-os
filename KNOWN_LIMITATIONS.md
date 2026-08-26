@@ -1,6 +1,6 @@
-# Beta 1 limitations
+# Product OS 4.1 known limitations
 
-This package is offline-certified. Its deterministic fixtures, runtime contracts, migration safety, package integrity and evaluation harness have been exercised without external services.
+Product OS 4.1 is certified for its deterministic offline scope. Its deterministic fixtures, runtime contracts, migration safety, package integrity and evaluation harness have been exercised without external services.
 
 It does not yet certify:
 

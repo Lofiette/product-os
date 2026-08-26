@@ -6,7 +6,7 @@ from jsonschema import Draft202012Validator
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
 version=(ROOT/'VERSION').read_text().strip()
-required=['release/GATES.json','release/TRIALS.json','release/schemas/release-scorecard.schema.json','release/schemas/release-readiness.schema.json','tools/cpt_release.py','docs/RC_TRIALS_AND_RELEASE_GATES.md','BETA1_LIMITATIONS.md']
+required=['release/GATES.json','release/TRIALS.json','release/schemas/release-scorecard.schema.json','release/schemas/release-readiness.schema.json','tools/cpt_release.py','docs/RC_TRIALS_AND_RELEASE_GATES.md','KNOWN_LIMITATIONS.md']
 for rel in required:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
 gates=json.loads((ROOT/'release/GATES.json').read_text())

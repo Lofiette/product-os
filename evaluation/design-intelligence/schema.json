@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CPT Design Intelligence Preview Assets",
+  "type": "object",
+  "oneOf": [
+    {
+      "required": [
+        "schema",
+        "dimensions",
+        "profiles"
+      ],
+      "properties": {
+        "schema": {
+          "const": "cpt-design-intelligence-rubric-v1"
+        }
+      }
+    },
+    {
+      "required": [
+        "schema",
+        "case_count",
+        "cases"
+      ],
+      "properties": {
+        "schema": {
+          "const": "cpt-design-intelligence-cases-v1"
+        }
+      }
+    }
+  ]
+}

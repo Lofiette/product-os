@@ -1,9 +1,9 @@
 {
   "schema": "cpt-skill-migration-v1",
   "source_version": "3.0-ultra-beta2",
-  "target_version": "4.0.0",
+  "target_version": "4.1.0",
   "source_count": 95,
-  "target_count": 45,
+  "target_count": 49,
   "mappings": [
     {
       "source_skill": "accessibility-check",
@@ -670,5 +670,11 @@
       "disposition": "merged_rewritten",
       "migration_note": "Use $cpt-visual-acceptance-review; the legacy skill is not activated in 4.0."
     }
+  ],
+  "new_skills": [
+    "cpt-design-execution-orchestration",
+    "cpt-form-task-flow-design",
+    "cpt-interaction-pattern-selection",
+    "cpt-professional-data-interface-design"
   ]
 }

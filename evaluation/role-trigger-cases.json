@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-trigger-cases-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "cases": [
     {
       "id": "intake_orchestrator-positive-1",
@@ -240,13 +240,13 @@
       "id": "product_designer-positive-1",
       "role": "product_designer",
       "expected": "select",
-      "prompt": "new/redesigned screen or module. Apply User goal to interface structure, Progressive disclosure, Recognition over recall and produce Screen/module design spec with evidence."
+      "prompt": "Design or redesign a user-facing screen, flow, form, or professional workspace. Frame the problem, select an interaction pattern composition, define states and UI craft, and produce implementation-ready acceptance evidence."
     },
     {
       "id": "product_designer-positive-2",
       "role": "product_designer",
       "expected": "select",
-      "prompt": "Own Own coherent screen/module/flow design, information hierarchy, behavior/state completeness, and implementation-ready design rationale. Use a method covering Clarify user/product goal, entry context, primary decision/action, constraints, and evidence. Then deliver Design handoff and satisfy gate-design-quality, gate-product-value, gate-accessibility."
+      "prompt": "Own a complex product interface decision across page/workflow classification, form or professional-data semantics, visual hierarchy, portable execution capabilities, and independent design-quality, product-value, and accessibility gates."
     },
     {
       "id": "product_designer-negative-1",
@@ -354,7 +354,7 @@
       "id": "design_engineer-positive-2",
       "role": "design_engineer",
       "expected": "select",
-      "prompt": "Own Own translation of design intent into system-faithful coded UI, interaction polish, rendered-state coverage, and implementation fidelity. Use a method covering Read the approved design/interaction contract and identify canonical UI sources. Then deliver Design diff and satisfy gate-design-system-fidelity, gate-frontend-integration, gate-design-quality, gate-accessibility."
+      "prompt": "Implement an approved UI specification in code. Apply spec-to-code traceability, component composition, token discipline, rendered-state coverage, and render-based QA. Deliver a UI implementation plan, component/state map, fidelity report, and design diff."
     },
     {
       "id": "design_engineer-negative-1",

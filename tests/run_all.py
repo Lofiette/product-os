@@ -102,7 +102,7 @@ for command in commands:
 
 # Generated reports live outside the immutable package tree. This both tests the
 # executable plane and proves that validation does not self-pollute MANIFEST.json.
-eval_tmp = Path(tempfile.mkdtemp(prefix="cpt-beta1-run-all-evals-"))
+eval_tmp = Path(tempfile.mkdtemp(prefix="product-os-4.1-run-all-evals-"))
 try:
     run(
         [
@@ -150,4 +150,4 @@ try:
 finally:
     shutil.rmtree(eval_tmp, ignore_errors=True)
 
-print(f"BETA 1 COMPLETE TEST SUITE PASSED: {len(test_ids) + 7} behavioral cases")
+print(f"PRODUCT OS COMPLETE TEST SUITE PASSED: {len(test_ids) + 7} behavioral cases")

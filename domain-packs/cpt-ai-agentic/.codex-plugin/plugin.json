@@ -1,6 +1,6 @@
 {
   "name": "cpt-ai-agentic",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Agentic and model-based product workflows.",
   "keywords": [
     "cpt",
@@ -22,5 +22,8 @@
       "Use CPT AI & Agentic for the smallest relevant workflow; do not load unrelated skills."
     ],
     "brandColor": "#0891B2"
+  },
+  "author": {
+    "name": "Product OS"
   }
 }

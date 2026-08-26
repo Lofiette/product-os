@@ -2,7 +2,7 @@
   "schema": "cpt-role-migration-v1",
   "source_package": "codex-product-team-3.0-ultra-beta2",
   "source_count": 50,
-  "target_version": "4.0.0",
+  "target_version": "4.1.0",
   "target_count": 50,
   "mappings": [
     {

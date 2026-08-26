@@ -1,12 +1,12 @@
 {
   "schema_version": "cpt-pack-catalog-v3",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "core": {
     "name": "cpt-core",
     "status": "implemented",
-    "version": "4.0.0",
+    "version": "4.1.0",
     "skill_count": 3,
-    "metadata_chars": 564,
+    "metadata_chars": 557,
     "role_count": 6,
     "role_ids": [
       "ai_workflow_auditor",
@@ -21,7 +21,7 @@
     {
       "id": "cpt-product-research",
       "status": "implemented",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "skill_count": 10,
       "path": "./domain-packs/cpt-product-research",
       "metadata_chars": 2052,
@@ -41,10 +41,10 @@
     {
       "id": "cpt-design-ui",
       "status": "implemented",
-      "version": "4.0.0",
-      "skill_count": 12,
+      "version": "4.1.0",
+      "skill_count": 16,
       "path": "./domain-packs/cpt-design-ui",
-      "metadata_chars": 2555,
+      "metadata_chars": 3450,
       "role_count": 12,
       "role_ids": [
         "accessibility_specialist",
@@ -64,7 +64,7 @@
     {
       "id": "cpt-engineering",
       "status": "implemented",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "skill_count": 12,
       "path": "./domain-packs/cpt-engineering",
       "metadata_chars": 2547,
@@ -93,7 +93,7 @@
     {
       "id": "cpt-risk-operations",
       "status": "implemented",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "skill_count": 5,
       "path": "./domain-packs/cpt-risk-operations",
       "metadata_chars": 994,
@@ -106,7 +106,7 @@
     {
       "id": "cpt-ai-agentic",
       "status": "implemented",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "skill_count": 3,
       "path": "./domain-packs/cpt-ai-agentic",
       "metadata_chars": 568,
@@ -126,7 +126,7 @@
       "packs": [
         "cpt-core"
       ],
-      "estimated_discovery_chars": 564
+      "estimated_discovery_chars": 557
     },
     {
       "id": "product-discovery",
@@ -135,7 +135,7 @@
         "cpt-core",
         "cpt-product-research"
       ],
-      "estimated_discovery_chars": 2616
+      "estimated_discovery_chars": 2609
     },
     {
       "id": "ui-review",
@@ -144,7 +144,7 @@
         "cpt-core",
         "cpt-design-ui"
       ],
-      "estimated_discovery_chars": 3119
+      "estimated_discovery_chars": 4007
     },
     {
       "id": "ui-implementation",
@@ -154,7 +154,7 @@
         "cpt-design-ui",
         "cpt-engineering"
       ],
-      "estimated_discovery_chars": 5666
+      "estimated_discovery_chars": 6554
     },
     {
       "id": "risk-review",
@@ -163,7 +163,7 @@
         "cpt-core",
         "cpt-risk-operations"
       ],
-      "estimated_discovery_chars": 1558
+      "estimated_discovery_chars": 1551
     },
     {
       "id": "ai-product",
@@ -174,7 +174,7 @@
         "cpt-ai-agentic",
         "cpt-risk-operations"
       ],
-      "estimated_discovery_chars": 4178
+      "estimated_discovery_chars": 4171
     }
   ]
 }

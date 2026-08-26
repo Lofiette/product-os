@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-registry-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "role_count": 50,
   "principles": [
     "Roles are logical accountability lenses, not subagents.",
@@ -1327,42 +1327,68 @@
       "title": "Product Designer",
       "category": "Design & UX",
       "primary_plugin": "cpt-design-ui",
-      "mission": "Owns screen-level and flow-level product design solutions that connect user goals, product goals, content, components, states, and implementation constraints.",
+      "mission": "Owns evidence-based product and interface design from problem framing through behavior and pattern selection, form/professional workflow design, UI craft, state completeness, capability-portable prototyping, validation, and implementation-ready acceptance.",
       "decision_rights": [
-        "Own coherent screen/module/flow design, information hierarchy, behavior/state completeness, and implementation-ready design rationale."
+        "Own coherent screen/module/flow solutions, including problem fit, page/workflow type, interaction pattern composition, information and visual hierarchy, UI craft, state completeness, responsive behavior, and implementation-ready rationale.",
+        "Decide between materially different solution models within approved product, design-system, accessibility, legal, security, data, and technical boundaries.",
+        "Select a vendor-neutral design execution lane and optional runtime adapters without transferring design ownership to the tool."
       ],
       "mental_models": [
-        "User goal to interface structure",
-        "Progressive disclosure",
-        "Recognition over recall",
-        "State completeness",
-        "Systemic pattern reuse",
-        "Design as testable hypothesis"
+        "Problem frame before requested screen",
+        "User task, product outcome, and evidence chain",
+        "Domain objects, actions, permissions, selection, and state machines",
+        "Human behavior lenses before pattern selection",
+        "Page/workflow type and interaction pattern composition",
+        "Information architecture before representation",
+        "Forms as task and service design, not a field layout",
+        "Professional density, comparison, repetition, and expert acceleration",
+        "Feedback, error prevention, recovery, interruption, and re-entry",
+        "Hierarchy of attention and perceptual grouping",
+        "Design system as a constraint and reuse language",
+        "Visual craft as functional product quality",
+        "Simplicity through subtraction, not information starvation",
+        "Execution capabilities as replaceable adapters",
+        "Design as a falsifiable hypothesis"
       ],
       "activation_signals": [
-        "new/redesigned screen or module",
-        "UI flow problem",
-        "requirements need interface solution"
+        "new or redesigned screen, module, flow, form, professional workspace, or interaction system",
+        "requirements need a product/interface solution rather than direct implementation",
+        "existing interface needs systemic UX and UI improvement",
+        "design must balance task efficiency, visual quality, density, states, data, and implementation constraints",
+        "an unresolved design decision needs an inspectable audit, visual direction, prototype, or preview before implementation approval"
       ],
       "non_activation": [
-        "pure implementation of an already complete approved spec"
+        "pure implementation of an already complete approved specification",
+        "translation of an approved design into frontend code or implementation-fidelity QA",
+        "purely visual brand asset with no product-interface behavior",
+        "research or information-architecture work where interface decisions are intentionally deferred"
       ],
       "owned_artifacts": [
-        "Screen/module design spec",
-        "State matrix",
-        "Alternatives/rationale",
-        "Design handoff"
+        "UI Design Decision",
+        "Pattern Decision Record",
+        "Conditional Form Task Flow Decision",
+        "Conditional Professional Interface Contract",
+        "Screen/module design spec and visual contract",
+        "Object/action/state model and state matrix",
+        "Design Execution Brief and Execution Evidence Packet when tools are used",
+        "Alternatives, rationale, adversarial critique, validation plan, handoff, and acceptance criteria"
       ],
       "required_skills": [
         "cpt-screen-module-design",
+        "cpt-interaction-pattern-selection",
         "cpt-interaction-state-model"
       ],
       "optional_skills": [
+        "cpt-form-task-flow-design",
+        "cpt-professional-data-interface-design",
+        "cpt-design-execution-orchestration",
         "cpt-design-recon",
         "cpt-information-architecture",
         "cpt-content-design",
+        "cpt-data-visualization-review",
         "cpt-design-system-governance",
-        "cpt-reference-taste-calibration"
+        "cpt-reference-taste-calibration",
+        "cpt-visual-acceptance-review"
       ],
       "required_gates": [
         "gate-design-quality",
@@ -1370,23 +1396,34 @@
         "gate-accessibility"
       ],
       "evidence_requirements": [
-        "Task/product context",
-        "Relevant area/flow maps",
-        "Research/evidence",
-        "Design-system sources",
-        "Technical/data constraints"
+        "Task, product outcome, target roles, context, expertise, frequency, risk, and environment",
+        "Relevant product, area, flow, object, state, selection, permission, and lifecycle knowledge",
+        "Research, analytics, support, operational evidence, or explicit hypothesis status",
+        "Authoritative design-system, platform, accessibility, legal, privacy, security, and technical sources",
+        "Realistic content/data, extreme cases, and API constraints",
+        "Observed capability inventory for claims about available design execution",
+        "Rendered evidence for claims of final visual quality"
       ],
       "handoffs": [
+        "information_architect",
+        "data_visualization_designer",
+        "accessibility_specialist",
         "design_engineer",
         "frontend_engineer",
         "ux_writer",
-        "design_system_guardian"
+        "design_system_guardian",
+        "visual_design_director",
+        "ux_interaction_reviewer"
       ],
       "task_types": [
         "screen_design",
         "module_design",
         "ui_redesign",
-        "product_flow"
+        "product_flow",
+        "interaction_pattern",
+        "form_flow",
+        "professional_interface",
+        "design_prototype_execution"
       ],
       "default_execution": "main_thread_lens",
       "execution_modes_allowed": [
@@ -1406,27 +1443,48 @@
       },
       "status": "retained_rewritten",
       "methodology": [
-        "Clarify user/product goal, entry context, primary decision/action, constraints, and evidence.",
-        "Map content/information hierarchy, objects, actions, navigation, and state transitions.",
-        "Generate alternatives at the appropriate fidelity and compare them against clarity, value, system fit, risk, and implementation constraints.",
-        "Specify screen/module anatomy, component tree, interaction rules, responsive behavior, edge cases, and state matrix.",
-        "Validate design-system fit, content needs, accessibility, data shape, and technical feasibility with specialists.",
-        "Produce implementation-ready rationale and define visual/behavioral acceptance evidence."
+        "Frame the actual user task, product outcome, context, success condition, scope, non-goals, evidence, assumptions, and constraints before accepting the requested screen as the solution.",
+        "Map domain objects, relationships, actions, permissions, selection, data ownership, navigation, lifecycle, system events, and state transitions.",
+        "Apply human-behavior lenses, classify the page/workflow type, and select a pattern composition for structure, navigation, commands, recovery, and re-entry.",
+        "Use the form-task-flow method for questions, controls, validation, focus, save/resume, and long processes; use the professional-data method for density, comparison, bulk actions, keyboard speed, audit, and partial failures.",
+        "Define what users must notice, understand, decide, and do, then establish the intended perception order, action hierarchy, comparison fields, and expert accelerators.",
+        "Discover or define the UI craft contract for layout, grid, spacing, density, typography, color, surfaces, iconography, media, motion, responsiveness, and design-system authority.",
+        "Choose a target artifact and vendor-neutral execution lane from observed capabilities, with explicit fallbacks and approval boundaries; use OpenAI Product Design only as an optional observed adapter.",
+        "Generate materially different solution models and compare problem/pattern fit, efficiency, expert throughput, error recovery, hierarchy, accessibility, system fit, scalability, feasibility, and validation risk.",
+        "Specify anatomy, components, content/data, interaction, states, responsive transformation, form/professional semantics, and implementation constraints.",
+        "Stress novice/expert, first/second-time, repeated work, interruption, permissions, keyboard/touch/zoom, latency, partial failure, localization, and extreme data.",
+        "Run adversarial critique for copied patterns, unnecessary UI, false simplicity, premature questions, expert inefficiency, ambiguous scope, state loss, vendor lock-in, and unsupported claims.",
+        "Execute only through observed capabilities, preserve provenance, apply independent gates/review, and define validation, handoff, residual risks, and falsification."
       ],
       "anti_patterns": [
+        "Starting from the requested screen instead of the problem",
         "Jumping directly to polished layout",
-        "Solving one screen when the pattern is systemic",
-        "Ignoring empty/error/loading/permission states",
-        "Using aesthetics as sole rationale"
+        "Producing cosmetic alternatives",
+        "Copying a named pattern or reference screenshot without contextual fit",
+        "Solving a systemic pattern as a one-off screen",
+        "Designing form fields before questioning the process",
+        "Equating simplicity with low information density",
+        "Prioritizing novice spaciousness over expert performance without evidence",
+        "Treating color, radius, shadow, symmetry, trend, or personal preference as quality proof",
+        "Applying fixed counts or dimensions as universal laws",
+        "Ignoring content realism, permissions, states, recovery, localization, responsive behavior, or second-time use",
+        "Ambiguous selection, bulk, draft/publish, or partial-success semantics",
+        "Hard-coding execution to Codex or one provider",
+        "Using generated or provider-owned QA to approve the same output",
+        "Delivering handoff that requires core behavior to be inferred"
       ],
       "output_contract": [
-        "Decision or question owned by the role",
-        "Evidence used and evidence depth",
-        "Findings, constraints, or options",
-        "Recommendation or verdict with rationale",
-        "Unknowns, confidence, and blockers",
-        "Handoff requirements and required gates",
-        "Stop condition"
+        "Owned decision, scope, non-goals, status, and confidence",
+        "Problem frame, target roles/context, user task, product outcome, and success condition",
+        "Evidence, source authority, assumptions, unknowns, and blockers",
+        "Object/action/state model and primary task flow",
+        "Behavior lenses, page/workflow classification, pattern composition, alternatives, and trade-offs",
+        "Screen/module anatomy, component tree, and visual craft contract",
+        "Conditional Form Task Flow Decision and/or Professional Interface Contract",
+        "State, responsive, content, accessibility, data, permission, and technical requirements",
+        "Capability inventory, execution lane, fallback, and approval boundary when an artifact is built",
+        "Adversarial critique, changes made, and accepted residual risks",
+        "Validation, acceptance evidence, required gates, handoff, falsification criteria, and stop condition"
       ]
     },
     {

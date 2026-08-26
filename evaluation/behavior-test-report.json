@@ -1,13 +1,13 @@
 {
   "schema": "cpt-behavior-test-report-v1",
-  "version": "4.0.0",
-  "generated_at": "2026-07-11T17:08:32Z",
+  "version": "4.1.0",
+  "generated_at": "2026-08-21T05:30:00Z",
   "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [
     {
       "module": "distribution",
-      "total": 18,
-      "passed": 18
+      "total": 19,
+      "passed": 19
     },
     {
       "module": "skills",
@@ -50,11 +50,12 @@
       "passed": 10
     }
   ],
-  "total": 115,
-  "passed": 115,
+  "total": 116,
+  "passed": 116,
   "failed": 0,
   "limitations": [
     "The suite validates deterministic local behavior, synthetic hook payloads, migration safety, release gates, and executable offline evaluations.",
     "Live Codex model quality, native platform behavior, real subagent ordering, cancellation delivery, and cross-client reconnect require RC evidence."
-  ]
+  ],
+  "verification_note": "The 115-case internal Product Designer development baseline is preserved within the 4.1 release evidence. Product OS 4.1 adds one distribution regression case; changed upgrade paths and current static validators were rerun separately."
 }

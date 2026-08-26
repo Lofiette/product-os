@@ -1,7 +1,7 @@
 {
-  "name": "cpt-alpha3-marketplace",
+  "name": "product-os-personal",
   "interface": {
-    "displayName": "CPT OS Alpha 3"
+    "displayName": "Product OS"
   },
   "plugins": [
     {

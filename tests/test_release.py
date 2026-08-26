@@ -63,7 +63,7 @@ class ReleasePlaneTests(unittest.TestCase):
             self.assertNotEqual(proc.returncode, 0)
 
     def test_beta_limits_are_explicit(self):
-        text = (ROOT / "BETA1_LIMITATIONS.md").read_text()
+        text = (ROOT / "KNOWN_LIMITATIONS.md").read_text()
         self.assertIn("offline-certified", text)
         self.assertIn("live Codex", text)
 

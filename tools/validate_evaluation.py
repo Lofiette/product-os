@@ -10,7 +10,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 EVAL = ROOT / "evaluation" / "executable"
-PACKAGE_VERSION = "4.0.0"
+PACKAGE_VERSION = "4.1.0"
 errors: list[str] = []
 
 

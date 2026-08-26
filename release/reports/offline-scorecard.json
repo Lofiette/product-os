@@ -1,9 +1,9 @@
 {
   "schema_version": "cpt-release-scorecard-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "scope": "offline",
   "status": "BETA_READY",
-  "generated_at": "2026-07-12T07:16:54Z",
+  "generated_at": "2026-08-21T05:28:17Z",
   "gates": [
     {
       "id": "package_integrity",
@@ -22,7 +22,7 @@
       "required": true,
       "evidence": [
         "21 offline executable cases",
-        "manifest declares 115 behavioral tests",
+        "manifest declares 116 behavioral tests",
         "baseline and mutation reports"
       ],
       "notes": []

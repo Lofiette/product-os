@@ -1,6 +1,6 @@
 {
   "name": "cpt-risk-operations",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Security, privacy, risk, worker delegation, and framework assurance workflows.",
   "keywords": [
     "cpt",
@@ -22,5 +22,8 @@
       "Use CPT Risk & Assurance for the smallest relevant workflow; do not load unrelated skills."
     ],
     "brandColor": "#DC2626"
+  },
+  "author": {
+    "name": "Product OS"
   }
 }

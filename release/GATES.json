@@ -1,6 +1,6 @@
 {
   "schema_version": "cpt-release-gates-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "gates": [
     {"id":"package_integrity","title":"Package integrity","beta_required":true,"rc_required":true,"evidence":["MANIFEST.json","distribution validator","ZIP inventory and CRC"]},
     {"id":"offline_regression","title":"Offline behavioral regression","beta_required":true,"rc_required":true,"evidence":["behavioral tests","offline executable scorecard","mutation detection"]},

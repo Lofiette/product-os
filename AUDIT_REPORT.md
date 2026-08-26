@@ -1,14 +1,14 @@
-# Codex Product Operating System 4.0 Beta 1
+# Product OS 4.1
 
 ## Offline release audit
 
-**Version:** `4.0.0`  
-**Certification scope:** deterministic offline Beta  
+**Version:** `4.1.0`  
+**Certification scope:** deterministic offline scope  
 **Release status:** `BETA_READY`  
 
 ## Verdict
 
-Beta 1 satisfies the complete offline release contract: package integrity, behavioral regression, migration safety, install/update/uninstall/rollback behavior, universality, and documentation. It is intentionally **not** a Release Candidate because live Codex trials and the native platform matrix remain incomplete.
+Product OS 4.1 satisfies the complete offline release contract: package integrity, behavioral regression, migration safety, install/update/uninstall/rollback behavior, universality, and documentation. It is intentionally **not** a Release Candidate because live Codex trials and the native platform matrix remain incomplete.
 
 ## Integrated planes
 
@@ -25,7 +25,7 @@ Beta 1 satisfies the complete offline release contract: package integrity, behav
 
 ## Offline evidence
 
-- Behavioral contract: `115 / 115`.
+- Behavioral contract: `116 / 116`.
 - Offline executable evaluations: `21 / 21`.
 - Deterministic average score: `100`.
 - Baseline regressions: `0`.
@@ -53,4 +53,4 @@ RC-only evidence is still required for:
 - Ambiguous project-owned instructions require human review.
 - Offline reference results never masquerade as live-model certification.
 
-See `BETA1_LIMITATIONS.md` and `EVALUATION_LIMITATIONS.md` for the full boundary.
+See `KNOWN_LIMITATIONS.md` and `EVALUATION_LIMITATIONS.md` for the full boundary.

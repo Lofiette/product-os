@@ -1,4 +1,4 @@
-# CPT OS Beta 1 Executable Evaluation Plane
+# Product OS Executable Evaluation Plane
 
 This directory contains executable, repository-isolated evaluations for the Runtime, Knowledge, Expertise, Enforcement, and Worker Orchestration planes.
 

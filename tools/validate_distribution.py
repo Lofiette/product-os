@@ -13,11 +13,11 @@ from cpt_dist import metadata_budget_for_plugins, validate_plugin
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.0.0': errors.append('VERSION is not 4.0.0')
+if (ROOT/'VERSION').read_text().strip()!='4.1.0': errors.append('VERSION is not 4.1.0')
 
 pyproject_text = (ROOT/'pyproject.toml').read_text(encoding='utf-8')
-if 'version = "4.0.0b1"' not in pyproject_text: errors.append('pyproject project.version is not 4.0.0b1')
-if 'package_version = "4.0.0"' not in pyproject_text: errors.append('pyproject CPT package_version mismatch')
+if 'version = "4.1.0"' not in pyproject_text: errors.append('pyproject project.version is not 4.1.0')
+if 'package_version = "4.1.0"' not in pyproject_text: errors.append('pyproject CPT package_version mismatch')
 if (ROOT/'ALPHA8_LIMITATIONS.md').exists(): errors.append('stale current-release filename ALPHA8_LIMITATIONS.md')
 if (ROOT/'docs/ALPHA9_RELEASE_INTEGRATION.md').exists(): errors.append('stale current-release filename ALPHA9_RELEASE_INTEGRATION.md')
 
@@ -34,6 +34,33 @@ market=json.loads((ROOT/'payload/marketplace-root/.agents/plugins/marketplace.js
 entries={x['name']:x for x in market.get('plugins',[])}
 if entries.get('cpt-core',{}).get('source',{}).get('path')!='./plugins/cpt-core': errors.append('marketplace source.path must be ./plugins/cpt-core')
 
+# Repository marketplace validation for local and Git-backed Codex installation.
+root_market_path = ROOT / '.agents' / 'plugins' / 'marketplace.json'
+if not root_market_path.exists():
+    errors.append('missing repository marketplace .agents/plugins/marketplace.json')
+else:
+    root_market = json.loads(root_market_path.read_text(encoding='utf-8'))
+    if root_market.get('name') != 'product-os':
+        errors.append('repository marketplace name must be product-os')
+    root_entries = {item.get('name'): item for item in root_market.get('plugins', [])}
+    expected_market_plugins = {p.name for p in plugins}
+    if set(root_entries) != expected_market_plugins:
+        errors.append(f'repository marketplace plugin mismatch: {set(root_entries) ^ expected_market_plugins}')
+    for name, entry in root_entries.items():
+        source = entry.get('source', {})
+        source_path = source.get('path')
+        if source.get('source') != 'local' or not isinstance(source_path, str) or not source_path.startswith('./'):
+            errors.append(f'{name}: invalid repository marketplace source')
+            continue
+        target = (ROOT / source_path).resolve()
+        try:
+            target.relative_to(ROOT.resolve())
+        except ValueError:
+            errors.append(f'{name}: repository marketplace path escapes repository')
+            continue
+        if not (target / '.codex-plugin' / 'plugin.json').exists():
+            errors.append(f'{name}: repository marketplace path does not contain a plugin manifest')
+
 agents=(ROOT/'payload/repo-scaffold/AGENTS.md').read_text()
 if '<!-- CPT-OS KERNEL BEGIN -->' not in agents or '<!-- CPT-OS KERNEL END -->' not in agents: errors.append('managed AGENTS markers missing')
 if len(agents.encode())>6000: errors.append('repo AGENTS loader exceeds 6000-byte guidance target')
@@ -48,7 +75,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
 
 catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
-if catalog.get('version')!='4.0.0': errors.append('PACK_CATALOG version mismatch')
+if catalog.get('version')!='4.1.0': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
 actual_ids={p.name for p in plugins[1:]}
 if cat_ids!=actual_ids: errors.append(f'catalog/domain directory mismatch: {cat_ids ^ actual_ids}')
@@ -78,7 +105,7 @@ for plugin in plugins:
 # Optional worker pack validation.
 worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text())
 worker_agents=sorted((ROOT/'payload/worker-pack/agents').glob('*.toml'))
-if worker_pack.get('version')!='4.0.0': errors.append('worker pack version mismatch')
+if worker_pack.get('version')!='4.1.0': errors.append('worker pack version mismatch')
 if worker_pack.get('agent_count')!=10 or len(worker_agents)!=10: errors.append('worker pack must contain 10 agents')
 registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text())
 if registry_workers.get('archetype_count')!=10: errors.append('worker archetype registry count mismatch')
@@ -90,7 +117,7 @@ for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT
         text=current.read_text()
         if 'Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit' in text: errors.append(f'stale Alpha 2 audit wording in {current.relative_to(ROOT)}')
 
-# Required Beta 1 assets.
+# Required current and historical release assets.
 for rel in [
     'skills/SKILL_REGISTRY.json','migration/SKILL_MIGRATION.json','migration/SKILL_MIGRATION.csv',
     'evaluation/skill-trigger-cases.json','docs/SKILL_AUTHORING_STANDARD.md','docs/SKILL_INVOCATION_POLICY.md',
@@ -110,7 +137,9 @@ for rel in [
     'docs/ALPHA7_TO_ALPHA8.md',
     'release/GATES.json','release/TRIALS.json','release/schemas/release-scorecard.schema.json',
     'release/schemas/release-readiness.schema.json','tools/cpt_release.py','tools/validate_release.py',
-    'tests/test_release.py','docs/RC_TRIALS_AND_RELEASE_GATES.md','docs/BETA1_RELEASE_INTEGRATION.md','BETA1_LIMITATIONS.md'
+    'tests/test_release.py','docs/RC_TRIALS_AND_RELEASE_GATES.md','docs/BETA1_RELEASE_INTEGRATION.md','KNOWN_LIMITATIONS.md',
+    'docs/MIGRATION_4.0_TO_4.1.md','docs/VERSIONING_AND_GIT.md','docs/PLUGIN_AND_MARKETPLACE.md',
+    'scripts/product-os.ps1','scripts/register-codex-marketplace.ps1','.agents/plugins/marketplace.json'
 ]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
 
@@ -120,12 +149,12 @@ if not manifest_path.exists():
     errors.append('missing MANIFEST.json')
 else:
     manifest = json.loads(manifest_path.read_text())
-    if manifest.get('schema') != 'cpt-package-manifest-v9': errors.append('MANIFEST schema mismatch')
-    if manifest.get('version') != '4.0.0': errors.append('MANIFEST version mismatch')
-    if manifest.get('phase') != 'rc-trials-offline-beta': errors.append('MANIFEST phase mismatch')
+    if manifest.get('schema') != 'cpt-package-manifest-v10': errors.append('MANIFEST schema mismatch')
+    if manifest.get('version') != '4.1.0': errors.append('MANIFEST version mismatch')
+    if manifest.get('phase') != 'offline-certified-live-pending': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
-        'behavior_tests': 115,
+        'behavior_tests': 116,
         'evaluation_unit_tests': 13,
         'migration_tests': 7,
         'release_unit_tests': 10,

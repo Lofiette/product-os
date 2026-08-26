@@ -1,7 +1,7 @@
 {
   "schema": "cpt-behavior-test-report-v1",
   "version": "4.1.0",
-  "generated_at": "2026-08-26T16:43:04Z",
+  "generated_at": "2026-08-26T17:16:28Z",
   "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [
     {
@@ -31,8 +31,13 @@
     },
     {
       "module": "manager_transaction",
-      "total": 15,
-      "passed": 15
+      "total": 19,
+      "passed": 19
+    },
+    {
+      "module": "manager_git_provider",
+      "total": 7,
+      "passed": 7
     },
     {
       "module": "skills",
@@ -75,12 +80,12 @@
       "passed": 10
     }
   ],
-  "total": 159,
-  "passed": 159,
+  "total": 170,
+  "passed": 170,
   "failed": 0,
   "limitations": [
     "The suite validates deterministic local behavior, synthetic hook payloads, migration safety, release gates, and executable offline evaluations.",
     "Live Codex model quality, native platform behavior, real subagent ordering, cancellation delivery, and cross-client reconnect require RC evidence."
   ],
-  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds five receipt v2 compatibility cases, seven rebuildable-registry and crash-safe lock cases, eleven read-only detection/dry-run planning cases, five external backup cases, and fifteen provider-neutral adoption transaction cases. The Manager coverage includes canonical Git-managed provenance, exact adapter binding and selector diffs, full plugin coverage, two-phase multi-plugin switching, journal integrity, ownership-envelope CAS, compensation, rollback, orphan recovery, zero-write rejection, and preservation of unrelated selector and registry state."
+  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds five receipt v2 compatibility cases, seven rebuildable-registry and crash-safe lock cases, eleven read-only detection/dry-run planning cases, five external backup cases, nineteen provider-neutral adoption transaction and migration-doctor cases, and seven Local Git provider cases. Manager coverage includes end-to-end local-to-Git adoption, canonical Git object-database provenance, exact adapter binding and selector diffs, full plugin coverage, two-phase multi-plugin switching, journal integrity, ownership-envelope CAS, compensation, rollback, orphan recovery, read-only diagnosis, zero-write rejection, and preservation of unrelated selector and registry state."
 }

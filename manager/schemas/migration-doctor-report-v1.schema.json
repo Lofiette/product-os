@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://product-os.local/schemas/migration-doctor-report-v1.schema.json",
+  "title": "Product OS Migration Doctor Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "transaction_id",
+    "transaction_state",
+    "journal_hash",
+    "observed_at",
+    "checks",
+    "lifecycle"
+  ],
+  "properties": {
+    "schema": {
+      "const": "product-os-migration-doctor-report-v1"
+    },
+    "status": {
+      "enum": ["PASS", "FAIL"]
+    },
+    "transaction_id": {
+      "type": "string",
+      "pattern": "^TX-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "transaction_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "journal_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "status", "detail"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "status": {
+            "enum": ["PASS", "FAIL"]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "adapter"],
+      "properties": {
+        "status": {
+          "enum": ["unsupported", "PASS", "FAIL"]
+        },
+        "adapter": {
+          "type": ["string", "null"]
+        }
+      }
+    }
+  }
+}

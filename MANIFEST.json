@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 606,
+  "file_count": 609,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -49,12 +49,13 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 159,
+    "behavior_tests": 170,
     "installation_receipt_tests": 5,
     "manager_registry_tests": 7,
     "manager_planning_tests": 11,
     "manager_backup_tests": 5,
-    "manager_transaction_tests": 15,
+    "manager_transaction_tests": 19,
+    "manager_git_provider_tests": 7,
     "executable_evaluation_cases": 21,
     "fixture_repositories": 6,
     "evaluation_suites": 4,
@@ -361,8 +362,8 @@
     },
     {
       "path": "docs/PRODUCT_OS_MANAGER.md",
-      "size": 4691,
-      "sha256": "d7bce9d7349795c33ab7e5fd89a5521d355f6567786dfd0df5124886e4158ee4"
+      "size": 5746,
+      "sha256": "e9297c6f93067116b59c55b5f6772f0260091e87dc953017de49b9ab0c4e8f99"
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
@@ -1121,8 +1122,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 2490,
-      "sha256": "04befcc01ca82c480afcb7a088e2d89e1d29adcb6c74660da466f4a0b8131ec3"
+      "size": 2692,
+      "sha256": "c7aa57bcb0a35acec10887c4f74ccb56e214d3c760c17b55897b3caff22430e5"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -1731,8 +1732,8 @@
     },
     {
       "path": "manager/product_os_manager/__init__.py",
-      "size": 851,
-      "sha256": "3b924c95a0fe1ad392426a373347922b1345b8f3e341535c876b4a8a16727ff3"
+      "size": 994,
+      "sha256": "5cfe30f76eb55d65addb854c9e1b0487fd4e57553a9d902ece03c16f5fbad827"
     },
     {
       "path": "manager/product_os_manager/adapters/__init__.py",
@@ -1751,8 +1752,8 @@
     },
     {
       "path": "manager/product_os_manager/adapters/repository.py",
-      "size": 21795,
-      "sha256": "893a4150f81a2b1693e29f83338c8ac1e3b5fe5eaee04c980ceda0fb9a51a2db"
+      "size": 46755,
+      "sha256": "16c0af4073338f477a39ce6db9b3ebd6e9142ba848b7e12c7ae4728a627a93bc"
     },
     {
       "path": "manager/product_os_manager/backup.py",
@@ -1763,6 +1764,11 @@
       "path": "manager/product_os_manager/context.py",
       "size": 2001,
       "sha256": "5aa7c1ad35bb7ba99abcaca987e5513f95045086a30138c0df6420858eb91e2d"
+    },
+    {
+      "path": "manager/product_os_manager/doctor.py",
+      "size": 5064,
+      "sha256": "66184ff1b378974c344caa27ca06c7132743c9d5569c71a4726f908728a25582"
     },
     {
       "path": "manager/product_os_manager/inventory.py",
@@ -1818,6 +1824,11 @@
       "path": "manager/schemas/installation-registry-v1.schema.json",
       "size": 2147,
       "sha256": "3b4bfef2e357a1fbbb88df540c40bdad9956964f33ffe84f7983eed720d68a9d"
+    },
+    {
+      "path": "manager/schemas/migration-doctor-report-v1.schema.json",
+      "size": 1802,
+      "sha256": "be1bfd89ed5e51b778c483599d71f947ce604da34d72d1dba48ef24cea4282de"
     },
     {
       "path": "migration/DEPRECATED_SKILL_ALIASES.md",
@@ -2896,8 +2907,8 @@
     },
     {
       "path": "tests/run_all.py",
-      "size": 6324,
-      "sha256": "c75545cfa3c9c43ee61f5b46ca2e62af114cae7b17790aaa29804b935a9daf68"
+      "size": 6413,
+      "sha256": "d22b389c3b19c1a1d3a0ad10d4abdfe1d2c0266644faab8d6ac554663a635ed2"
     },
     {
       "path": "tests/test_distribution.py",
@@ -2925,6 +2936,11 @@
       "sha256": "8347b5a18e1b37435aed318a549ffe030333152d98f9872b41bc084657340572"
     },
     {
+      "path": "tests/test_manager_git_provider.py",
+      "size": 10470,
+      "sha256": "87efd895e8682195e6f08f46659d3fb83754137627e6058689c2d2a97bb9d9d7"
+    },
+    {
       "path": "tests/test_manager_planning.py",
       "size": 22467,
       "sha256": "bc8804914462d4d192452e05626893cd682ae5f1f83af9c4b6df1b64d7d5e2f3"
@@ -2936,8 +2952,8 @@
     },
     {
       "path": "tests/test_manager_transaction.py",
-      "size": 26172,
-      "sha256": "36bb3b6127a05cfa06fc5fa618ab1b40159c7590122ca840070462ab0812f0b9"
+      "size": 32060,
+      "sha256": "3c2a191adf5d48aea05edcd2efb6841749d570e17e6412c100eed03f6bf26402"
     },
     {
       "path": "tests/test_migration.py",
@@ -2971,8 +2987,8 @@
     },
     {
       "path": "tools/build_manifest.py",
-      "size": 4793,
-      "sha256": "dbbbe7f7453aa4ff2de3f8a8fde3e0f0d9c2f5b43fea6f8a24b71ff353a25cdb"
+      "size": 4838,
+      "sha256": "bbb59bafab81b5c7f3322c017e1b3358788b8cc379fd72a8c946098ee38ea605"
     },
     {
       "path": "tools/cpt_dist.py",
@@ -3051,8 +3067,8 @@
     },
     {
       "path": "tools/validate_distribution.py",
-      "size": 13306,
-      "sha256": "b23b6d7e3c2b3f74119243880af5009a8c3725b760398e6e55ba2495bf6891cb"
+      "size": 13490,
+      "sha256": "46f7426eb2cd1e3df4aa7ffa0bd9036ffef0ea0d9f00afcddf94d9414dcb3df6"
     },
     {
       "path": "tools/validate_enforcement.py",

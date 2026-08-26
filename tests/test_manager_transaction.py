@@ -15,13 +15,24 @@ from tools import cpt_dist
 
 from manager.product_os_manager.adapters.base import AdapterRegistry
 from manager.product_os_manager.adapters.deterministic import DeterministicSelectorAdapter
-from manager.product_os_manager.adapters.repository import DirectoryTargetProvider
+from manager.product_os_manager.adapters.repository import (
+    DirectoryTargetProvider,
+    LocalGitTargetProvider,
+)
 from manager.product_os_manager.backup import resource_paths, snapshot_resources
 from manager.product_os_manager.context import InstallationContext
+from manager.product_os_manager.doctor import (
+    run_migration_doctor,
+    validate_migration_doctor_report,
+)
 from manager.product_os_manager.inventory import detect_installation
 from manager.product_os_manager.planning import build_adoption_plan
 from manager.product_os_manager.registry import RegistryStore, receipt_entry
-from manager.product_os_manager.state import canonical_text_file_sha256, file_sha256
+from manager.product_os_manager.state import (
+    canonical_text_file_sha256,
+    exclusive_lock,
+    file_sha256,
+)
 from manager.product_os_manager.transaction import (
     AdoptionTransactionError,
     ConcurrentAdoptionChange,
@@ -31,6 +42,7 @@ from manager.product_os_manager.transaction import (
     recover_adoption,
     rollback_adoption,
     switch_adoption,
+    transaction_lock_path,
     validate_mutation_context,
 )
 
@@ -43,11 +55,12 @@ def write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
 
-def tree_snapshot(root: Path) -> dict[str, str]:
+def tree_snapshot(root: Path, *, exclude: tuple[Path, ...] = ()) -> dict[str, str]:
+    excluded = {str(path.absolute()).casefold() for path in exclude}
     return {
         path.relative_to(root).as_posix(): file_sha256(path) or ""
         for path in sorted(root.rglob("*"))
-        if path.is_file()
+        if path.is_file() and str(path.absolute()).casefold() not in excluded
     }
 
 
@@ -453,6 +466,78 @@ class ManagerTransactionTests(unittest.TestCase):
         )
         self.assertEqual(self.selector.inspect().copy_selectors(), self.initial_selectors)
 
+    def test_local_git_provider_completes_transactional_adoption(self) -> None:
+        subprocess.run(["git", "init", "-q", str(self.source)], check=True)
+        subprocess.run(
+            ["git", "-C", str(self.source), "symbolic-ref", "HEAD", "refs/heads/release/4.1.0"],
+            check=True,
+        )
+        subprocess.run(["git", "-C", str(self.source), "add", "--all"], check=True)
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(self.source),
+                "-c",
+                "user.name=Product OS Test",
+                "-c",
+                "user.email=product-os-test.invalid",
+                "commit",
+                "-q",
+                "-m",
+                "isolated 4.1 target",
+            ],
+            check=True,
+        )
+        provider = LocalGitTargetProvider(self.source, self.context)
+        adapters = AdapterRegistry(
+            target_providers=[provider],
+            selector_adapters=[self.selector],
+        )
+        request = {
+            "repository": provider.repository,
+            "requested_ref": "release/4.1.0",
+            "marketplace_identity": "product-os-git",
+            "plugins": ["cpt-core", "cpt-design-ui"],
+        }
+        target = provider.resolve(request)
+        plan = build_adoption_plan(
+            detect_installation(
+                self.project,
+                context=self.context,
+                selector_observation=self.selector.inspect(),
+            ),
+            target,
+            context=self.context,
+        )
+        self.assertEqual(plan["status"], "ready")
+        prepared = prepare_adoption(
+            plan,
+            confirmed_plan_hash=plan["plan_hash"],
+            context=self.context,
+            adapters=adapters,
+        )
+        result = switch_adoption(
+            prepared["transaction_id"],
+            confirmed_prepared_state_hash=prepared["prepared_state_hash"],
+            context=self.context,
+            adapters=adapters,
+        )
+        self.assertEqual(result["status"], "committed")
+        journal = load_transaction(self.context, prepared["transaction_id"])
+        self.assertEqual(journal["adapters"]["target"]["adapter_id"], "local-git")
+        receipt = cpt_dist.load_receipt(self.project)
+        self.assertEqual(receipt["source_lineage"]["repository"], provider.repository)
+        self.assertEqual(
+            receipt["source_lineage"]["commit_sha"],
+            subprocess.run(
+                ["git", "-C", str(self.source), "rev-parse", "HEAD"],
+                check=True,
+                text=True,
+                capture_output=True,
+            ).stdout.strip(),
+        )
+
     def test_receipt_and_registry_failures_compensate(self) -> None:
         for fault in ("after_receipt_write", "after_registry_write"):
             with self.subTest(fault=fault):
@@ -652,6 +737,77 @@ class ManagerTransactionTests(unittest.TestCase):
         self.assertEqual(
             registry_after["installations"][other_receipt["installation_id"]],
             other_entry,
+        )
+
+    def test_public_migration_doctor_revalidates_committed_transaction(self) -> None:
+        prepared = self._prepare()
+        switch_adoption(
+            prepared["transaction_id"],
+            confirmed_prepared_state_hash=prepared["prepared_state_hash"],
+            context=self.context,
+            adapters=self.adapters,
+        )
+        report = run_migration_doctor(
+            self.context,
+            self.adapters,
+            transaction_id=prepared["transaction_id"],
+        )
+        validate_migration_doctor_report(report)
+        self.assertEqual(report["status"], "PASS")
+        self.assertEqual(report["transaction_state"], "committed")
+        self.assertEqual(
+            run_migration_doctor(self.context, self.adapters)["transaction_id"],
+            prepared["transaction_id"],
+        )
+
+    def test_public_migration_doctor_reports_owned_drift_without_repair(self) -> None:
+        prepared = self._prepare()
+        switch_adoption(
+            prepared["transaction_id"],
+            confirmed_prepared_state_hash=prepared["prepared_state_hash"],
+            context=self.context,
+            adapters=self.adapters,
+        )
+        drift_path = self.project / ".cpt" / "bin" / "cpt_runtime.py"
+        drift_path.write_text("doctor-observed external drift\n", encoding="utf-8")
+        before = tree_snapshot(self.tmp)
+        report = run_migration_doctor(
+            self.context,
+            self.adapters,
+            transaction_id=prepared["transaction_id"],
+        )
+        self.assertEqual(report["status"], "FAIL")
+        self.assertIn(
+            "MANAGED_FILES_HEALTHY",
+            [item["code"] for item in report["checks"] if item["status"] == "FAIL"],
+        )
+        self.assertEqual(tree_snapshot(self.tmp), before)
+
+    def test_public_migration_doctor_is_zero_write_while_transaction_is_active(self) -> None:
+        prepared = self._prepare()
+        switch_adoption(
+            prepared["transaction_id"],
+            confirmed_prepared_state_hash=prepared["prepared_state_hash"],
+            context=self.context,
+            adapters=self.adapters,
+        )
+        lock_path = transaction_lock_path(self.context)
+        with exclusive_lock(lock_path):
+            before = tree_snapshot(self.tmp, exclude=(lock_path,))
+            report = run_migration_doctor(
+                self.context,
+                self.adapters,
+                transaction_id=prepared["transaction_id"],
+            )
+            self.assertEqual(tree_snapshot(self.tmp, exclude=(lock_path,)), before)
+        self.assertEqual(report["status"], "FAIL")
+        self.assertEqual(
+            next(
+                item["status"]
+                for item in report["checks"]
+                if item["code"] == "TRANSACTION_QUIESCENT"
+            ),
+            "FAIL",
         )
 
     def test_recover_orphaned_switch_intent_rolls_back_safely(self) -> None:

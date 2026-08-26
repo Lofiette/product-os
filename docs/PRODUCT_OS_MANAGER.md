@@ -42,6 +42,15 @@ rejects undeclared files and links, and validates plugin manifests plus declared
 skills/hooks resources. An exact but not-yet-materialized target becomes a
 prepare-phase action.
 
+`LocalGitTargetProvider` is the production offline source adapter. It accepts
+only a registered local, non-bare repository and a constrained ref; it never
+fetches, checks out, runs hooks, or reads payload bytes from the working tree.
+The ref is resolved to a commit, every package file is streamed from the Git
+object database and checked against `MANIFEST.json`, and symlink/submodule
+entries are rejected. A dirty working tree is therefore irrelevant, while a
+ref that moves after plan approval invalidates the evidence and requires a new
+plan.
+
 The stable `plan_hash` excludes `generated_at`. Apply must re-detect and compare
 all receipt, runtime, managed-file, registry, marketplace, selector, and target
 preconditions before the first mutation.
@@ -77,6 +86,13 @@ but a hard process exit releases ownership automatically. `recover_adoption`
 reconciles orphaned prepare/switch journals conservatively; an ambiguous
 partial runtime write remains manual rather than being guessed through.
 
+`run_migration_doctor` is a separate read-only post-migration API. It requires
+a committed journal, quiescent transaction lock, and the exact target/selector
+adapter bindings recorded by the transaction. It then rechecks runtime,
+backup, selectors, receipt lineage, plugin coverage, managed files, registry,
+immutable target, and journal stability. It reports drift but never repairs it;
+repair remains an explicit rollback or recovery operation.
+
 Legacy selectors are retained until post-switch adapter readback and the
 known-installation registry both prove they are unreferenced. An absent or
 incomplete registry can be repaired for the current project, but never grants
@@ -88,3 +104,4 @@ Normative schemas:
 - `manager/schemas/adoption-plan-v1.schema.json`
 - `manager/schemas/backup-manifest-v1.schema.json`
 - `manager/schemas/adoption-transaction-v1.schema.json`
+- `manager/schemas/migration-doctor-report-v1.schema.json`

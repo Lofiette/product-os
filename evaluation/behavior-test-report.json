@@ -1,7 +1,7 @@
 {
   "schema": "cpt-behavior-test-report-v1",
   "version": "4.1.0",
-  "generated_at": "2026-08-26T17:16:28Z",
+  "generated_at": "2026-08-26T18:17:59Z",
   "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [
     {
@@ -38,6 +38,21 @@
       "module": "manager_git_provider",
       "total": 7,
       "passed": 7
+    },
+    {
+      "module": "manager_codex_adapter",
+      "total": 13,
+      "passed": 13
+    },
+    {
+      "module": "manager_lifecycle",
+      "total": 6,
+      "passed": 6
+    },
+    {
+      "module": "manager_cli",
+      "total": 3,
+      "passed": 3
     },
     {
       "module": "skills",
@@ -80,12 +95,12 @@
       "passed": 10
     }
   ],
-  "total": 170,
-  "passed": 170,
+  "total": 192,
+  "passed": 192,
   "failed": 0,
   "limitations": [
     "The suite validates deterministic local behavior, synthetic hook payloads, migration safety, release gates, and executable offline evaluations.",
-    "Live Codex model quality, native platform behavior, real subagent ordering, cancellation delivery, and cross-client reconnect require RC evidence."
+    "Live Codex model quality, real Codex plugin switching and session-hook delivery, native plugin behavior, real subagent ordering, cancellation delivery, and cross-client reconnect require RC evidence."
   ],
-  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds five receipt v2 compatibility cases, seven rebuildable-registry and crash-safe lock cases, eleven read-only detection/dry-run planning cases, five external backup cases, nineteen provider-neutral adoption transaction and migration-doctor cases, and seven Local Git provider cases. Manager coverage includes end-to-end local-to-Git adoption, canonical Git object-database provenance, exact adapter binding and selector diffs, full plugin coverage, two-phase multi-plugin switching, journal integrity, ownership-envelope CAS, compensation, rollback, orphan recovery, read-only diagnosis, zero-write rejection, and preservation of unrelated selector and registry state."
+  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds five receipt v2 compatibility cases, seven rebuildable-registry and crash-safe lock cases, eleven read-only detection/dry-run planning cases, five external backup cases, nineteen provider-neutral adoption transaction and migration-doctor cases, seven Local Git provider cases, thirteen bounded Codex selector adapter cases, six privacy-minimized lifecycle cases, and three trusted CLI cases. Manager coverage includes end-to-end local-to-Git adoption, canonical Git object-database provenance, exact adapter binding and selector diffs, full plugin coverage, two-phase multi-plugin switching, journal integrity, ownership-envelope CAS, compensation, rollback, orphan recovery and transaction discovery, read-only diagnosis without a surviving source repository, active-home refusal, lifecycle pending-to-PASS evidence with bounded retention, subprocess CLI fail-closed behavior, zero-write rejection, and preservation of unrelated selector and registry state. Real Codex plugin mutation remains outside this deterministic report."
 }

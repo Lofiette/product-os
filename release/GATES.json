@@ -8,6 +8,8 @@
     {"id":"install_update_rollback","title":"Install, update, uninstall, rollback","beta_required":true,"rc_required":true,"evidence":["distribution tests","extracted-package doctor"]},
     {"id":"universality","title":"Universal terminology and optional integrations","beta_required":true,"rc_required":true,"evidence":["project-specific term scan","self-contained core"]},
     {"id":"documentation","title":"User and operator documentation","beta_required":true,"rc_required":true,"evidence":["install","migration","troubleshooting","release notes"]},
+    {"id":"manager_adoption","title":"Provider-neutral Manager and adoption safety","beta_required":true,"rc_required":true,"evidence":["Manager deterministic suites","Local Git provenance","transactional selector switching","backup rollback and recovery","migration doctor"]},
+    {"id":"isolated_codex_adoption","title":"Isolated real Codex adoption and new-session evidence","beta_required":false,"rc_required":true,"evidence":["isolated CODEX_HOME plugin switch","fresh SessionStart startup receipt","post-switch doctor","rollback rehearsal"]},
     {"id":"platform_matrix","title":"Native platform matrix","beta_required":false,"rc_required":true,"evidence":["Linux","macOS","Windows","WSL"]},
     {"id":"live_model_trials","title":"Live Codex model trials","beta_required":false,"rc_required":true,"evidence":["live task traces","real token and latency budgets","real worker lifecycle"]},
     {"id":"rc_mega_audit","title":"Final RC mega-audit","beta_required":false,"rc_required":true,"evidence":["independent document audit","live regressions","known limitations review"]}

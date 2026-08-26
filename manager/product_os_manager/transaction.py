@@ -244,6 +244,39 @@ def _existing_transactions(context: InstallationContext) -> list[dict[str, Any]]
     return result
 
 
+def list_adoption_transactions(context: InstallationContext) -> dict[str, Any]:
+    """Return a bounded, read-only index for crash recovery and diagnosis."""
+
+    validate_mutation_context(context)
+    entries = [
+        {
+            "transaction_id": journal["transaction_id"],
+            "state": journal["state"],
+            "created_at": journal["created_at"],
+            "updated_at": journal["updated_at"],
+            "revision": journal["revision"],
+            "plan_hash": journal["plan_hash"],
+            "journal_hash": journal["journal_hash"],
+            "unresolved": journal["state"] not in CLOSED_STATES,
+        }
+        for journal in _existing_transactions(context)
+    ]
+    entries.sort(
+        key=lambda item: (
+            str(item["updated_at"]),
+            int(item["revision"]),
+            str(item["transaction_id"]),
+        ),
+        reverse=True,
+    )
+    return {
+        "schema": "product-os-adoption-transaction-list-v1",
+        "project": str(context.project),
+        "transactions": entries,
+        "unresolved_count": sum(1 for item in entries if item["unresolved"]),
+    }
+
+
 def _load_receipt_snapshot(
     context: InstallationContext,
 ) -> tuple[dict[str, Any], str]:
@@ -580,8 +613,10 @@ def _restore_selectors(
         journal["initial"]["selector"]["selectors"],
         _target_plugins(journal["plan"]["target"]),
     )
-    if canonical_json_hash(desired) == current["selectors_sha256"]:
-        return current
+    # Selector adapters may own host state that is intentionally opaque to the
+    # normalized selector list (for example a prepared marketplace
+    # registration). Always delegate restore so that hidden transaction-owned
+    # state is compensated even when the visible selectors already match.
     restored = selector.restore(
         desired,
         transaction_id=journal["transaction_id"],

@@ -6,6 +6,9 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
+
+from tools import cpt_release
 
 ROOT = Path(__file__).resolve().parents[1]
 CLI = ROOT / "tools" / "cpt_release.py"
@@ -18,17 +21,19 @@ class ReleasePlaneTests(unittest.TestCase):
             self.fail(proc.stdout + proc.stderr)
         return proc
 
-    def test_gate_registry_has_nine_unique_gates(self):
+    def test_gate_registry_has_eleven_unique_gates(self):
         data = json.loads((ROOT / "release" / "GATES.json").read_text())
         ids = [x["id"] for x in data["gates"]]
-        self.assertEqual(len(ids), 9)
-        self.assertEqual(len(set(ids)), 9)
+        self.assertEqual(len(ids), 11)
+        self.assertEqual(len(set(ids)), 11)
+        self.assertIn("manager_adoption", ids)
+        self.assertIn("isolated_codex_adoption", ids)
 
-    def test_trial_registry_has_thirty_three_unique_tracks(self):
+    def test_trial_registry_has_thirty_five_unique_tracks(self):
         data = json.loads((ROOT / "release" / "TRIALS.json").read_text())
         ids = [x["id"] for x in data["tracks"]]
-        self.assertEqual(len(ids), 33)
-        self.assertEqual(len(set(ids)), 33)
+        self.assertEqual(len(ids), 35)
+        self.assertEqual(len(set(ids)), 35)
 
     def test_offline_assessment_is_beta_ready(self):
         data = json.loads(self.run_cli("assess", "--scope", "offline").stdout)
@@ -46,8 +51,13 @@ class ReleasePlaneTests(unittest.TestCase):
         data = json.loads(self.run_cli("readiness", "--scope", "offline").stdout)
         self.assertEqual(data["status"], "BETA_READY")
         self.assertEqual(data["offline_cases"], 21)
-        self.assertEqual(data["release_tracks"], 33)
-        self.assertEqual(data["release_gates"], 9)
+        self.assertEqual(data["release_tracks"], 35)
+        self.assertEqual(data["release_gates"], 11)
+        facts = cpt_release.package_facts()
+        facts["behavior"] = dict(facts["behavior"])
+        facts["behavior"]["total"] -= 1
+        with mock.patch.object(cpt_release, "package_facts", return_value=facts):
+            self.assertFalse(cpt_release.offline_evidence()["offline_regression"][0])
 
     def test_scorecard_round_trip_validation(self):
         with tempfile.TemporaryDirectory() as td:

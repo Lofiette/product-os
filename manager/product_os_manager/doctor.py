@@ -58,6 +58,7 @@ def run_migration_doctor(
     adapters: AdapterRegistry,
     *,
     transaction_id: str | None = None,
+    lifecycle_adapter_id: str | None = None,
 ) -> dict[str, Any]:
     """Revalidate a committed adoption without mutating installation state."""
 
@@ -91,12 +92,13 @@ def run_migration_doctor(
     selector = None
     adapters_ok = False
     try:
-        provider = adapters.target(journal["adapters"]["target"]["adapter_id"])
         selector = adapters.selector(journal["adapters"]["selector"]["adapter_id"])
-        _assert_adapter_binding(provider, journal["adapters"]["target"], label="target")
         _assert_adapter_binding(selector, journal["adapters"]["selector"], label="selector")
         adapters_ok = True
-        adapter_detail = "target and selector adapters match the committed journal"
+        adapter_detail = (
+            "target evidence is hash-bound in the journal and the live selector "
+            "adapter matches the committed binding"
+        )
     except Exception as exc:
         adapter_detail = str(exc)
     check("ADAPTER_BINDINGS", adapters_ok, adapter_detail)
@@ -109,6 +111,24 @@ def run_migration_doctor(
             lifecycle = internal["lifecycle"]
         except Exception as exc:
             check("DOCTOR_EXECUTION", False, str(exc))
+
+    if lifecycle_adapter_id is not None:
+        if busy or not committed or not adapters_ok:
+            lifecycle = {
+                "status": "pending",
+                "adapter": lifecycle_adapter_id,
+                "detail": "core migration state is not quiescent and committed",
+            }
+        else:
+            try:
+                lifecycle_adapter = adapters.lifecycle(lifecycle_adapter_id)
+                lifecycle = lifecycle_adapter.inspect(journal).as_report()
+            except Exception as exc:
+                lifecycle = {
+                    "status": "FAIL",
+                    "adapter": lifecycle_adapter_id,
+                    "detail": str(exc),
+                }
 
     stable = False
     stable_detail = "transaction changed while doctor was running"

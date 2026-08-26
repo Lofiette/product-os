@@ -14,6 +14,19 @@
         ]
       }
     ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "commandWindows": "py -3 \"${PLUGIN_ROOT}\\hooks\\cpt_hook.py\"",
+            "timeout": 3,
+            "statusMessage": "Recording Product OS session lifecycle"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash|apply_patch|Edit|Write",

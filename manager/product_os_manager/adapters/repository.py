@@ -204,6 +204,33 @@ def _verified_manifest_records(root: Path, manifest: Mapping[str, Any]) -> list[
     return records
 
 
+def verify_package_root(
+    source_root: Path,
+    *,
+    expected_manifest_sha256: str | None = None,
+) -> dict[str, Any]:
+    """Verify a closed materialized package inventory and return its manifest.
+
+    Selector adapters call this immediately around host installation commands so
+    a previously verified Git target cannot silently drift between provider
+    resolution and plugin activation.
+    """
+
+    source_root = _safe_root(source_root)
+    package_path = source_root / "MANIFEST.json"
+    package = read_json(package_path)
+    if not isinstance(package, dict) or package.get("name") != "codex-product-os":
+        raise RuntimeError("Repository package manifest identity is invalid")
+    actual_manifest_sha256 = canonical_text_file_sha256(package_path)
+    if (
+        expected_manifest_sha256 is not None
+        and actual_manifest_sha256 != expected_manifest_sha256
+    ):
+        raise RuntimeError("Repository package manifest changed after target verification")
+    _verified_manifest_records(source_root, package)
+    return copy.deepcopy(package)
+
+
 def build_repository_descriptor(
     source_root: Path,
     *,
@@ -219,11 +246,8 @@ def build_repository_descriptor(
     source_root = _safe_root(source_root)
     package_path = source_root / "MANIFEST.json"
     marketplace_path = source_root / ".agents" / "plugins" / "marketplace.json"
-    package = read_json(package_path)
+    package = verify_package_root(source_root)
     marketplace = read_json(marketplace_path)
-    if not isinstance(package, dict) or package.get("name") != "codex-product-os":
-        raise RuntimeError("Repository package manifest identity is invalid")
-    _verified_manifest_records(source_root, package)
     if not isinstance(marketplace, dict) or marketplace.get("name") != marketplace_identity:
         raise RuntimeError("Repository marketplace identity does not match requested identity")
     entries = marketplace.get("plugins")

@@ -69,6 +69,14 @@ codex plugin marketplace upgrade product-os
 
 Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update`.
 
+For a transactional 4.0 local-installation to Git-marketplace adoption, use
+`tools/product_os_manager.py plan-local-git`, then separately confirm `prepare`
+and `switch`. Trusted commands require explicit project, user, Codex, and
+Product OS roots; source-dependent phases additionally require a repository
+root. They reject the process-active `CODEX_HOME` by default. See
+`docs/PRODUCT_OS_MANAGER.md`; real Codex switching is still a release acceptance
+step, not an offline-certified claim.
+
 ## Verification
 
 ```bash
@@ -88,4 +96,5 @@ python tests/run_all.py
 - `docs/VERSIONING_AND_GIT.md`
 - `docs/PLUGIN_AND_MARKETPLACE.md`
 - `docs/PRODUCT_DESIGNER_4.1.md`
+- `docs/PRODUCT_OS_MANAGER.md`
 - `KNOWN_LIMITATIONS.md`

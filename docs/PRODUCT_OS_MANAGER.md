@@ -24,6 +24,18 @@ in-process bounded adapter can provide an authoritative observation. JSON read
 from `--selector-state` remains an untrusted preview even if it contains an
 `authoritative` field.
 
+The production trusted path is `plan-local-git`. It composes
+`LocalGitTargetProvider` with the optional `CodexCliSelectorAdapter` in-process;
+it never treats a JSON file as authority. All trusted commands require explicit
+`--project`, `--user-home`, `--codex-home`, and `--product-os-home` values;
+source resolution, prepare, switch, and recover additionally require
+`--repository-root`. Doctor and rollback rely on the immutable materialized
+target plus the hash-bound journal, so a disappeared source repository cannot
+block diagnosis or restore. The process-active `CODEX_HOME` is rejected by
+default. A future, separately authorized live migration must repeat its exact
+path through `--confirmed-active-codex-home`; ordinary isolated acceptance does
+not use that option.
+
 ## Deterministic dry-run planning
 
 `tools/product_os_manager.py plan --project <path> --target <claims.json>
@@ -62,6 +74,22 @@ Plans expose two independent confirmation boundaries:
    does not refresh the active runtime.
 2. `switch` permits activation only after the prepared-state hash is confirmed.
 
+The trusted CLI mirrors those boundaries instead of adding another execution
+engine:
+
+```text
+product_os_manager.py plan-local-git ... --output plan.json
+product_os_manager.py prepare ... --plan plan.json --confirmed-plan-hash <hash>
+product_os_manager.py switch ... --transaction-id <id> --confirmed-prepared-state-hash <hash>
+product_os_manager.py doctor ... --transaction-id <id>
+product_os_manager.py rollback ... --transaction-id <id>
+product_os_manager.py recover ... --transaction-id <id>
+product_os_manager.py transactions ...
+```
+
+`rollback --force` is reserved for an already diagnosed manual-recovery state
+and still requires `--confirmed-current-state-hash`.
+
 ## Transaction and recovery contract
 
 `prepare_adoption` and `switch_adoption` accept only registered in-process
@@ -85,13 +113,53 @@ Locks are process-scoped OS locks. Their small files persist for diagnostics,
 but a hard process exit releases ownership automatically. `recover_adoption`
 reconciles orphaned prepare/switch journals conservatively; an ambiguous
 partial runtime write remains manual rather than being guessed through.
+`transactions` exposes a read-only newest-first journal index, including every
+unresolved transaction id, so a hard exit before CLI output does not make
+recovery undiscoverable.
 
 `run_migration_doctor` is a separate read-only post-migration API. It requires
-a committed journal, quiescent transaction lock, and the exact target/selector
-adapter bindings recorded by the transaction. It then rechecks runtime,
+a committed journal, quiescent transaction lock, hash-bound target evidence,
+and the exact live selector adapter binding recorded by the transaction. It
+then rechecks runtime,
 backup, selectors, receipt lineage, plugin coverage, managed files, registry,
 immutable target, and journal stability. It reports drift but never repairs it;
 repair remains an explicit rollback or recovery operation.
+
+## Optional Codex host adapters
+
+The Manager core remains provider-neutral. `CodexCliSelectorAdapter` is an
+optional bounded host adapter over the Codex plugin JSON CLI. Prepare registers
+only the already materialized local marketplace; switch installs the complete
+target selector set. A single OS lock serializes all Product OS mutations of an
+explicit `CODEX_HOME`. The adapter binds its capability fingerprint to the Git
+commit, closed package manifest, plugin manifest digests, target paths, and
+legacy selector versions. It verifies the complete source inventory and Codex
+source metadata around every host mutation. This proves a verified source plus
+an observed selector; proof of the bytes inside Codex's private plugin cache is
+left to isolated integration acceptance.
+
+Legacy retirement is deliberately unsupported by the Codex adapter until the
+user registry proves every cross-project reference. The transaction therefore
+retains legacy selectors after a successful switch.
+
+`CodexSessionLifecycleAdapter` is an optional post-commit observation. The
+bundled hook records only hashes and timestamps for `SessionStart` and
+`SessionEnd`; it never stores raw session ids, transcript paths, prompts, model
+names, or project paths. Only `SessionStart(source=startup)` for the committed
+transaction satisfies the new-session gate. Resume, clear, compact, and
+SessionEnd-only evidence remain `pending`. Lifecycle status never changes the
+provider-neutral doctor result, but `doctor --require-codex-lifecycle` returns a
+non-zero acceptance result until both core and lifecycle are `PASS`.
+For a non-default `PRODUCT_OS_HOME`, the Codex process that creates the new
+session and the lifecycle-required doctor command must both inherit that exact
+environment variable. The CLI rejects a lifecycle-required doctor run when
+the variable does not match, instead of leaving the missing locator implicit.
+Lifecycle evidence uses a bounded 64-session ring and one shared lock per
+installation transaction.
+
+Offline release readiness includes a dedicated Manager/adoption gate. Real
+isolated Codex switching plus fresh-session delivery is a separate RC gate and
+remains pending until the user-authorized acceptance run.
 
 Legacy selectors are retained until post-switch adapter readback and the
 known-installation registry both prove they are unreferenced. An absent or
@@ -105,3 +173,4 @@ Normative schemas:
 - `manager/schemas/backup-manifest-v1.schema.json`
 - `manager/schemas/adoption-transaction-v1.schema.json`
 - `manager/schemas/migration-doctor-report-v1.schema.json`
+- `manager/schemas/codex-lifecycle-event-v1.schema.json`

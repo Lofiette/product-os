@@ -39,6 +39,27 @@ class SelectorAdapterEvidence:
         return [copy.deepcopy(dict(item)) for item in self.selectors]
 
 
+@dataclass(frozen=True)
+class LifecycleAdapterEvidence:
+    """Optional host-lifecycle evidence kept outside core transaction gates."""
+
+    adapter_id: str
+    status: str
+    detail: str
+    evidence: Mapping[str, Any]
+    adapter_version: str = "1"
+    capability_fingerprint: str = "inspect-session-lifecycle-v1"
+
+    def as_report(self) -> dict[str, Any]:
+        result = {
+            "status": self.status,
+            "adapter": self.adapter_id,
+            "detail": self.detail,
+        }
+        result.update(copy.deepcopy(dict(self.evidence)))
+        return result
+
+
 class TargetProvider(Protocol):
     adapter_id: str
     adapter_version: str
@@ -116,6 +137,15 @@ class SelectorAdapter(Protocol):
         ...
 
 
+class LifecycleAdapter(Protocol):
+    adapter_id: str
+    adapter_version: str
+    capability_fingerprint: str
+
+    def inspect(self, journal: Mapping[str, Any]) -> LifecycleAdapterEvidence:
+        ...
+
+
 class AdapterRegistry:
     """Explicit in-process authority boundary for mutating adapters."""
 
@@ -124,13 +154,17 @@ class AdapterRegistry:
         *,
         target_providers: Sequence[TargetProvider] = (),
         selector_adapters: Sequence[SelectorAdapter] = (),
+        lifecycle_adapters: Sequence[LifecycleAdapter] = (),
     ) -> None:
         self._target_providers: dict[str, TargetProvider] = {}
         self._selector_adapters: dict[str, SelectorAdapter] = {}
+        self._lifecycle_adapters: dict[str, LifecycleAdapter] = {}
         for provider in target_providers:
             self.register_target(provider)
         for adapter in selector_adapters:
             self.register_selector(adapter)
+        for adapter in lifecycle_adapters:
+            self.register_lifecycle(adapter)
 
     @staticmethod
     def _identity(value: Any) -> str:
@@ -158,6 +192,17 @@ class AdapterRegistry:
             raise RuntimeError(f"Selector adapter is already registered: {adapter_id}")
         self._selector_adapters[adapter_id] = adapter
 
+    def register_lifecycle(self, adapter: LifecycleAdapter) -> None:
+        adapter_id = self._identity(getattr(adapter, "adapter_id", None))
+        self.binding(adapter)
+        if not callable(getattr(adapter, "inspect", None)):
+            raise RuntimeError(
+                f"Lifecycle adapter {adapter_id} is missing capability: inspect"
+            )
+        if adapter_id in self._lifecycle_adapters:
+            raise RuntimeError(f"Lifecycle adapter is already registered: {adapter_id}")
+        self._lifecycle_adapters[adapter_id] = adapter
+
     def target(self, adapter_id: str | None) -> TargetProvider:
         if adapter_id not in self._target_providers:
             raise RuntimeError(f"Target provider is not registered: {adapter_id}")
@@ -167,6 +212,11 @@ class AdapterRegistry:
         if adapter_id not in self._selector_adapters:
             raise RuntimeError(f"Selector adapter is not registered: {adapter_id}")
         return self._selector_adapters[adapter_id]
+
+    def lifecycle(self, adapter_id: str | None) -> LifecycleAdapter:
+        if adapter_id not in self._lifecycle_adapters:
+            raise RuntimeError(f"Lifecycle adapter is not registered: {adapter_id}")
+        return self._lifecycle_adapters[adapter_id]
 
     @staticmethod
     def binding(adapter: Any) -> dict[str, str]:

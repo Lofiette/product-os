@@ -15,6 +15,15 @@ Product OS 4.1.0 is the first complete Product Designer redesign. The internal P
 - Added a vendor-neutral Design Execution Plane with capability discovery, generic adapters, provenance, fallbacks, approval boundaries, and an optional OpenAI Product Design bridge.
 - Added deterministic validation for the Product Designer knowledge and adapter contracts.
 - Added a repository-level Codex marketplace containing all six Product OS plugins.
+- Added Product OS Manager with receipt v2, source lineage, a rebuildable user
+  installation registry, deterministic detection and dry-run adoption plans.
+- Added a crash-safe two-phase local-to-Git marketplace transaction with
+  verified backup, bounded rollback/recovery, and a read-only migration doctor.
+- Added a production local-Git provider that reads committed objects without
+  checkout, fetch, hooks, or working-tree trust.
+- Added an optional Codex JSON selector adapter, explicit active-home safety,
+  and privacy-minimized SessionStart/SessionEnd lifecycle evidence. Real Codex
+  plugin switching and new-session delivery remain isolated acceptance gates.
 - Updated the distribution updater so one `update` command refreshes every bundled domain pack recorded in the installation receipt while preserving mutable project state.
 - Established Semantic Versioning, Git release conventions, and a documented 4.0 to 4.1 migration path.
 

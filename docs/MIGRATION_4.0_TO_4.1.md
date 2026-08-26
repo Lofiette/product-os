@@ -58,6 +58,24 @@ The 4.1 updater:
 
 The domain-pack refresh is important. The original 4.0 updater refreshed the core plugin but could leave an already installed design pack on the old implementation.
 
+This direct updater is the in-place local-distribution path. Converting an
+existing local installation to the Git marketplace uses Product OS Manager
+instead: create an authoritative `plan-local-git` plan from a registered local
+Git repository, confirm its exact plan hash for `prepare`, then confirm the
+prepared-state hash for `switch`. The Manager takes a verified backup, preserves
+the old selectors during prepare, commits receipt/registry lineage only after
+readback, and exposes explicit `doctor`, `recover`, and `rollback` commands.
+If a process exits before it prints the transaction id, use the read-only
+`transactions` command with the same explicit roots to discover unresolved
+journals. Doctor and rollback do not require the original Git repository after
+the commit-addressed target has been materialized.
+All trusted commands require isolated roots explicitly; see
+`PRODUCT_OS_MANAGER.md` for the contract. Do not use the active `CODEX_HOME`
+during the isolated acceptance run.
+Launch the isolated Codex process with `PRODUCT_OS_HOME` set to the same
+explicit isolated Manager root so the fresh-session hook can locate its
+hash-bound transaction journal.
+
 ## Update a source-only local marketplace
 
 When Codex is connected to the local Product OS repository as a marketplace:

@@ -5,6 +5,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
+from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -146,14 +147,33 @@ for rel in [
     'manager/schemas/detection-report-v1.schema.json','manager/schemas/adoption-plan-v1.schema.json',
     'manager/schemas/backup-manifest-v1.schema.json','manager/schemas/adoption-transaction-v1.schema.json',
     'manager/schemas/migration-doctor-report-v1.schema.json','manager/product_os_manager/doctor.py',
+    'manager/schemas/codex-lifecycle-event-v1.schema.json',
     'manager/product_os_manager/adapters/base.py','manager/product_os_manager/adapters/repository.py',
+    'manager/product_os_manager/adapters/codex.py','manager/product_os_manager/adapters/codex_lifecycle.py',
+    'payload/marketplace-root/plugins/cpt-core/hooks/product_os_lifecycle.py',
     'manager/product_os_manager/backup.py','manager/product_os_manager/transaction.py',
     'tests/test_manager_planning.py','tests/test_manager_backup.py','tests/test_manager_transaction.py',
-    'tests/test_manager_git_provider.py',
+    'tests/test_manager_git_provider.py','tests/test_manager_codex_adapter.py',
+    'tests/test_manager_lifecycle.py','tests/test_manager_cli.py',
     'tools/product_os_manager.py',
     'docs/INSTALLATION_RECEIPT_V2.md','docs/INSTALLATION_REGISTRY.md','docs/PRODUCT_OS_MANAGER.md'
 ]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
+
+for rel in [
+    'manager/schemas/installation-receipt-v2.schema.json',
+    'manager/schemas/installation-registry-v1.schema.json',
+    'manager/schemas/detection-report-v1.schema.json',
+    'manager/schemas/adoption-plan-v1.schema.json',
+    'manager/schemas/backup-manifest-v1.schema.json',
+    'manager/schemas/adoption-transaction-v1.schema.json',
+    'manager/schemas/migration-doctor-report-v1.schema.json',
+    'manager/schemas/codex-lifecycle-event-v1.schema.json',
+]:
+    try:
+        Draft202012Validator.check_schema(json.loads((ROOT/rel).read_text(encoding='utf-8')))
+    except Exception as exc:
+        errors.append(f'invalid JSON schema {rel}: {exc}')
 
 # Package manifest integrity.
 manifest_path = ROOT / 'MANIFEST.json'
@@ -166,18 +186,21 @@ else:
     if manifest.get('phase') != 'offline-certified-live-pending': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
-        'behavior_tests': 170,
+        'behavior_tests': 192,
         'installation_receipt_tests': 5,
         'manager_registry_tests': 7,
         'manager_planning_tests': 11,
         'manager_backup_tests': 5,
         'manager_transaction_tests': 19,
         'manager_git_provider_tests': 7,
+        'manager_codex_adapter_tests': 13,
+        'manager_lifecycle_tests': 6,
+        'manager_cli_tests': 3,
         'evaluation_unit_tests': 13,
         'migration_tests': 7,
         'release_unit_tests': 10,
-        'release_tracks': 33,
-        'release_gates': 9,
+        'release_tracks': 35,
+        'release_gates': 11,
         'executable_evaluation_cases': 21,
         'fixture_repositories': 6,
         'evaluation_suites': 4,

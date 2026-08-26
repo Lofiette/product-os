@@ -33,6 +33,15 @@ def file_sha256(path: Path) -> str | None:
     return digest.hexdigest()
 
 
+def canonical_text_file_sha256(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    data = path.read_bytes()
+    if b"\0" not in data:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def read_json(path: Path, default: Any = None) -> Any:
     if not path.exists():
         return default

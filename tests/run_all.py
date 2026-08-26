@@ -50,6 +50,7 @@ suite = unittest.TestSuite(
         unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_receipts"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_registry"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_planning"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_skills"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_knowledge"),

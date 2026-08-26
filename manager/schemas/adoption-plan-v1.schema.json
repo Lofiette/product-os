@@ -1,0 +1,379 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/product-os/adoption-plan-v1.schema.json",
+  "title": "Product OS provider-neutral adoption plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generated_at",
+    "project",
+    "status",
+    "dry_run",
+    "plan_hash",
+    "detection_state_hash",
+    "target",
+    "preconditions",
+    "blockers",
+    "warnings",
+    "actions",
+    "approval",
+    "rollback"
+  ],
+  "properties": {
+    "schema": {
+      "const": "product-os-adoption-plan-v1"
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "blocked"
+      ]
+    },
+    "dry_run": {
+      "const": true
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "detection_state_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "repository",
+        "marketplace_identity",
+        "requested_ref",
+        "resolved_commit",
+        "product_version",
+        "package_manifest_sha256",
+        "package_manifest_actual_sha256",
+        "package_manifest_status",
+        "package_inventory",
+        "source_marker_status",
+        "resolution_evidence",
+        "resolution_evidence_sha256",
+        "plugin_evidence_sha256",
+        "resolution_verified",
+        "evidence_authoritative",
+        "evidence_adapter",
+        "materialized_root",
+        "materialization_status",
+        "plugins",
+        "errors"
+      ],
+      "properties": {
+        "provider": {"type": ["string", "null"]},
+        "repository": {"type": ["string", "null"]},
+        "marketplace_identity": {"type": ["string", "null"]},
+        "requested_ref": {"type": ["string", "null"]},
+        "resolved_commit": {"type": ["string", "null"]},
+        "product_version": {"type": ["string", "null"]},
+        "package_manifest_sha256": {"type": ["string", "null"]},
+        "package_manifest_actual_sha256": {"type": ["string", "null"]},
+        "package_manifest_status": {"type": "string"},
+        "package_inventory": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "declared_count",
+            "verified_count",
+            "inventory_sha256",
+            "declared_paths",
+            "errors"
+          ],
+          "properties": {
+            "status": {"type": "string"},
+            "declared_count": {"type": "integer", "minimum": 0},
+            "verified_count": {"type": "integer", "minimum": 0},
+            "inventory_sha256": {"type": ["string", "null"]},
+            "declared_paths": {"type": "array", "items": {"type": "string"}},
+            "errors": {"type": "array", "items": {"$ref": "#/$defs/target_error"}}
+          }
+        },
+        "source_marker_status": {"type": "string"},
+        "resolution_evidence": {"type": ["object", "null"]},
+        "resolution_evidence_sha256": {"type": ["string", "null"]},
+        "plugin_evidence_sha256": {"type": "string"},
+        "resolution_verified": {"type": "boolean"},
+        "evidence_authoritative": {"type": "boolean"},
+        "evidence_adapter": {"type": ["string", "null"]},
+        "materialized_root": {"type": ["string", "null"]},
+        "materialization_status": {"type": "string"},
+        "plugins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "selector",
+              "relative_path",
+              "manifest_sha256",
+              "actual_manifest_sha256",
+              "status"
+            ],
+            "properties": {
+              "name": {"type": ["string", "null"]},
+              "selector": {"type": ["string", "null"]},
+              "relative_path": {"type": ["string", "null"]},
+              "manifest_sha256": {"type": ["string", "null"]},
+              "actual_manifest_sha256": {"type": ["string", "null"]},
+              "status": {"type": "string"}
+            }
+          }
+        },
+        "errors": {"type": "array", "items": {"$ref": "#/$defs/target_error"}}
+      }
+    },
+    "preconditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "detection_state_hash",
+        "receipt_sha256",
+        "receipt_semantic_sha256",
+        "registry_sha256",
+        "marketplace_sha256",
+        "managed_state_sha256",
+        "selector_state_sha256",
+        "active_reasons",
+        "target_resolution_evidence_sha256",
+        "target_materialization_status"
+      ],
+      "properties": {
+        "detection_state_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "receipt_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "receipt_semantic_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "registry_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "marketplace_sha256": {
+          "type": "object"
+        },
+        "managed_state_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "selector_state_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "active_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "target_resolution_evidence_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_materialization_status": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "phase",
+          "mutation",
+          "approval",
+          "conditional",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "phase": {
+            "enum": [
+              "prepare",
+              "switch",
+              "commit",
+              "finalize"
+            ]
+          },
+          "mutation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "approval": {
+            "enum": [
+              "apply",
+              "switch"
+            ]
+          },
+          "conditional": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apply",
+        "switch"
+      ],
+      "properties": {
+        "apply": {
+          "$ref": "#/$defs/approval"
+        },
+        "switch": {
+          "$ref": "#/$defs/approval"
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "automatic_on_failure",
+        "concurrent_change_policy",
+        "legacy_selector_policy",
+        "legacy_selector_reasons"
+      ],
+      "properties": {
+        "automatic_on_failure": {
+          "type": "boolean"
+        },
+        "concurrent_change_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legacy_selector_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legacy_selector_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "details"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "object"
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "confirmation",
+        "scope"
+      ],
+      "properties": {
+        "required": {
+          "const": true
+        },
+        "confirmation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "target_error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

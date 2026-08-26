@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 589,
+  "file_count": 599,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -49,9 +49,10 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 125,
+    "behavior_tests": 135,
     "installation_receipt_tests": 4,
     "manager_registry_tests": 5,
+    "manager_planning_tests": 10,
     "executable_evaluation_cases": 21,
     "fixture_repositories": 6,
     "evaluation_suites": 4,
@@ -355,6 +356,11 @@
       "path": "docs/PRODUCT_DESIGNER_HISTORY.md",
       "size": 7335,
       "sha256": "6856d2ea12708f576bae66c807589d3436ea3284c7ec171f92d89e4668dfb5d3"
+    },
+    {
+      "path": "docs/PRODUCT_OS_MANAGER.md",
+      "size": 3130,
+      "sha256": "fe8e44ec27057e79358c7d37036305c109a6ed964fe7c0d9c28524f741434d92"
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
@@ -1113,8 +1119,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 2001,
-      "sha256": "2866b56713105631b441936029b684aa57536d8f0fc9b1fe864194e1d79fd231"
+      "size": 2185,
+      "sha256": "c0917c7b127eee9e808f2d3bc0d8685e6fcb7dac63ec63306378cd02a81c3e10"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -1723,13 +1729,38 @@
     },
     {
       "path": "manager/product_os_manager/__init__.py",
-      "size": 269,
-      "sha256": "54b83cabcd34206cc0f21c23d80db854f71e320eea2658d1ff74fd70d01b6e8c"
+      "size": 468,
+      "sha256": "ead1b55d7b3a3df5ded492e418ee8216096cf4873f27e1a8808630a42a800987"
+    },
+    {
+      "path": "manager/product_os_manager/adapters/__init__.py",
+      "size": 185,
+      "sha256": "6435ff721333bf657050e6d8eb9c841be67c8b72bbb8cbe3cb045664a4b4311b"
+    },
+    {
+      "path": "manager/product_os_manager/adapters/base.py",
+      "size": 1202,
+      "sha256": "36f8f0c50e6ef12fc948803ff516f22688cd8a79bc7c8e6dce5e416aba3217e8"
+    },
+    {
+      "path": "manager/product_os_manager/adapters/deterministic.py",
+      "size": 638,
+      "sha256": "8284eee6c68386ed34c215a520db6e86757b12f1090790bc0240af03a3a695fe"
     },
     {
       "path": "manager/product_os_manager/context.py",
       "size": 2001,
       "sha256": "5aa7c1ad35bb7ba99abcaca987e5513f95045086a30138c0df6420858eb91e2d"
+    },
+    {
+      "path": "manager/product_os_manager/inventory.py",
+      "size": 24095,
+      "sha256": "7f9b7f09940f1ca5ce0407968cb1b74b4f83c721cbf4421ac2d304a27404dfc6"
+    },
+    {
+      "path": "manager/product_os_manager/planning.py",
+      "size": 38657,
+      "sha256": "6a3655f08451191f76ab248ce3b03bb016db8521fcb632b25032b9d13009180e"
     },
     {
       "path": "manager/product_os_manager/registry.py",
@@ -1738,8 +1769,18 @@
     },
     {
       "path": "manager/product_os_manager/state.py",
-      "size": 2399,
-      "sha256": "904556b14e465d431c7704a4ea4ec73a249fb8151c8d7c3d0152f785ea8193cc"
+      "size": 2648,
+      "sha256": "9483e5fd8f46a6dd30ad5adf20b9dfbdae3be94df6585756c899e8cb5c6ad054"
+    },
+    {
+      "path": "manager/schemas/adoption-plan-v1.schema.json",
+      "size": 9425,
+      "sha256": "9031df35970a670d888fc472b745278a3d2de650df7fd1782b9039460cac44a9"
+    },
+    {
+      "path": "manager/schemas/detection-report-v1.schema.json",
+      "size": 3529,
+      "sha256": "bc62ae52f4579081efbdf3a1d448a93727b7ff1a0c7d2602fe79f64816d12f49"
     },
     {
       "path": "manager/schemas/installation-receipt-v2.schema.json",
@@ -2828,8 +2869,8 @@
     },
     {
       "path": "tests/run_all.py",
-      "size": 6068,
-      "sha256": "69cc19b63da23b547a46fe469b6e80d52b2e28bff78c6ba51f50a787ac930079"
+      "size": 6153,
+      "sha256": "d5900eeb27f80e2fc0226240581070d0c009ca72dcedc89c71fe6e33086d8d3b"
     },
     {
       "path": "tests/test_distribution.py",
@@ -2850,6 +2891,11 @@
       "path": "tests/test_knowledge.py",
       "size": 9919,
       "sha256": "7562628513cb5e9c2731fbdc39fcd8588d062b9fdc190a517a6fa9cba39b2530"
+    },
+    {
+      "path": "tests/test_manager_planning.py",
+      "size": 20270,
+      "sha256": "84a7e9c84628b9ad2ca82fe1eaea16449ca440ecf71325b361caebe0087a4c45"
     },
     {
       "path": "tests/test_manager_registry.py",
@@ -2888,8 +2934,8 @@
     },
     {
       "path": "tools/build_manifest.py",
-      "size": 4667,
-      "sha256": "249c8fffa250720f696f44cbf589f19582b67007d22df0e48cabaa2f6aeb881a"
+      "size": 4709,
+      "sha256": "12bf7998d30c02b423a536c3151b524bf72f591ac24d92e16d443b67012dd3b1"
     },
     {
       "path": "tools/cpt_dist.py",
@@ -2947,6 +2993,11 @@
       "sha256": "e68596cfeabb1be6eca52279c5fbac94379715d21fe0e6d2e841d7a240312f1f"
     },
     {
+      "path": "tools/product_os_manager.py",
+      "size": 3385,
+      "sha256": "6fcffce5acf78be28cfbb6e1a30992e3bb90615dc62e830eaee29577468427f1"
+    },
+    {
       "path": "tools/run_enforcement_integration.py",
       "size": 7083,
       "sha256": "10b2716ea2c46b9e0a45a0040d668bfba62fb6de85b24db35706e9e14f146458"
@@ -2963,8 +3014,8 @@
     },
     {
       "path": "tools/validate_distribution.py",
-      "size": 12622,
-      "sha256": "9e42b0dffaebb67b43d64e0d07c18ead9a27ade547c2c8bf9a2560b57f97771c"
+      "size": 12905,
+      "sha256": "4e043cf97b93365bbe106f73c9d584fb6b0d9042f236e7c7a8f670c5c611c486"
     },
     {
       "path": "tools/validate_enforcement.py",

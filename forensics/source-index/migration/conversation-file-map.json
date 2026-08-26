@@ -1,0 +1,112 @@
+[
+  {
+    "stage": "opening migration request",
+    "file_references": [
+      "codex-product-os-4.0-beta1-offline-v1.0.zip"
+    ]
+  },
+  {
+    "stage": "initial 3.0→4.0 migration planning",
+    "file_references": [
+      "tools/cpt_migrate.py",
+      "migration-plans/diter-3x-to-4x.json",
+      "AGENTS.md",
+      "TASK.md",
+      "CHRONICLE.md",
+      "CURRENT.md",
+      "TASK_INDEX.md",
+      "FIRST_PROMPT.md",
+      "TEAM.md",
+      "README.md",
+      "docs/RELEASE_NOTES_3.0.md"
+    ]
+  },
+  {
+    "stage": "mapping bug investigation",
+    "file_references": [
+      "migration/ROLE_MIGRATION.json",
+      "migration/SKILL_MIGRATION.json",
+      "tools/cpt_migrate.py",
+      "tools/cpt_migrate.py.bak",
+      "migration-plans/diter-3x-to-4x.json"
+    ]
+  },
+  {
+    "stage": "migration apply/backup verification",
+    "file_references": [
+      "backup_manifest.json",
+      "plan.json",
+      "receipt.json",
+      ".cpt/migration/receipt.json"
+    ]
+  },
+  {
+    "stage": "runtime verification",
+    "file_references": [
+      ".cpt/runtime.yaml",
+      ".cpt/current.yaml",
+      ".cpt/task-index.yaml",
+      ".cpt/runtime-summary.md",
+      ".cpt/install.json",
+      ".cpt/enforcement.yaml",
+      ".cpt/schema-bundle.json",
+      ".cpt/worker-archetypes.json",
+      ".cpt/migration/imports/index.json",
+      ".cpt/migration/imports/runtime/CURRENT.md",
+      ".cpt/migration/imports/runtime/TASK_INDEX.md",
+      ".cpt/migration/imports/runtime/TASK.md",
+      ".cpt/migration/imports/runtime/CHRONICLE.md"
+    ]
+  },
+  {
+    "stage": "post-migration diagnostics",
+    "file_references": [
+      "AGENTS.md",
+      ".cpt/OPERATIONS.md",
+      ".codex/config.toml",
+      "product-knowledge/PRODUCT_MAP.md",
+      "product-knowledge/KNOWLEDGE_INDEX.md",
+      "app/docs/api.md",
+      "web/lib/mock-data.ts",
+      "web/lib/profile-store.ts",
+      "web/app/checks/[checkId]/check-context.tsx",
+      ".gitmodules"
+    ]
+  },
+  {
+    "stage": "post-migration canonical normalization task",
+    "file_references": [
+      ".cpt/tasks/TKT-001.yaml",
+      ".cpt/tasks/TKT-001-artifacts/recovery-snapshot.yaml",
+      ".cpt/tasks/TKT-001-artifacts/migration-claim-review.yaml",
+      ".cpt/tasks/TKT-001-artifacts/git-structure-decision.md",
+      ".cpt/tasks/TKT-001-artifacts/instruction-patch-plan.md",
+      ".cpt/tasks/TKT-001-artifacts/product-knowledge-draft.yaml",
+      ".cpt/tasks/TKT-001-artifacts/verification-report.md",
+      ".cpt/tasks/TKT-001-artifacts/working-tree-manifest.sha256",
+      ".cpt/checkpoints/CP-20260714T105556Z-1149e8.yaml"
+    ]
+  },
+  {
+    "stage": "new-project 4.0 installation discussion",
+    "file_references": [
+      "tools/cpt_dist.py",
+      ".cpt/bin/cpt_runtime.py",
+      ".cpt/AGENTS_SNIPPET.md",
+      "AGENTS.md",
+      ".git/info/exclude"
+    ]
+  },
+  {
+    "stage": "forensic export request",
+    "file_references": [
+      "manifest.json",
+      "conversation-file-map.json",
+      "missing-assets.json",
+      "checksums.sha256",
+      "visible-transcript.md",
+      "README.md",
+      "SKILL.md"
+    ]
+  }
+]

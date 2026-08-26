@@ -1,0 +1,524 @@
+[
+  {
+    "id": "missing-0001",
+    "filename_or_visible_title": "codex-diagnostic-20260611-182346.tar.gz",
+    "mentioned_at": "2026-06-11 diagnostic export; later explicitly deleted",
+    "apparent_type": "gz",
+    "reason_absent": "File was deleted before this export and is not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0002",
+    "filename_or_visible_title": "codex-diagnostic-20260611-182346/",
+    "mentioned_at": "2026-06-11 diagnostic export directory; later explicitly deleted",
+    "apparent_type": "directory",
+    "reason_absent": "Directory was deleted before this export.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0003",
+    "filename_or_visible_title": "codex-diagnostic-lite-20260611-185728/",
+    "mentioned_at": "2026-06-11 lite diagnostic directory; later explicitly deleted",
+    "apparent_type": "directory",
+    "reason_absent": "Directory was deleted before this export.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0004",
+    "filename_or_visible_title": "codex-lite-20260611-190425/",
+    "mentioned_at": "2026-06-11 lite diagnostic directory; later explicitly deleted",
+    "apparent_type": "directory",
+    "reason_absent": "Directory was deleted before this export.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0005",
+    "filename_or_visible_title": "codex-lite-20260611-190425.tar.gz",
+    "mentioned_at": "2026-06-11T16:11:47Z user upload",
+    "apparent_type": "gz",
+    "reason_absent": "Uploaded archive is no longer available as bytes in the active sandbox or retrievable File Library results.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0006",
+    "filename_or_visible_title": "make-codex-lite-pack.sh",
+    "mentioned_at": "2026-06-11 temporary diagnostic export script; later explicitly deleted",
+    "apparent_type": "sh",
+    "reason_absent": "Script was deleted before this export.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0007",
+    "filename_or_visible_title": "codex-product-team-3.0-ultra.zip",
+    "mentioned_at": "2026-06-16 initial 3.0 Ultra release message",
+    "apparent_type": "zip",
+    "reason_absent": "Generated archive is mentioned but not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0008",
+    "filename_or_visible_title": "codex-product-team-3.0-ultra.zip",
+    "mentioned_at": "2026-06-16T06:38:09Z user re-upload for standard audit",
+    "apparent_type": "zip",
+    "reason_absent": "User-uploaded copy is not available as bytes in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0009",
+    "filename_or_visible_title": "2.1 beta 1 release archive (visible filename unavailable)",
+    "mentioned_at": "2026-06-10 context-optimization release stage",
+    "apparent_type": "1 beta 1 release archive (visible filename unavailable)",
+    "reason_absent": "A release archive is referenced in the visible conversation, but its exact filename and bytes are unavailable.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0010",
+    "filename_or_visible_title": "2.1 beta 2 release archive (visible filename unavailable)",
+    "mentioned_at": "2026-06-11 control-audit stage",
+    "apparent_type": "1 beta 2 release archive (visible filename unavailable)",
+    "reason_absent": "A release archive is referenced in the visible conversation, but its exact filename and bytes are unavailable.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0011",
+    "filename_or_visible_title": "2.1 beta 3 release archive (visible filename unavailable)",
+    "mentioned_at": "2026-06-11 beta 3 stage",
+    "apparent_type": "1 beta 3 release archive (visible filename unavailable)",
+    "reason_absent": "A release archive is referenced in the visible conversation, but its exact filename and bytes are unavailable.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "missing"
+  },
+  {
+    "id": "missing-0012",
+    "filename_or_visible_title": "product-knowledge-onboarding-plan.md",
+    "mentioned_at": "2026-06-12T06:59:21Z initial upload",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0013",
+    "filename_or_visible_title": "product-knowledge-onboarding-plan.md",
+    "mentioned_at": "2026-06-12T07:02:45Z revised upload",
+    "apparent_type": "md",
+    "reason_absent": "Revised uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0014",
+    "filename_or_visible_title": "TASK_INDEX.md",
+    "mentioned_at": "2026-06-12T06:59:21Z upload",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0015",
+    "filename_or_visible_title": "TASK_INDEX.md",
+    "mentioned_at": "2026-06-12T07:09:10Z revised upload",
+    "apparent_type": "md",
+    "reason_absent": "Revised uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0016",
+    "filename_or_visible_title": "TASK_INDEX.md",
+    "mentioned_at": "2026-06-12T08:46:42Z final cleanup upload",
+    "apparent_type": "md",
+    "reason_absent": "Revised uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0017",
+    "filename_or_visible_title": "CURRENT.md",
+    "mentioned_at": "2026-06-12T07:09:10Z upload",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0018",
+    "filename_or_visible_title": "CURRENT.md",
+    "mentioned_at": "2026-06-12T08:46:42Z final cleanup upload",
+    "apparent_type": "md",
+    "reason_absent": "Revised uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0019",
+    "filename_or_visible_title": "TKT-001-local-runtime-stabilization.md",
+    "mentioned_at": "2026-06-12T07:09:10Z upload",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0020",
+    "filename_or_visible_title": "AGENTS.override.md",
+    "mentioned_at": "2026-06-12T08:34:33Z upload",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0021",
+    "filename_or_visible_title": "AGENTS.override.md",
+    "mentioned_at": "2026-06-12T08:36:22Z revised upload",
+    "apparent_type": "md",
+    "reason_absent": "Revised uploaded bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0022",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T06:59:21Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0023",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T07:02:45Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0024",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T07:09:10Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0025",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T07:27:35Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0026",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T07:39:12Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0027",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0028",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T08:17:37Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0029",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0030",
+    "filename_or_visible_title": "TKT-002-product-knowledge-onboarding.md",
+    "mentioned_at": "2026-06-12T08:46:42Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0031",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T07:09:10Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0032",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T07:27:35Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0033",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T07:39:12Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0034",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0035",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T08:17:37Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0036",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0037",
+    "filename_or_visible_title": "CHRONICLE.md",
+    "mentioned_at": "2026-06-12T08:46:42Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0038",
+    "filename_or_visible_title": "KNOWLEDGE_INDEX.md",
+    "mentioned_at": "2026-06-12T07:27:35Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0039",
+    "filename_or_visible_title": "PRODUCT_MAP.md",
+    "mentioned_at": "2026-06-12T07:27:35Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0040",
+    "filename_or_visible_title": "KNOWLEDGE_INDEX.md",
+    "mentioned_at": "2026-06-12T07:39:12Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0041",
+    "filename_or_visible_title": "PRODUCT_MAP.md",
+    "mentioned_at": "2026-06-12T07:39:12Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0042",
+    "filename_or_visible_title": "KNOWLEDGE_INDEX.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0043",
+    "filename_or_visible_title": "PRODUCT_MAP.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0044",
+    "filename_or_visible_title": "KNOWLEDGE_INDEX.md",
+    "mentioned_at": "2026-06-12T08:17:37Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0045",
+    "filename_or_visible_title": "PRODUCT_MAP.md",
+    "mentioned_at": "2026-06-12T08:17:37Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0046",
+    "filename_or_visible_title": "KNOWLEDGE_INDEX.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0047",
+    "filename_or_visible_title": "PRODUCT_MAP.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0048",
+    "filename_or_visible_title": "workflows.md",
+    "mentioned_at": "2026-06-12T07:39:12Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0049",
+    "filename_or_visible_title": "workflows.md",
+    "mentioned_at": "2026-06-12T08:17:37Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0050",
+    "filename_or_visible_title": "workflows.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0051",
+    "filename_or_visible_title": "libraries.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0052",
+    "filename_or_visible_title": "libraries.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0053",
+    "filename_or_visible_title": "models.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0054",
+    "filename_or_visible_title": "models.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0055",
+    "filename_or_visible_title": "auth-session.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0056",
+    "filename_or_visible_title": "auth-session.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0057",
+    "filename_or_visible_title": "flow-runs.md",
+    "mentioned_at": "2026-06-12T08:04:38Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  },
+  {
+    "id": "missing-0058",
+    "filename_or_visible_title": "flow-runs.md",
+    "mentioned_at": "2026-06-12T08:43:53Z uploaded revision",
+    "apparent_type": "md",
+    "reason_absent": "Uploaded revision is referenced but its bytes are not present in the active sandbox.",
+    "explicitly_replaced_by_later_version": null,
+    "status": "inaccessible"
+  }
+]

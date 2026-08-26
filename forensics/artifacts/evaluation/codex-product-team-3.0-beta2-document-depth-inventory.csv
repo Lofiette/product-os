@@ -1,0 +1,405 @@
+path,category,lines,words,headings,assessment,flags,recommendation
+.agents/templates/actual-vs-reference-delta.md,agent_templates,17,37,2,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/anticipation-brief.md,agent_templates,25,34,9,adequate,,Keep; review during 4.0 migration.
+.agents/templates/anticipation-proposal.md,agent_templates,14,27,6,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/content-realism-report.md,agent_templates,22,38,6,adequate,,Keep; review during 4.0 migration.
+.agents/templates/context-snapshot.md,agent_templates,17,21,9,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/creative-tension-brief.md,agent_templates,15,23,6,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/debug-control-report.md,agent_templates,10,20,3,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/design-diff-summary.md,agent_templates,11,27,10,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/design-recon-brief.md,agent_templates,12,29,11,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/design-source-authority-report.md,agent_templates,28,65,6,adequate,,Keep; review during 4.0 migration.
+.agents/templates/developer-rebuild-brief.md,agent_templates,25,50,13,adequate,,Keep; review during 4.0 migration.
+.agents/templates/example-taste-board.md,agent_templates,15,30,6,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/memory-integrity-report.md,agent_templates,16,25,8,skeletal-template,custom-chronicle,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/module-design-package.md,agent_templates,41,88,17,adequate,,Keep; review during 4.0 migration.
+.agents/templates/planning-brief.md,agent_templates,11,21,10,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/pr-description.md,agent_templates,10,15,9,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/production-readiness-report.md,agent_templates,24,31,12,adequate,,Keep; review during 4.0 migration.
+.agents/templates/prototype-ui-kit-contract.md,agent_templates,27,51,12,adequate,,Keep; review during 4.0 migration.
+.agents/templates/reference-fidelity-spec.md,agent_templates,56,84,18,adequate,,Keep; review during 4.0 migration.
+.agents/templates/review-report.md,agent_templates,9,21,8,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/screen-design-spec.md,agent_templates,20,49,17,adequate,,Keep; review during 4.0 migration.
+.agents/templates/screenshot-comparison-report.md,agent_templates,22,38,5,adequate,,Keep; review during 4.0 migration.
+.agents/templates/subagent-completion-status.md,agent_templates,6,25,1,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/task-ticket.md,agent_templates,45,69,16,adequate,,Keep; review during 4.0 migration.
+.agents/templates/taste-profile.md,agent_templates,28,46,12,adequate,,Keep; review during 4.0 migration.
+.agents/templates/taste-review-report.md,agent_templates,22,40,10,adequate,,Keep; review during 4.0 migration.
+.agents/templates/ui-fidelity-report.md,agent_templates,12,29,11,skeletal-template,,"Add field semantics, example, required/optional markers, validation, and stop conditions."
+.agents/templates/ui-review-packet.md,agent_templates,48,127,7,adequate,,Keep; review during 4.0 migration.
+archive/audits/SELF_AUDIT_REPORT.md,archive,34,183,6,adequate,,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.0.md,archive,13,93,2,adequate,,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.0_BETA1.md,archive,21,163,4,adequate,,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.0_BETA2.md,archive,35,151,5,adequate,custom-chronicle,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.0_BETA4.md,archive,26,111,4,adequate,,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.1_BETA1.md,archive,29,109,5,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.1_BETA2.md,archive,17,124,4,adequate,,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.1_BETA3.md,archive,30,149,4,adequate,,Keep; review during 4.0 migration.
+archive/release-notes/RELEASE_NOTES_2.1_BETA4.md,archive,15,105,2,adequate,,Keep; review during 4.0 migration.
+audits/AUDIT_CHECKLIST.md,audits,12,65,1,thin-checklist,custom-chronicle,Expand into machine-checkable audit/eval specification with severity and evidence.
+audits/MIGRATION_CHECKLIST_2x_TO_3x.md,audits,10,63,1,thin-checklist,,Expand into machine-checkable audit/eval specification with severity and evidence.
+docs/AGENT_NAMING_POLICY.md,docs,30,137,5,adequate,,Keep; review during 4.0 migration.
+docs/ANTICIPATION_BRANCH.md,docs,67,290,15,adequate,,Keep; review during 4.0 migration.
+docs/API_DATA_SHAPE_PREWARM.md,docs,18,90,3,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/BOOTSTRAP_INDEX.md,docs,74,509,8,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+docs/BOUNDED_DISCOVERY.md,docs,31,103,4,adequate,,Keep; review during 4.0 migration.
+docs/CHRONICLE_COMPACTION.md,docs,20,64,3,lightweight-policy,custom-chronicle,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/CHRONICLE_POLICY.md,docs,13,37,1,lightweight-policy,custom-chronicle,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/CODEX_DIAGNOSTIC_EXPORT_WSL.md,docs,84,272,7,adequate,legacy-task-reference,Keep; review during 4.0 migration.
+docs/COMPLEXITY_MODEL.md,docs,18,137,3,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/CONTENT_REALISM.md,docs,35,118,4,adequate,,Keep; review during 4.0 migration.
+docs/CONTEXT_BUDGET_POLICY.md,docs,70,292,10,adequate,custom-chronicle,Keep; review during 4.0 migration.
+docs/CREATIVE_METHODS.md,docs,27,129,2,adequate,,Keep; review during 4.0 migration.
+docs/CREATIVE_TENSION.md,docs,62,244,18,adequate,,Keep; review during 4.0 migration.
+docs/DEBUG_CONTROL_GATE.md,docs,34,116,5,adequate,,Keep; review during 4.0 migration.
+docs/DESIGN_HANDOFF_QA.md,docs,23,130,3,adequate,,Keep; review during 4.0 migration.
+docs/DESIGN_RECON.md,docs,39,162,4,adequate,,Keep; review during 4.0 migration.
+docs/DESIGN_SOURCE_AUTHORITY.md,docs,46,246,6,adequate,,Keep; review during 4.0 migration.
+docs/DESIGN_SYSTEM_MODES.md,docs,48,249,10,adequate,,Keep; review during 4.0 migration.
+docs/EVIDENCE_POLICY.md,docs,10,38,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/EXPECTATION_ANTICIPATION.md,docs,71,324,13,adequate,custom-chronicle,Keep; review during 4.0 migration.
+docs/EXTERNAL_EVIDENCE_PROTOCOL.md,docs,7,29,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/FAST_LANE.md,docs,14,59,2,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/FRAMEWORK_LOADING_POLICY.md,docs,28,112,5,adequate,,Keep; review during 4.0 migration.
+docs/GLOSSARY.md,docs,10,51,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/GREENFIELD_PRODUCT_MODE.md,docs,31,103,4,adequate,,Keep; review during 4.0 migration.
+docs/IMPACT_MAP_PROTOCOL.md,docs,21,64,3,adequate,,Keep; review during 4.0 migration.
+docs/KNOWLEDGE_MAP_POLICY.md,docs,30,114,4,adequate,,Keep; review during 4.0 migration.
+docs/LANGUAGE_POLICY.md,docs,7,63,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/MANIFEST_FREEZE_POLICY.md,docs,40,161,4,adequate,,Keep; review during 4.0 migration.
+docs/MODULE_DESIGN.md,docs,34,134,20,adequate,,Keep; review during 4.0 migration.
+docs/NEW_TASK_PROTOCOL.md,docs,18,87,2,lightweight-policy,custom-chronicle,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/OPERATIONAL_UI_WORKFLOWS.md,docs,51,182,5,adequate,,Keep; review during 4.0 migration.
+docs/OPPORTUNITY_EVENTS.md,docs,30,153,3,adequate,,Keep; review during 4.0 migration.
+docs/ORCHESTRATION_APPROVAL_POLICY.md,docs,23,78,4,adequate,,Keep; review during 4.0 migration.
+docs/OWNERSHIP_MATRIX.md,docs,19,79,1,underdeveloped,,Does not fully integrate frontend_engineer and many 3.0 responsibilities.
+docs/PHASED_ORCHESTRATION.md,docs,47,244,10,adequate,,Keep; review during 4.0 migration.
+docs/PROACTIVE_PROPOSALS.md,docs,40,191,6,adequate,,Keep; review during 4.0 migration.
+docs/PRODUCTION_READINESS_GATES.md,docs,49,190,11,adequate,,Keep; review during 4.0 migration.
+docs/PRODUCT_KNOWLEDGE_SYSTEM.md,docs,50,206,6,adequate,,Keep; review during 4.0 migration.
+docs/PRODUCT_ONBOARDING.md,docs,25,121,4,adequate,custom-chronicle,Keep; review during 4.0 migration.
+docs/PROMPT_RECIPES.md,docs,10,98,4,thin-policy,custom-chronicle;very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/PROTOTYPE_UI_KIT.md,docs,31,121,16,adequate,,Keep; review during 4.0 migration.
+docs/QUALITY_GATES.md,docs,40,158,6,adequate,,Keep; review during 4.0 migration.
+docs/QUESTION_TREE.md,docs,37,201,7,adequate,,Keep; review during 4.0 migration.
+docs/REDESIGN_MIGRATION_MODE.md,docs,19,65,3,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/REFERENCE_FIDELITY.md,docs,80,357,7,adequate,,Keep; review during 4.0 migration.
+docs/RELEASE_NOTES_3.0.md,docs,13,72,2,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/RELEASE_NOTES_3.0_BETA2.md,docs,19,157,4,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/REPO_RECON.md,docs,13,34,1,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/REVIEW_LEVELS.md,docs,8,49,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/RISK_POLICY.md,docs,10,65,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/ROLE_METHOD_LIBRARY.md,docs,21,135,7,critical-thin,,Covers only six roles and one-line method chains; insufficient for 50-role expertise.
+docs/ROLE_OUTPUT_SCHEMAS.md,docs,17,35,1,critical-thin,,Generic schema only; lacks typed outputs for most roles.
+docs/ROLE_ROUTING_MATRIX.md,docs,76,507,9,adequate,custom-chronicle,Keep; review during 4.0 migration.
+docs/ROLE_SERVICE_BUDGET.md,docs,13,88,3,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/ROLE_SKILL_ARCHITECTURE.md,docs,36,118,4,adequate,,Keep; review during 4.0 migration.
+docs/RUNTIME_DECISION_TREE.md,docs,14,90,1,lightweight-policy,custom-chronicle,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/RUNTIME_LOAD_POLICY.md,docs,58,244,7,underdeveloped,custom-chronicle,Duplicates startup rules and contains at least one broken reference.
+docs/SCREENSHOT_VISUAL_GATE.md,docs,38,147,5,adequate,,Keep; review during 4.0 migration.
+docs/SKILL_DISCOVERY_POLICY.md,docs,58,234,8,adequate,,Keep; review during 4.0 migration.
+docs/SKILL_ROUTING_MATRIX.md,docs,74,309,7,adequate,,Keep; review during 4.0 migration.
+docs/SUBAGENT_FAILURE_POLICY.md,docs,48,247,8,adequate,,Keep; review during 4.0 migration.
+docs/SUBAGENT_ORCHESTRATION.md,docs,85,442,10,conflicted,custom-chronicle,Contains wait-for-all language alongside no-indefinite-wait failure policy.
+docs/SUBAGENT_PROMPT_RECIPES.md,docs,32,150,4,adequate,,Keep; review during 4.0 migration.
+docs/SUBAGENT_RUN_CONTRACT.md,docs,54,323,8,adequate,legacy-task-reference,Keep; review during 4.0 migration.
+docs/TASTE_PROFILE.md,docs,132,530,15,adequate,,Keep; review during 4.0 migration.
+docs/TASTE_REVIEW.md,docs,69,279,16,adequate,,Keep; review during 4.0 migration.
+docs/TEAM_CULTURE.md,docs,89,558,13,adequate,,Keep; review during 4.0 migration.
+docs/TICKETED_MEMORY.md,docs,30,158,6,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+docs/TICKET_LIFECYCLE.md,docs,19,86,3,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/UI_OBVIOUS_ERRORS_CHECKLIST.md,docs,19,89,1,lightweight-policy,,Review for completeness; add operational examples and machine-enforceable hooks where appropriate.
+docs/UI_QUALITY_GATES.md,docs,126,542,13,adequate,,Keep; review during 4.0 migration.
+docs/UI_REVIEW_PACKET.md,docs,63,197,11,adequate,,Keep; review during 4.0 migration.
+docs/UI_REVIEW_RUNBOOK.md,docs,46,151,5,adequate,,Keep; review during 4.0 migration.
+docs/VALIDATOR_RULES.md,docs,25,151,3,adequate,legacy-task-reference,Keep; review during 4.0 migration.
+docs/VISUAL_ACCEPTANCE_CRITERIA.md,docs,29,152,4,adequate,,Keep; review during 4.0 migration.
+docs/WEB_SERVICE_ROUTING.md,docs,45,114,5,adequate,,Keep; review during 4.0 migration.
+docs/WORK_MODES.md,docs,12,72,1,thin-policy,,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+docs/design-system/README.md,docs,8,48,1,thin-policy,very-thin,"Clarify decision logic, triggers, evidence, exceptions, and interaction with related policies."
+examples/README.md,examples,3,16,1,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/AGENTS.override.example.md,examples,127,593,9,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+examples/existing-product/CHRONICLE.example.md,examples,23,129,2,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+examples/existing-product/CURRENT.example.md,examples,28,109,6,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+examples/existing-product/TASK_INDEX.example.md,examples,13,69,2,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/KNOWLEDGE_INDEX.example.md,examples,27,259,1,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/PRODUCT_MAP.example.md,examples,75,522,7,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/areas/auth-session.example.md,examples,50,285,6,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/areas/flow-runs.example.md,examples,46,217,6,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/areas/libraries.example.md,examples,51,266,6,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/areas/models.example.md,examples,49,251,6,adequate,,Keep; review during 4.0 migration.
+examples/existing-product/product/areas/workflows.example.md,examples,89,488,8,adequate,,Keep; review during 4.0 migration.
+examples/greenfield-product/PRODUCT_MAP.hypothesis.example.md,examples,19,40,5,adequate,,Keep; review during 4.0 migration.
+framework/FRAMEWORK_INDEX.md,framework,23,73,5,adequate,,Keep; review during 4.0 migration.
+framework/README.md,framework,7,42,1,thin-readme,,"Expand with architecture, canonical sources, install/runtime behavior, extension rules, and examples."
+kernel/AGENTS.override.template.md,kernel,17,89,1,critical-unsafe,legacy-task-reference;custom-chronicle,Same-directory override replaces root AGENTS; template is too thin to preserve kernel.
+kernel/CHRONICLE.template.md,kernel,15,19,2,skeletal-kernel-template,custom-chronicle,Add schema/field semantics while keeping always-load content out of templates.
+kernel/CURRENT.template.md,kernel,34,79,7,adequate,,Keep; review during 4.0 migration.
+kernel/README.md,kernel,3,20,1,thin-readme,,"Expand with architecture, canonical sources, install/runtime behavior, extension rules, and examples."
+kernel/TASK_INDEX.template.md,kernel,11,47,2,skeletal-kernel-template,,Add schema/field semantics while keeping always-load content out of templates.
+kernel/templates/IMPACT_MAP.template.md,kernel,21,29,11,adequate,,Keep; review during 4.0 migration.
+kernel/templates/TKT-template.md,kernel,26,29,11,adequate,,Keep; review during 4.0 migration.
+.agents/playbooks/00-intake_orchestrator.md,playbooks,81,211,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/01-team_architect.md,playbooks,81,205,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/02-delivery_manager.md,playbooks,81,194,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/03-chronicle_keeper.md,playbooks,80,198,21,templated-playbook,custom-chronicle,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/04-consistency_auditor.md,playbooks,81,204,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/05-ai_workflow_auditor.md,playbooks,78,194,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/06-product_strategist.md,playbooks,83,200,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/07-market_researcher.md,playbooks,82,199,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/08-ux_researcher.md,playbooks,84,203,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/09-cx_researcher.md,playbooks,81,198,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/10-business_analyst.md,playbooks,80,187,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/11-domain_expert.md,playbooks,81,187,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/12-growth_activation_strategist.md,playbooks,85,192,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/13-product_designer.md,playbooks,98,289,22,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/14-service_designer.md,playbooks,83,197,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/15-information_architect.md,playbooks,81,190,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/16-ux_interaction_reviewer.md,playbooks,84,201,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/17-ux_writer.md,playbooks,92,262,22,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/18-design_system_guardian.md,playbooks,93,274,22,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/19-design_engineer.md,playbooks,94,277,22,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/20-visual_design_director.md,playbooks,89,265,22,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/21-accessibility_specialist.md,playbooks,84,199,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/22-data_visualization_designer.md,playbooks,83,198,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/23-conversation_designer.md,playbooks,84,194,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/24-localization_specialist.md,playbooks,82,189,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/25-solution_architect.md,playbooks,82,186,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/26-frontend_architect.md,playbooks,84,200,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/27-backend_architect.md,playbooks,85,195,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/28-mobile_architect.md,playbooks,82,195,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/29-api_contract_guardian.md,playbooks,81,193,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/30-data_architect.md,playbooks,83,190,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/31-analytics_engineer.md,playbooks,81,189,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/32-ai_ml_systems_architect.md,playbooks,84,205,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/33-model_evaluation_specialist.md,playbooks,81,196,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/34-ai_safety_reviewer.md,playbooks,83,197,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/35-security_reviewer.md,playbooks,84,197,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/36-privacy_compliance_reviewer.md,playbooks,83,201,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/37-performance_engineer.md,playbooks,82,189,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/38-dependency_curator.md,playbooks,82,189,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/39-migration_planner.md,playbooks,82,186,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/40-devops_release_engineer.md,playbooks,82,195,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/41-observability_engineer.md,playbooks,81,189,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/42-incident_investigator.md,playbooks,83,188,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/43-experimentation_specialist.md,playbooks,81,188,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/44-customer_support_analyst.md,playbooks,82,196,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/45-qa_engineer.md,playbooks,91,262,22,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/46-code_reviewer.md,playbooks,83,198,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/47-refactoring_specialist.md,playbooks,81,192,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/48-technical_writer.md,playbooks,82,193,21,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+.agents/playbooks/50-frontend_engineer.md,playbooks,73,153,18,templated-playbook,,"Deepen role-specific method, artifacts, review criteria, and examples; reduce repeated boilerplate."
+product-knowledge/README.md,product_knowledge,3,13,1,thin-readme,,"Expand with architecture, canonical sources, install/runtime behavior, extension rules, and examples."
+product-knowledge/protocols/API_DATA_SHAPE_PREWARM.md,product_knowledge,3,20,1,stub-protocol,,Either remove mirror stub or replace with full canonical protocol; avoid duplicate sources.
+product-knowledge/protocols/AREA_PREWARM_DECISION_RULES.md,product_knowledge,3,23,1,stub-protocol,,Either remove mirror stub or replace with full canonical protocol; avoid duplicate sources.
+product-knowledge/protocols/EXISTING_PRODUCT_ONBOARDING.md,product_knowledge,3,31,1,stub-protocol,,Either remove mirror stub or replace with full canonical protocol; avoid duplicate sources.
+product-knowledge/protocols/GREENFIELD_PRODUCT_ONBOARDING.md,product_knowledge,3,30,1,stub-protocol,,Either remove mirror stub or replace with full canonical protocol; avoid duplicate sources.
+product-knowledge/protocols/KNOWLEDGE_FRESHNESS_REVIEW.md,product_knowledge,3,19,1,stub-protocol,,Either remove mirror stub or replace with full canonical protocol; avoid duplicate sources.
+product-knowledge/protocols/REDESIGN_OR_MIGRATION_ONBOARDING.md,product_knowledge,3,20,1,stub-protocol,,Either remove mirror stub or replace with full canonical protocol; avoid duplicate sources.
+product-knowledge/templates/API_DATA_SHAPE_INDEX.template.md,product_knowledge,21,24,7,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+product-knowledge/templates/AREA_MAP.template.md,product_knowledge,27,38,10,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+product-knowledge/templates/CONTEXT_PACKET.template.md,product_knowledge,15,16,8,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+product-knowledge/templates/DECISION_RECORD.template.md,product_knowledge,19,16,6,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+product-knowledge/templates/FLOW_MAP.template.md,product_knowledge,29,30,11,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+product-knowledge/templates/KNOWLEDGE_INDEX.template.md,product_knowledge,12,18,1,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+product-knowledge/templates/PRODUCT_MAP.template.md,product_knowledge,23,32,8,skeletal-template,,"Add YAML frontmatter schema, field semantics, examples, claim/evidence lifecycle, and validation rules."
+.agents/role_cards/accessibility_specialist.md,role_cards,29,137,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/ai_ml_systems_architect.md,role_cards,28,141,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/ai_safety_reviewer.md,role_cards,28,134,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/ai_workflow_auditor.md,role_cards,26,129,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/analytics_engineer.md,role_cards,27,125,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/api_contract_guardian.md,role_cards,27,131,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/backend_architect.md,role_cards,28,133,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/business_analyst.md,role_cards,26,128,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/chronicle_keeper.md,role_cards,27,130,5,thin-role-card,custom-chronicle,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/code_reviewer.md,role_cards,27,132,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/consistency_auditor.md,role_cards,27,131,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/conversation_designer.md,role_cards,28,133,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/customer_support_analyst.md,role_cards,27,134,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/cx_researcher.md,role_cards,27,135,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/data_architect.md,role_cards,28,132,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/data_visualization_designer.md,role_cards,28,132,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/delivery_manager.md,role_cards,27,129,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/dependency_curator.md,role_cards,27,127,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/design_engineer.md,role_cards,39,221,8,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/design_system_guardian.md,role_cards,39,213,8,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/devops_release_engineer.md,role_cards,28,134,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/domain_expert.md,role_cards,27,128,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/experimentation_specialist.md,role_cards,27,129,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/frontend_architect.md,role_cards,27,135,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/frontend_engineer.md,role_cards,22,126,4,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/growth_activation_strategist.md,role_cards,29,130,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/incident_investigator.md,role_cards,28,128,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/information_architect.md,role_cards,27,130,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/intake_orchestrator.md,role_cards,26,146,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/localization_specialist.md,role_cards,28,130,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/market_researcher.md,role_cards,27,130,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/migration_planner.md,role_cards,27,127,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/mobile_architect.md,role_cards,27,136,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/model_evaluation_specialist.md,role_cards,27,136,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/observability_engineer.md,role_cards,27,129,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/performance_engineer.md,role_cards,28,132,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/privacy_compliance_reviewer.md,role_cards,28,138,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/product_designer.md,role_cards,41,227,8,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/product_strategist.md,role_cards,27,132,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/qa_engineer.md,role_cards,36,191,7,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/refactoring_specialist.md,role_cards,27,131,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/security_reviewer.md,role_cards,29,133,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/service_designer.md,role_cards,27,138,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/solution_architect.md,role_cards,27,126,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/team_architect.md,role_cards,29,149,6,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/technical_writer.md,role_cards,28,132,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/ux_interaction_reviewer.md,role_cards,28,134,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/ux_researcher.md,role_cards,27,135,5,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/ux_writer.md,role_cards,32,171,6,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+.agents/role_cards/visual_design_director.md,role_cards,34,189,7,thin-role-card,,"Add decision rights, methodologies, evidence standards, anti-patterns, and task-type metadata; keep card concise but meaningful."
+AGENTS.md,root,308,2053,18,critical-overloaded,legacy-task-reference;custom-chronicle;large,Root kernel mixes stable invariants with task-specific policies; shrink and route details.
+CHRONICLE.md,root,19,107,2,adequate,custom-chronicle,Keep; review during 4.0 migration.
+CURRENT.md,root,45,161,7,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+FIRST_PROMPT.md,root,55,302,1,redundant,legacy-task-reference;custom-chronicle,"Repeats auto-loaded AGENTS and Tier-0 policy; should become user quickstart, not runtime dependency."
+README.md,root,46,287,7,adequate,custom-chronicle,Keep; review during 4.0 migration.
+TASK.md,root,14,59,1,adequate,custom-chronicle,Keep; review during 4.0 migration.
+TASK_INDEX.md,root,12,61,2,adequate,,Keep; review during 4.0 migration.
+TEAM.md,root,495,2256,50,large-reference,custom-chronicle;large,Useful catalogue but too large for runtime loading; reference/index only.
+docs/scenario_tests/agent_id_no_personal_names.md,scenario_md,17,30,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/ai_tool_agent.md,scenario_md,17,24,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/anticipation_proposals_before_implementation.md,scenario_md,17,28,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/api_data_shape_prewarm.md,scenario_md,15,71,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/backend_bugfix.md,scenario_md,11,14,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/chronicle_compaction_after_task.md,scenario_md,7,17,2,thin-scenario,custom-chronicle;very-thin,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/context_prune_after_long_work.md,scenario_md,12,31,3,thin-scenario,custom-chronicle,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/conversation_ui.md,scenario_md,13,16,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/current_page_ui_review_bounded.md,scenario_md,16,25,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/dashboard_design.md,scenario_md,13,17,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/debug_control_and_content_realism_review.md,scenario_md,17,31,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/existing_product_knowledge_onboarding.md,scenario_md,17,80,4,thin-scenario,custom-chronicle,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/existing_repo_feature_change.md,scenario_md,10,14,3,thin-scenario,very-thin,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/generated_manifest_self_validation_blocked.md,scenario_md,15,34,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/good_bad_examples_redesign.md,scenario_md,18,32,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/governed_ds_folder.md,scenario_md,14,23,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/greenfield_product_start.md,scenario_md,17,80,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/module_design_handoff_ds.md,scenario_md,32,52,5,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/new_task_protocol_ui_button.md,scenario_md,19,97,4,thin-scenario,legacy-task-reference;custom-chronicle,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/new_task_safe_autonomy.md,scenario_md,18,67,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/opportunity_event.md,scenario_md,6,11,2,thin-scenario,very-thin,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/proactive_anticipation_scope_change.md,scenario_md,20,47,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/production_web_service_code_ds.md,scenario_md,38,57,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/reference_driven_ui_prototype_blocking.md,scenario_md,23,39,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/screen_redesign_existing_ds.md,scenario_md,15,20,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/service_journey.md,scenario_md,11,15,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/subagent_bounded_ticket_packet.md,scenario_md,17,30,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/subagent_hang_recovery.md,scenario_md,14,26,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/taste_calibrated_ui_prototype.md,scenario_md,20,33,4,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/taste_sensitive_ui_concept_no_ds.md,scenario_md,27,62,5,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/ticketed_memory_new_task.md,scenario_md,16,30,4,thin-scenario,legacy-task-reference,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/tiny_copy_change.md,scenario_md,12,24,2,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/ui_prototype_no_ds.md,scenario_md,20,50,3,thin-scenario,,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+docs/scenario_tests/ux_research_only.md,scenario_md,10,14,3,thin-scenario,very-thin,"Convert to executable fixture with prompt, repo setup, expected traces/artifacts, forbidden actions, and grader."
+simulations/README.md,simulations,3,9,1,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-001-existing-ui-task.md,simulations,14,49,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-002-greenfield-product.md,simulations,14,47,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-003-api-dependent-ui.md,simulations,14,49,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-004-design-system-compliance.md,simulations,14,49,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-005-context-economy-stress.md,simulations,14,49,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-006-subagent-approval.md,simulations,14,47,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-007-product-knowledge-prewarm.md,simulations,14,49,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-008-chronicle-compaction.md,simulations,14,47,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-009-framework-loading.md,simulations,14,47,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+simulations/SIM-010-no-code-without-approval.md,simulations,14,51,3,placeholder-simulation,,Replace generic checklist with runnable evaluation fixture and scorecard.
+.agents/skills/accessibility-check/SKILL.md,skills,54,145,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/ai-ml-planning/SKILL.md,skills,54,147,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/ai-safety-review/SKILL.md,skills,54,145,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/analytics-planning/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/anticipation-radar/SKILL.md,skills,52,185,11,adequate,,Keep; review during 4.0 migration.
+.agents/skills/api-contract-review/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/api-data-shape-prewarm/SKILL.md,skills,35,164,4,adequate,,Keep; review during 4.0 migration.
+.agents/skills/architecture-planning/SKILL.md,skills,54,137,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/bounded-discovery/SKILL.md,skills,40,168,5,adequate,,Keep; review during 4.0 migration.
+.agents/skills/chronicle-compaction/SKILL.md,skills,16,38,2,adequate,custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/component-contract-scan/SKILL.md,skills,43,147,11,adequate,,Keep; review during 4.0 migration.
+.agents/skills/content-pattern-review/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/content-realism-review/SKILL.md,skills,22,87,4,adequate,,Keep; review during 4.0 migration.
+.agents/skills/context-prune/SKILL.md,skills,24,129,3,adequate,custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/context-snapshot/SKILL.md,skills,19,85,3,adequate,custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/conversation-design/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/creative-improvement-loop/SKILL.md,skills,59,180,15,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/creative-tension-review/SKILL.md,skills,67,260,18,adequate,,Keep; review during 4.0 migration.
+.agents/skills/current-page-ui-review/SKILL.md,skills,23,97,0,adequate,,Keep; review during 4.0 migration.
+.agents/skills/customer-support-analysis/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/cx-journey-mapping/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/data-architecture-review/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/data-visualization-review/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/debug-control-review/SKILL.md,skills,22,89,4,adequate,,Keep; review during 4.0 migration.
+.agents/skills/dependency-review/SKILL.md,skills,54,137,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/design-critique/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/design-handoff-qa/SKILL.md,skills,50,172,12,adequate,,Keep; review during 4.0 migration.
+.agents/skills/design-qa/SKILL.md,skills,62,206,17,adequate,,Keep; review during 4.0 migration.
+.agents/skills/design-recon/SKILL.md,skills,68,252,17,adequate,,Keep; review during 4.0 migration.
+.agents/skills/design-source-authority/SKILL.md,skills,23,107,4,adequate,,Keep; review during 4.0 migration.
+.agents/skills/design-system-compliance/SKILL.md,skills,64,219,15,adequate,,Keep; review during 4.0 migration.
+.agents/skills/design-system-manifest/SKILL.md,skills,50,168,6,adequate,,Keep; review during 4.0 migration.
+.agents/skills/devops-release-planning/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/ds-code-contract-enforcement/SKILL.md,skills,48,159,14,adequate,,Keep; review during 4.0 migration.
+.agents/skills/e2e-visual-state-capture/SKILL.md,skills,43,142,11,adequate,,Keep; review during 4.0 migration.
+.agents/skills/example-taste-board/SKILL.md,skills,52,189,12,adequate,,Keep; review during 4.0 migration.
+.agents/skills/expectation-anticipation/SKILL.md,skills,76,343,13,adequate,custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/experiment-design/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/external-evidence-protocol/SKILL.md,skills,54,149,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/framework-loading/SKILL.md,skills,29,129,3,adequate,,Keep; review during 4.0 migration.
+.agents/skills/frontend-integration-review/SKILL.md,skills,17,36,2,adequate,,Keep; review during 4.0 migration.
+.agents/skills/greenfield-onboarding/SKILL.md,skills,39,129,5,adequate,,Keep; review during 4.0 migration.
+.agents/skills/growth-activation-planning/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/handoff-docs/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/impact-map/SKILL.md,skills,30,143,3,adequate,,Keep; review during 4.0 migration.
+.agents/skills/implementation-review/SKILL.md,skills,53,184,17,adequate,,Keep; review during 4.0 migration.
+.agents/skills/incident-review/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/information-architecture/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/knowledge-freshness-review/SKILL.md,skills,28,94,3,adequate,,Keep; review during 4.0 migration.
+.agents/skills/knowledge-update/SKILL.md,skills,28,98,3,adequate,custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/localization-review/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/manifest-freeze-check/SKILL.md,skills,27,114,5,adequate,,Keep; review during 4.0 migration.
+.agents/skills/market-research-planning/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/memory-integrity-check/SKILL.md,skills,20,100,3,adequate,legacy-task-reference;custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/migration-planning/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/model-evaluation/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/module-design/SKILL.md,skills,69,282,24,adequate,,Keep; review during 4.0 migration.
+.agents/skills/new-task-protocol/SKILL.md,skills,39,208,5,adequate,custom-chronicle,Keep; review during 4.0 migration.
+.agents/skills/observability-planning/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/opportunity-event-triage/SKILL.md,skills,59,171,15,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/performance-review/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/privacy-impact-review/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/proactive-proposal-review/SKILL.md,skills,35,113,7,adequate,,Keep; review during 4.0 migration.
+.agents/skills/product-knowledge-onboarding/SKILL.md,skills,33,157,4,adequate,,Keep; review during 4.0 migration.
+.agents/skills/product-planning/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/production-readiness-review/SKILL.md,skills,52,141,18,adequate,,Keep; review during 4.0 migration.
+.agents/skills/production-service-planning/SKILL.md,skills,46,145,16,adequate,,Keep; review during 4.0 migration.
+.agents/skills/progress-chronicle/SKILL.md,skills,54,143,14,generic-placeholder,custom-chronicle,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/prototype-ui-kit/SKILL.md,skills,66,292,19,adequate,,Keep; review during 4.0 migration.
+.agents/skills/refactoring-planning/SKILL.md,skills,54,133,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/reference-fidelity/SKILL.md,skills,40,185,6,adequate,,Keep; review during 4.0 migration.
+.agents/skills/repo-recon/SKILL.md,skills,51,222,16,adequate,,Keep; review during 4.0 migration.
+.agents/skills/research-ops/SKILL.md,skills,54,141,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/research-planning/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/risk-review/SKILL.md,skills,54,139,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/screen-redesign/SKILL.md,skills,73,288,24,adequate,,Keep; review during 4.0 migration.
+.agents/skills/screenshot-reference-comparison/SKILL.md,skills,27,109,5,adequate,,Keep; review during 4.0 migration.
+.agents/skills/security-review/SKILL.md,skills,54,137,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/self-audit/SKILL.md,skills,54,145,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/service-blueprint/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/state-matrix/SKILL.md,skills,43,170,7,adequate,,Keep; review during 4.0 migration.
+.agents/skills/subagent-failure-recovery/SKILL.md,skills,16,88,0,adequate,,Keep; review during 4.0 migration.
+.agents/skills/subagent-orchestration/SKILL.md,skills,65,214,16,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/subagent-run-contract/SKILL.md,skills,17,67,0,adequate,,Keep; review during 4.0 migration.
+.agents/skills/task-intake/SKILL.md,skills,54,153,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/task-ledger/SKILL.md,skills,22,100,3,adequate,legacy-task-reference,Keep; review during 4.0 migration.
+.agents/skills/taste-calibration/SKILL.md,skills,72,251,17,adequate,,Keep; review during 4.0 migration.
+.agents/skills/taste-review/SKILL.md,skills,68,240,15,adequate,,Keep; review during 4.0 migration.
+.agents/skills/team-routing/SKILL.md,skills,54,143,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/threat-modeling/SKILL.md,skills,54,135,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/ticket-router/SKILL.md,skills,19,104,3,adequate,,Keep; review during 4.0 migration.
+.agents/skills/ui-heuristic-audit/SKILL.md,skills,52,171,8,adequate,,Keep; review during 4.0 migration.
+.agents/skills/ui-review-packet/SKILL.md,skills,19,72,0,adequate,,Keep; review during 4.0 migration.
+.agents/skills/ux-research-planning/SKILL.md,skills,54,145,14,generic-placeholder,,"Replace boilerplate with domain method, inputs/outputs, examples, failure modes, and optional scripts/references; or remove alias."
+.agents/skills/visual-qa-loop/SKILL.md,skills,62,258,19,adequate,,Keep; review during 4.0 migration.
+tasks/TKT-000-intake.md,tasks,5,46,1,adequate,,Keep; review during 4.0 migration.
+tasks/TKT-000-ready.md,tasks,24,100,3,adequate,,Keep; review during 4.0 migration.

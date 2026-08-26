@@ -1,0 +1,16 @@
+[
+  {
+    "id": "file_000000008f6471f59118b6339893033a",
+    "original_filename": "codex-product-os-4.0-beta1-offline-v1.0.zip",
+    "archive_path": null,
+    "source": "uploaded",
+    "message_reference": "Opening migration request in this chat; attachment metadata associates this ZIP with that message.",
+    "explicit_version": "4.0-beta1",
+    "category": "release_archive",
+    "size_bytes": null,
+    "sha256": null,
+    "status": "inaccessible",
+    "duplicate_of": null,
+    "notes": "Attachment metadata identified /mnt/data/codex-product-os-4.0-beta1-offline-v1.0.zip, but the file is not present in the active runtime and uploaded-file search did not return this archive."
+  }
+]

@@ -1,0 +1,828 @@
+[
+  {
+    "filename": "codex-product-os-4.0-beta1-offline-v1.0.zip",
+    "where_mentioned": "Opening migration request / attachment metadata",
+    "assumed_type": "ZIP archive",
+    "reason_absent": "Explicit upload is referenced, but its bytes are not present in the active runtime/container and uploaded-file search did not return this archive.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "requirements.txt",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "text/configuration file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "tools/cpt_migrate.py",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Python source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "tools/cpt_migrate.py.bak",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Python backup source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "tools/cpt_migrate.beta1-fixed.py",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Python source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "cpt_migrate-4.0-beta1-fixed.py",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Python source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "tools/cpt_dist.py",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Python source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "migration/ROLE_MIGRATION.json",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "migration/SKILL_MIGRATION.json",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "migration-plans/diter-3x-to-4x.json",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "JSON migration plan",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "migration-plans/diter-3x-to-4x.backup-collision.json",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "JSON migration plan",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "migration-plans/diter-retire-3x.json",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "JSON migration plan",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "README.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "AGENTS.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "AGENTS.override.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "SKILL.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "docs/RELEASE_NOTES_3.0.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "FIRST_PROMPT.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "TASK.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "CHRONICLE.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "TEAM.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "CURRENT.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "TASK_INDEX.md",
+    "where_mentioned": "Migration planning, patching, verification, or current export request",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "backup_manifest.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "plan.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "receipt.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/runtime.yaml",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "YAML file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/current.yaml",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "YAML file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/task-index.yaml",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "YAML file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/runtime-summary.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/enforcement.yaml",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "YAML file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/install.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/schema-bundle.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/worker-archetypes.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/receipt.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/plan.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/mappings.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/legacy-inventory.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/imports/index.json",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "JSON file",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/imports/runtime/CURRENT.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/imports/runtime/TASK_INDEX.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/imports/runtime/TASK.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/migration/imports/runtime/CHRONICLE.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/OPERATIONS.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/AGENTS_SNIPPET.md",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/config.toml",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".gitmodules",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Git configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".gitignore",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Git ignore configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".git/info/exclude",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Git exclude configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/bin/cpt_runtime.py",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Python source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/bin/cpt_orchestration.py",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Python source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/bin/__pycache__/cpt_orchestration.cpython-312.pyc",
+    "where_mentioned": "Migration verification and post-migration diagnostics",
+    "assumed_type": "Python bytecode",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "product-knowledge/PRODUCT_MAP.md",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "product-knowledge/KNOWLEDGE_INDEX.md",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001.yaml",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "YAML task",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/recovery-snapshot.yaml",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "YAML artifact",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/migration-claim-review.yaml",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "YAML artifact",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/git-structure-decision.md",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/instruction-patch-plan.md",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/product-knowledge-draft.yaml",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "YAML artifact",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/verification-report.md",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/tasks/TKT-001-artifacts/working-tree-manifest.sha256",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "checksum manifest",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".cpt/checkpoints/CP-20260714T105556Z-1149e8.yaml",
+    "where_mentioned": "Post-migration Standard Task report supplied by the user",
+    "assumed_type": "YAML checkpoint",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "app/docs/api.md",
+    "where_mentioned": "Post-migration diagnostic report supplied by the user",
+    "assumed_type": "Markdown document",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "web/lib/mock-data.ts",
+    "where_mentioned": "Post-migration diagnostic report supplied by the user",
+    "assumed_type": "TypeScript source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "web/lib/profile-store.ts",
+    "where_mentioned": "Post-migration diagnostic report supplied by the user",
+    "assumed_type": "TypeScript source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "web/app/checks/[checkId]/check-context.tsx",
+    "where_mentioned": "Post-migration diagnostic report supplied by the user",
+    "assumed_type": "TypeScript/React source",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/accessibility_specialist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/ai_ml_systems_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/ai_safety_reviewer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/ai_workflow_auditor.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/analytics_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/api_contract_guardian.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/backend_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/business_analyst.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/chronicle_keeper.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/code_reviewer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/consistency_auditor.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/conversation_designer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/customer_support_analyst.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/cx_researcher.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/data_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/data_visualization_designer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/delivery_manager.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/dependency_curator.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/design_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/design_system_guardian.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/devops_release_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/domain_expert.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/experimentation_specialist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/frontend_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/frontend_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/growth_activation_strategist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/incident_investigator.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/information_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/intake_orchestrator.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/localization_specialist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/market_researcher.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/migration_planner.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/mobile_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/model_evaluation_specialist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/observability_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/performance_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/privacy_compliance_reviewer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/product_designer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/product_strategist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/qa_engineer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/refactoring_specialist.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/security_reviewer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/service_designer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/solution_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/team_architect.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/technical_writer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/ux_interaction_reviewer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/ux_researcher.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/ux_writer.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": ".codex/agents/visual_design_director.toml",
+    "where_mentioned": "Migration verification receipt pasted by the user",
+    "assumed_type": "TOML configuration",
+    "reason_absent": "Referenced in the available conversation context, but no corresponding file bytes are present in the active runtime/container.",
+    "replaced_by_later_version": null
+  },
+  {
+    "filename": "tasks/TKT-*.md",
+    "where_mentioned": "Post-migration diagnostics",
+    "assumed_type": "Markdown task files",
+    "reason_absent": "A wildcard family of legacy task files was explicitly referenced, but individual filenames and bytes were not supplied to the exporter.",
+    "replaced_by_later_version": null
+  }
+]

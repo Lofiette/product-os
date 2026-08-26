@@ -1,0 +1,272 @@
+{
+  "schema": "product-os-forensic-history-v1",
+  "conversation_id": "6a0dc438-f000-83eb-a698-8470184bbc88",
+  "snapshots": [
+    {
+      "label": "minimal",
+      "artifact": "codex-product-team-minimal.zip",
+      "artifact_sha256": "05f473e091831b483dfe3c8bcc349797a467ba138d25c741e5cd4ba4b266a13f",
+      "date": "2026-05-20T15:07:07+00:00",
+      "message_id": "bb0b734f-9aa3-4775-8670-71bf119d410d",
+      "tag": "snapshot/minimal",
+      "commit": "c7dd581f12725e1f86c169000040bebfc69c1f7f",
+      "wrapper": "codex-product-team-minimal"
+    },
+    {
+      "label": "maximum",
+      "artifact": "codex-product-team-maximum.zip",
+      "artifact_sha256": "1def158f45a51f7feba9884ed1338abf61c51d1bb43cf56dd8bd70a1249db870",
+      "date": "2026-05-20T15:32:51+00:00",
+      "message_id": "895b4243-8370-4f96-8be1-afc1a0c35acb",
+      "tag": "snapshot/maximum",
+      "commit": "cdb3aa7caee70d5b502983ee9a6e4fe060aa58b4",
+      "wrapper": "codex-product-team-maximum"
+    },
+    {
+      "label": "maximum v1.1",
+      "artifact": "codex-product-team-maximum-v1.1-ff.zip",
+      "artifact_sha256": "8fa121e803e32382e5f1bd74b671291045e7e40edc288ddc00fa99aafef8df50",
+      "date": "2026-05-20T15:48:28+00:00",
+      "message_id": "e5bdd0f7-8901-44f8-b3ba-a0e189026f48",
+      "tag": "snapshot/maximum-v1.1",
+      "commit": "2d5694185469fc49b2678ca7c86e2beef55915e1",
+      "wrapper": "codex-product-team-maximum-v1.1-ff"
+    },
+    {
+      "label": "maximum v1.2",
+      "artifact": "codex-product-team-maximum-v1.2-ff.zip",
+      "artifact_sha256": "5465a1706a71da055ca7336716338aa99c60093ed213efdbc0de7174d7321802",
+      "date": "2026-05-20T16:08:39+00:00",
+      "message_id": "5a5e9759-83dd-493e-83d5-68d431a6c747",
+      "tag": "snapshot/maximum-v1.2",
+      "commit": "2f88f11fd92ddc3fe665549f5cb7ff3ac47873e2",
+      "wrapper": "codex-product-team-maximum-v1.2-ff"
+    },
+    {
+      "label": "maximum v1.3",
+      "artifact": "codex-product-team-maximum-v1.3-ff.zip",
+      "artifact_sha256": "1ce83a217602226f60ce77168ddc67cc83d9329468e4acb48df248f13b520694",
+      "date": "2026-05-20T16:22:56+00:00",
+      "message_id": "1fad3c33-241a-49f5-a4aa-f5b6f5306d92",
+      "tag": "snapshot/maximum-v1.3",
+      "commit": "d0e9cbefc35fc2a0ef641c10c44b4b688274462f",
+      "wrapper": "codex-product-team-maximum-v1.3-ff"
+    },
+    {
+      "label": "ultimate",
+      "artifact": "codex-product-team-ultimate-ff.zip",
+      "artifact_sha256": "dba9314716956b0c278c8623fb965a127230e597416520e8f54225f865996637",
+      "date": "2026-05-20T16:43:36+00:00",
+      "message_id": "9027224d-fce0-45d5-88d3-d2dd41845b35",
+      "tag": "snapshot/ultimate",
+      "commit": "92bfb89cdc9daa20d4fac110eb3e7c653c3ef0d2",
+      "wrapper": "codex-product-team-ultimate-ff"
+    },
+    {
+      "label": "ultimate pro v1.4",
+      "artifact": "codex-product-team-ultimate-pro-v1.4-ff.zip",
+      "artifact_sha256": "20436485fbee2739fd2f35454caddf4298ea982a32e4471bd1915aa04cffbd71",
+      "date": "2026-05-25T10:54:36+00:00",
+      "message_id": "dfcc3307-e3cb-4f80-b140-e5ed4f318369",
+      "tag": "snapshot/ultimate-pro-v1.4",
+      "commit": "7040e360b1a71da0ce6dc4329e658ad5f1672f3d",
+      "wrapper": "codex-product-team-ultimate-pro-v1.4-ff"
+    },
+    {
+      "label": "ultimate pro v1.5",
+      "artifact": "codex-product-team-ultimate-pro-v1.5-ff.zip",
+      "artifact_sha256": "19c18145b69ab85474b391fe1ebad526efc489f791cec95296d058cd75f44ee9",
+      "date": "2026-05-25T18:33:58+00:00",
+      "message_id": "0edae1e6-d666-49a4-a2c7-55de9c8ccb35",
+      "tag": "snapshot/ultimate-pro-v1.5",
+      "commit": "5fd384d487eb466ef45cd438409714a30263e8f5",
+      "wrapper": "codex-product-team-ultimate-pro-v1.5-ff"
+    },
+    {
+      "label": "2.0",
+      "artifact": "codex-product-team-2.0.zip",
+      "artifact_sha256": "0549ef6f13a74b6d08a1f755470eb10e319a5b50f13df9064cba4f0e7517a74f",
+      "date": "2026-05-26T16:02:40+00:00",
+      "message_id": "c2abd2ce-9b08-4dc8-bba3-b0bea340a650",
+      "tag": "snapshot/2.0",
+      "commit": "bfe4a1eb28c033774a649c37878290caf130ee8a",
+      "wrapper": "codex-product-team-2.0"
+    },
+    {
+      "label": "2.0 beta 1",
+      "artifact": "codex-product-team-2.0-beta1.zip",
+      "artifact_sha256": "86420561ed52eea1813012076336cfec17164769653a6fc9ba7960bf4e15eaff",
+      "date": "2026-05-26T16:36:43+00:00",
+      "message_id": "35fe7e88-f986-45f4-9081-7264ca798882",
+      "tag": "snapshot/2.0-beta.1",
+      "commit": "8b5e01111be86c2ac8bd9649172841d4ed5a42a8",
+      "wrapper": "codex-product-team-2.0-beta1"
+    },
+    {
+      "label": "2.0 beta 2",
+      "artifact": "codex-product-team-2.0-beta2.zip",
+      "artifact_sha256": "521dda6914884b57ece2def3df4ad128d402bdc8eafedb508500bdb3c256d67b",
+      "date": "2026-05-27T08:22:10+00:00",
+      "message_id": "7e6892a6-e62a-4c99-ac8e-d62c608a9485",
+      "tag": "snapshot/2.0-beta.2",
+      "commit": "334e67d4b4537e0a7542f4592513c1797e574c67",
+      "wrapper": "codex-product-team-2.0-beta2"
+    },
+    {
+      "label": "2.0 beta 3",
+      "artifact": "codex-product-team-2.0-beta3.zip",
+      "artifact_sha256": "32b48f08ac3dab3b009697db384f8e29f0fef7e22860e628b184f4f970cbd243",
+      "date": "2026-05-27T09:10:30+00:00",
+      "message_id": "9f11d27b-1f9c-4630-ace7-48e6e0179c92",
+      "tag": "snapshot/2.0-beta.3",
+      "commit": "b78a5af9efa4223065952297891ec20fcdca7eb8",
+      "wrapper": null
+    },
+    {
+      "label": "2.0 beta 4",
+      "artifact": "codex-product-team-2.0-beta4.zip",
+      "artifact_sha256": "27f1df3ddbb06312fc0e1c2c64a313e5dd214cb602e2490f2c9dcc419edebd64",
+      "date": "2026-05-27T15:26:47+00:00",
+      "message_id": "fe7a0c11-4750-4970-9217-6a0790efaaad",
+      "tag": "snapshot/2.0-beta.4",
+      "commit": "3740f469e0902c6fde417b90680d4aeb7ca07459",
+      "wrapper": null
+    },
+    {
+      "label": "2.1 beta 4",
+      "artifact": "codex-product-team-2.1-beta4.zip",
+      "artifact_sha256": "a0e75ddc9f3a81949adcb422e459e1303bf8ae78ca6a368d05028c2de2d516f4",
+      "date": "2026-06-11T14:56:57+00:00",
+      "message_id": "d2b85558-d2f8-48a8-a1ce-884ec54c69c0",
+      "tag": "snapshot/2.1-beta.4",
+      "commit": "e891c3feb03f1f0236369a31e5b94abe4babb432",
+      "wrapper": "codex-product-team-2.1-beta4"
+    },
+    {
+      "label": "3.0 ultra beta 2",
+      "artifact": "codex-product-team-3.0-ultra-beta2.zip",
+      "artifact_sha256": "0e0d3a17e2141b236746204d341c47781ee1acf902eef8cfa60f537b6ec070a9",
+      "date": "2026-06-16T07:04:50+00:00",
+      "message_id": "262904bc-5be6-4df2-a54a-893edccbc0a7",
+      "tag": "snapshot/3.0-ultra-beta.2",
+      "commit": "ae61be08b3ddcc927c986ea1945cb69fca9d7560",
+      "wrapper": "codex-product-team-3.0-ultra-beta2"
+    },
+    {
+      "label": "4.0 foundation",
+      "artifact": "codex-product-os-4.0-foundation-v0.1.zip",
+      "artifact_sha256": "e48787514749c401f8cb7e8e9cf24ad86c0347f9a85887e914e5921354765958",
+      "date": "2026-07-10T09:51:24+00:00",
+      "message_id": "0e03290c-2d77-40c2-9629-090bbf75911f",
+      "tag": "snapshot/4.0-foundation",
+      "commit": "242272abb18cd0a4246ccbd24c96b91393e61c60",
+      "wrapper": "codex-product-os-4.0-foundation-v0.1"
+    },
+    {
+      "label": "4.0 alpha 1",
+      "artifact": "codex-product-os-4.0-alpha1-runtime-kernel-v0.1.zip",
+      "artifact_sha256": "2d3470471aa18278fbafe7c78fa4123c5eecc6d7df3c38b9a81f66b1367aebae",
+      "date": "2026-07-10T12:16:04+00:00",
+      "message_id": "a754824c-0e37-4b9f-b137-901c0d1a45b5",
+      "tag": "snapshot/4.0-alpha.1",
+      "commit": "bcbb0123a68e2bc868c2fec1e58b86df713547c3",
+      "wrapper": "codex-product-os-4.0-alpha1-runtime-kernel-v0.1"
+    },
+    {
+      "label": "4.0 alpha 2",
+      "artifact": "codex-product-os-4.0-alpha2-distribution-v0.2.zip",
+      "artifact_sha256": "d32dc44173e81628006462d5482728fee4ded151d37ed6ef8a4379e070198bac",
+      "date": "2026-07-10T13:25:50+00:00",
+      "message_id": "def1f50a-518f-4cdf-b273-1ad31efddc4c",
+      "tag": "snapshot/4.0-alpha.2",
+      "commit": "4028f9ee22181eb46fc37e2bb3e9c3377a6834a3",
+      "wrapper": "codex-product-os-4.0-alpha2-distribution-v0.2"
+    },
+    {
+      "label": "4.0 alpha 3",
+      "artifact": "codex-product-os-4.0-alpha3-skills-v0.3.zip",
+      "artifact_sha256": "54a1bf696b7334a525ac05a534021dbc333a9abc8a5b84595d35266d2aed350f",
+      "date": "2026-07-10T14:42:30+00:00",
+      "message_id": "808528cd-980a-4b50-807f-419e3733ea52",
+      "tag": "snapshot/4.0-alpha.3",
+      "commit": "af54f5d39b29e8f173ec25c57e98a38212e3d730",
+      "wrapper": "codex-product-os-4.0-alpha3-skills-v0.3"
+    },
+    {
+      "label": "4.0 alpha 4",
+      "artifact": "codex-product-os-4.0-alpha4-roles-v0.4.zip",
+      "artifact_sha256": "009cc02b5acf40b57e9f0ab691777f1a8d0d6f16f0788364858415c3c200896a",
+      "date": "2026-07-10T16:25:11+00:00",
+      "message_id": "d3f52ba8-a161-40b4-a274-712967b15366",
+      "tag": "snapshot/4.0-alpha.4",
+      "commit": "5bcb4a97b5334fba4135da66e22686120b3ebfba",
+      "wrapper": "codex-product-os-4.0-alpha4-roles-v0.4"
+    },
+    {
+      "label": "4.0 alpha 5",
+      "artifact": "codex-product-os-4.0-alpha5-knowledge-v0.5.zip",
+      "artifact_sha256": "8de65468d0284d6b1cc9e3a1673206102a1c05fceac44c62f138cef7d7d8b8b8",
+      "date": "2026-07-10T17:42:23+00:00",
+      "message_id": "2e060711-52b2-4433-8f2c-d8c3925356e8",
+      "tag": "snapshot/4.0-alpha.5",
+      "commit": "81d79bdcf67af22f5e9c9e3c57cbd17c8dd6e4f1",
+      "wrapper": "codex-product-os-4.0-alpha5-knowledge-v0.5"
+    },
+    {
+      "label": "4.0 alpha 6",
+      "artifact": "codex-product-os-4.0-alpha6-enforcement-v0.6.zip",
+      "artifact_sha256": "1264e0a4ad2cc2c5b4b5faa39dc9b764fae27351d851440970e8fb71c718cb24",
+      "date": "2026-07-10T19:25:43+00:00",
+      "message_id": "a796739a-6531-4963-9b87-100bcbd69850",
+      "tag": "snapshot/4.0-alpha.6",
+      "commit": "6d445777d9f2df23b763ecbc168f68ed59c4f915",
+      "wrapper": "codex-product-os-4.0-alpha6-enforcement-v0.6"
+    },
+    {
+      "label": "4.0 alpha 7",
+      "artifact": "codex-product-os-4.0-alpha7-orchestration-v0.7.zip",
+      "artifact_sha256": "4d9b2d960eecdd308348aff2a9ccab6e61ca1bb2a6fd669addd6b272cc902d85",
+      "date": "2026-07-11T08:20:28+00:00",
+      "message_id": "4ca98a6c-ad28-4660-b82e-52d062211fba",
+      "tag": "snapshot/4.0-alpha.7",
+      "commit": "d3e533b32721f1098a45bc4e0dfe1e72ffef218b",
+      "wrapper": "codex-product-os-4.0-alpha7-orchestration-v0.7"
+    },
+    {
+      "label": "4.0 alpha 8",
+      "artifact": "codex-product-os-4.0-alpha8-evaluation-v0.8.zip",
+      "artifact_sha256": "d8f3df3033b96f08e212da8fdfd89bfd4ff9d1f66e1b7398b47d9bdfb0148a48",
+      "date": "2026-07-11T13:26:12+00:00",
+      "message_id": "a40b4428-d899-4ad7-8a62-5615ea5023ec",
+      "tag": "snapshot/4.0-alpha.8",
+      "commit": "a35d06484a6022d5d59558635c6e07be85cacfeb",
+      "wrapper": "codex-product-os-4.0-alpha8-evaluation-v0.8"
+    },
+    {
+      "label": "4.0 alpha 9",
+      "artifact": "codex-product-os-4.0-alpha9-migration-v0.9.zip",
+      "artifact_sha256": "96634991b292ca03e3830c6fab48bdd4723b4d8c76b55f30acf0ff99ca161cff",
+      "date": "2026-07-11T19:24:13+00:00",
+      "message_id": "e7e11691-a903-484b-b3bc-8bdfab082135",
+      "tag": "snapshot/4.0-alpha.9",
+      "commit": "7aa94aa34fef25a9babe911c859559dc6badd8e3",
+      "wrapper": "codex-product-os-4.0-alpha9-migration-v0.9"
+    },
+    {
+      "label": "4.0 beta 1",
+      "artifact": "codex-product-os-4.0-beta1-offline-v1.0.zip",
+      "artifact_sha256": "373973cfd16d1614b7a1417a8756dc7c4f9f60c42d03f32659a99c02b5dd7697",
+      "date": "2026-07-12T07:54:30+00:00",
+      "message_id": "e9cd2bac-c24d-4d9e-917b-f045fa15263c",
+      "tag": "snapshot/4.0-beta.1",
+      "commit": "59864caa6b11564be2570c733fac444cb5fef4bf",
+      "wrapper": "codex-product-os-4.0-beta1-offline-v1.0"
+    }
+  ],
+  "release": {
+    "tag": "v4.0.0",
+    "commit": "bec8f9167a091b2a4d2213e87b02ddb7e78fba13",
+    "decision_date": "2026-08-21T06:36:53+00:00",
+    "status": "retrospective-release-normalization"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "schema_version": "cpt-beta1-build-proof-v1",
+  "version": "4.0.0-beta.1",
+  "certification_scope": "offline",
+  "status": "BETA_READY",
+  "generated_at": "2026-07-12T07:45:07Z",
+  "source_root": "/mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0",
+  "archive": {
+    "path": "/mnt/data/codex-product-os-4.0-beta1-offline-v1.0.zip",
+    "size": 753336,
+    "sha256": "373973cfd16d1614b7a1417a8756dc7c4f9f60c42d03f32659a99c02b5dd7697",
+    "file_count": 529,
+    "crc": "PASS",
+    "inventory": "PASS",
+    "hashes": "PASS",
+    "managed_files": 528,
+    "total_files_with_manifest": 529
+  },
+  "inventories": {
+    "plugins": 6,
+    "canonical_skills": 45,
+    "legacy_skill_mappings": 95,
+    "logical_roles": 50,
+    "quality_gates": 25,
+    "routing_profiles": 14,
+    "knowledge_artifact_types": 6,
+    "knowledge_templates": 6,
+    "knowledge_examples": 3,
+    "knowledge_lifecycle_cases": 11,
+    "enforcement_policy_cases": 5,
+    "enforcement_integration_checks": 13,
+    "worker_archetypes": 10,
+    "orchestration_policy_cases": 34,
+    "orchestration_integration_checks": 16,
+    "behavior_tests": 115,
+    "executable_evaluation_cases": 21,
+    "fixture_repositories": 6,
+    "evaluation_suites": 4,
+    "evaluation_unit_tests": 13,
+    "migration_tests": 7,
+    "release_unit_tests": 10,
+    "release_tracks": 33,
+    "release_gates": 9,
+    "mutation_cases": 4,
+    "hooks": 9,
+    "rules_profiles": 2,
+    "ci_workflows": 2
+  },
+  "source_validators": [
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_distribution.py",
+      "stdout": "DISTRIBUTION STATIC VALIDATION PASSED; plugins=6, core metadata=557 chars"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_release.py",
+      "stdout": "RELEASE ASSET VALIDATION PASSED; gates=9 tracks=33"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_evaluation.py",
+      "stdout": "EVALUATION ASSET VALIDATION PASSED: 21 cases, 6 fixtures, 4 suites"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_skills.py --root /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0",
+      "stdout": "SKILL VALIDATION PASSED: 45 active skills, 95 unique legacy mappings, 6 plugins"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_roles.py --root /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0",
+      "stdout": "ROLE VALIDATION PASSED: 50 logical roles, 25 gates, 14 routing profiles"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_knowledge_assets.py",
+      "stdout": "KNOWLEDGE ASSET VALIDATION PASSED: 9 templates/examples, soft-size schemas, sanitization policy"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_knowledge.py --project /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/payload/repo-scaffold",
+      "stdout": "KNOWLEDGE VALIDATION PASSED"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_enforcement.py",
+      "stdout": "ENFORCEMENT ASSET VALIDATION PASSED"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/tools/validate_orchestration.py",
+      "stdout": "ORCHESTRATION ASSET VALIDATION PASSED"
+    },
+    {
+      "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta_work/codex-product-os-4.0-beta1-rc-trials-v1.0/scripts/validate_migration_assets.py",
+      "stdout": "MIGRATION ASSET VALIDATION PASSED"
+    }
+  ],
+  "extracted_checks": {
+    "validators": [
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_distribution.py",
+        "stdout": "DISTRIBUTION STATIC VALIDATION PASSED; plugins=6, core metadata=557 chars"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_release.py",
+        "stdout": "RELEASE ASSET VALIDATION PASSED; gates=9 tracks=33"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_evaluation.py",
+        "stdout": "EVALUATION ASSET VALIDATION PASSED: 21 cases, 6 fixtures, 4 suites"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_skills.py --root /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0",
+        "stdout": "SKILL VALIDATION PASSED: 45 active skills, 95 unique legacy mappings, 6 plugins"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_roles.py --root /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0",
+        "stdout": "ROLE VALIDATION PASSED: 50 logical roles, 25 gates, 14 routing profiles"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_knowledge_assets.py",
+        "stdout": "KNOWLEDGE ASSET VALIDATION PASSED: 9 templates/examples, soft-size schemas, sanitization policy"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_knowledge.py --project /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/payload/repo-scaffold",
+        "stdout": "KNOWLEDGE VALIDATION PASSED"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_enforcement.py",
+        "stdout": "ENFORCEMENT ASSET VALIDATION PASSED"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/tools/validate_orchestration.py",
+        "stdout": "ORCHESTRATION ASSET VALIDATION PASSED"
+      },
+      {
+        "command": "/opt/pyvenv/bin/python /mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/scripts/validate_migration_assets.py",
+        "stdout": "MIGRATION ASSET VALIDATION PASSED"
+      }
+    ],
+    "install_tail": "CPT OS 4.0.0-beta.1 installed in /tmp/cpt-beta1-extracted-n71b4t2o/repo\nmode=local; plugin_scope=personal; agents=created; enforcement=audit; rules=none\nPlugin is exposed through a marketplace. Restart Codex and install/enable CPT Core in the plugin UI.\nReview and trust the CPT Core plugin hooks before relying on audit or enforcement mode.",
+    "doctor_tail": "DOCTOR\nframework_files: 11\nruntime: PASS\nworkers: PASS (none)\nWARNING: Enforcement mode is active but hook trust is not recorded as trusted; review hooks in Codex, then run enforcement-set --trust-state trusted",
+    "runtime_tail": "RUNTIME VALIDATION PASSED",
+    "git_clean": true,
+    "offline_eval_tail": "  -> PASS score=100.0\n[CPT-EVAL] reference: external_module_boundary\n  -> PASS score=100.0\n[CPT-EVAL] reference: greenfield_product_creation\n  -> PASS score=100.0\n[CPT-EVAL] reference: incident_investigation\n  -> PASS score=100.0\n[CPT-EVAL] reference: knowledge_stale_propagation\n  -> PASS score=100.0\n[CPT-EVAL] reference: local_ignored_runtime_git_cleanliness\n  -> PASS score=100.0\n[CPT-EVAL] reference: micro_copy_change\n  -> PASS score=100.0\n[CPT-EVAL] reference: micro_to_standard_escalation\n  -> PASS score=100.0\n[CPT-EVAL] reference: parallel_worktree_scope_violation\n  -> PASS score=100.0\n[CPT-EVAL] reference: redesign_migration\n  -> PASS score=100.0\n[CPT-EVAL] reference: reference_fidelity\n  -> PASS score=100.0\n[CPT-EVAL] reference: release_readiness_offline\n  -> PASS score=100.0\n[CPT-EVAL] reference: required_worker_timeout_quorum\n  -> PASS score=100.0\n[CPT-EVAL] reference: security_sensitive_api\n  -> PASS score=100.0\n[CPT-EVAL] reference: skill_metadata_budget\n  -> PASS score=100.0\n[CPT-EVAL] reference: systemic_edit_mode_change\n  -> PASS score=100.0\nSCORECARD: /tmp/cpt-beta1-extracted-n71b4t2o/eval/offline-core-reference-scorecard.json\nSTATUS: PASS (21 pass, 0 fail, 0 skipped)",
+    "baseline_tail": "{\n  \"schema_version\": \"cpt-eval-baseline-comparison-v1\",\n  \"package_version\": \"4.0.0-beta.1\",\n  \"generated_at\": \"2026-07-12T07:25:53Z\",\n  \"baseline\": \"/mnt/data/cpt_beta1_final_extract/codex-product-os-4.0-beta1-offline-v1.0/evaluation/executable/baselines/offline-core-alpha8.json\",\n  \"current\": \"/tmp/cpt-beta1-extracted-n71b4t2o/eval/offline-core-reference-scorecard.json\",\n  \"status\": \"PASS\",\n  \"regression_count\": 0,\n  \"regressions\": []\n}",
+    "mutation_tail": "{\n  \"schema_version\": \"cpt-eval-mutation-report-v1\",\n  \"package_version\": \"4.0.0-beta.1\",\n  \"generated_at\": \"2026-07-12T07:25:55Z\",\n  \"source_case\": \"accessibility_review\",\n  \"status\": \"PASS\",\n  \"detected\": 4,\n  \"total\": 4,\n  \"mutations\": [\n    {\n      \"id\": \"unauthorized_write\",\n      \"detected\": true,\n      \"evidence\": {\n        \"path\": \"secrets/unauthorized.txt\",\n        \"allowed_changes\": [],\n        \"forbidden_changes\": []\n      }\n    },\n    {\n      \"id\": \"missing_required_output\",\n      \"detected\": true,\n      \"evidence\": [\n        \"'summary' is a required property\"\n      ]\n    },\n    {\n      \"id\": \"forbidden_destructive_command\",\n      \"detected\": true,\n      \"evidence\": {\n        \"command\": \"git reset --hard\",\n        \"matched_patterns\": [\n          \"git\\\\s+reset\\\\s+--hard\"\n        ]\n      }\n    },\n    {\n      \"id\": \"resource_regression\",\n      \"detected\": true,\n      \"evidence\": {\n        \"baseline\": 1.0,\n        \"mutated\": 20,\n        \"threshold\": 4.0\n      }\n    }\n  ]\n}",
+    "full_suite": {
+      "status": "PASS",
+      "log": "/mnt/data/beta1_extracted_runall.log",
+      "log_sha256": "f337434c3356035a49b1950fd97b0bd1f0ded5ba6a8c653228a05f65a2b437d0"
+    }
+  },
+  "limitations": [
+    "Offline deterministic certification only.",
+    "Live Codex model quality and real worker threads are not certified.",
+    "Native macOS, Windows, and WSL runs remain RC evidence.",
+    "Token, latency, and cost budgets require live trials."
+  ]
+}

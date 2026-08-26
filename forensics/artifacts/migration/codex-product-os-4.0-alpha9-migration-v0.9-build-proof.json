@@ -1,0 +1,10 @@
+{
+  "version": "4.0.0-alpha.9",
+  "archive": "/mnt/data/codex-product-os-4.0-alpha9-migration-v0.9.zip",
+  "archive_size": 745350,
+  "sha256": "96634991b292ca03e3830c6fab48bdd4723b4d8c76b55f30acf0ff99ca161cff",
+  "manifest_files": 516,
+  "migration_tests": "7/7",
+  "status": "PASS",
+  "built_at": "2026-07-11T19:18:23.399238+00:00"
+}

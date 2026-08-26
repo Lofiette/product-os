@@ -8,12 +8,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
+from build_manifest import canonical_bytes
 from cpt_dist import metadata_budget_for_plugins, validate_plugin
 
 errors=[]
 plugins=[ROOT/'payload/marketplace-root/plugins/cpt-core']+sorted(p for p in (ROOT/'domain-packs').glob('cpt-*') if p.is_dir())
 
-if (ROOT/'VERSION').read_text().strip()!='4.1.0': errors.append('VERSION is not 4.1.0')
+if (ROOT/'VERSION').read_text(encoding='utf-8').strip()!='4.1.0': errors.append('VERSION is not 4.1.0')
 
 pyproject_text = (ROOT/'pyproject.toml').read_text(encoding='utf-8')
 if 'version = "4.1.0"' not in pyproject_text: errors.append('pyproject project.version is not 4.1.0')
@@ -30,7 +31,7 @@ core=plugins[0]
 budget=metadata_budget_for_plugins([core])
 if budget['estimated_discovery_chars']>2000: errors.append(f"cpt-core metadata unexpectedly large: {budget['estimated_discovery_chars']}")
 
-market=json.loads((ROOT/'payload/marketplace-root/.agents/plugins/marketplace.json').read_text())
+market=json.loads((ROOT/'payload/marketplace-root/.agents/plugins/marketplace.json').read_text(encoding='utf-8'))
 entries={x['name']:x for x in market.get('plugins',[])}
 if entries.get('cpt-core',{}).get('source',{}).get('path')!='./plugins/cpt-core': errors.append('marketplace source.path must be ./plugins/cpt-core')
 
@@ -61,7 +62,7 @@ else:
         if not (target / '.codex-plugin' / 'plugin.json').exists():
             errors.append(f'{name}: repository marketplace path does not contain a plugin manifest')
 
-agents=(ROOT/'payload/repo-scaffold/AGENTS.md').read_text()
+agents=(ROOT/'payload/repo-scaffold/AGENTS.md').read_text(encoding='utf-8')
 if '<!-- CPT-OS KERNEL BEGIN -->' not in agents or '<!-- CPT-OS KERNEL END -->' not in agents: errors.append('managed AGENTS markers missing')
 if len(agents.encode())>6000: errors.append('repo AGENTS loader exceeds 6000-byte guidance target')
 
@@ -73,7 +74,7 @@ for forbidden in ['ai'+'-web','SOVA'+'_DESIGN_SYSTEM_KIT','Плат'+'форма
                 if forbidden.lower() in path.read_text(encoding='utf-8').lower(): errors.append(f'project-specific term {forbidden!r} found in {path.relative_to(ROOT)}')
             except UnicodeDecodeError: pass
 
-catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text())
+catalog=json.loads((ROOT/'domain-packs/PACK_CATALOG.json').read_text(encoding='utf-8'))
 if catalog.get('schema_version')!='cpt-pack-catalog-v3': errors.append('PACK_CATALOG must use cpt-pack-catalog-v3')
 if catalog.get('version')!='4.1.0': errors.append('PACK_CATALOG version mismatch')
 cat_ids={x['id'] for x in catalog.get('domains',[])}
@@ -91,9 +92,9 @@ for profile in catalog.get('profiles',[]):
     if profile.get('estimated_discovery_chars',0)>7000: errors.append(f"profile {profile.get('id')} exceeds 7000 chars")
 
 # Pack schema inventories and provenance.
-registry=json.loads((ROOT/'skills/SKILL_REGISTRY.json').read_text())['skills']
+registry=json.loads((ROOT/'skills/SKILL_REGISTRY.json').read_text(encoding='utf-8'))['skills']
 for plugin in plugins:
-    pack=json.loads((plugin/'cpt-pack.json').read_text())
+    pack=json.loads((plugin/'cpt-pack.json').read_text(encoding='utf-8'))
     expected=sorted(x['id'] for x in registry if x['plugin']==plugin.name)
     if pack.get('schema_version')!='cpt-pack-v2': errors.append(f'{plugin.name}: old pack schema')
     if pack.get('skill_count')!=len(expected) or sorted(pack.get('skill_ids',[]))!=expected: errors.append(f'{plugin.name}: pack inventory mismatch')
@@ -103,18 +104,18 @@ for plugin in plugins:
     if pack.get('role_count')!=len(pack.get('role_ids',[])): errors.append(f'{plugin.name}: role_count mismatch')
 
 # Optional worker pack validation.
-worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text())
+worker_pack=json.loads((ROOT/'payload/worker-pack/worker-pack.json').read_text(encoding='utf-8'))
 worker_agents=sorted((ROOT/'payload/worker-pack/agents').glob('*.toml'))
 if worker_pack.get('version')!='4.1.0': errors.append('worker pack version mismatch')
 if worker_pack.get('agent_count')!=10 or len(worker_agents)!=10: errors.append('worker pack must contain 10 agents')
-registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text())
+registry_workers=json.loads((ROOT/'orchestration/WORKER_ARCHETYPES.json').read_text(encoding='utf-8'))
 if registry_workers.get('archetype_count')!=10: errors.append('worker archetype registry count mismatch')
 if {p.stem for p in worker_agents}!={x['id'] for x in registry_workers.get('archetypes',[])}: errors.append('worker pack/archetype registry mismatch')
 
 # Current docs should not claim Alpha 2 as current.
 for current in [ROOT/'README.md',ROOT/'README_RU.md',ROOT/'DOMAIN_PACKS.md',ROOT/'AUDIT_REPORT.md',ROOT/'CHANGELOG.md']:
     if current.exists():
-        text=current.read_text()
+        text=current.read_text(encoding='utf-8')
         if 'Codex Product Operating System 4.0 Alpha 2 — Distribution Split Audit' in text: errors.append(f'stale Alpha 2 audit wording in {current.relative_to(ROOT)}')
 
 # Required current and historical release assets.
@@ -148,7 +149,7 @@ manifest_path = ROOT / 'MANIFEST.json'
 if not manifest_path.exists():
     errors.append('missing MANIFEST.json')
 else:
-    manifest = json.loads(manifest_path.read_text())
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     if manifest.get('schema') != 'cpt-package-manifest-v10': errors.append('MANIFEST schema mismatch')
     if manifest.get('version') != '4.1.0': errors.append('MANIFEST version mismatch')
     if manifest.get('phase') != 'offline-certified-live-pending': errors.append('MANIFEST phase mismatch')
@@ -176,14 +177,19 @@ else:
         rel = path.relative_to(ROOT)
         if path.name == 'MANIFEST.json' or path.suffix in {'.pyc', '.pyo'}:
             continue
+        if len(rel.parts) == 1 and rel.name == 'AGENTS.md':
+            continue
+        if rel.parts and rel.parts[0] in {'.cpt', '.runtime'}:
+            continue
         if any(part in {'__pycache__', '.git', '.pytest_cache', '.mypy_cache', '.ruff_cache', '.cpt-eval-runs', '.cpt-eval-live'} for part in rel.parts):
             continue
         if rel.parts[:3] == ('evaluation', 'executable', 'reports') and path.name != '.gitkeep':
             continue
         if path.name.endswith('-comparison.json'):
             continue
-        h = hashlib.sha256(path.read_bytes()).hexdigest()
-        actual[rel.as_posix()] = {'size': path.stat().st_size, 'sha256': h}
+        data = canonical_bytes(path)
+        h = hashlib.sha256(data).hexdigest()
+        actual[rel.as_posix()] = {'size': len(data), 'sha256': h}
     if manifest.get('file_count') != len(actual): errors.append('MANIFEST file_count mismatch')
     if set(listed) != set(actual): errors.append(f"MANIFEST path mismatch: {sorted(set(listed) ^ set(actual))[:10]}")
     for rel, item in actual.items():

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import stat
 import shutil
 import subprocess
 import sys
@@ -28,10 +29,15 @@ class DistributionTests(unittest.TestCase):
         self.home.mkdir()
         self.env = os.environ.copy()
         self.env['HOME'] = str(self.home)
+        self.env['USERPROFILE'] = str(self.home)
         self.env['CODEX_HOME'] = str(self.home / '.codex')
 
     def tearDown(self):
-        shutil.rmtree(self.tmp)
+        def remove_readonly(function, path, _error):
+            os.chmod(path, stat.S_IWRITE)
+            function(path)
+
+        shutil.rmtree(self.tmp, onerror=remove_readonly)
 
     def init_git(self, repo: Path):
         repo.mkdir(parents=True)

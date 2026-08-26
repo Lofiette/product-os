@@ -363,12 +363,19 @@ def remove_marketplace_entry(path: Path, name: str, remove_if_empty_and_created:
     return True
 
 
+def user_home() -> Path:
+    configured = os.environ.get("HOME") or os.environ.get("USERPROFILE")
+    if configured:
+        return Path(configured).expanduser().resolve()
+    return Path.home().resolve()
+
+
 def codex_home() -> Path:
-    return Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser().resolve()
+    return Path(os.environ.get("CODEX_HOME", user_home() / ".codex")).expanduser().resolve()
 
 
 def personal_marketplace() -> Path:
-    return (Path.home() / ".agents" / "plugins" / "marketplace.json").resolve()
+    return (user_home() / ".agents" / "plugins" / "marketplace.json").resolve()
 
 
 def install_core_plugin(project: Path, receipt: dict[str, Any], scope: str) -> None:
@@ -729,7 +736,7 @@ def backup_runtime_outside_project(project: Path, backup_dir: str | None) -> Pat
     if backup_dir:
         root = Path(backup_dir).expanduser().resolve()
     else:
-        root = Path.home() / ".cpt-os" / "backups"
+        root = user_home() / ".cpt-os" / "backups"
     slug = re.sub(r"[^A-Za-z0-9._-]+", "-", project.name).strip("-") or "project"
     target = root / f"{slug}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -1191,7 +1198,7 @@ def worker_pack_data() -> dict[str, Any]:
 
 
 def personal_workers_receipt() -> Path:
-    return Path.home() / ".cpt-os" / "worker-packs" / "cpt-workers.json"
+    return user_home() / ".cpt-os" / "worker-packs" / "cpt-workers.json"
 
 
 def worker_target(scope: str, project: Path | None) -> tuple[Path, Path]:
@@ -1227,7 +1234,7 @@ def workers_install(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve() if args.project else None
     target, receipt_path = worker_target(args.scope, project)
     target.mkdir(parents=True, exist_ok=True)
-    backup_root = (project / ".cpt" / "backups" if project else Path.home() / ".cpt-os" / "backups") / f"workers-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    backup_root = (project / ".cpt" / "backups" if project else user_home() / ".cpt-os" / "backups") / f"workers-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     files: dict[str, str] = {}
     for source in data["agent_files"]:
         destination = target / source.name

@@ -18,6 +18,9 @@
     "**/.ruff_cache/**",
     "**/.cpt-eval-runs/**",
     "**/.cpt-eval-live/**",
+    "/.cpt/**",
+    "/.runtime/**",
+    "/AGENTS.md",
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
@@ -139,7 +142,7 @@
     {
       "path": "KNOWN_LIMITATIONS.md",
       "size": 734,
-      "sha256": "5eed7ae63e7854b9bb8921fa9da4586c8de6fd7c619b93c1ba790efd9d41ab0d"
+      "sha256": "da4ffc3bf649fe20e31cb97b71a84ffa73634d31716ea63faee3a04b4e737f38"
     },
     {
       "path": "ORCHESTRATION.md",
@@ -2728,13 +2731,13 @@
     },
     {
       "path": "scripts/product-os.ps1",
-      "size": 3087,
-      "sha256": "293bdf2150b17b198fada0fb4c3bd938e1d39ee4e326e1a6e0bdda2521cc6728"
+      "size": 2984,
+      "sha256": "a062521344e3e16a0dd011be68310abe7bcea7062d0d96b48371a38e44bd5b99"
     },
     {
       "path": "scripts/register-codex-marketplace.ps1",
-      "size": 1191,
-      "sha256": "54035d5157ed2e9fd95223e870b3e4223ddecd00812d4a95d0dedf193964a17e"
+      "size": 1146,
+      "sha256": "68ff6b1e35d646f5646626cf2c6d8312123e2f4b34191ba97fae9316e6aa4326"
     },
     {
       "path": "scripts/validate_migration_assets.py",
@@ -2778,13 +2781,13 @@
     },
     {
       "path": "tests/run_all.py",
-      "size": 5497,
-      "sha256": "7795e8d660cb1e0f659bbebc7045dc2a4c08eef104d2a450d6a5299293ba64ec"
+      "size": 5906,
+      "sha256": "c690ca074da1cf0348d3ae0b4085c310972fc932b5049eade33009a9f0818356"
     },
     {
       "path": "tests/test_distribution.py",
-      "size": 13113,
-      "sha256": "7c9e21e93b478841d740f2c81477cd6714a78b3c6df79f9cd57f4c9dbaf37d72"
+      "size": 13322,
+      "sha256": "1355041a4001e4f2617401aeec74d61dd7b1a00aa228e45e5c06970c07aefb59"
     },
     {
       "path": "tests/test_enforcement.py",
@@ -2828,13 +2831,13 @@
     },
     {
       "path": "tools/build_manifest.py",
-      "size": 4248,
-      "sha256": "484dc0337f1900dacc11753790022802d3ad177f53542ced6ecbcea1a2cb533d"
+      "size": 4581,
+      "sha256": "c8f9c72469721348d96b53642600143938f2dbbe0c06cc2ef7033482b84b83da"
     },
     {
       "path": "tools/cpt_dist.py",
-      "size": 59457,
-      "sha256": "833a05993f1b58060011935d4a146db272b6e4056b4504ff69bc7dd0f285e4b6"
+      "size": 59664,
+      "sha256": "e99d5b9b8e4d88ba18dc28d49905476c837a0c593c231dc99a22d2cb6c90576a"
     },
     {
       "path": "tools/cpt_eval.py",
@@ -2903,8 +2906,8 @@
     },
     {
       "path": "tools/validate_distribution.py",
-      "size": 11914,
-      "sha256": "06792a63affc9c7fee4956ff6ebf929afc183d40504508944b33379c8deabd5f"
+      "size": 12296,
+      "sha256": "ad72a8d12ffdb9a90d8687743fa0582a57ee1373ac0c1d23ffd0d65681fe0f73"
     },
     {
       "path": "tools/validate_enforcement.py",

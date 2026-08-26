@@ -11,18 +11,27 @@ EXCLUDED_NAMES = {"MANIFEST.json"}
 EXCLUDED_PARTS = {"__pycache__", ".git", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo"}
 RUNTIME_DIR_NAMES = {".cpt-eval-runs", ".cpt-eval-live"}
+ROOT_LOCAL_NAMES = {"AGENTS.md"}
+ROOT_LOCAL_DIRS = {".cpt", ".runtime"}
+
+
+def canonical_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    if b"\0" in data:
+        return data
+    return data.replace(b"\r\n", b"\n")
 
 
 def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    return hashlib.sha256(canonical_bytes(path)).hexdigest()
 
 
 def excluded(rel: Path) -> bool:
     if rel.name in EXCLUDED_NAMES:
+        return True
+    if len(rel.parts) == 1 and rel.name in ROOT_LOCAL_NAMES:
+        return True
+    if rel.parts and rel.parts[0] in ROOT_LOCAL_DIRS:
         return True
     if any(part in EXCLUDED_PARTS or part in RUNTIME_DIR_NAMES for part in rel.parts):
         return True
@@ -70,6 +79,9 @@ def main() -> int:
             "**/.ruff_cache/**",
             "**/.cpt-eval-runs/**",
             "**/.cpt-eval-live/**",
+            "/.cpt/**",
+            "/.runtime/**",
+            "/AGENTS.md",
             "evaluation/executable/reports/** except .gitkeep",
             "**/*-comparison.json",
         ],
@@ -115,7 +127,7 @@ def main() -> int:
         "files": [
             {
                 "path": path.relative_to(ROOT).as_posix(),
-                "size": path.stat().st_size,
+                "size": len(canonical_bytes(path)),
                 "sha256": sha256(path),
             }
             for path in files

@@ -48,6 +48,7 @@ def run(command: list[str], *, timeout: int = 300) -> None:
 suite = unittest.TestSuite(
     [
         unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_receipts"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_skills"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_knowledge"),

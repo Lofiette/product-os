@@ -140,7 +140,9 @@ for rel in [
     'release/schemas/release-readiness.schema.json','tools/cpt_release.py','tools/validate_release.py',
     'tests/test_release.py','docs/RC_TRIALS_AND_RELEASE_GATES.md','docs/BETA1_RELEASE_INTEGRATION.md','KNOWN_LIMITATIONS.md',
     'docs/MIGRATION_4.0_TO_4.1.md','docs/VERSIONING_AND_GIT.md','docs/PLUGIN_AND_MARKETPLACE.md',
-    'scripts/product-os.ps1','scripts/register-codex-marketplace.ps1','.agents/plugins/marketplace.json'
+    'scripts/product-os.ps1','scripts/register-codex-marketplace.ps1','.agents/plugins/marketplace.json',
+    'manager/schemas/installation-receipt-v2.schema.json','tests/test_receipts.py',
+    'docs/INSTALLATION_RECEIPT_V2.md'
 ]:
     if not (ROOT/rel).exists(): errors.append(f'missing {rel}')
 
@@ -155,7 +157,8 @@ else:
     if manifest.get('phase') != 'offline-certified-live-pending': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
-        'behavior_tests': 116,
+        'behavior_tests': 120,
+        'installation_receipt_tests': 4,
         'evaluation_unit_tests': 13,
         'migration_tests': 7,
         'release_unit_tests': 10,

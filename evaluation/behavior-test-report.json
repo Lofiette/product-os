@@ -1,7 +1,7 @@
 {
   "schema": "cpt-behavior-test-report-v1",
   "version": "4.1.0",
-  "generated_at": "2026-08-26T13:36:24Z",
+  "generated_at": "2026-08-26T13:49:34Z",
   "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [
     {
@@ -13,6 +13,11 @@
       "module": "installation_receipts",
       "total": 4,
       "passed": 4
+    },
+    {
+      "module": "manager_registry",
+      "total": 5,
+      "passed": 5
     },
     {
       "module": "skills",
@@ -55,12 +60,12 @@
       "passed": 10
     }
   ],
-  "total": 120,
-  "passed": 120,
+  "total": 125,
+  "passed": 125,
   "failed": 0,
   "limitations": [
     "The suite validates deterministic local behavior, synthetic hook payloads, migration safety, release gates, and executable offline evaluations.",
     "Live Codex model quality, native platform behavior, real subagent ordering, cancellation delivery, and cross-client reconnect require RC evidence."
   ],
-  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds four receipt v2 compatibility cases covering fresh v2 writes, read-only v1 compatibility, upgrade-on-write preservation, stable installation identity, and fail-closed schema validation."
+  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds four receipt v2 compatibility cases covering fresh v2 writes, read-only v1 compatibility, upgrade-on-write preservation, stable installation identity, and fail-closed schema validation, plus five registry cases covering isolated homes, CAS updates, corruption refusal, explicit v2 rebuild, and selector-reference accounting."
 }

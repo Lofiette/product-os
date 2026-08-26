@@ -82,6 +82,10 @@ class InstallationReceiptTests(unittest.TestCase):
         core = next(item for item in receipt["installed_plugins"] if item["name"] == "cpt-core")
         self.assertEqual(core["marketplace_identity"], "cpt-personal")
         self.assertIsNone(core["selector"])
+        registry = json.loads(
+            (self.home / ".product-os" / "registry.json").read_text(encoding="utf-8")
+        )
+        self.assertIn(receipt["installation_id"], registry["installations"])
 
     def test_v1_read_is_backward_compatible_and_non_mutating(self) -> None:
         legacy = self.downgrade_to_v1(self.install("--plugin-scope", "none"))

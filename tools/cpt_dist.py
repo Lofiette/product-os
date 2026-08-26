@@ -339,6 +339,19 @@ def save_receipt(project: Path, receipt: dict[str, Any]) -> None:
     receipt["updated_at"] = now()
     validate_receipt_v2(receipt)
     write_json(project / ".cpt" / "install.json", receipt)
+    try:
+        root = str(package_root())
+        if root not in sys.path:
+            sys.path.insert(0, root)
+        from manager.product_os_manager.context import InstallationContext
+        from manager.product_os_manager.registry import RegistryStore
+
+        RegistryStore(InstallationContext.from_environment(project)).upsert(project, receipt)
+    except Exception as exc:
+        print(
+            f"WARNING: Product OS user registry was not updated and can be rebuilt: {exc}",
+            file=sys.stderr,
+        )
 
 
 def default_receipt(mode: str, plugin_scope: str) -> dict[str, Any]:
@@ -1487,7 +1500,7 @@ def active_runtime_reasons(project: Path) -> list[str]:
     current_path = project / ".cpt" / "current.yaml"
     if current_path.exists():
         current = yaml.safe_load(current_path.read_text(encoding="utf-8")) or {}
-        for field in ("current_task", "current_micro_change", "current_orchestration"):
+        for field in ("current_task", "current_micro_change", "current_lease", "current_orchestration"):
             if current.get(field):
                 reasons.append(f"{field}={current[field]}")
     for path in (project / ".cpt" / "workers").glob("*.yaml") if (project / ".cpt" / "workers").exists() else []:

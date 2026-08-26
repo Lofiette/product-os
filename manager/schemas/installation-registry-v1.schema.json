@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/product-os/installation-registry-v1.schema.json",
+  "title": "Product OS user installation registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "updated_at",
+    "installations"
+  ],
+  "properties": {
+    "schema": {
+      "const": "product-os-installation-registry-v1"
+    },
+    "updated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "installations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "installation_id",
+          "project",
+          "receipt_path",
+          "receipt_sha256",
+          "product_version",
+          "runtime_schema",
+          "source_lineage",
+          "selectors",
+          "plugin_names",
+          "last_seen_at"
+        ],
+        "properties": {
+          "installation_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "project": {
+            "type": "string",
+            "minLength": 1
+          },
+          "receipt_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "receipt_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "product_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "runtime_schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_lineage": {
+            "type": "object"
+          },
+          "selectors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "plugin_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "last_seen_at": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

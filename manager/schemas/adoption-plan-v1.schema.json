@@ -12,6 +12,7 @@
     "dry_run",
     "plan_hash",
     "detection_state_hash",
+    "selector_adapter",
     "target",
     "preconditions",
     "blockers",
@@ -48,6 +49,9 @@
     "detection_state_hash": {
       "type": "string",
       "pattern": "^[0-9a-f]{64}$"
+    },
+    "selector_adapter": {
+      "type": ["string", "null"]
     },
     "target": {
       "type": "object",

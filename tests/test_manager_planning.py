@@ -340,7 +340,7 @@ class ManagerPlanningTests(unittest.TestCase):
         self.assertIn("materialize_target", [action["id"] for action in plan["actions"]])
 
     def test_unverified_target_and_missing_selector_authority_block_apply(self) -> None:
-        self.install()
+        self.install("personal")
         target = self.target_descriptor(materialized=False)
         target["plugins"][0]["manifest_sha256"] = "f" * 64
         detection = detect_installation(self.project, context=self.context)
@@ -402,6 +402,29 @@ class ManagerPlanningTests(unittest.TestCase):
             selector_observation=invalid_selector_claim,
         )
         self.assertEqual(invalid_selector_detection["selectors"]["status"], "invalid")
+
+        incomplete_target = self.target_descriptor(materialized=False)
+        incomplete_target["plugins"] = [
+            item for item in incomplete_target["plugins"] if item["name"] != "cpt-core"
+        ]
+        incomplete_target["resolution_evidence"]["plugins_sha256"] = canonical_json_hash(
+            incomplete_target["plugins"]
+        )
+        coverage_plan = build_adoption_plan(
+            detect_installation(
+                self.project,
+                context=self.context,
+                selector_observation=self.selector_observation(
+                    ("cpt-core", "cpt-core@cpt-personal")
+                ),
+            ),
+            self.adapter.target(incomplete_target),
+            context=self.context,
+        )
+        self.assertIn(
+            "TARGET_PLUGIN_COVERAGE_INCOMPLETE",
+            {item["code"] for item in coverage_plan["blockers"]},
+        )
 
     def test_missing_registry_is_repairable_but_never_authorizes_retirement(self) -> None:
         self.install()

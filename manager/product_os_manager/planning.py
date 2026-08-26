@@ -565,23 +565,15 @@ def _actions(receipt_schema: str | None) -> list[dict[str, Any]]:
             "conditional": False,
             "description": "Verify target revision, plugin manifests, names, and expected hashes.",
         },
-        {
-            "id": "refresh_runtime_scaffold",
-            "phase": "prepare",
-            "mutation": "project",
-            "approval": "apply",
-            "conditional": False,
-            "description": "Refresh Product OS runtime-owned files without touching legacy selectors.",
-        },
     ]
     if receipt_schema == "cpt-install-receipt-v1":
         actions.append({
             "id": "upgrade_installation_receipt_v2",
             "phase": "prepare",
-            "mutation": "project",
+            "mutation": "manager_state",
             "approval": "apply",
             "conditional": False,
-            "description": "Upgrade the receipt on an approved write while preserving v1 compatibility fields.",
+            "description": "Stage a v2 receipt candidate while preserving v1 compatibility fields; do not publish it before switch.",
         })
     actions.extend([
         {
@@ -599,6 +591,14 @@ def _actions(receipt_schema: str | None) -> list[dict[str, Any]]:
             "approval": "switch",
             "conditional": False,
             "description": "Stop after preparation and require confirmation of the prepared-state hash.",
+        },
+        {
+            "id": "refresh_runtime_scaffold",
+            "phase": "switch",
+            "mutation": "project",
+            "approval": "switch",
+            "conditional": False,
+            "description": "Refresh runtime-owned files from the verified target before selector activation.",
         },
         {
             "id": "activate_target_selectors",
@@ -712,6 +712,21 @@ def build_adoption_plan(
     if unverified_plugins:
         _append_unique(warnings, _issue("CURRENT_PLUGIN_UNVERIFIED", "Current plugin provenance is incomplete", plugins=unverified_plugins))
 
+    current_plugin_names = {
+        item["name"] for item in detection["plugins"] if item.get("materialized")
+    }
+    target_plugin_names = {item.get("name") for item in target["plugins"]}
+    missing_target_plugins = sorted(current_plugin_names - target_plugin_names)
+    if missing_target_plugins:
+        _append_unique(
+            blockers,
+            _issue(
+                "TARGET_PLUGIN_COVERAGE_INCOMPLETE",
+                "The target must cover every currently materialized Product OS plugin",
+                plugins=missing_target_plugins,
+            ),
+        )
+
     for label, marketplace in detection["marketplaces"].items():
         if marketplace["exists"] and not marketplace["valid"]:
             _append_unique(
@@ -810,6 +825,7 @@ def build_adoption_plan(
         "dry_run": True,
         "plan_hash": "",
         "detection_state_hash": detection["state_hash"],
+        "selector_adapter": selectors["adapter"],
         "target": target,
         "preconditions": preconditions,
         "blockers": blockers,

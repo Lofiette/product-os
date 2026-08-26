@@ -49,8 +49,8 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 135,
-    "installation_receipt_tests": 4,
+    "behavior_tests": 136,
+    "installation_receipt_tests": 5,
     "manager_registry_tests": 5,
     "manager_planning_tests": 10,
     "executable_evaluation_cases": 21,
@@ -1119,8 +1119,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 2185,
-      "sha256": "c0917c7b127eee9e808f2d3bc0d8685e6fcb7dac63ec63306378cd02a81c3e10"
+      "size": 2258,
+      "sha256": "886c434f66df542f131ebd0294b987a9e0bc4ad3c97262d9798a4862a14fb29c"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -1754,13 +1754,13 @@
     },
     {
       "path": "manager/product_os_manager/inventory.py",
-      "size": 24095,
-      "sha256": "7f9b7f09940f1ca5ce0407968cb1b74b4f83c721cbf4421ac2d304a27404dfc6"
+      "size": 24719,
+      "sha256": "65e44e2e85a753261ddc9ab82bbc494682ce77815dabcf473386ecc6be728856"
     },
     {
       "path": "manager/product_os_manager/planning.py",
-      "size": 38657,
-      "sha256": "6a3655f08451191f76ab248ce3b03bb016db8521fcb632b25032b9d13009180e"
+      "size": 39325,
+      "sha256": "da0934d0f22ee0502bbba30c3c1f37cc4915e451fe5d9eee989b104520ace038"
     },
     {
       "path": "manager/product_os_manager/registry.py",
@@ -1774,8 +1774,8 @@
     },
     {
       "path": "manager/schemas/adoption-plan-v1.schema.json",
-      "size": 9425,
-      "sha256": "9031df35970a670d888fc472b745278a3d2de650df7fd1782b9039460cac44a9"
+      "size": 9515,
+      "sha256": "69ad92211c9ce8b40fd85257adcbdf0b45d7a721b1d4a5a1e78106979452d46e"
     },
     {
       "path": "manager/schemas/detection-report-v1.schema.json",
@@ -1784,8 +1784,8 @@
     },
     {
       "path": "manager/schemas/installation-receipt-v2.schema.json",
-      "size": 5946,
-      "sha256": "d6c38da2e1f80be8b8edb888c37128e9afe635ccb57f2d6c510698d8db6c6c8f"
+      "size": 6927,
+      "sha256": "222fa9bbd5c2009fcab2fff1341a97059afe0ac8585690af960355b8384d580e"
     },
     {
       "path": "manager/schemas/installation-registry-v1.schema.json",
@@ -2894,8 +2894,8 @@
     },
     {
       "path": "tests/test_manager_planning.py",
-      "size": 20270,
-      "sha256": "84a7e9c84628b9ad2ca82fe1eaea16449ca440ecf71325b361caebe0087a4c45"
+      "size": 21178,
+      "sha256": "41e4291a74fc2698580d6b29fcde8548809959e899e7bab84e753ff034ed24c5"
     },
     {
       "path": "tests/test_manager_registry.py",
@@ -2914,8 +2914,8 @@
     },
     {
       "path": "tests/test_receipts.py",
-      "size": 5247,
-      "sha256": "db9dc4520f8d30cd12bb0bd70c4e2e44728007e8e96d596fdc4afef0c7aaf6db"
+      "size": 7282,
+      "sha256": "13ae02558aba5b72359fd8f839f61feeba03686adf9680923aa1daae30cb9dfe"
     },
     {
       "path": "tests/test_release.py",
@@ -2935,12 +2935,12 @@
     {
       "path": "tools/build_manifest.py",
       "size": 4709,
-      "sha256": "12bf7998d30c02b423a536c3151b524bf72f591ac24d92e16d443b67012dd3b1"
+      "sha256": "5ddd6636b3436858181dff68f55bdc06f6dc1ece37505f1c28b8549f81ea5265"
     },
     {
       "path": "tools/cpt_dist.py",
-      "size": 67409,
-      "sha256": "946763edf1b22da90b2f887f88b5fdd4722057e0154295c61d41bae4756626c0"
+      "size": 69041,
+      "sha256": "86a402b5de1822700eda318e7f6a284dd2ede2322e4cfdefbfddfbaabf44903d"
     },
     {
       "path": "tools/cpt_eval.py",
@@ -3015,7 +3015,7 @@
     {
       "path": "tools/validate_distribution.py",
       "size": 12905,
-      "sha256": "4e043cf97b93365bbe106f73c9d584fb6b0d9042f236e7c7a8f670c5c611c486"
+      "sha256": "90c5be2be0aeb99a0fbb9c3cc8220b77ada6d4a2cd1b9b96c760a38bb0a5d4e0"
     },
     {
       "path": "tools/validate_enforcement.py",

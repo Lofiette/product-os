@@ -41,8 +41,9 @@ def payload_root() -> Path:
     return package_root() / "payload"
 
 
-def scaffold_root() -> Path:
-    return payload_root() / "repo-scaffold"
+def scaffold_root(distribution_root: Path | None = None) -> Path:
+    root = distribution_root.resolve() if distribution_root is not None else package_root()
+    return root / "payload" / "repo-scaffold"
 
 
 def core_plugin_root() -> Path:
@@ -163,8 +164,8 @@ def replace_marked_block(text: str, begin: str, end: str, block: str | None) -> 
     return text, found
 
 
-def kernel_block() -> str:
-    text = (scaffold_root() / "AGENTS.md").read_text(encoding="utf-8")
+def kernel_block(distribution_root: Path | None = None) -> str:
+    text = (scaffold_root(distribution_root) / "AGENTS.md").read_text(encoding="utf-8")
     pattern = re.compile(rf"{re.escape(KERNEL_BEGIN)}.*?{re.escape(KERNEL_END)}", re.S)
     match = pattern.search(text)
     if not match:
@@ -308,17 +309,22 @@ def ensure_receipt_v2(project: Path, receipt: dict[str, Any]) -> dict[str, Any]:
         for item in receipt.get("installed_plugins", [])
         if isinstance(item, dict) and item.get("name")
     }
-    merged = []
-    for item in projected_installed_plugins(project, receipt):
-        previous = existing.get(item["name"], {})
-        if previous.get("selector"):
-            item["selector"] = previous["selector"]
-        if previous.get("marketplace_identity"):
-            item["marketplace_identity"] = previous["marketplace_identity"]
-        merged.append(item)
-    projected_names = {item["name"] for item in merged}
-    merged.extend(existing[name] for name in sorted(existing) if name not in projected_names)
-    receipt["installed_plugins"] = merged
+    if (receipt.get("source_lineage") or {}).get("delivery_type") == "git_marketplace":
+        # Manager-adopted v2 receipts own their canonical plugin provenance. Re-projecting
+        # legacy plugin/packs fields here would create a selector/payload hybrid.
+        receipt["installed_plugins"] = [existing[name] for name in sorted(existing)]
+    else:
+        merged = []
+        for item in projected_installed_plugins(project, receipt):
+            previous = existing.get(item["name"], {})
+            if previous.get("selector"):
+                item["selector"] = previous["selector"]
+            if previous.get("marketplace_identity"):
+                item["marketplace_identity"] = previous["marketplace_identity"]
+            merged.append(item)
+        projected_names = {item["name"] for item in merged}
+        merged.extend(existing[name] for name in sorted(existing) if name not in projected_names)
+        receipt["installed_plugins"] = merged
     receipt["product"]["version"] = receipt.get("version", PACKAGE_VERSION)
     receipt["product"]["runtime_schema"] = RUNTIME_SCHEMA_VERSION
     return receipt
@@ -619,15 +625,21 @@ def patch_enforcement_mode(project: Path, mode: str) -> None:
     atomic_write(path, text)
 
 
-def rules_source(profile: str) -> Path:
-    return package_root() / "policies" / "rules" / f"cpt-{profile}.rules"
+def rules_source(profile: str, distribution_root: Path | None = None) -> Path:
+    root = distribution_root.resolve() if distribution_root is not None else package_root()
+    return root / "policies" / "rules" / f"cpt-{profile}.rules"
 
 
-def install_rules(project: Path, receipt: dict[str, Any], profile: str) -> None:
+def install_rules(
+    project: Path,
+    receipt: dict[str, Any],
+    profile: str,
+    distribution_root: Path | None = None,
+) -> None:
     if profile == "none":
         receipt["rules"] = {"profile": "none", "status": "not_installed"}
         return
-    source = rules_source(profile)
+    source = rules_source(profile, distribution_root)
     if not source.exists():
         raise RuntimeError(f"Unknown rules profile: {profile}")
     target = project / ".codex" / "rules" / "cpt.rules"
@@ -845,21 +857,27 @@ def refresh_installed_packs(project: Path, receipt: dict[str, Any]) -> tuple[int
     return refreshed, warnings
 
 
-def refresh_runtime_scaffold(project: Path, receipt: dict[str, Any]) -> None:
+def refresh_runtime_scaffold(
+    project: Path,
+    receipt: dict[str, Any],
+    *,
+    distribution_root: Path | None = None,
+) -> None:
     """Refresh runtime-owned project files without touching plugin selectors.
 
     Callers must perform conflict detection and backups before invoking this
     primitive. The legacy update command composes it with local plugin and pack
     refresh so its public behavior remains unchanged.
     """
+    source_scaffold = scaffold_root(distribution_root)
     new_managed: dict[str, Any] = {}
     for file, mutable in core_scaffold_files():
         dst = project / file
         if mutable:
             if not dst.exists():
-                copy_file(scaffold_root() / file, dst)
+                copy_file(source_scaffold / file, dst)
             continue
-        copy_file(scaffold_root() / file, dst)
+        copy_file(source_scaffold / file, dst)
         new_managed[file] = {
             "sha256": sha256(dst),
             "created": receipt.get("managed_files", {}).get(file, {}).get("created", False),
@@ -872,21 +890,34 @@ def refresh_runtime_scaffold(project: Path, receipt: dict[str, Any]) -> None:
     agents = receipt.get("agents", {})
     if agents.get("result") in {"created", "merged"} and (project / "AGENTS.md").exists():
         current = (project / "AGENTS.md").read_text(encoding="utf-8")
-        new, _ = replace_marked_block(current, KERNEL_BEGIN, KERNEL_END, kernel_block())
+        new, _ = replace_marked_block(
+            current,
+            KERNEL_BEGIN,
+            KERNEL_END,
+            kernel_block(distribution_root),
+        )
         atomic_write(project / "AGENTS.md", new)
         agents["sha256"] = sha256(project / "AGENTS.md")
     elif (project / ".cpt" / "AGENTS_SNIPPET.md").exists():
-        atomic_write(project / ".cpt" / "AGENTS_SNIPPET.md", kernel_block() + "\n")
+        atomic_write(
+            project / ".cpt" / "AGENTS_SNIPPET.md",
+            kernel_block(distribution_root) + "\n",
+        )
 
     rules = receipt.get("rules", {})
     if rules.get("profile") not in {None, "none"}:
-        install_rules(project, receipt, rules["profile"])
+        install_rules(project, receipt, rules["profile"], distribution_root)
     receipt["version"] = PACKAGE_VERSION
 
 
 def update(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
+    if (receipt.get("source_lineage") or {}).get("delivery_type") == "git_marketplace":
+        raise RuntimeError(
+            "This installation is managed by a Git marketplace; use Product OS Manager "
+            "to plan and apply an immutable target revision."
+        )
     conflicts = managed_conflicts(project, receipt)
     if conflicts and not args.force:
         print("Refusing update because managed files changed:", file=sys.stderr)
@@ -928,6 +959,11 @@ def backup_runtime_outside_project(project: Path, backup_dir: str | None) -> Pat
 def uninstall(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
+    if (receipt.get("source_lineage") or {}).get("delivery_type") == "git_marketplace":
+        raise RuntimeError(
+            "This installation is managed by a Git marketplace; use Product OS Manager "
+            "rollback/uninstall so selectors, registry, receipt, and backup stay consistent."
+        )
     active = active_runtime_reasons(project)
     if active and not args.force_active_runtime:
         raise RuntimeError("Refusing uninstall while CPT runtime is active: " + "; ".join(active) + ". Use --force-active-runtime only after reviewing unfinished work.")

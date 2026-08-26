@@ -115,7 +115,7 @@
             },
             {
               "type": "string",
-              "pattern": "^[0-9a-f]{40,64}$"
+              "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
             }
           ]
         },
@@ -293,5 +293,35 @@
         "type": "string"
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["source_lineage"],
+        "properties": {
+          "source_lineage": {
+            "required": ["delivery_type"],
+            "properties": {
+              "delivery_type": {"const": "git_marketplace"}
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_lineage": {
+            "properties": {
+              "repository": {"type": "string", "minLength": 1},
+              "marketplace_identity": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+              "release": {"type": "string", "minLength": 1},
+              "ref": {"type": "string", "minLength": 1},
+              "commit_sha": {"type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"},
+              "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "observed_from": {"const": "product-os-manager"}
+            }
+          }
+        }
+      }
+    }
+  ]
 }

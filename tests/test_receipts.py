@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import os
 import shutil
@@ -9,6 +10,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+from tools import cpt_dist
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOL = ROOT / "tools" / "cpt_dist.py"
@@ -117,6 +120,46 @@ class InstallationReceiptTests(unittest.TestCase):
         result = run_tool("status", "--project", str(self.project), "--json", env=self.env, check=False)
         self.assertEqual(result.returncode, 2)
         self.assertIn("Invalid CPT installation receipt v2", result.stderr)
+
+    def test_git_managed_receipt_is_canonical_and_legacy_commands_fail_closed(self) -> None:
+        receipt = self.install("--plugin-scope", "personal")
+        target_payload = self.home / ".product-os" / "sources" / "product-os" / ("a" * 40) / "plugins" / "cpt-core"
+        canonical_plugin = {
+            "name": "cpt-core",
+            "selector": "cpt-core@product-os",
+            "marketplace_identity": "product-os",
+            "version": "4.1.0",
+            "payload_path": str(target_payload),
+            "manifest_sha256": "b" * 64,
+            "status": "active",
+        }
+        receipt["source_lineage"] = {
+            "delivery_type": "git_marketplace",
+            "repository": "https://example.invalid/product-os.git",
+            "marketplace_identity": "product-os",
+            "release": "4.1.0",
+            "ref": "v4.1.0",
+            "commit_sha": "a" * 40,
+            "manifest_sha256": "c" * 64,
+            "observed_from": "product-os-manager",
+        }
+        receipt["installed_plugins"] = [canonical_plugin]
+        normalized = cpt_dist.ensure_receipt_v2(self.project, copy.deepcopy(receipt))
+        cpt_dist.validate_receipt_v2(normalized)
+        self.assertEqual(normalized["installed_plugins"], [canonical_plugin])
+
+        invalid = copy.deepcopy(normalized)
+        invalid["source_lineage"]["commit_sha"] = "a" * 41
+        with self.assertRaisesRegex(RuntimeError, "Invalid CPT installation receipt v2"):
+            cpt_dist.validate_receipt_v2(invalid)
+
+        self.receipt_path.write_text(json.dumps(normalized, indent=2) + "\n", encoding="utf-8")
+        before = self.receipt_path.read_bytes()
+        for command in ("update", "uninstall"):
+            result = run_tool(command, "--project", str(self.project), env=self.env, check=False)
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("managed by a Git marketplace", result.stderr)
+            self.assertEqual(self.receipt_path.read_bytes(), before)
 
 
 if __name__ == "__main__":

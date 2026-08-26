@@ -55,14 +55,27 @@ def _safe_project_path(project: Path, value: str) -> tuple[Path | None, str | No
 
 def _safe_payload_path(
     context: InstallationContext,
+    receipt: dict[str, Any] | None,
     value: str | None,
 ) -> tuple[Path | None, str | None]:
     if not value:
         return None, "payload path is not recorded"
     raw = Path(value)
     resolved = raw.resolve() if raw.is_absolute() else (context.project / raw).resolve()
-    if not _is_within(resolved, [context.project, context.codex_home]):
-        return None, "payload path is outside the project and CODEX_HOME roots"
+    allowed_roots = [context.project, context.codex_home]
+    lineage = (receipt or {}).get("source_lineage") or {}
+    marketplace = lineage.get("marketplace_identity")
+    commit = lineage.get("commit_sha")
+    if (
+        lineage.get("delivery_type") == "git_marketplace"
+        and isinstance(marketplace, str)
+        and re.fullmatch(r"[a-z][a-z0-9-]*", marketplace)
+        and isinstance(commit, str)
+        and re.fullmatch(r"(?:[0-9a-f]{40}|[0-9a-f]{64})", commit)
+    ):
+        allowed_roots.append(context.product_os_home / "sources" / marketplace / commit)
+    if not _is_within(resolved, allowed_roots):
+        return None, "payload path is outside the project, CODEX_HOME, and verified Product OS source roots"
     return resolved, None
 
 
@@ -243,7 +256,7 @@ def _plugin_inventory(context: InstallationContext, receipt: dict[str, Any] | No
             "status": "unsafe_path",
             "error": None,
         }
-        payload, error = _safe_payload_path(context, recorded.get("payload_path"))
+        payload, error = _safe_payload_path(context, receipt, recorded.get("payload_path"))
         if error:
             item["error"] = error
             item["status"] = "unobserved" if not recorded.get("payload_path") else "unsafe_path"

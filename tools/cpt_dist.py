@@ -677,20 +677,13 @@ def refresh_installed_packs(project: Path, receipt: dict[str, Any]) -> tuple[int
     return refreshed, warnings
 
 
-def update(args: argparse.Namespace) -> int:
-    project = Path(args.project).resolve()
-    receipt = load_receipt(project)
-    conflicts = managed_conflicts(project, receipt)
-    if conflicts and not args.force:
-        print("Refusing update because managed files changed:", file=sys.stderr)
-        for item in conflicts:
-            print(f"- {item}", file=sys.stderr)
-        print("Re-run with --force to back up and replace managed tooling files.", file=sys.stderr)
-        return 2
-    if conflicts:
-        backup = backup_paths(project, [project / item for item in conflicts], "update-conflicts")
-        print(f"Backed up conflicts to {backup}")
+def refresh_runtime_scaffold(project: Path, receipt: dict[str, Any]) -> None:
+    """Refresh runtime-owned project files without touching plugin selectors.
 
+    Callers must perform conflict detection and backups before invoking this
+    primitive. The legacy update command composes it with local plugin and pack
+    refresh so its public behavior remains unchanged.
+    """
     new_managed: dict[str, Any] = {}
     for file, mutable in core_scaffold_files():
         dst = project / file
@@ -699,7 +692,10 @@ def update(args: argparse.Namespace) -> int:
                 copy_file(scaffold_root() / file, dst)
             continue
         copy_file(scaffold_root() / file, dst)
-        new_managed[file] = {"sha256": sha256(dst), "created": receipt.get("managed_files", {}).get(file, {}).get("created", False)}
+        new_managed[file] = {
+            "sha256": sha256(dst),
+            "created": receipt.get("managed_files", {}).get(file, {}).get("created", False),
+        }
     receipt["managed_files"].update(new_managed)
     migrate_runtime_state(project)
     patch_runtime_mode(project, receipt["mode"])
@@ -714,14 +710,31 @@ def update(args: argparse.Namespace) -> int:
     elif (project / ".cpt" / "AGENTS_SNIPPET.md").exists():
         atomic_write(project / ".cpt" / "AGENTS_SNIPPET.md", kernel_block() + "\n")
 
-    scope = receipt.get("plugin_scope", "none")
-    install_core_plugin(project, receipt, scope)
-    refreshed_packs, pack_warnings = refresh_installed_packs(project, receipt)
-    receipt.setdefault("warnings", []).extend(pack_warnings)
     rules = receipt.get("rules", {})
     if rules.get("profile") not in {None, "none"}:
         install_rules(project, receipt, rules["profile"])
     receipt["version"] = PACKAGE_VERSION
+
+
+def update(args: argparse.Namespace) -> int:
+    project = Path(args.project).resolve()
+    receipt = load_receipt(project)
+    conflicts = managed_conflicts(project, receipt)
+    if conflicts and not args.force:
+        print("Refusing update because managed files changed:", file=sys.stderr)
+        for item in conflicts:
+            print(f"- {item}", file=sys.stderr)
+        print("Re-run with --force to back up and replace managed tooling files.", file=sys.stderr)
+        return 2
+    if conflicts:
+        backup = backup_paths(project, [project / item for item in conflicts], "update-conflicts")
+        print(f"Backed up conflicts to {backup}")
+
+    refresh_runtime_scaffold(project, receipt)
+    scope = receipt.get("plugin_scope", "none")
+    install_core_plugin(project, receipt, scope)
+    refreshed_packs, pack_warnings = refresh_installed_packs(project, receipt)
+    receipt.setdefault("warnings", []).extend(pack_warnings)
     save_receipt(project, receipt)
     print(
         f"CPT OS updated to {PACKAGE_VERSION}; mutable runtime state was preserved; "

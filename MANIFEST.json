@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 622,
+  "file_count": 623,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -140,8 +140,8 @@
     },
     {
       "path": "INSTALL.md",
-      "size": 6008,
-      "sha256": "54466bcde0f101704a694df3c72351654af52cccb3dfbc35cf3fc23037b7eef2"
+      "size": 10857,
+      "sha256": "253d2a69127d62cbf2a4f711bccc1211ac76c7023dde7b6cfbdea586aa8ab43c"
     },
     {
       "path": "KNOWLEDGE.md",
@@ -160,13 +160,18 @@
     },
     {
       "path": "README.md",
-      "size": 4897,
-      "sha256": "c68922453d405624a7c5c9fda350600f2632e68044d26d24c7d7053e7aaa1310"
+      "size": 16623,
+      "sha256": "d56cbed92bdc5307e5ce4029040db6cd6ed2d6c01b60e75e1b5448fd0a992a4c"
+    },
+    {
+      "path": "README_EN.md",
+      "size": 4377,
+      "sha256": "3267eb381fb4168f4f453595b1ffb051d458df613c57f85dd0a55b8dd51f3fe8"
     },
     {
       "path": "README_RU.md",
-      "size": 5953,
-      "sha256": "4ebace23598aa54ff72c505b671954430a8d863075244eb468d0eb0fb377ae1a"
+      "size": 668,
+      "sha256": "d3cc309477a1f1e4be36e5a6a1721d1c0726577eb8d8a6a5f0e8adfcf0698d2d"
     },
     {
       "path": "ROLES.md",
@@ -2180,8 +2185,8 @@
     },
     {
       "path": "release/EVIDENCE.json",
-      "size": 6455,
-      "sha256": "99828dc8a7286d33af87b289b5d1570e547e81a4d14607ef4ae6e5bb213dd772"
+      "size": 6822,
+      "sha256": "51939512c4ce9c596cf3581cd0421a11dd62667d3e30b33c4755aecb977d6ef8"
     },
     {
       "path": "release/GATES.json",

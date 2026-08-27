@@ -1,103 +1,124 @@
-# Installation
+# Установка Product OS 4.1
 
-Product OS has two separate installation targets:
+Product OS устанавливается на двух независимых уровнях:
 
-1. the **source repository**, which should live in Git;
-2. the **project runtime**, installed into each working repository through `tools/cpt_dist.py`.
+1. **Плагины Codex** дают агенту skills и рабочие методы.
+2. **Runtime проекта** добавляет в конкретный репозиторий `AGENTS.md`, `.cpt/`, состояние задач, контрольные точки и Product Knowledge.
 
-A Codex plugin marketplace is an optional delivery adapter on top of the source repository. It does not replace project runtime state.
+Можно начать только с плагинов. Полный runtime нужен для продолжительной работы над конкретным продуктом.
 
-## Requirements
+## Вариант A: установить Product Designer в Codex
 
-- Python 3.10+
-- Git, strongly recommended
-- Runtime dependencies: `PyYAML` and `jsonschema`
+Для Product Designer нужны `cpt-core` и `cpt-design-ui`:
 
 ```bash
+codex plugin marketplace add Lofiette/product-os --ref v4.1.0
+codex plugin add cpt-core@product-os
+codex plugin add cpt-design-ui@product-os
+```
+
+Проверьте результат:
+
+```bash
+codex plugin list
+```
+
+Оба плагина должны иметь статус `installed, enabled` и версию `4.1.0`.
+
+После установки полностью откройте **новую задачу Codex**. Уже открытая задача могла загрузить список skills до установки.
+
+### Установка через helper из скачанного репозитория
+
+Windows PowerShell:
+
+```powershell
+.\scripts\register-codex-marketplace.ps1
+```
+
+macOS или Linux:
+
+```bash
+./scripts/register-codex-marketplace.sh
+```
+
+Helpers по умолчанию используют `Lofiette/product-os@v4.1.0` и устанавливают два основных плагина.
+
+Повторный запуск безопасен для уже существующего direct Git marketplace без явной смены source/ref. Если установка управляется Product OS Manager и её путь соответствует `sources/product-os/<commit>`, helper остановится: такую установку нужно обновлять транзакцией Manager, чтобы не потерять receipt и rollback.
+
+Установка плагинов выполняется последовательно. Если второй плагин не установился, устраните причину и повторите ту же команду: уже выполненный первый шаг не требуется отменять.
+
+## Вариант B: установить полный runtime в проект
+
+### Требования
+
+- Python 3.10 или новее;
+- Git;
+- зависимости `PyYAML` и `jsonschema` из `requirements.txt`.
+
+Сначала получите неизменяемую версию исходников:
+
+```bash
+git clone https://github.com/Lofiette/product-os.git
+cd product-os
+git fetch --tags
+git switch --detach v4.1.0
 python -m pip install -r requirements.txt
 ```
 
-Windows:
+На Windows вместо последней команды можно использовать:
 
 ```powershell
 py -3 -m pip install -r requirements.txt
 ```
 
-## Source repository
-
-Keep one stable checkout rather than a folder per release:
-
-```powershell
-git clone <REPOSITORY_URL> "Product OS"
-Set-Location "Product OS"
-git fetch --tags
-git switch --detach v4.1.0
-py -3 -m pip install -r requirements.txt
-```
-
-See `docs/VERSIONING_AND_GIT.md`.
-
-## Local ignored project mode
+### Local mode — личная установка
 
 ```bash
 python tools/cpt_dist.py install \
-  --project /path/to/repo \
+  --project /path/to/your-project \
   --mode local \
   --enforcement-mode audit
 ```
 
-`--enforcement-mode` accepts `off`, `audit`, or `enforce`. Start with `off` or `audit`; enable `enforce` only after reviewing and trusting hooks.
+В local mode:
 
-Defaults:
+- `.cpt/` добавляется в локальный `.git/info/exclude` и не попадает в историю проекта;
+- `cpt-core` подключается через личный plugin scope;
+- отсутствующий `AGENTS.md` создаётся и игнорируется;
+- существующий tracked `AGENTS.md` автоматически не изменяется.
 
-- `.cpt/` is added to repository-local `.git/info/exclude`;
-- `cpt-core` is copied to the personal Codex plugin directory;
-- a personal marketplace entry is added;
-- a missing `AGENTS.md` is created and ignored;
-- a tracked existing `AGENTS.md` is not modified automatically.
+Если tracked `AGENTS.md` уже существует, installer создаёт `.cpt/AGENTS_SNIPPET.md`. Изучите его и добавляйте kernel вручную только после проверки.
 
-If a tracked `AGENTS.md` already exists, the installer creates `.cpt/AGENTS_SNIPPET.md` and reports that automatic kernel guidance is inactive. Merge only after reviewing it.
-
-## Team-shared project mode
+### Team mode — общая установка команды
 
 ```bash
 python tools/cpt_dist.py install \
-  --project /path/to/repo \
+  --project /path/to/your-project \
   --mode team \
   --enforcement-mode audit \
   --rules-profile conservative
 ```
 
-Rules profiles are optional. Project-scoped hooks and rules require a trusted project, and plugin hooks require explicit hook review and trust.
+В team mode runtime-файлы предназначены для хранения в Git. Управляемый kernel добавляется в `AGENTS.md`, но installer никогда сам не выполняет `git add`, не создаёт ветку и не делает commit.
 
-Defaults:
+Перед включением project hooks, rules и режима `enforce` команда должна изучить их и явно доверить проекту. Для начала рекомендуется `off` или `audit`.
 
-- runtime files are shareable and not ignored;
-- the managed kernel block is appended to an existing `AGENTS.md`;
-- `cpt-core` is exposed through the personal marketplace by default;
-- `--plugin-scope repo` vendors the plugin only when the team deliberately chooses that model;
-- the installer never runs `git add`, creates a branch, or commits.
-
-## Add domain packs
-
-Product Designer and the UI knowledge plane live in `cpt-design-ui`:
+### Добавить Product Designer
 
 ```bash
 python tools/cpt_dist.py pack-add \
   --name cpt-design-ui \
   --scope personal \
-  --project /path/to/repo
+  --project /path/to/your-project
 ```
 
-Available bundled packs:
+Посмотреть все доступные domain packs:
 
 ```bash
 python tools/cpt_dist.py pack-catalog
 ```
 
-## Windows helper
-
-The release includes a convenience wrapper:
+### Один Windows helper для runtime и pack
 
 ```powershell
 .\scripts\product-os.ps1 \
@@ -109,99 +130,119 @@ The release includes a convenience wrapper:
   -Packs cpt-design-ui
 ```
 
-The Python CLI remains canonical; the PowerShell wrapper only assembles and verifies commands.
+Python CLI остаётся каноническим. PowerShell helper только собирает и проверяет те же команды.
 
-## Existing tracked AGENTS.md in local mode
+## Если в проекте уже есть tracked AGENTS.md
 
-Default behavior is safe skip. To explicitly merge the managed block:
+Безопасное поведение по умолчанию — не менять файл. Для явного объединения управляемого блока:
 
 ```bash
 python tools/cpt_dist.py install \
-  --project /path/to/repo \
+  --project /path/to/your-project \
   --mode local \
   --agents-policy merge \
   --allow-tracked-agents-change
 ```
 
-This intentionally creates a tracked change.
+Команда намеренно создаст tracked change. Просмотрите diff перед commit.
 
-## No-plugin mode
+## Runtime без Codex-плагинов
 
-```bash
-python tools/cpt_dist.py install --project . --mode local --plugin-scope none
-```
-
-The repo kernel continues to work without plugins. This is the portable mode for agents that do not support Codex plugin packaging.
-
-## Codex marketplace from this repository
-
-Local development:
+Product OS может работать через файлы проекта с агентом, который не поддерживает Codex plugin marketplace:
 
 ```bash
-codex plugin marketplace add .
-codex plugin add cpt-core@product-os
-codex plugin add cpt-design-ui@product-os
+python tools/cpt_dist.py install \
+  --project /path/to/your-project \
+  --mode local \
+  --plugin-scope none
 ```
 
-Remote Git repository:
+Такой режим сохраняет runtime, Product Knowledge и методологию, но discovery skills зависит от возможностей выбранного агента.
 
-```bash
-codex plugin marketplace add <GIT_URL_OR_OWNER/REPO> --ref v4.1.0
-codex plugin add cpt-core@product-os
-codex plugin add cpt-design-ui@product-os
-```
+## Дополнительные worker archetypes
 
-Windows helper, pinned to `Lofiette/product-os@v4.1.0` by default:
-
-```powershell
-.\scripts\register-codex-marketplace.ps1
-```
-
-macOS or Linux helper:
-
-```bash
-./scripts/register-codex-marketplace.sh
-```
-
-Start a new Codex thread after installation.
-
-Repeating the same helper is safe: an existing direct marketplace is retained
-and the requested plugins are re-checked. Use `-Upgrade` on Windows or
-`--upgrade` on macOS/Linux only when Codex registered the marketplace directly
-from Git. Upgrade refreshes the ref already configured by Codex; it cannot be
-combined with an explicit `-Ref`/`--ref` to retarget the marketplace. Any root
-matching the Manager immutable layout `sources/product-os/<commit>` is rejected,
-including a non-default `PRODUCT_OS_HOME`; update it through Product OS Manager.
-Because current Codex marketplace listing does not expose verifiable source/ref
-provenance, an existing marketplace plus an explicitly supplied `Source` or `Ref`
-fails closed. Re-run with no source/ref override to trust that existing registration,
-use the upgrade switch to refresh its configured ref, or choose a separate marketplace
-name. Plugin installation is sequential rather than transactional: if the second
-plugin fails, fix the cause and safely re-run the same helper to converge.
-
-## Optional worker pack
-
-Worker archetypes are installed separately and never appear implicitly:
+Worker pack устанавливается отдельно и никогда не появляется автоматически:
 
 ```bash
 python tools/cpt_dist.py workers-install --scope personal
 ```
 
-Use repo scope only when a team intentionally vendors the ten custom-agent TOML files:
+Для намеренно общей установки в репозиторий команды:
 
 ```bash
-python tools/cpt_dist.py workers-install --scope repo --project /path/to/repo
+python tools/cpt_dist.py workers-install \
+  --scope repo \
+  --project /path/to/your-project
 ```
 
-Review `WORKER_PACK.md` and the recommended `[agents]` limits before use.
+Перед использованием изучите `WORKER_PACK.md` и ограничения `[agents]`. Наличие worker archetype не является разрешением на делегирование.
 
-## Evaluation Plane
-
-The deterministic suite needs no Codex CLI or external service:
+## Проверка установки проекта
 
 ```bash
-python tools/validate_evaluation.py
-python tools/cpt_eval.py run --suite offline-core --backend reference --report-dir .cpt-eval-runs/offline
+python tools/cpt_dist.py status --project /path/to/your-project
+python tools/cpt_dist.py doctor --project /path/to/your-project
 ```
 
-Live suites are optional. They require a Codex CLI session or trusted CI integration and must not be confused with the deterministic baseline. See `EVALUATION.md`.
+Внутри проекта runtime также можно проверить его собственным CLI:
+
+```bash
+python .cpt/bin/cpt_runtime.py status
+python .cpt/bin/cpt_runtime.py validate
+```
+
+Используйте Python, установленный именно для этого проекта. Не переиспользуйте runtime другого репозитория.
+
+## Обновление Codex-плагинов
+
+Для marketplace, который Codex напрямую зарегистрировал из Git:
+
+```bash
+codex plugin marketplace upgrade product-os
+codex plugin add cpt-core@product-os
+codex plugin add cpt-design-ui@product-os
+```
+
+Upgrade обновляет уже настроенный ref, но не предназначен для скрытой смены источника. После обновления откройте новую задачу Codex.
+
+Manager-owned marketplace обновляется только через новый подтверждённый план:
+
+```text
+plan-local-git -> prepare -> switch -> doctor
+```
+
+`prepare` создаёт и проверяет backup и новый неизменяемый источник, не выключая старый. Отдельно подтверждённый `switch` меняет активную версию. При проблеме остаются `rollback` и консервативный `recover`.
+
+## Обновление runtime проекта
+
+Запускайте команды **из checkout новой версии Product OS**:
+
+```bash
+python tools/cpt_dist.py status --project /path/to/your-project
+python tools/cpt_dist.py update --project /path/to/your-project
+python tools/cpt_dist.py doctor --project /path/to/your-project
+```
+
+Updater заменяет только управляемые файлы и сохраняет изменяемое состояние runtime и Product Knowledge. При конфликте он останавливается, если пользователь явно не выбрал backed-up forced update.
+
+## Удаление и rollback
+
+Uninstall удаляет только управляемые компоненты и блокируется, пока активны задачи, workers, orchestrations или dirty managed worktrees.
+
+Rollback миграции — отдельная receipt-driven операция: она должна восстановить точное состояние до миграции, а не просто удалить Product OS 4.1.
+
+Подробнее:
+
+- [UPDATE_AND_ROLLBACK.md](UPDATE_AND_ROLLBACK.md);
+- [docs/PRODUCT_OS_MANAGER.md](docs/PRODUCT_OS_MANAGER.md);
+- [docs/MIGRATION_4.0_TO_4.1.md](docs/MIGRATION_4.0_TO_4.1.md);
+- [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md);
+- [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md).
+
+## Что сделать после установки
+
+Откройте новую задачу Codex в своём проекте и сформулируйте результат обычным языком. Например:
+
+> Изучи проект и объясни, какой режим Product OS сейчас установлен. Ничего не меняй, пока не покажешь план.
+
+Если runtime установлен корректно, агент прочитает компактное состояние `.cpt`, выберет подходящий масштаб работы и продолжит по правилам проекта.

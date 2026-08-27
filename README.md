@@ -1,26 +1,83 @@
 # Product OS 4.1
 
-Product OS is a model- and client-neutral operating system for product work. It combines a file-based runtime, Product Knowledge, professional role lenses, skills, quality gates, deterministic enforcement, bounded worker orchestration, an Evaluation Plane, migration tooling, and release evidence.
+[English version](README_EN.md) · [Релиз v4.1.0](https://github.com/Lofiette/product-os/releases/tag/v4.1.0) · [Сообщить о проблеме](https://github.com/Lofiette/product-os/issues)
 
-## Product Designer 4.1
+**Product OS — это операционная среда для совместной работы человека и ИИ над цифровыми продуктами.** Она помогает агенту не просто выдавать разовые ответы, а последовательно исследовать задачу, принимать продуктовые решения, сохранять контекст, проектировать интерфейсы, реализовывать изменения и проверять результат.
 
-Version 4.1 adds:
+Это не отдельное приложение и не «автономный продакт-менеджер». Product OS — переносимый набор правил, знаний, ролей, навыков, проверок и локального runtime, который подключается к Codex или используется через файлы проекта с другими агентами.
 
-- Interaction Intelligence and contextual pattern selection;
-- form and long-process design;
-- professional data and expert-workflow interfaces;
-- a provider-neutral Design Execution Plane;
-- optional compatibility with OpenAI Product Design when its capabilities are actually present.
+Текущая стабильная версия — **4.1.0**. Она опубликована в GitHub и доступна как Git marketplace для Codex.
 
-OpenAI Product Design is an adapter, not a dependency. Product OS remains usable by agents without Codex plugin support.
+## Зачем нужна Product OS
 
-See `docs/PRODUCT_DESIGNER_4.1.md`.
+Без общей среды работа с ИИ часто распадается на отдельные чаты: контекст теряется, решения противоречат друг другу, а красивый результат принимается без проверки продуктовой логики. Product OS создаёт для агента рабочий контур:
 
-## Codex quick start
+- разбивает большую работу на ограниченные задачи с понятным результатом;
+- отделяет исследование и планирование от разрешения на изменения;
+- хранит состояние задач, допуски, контрольные точки и важные знания внутри проекта;
+- подключает нужную профессиональную экспертизу только тогда, когда она действительно нужна;
+- требует доказательств вместо заявления «готово»;
+- поддерживает резервные копии, диагностику и откат при обновлении среды;
+- остаётся независимой от конкретной модели, клиента и внешнего сервиса.
 
-Product Designer needs two plugins: `cpt-core` and `cpt-design-ui`. Pin the
-marketplace to the immutable release tag, install both plugins, then start a new
-Codex thread:
+## Для кого эта среда
+
+Product OS подходит:
+
+- фаундерам и владельцам продуктов, которые работают с ИИ как с продуктовой командой;
+- продакт-менеджерам, дизайнерам, исследователям и разработчикам;
+- небольшим командам, которым нужна единая логика работы разных агентов;
+- долгим проектам, где решения и контекст должны переживать новые чаты и обновления инструментов.
+
+Для короткого разового вопроса полный runtime обычно не нужен. Он становится полезен, когда работа занимает несколько этапов, меняет продукт или требует контролируемого продолжения.
+
+## Из чего состоит Product OS
+
+| Слой | Что делает |
+| --- | --- |
+| **Runtime** | Ведёт задачи, небольшие изменения, допуски, контрольные точки и восстановление после прерывания. |
+| **Product Knowledge** | Хранит проверяемые знания о продукте, пользователях, ограничениях, решениях и неизвестных. |
+| **Экспертиза** | Подключает профессиональные роли, skills и quality gates под конкретную задачу. |
+| **Product Designer 4.1** | Проектирует сценарии, формы, сложные рабочие интерфейсы, состояния, визуальную систему и критерии приёмки. |
+| **Worker Orchestration** | Позволяет безопасно поручать независимые подзадачи ограниченным агентам и собирать их результаты по quorum. |
+| **Enforcement** | Проверяет границы разрешённой работы и ведёт локальный аудит; hooks остаются дополнительным guardrail, а не заменой sandbox. |
+| **Evaluation Plane** | Запускает воспроизводимые тесты, мутации, regression suites и release gates. |
+| **Manager / Adoption** | Обнаруживает установки, строит dry-run план миграции, создаёт backup и выполняет переключение с возможностью rollback. |
+
+Каноническое состояние проекта хранится в обычных файлах. Внешние инструменты выполняют только ограниченные возможности и не становятся владельцами продуктового решения.
+
+## Плагины
+
+Репозиторий поставляет шесть плагинов:
+
+| Плагин | Назначение |
+| --- | --- |
+| `cpt-core` | Runtime, планирование задач, Product Knowledge, enforcement и orchestration. |
+| `cpt-design-ui` | Product Designer, UX, UI, формы, профессиональные интерфейсы, accessibility и visual acceptance. |
+| `cpt-product-research` | Продуктовые исследования и работа с доказательствами. |
+| `cpt-engineering` | Инженерная реализация и технические проверки. |
+| `cpt-risk-operations` | Риски, безопасность и операционные сценарии. |
+| `cpt-ai-agentic` | AI- и agentic-системы. |
+
+Для нового Product Designer достаточно первых двух: `cpt-core` и `cpt-design-ui`.
+
+## Два уровня установки
+
+У Product OS есть два разных уровня. Их важно не путать.
+
+```text
+GitHub-репозиторий Product OS
+        |
+        +-- Codex-плагины
+        |     дают агенту skills и рабочие методы
+        |
+        +-- runtime конкретного проекта
+              добавляет AGENTS.md, .cpt/, состояние задач и Product Knowledge
+```
+
+### 1. Только плагины Codex
+
+Подходит, если вы хотите пользоваться Product Designer и другими навыками в Codex, но пока не устанавливаете полный runtime в проект.
 
 ```bash
 codex plugin marketplace add Lofiette/product-os --ref v4.1.0
@@ -28,94 +85,119 @@ codex plugin add cpt-core@product-os
 codex plugin add cpt-design-ui@product-os
 ```
 
-From a cloned release checkout, the helpers perform the same bounded operation:
+После установки полностью откройте **новую задачу Codex**. В уже открытой задаче новый набор skills может не загрузиться.
 
-```powershell
-.\scripts\register-codex-marketplace.ps1
-```
+### 2. Полная Product OS внутри проекта
 
-```bash
-./scripts/register-codex-marketplace.sh
-```
-
-These commands add Product Designer capabilities to Codex. They do not create
-the per-project `.cpt` runtime; projects that need the full Product OS workflow
-must also use the project installer below.
-
-## Repository versus project installation
-
-These are different layers:
-
-1. **Product OS repository**: canonical source, version history, tests, plugins, and releases.
-2. **Project installation**: a small `AGENTS.md` and `.cpt/` runtime scaffold plus selected plugin packs.
-
-Plugins provide discovery and workflow capabilities. They do not own the project's canonical runtime or Product Knowledge state.
-
-## Install into a project
+Этот вариант нужен, когда вы хотите сохранять задачи, контрольные точки, знания и правила работы непосредственно в репозитории продукта.
 
 ```bash
+git clone https://github.com/Lofiette/product-os.git
+cd product-os
+git switch --detach v4.1.0
 python -m pip install -r requirements.txt
 python tools/cpt_dist.py install \
-  --project /path/to/project \
+  --project /path/to/your-project \
   --mode local \
   --enforcement-mode audit
 python tools/cpt_dist.py pack-add \
   --name cpt-design-ui \
   --scope personal \
-  --project /path/to/project
+  --project /path/to/your-project
 ```
 
-## Update a project
+Подробные варианты для Windows, macOS, Linux, local/team mode и установки без плагинов описаны в [INSTALL.md](INSTALL.md).
 
-Run from the **new Product OS source checkout**:
+## Как пользоваться после установки
+
+Не требуется запоминать внутренние команды. В новой задаче опишите обычным языком, какой результат вам нужен. Например:
+
+> Изучи текущий onboarding, найди главные проблемы и предложи новый сценарий. Сначала составь план и не меняй код без моего подтверждения.
+
+> Спроектируй экран управления подпиской. Учти загрузку, пустое состояние, ошибки, отмену, мобильную версию и accessibility.
+
+> Продолжи текущую задачу Product OS с последней контрольной точки и объясняй статус простым языком.
+
+Дальше среда выбирает подходящий масштаб работы:
+
+1. читает минимальное состояние runtime;
+2. определяет небольшое изменение или полноценную задачу;
+3. собирает только нужный контекст;
+4. формирует план затронутых областей и границы разрешённой работы;
+5. выполняет изменения небольшими проверяемыми слоями;
+6. запускает релевантные проверки и сохраняет результат для продолжения.
+
+## Что нового в Product Designer 4.1
+
+Product Designer теперь отвечает не только за визуальный вид интерфейса. Он связывает продуктовую цель, поведение пользователя, структуру, паттерны взаимодействия, состояния и проверку результата.
+
+В 4.1 добавлены:
+
+- Interaction Intelligence и выбор паттернов по контексту, а не по моде;
+- проектирование форм, валидации, ошибок, длинных и многоакторных процессов;
+- сложные таблицы, дашборды, bulk actions, keyboard workflows и partial failure;
+- Design Execution Plane для работы через доступные инструменты без зависимости от одного провайдера;
+- независимая проверка доступности, визуального качества, состояний и соответствия исходной задаче.
+
+OpenAI Product Design может использоваться как необязательный исполнительный адаптер. Решение, критерии и итоговая приёмка остаются за Product Designer в Product OS.
+
+Подробнее: [docs/PRODUCT_DESIGNER_4.1.md](docs/PRODUCT_DESIGNER_4.1.md).
+
+## Обновление
+
+Для marketplace, который Codex напрямую зарегистрировал из Git:
 
 ```bash
-python tools/cpt_dist.py status --project /path/to/project
-python tools/cpt_dist.py update --project /path/to/project
-python tools/cpt_dist.py doctor --project /path/to/project
-```
-
-Product OS 4.1 preserves mutable runtime state and refreshes the core plus every bundled pack recorded in `.cpt/install.json`.
-
-## Codex Git marketplace
-
-The repository contains `.agents/plugins/marketplace.json` with all six plugins:
-
-```bash
-codex plugin marketplace add <GIT_URL_OR_OWNER/REPO> --ref v4.1.0
+codex plugin marketplace upgrade product-os
 codex plugin add cpt-core@product-os
 codex plugin add cpt-design-ui@product-os
 ```
 
-Update:
+Затем откройте новую задачу Codex.
+
+Если установка управляется Product OS Manager и указывает на неизменяемый commit в `sources/product-os/<commit>`, не переключайте её вручную. Используйте транзакцию `plan-local-git -> prepare -> switch`: она сохраняет источник, receipt, backup и возможность rollback.
+
+Проектный `.cpt` runtime обновляется отдельно из исходников новой версии:
 
 ```bash
-codex plugin marketplace upgrade product-os
+python tools/cpt_dist.py status --project /path/to/your-project
+python tools/cpt_dist.py update --project /path/to/your-project
+python tools/cpt_dist.py doctor --project /path/to/your-project
 ```
 
-This command is for a marketplace that Codex registered directly from Git. A
-Product OS Manager installation is pinned to an immutable local commit root;
-publishing to GitHub does not silently update it. Use a new Manager
-`plan-local-git` -> `prepare` -> `switch` transaction for that case.
-The bundled registration helpers are repeat-safe for an existing direct
-marketplace, reject Manager immutable roots even under a custom
-`PRODUCT_OS_HOME`, and refuse to pretend that `upgrade` can retarget a ref.
-If an existing marketplace is combined with an explicitly requested source or
-ref, they fail closed because current Codex output cannot verify that provenance.
-Plugin adds are sequential; after a partial failure, correct the cause and re-run
-the same helper.
+## Безопасность и приватность
 
-Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update` for a legacy local-distribution installation.
+- Значимые изменения требуют ограниченного допуска пользователя.
+- Product OS не заменяет native sandbox и разрешения самого Codex.
+- Hooks необязательны; перед режимом `enforce` их нужно изучить и явно доверить.
+- Product Knowledge хранится в файлах проекта и может работать без внешней базы данных.
+- Manager не переключает активную установку без отдельного подтверждения второй фазы.
+- Диагностика не считается разрешением на автоматическое исправление.
+- В lifecycle evidence не сохраняются тексты диалогов, prompts, пути проекта или raw session id.
 
-For a transactional 4.0 local-installation to Git-marketplace adoption, use
-`tools/product_os_manager.py plan-local-git`, then separately confirm `prepare`
-and `switch`. Trusted commands require explicit project, user, Codex, and
-Product OS roots; source-dependent phases additionally require a repository
-root. They reject the process-active `CODEX_HOME` by default. See
-`docs/PRODUCT_OS_MANAGER.md`; real Codex switching remains separately evidenced
-from the deterministic offline certification.
+## Что проверено в 4.1.0
 
-## Verification
+Релиз получил статус **RC_READY**: 11 обязательных release gates прошли без pending и blocked пунктов. Детерминированные и миграционные проверки выполнялись на Windows, macOS, Linux и во временном WSL; отдельные живые прогоны Codex и независимые аудиты также вошли в evidence релиза.
+
+Практически проверена установка двух основных плагинов из неизменяемого тега `v4.1.0` в чистый изолированный `CODEX_HOME` на Windows.
+
+Границы остаются честными: официальный каталог OpenAI не входит в этот релиз; реальное переключение plugin cache на macOS и WSL не сертифицировано; качество не обобщается на все модели и клиенты. Полный список: [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md).
+
+## Документация
+
+- [INSTALL.md](INSTALL.md) — установка плагинов и runtime;
+- [README_EN.md](README_EN.md) — English overview;
+- [docs/PRODUCT_DESIGNER_4.1.md](docs/PRODUCT_DESIGNER_4.1.md) — архитектура Product Designer 4.1;
+- [docs/PRODUCT_OS_MANAGER.md](docs/PRODUCT_OS_MANAGER.md) — Manager, adoption, backup и rollback;
+- [docs/MIGRATION_4.0_TO_4.1.md](docs/MIGRATION_4.0_TO_4.1.md) — миграция с 4.0;
+- [docs/PLUGIN_AND_MARKETPLACE.md](docs/PLUGIN_AND_MARKETPLACE.md) — модель плагинов и marketplace;
+- [UPDATE_AND_ROLLBACK.md](UPDATE_AND_ROLLBACK.md) — обновление и восстановление;
+- [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md) — известные ограничения;
+- [CHANGELOG.md](CHANGELOG.md) — изменения по версиям.
+
+Глубокая инженерная документация пока сохраняется на английском. Пользовательская точка входа и руководство по установке являются русскоязычными.
+
+## Проверка исходников
 
 ```bash
 python tools/build_manifest.py
@@ -126,13 +208,4 @@ python scripts/validate_migration_assets.py
 python tests/run_all.py
 ```
 
-## Documentation
-
-- `INSTALL.md`
-- `UPDATE_AND_ROLLBACK.md`
-- `docs/MIGRATION_4.0_TO_4.1.md`
-- `docs/VERSIONING_AND_GIT.md`
-- `docs/PLUGIN_AND_MARKETPLACE.md`
-- `docs/PRODUCT_DESIGNER_4.1.md`
-- `docs/PRODUCT_OS_MANAGER.md`
-- `KNOWN_LIMITATIONS.md`
+Product OS остаётся переносимой: базовый контур работает через локальные файлы, Git и Python, а Codex-плагины и внешние инструменты являются подключаемыми адаптерами.

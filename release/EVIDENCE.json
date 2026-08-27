@@ -1,7 +1,7 @@
 {
   "schema_version": "cpt-release-evidence-v1",
   "version": "4.1.0",
-  "candidate_manifest_digest": "a41e2425828436d4cdd0950f6026c0ff0963e4fd968e4080ebaff953997313c0",
+  "candidate_manifest_digest": "cd9d5c827660e4b47801c10c111d5c3eaee5f43f63303c051e27fd657036ed1e",
   "gates": {
     "isolated_codex_adoption": {
       "status": "PASS",
@@ -66,7 +66,8 @@
       ],
       "notes": [
         "The audit found only a non-blocking maintenance recommendation to update GitHub Actions versions that currently emit Node 20 deprecation warnings.",
-        "The audit recommendation remains conditional on rebinding the final evidence candidate and passing exact-head CI plus final archive inventory/CRC verification."
+        "The audit recommendation remains conditional on rebinding the final evidence candidate and passing exact-head CI plus final archive inventory/CRC verification.",
+        "The post-release candidate rebinding covers only the Russian public-documentation update in README.md, README_RU.md, README_EN.md, INSTALL.md, and the resulting MANIFEST.json. No runtime code, schema, plugin, tag, or v4.1.0 ZIP content changed; document links, package validators, RC assessment, diff scope, and exact-head CI remain required before merge."
       ],
       "review": {
         "authority": "Independent ORC-003 code and release-risk auditors plus Product OS main-thread integration",

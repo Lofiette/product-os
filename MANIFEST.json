@@ -49,13 +49,13 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 192,
+    "behavior_tests": 193,
     "installation_receipt_tests": 5,
     "manager_registry_tests": 7,
     "manager_planning_tests": 11,
     "manager_backup_tests": 5,
     "manager_transaction_tests": 19,
-    "manager_git_provider_tests": 7,
+    "manager_git_provider_tests": 8,
     "manager_codex_adapter_tests": 13,
     "manager_lifecycle_tests": 6,
     "manager_cli_tests": 3,
@@ -1125,8 +1125,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 3365,
-      "sha256": "27516b040c0f32db96e086724428b68dfc065d5c8c3b580574c38a6fd2b20877"
+      "size": 3423,
+      "sha256": "c88a19ba47ca2198bca9184fa686546ed2d105db5045a6906e0b4eaa00fd297d"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -1765,8 +1765,8 @@
     },
     {
       "path": "manager/product_os_manager/adapters/repository.py",
-      "size": 47624,
-      "sha256": "5bbc9137e46fc140ca93ca59c8af20a5bd6bff2deeaff533a496b402cf897046"
+      "size": 48122,
+      "sha256": "519859b30e43dee2d1c223014ae1357492f3953c577247a9c04fc6ccb2d6c5c6"
     },
     {
       "path": "manager/product_os_manager/backup.py",
@@ -2970,8 +2970,8 @@
     },
     {
       "path": "tests/test_manager_git_provider.py",
-      "size": 10470,
-      "sha256": "87efd895e8682195e6f08f46659d3fb83754137627e6058689c2d2a97bb9d9d7"
+      "size": 11179,
+      "sha256": "36204ab080180fbaf89c50f144c27c501808c8e26b8c7d14d80fb9569cf4d45f"
     },
     {
       "path": "tests/test_manager_lifecycle.py",
@@ -3026,7 +3026,7 @@
     {
       "path": "tools/build_manifest.py",
       "size": 4965,
-      "sha256": "41d57f5796a706bd6b340858d77fda92919ec576dbb9378cfce617c1ab7993f9"
+      "sha256": "d8bee3999ee02d90f07e7926013dd8c4ca289a44fac52c0f3917a358541b83aa"
     },
     {
       "path": "tools/cpt_dist.py",
@@ -3106,7 +3106,7 @@
     {
       "path": "tools/validate_distribution.py",
       "size": 14670,
-      "sha256": "37938dedefc6d71d6afe08348900fd6ff3ecb44f23b8af8a07985367d1c19896"
+      "sha256": "f30b906f72644eeb6e750c63c4d7aaea01ef40476e01a557a2f0333d592b4217"
     },
     {
       "path": "tools/validate_enforcement.py",

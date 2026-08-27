@@ -159,6 +159,23 @@ class LocalGitTargetProviderTests(unittest.TestCase):
             canonical_json_hash(second.copy_descriptor()),
         )
 
+    def test_resolve_accepts_codex_explicit_relative_marketplace_source(self) -> None:
+        marketplace_path = (
+            self.repository_root / ".agents" / "plugins" / "marketplace.json"
+        )
+        marketplace = json.loads(marketplace_path.read_text(encoding="utf-8"))
+        marketplace["plugins"][0]["source"]["path"] = "./plugins/cpt-core"
+        write_json(marketplace_path, marketplace)
+        self._rewrite_manifest()
+        self._commit("use Codex explicit-relative marketplace source")
+
+        evidence = self.provider.resolve(self.request)
+
+        self.assertEqual(
+            evidence.copy_descriptor()["plugins"][0]["relative_path"],
+            "plugins/cpt-core",
+        )
+
     def test_materialize_is_verified_immutable_and_idempotent(self) -> None:
         evidence = self.provider.resolve(self.request)
         destination = Path(evidence.copy_descriptor()["materialized_root"])

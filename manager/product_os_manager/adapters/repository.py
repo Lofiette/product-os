@@ -84,6 +84,16 @@ def _safe_relative(value: Any) -> Path:
     return _strict_relative(value)[1]
 
 
+def _safe_marketplace_source_relative(value: Any) -> Path:
+    # Codex marketplace manifests conventionally spell local sources with an
+    # explicit ./ prefix. Canonicalize that single prefix before applying the
+    # strict repository-path checks; embedded dot segments, traversal,
+    # backslashes, and absolute paths remain forbidden.
+    if isinstance(value, str) and value.startswith("./"):
+        value = value[2:]
+    return _safe_relative(value)
+
+
 def _safe_root(value: Path) -> Path:
     lexical = value.expanduser().absolute()
     if _path_is_link_like(lexical):
@@ -271,7 +281,7 @@ def build_repository_descriptor(
         source = entry.get("source")
         if not isinstance(source, dict) or source.get("source") != "local":
             raise RuntimeError(f"Target plugin source is not a local repository path: {name}")
-        relative = _safe_relative(source.get("path"))
+        relative = _safe_marketplace_source_relative(source.get("path"))
         payload = (source_root / relative).resolve()
         if not _is_within(payload, source_root) or _is_link_like(payload):
             raise RuntimeError(f"Target plugin payload path is unsafe: {name}")
@@ -868,7 +878,7 @@ class LocalGitTargetProvider:
             source = entry.get("source")
             if not isinstance(source, dict) or source.get("source") != "local":
                 raise RuntimeError(f"Target plugin source is not a local repository path: {name}")
-            relative = _safe_relative(source.get("path"))
+            relative = _safe_marketplace_source_relative(source.get("path"))
             manifest_key = (PurePosixPath(relative.as_posix()) / ".codex-plugin" / "plugin.json").as_posix()
             manifest_bytes_for_plugin = captured.get(manifest_key)
             if manifest_bytes_for_plugin is None:

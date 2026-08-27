@@ -1,6 +1,6 @@
 {
   "schema": "cpt-role-routing-profiles-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "profiles": {
     "micro_change": {
       "title": "Micro change",
@@ -71,7 +71,7 @@
     },
     "screen_or_module_design": {
       "title": "Screen or module design",
-      "when": "A user-facing screen, module, flow, or interaction system must be created or redesigned.",
+      "when": "A user-facing screen, module, flow, form, professional workspace, or interaction system must be created or redesigned.",
       "accountable_roles": [
         "product_designer"
       ],
@@ -84,6 +84,7 @@
       ],
       "skills": [
         "cpt-screen-module-design",
+        "cpt-interaction-pattern-selection",
         "cpt-interaction-state-model",
         "cpt-information-architecture",
         "cpt-content-design"
@@ -94,7 +95,7 @@
         "gate-accessibility"
       ],
       "default_execution": "main_thread_with_lenses",
-      "worker_policy": "design reviewer only for bounded independent critique"
+      "worker_policy": "design reviewer only for bounded independent critique; execution adapter only for bounded artifact production"
     },
     "ui_implementation": {
       "title": "UI implementation",

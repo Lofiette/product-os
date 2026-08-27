@@ -125,6 +125,22 @@
       },
       "additionalProperties": false
     },
+    "live_budgets": {
+      "type": "object",
+      "properties": {
+        "max_tool_events": {"type": "integer", "minimum": 0},
+        "max_commands": {"type": "integer", "minimum": 0},
+        "max_writes": {"type": "integer", "minimum": 0},
+        "max_wall_seconds": {"type": "number", "minimum": 0},
+        "max_input_tokens": {"type": "integer", "minimum": 0},
+        "max_output_tokens": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "live_expectations": {
+      "type": "object",
+      "additionalProperties": true
+    },
     "live_constraints": {
       "type": "array",
       "items": {

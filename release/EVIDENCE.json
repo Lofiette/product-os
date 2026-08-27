@@ -1,0 +1,77 @@
+{
+  "schema_version": "cpt-release-evidence-v1",
+  "version": "4.1.0",
+  "candidate_manifest_digest": "a41e2425828436d4cdd0950f6026c0ff0963e4fd968e4080ebaff953997313c0",
+  "gates": {
+    "isolated_codex_adoption": {
+      "status": "PASS",
+      "evidence": [
+        "TKT-003 transaction TX-679ec9c6-317e-486f-9142-43209a40ceb2 committed immutable Git commit 343e919ff36970d14b23930230555f2ddfcfa958 in an isolated CODEX_HOME",
+        "The isolated TKT-003 core migration doctor and lifecycle doctor both returned PASS; a fresh authenticated Codex response matched PRODUCT_OS_41_ACCEPTANCE and recorded privacy-minimized SessionStart and SessionEnd lifecycle evidence",
+        "TKT-004 isolated update transaction TX-e507e6da-f4bd-4ee4-9663-b3d006e23576 rehearsed 343e919 to c0b626c, passed doctor, restored 343e919 by rollback, and reapplied c0b626c",
+        "TKT-004 live transaction TX-0cc0aceb-d7df-4e50-8a8a-b4a5661949af then loaded c0b626c in a fresh Codex session with both plugins, SessionStart, core doctor, and lifecycle doctor PASS",
+        "Normal TKT-003 rollback restored the v4.0.0 receipt, runtime, cpt-core selector, and cpt-design-ui selector inside the isolated fixture"
+      ],
+      "notes": [
+        "This is a sanitized acceptance record; raw local paths, session identifiers, and private fields are intentionally omitted.",
+        "This gate records the one owner-confirmed Windows adoption path; it does not claim native Codex plugin switching on macOS or WSL."
+      ],
+      "review": {
+        "authority": "Owner-confirmed Product OS TKT-003 acceptance",
+        "recorded_at": "2026-08-27T09:26:45Z"
+      }
+    },
+    "platform_matrix": {
+      "status": "PASS",
+      "evidence": [
+        "Exact-head GitHub Actions run 33091238187 passed offline evaluation on macOS, Windows, Ubuntu Python 3.10, and Ubuntu Python 3.12; the Ubuntu 3.12 lane also passed the complete 201-case package regression at commit 7c841e1",
+        "Exact-head GitHub Actions run 33091238401 passed migration checks on Linux, macOS, Windows, and ephemeral WSL 1; WSL job 98584304116 passed seven migration tests, platform-check with wsl=true, Bash helper validation, and distribution validation"
+      ],
+      "notes": [
+        "WSL evidence is deliberately limited to migration and distribution behavior. It does not certify native Codex plugin installation, switching, or cache behavior under WSL.",
+        "GitHub Actions emitted non-blocking Node 20 deprecation warnings for some action versions; every required job completed successfully."
+      ],
+      "review": {
+        "authority": "GitHub Actions plus Product OS release review",
+        "recorded_at": "2026-08-27T16:16:25Z"
+      }
+    },
+    "live_model_trials": {
+      "status": "PASS",
+      "evidence": [
+        "Three isolated live Codex trials used gpt-5.6-sol at low reasoning effort through codex-cli 0.150.0-alpha.8 with real marketplace/plugin activation in temporary CODEX_HOME roots; all three scorecards passed at 95 points",
+        "Git-clean trial: PASS in 60.953 seconds with 72,761 input tokens, 51,456 cached input tokens, 1,157 output tokens, three commands, and zero writes",
+        "Micro Change trial: PASS in 164.640 seconds with 343,589 input tokens, 308,736 cached input tokens, 2,748 output tokens, thirteen commands, one bounded product-file write, completed MC-001, and valid runtime state",
+        "Reference-fidelity trial: PASS in 95.813 seconds with 133,670 input tokens, 104,192 cached input tokens, 2,326 output tokens, five commands, zero writes, and the expected BLOCKED product verdict for material reference gaps",
+        "Managed orchestration ORC-003 exercised two required real read-only Codex workers through contract, result, all-worker quorum, main-thread integration, and completion; both returned high-confidence PASS",
+        "This release work resumed in the same local Codex task after a Codex Desktop restart with persisted CPT state available. This is one same-device task-resumption observation only; it does not certify reconnect ordering, compaction recovery, or cross-client continuity"
+      ],
+      "notes": [
+        "Usage evidence is accepted only from actual trace usage events; the recorded token counts above are not inferred from missing telemetry.",
+        "Durable existing-product onboarding is not broadly certified: one isolated run completed task and durable product-map work but missed final structured-output delivery within 360 seconds, and a second bounded run remained active at timeout. This limitation is recorded in KNOWN_LIMITATIONS.md.",
+        "These trials certify only the named model, CLI build, cases, budgets, and local recovery path; they do not claim cross-model or cross-client quality."
+      ],
+      "review": {
+        "authority": "Product OS release review of isolated Codex traces and managed ORC-003 results",
+        "recorded_at": "2026-08-27T16:16:25Z"
+      }
+    },
+    "rc_mega_audit": {
+      "status": "PASS",
+      "evidence": [
+        "ORC-003-W01 independent code audit returned high-confidence PASS at exact clean head 7c841e1 with no actionable code, contract, provenance, package-integrity, or documentation finding",
+        "ORC-003-W02 independent release-risk audit returned high-confidence PASS at exact clean head 7c841e1 after verifying platform claims, helper provenance, rollback instructions, publication safeguards, and known limitations",
+        "All prior audit findings were resolved: exact-head CI coverage, candidate digest binding, custom Product OS home detection, explicit-ref retarget rejection, source/ref provenance fail-closed behavior, helper partial-failure recovery documentation, report reconciliation, and WSL/live scope disclosure",
+        "All-worker quorum for ORC-003 was satisfied and main-thread integration completed before this evidence was recorded"
+      ],
+      "notes": [
+        "The audit found only a non-blocking maintenance recommendation to update GitHub Actions versions that currently emit Node 20 deprecation warnings.",
+        "The audit recommendation remains conditional on rebinding the final evidence candidate and passing exact-head CI plus final archive inventory/CRC verification."
+      ],
+      "review": {
+        "authority": "Independent ORC-003 code and release-risk auditors plus Product OS main-thread integration",
+        "recorded_at": "2026-08-27T16:16:25Z"
+      }
+    }
+  }
+}

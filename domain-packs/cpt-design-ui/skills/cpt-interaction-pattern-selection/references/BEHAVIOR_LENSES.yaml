@@ -1,0 +1,188 @@
+schema: cpt-behavior-lenses-v1
+source_basis: Tidwell et al., Designing Interfaces, 3rd ed.; transformed summary
+lenses:
+- id: safe-exploration
+  name: Safe Exploration
+  problem_signal: Users hesitate because actions may cause loss, confusion, or irreversible effects.
+  design_questions:
+  - Can users try, inspect, undo, cancel, or return without losing work?
+  - Are consequences visible before commitment?
+  supports:
+  - preview
+  - undo
+  - cancel
+  - reversible defaults
+  - predictable back/escape
+  failure_signals:
+  - fear-driven avoidance
+  - confirmation habituation
+  - silent destructive effects
+- id: instant-gratification
+  name: Instant Gratification
+  problem_signal: Value is hidden behind setup, registration, reading, or waiting.
+  design_questions:
+  - What useful result can appear in the first interaction?
+  - Can the system give value before requesting data or commitment?
+  supports:
+  - clear entry point
+  - useful default
+  - fast first result
+  - deferred registration
+  failure_signals:
+  - setup wall
+  - empty start with no action
+  - slow route to first value
+- id: satisficing
+  name: Satisficing
+  problem_signal: Users choose the first option that appears sufficient rather than evaluating everything.
+  design_questions:
+  - Is the first plausible action likely to be correct?
+  - Can users recover cheaply from an imperfect first choice?
+  supports:
+  - clear labels
+  - strong information scent
+  - safe alternatives
+  - low-cost reversal
+  failure_signals:
+  - misleading first action
+  - hidden better path
+  - expensive recovery
+- id: changes-midstream
+  name: Changes in Midstream
+  problem_signal: Goals or constraints can change while the task is underway.
+  design_questions:
+  - Can users change direction without restarting?
+  - Does the flow preserve work when a branch changes?
+  supports:
+  - editable prior choices
+  - non-destructive branching
+  - resume
+  - global escape
+  failure_signals:
+  - locked linear flow
+  - state loss after backtracking
+  - forced restart
+- id: deferred-choices
+  name: Deferred Choices
+  problem_signal: The system asks for information or commitment before it is necessary or knowable.
+  design_questions:
+  - Which decisions are essential now?
+  - Can optional or uncertain choices be postponed and surfaced later?
+  supports:
+  - progressive disclosure
+  - drafts
+  - good defaults
+  - optional fields
+  - later reminders
+  failure_signals:
+  - front-loaded setup
+  - too many required fields
+  - premature configuration
+- id: incremental-construction
+  name: Incremental Construction
+  problem_signal: Users create through repeated small changes, inspection, and revision.
+  design_questions:
+  - Is feedback fast enough to sustain iteration?
+  - Can users work in partial, imperfect states?
+  supports:
+  - autosave/drafts
+  - preview
+  - short feedback loops
+  - partial objects
+  - history
+  failure_signals:
+  - all-or-nothing creation
+  - slow preview
+  - premature validation
+- id: habituation
+  name: Habituation
+  problem_signal: Frequent users act automatically and rely on stable meanings and placement.
+  design_questions:
+  - Does the same action keep the same meaning?
+  - Could a mode or reordered control turn habit into harm?
+  supports:
+  - consistent shortcuts
+  - stable placement
+  - predictable defaults
+  - undo
+  failure_signals:
+  - mode-dependent destructive meaning
+  - randomized controls
+  - moving frequent actions
+- id: microbreaks
+  name: Microbreaks
+  problem_signal: Tasks may be attempted in short, interruptible sessions.
+  design_questions:
+  - Can a useful unit be completed quickly?
+  - Does the product restore exact progress after interruption?
+  supports:
+  - fast load
+  - small task units
+  - resume state
+  - recent items
+  failure_signals:
+  - long mandatory setup
+  - lost position
+  - no useful short action
+- id: spatial-memory
+  name: Spatial Memory
+  problem_signal: Users locate frequent objects and controls by position rather than labels.
+  design_questions:
+  - Are stable controls kept in stable regions?
+  - Does personalization preserve the user-defined order?
+  supports:
+  - stable layout
+  - user-arranged workspaces
+  - persistent panels
+  failure_signals:
+  - automatic reordering
+  - controls that jump with data
+  - responsive relocation without continuity
+- id: prospective-memory
+  name: Prospective Memory
+  problem_signal: Users leave artifacts or states visible to remind themselves what to do later.
+  design_questions:
+  - Can users mark, pin, leave open, or schedule unfinished work?
+  - Does the system preserve deliberate incompleteness?
+  supports:
+  - drafts
+  - flags
+  - pins
+  - recent/open work
+  - reminders
+  failure_signals:
+  - automatic cleanup
+  - closing idle work
+  - hidden unfinished tasks
+- id: streamlined-repetition
+  name: Streamlined Repetition
+  problem_signal: Users repeat the same operation across many objects or sessions.
+  design_questions:
+  - Can repeated work become bulk, repeat-last, template, shortcut, or macro?
+  - How are exceptions reviewed?
+  supports:
+  - bulk actions
+  - templates
+  - macros
+  - copy/paste
+  - repeat action
+  failure_signals:
+  - serial manual work
+  - excess pointer-keyboard switching
+  - no exception handling
+- id: keyboard-only
+  name: Keyboard Only
+  problem_signal: Speed, accessibility, or environment requires full operation without a pointer.
+  design_questions:
+  - Can every action be reached, understood, and completed from the keyboard?
+  - Is focus order aligned with the task model?
+  supports:
+  - native semantics
+  - visible focus
+  - shortcuts
+  - single composite-control tab stop
+  failure_signals:
+  - hover-only actions
+  - focus traps
+  - pointer-only drag
+  - unannounced focus movement

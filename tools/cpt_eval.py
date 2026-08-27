@@ -25,7 +25,7 @@ EVAL_ROOT = PACKAGE_ROOT / "evaluation" / "executable"
 CASES_DIR = EVAL_ROOT / "cases"
 FIXTURES_DIR = EVAL_ROOT / "fixtures"
 SCHEMAS_DIR = EVAL_ROOT / "schemas"
-PACKAGE_VERSION = "4.0.0"
+PACKAGE_VERSION = "4.1.0"
 RUNTIME_REPORT_DIRS = {"reports", ".cpt-eval-runs", ".cpt-eval-live"}
 
 
@@ -59,12 +59,23 @@ def run_process(
     shell: bool = False,
     timeout: float = 120,
 ) -> subprocess.CompletedProcess[str]:
+    if isinstance(args, list) and args and not shell:
+        executable = str(args[0])
+        if not Path(executable).is_absolute() and not any(
+            separator in executable for separator in ("/", "\\")
+        ):
+            search_path = (env or os.environ).get("PATH")
+            resolved = shutil.which(executable, path=search_path)
+            if resolved:
+                args = [resolved, *args[1:]]
     return subprocess.run(
         args,
         cwd=cwd,
         env=env,
         shell=shell,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         capture_output=True,
         timeout=timeout,
     )
@@ -87,9 +98,9 @@ def git_changed_paths(workspace: Path) -> list[str]:
 
 
 def match_any(path: str, patterns: Iterable[str]) -> bool:
-    value = Path(path).as_posix().lstrip("./")
+    value = normalized_trace_path(path)
     for pattern in patterns:
-        normalized = Path(pattern).as_posix().lstrip("./")
+        normalized = normalized_trace_path(pattern)
         if normalized in {"*", "**", "**/*", "."}:
             return True
         if fnmatch.fnmatch(value, normalized):
@@ -99,6 +110,38 @@ def match_any(path: str, patterns: Iterable[str]) -> bool:
             if value == prefix or value.startswith(prefix + "/"):
                 return True
     return False
+
+
+def normalized_trace_path(raw: str, workspace: Path | None = None) -> str:
+    path = Path(str(raw))
+    if workspace is not None and path.is_absolute():
+        try:
+            path = path.resolve().relative_to(workspace.resolve())
+        except ValueError:
+            pass
+    value = path.as_posix()
+    while value.startswith("./"):
+        value = value[2:]
+    return value
+
+
+def with_live_overrides(case: dict[str, Any]) -> dict[str, Any]:
+    result = copy.deepcopy(case)
+    result["budgets"] = {**case["budgets"], **case.get("live_budgets", {})}
+
+    def merge(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
+        merged = copy.deepcopy(base)
+        for key, value in overlay.items():
+            if isinstance(value, dict) and isinstance(merged.get(key), dict):
+                merged[key] = merge(merged[key], value)
+            else:
+                merged[key] = copy.deepcopy(value)
+        return merged
+
+    result["expectations"] = merge(
+        case.get("expectations", {}), case.get("live_expectations", {})
+    )
+    return result
 
 
 _PLACEHOLDER_RE = re.compile(r"\{([A-Za-z_][A-Za-z0-9_]*)\}")
@@ -191,7 +234,13 @@ def init_git_repo(workspace: Path) -> None:
         raise RuntimeError(result.stderr)
 
 
-def prepare_workspace(case: dict[str, Any], run_root: Path, *, install_extensions: bool = True) -> tuple[Path, dict[str, str]]:
+def prepare_workspace(
+    case: dict[str, Any],
+    run_root: Path,
+    *,
+    install_extensions: bool = True,
+    codex_home_override: Path | None = None,
+) -> tuple[Path, dict[str, str]]:
     fixture = FIXTURES_DIR / case["fixture"] / "repo"
     if not fixture.exists():
         raise RuntimeError(f"Missing fixture: {case['fixture']}")
@@ -202,11 +251,23 @@ def prepare_workspace(case: dict[str, Any], run_root: Path, *, install_extension
     init_git_repo(workspace)
 
     home = run_root / "home"
-    codex_home = home / ".codex"
+    codex_home = codex_home_override or (home / ".codex")
     home.mkdir(parents=True, exist_ok=True)
     codex_home.mkdir(parents=True, exist_ok=True)
-    env = os.environ.copy()
+    env = {
+        key: value
+        for key, value in os.environ.items()
+        if not key.startswith("CODEX_")
+    }
     env.update({"HOME": str(home), "CODEX_HOME": str(codex_home), "PYTHONDONTWRITEBYTECODE": "1"})
+    interpreter_dir = str(Path(sys.executable).resolve().parent)
+    env["PATH"] = interpreter_dir + os.pathsep + env.get("PATH", "")
+    if os.name == "nt" and shutil.which("grep", path=env.get("PATH")) is None:
+        git = shutil.which("git", path=env.get("PATH"))
+        if git:
+            git_usr_bin = Path(git).resolve().parent.parent / "usr" / "bin"
+            if (git_usr_bin / "grep.exe").exists():
+                env["PATH"] = str(git_usr_bin) + os.pathsep + env["PATH"]
 
     install = run_process(
         [sys.executable, str(PACKAGE_ROOT / "tools" / "cpt_dist.py"), "install", "--project", str(workspace), "--mode", "local", "--enforcement-mode", "off"],
@@ -380,7 +441,7 @@ def execute_reference_actions(
     return output, ctx
 
 
-def codex_item_paths(item: dict[str, Any]) -> list[str]:
+def codex_item_paths(item: dict[str, Any], workspace: Path | None = None) -> list[str]:
     paths: list[str] = []
     for key in ("path", "file"):
         if item.get(key):
@@ -396,10 +457,12 @@ def codex_item_paths(item: dict[str, Any]) -> list[str]:
             value = change.get("path") or change.get("file")
             if value:
                 paths.append(str(value))
-    return sorted({Path(path).as_posix().lstrip("./") for path in paths if path})
+    return sorted({normalized_trace_path(path, workspace) for path in paths if path})
 
 
-def normalize_codex_jsonl(lines: str, recorder: TraceRecorder) -> None:
+def normalize_codex_jsonl(
+    lines: str, recorder: TraceRecorder, workspace: Path | None = None
+) -> None:
     command_by_item: dict[str, str] = {}
     for line in lines.splitlines():
         line = line.strip()
@@ -419,8 +482,9 @@ def normalize_codex_jsonl(lines: str, recorder: TraceRecorder) -> None:
                 command_by_item[item.get("id", "")] = command
                 recorder.emit("command", command=command, source="codex_jsonl")
             elif item_type in {"file_change", "file_changes"}:
-                for path in codex_item_paths(item):
-                    recorder.emit("file_write", path=path, source="codex_jsonl")
+                # Count the completed change once; start and completion events
+                # describe one host operation.
+                recorder.emit("codex_item", item_type=item_type, phase="started")
             else:
                 recorder.emit("codex_item", item_type=item_type, phase="started")
         elif event_type == "item.completed":
@@ -434,7 +498,7 @@ def normalize_codex_jsonl(lines: str, recorder: TraceRecorder) -> None:
                     source="codex_jsonl",
                 )
             elif item_type in {"file_change", "file_changes"}:
-                for path in codex_item_paths(item):
+                for path in codex_item_paths(item, workspace):
                     recorder.emit("file_write", path=path, source="codex_jsonl")
             elif item_type == "agent_message":
                 recorder.emit("agent_message", text=item.get("text", "")[:8000])
@@ -452,10 +516,12 @@ def normalize_codex_jsonl(lines: str, recorder: TraceRecorder) -> None:
         elif event_type in {"turn.failed", "error"}:
             recorder.emit("error", payload=event)
         else:
-            recorder.emit("codex_event", event_type=event_type)
+            recorder.emit("codex_event", codex_event_type=event_type)
 
 
-def augment_trace_from_structured_output(output: dict[str, Any], recorder: TraceRecorder) -> None:
+def augment_trace_from_structured_output(
+    output: dict[str, Any], recorder: TraceRecorder, workspace: Path | None = None
+) -> None:
     """Add bounded model-reported file activity when the host trace lacks it.
 
     ``codex exec --json`` reliably exposes commands, usage, and file-change items,
@@ -466,23 +532,23 @@ def augment_trace_from_structured_output(output: dict[str, Any], recorder: Trace
     actual Git changes independently.
     """
     observed_reads = {
-        Path(str(event.get("path"))).as_posix().lstrip("./")
+        normalized_trace_path(str(event.get("path")), workspace)
         for event in recorder.events
         if event.get("type") == "file_read" and event.get("path")
     }
     observed_writes = {
-        Path(str(event.get("path"))).as_posix().lstrip("./")
+        normalized_trace_path(str(event.get("path")), workspace)
         for event in recorder.events
         if event.get("type") == "file_write" and event.get("path")
     }
     for raw in output.get("files_read", []) or []:
-        path = Path(str(raw)).as_posix().lstrip("./")
+        path = normalized_trace_path(str(raw), workspace)
         if path and path not in observed_reads:
             recorder.emit(
                 "file_read", path=path, source="structured_output_claim", evidence_level="reported"
             )
     for raw in output.get("files_changed", []) or []:
-        path = Path(str(raw)).as_posix().lstrip("./")
+        path = normalized_trace_path(str(raw), workspace)
         if path and path not in observed_writes:
             recorder.emit(
                 "file_write", path=path, source="structured_output_claim", evidence_level="reported"
@@ -508,40 +574,149 @@ def build_live_prompt(case: dict[str, Any]) -> str:
 def run_live_case(
     case: dict[str, Any], run_root: Path, *, model: str | None = None, effort: str | None = None
 ) -> tuple[str, dict[str, Any] | None, Path | None, TraceRecorder, dict[str, Any]]:
-    workspace, env = prepare_workspace(case, run_root)
     recorder = TraceRecorder()
-    codex = shutil.which("codex")
-    if not codex:
-        return "SKIPPED", None, workspace, recorder, {"reason": "Codex CLI not found"}
-    output_path = run_root / "output.json"
-    schema_path = SCHEMAS_DIR / "task-result.schema.json"
-    prompt = build_live_prompt(case)
-    command = [codex, "exec", "--json", "--ephemeral", "--sandbox", case.get("activation", {}).get("sandbox", "read-only"), "--output-schema", str(schema_path), "-o", str(output_path)]
-    if model:
-        command.extend(["--model", model])
-    if effort:
-        command.extend(["-c", f'model_reasoning_effort="{effort}"'])
-    command.append(prompt)
-    started = time.monotonic()
-    proc = run_process(command, cwd=workspace, env=env, timeout=float(case["budgets"]["max_wall_seconds"]) + 60)
-    elapsed = time.monotonic() - started
-    normalize_codex_jsonl(proc.stdout, recorder)
-    if proc.returncode:
-        recorder.emit("error", payload={"exit_code": proc.returncode, "stderr": proc.stderr[-8000:]})
-        return "FAIL", None, workspace, recorder, {"reason": "codex exec returned non-zero", "exit_code": proc.returncode, "elapsed_seconds": elapsed}
-    if not output_path.exists():
-        return "FAIL", None, workspace, recorder, {"reason": "Codex did not write output-last-message file", "elapsed_seconds": elapsed}
+    workspace: Path | None = None
+    temporary_codex_home: Path | None = None
+    temporary_auth_file: Path | None = None
+    auth_source_raw = os.environ.get("CPT_EVAL_CODEX_AUTH_FILE")
     try:
-        output = read_json(output_path)
-    except Exception as exc:
-        return "FAIL", None, workspace, recorder, {"reason": f"Invalid structured output: {exc}", "elapsed_seconds": elapsed}
-    augment_trace_from_structured_output(output, recorder)
-    recorder.emit("final", output=output)
-    return "PASS", output, workspace, recorder, {"elapsed_seconds": elapsed}
+        if auth_source_raw:
+            auth_source = Path(auth_source_raw).expanduser().resolve()
+            if not auth_source.is_file():
+                return "FAIL", None, None, recorder, {"reason": "CPT_EVAL_CODEX_AUTH_FILE is not a file"}
+            temporary_codex_home = Path(tempfile.mkdtemp(prefix="cpt-eval-codex-home-"))
+            temporary_auth_file = temporary_codex_home / "auth.json"
+            shutil.copy2(auth_source, temporary_auth_file)
+
+        workspace, env = prepare_workspace(
+            case, run_root, codex_home_override=temporary_codex_home
+        )
+        codex = shutil.which("codex")
+        if not codex:
+            return "SKIPPED", None, workspace, recorder, {"reason": "Codex CLI not found"}
+        marketplace_add = run_process(
+            [
+                codex,
+                "plugin",
+                "marketplace",
+                "add",
+                str(PACKAGE_ROOT),
+                "--json",
+            ],
+            cwd=workspace,
+            env=env,
+            timeout=120,
+        )
+        if marketplace_add.returncode:
+            recorder.emit(
+                "error",
+                payload={
+                    "reason": "Codex local marketplace activation failed",
+                    "exit_code": marketplace_add.returncode,
+                    "stderr": marketplace_add.stderr[-4000:],
+                },
+            )
+            return "FAIL", None, workspace, recorder, {
+                "reason": "Codex local marketplace activation failed",
+                "exit_code": marketplace_add.returncode,
+            }
+        plugins = ["cpt-core", *case.get("activation", {}).get("plugins", [])]
+        for plugin in dict.fromkeys(plugins):
+            install_plugin = run_process(
+                [codex, "plugin", "add", f"{plugin}@product-os", "--json"],
+                cwd=workspace,
+                env=env,
+                timeout=120,
+            )
+            if install_plugin.returncode:
+                recorder.emit(
+                    "error",
+                    payload={
+                        "reason": f"Codex plugin activation failed for {plugin}",
+                        "exit_code": install_plugin.returncode,
+                        "stderr": install_plugin.stderr[-4000:],
+                    },
+                )
+                return "FAIL", None, workspace, recorder, {
+                    "reason": f"Codex plugin activation failed for {plugin}",
+                    "exit_code": install_plugin.returncode,
+                }
+        output_path = run_root / "output.json"
+        schema_path = SCHEMAS_DIR / "task-result.schema.json"
+        prompt = build_live_prompt(case)
+        command = [
+            codex,
+            "exec",
+            "--json",
+            "--ephemeral",
+            "--approve-for-me",
+            "--output-schema",
+            str(schema_path),
+            "-o",
+            str(output_path),
+        ]
+        if model:
+            command.extend(["--model", model])
+        if effort:
+            command.extend(["-c", f'model_reasoning_effort="{effort}"'])
+        command.append(prompt)
+        started = time.monotonic()
+        # Keep the process timeout separate from the acceptance budget. Plugin
+        # startup and structured-output finalization can outlive the case's
+        # graded wall budget; the grader still fails an over-budget result.
+        process_timeout = max(
+            240.0, float(case["budgets"]["max_wall_seconds"]) + 60
+        )
+        try:
+            proc = run_process(
+                command,
+                cwd=workspace,
+                env=env,
+                timeout=process_timeout,
+            )
+        except subprocess.TimeoutExpired as exc:
+            elapsed = time.monotonic() - started
+            partial_stdout = exc.stdout or ""
+            if isinstance(partial_stdout, bytes):
+                partial_stdout = partial_stdout.decode("utf-8", errors="replace")
+            if os.environ.get("CPT_EVAL_KEEP_RAW_TRACE") == "1":
+                (run_root / "codex-events.jsonl").write_text(
+                    partial_stdout, encoding="utf-8"
+                )
+            normalize_codex_jsonl(partial_stdout, recorder, workspace)
+            recorder.emit(
+                "error",
+                payload={"reason": "codex exec timed out", "timeout": process_timeout},
+            )
+            return "FAIL", None, workspace, recorder, {
+                "reason": f"codex exec timed out after {process_timeout:.1f} seconds",
+                "elapsed_seconds": elapsed,
+            }
+        elapsed = time.monotonic() - started
+        if os.environ.get("CPT_EVAL_KEEP_RAW_TRACE") == "1":
+            (run_root / "codex-events.jsonl").write_text(proc.stdout, encoding="utf-8")
+        normalize_codex_jsonl(proc.stdout, recorder, workspace)
+        if proc.returncode:
+            recorder.emit("error", payload={"exit_code": proc.returncode, "stderr": proc.stderr[-8000:]})
+            return "FAIL", None, workspace, recorder, {"reason": "codex exec returned non-zero", "exit_code": proc.returncode, "elapsed_seconds": elapsed}
+        if not output_path.exists():
+            return "FAIL", None, workspace, recorder, {"reason": "Codex did not write output-last-message file", "elapsed_seconds": elapsed}
+        try:
+            output = read_json(output_path)
+        except Exception as exc:
+            return "FAIL", None, workspace, recorder, {"reason": f"Invalid structured output: {exc}", "elapsed_seconds": elapsed}
+        augment_trace_from_structured_output(output, recorder, workspace)
+        recorder.emit("final", output=output)
+        return "PASS", output, workspace, recorder, {"elapsed_seconds": elapsed}
+    finally:
+        if temporary_auth_file and temporary_auth_file.exists():
+            temporary_auth_file.unlink()
+        if temporary_codex_home:
+            shutil.rmtree(temporary_codex_home, ignore_errors=True)
 
 
 def collect_paths_from_trace(events: list[dict[str, Any]], event_type: str) -> list[str]:
-    return sorted({Path(str(event.get("path"))).as_posix().lstrip("./") for event in events if event.get("type") == event_type and event.get("path")})
+    return sorted({normalized_trace_path(str(event.get("path"))) for event in events if event.get("type") == event_type and event.get("path")})
 
 
 def collect_commands(events: list[dict[str, Any]]) -> list[str]:
@@ -570,11 +745,21 @@ def runtime_check(workspace: Path, check: dict[str, Any], ctx: dict[str, Any]) -
         return (actual == check.get("equals"), f"current.{check['field']}={actual!r}")
     if kind == "task_status":
         task_id = check["task"]
+        if "{" in task_id:
+            candidates = sorted((workspace / ".cpt" / "tasks").glob("TKT-*.yaml"))
+            if len(candidates) != 1:
+                return False, f"cannot infer one task id: {[item.stem for item in candidates]}"
+            task_id = candidates[0].stem
         data = read_yaml(workspace / ".cpt" / "tasks" / f"{task_id}.yaml")
         actual = data.get("status")
         return (actual == check["equals"], f"task {task_id} status={actual!r}")
     if kind == "micro_status":
         micro_id = check["micro"]
+        if "{" in micro_id:
+            candidates = sorted((workspace / ".cpt" / "micro-changes").glob("*.yaml"))
+            if len(candidates) != 1:
+                return False, f"cannot infer one micro id: {[item.stem for item in candidates]}"
+            micro_id = candidates[0].stem
         data = read_yaml(workspace / ".cpt" / "micro-changes" / f"{micro_id}.yaml")
         actual = data.get("status")
         return (actual == check["equals"], f"micro {micro_id} status={actual!r}")
@@ -593,6 +778,11 @@ def runtime_check(workspace: Path, check: dict[str, Any], ctx: dict[str, Any]) -
         return (actual == check["equals"], f"knowledge {artifact_id} freshness={actual!r}")
     if kind == "orchestration_state":
         run_id = check["run"]
+        if "{" in run_id:
+            candidates = sorted((workspace / ".cpt" / "orchestrations").glob("ORC-*.yaml"))
+            if len(candidates) != 1:
+                return False, f"cannot infer one orchestration id: {[item.stem for item in candidates]}"
+            run_id = candidates[0].stem
         data = read_yaml(workspace / ".cpt" / "orchestrations" / f"{run_id}.yaml")
         actual = data.get("status", data.get("state"))
         return (actual == check["equals"], f"orchestration {run_id} status={actual!r}")
@@ -630,6 +820,14 @@ def grade_case(
     if schema_errors:
         critical.extend(f"output schema: {item}" for item in schema_errors)
     checks.append({"name": "output_schema", "passed": not schema_errors, "details": schema_errors})
+    for field_name in ("selected_roles", "selected_skills", "files_read", "files_changed"):
+        values = output.get(field_name, [])
+        unique = not isinstance(values, list) or len(values) == len(
+            {json.dumps(item, sort_keys=True, ensure_ascii=False) for item in values}
+        )
+        checks.append({"name": f"unique_items:{field_name}", "passed": unique})
+        if not unique:
+            critical.append(f"duplicate values in output field: {field_name}")
 
     expected = case.get("expectations", {})
     output_text = json.dumps(output, ensure_ascii=False).lower()
@@ -653,8 +851,19 @@ def grade_case(
         checks.append({"name": f"required_role:{role}", "passed": ok})
         if not ok:
             critical.append(f"missing required role: {role}")
+    any_roles = expected.get("required_any_roles", [])
+    if any_roles:
+        selected_roles = output.get("selected_roles", [])
+        normalized_selected = {str(item).lower().replace("_", " ") for item in selected_roles}
+        ok = any(str(role).lower().replace("_", " ") in normalized_selected for role in any_roles)
+        checks.append({"name": "required_any_role", "passed": ok, "allowed": any_roles})
+        if not ok:
+            critical.append(f"none of the accepted roles selected: {any_roles}")
     for skill in expected.get("required_skills", []):
-        ok = skill in output.get("selected_skills", [])
+        selected_skills = output.get("selected_skills", [])
+        ok = skill in selected_skills or any(
+            str(item).endswith(":" + skill) for item in selected_skills
+        )
         checks.append({"name": f"required_skill:{skill}", "passed": ok})
         if not ok:
             critical.append(f"missing required skill: {skill}")
@@ -796,6 +1005,7 @@ def run_reference_case(case: dict[str, Any], report_root: Path) -> dict[str, Any
 
 
 def run_live_case_and_grade(case: dict[str, Any], report_root: Path, model: str | None, effort: str | None) -> dict[str, Any]:
+    case = with_live_overrides(case)
     run_root = report_root / "runs" / case["id"]
     if run_root.exists():
         shutil.rmtree(run_root)

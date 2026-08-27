@@ -133,8 +133,14 @@ def main():
     sources = [item.get('source_skill') for item in mappings]
     if migration.get('source_count') != 95 or len(mappings) != 95 or len(set(sources)) != 95:
         errors.append('legacy migration must contain 95 unique source skills')
-    if {item.get('target_skill') for item in mappings} != set(skills):
-        errors.append('migration targets do not match active skills')
+    mapped_targets = {item.get('target_skill') for item in mappings}
+    new_skills = set(migration.get('new_skills', []))
+    if migration.get('target_count') != len(skills):
+        errors.append('migration target_count does not match active skills')
+    if mapped_targets & new_skills:
+        errors.append('new_skills must not duplicate legacy mapping targets')
+    if mapped_targets | new_skills != set(skills):
+        errors.append('legacy targets plus new_skills do not match active skills')
     for item in mappings:
         target = item.get('target_skill')
         if item.get('target_plugin') != skills.get(target, {}).get('plugin'):

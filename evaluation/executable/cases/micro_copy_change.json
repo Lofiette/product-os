@@ -9,7 +9,7 @@
     "live-smoke",
     "live-full"
   ],
-  "task_prompt": "Rename the shared edit action from “Save” to “Apply changes”. Keep the change local and verify it.",
+  "task_prompt": "Rename the visible label in the shared EditActionButton component from “Save” to “Apply changes”. Keep the change local, do not change accessibility titles or other Save strings, and verify it.",
   "activation": {
     "plugins": [
       "cpt-design-ui",
@@ -119,7 +119,7 @@
     "status_in": [
       "PASS"
     ],
-    "required_roles": [
+    "required_any_roles": [
       "frontend_engineer"
     ],
     "required_skills": [
@@ -137,7 +137,7 @@
         "src/features/editor/EditActionButton.tsx"
       ],
       "required_commands": [
-        "grep -q Apply changes"
+        "(?:grep -q|rg -n -F) ['\"]?Apply changes"
       ],
       "forbidden_commands": [
         "git\\s+reset\\s+--hard",
@@ -178,5 +178,39 @@
     "max_wall_seconds": 30,
     "max_input_tokens": 2500,
     "max_output_tokens": 600
+  },
+  "live_budgets": {
+    "max_tool_events": 30,
+    "max_commands": 15,
+    "max_writes": 2,
+    "max_wall_seconds": 180,
+    "max_input_tokens": 400000,
+    "max_output_tokens": 3500
+  },
+  "live_expectations": {
+    "status_in": [
+      "PASS",
+      "PASS_WITH_WARNINGS"
+    ],
+    "required_output_terms": [
+      "Apply changes"
+    ],
+    "required_any_roles": [],
+    "trace": {
+      "allowed_reads": [
+        ".cpt/runtime.yaml",
+        ".cpt/current.yaml",
+        ".cpt/task-index.yaml",
+        ".cpt/runtime-summary.md",
+        ".cpt/enforcement.yaml",
+        "src/features/editor/EditActionButton.tsx",
+        "src/features/editor/AccessibleForm.tsx",
+        "scripts/check_ui.py",
+        "package.json"
+      ],
+      "required_commands": [
+        "python \\.cpt/bin/cpt_runtime\\.py validate"
+      ]
+    }
   }
 }

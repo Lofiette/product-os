@@ -31,7 +31,7 @@ except Exception as exc:
 try:
     registry_doc = json.loads(required[1].read_text(encoding="utf-8"))
     archetypes = registry_doc.get("archetypes", [])
-    if registry_doc.get("version") != "4.0.0":
+    if registry_doc.get("version") != "4.1.0":
         errors.append("worker archetype registry version mismatch")
     if registry_doc.get("archetype_count") != 10 or len(archetypes) != 10:
         errors.append("worker archetype registry must contain exactly 10 archetypes")
@@ -64,7 +64,7 @@ except Exception as exc:
 
 try:
     pack = json.loads(required[2].read_text(encoding="utf-8"))
-    if pack.get("version") != "4.0.0" or pack.get("agent_count") != 10:
+    if pack.get("version") != "4.1.0" or pack.get("agent_count") != 10:
         errors.append("worker pack metadata mismatch")
     agents = sorted((ROOT / "payload/worker-pack/agents").glob("*.toml"))
     if len(agents) != 10:

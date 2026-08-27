@@ -1,0 +1,152 @@
+schema: cpt-interaction-pattern-catalog-v1
+source_basis: Tidwell et al., transformed summary
+patterns:
+- id: data.datatips
+  family: data-exploration
+  name: Datatips
+  problem: Users need exact values and context without permanently labeling every mark.
+  use_when:
+  - Dense visual marks need details on hover, focus, or touch.
+  avoid_when:
+  - Values are essential and must remain visible for comparison or export.
+  forces:
+  - input modes
+  - occlusion
+  - precision
+  procedure:
+  - support pointer, keyboard, and touch
+  - show units/source/context
+  - keep persistent alternative when needed
+  alternatives:
+  - data.data-spotlight
+  - data.small-multiples
+  state_obligations:
+  - no data
+  - stale
+  - overlap
+  evidence_to_seek:
+  - value lookup tasks
+- id: data.data-spotlight
+  family: data-exploration
+  name: Data Spotlight
+  problem: Users need to isolate a related subset while retaining the full context.
+  use_when:
+  - Dense charts, maps, or networks obscure relationships.
+  avoid_when:
+  - Dimming hides critical comparisons or selection meaning is unclear.
+  forces:
+  - selection
+  - contrast
+  - linked regions
+  procedure:
+  - highlight target and related data
+  - de-emphasize without erasing context
+  - provide clear reset
+  alternatives:
+  - data.data-brushing
+  - data.dynamic-queries
+  state_obligations:
+  - none selected
+  - multi-selected
+  - no match
+  evidence_to_seek:
+  - relationship tasks
+- id: data.dynamic-queries
+  family: data-exploration
+  name: Dynamic Queries
+  problem: Users explore how result sets change as controls or filters change.
+  use_when:
+  - Immediate feedback helps understand a dataset and query cost is bounded.
+  avoid_when:
+  - Updates are expensive, disruptive, or users need batch comparison before applying.
+  forces:
+  - latency
+  - result stability
+  - control intent
+  procedure:
+  - choose immediate or batch application deliberately
+  - show update status and result count
+  - preserve controls during refresh
+  alternatives:
+  - form.batch-filters
+  - data.data-brushing
+  state_obligations:
+  - loading
+  - zero results
+  - partial
+  evidence_to_seek:
+  - latency and decision behavior
+- id: data.data-brushing
+  family: data-exploration
+  name: Data Brushing / Linked Views
+  problem: Selection in one view should reveal the same subset in other representations.
+  use_when:
+  - Multiple views show projections of the same objects and cross-context reasoning is valuable.
+  avoid_when:
+  - Views use incompatible units or selection identity is ambiguous.
+  forces:
+  - shared identity
+  - selection persistence
+  - performance
+  procedure:
+  - define canonical selection
+  - synchronize highlights and filters
+  - make scope and clear-selection action visible
+  alternatives:
+  - pattern.alternative-views
+  - data.data-spotlight
+  state_obligations:
+  - no selection
+  - multi-selection
+  - missing in one view
+  evidence_to_seek:
+  - analytical tasks
+- id: data.small-multiples
+  family: data-exploration
+  name: Small Multiples
+  problem: Repeated charts with shared scales support comparison across categories or time.
+  use_when:
+  - Users compare patterns across many peers and a common encoding is valid.
+  avoid_when:
+  - Different scales or semantics make visual equality misleading.
+  forces:
+  - shared scale
+  - ordering
+  - screen density
+  procedure:
+  - keep encoding and scale consistent
+  - order by task
+  - allow exact values and accessible summaries
+  alternatives:
+  - data.multi-y-graph
+  - page.dashboard
+  state_obligations:
+  - missing panel
+  - different ranges
+  evidence_to_seek:
+  - comparison tasks
+- id: data.multi-y-graph
+  family: data-exploration
+  name: Multiple Measures on Shared X
+  problem: Several related measures need aligned temporal or categorical comparison.
+  use_when:
+  - A shared x-axis is meaningful and measures can be separated clearly.
+  avoid_when:
+  - Dual axes or overlay would mislead or overwhelm.
+  forces:
+  - scale
+  - units
+  - alignment
+  - annotation
+  procedure:
+  - prefer stacked aligned panels over confusing dual axes
+  - label units
+  - synchronize hover/selection
+  alternatives:
+  - data.small-multiples
+  - data.data-brushing
+  state_obligations:
+  - missing series
+  - different cadence
+  evidence_to_seek:
+  - metric semantics

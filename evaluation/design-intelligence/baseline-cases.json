@@ -1,0 +1,1041 @@
+{
+  "schema": "cpt-design-intelligence-cases-v1",
+  "version": "1.0.0-preview.1",
+  "case_count": 20,
+  "cases": [
+    {
+      "id": "PD-001",
+      "title": "Enterprise table with bulk operations",
+      "type": "design",
+      "profile": "enterprise_b2b",
+      "prompt": "Design a dense employee-access management screen for administrators. They review 500-5000 users, filter by organization and status, compare roles, select many rows, change access in bulk, inspect exceptions, and recover from partial failures.",
+      "context": {
+        "users": "experienced administrators",
+        "frequency": "daily",
+        "risk": "high",
+        "platform": "desktop web",
+        "constraints": [
+          "authoritative table and button components exist",
+          "keyboard use is common",
+          "API can return partial success",
+          "audit trail is required"
+        ]
+      },
+      "required_evidence": [
+        "problem frame",
+        "object/action/state model",
+        "material alternatives",
+        "table anatomy",
+        "bulk-action state model",
+        "partial failure recovery",
+        "density rationale",
+        "keyboard/focus plan",
+        "rendered representative states"
+      ],
+      "expected_behaviors": [
+        "preserve comparison efficiency",
+        "make selection scope explicit",
+        "define pagination/filter selection behavior",
+        "separate routine and destructive actions",
+        "show partial-success details and recovery",
+        "use realistic long names and many roles",
+        "avoid cardifying rows"
+      ],
+      "critical_errors": [
+        "selection scope is ambiguous",
+        "bulk action can silently affect hidden rows",
+        "partial failure is treated as full success",
+        "important role or audit data is lost on narrower widths"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D7",
+        "D8",
+        "D10",
+        "D11",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-002",
+      "title": "Complex configuration form",
+      "type": "design",
+      "profile": "enterprise_b2b",
+      "prompt": "Design a policy configuration flow with dependent fields, inherited values, validation against server rules, autosave draft, explicit publish, permission differences, and an expert need to compare old and new values.",
+      "context": {
+        "users": "policy administrators",
+        "frequency": "weekly",
+        "risk": "high",
+        "platform": "desktop web",
+        "constraints": [
+          "not all validation can happen locally",
+          "published policy affects many users",
+          "some fields are inherited and read-only"
+        ]
+      },
+      "required_evidence": [
+        "field/domain model",
+        "dependency map",
+        "save/publish state model",
+        "validation and error recovery",
+        "comparison strategy",
+        "permission states",
+        "unsaved-change behavior"
+      ],
+      "expected_behaviors": [
+        "distinguish draft from published state",
+        "make inheritance source visible",
+        "preserve user input after server errors",
+        "avoid arbitrary field-count step rules",
+        "support review before publish",
+        "define keyboard and focus behavior"
+      ],
+      "critical_errors": [
+        "autosave is confused with publish",
+        "read-only inherited values look editable",
+        "server validation destroys entered data",
+        "publish consequence is unclear"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D7",
+        "D8",
+        "D10",
+        "D11",
+        "D12",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-003",
+      "title": "Research repository empty and first-use state",
+      "type": "design",
+      "profile": "general_product",
+      "prompt": "Design the first-use experience for a research repository. A new team has no studies yet, may have imported interview notes, and needs to understand the value of structured research without being forced through a long onboarding tour.",
+      "context": {
+        "users": "product designers and researchers",
+        "frequency": "first use",
+        "risk": "medium",
+        "platform": "responsive web",
+        "constraints": [
+          "import and create are both valid starts",
+          "sample content is optional",
+          "terminology must match the research domain"
+        ]
+      },
+      "required_evidence": [
+        "first-use task model",
+        "alternative onboarding models",
+        "empty/import/processing/error states",
+        "content strategy",
+        "responsive behavior",
+        "validation plan"
+      ],
+      "expected_behaviors": [
+        "explain value through the next useful action",
+        "avoid decorative empty-state illustration as the whole solution",
+        "support import and create without competing primaries",
+        "show what happens after import",
+        "keep onboarding dismissible or contextual"
+      ],
+      "critical_errors": [
+        "empty state has no route to value",
+        "sample data can be mistaken for real data",
+        "import failure has no recovery",
+        "onboarding blocks expert users"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D7",
+        "D8",
+        "D10",
+        "D12",
+        "D13",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-004",
+      "title": "Destructive archive with dependencies",
+      "type": "design",
+      "profile": "enterprise_b2b",
+      "prompt": "Design the archive action for a project that contains active tasks, integrations, and reports. Archiving is reversible for 30 days, but integrations stop immediately and some scheduled jobs are cancelled.",
+      "context": {
+        "users": "project owners",
+        "frequency": "rare",
+        "risk": "high",
+        "platform": "web",
+        "constraints": [
+          "dependency impact is available from API",
+          "archive can partially fail",
+          "restore is permission-bound"
+        ]
+      },
+      "required_evidence": [
+        "impact presentation",
+        "confirmation model",
+        "state transitions",
+        "partial failure handling",
+        "undo/restore path",
+        "permission states",
+        "copy"
+      ],
+      "expected_behaviors": [
+        "name the affected project",
+        "surface meaningful dependencies before confirmation",
+        "separate archive from delete",
+        "explain immediate and delayed consequences",
+        "define recovery and audit evidence"
+      ],
+      "critical_errors": [
+        "generic confirmation",
+        "outside click causes destructive action",
+        "partial failure is hidden",
+        "restore availability is promised without permission evidence"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D10",
+        "D12",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-005",
+      "title": "Mobile field-service task flow",
+      "type": "design",
+      "profile": "general_product",
+      "prompt": "Design a mobile task flow for field technicians working outdoors with gloves, intermittent connectivity, one-handed use, and repeated photo/status updates.",
+      "context": {
+        "users": "field technicians",
+        "frequency": "many times per day",
+        "risk": "medium",
+        "platform": "mobile",
+        "constraints": [
+          "offline queue exists",
+          "camera permission may be denied",
+          "sunlight and movement reduce visibility",
+          "tasks can be reassigned remotely"
+        ]
+      },
+      "required_evidence": [
+        "device/environment analysis",
+        "primary flow",
+        "offline/stale/conflict states",
+        "target and reach strategy",
+        "permission recovery",
+        "sync feedback",
+        "responsive/orientation behavior"
+      ],
+      "expected_behaviors": [
+        "prioritize repeated actions",
+        "make queued versus synced status clear",
+        "preserve input and photos offline",
+        "handle reassignment conflict",
+        "avoid relying on small icons or color alone"
+      ],
+      "critical_errors": [
+        "queued work looks fully synced",
+        "permission denial dead-ends the task",
+        "remote reassignment overwrites local work silently",
+        "critical targets are too small or unreachable"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D8",
+        "D9",
+        "D10",
+        "D11",
+        "D13",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-006",
+      "title": "Role-adaptive operations dashboard",
+      "type": "design",
+      "profile": "data_dense",
+      "prompt": "Design a dashboard used by operators, supervisors, and executives. The same system must support real-time issue handling, team workload review, and weekly strategic trends without becoming three unrelated products.",
+      "context": {
+        "users": "three roles with different frequencies and decisions",
+        "frequency": "continuous to weekly",
+        "risk": "high",
+        "platform": "desktop web",
+        "constraints": [
+          "shared data model",
+          "role permissions differ",
+          "near-real-time metrics can be stale"
+        ]
+      },
+      "required_evidence": [
+        "role-task matrix",
+        "shared object model",
+        "navigation alternatives",
+        "information priority by role",
+        "stale-data model",
+        "chart/table rationale",
+        "responsive and permission states"
+      ],
+      "expected_behaviors": [
+        "preserve shared mental model",
+        "adapt defaults and emphasis by role",
+        "make freshness visible",
+        "support drill-down from summary to action",
+        "avoid vanity metrics",
+        "keep charts honest"
+      ],
+      "critical_errors": [
+        "one universal dashboard ignores role decisions",
+        "stale data looks live",
+        "charts distort scale or aggregation",
+        "operators cannot act from detected issues"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D11",
+        "D13",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-007",
+      "title": "Design-system constrained feature",
+      "type": "design",
+      "profile": "design_system_component",
+      "prompt": "Design a split-button-like action using an existing Button, Menu, and Popover system. The feature team requests a new bespoke component, but the governed system does not contain one.",
+      "context": {
+        "users": "mixed",
+        "frequency": "regular",
+        "risk": "medium",
+        "platform": "web",
+        "constraints": [
+          "existing components are authoritative",
+          "new component requires governance review",
+          "keyboard behavior must remain native-like"
+        ]
+      },
+      "required_evidence": [
+        "design recon",
+        "reuse/composition/extension alternatives",
+        "interaction and state model",
+        "keyboard/focus behavior",
+        "deviation decision",
+        "visual acceptance criteria"
+      ],
+      "expected_behaviors": [
+        "search existing patterns before invention",
+        "compare composition versus new component",
+        "define primary and menu action relationship",
+        "avoid local lookalike",
+        "record systemic contribution if needed"
+      ],
+      "critical_errors": [
+        "bespoke component created without recon",
+        "keyboard interaction unspecified",
+        "button and menu priorities conflict",
+        "generated local style is used as authority"
+      ],
+      "target_dimensions": [
+        "D2",
+        "D4",
+        "D6",
+        "D7",
+        "D10",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-008",
+      "title": "Localization and extreme-content stress test",
+      "type": "critique",
+      "profile": "general_product",
+      "prompt": "Review a polished account screen that was designed only with short English labels and ideal data. Test it for German and Russian localization, long names, missing avatars, very large balances, RTL readiness, and 200% zoom.",
+      "context": {
+        "users": "international consumers",
+        "frequency": "monthly",
+        "risk": "medium",
+        "platform": "responsive web"
+      },
+      "required_evidence": [
+        "rendered original",
+        "stress variants",
+        "delta table",
+        "prioritized fixes",
+        "reflow and truncation strategy"
+      ],
+      "expected_behaviors": [
+        "distinguish wrapping from truncation",
+        "preserve action labels and values",
+        "avoid fixed-height breakage",
+        "check reading order and number formatting",
+        "state what remains unverified"
+      ],
+      "critical_errors": [
+        "critical value is clipped",
+        "button meaning becomes ambiguous",
+        "zoom causes horizontal loss of core task",
+        "RTL is claimed without evidence"
+      ],
+      "target_dimensions": [
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D12",
+        "D13",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-009",
+      "title": "Accessible modal workflow",
+      "type": "critique",
+      "profile": "design_system_component",
+      "prompt": "Review an edit-profile modal with validation, asynchronous save, outside-click close, Escape, nested date picker, and a success message. The visual result is polished.",
+      "context": {
+        "users": "general public",
+        "frequency": "occasional",
+        "risk": "medium",
+        "platform": "web"
+      },
+      "required_evidence": [
+        "rendered states",
+        "DOM/semantic evidence if implemented",
+        "keyboard path",
+        "focus entry/return",
+        "save and error states",
+        "dismissal policy"
+      ],
+      "expected_behaviors": [
+        "inspect beyond visual polish",
+        "prevent accidental loss",
+        "define focus trap and return",
+        "associate errors with fields",
+        "announce async status",
+        "avoid nested focus confusion"
+      ],
+      "critical_errors": [
+        "outside click loses entered data",
+        "focus escapes behind modal",
+        "save can submit twice",
+        "success is not announced",
+        "keyboard cannot reach nested picker"
+      ],
+      "target_dimensions": [
+        "D2",
+        "D4",
+        "D6",
+        "D10",
+        "D12",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-010",
+      "title": "Adversarial critique of a polished concept",
+      "type": "critique",
+      "profile": "general_product",
+      "prompt": "Critique a visually impressive SaaS concept with large gradients, many floating cards, three prominent CTAs, hidden navigation, and sparse real content. Assume stakeholders already like its appearance.",
+      "context": {
+        "users": "business customers",
+        "frequency": "daily",
+        "risk": "medium",
+        "platform": "desktop web"
+      },
+      "required_evidence": [
+        "five-second scan",
+        "task reconstruction",
+        "hierarchy map",
+        "subtraction pass",
+        "finding severity",
+        "smallest systemic fixes"
+      ],
+      "expected_behaviors": [
+        "separate aesthetic appeal from task quality",
+        "identify competing emphasis",
+        "question decorative containers",
+        "restore visible frequent navigation where justified",
+        "preserve useful brand expression"
+      ],
+      "critical_errors": [
+        "review is only taste language",
+        "all gradients/shadows are banned without context",
+        "stakeholder preference is treated as usability evidence",
+        "no actionable systemic fix"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D3",
+        "D5",
+        "D6",
+        "D7",
+        "D9",
+        "D10",
+        "D11",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-011",
+      "title": "Prototype fidelity decision",
+      "type": "reasoning",
+      "profile": "general_product",
+      "prompt": "Choose and justify prototype fidelity for testing a new enterprise approval model whose main uncertainty is whether users understand delegation, escalation, and responsibility transfer. Visual style is already governed.",
+      "context": {
+        "users": "approvers and administrators",
+        "frequency": "weekly",
+        "risk": "high",
+        "platform": "desktop web"
+      },
+      "required_evidence": [
+        "learning question",
+        "risk map",
+        "fidelity alternatives",
+        "selected prototype scope",
+        "test tasks",
+        "success/falsification criteria"
+      ],
+      "expected_behaviors": [
+        "avoid automatic high fidelity",
+        "represent responsibility and state changes realistically",
+        "use governed components only where they affect comprehension",
+        "separate concept learning from visual acceptance"
+      ],
+      "critical_errors": [
+        "prototype fidelity is chosen by habit",
+        "test measures preference instead of understanding",
+        "critical state transitions are static or omitted",
+        "visual polish is treated as validation"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D14",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-012",
+      "title": "Blind human-agent comparison template",
+      "type": "comparison",
+      "profile": "enterprise_b2b",
+      "prompt": "Evaluate two independent solutions to the same professional-product task without knowing which was created by a human or agent. Produce dimension profiles, disagreement notes, and a combined-solution hypothesis.",
+      "context": {
+        "users": "evaluation panel",
+        "frequency": "benchmark",
+        "risk": "medium",
+        "platform": "rendered prototype plus rationale"
+      },
+      "required_evidence": [
+        "frozen common brief",
+        "anonymized artifacts",
+        "separate reasoning and rendered-UI scores",
+        "evaluator confidence",
+        "pairwise preference by dimension",
+        "combined-solution proposal"
+      ],
+      "expected_behaviors": [
+        "do not infer author identity",
+        "do not collapse to one total score",
+        "record evidence for every material difference",
+        "separate presentation polish from design quality",
+        "identify complementary strengths"
+      ],
+      "critical_errors": [
+        "identity leaks influence scoring",
+        "one solution gets more context or time",
+        "total score hides blockers",
+        "combined condition is omitted"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-013",
+      "title": "Pattern composition for a multi-document editor",
+      "type": "design",
+      "profile": "enterprise_b2b",
+      "prompt": "Design the interaction model for a professional document editor where users keep several documents open, compare versions, use keyboard shortcuts, preview changes, undo several steps, and return to interrupted work.",
+      "context": {
+        "users": "frequent expert editors with occasional new users",
+        "frequency": "daily",
+        "risk": "medium",
+        "platform": "desktop and large tablet",
+        "constraints": [
+          "several documents may be dirty",
+          "preview can become stale",
+          "standard shortcuts must remain predictable"
+        ]
+      },
+      "required_evidence": [
+        "behavior lenses",
+        "page/workflow classification",
+        "candidate pattern compositions",
+        "workspace identity and re-entry",
+        "history/undo scope",
+        "keyboard model",
+        "responsive transformation"
+      ],
+      "expected_behaviors": [
+        "compose creation workspace, many workspaces, preview, history, and undo deliberately",
+        "preserve stable locations and document state",
+        "separate novice guidance from expert accelerators",
+        "define stale preview and conflict behavior"
+      ],
+      "critical_errors": [
+        "copies a canvas layout without contextual forces",
+        "loses dirty documents on workspace switch",
+        "changes standard shortcut meaning by mode",
+        "treats preview as committed output"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D10",
+        "D11",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-014",
+      "title": "Question Protocol and form reduction",
+      "type": "design",
+      "profile": "general_product",
+      "prompt": "Redesign a registration flow that currently asks for full name, company, job title, phone, country, password, password confirmation, marketing consent, and referral source before users can try the product.",
+      "context": {
+        "users": "new trial users",
+        "frequency": "once",
+        "risk": "medium",
+        "platform": "responsive web",
+        "constraints": [
+          "email is required for account access",
+          "some profile data may be useful later",
+          "marketing consent must be explicit"
+        ]
+      },
+      "required_evidence": [
+        "Question Protocol for every field",
+        "removed/derived/deferred data",
+        "flow mode",
+        "native control and content decisions",
+        "validation/recovery",
+        "first-value and second-time strategy"
+      ],
+      "expected_behaviors": [
+        "give product value before unnecessary profile collection",
+        "keep consent separate and unselected",
+        "avoid password confirmation when a safer correction method exists",
+        "explain why any retained sensitive field is needed"
+      ],
+      "critical_errors": [
+        "retains fields because competitors ask them",
+        "preselects marketing consent",
+        "uses placeholder as the only label",
+        "disables submit with no recovery guidance"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D7",
+        "D8",
+        "D10",
+        "D12",
+        "D13",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-015",
+      "title": "Accessible validation and focus recovery",
+      "type": "review",
+      "profile": "general_product",
+      "prompt": "Review a long server-validated benefits application. After submit, the page reloads at the top, invalid fields are only outlined in red below the fold, entered values sometimes disappear, and keyboard focus remains on the browser chrome.",
+      "context": {
+        "users": "mixed digital literacy including keyboard and screen-reader users",
+        "frequency": "rare",
+        "risk": "high",
+        "platform": "responsive web",
+        "constraints": [
+          "some validation is server-only",
+          "application contains sensitive data"
+        ]
+      },
+      "required_evidence": [
+        "validation source map",
+        "error summary and local error model",
+        "focus transition",
+        "input preservation",
+        "non-color cues",
+        "repeat-submit behavior"
+      ],
+      "expected_behaviors": [
+        "preserve all valid and invalid input",
+        "announce and focus a useful summary",
+        "link errors to controls and keep local context",
+        "clear stale errors on retry",
+        "avoid blaming language"
+      ],
+      "critical_errors": [
+        "color-only errors",
+        "focus is not restored to task context",
+        "recoverable failure destroys data",
+        "generic invalid messages with no fix"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D3",
+        "D4",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D12",
+        "D13",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-016",
+      "title": "Long multi-actor regulated process",
+      "type": "design",
+      "profile": "enterprise_b2b",
+      "prompt": "Design an application process that takes days, requires documents, has eligibility checks, and passes between an applicant, reviewer, and approver. Tasks may be returned for correction and users need to resume later.",
+      "context": {
+        "users": "applicants and operational staff",
+        "frequency": "occasional applicants, daily staff",
+        "risk": "high",
+        "platform": "responsive web",
+        "constraints": [
+          "offline document preparation exists",
+          "task ownership changes",
+          "final approval is auditable"
+        ]
+      },
+      "required_evidence": [
+        "check-before-start decision",
+        "task-list model",
+        "statuses and owners",
+        "dependencies",
+        "save/resume",
+        "return-for-correction",
+        "review and final action",
+        "audit requirements"
+      ],
+      "expected_behaviors": [
+        "expose prerequisites before work starts",
+        "split work into meaningful tasks rather than arbitrary pages",
+        "show owner and blocker",
+        "preserve history and corrected versions",
+        "differentiate completion from final approval"
+      ],
+      "critical_errors": [
+        "one giant wizard hides multi-actor ownership",
+        "completed task cannot be corrected",
+        "resume loses exact state",
+        "approval and submission are conflated"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-017",
+      "title": "Linked data investigation workspace",
+      "type": "design",
+      "profile": "data_dense",
+      "prompt": "Design an incident investigation workspace with a timeline, map, event table, and metric trends. Selecting records in one view must reveal the same subset in the others, while analysts compare exact values and preserve filters.",
+      "context": {
+        "users": "expert incident analysts",
+        "frequency": "daily",
+        "risk": "high",
+        "platform": "desktop web",
+        "constraints": [
+          "data may arrive late",
+          "some records lack coordinates",
+          "selections may include thousands of rows"
+        ]
+      },
+      "required_evidence": [
+        "decision and metric mapping",
+        "canonical selection identity",
+        "linked-view pattern decision",
+        "filter and exact-value behavior",
+        "stale/missing data",
+        "keyboard and performance plan"
+      ],
+      "expected_behaviors": [
+        "use linked selection intentionally",
+        "keep units, freshness, and exact values visible",
+        "show records missing from a projection",
+        "provide clear reset and selection scope",
+        "preserve filters across views"
+      ],
+      "critical_errors": [
+        "views highlight different object sets",
+        "missing coordinates silently remove records",
+        "dual axes or color distort meaning",
+        "selection cannot be cleared or inspected"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D11",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-018",
+      "title": "Portable execution without vendor plugin",
+      "type": "execution_plan",
+      "profile": "general_product",
+      "prompt": "Turn an approved design decision into an interactive responsive prototype. The runtime has a browser, screenshot capture, image generation, and code execution, but no Product Design plugin or design-tool export.",
+      "context": {
+        "users": "product team reviewers",
+        "frequency": "project milestone",
+        "risk": "medium",
+        "platform": "agent-agnostic",
+        "constraints": [
+          "no external publication without approval",
+          "prototype must cover error and empty states",
+          "design system exists in repository"
+        ]
+      },
+      "required_evidence": [
+        "observed capability inventory",
+        "capability requirements",
+        "generic adapter composition",
+        "fallback and quality loss",
+        "execution brief",
+        "source and artifact provenance",
+        "independent QA plan"
+      ],
+      "expected_behaviors": [
+        "avoid assuming unavailable plugins",
+        "compose browser/image/code capabilities",
+        "use repository design system",
+        "stage execution and visual review",
+        "keep publishing separate and approval-gated"
+      ],
+      "critical_errors": [
+        "claims design-tool export exists",
+        "publishes externally without approval",
+        "accepts generated prototype without state or accessibility review",
+        "changes the product decision during execution without record"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D3",
+        "D4",
+        "D6",
+        "D7",
+        "D10",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-019",
+      "title": "Optional OpenAI Product Design bridge",
+      "type": "execution_plan",
+      "profile": "general_product",
+      "prompt": "Codex visibly exposes the OpenAI Product Design plugin with Get Context, Ideate, Audit, Design QA, and Image To Code. Plan how CPT should use it to accelerate a redesign while remaining portable to agents where the plugin is absent.",
+      "context": {
+        "users": "design team",
+        "frequency": "occasional",
+        "risk": "medium",
+        "platform": "Codex with optional plugin",
+        "constraints": [
+          "only visible skills may be invoked",
+          "CPT owns design decision and gates",
+          "generic fallback must be documented"
+        ]
+      },
+      "required_evidence": [
+        "plugin detection evidence",
+        "capability mapping",
+        "ownership boundary",
+        "generic fallback",
+        "execution checkpoints",
+        "independent acceptance",
+        "permission boundary"
+      ],
+      "expected_behaviors": [
+        "treat plugin as optional adapter",
+        "map only observed skills",
+        "freeze design brief and acceptance before build",
+        "use Design QA as supporting evidence",
+        "run CPT visual/accessibility gates afterward"
+      ],
+      "critical_errors": [
+        "makes the plugin mandatory",
+        "assumes hidden skills",
+        "lets plugin own problem framing or final verdict",
+        "has no equivalent fallback"
+      ],
+      "target_dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D10",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    },
+    {
+      "id": "PD-020",
+      "title": "Image-to-code fidelity and uncertainty",
+      "type": "review",
+      "profile": "design_system_component",
+      "prompt": "A tool has converted a screenshot into responsive frontend code and reports success. Review whether it can be accepted into a governed product repository.",
+      "context": {
+        "users": "product and frontend team",
+        "frequency": "migration task",
+        "risk": "high",
+        "platform": "responsive web",
+        "constraints": [
+          "screenshot shows only one state and width",
+          "authoritative components and tokens exist",
+          "interaction behavior is not visible in the image"
+        ]
+      },
+      "required_evidence": [
+        "source authority",
+        "component/token mapping",
+        "unknown behavior inventory",
+        "state and responsive reconstruction",
+        "visual source diff",
+        "accessibility and code checks",
+        "provider-independent verdict"
+      ],
+      "expected_behaviors": [
+        "treat screenshot as incomplete evidence",
+        "map to governed components",
+        "mark invisible interaction as unknown",
+        "capture representative states and widths",
+        "separate visual similarity from product correctness"
+      ],
+      "critical_errors": [
+        "accepts provider self-report as final QA",
+        "copies raw values instead of design tokens",
+        "invents hidden behavior",
+        "claims responsive fidelity from one screenshot"
+      ],
+      "target_dimensions": [
+        "D2",
+        "D3",
+        "D4",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ]
+    }
+  ]
+}

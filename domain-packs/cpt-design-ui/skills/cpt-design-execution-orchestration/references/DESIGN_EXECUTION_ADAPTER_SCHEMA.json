@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CPT Design Execution Adapter v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "provider",
+    "status",
+    "detection",
+    "capability_map",
+    "constraints",
+    "fallback_policy"
+  ],
+  "properties": {
+    "schema": {
+      "const": "cpt-design-execution-adapter-v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "generic",
+        "optional",
+        "experimental"
+      ]
+    },
+    "detection": {
+      "type": "object"
+    },
+    "capability_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "capability",
+          "observed_name",
+          "use_only_if_observed"
+        ],
+        "properties": {
+          "capability": {
+            "type": "string"
+          },
+          "observed_name": {
+            "type": "string"
+          },
+          "use_only_if_observed": {
+            "const": true
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fallback_policy": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

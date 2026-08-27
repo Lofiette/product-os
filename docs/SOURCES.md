@@ -1,6 +1,6 @@
 # Sources
 
-Product OS 4.0 design follows current Codex documentation for:
+Beta 1 design follows current Codex documentation for:
 
 - non-interactive `codex exec`;
 - JSONL event streaming with `--json`;

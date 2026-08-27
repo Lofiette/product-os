@@ -1,0 +1,405 @@
+schema: cpt-form-pattern-catalog-v1
+source_basis: Silver with Tidwell support; transformed summary
+patterns:
+- id: form.question-protocol
+  name: Question Protocol
+  problem: Requested data creates effort, risk, and abandonment without proven value.
+  use_when:
+  - Any field or question is proposed.
+  procedure:
+  - state purpose and owner
+  - ask whether it is needed now
+  - derive, prefill, defer, or remove when possible
+  - explain value when purpose is not obvious
+  avoid_when:
+  - Do not use it to bypass mandatory legal/domain evidence.
+  tests:
+  - remove-field consequence
+  - later-stage timing
+  - privacy justification
+- id: form.persistent-label-hint
+  name: Persistent Label and Hint
+  problem: Users need to understand what to enter and why while typing and reviewing.
+  use_when:
+  - Inputs, choices, or groups need names or non-obvious guidance.
+  procedure:
+  - use a programmatically associated label
+  - keep essential hints visible
+  - separate example from entered value
+  - associate errors and hints semantically
+  avoid_when:
+  - Do not duplicate obvious labels with empty filler hints.
+  tests:
+  - zoom/localization
+  - screen reader name/description
+  - error state
+- id: form.native-first
+  name: Native First, Progressive Enhancement
+  problem: Custom controls often lose semantics, keyboard behavior, resilience, and platform familiarity.
+  use_when:
+  - Choosing or implementing any interactive form control.
+  procedure:
+  - start with native semantic control
+  - verify baseline works without enhancement
+  - enhance only for a demonstrated need
+  - feature-detect and preserve fallback
+  avoid_when:
+  - Native behavior cannot meet the verified task or platform requirement.
+  tests:
+  - no-script/basic mode
+  - keyboard
+  - assistive technology
+  - failure to load enhancement
+- id: form.input-semantics
+  name: Input Semantics
+  problem: A value may look numeric or textual but requires different input, formatting, and announcement behavior.
+  use_when:
+  - Selecting input type, keyboard, autocomplete, or formatting.
+  procedure:
+  - classify quantity vs code/identifier
+  - preserve leading zeros and copy/paste
+  - use appropriate autocomplete/inputmode/type
+  - normalize harmless variation
+  avoid_when:
+  - Do not use number/spinner semantics for codes merely containing digits.
+  tests:
+  - paste
+  - leading zero
+  - localized format
+  - mobile keyboard
+- id: form.optional-explicit
+  name: Explicit Optionality
+  problem: Users cannot tell what is required or whether providing data is worth the effort.
+  use_when:
+  - A form mixes required and optional values.
+  procedure:
+  - remove unnecessary values first
+  - mark the smaller exceptional set clearly
+  - explain optional value when benefit matters
+  avoid_when:
+  - Do not use defaults or wording to manufacture consent.
+  tests:
+  - empty optional field
+  - screen reader announcement
+  - privacy comprehension
+- id: form.smart-defaults
+  name: Smart and Safe Defaults
+  problem: Common safe choices create avoidable effort.
+  use_when:
+  - One option is common, reversible, visible, and low-risk.
+  procedure:
+  - preselect only with evidence
+  - show the selected value and consequence
+  - let users change easily
+  - avoid consent-sensitive defaults
+  avoid_when:
+  - High-risk, financial, privacy, or irreversible choices without explicit intent.
+  tests:
+  - wrong-default recovery
+  - role variation
+  - first vs returning user
+- id: form.flow-order
+  name: Right Question at the Right Time
+  problem: Questions feel intrusive, confusing, or impossible when asked before context exists.
+  use_when:
+  - Multi-step or conditional journeys.
+  procedure:
+  - order by task understanding and dependency
+  - delay sensitive/payment/commitment questions
+  - preserve context and entered data
+  - review before final action
+  avoid_when:
+  - Do not force business database order onto the user journey.
+  tests:
+  - branch change
+  - back
+  - user explanation of why question appears
+- id: form.review-before-submit
+  name: Review Before Consequential Submit
+  problem: Valid input can still express the wrong intent.
+  use_when:
+  - Purchase, publish, policy, legal, or other consequential submission.
+  procedure:
+  - show all material values and consequences
+  - provide direct edit routes
+  - return to review after edit
+  - label final action with actual commitment
+  avoid_when:
+  - Trivial reversible action where review adds more risk or burden.
+  tests:
+  - wrong-but-valid data
+  - edit and return
+  - final-label comprehension
+- id: form.confirmation-next
+  name: Confirmation and Next Steps
+  problem: After submission users need proof, reference, expectations, recovery, and future action.
+  use_when:
+  - A transaction or long process reaches a stable milestone.
+  procedure:
+  - confirm outcome and reference
+  - state what happens next and when
+  - provide contact/recovery route
+  - avoid celebratory content obscuring critical facts
+  avoid_when:
+  - Do not imply success before the system has committed.
+  tests:
+  - partial success
+  - delayed processing
+  - receipt retrieval
+- id: form.second-time
+  name: Second-Time Experience
+  problem: Returning users are forced through first-time effort despite known safe data.
+  use_when:
+  - The system can responsibly reuse prior values or defaults.
+  procedure:
+  - prefill transparently
+  - route to review when appropriate
+  - highlight changed/stale data
+  - keep easy correction
+  avoid_when:
+  - Sensitive, expired, shared-device, or context-dependent data.
+  tests:
+  - stale address
+  - different role/device
+  - privacy setting
+- id: form.forgiving-format
+  name: Forgiving Format
+  problem: Harmless punctuation, whitespace, case, or grouping causes avoidable errors.
+  use_when:
+  - Several equivalent textual representations can be normalized.
+  procedure:
+  - accept common variants
+  - normalize safely
+  - display a readable canonical form
+  - reject only ambiguous or harmful input
+  avoid_when:
+  - Normalization could change meaning.
+  tests:
+  - paste variants
+  - locale
+  - ambiguous values
+- id: form.validation-timing
+  name: Validation Timing
+  problem: Feedback can arrive too early, too late, or without enough context.
+  use_when:
+  - Any field or group has validation.
+  procedure:
+  - prevent with guidance first
+  - validate on submit by default
+  - use live affirmation for bounded rules when helpful
+  - delay expensive/server checks appropriately
+  - do not interrupt unfinished input
+  avoid_when:
+  - Do not make every keystroke an error event.
+  tests:
+  - typing pause
+  - password manager/window switch
+  - server-only error
+- id: form.error-recovery
+  name: Error Summary and Local Recovery
+  problem: Users cannot find, understand, or fix multiple errors, especially after reload.
+  use_when:
+  - Long forms, server validation, or multiple errors.
+  procedure:
+  - announce overall problem
+  - place a summary near the start when useful
+  - link to specific controls
+  - show specific local messages
+  - move focus deliberately
+  - preserve input and clear stale errors
+  avoid_when:
+  - Do not duplicate noisy messages when one local error is sufficient.
+  tests:
+  - keyboard jump
+  - screen reader
+  - repeat submit
+  - error below fold
+- id: form.action-enabled
+  name: Action Remains Discoverable
+  problem: A disabled submit control hides how to proceed and may be unfocusable or unreadable.
+  use_when:
+  - Completion has validation or prerequisite rules.
+  procedure:
+  - keep action discoverable where safe
+  - allow submit to reveal specific recovery
+  - if disabled is required, explain why nearby and make prerequisite visible
+  avoid_when:
+  - Do not enable an action that would cause irreversible harm.
+  tests:
+  - keyboard discovery
+  - incomplete state
+  - explanation visibility
+- id: form.autocomplete
+  name: Autocomplete / Combobox
+  problem: Users select from a large known set and need search plus constrained choice.
+  use_when:
+  - Many options, known dataset, typographical variation, or endonyms.
+  procedure:
+  - start from a robust fallback
+  - filter predictably
+  - announce result count/state
+  - support keyboard navigation and single tab stop
+  - preserve typed value and selection identity
+  avoid_when:
+  - Small visible option set or team cannot implement current accessibility contract.
+  tests:
+  - no results
+  - typo
+  - keyboard
+  - screen reader
+  - slow data
+- id: form.choice-controls
+  name: Choice Controls by Semantics
+  problem: Users need to understand single vs multiple choice and compare options.
+  use_when:
+  - Selecting one or several explicit options.
+  procedure:
+  - use radios for one-of-many and checkboxes for independent/multiple choices
+  - keep options visible when comparison matters
+  - group with a meaningful legend
+  - use select only when its trade-offs fit
+  avoid_when:
+  - Do not style links or unrelated controls to mimic choice inputs.
+  tests:
+  - keyboard group
+  - long labels
+  - many options
+- id: form.search
+  name: Discoverable Search
+  problem: Users need direct retrieval from a large or dynamic collection.
+  use_when:
+  - Known-item or broad retrieval is a major task.
+  procedure:
+  - make search easy to locate
+  - match query language and indexing
+  - design zero, partial, typo, and slow states
+  - preserve query and filters
+  avoid_when:
+  - A small collection can be browsed more simply.
+  tests:
+  - zero results
+  - misspelling
+  - slow response
+  - return to results
+- id: form.filters
+  name: Interactive or Batch Filters
+  problem: Users need to reduce a large result set using their own facets.
+  use_when:
+  - Results are broad and several criteria matter.
+  procedure:
+  - choose immediate vs apply action from decision cadence and latency
+  - use honest control semantics
+  - show selected filters and result feedback
+  - support clear/reset and mobile access
+  avoid_when:
+  - Filters add complexity without a large or diverse result set.
+  tests:
+  - zero results
+  - many selected
+  - remove filter
+  - loading
+  - keyboard
+- id: form.upload
+  name: Robust Upload
+  problem: Files require selection, transfer, progress, per-item feedback, retry, removal, and fallback.
+  use_when:
+  - Users attach one or many files or media.
+  procedure:
+  - keep native picker as baseline
+  - add drag/drop as enhancement
+  - show file identity, progress, success/error, retry/remove
+  - announce state changes
+  - support format conversion when product can do it
+  avoid_when:
+  - Do not replace the only picker with drag-and-drop.
+  tests:
+  - unsupported format
+  - too large
+  - partial failure
+  - network loss
+  - keyboard
+- id: form.persistent-form
+  name: Persistent Form
+  problem: Users add an unknown number of similar items over time.
+  use_when:
+  - Each item is simple and the entry surface can remain available.
+  procedure:
+  - keep added items visible
+  - reset or preserve defaults deliberately
+  - allow edit/remove
+  - manage focus after add/remove
+  avoid_when:
+  - Each item has complex branching or high consequence.
+  tests:
+  - many items
+  - remove focused item
+  - duplicate
+  - partial save
+- id: form.add-another
+  name: Add Another
+  problem: Expert users need fast repeated structured entry.
+  use_when:
+  - High-frequency, low-branching repeated data entry.
+  procedure:
+  - optimize keyboard path
+  - keep item numbering/identity stable
+  - focus the next logical field
+  - show errors within item
+  - support remove and bulk completion
+  avoid_when:
+  - Infrequent users or very complex item forms.
+  tests:
+  - 10+ items
+  - remove middle
+  - tab order
+  - server error
+- id: form.check-before-start
+  name: Check Before You Start
+  problem: Users may invest time before discovering ineligibility, missing documents, cost, or offline steps.
+  use_when:
+  - Long, regulated, or prerequisite-heavy processes.
+  procedure:
+  - state eligibility, documents, time, cost, and offline requirements
+  - offer alternatives
+  - ask screening questions only when necessary
+  avoid_when:
+  - Preconditions are trivial or the screen becomes a generic wall of instructions.
+  tests:
+  - ineligible user
+  - missing document
+  - alternate route
+- id: form.task-list
+  name: Task List for Long Processes
+  problem: A process spans hours/days, sessions, channels, or people.
+  use_when:
+  - Tasks can be resumed, owned, blocked, or completed independently.
+  procedure:
+  - split into meaningful tasks
+  - show status, owner, dependencies, and time expectations
+  - save automatically
+  - allow resume/review/correction
+  - provide explicit final action
+  avoid_when:
+  - A short linear flow is clearer.
+  tests:
+  - resume after days
+  - different actor
+  - task returned for correction
+  - all complete
+- id: form.focus-management
+  name: Dynamic Focus Management
+  problem: Adding, removing, opening, closing, or failing content can strand keyboard and screen-reader users.
+  use_when:
+  - DOM or surface changes affect the focused element or task origin.
+  procedure:
+  - define return target before change
+  - move focus only when task context changes
+  - announce state once
+  - avoid ghost focus and focus theft
+  avoid_when:
+  - Do not move focus for purely visual updates.
+  tests:
+  - remove focused item
+  - modal close
+  - error submit
+  - responsive mode switch

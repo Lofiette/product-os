@@ -18,12 +18,12 @@
     },
     {
       "skill": "cpt-ai-safety-review",
-      "prompt": "Review a tool-using agent for prompt injection and irreversible actions.",
+      "prompt": "Design safety controls and evals for a customer-facing AI assistant.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-ai-safety-review",
-      "prompt": "Design safety controls and evals for a customer-facing AI assistant.",
+      "prompt": "Review a tool-using agent for prompt injection and irreversible actions.",
       "expected": "invoke"
     },
     {
@@ -33,12 +33,12 @@
     },
     {
       "skill": "cpt-ai-system-plan",
-      "prompt": "Plan an AI assistant that reads documents and performs approved actions.",
+      "prompt": "Design retrieval, fallback, cost, and evaluation for an AI feature.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-ai-system-plan",
-      "prompt": "Design retrieval, fallback, cost, and evaluation for an AI feature.",
+      "prompt": "Plan an AI assistant that reads documents and performs approved actions.",
       "expected": "invoke"
     },
     {
@@ -63,12 +63,12 @@
     },
     {
       "skill": "cpt-api-contract",
-      "prompt": "Review whether an API field addition breaks existing clients.",
+      "prompt": "Map frontend-facing API and data types before redesigning a form.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-api-contract",
-      "prompt": "Map frontend-facing API and data types before redesigning a form.",
+      "prompt": "Review whether an API field addition breaks existing clients.",
       "expected": "invoke"
     },
     {
@@ -78,12 +78,12 @@
     },
     {
       "skill": "cpt-architecture-plan",
-      "prompt": "Plan the architecture for a new service with reliability and migration constraints.",
+      "prompt": "Compare modular-monolith and service boundary options for a product area.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-architecture-plan",
-      "prompt": "Compare modular-monolith and service boundary options for a product area.",
+      "prompt": "Plan the architecture for a new service with reliability and migration constraints.",
       "expected": "invoke"
     },
     {
@@ -93,12 +93,12 @@
     },
     {
       "skill": "cpt-content-design",
-      "prompt": "Rewrite form errors and empty states with recovery and localization readiness.",
+      "prompt": "Review prototype data so the layout is tested with realistic content.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-content-design",
-      "prompt": "Review prototype data so the layout is tested with realistic content.",
+      "prompt": "Rewrite form errors and empty states with recovery and localization readiness.",
       "expected": "invoke"
     },
     {
@@ -108,12 +108,12 @@
     },
     {
       "skill": "cpt-conversation-design",
-      "prompt": "Design a multi-turn AI assistant with clarification and human handoff.",
+      "prompt": "Create repair and confirmation flows for a conversational form.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-conversation-design",
-      "prompt": "Create repair and confirmation flows for a conversational form.",
+      "prompt": "Design a multi-turn AI assistant with clarification and human handoff.",
       "expected": "invoke"
     },
     {
@@ -153,12 +153,12 @@
     },
     {
       "skill": "cpt-data-architecture",
-      "prompt": "Review a new persistent entity and its lifecycle, lineage, and migration.",
+      "prompt": "Design data architecture for documents, chunks, and derived search indexes.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-data-architecture",
-      "prompt": "Design data architecture for documents, chunks, and derived search indexes.",
+      "prompt": "Review a new persistent entity and its lifecycle, lineage, and migration.",
       "expected": "invoke"
     },
     {
@@ -168,12 +168,12 @@
     },
     {
       "skill": "cpt-data-visualization-review",
-      "prompt": "Review a dashboard for misleading scales and cognitive overload.",
+      "prompt": "Choose visualizations for comparing model performance over time.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-data-visualization-review",
-      "prompt": "Choose visualizations for comparing model performance over time.",
+      "prompt": "Review a dashboard for misleading scales and cognitive overload.",
       "expected": "invoke"
     },
     {
@@ -198,12 +198,12 @@
     },
     {
       "skill": "cpt-dependency-review",
-      "prompt": "Review whether to add a charting library and its bundle/security cost.",
+      "prompt": "Assess a major dependency upgrade and rollback path.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-dependency-review",
-      "prompt": "Assess a major dependency upgrade and rollback path.",
+      "prompt": "Review whether to add a charting library and its bundle/security cost.",
       "expected": "invoke"
     },
     {
@@ -212,13 +212,28 @@
       "expected": "do_not_invoke"
     },
     {
-      "skill": "cpt-design-handoff",
-      "prompt": "Create a rebuild-ready handoff package for a new product module.",
+      "skill": "cpt-design-execution-orchestration",
+      "prompt": "Discover the available browser, screenshot, image-generation, prototyping, code, and publishing capabilities, then build a staged design execution plan with fallbacks.",
       "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-execution-orchestration",
+      "prompt": "Use the OpenAI Product Design plugin only if it is visibly available; otherwise compose generic tools to turn this screenshot into an interactive prototype and run visual QA.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-execution-orchestration",
+      "prompt": "Define the object and permission model for a policy workflow without building or publishing an artifact.",
+      "expected": "do_not_invoke"
     },
     {
       "skill": "cpt-design-handoff",
       "prompt": "Audit whether a design package is sufficient for another developer.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-design-handoff",
+      "prompt": "Create a rebuild-ready handoff package for a new product module.",
       "expected": "invoke"
     },
     {
@@ -228,12 +243,12 @@
     },
     {
       "skill": "cpt-design-recon",
-      "prompt": "Discover which components and tokens govern a settings screen before implementing it.",
+      "prompt": "Determine whether a repository has a real design system or only local styles.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-design-recon",
-      "prompt": "Determine whether a repository has a real design system or only local styles.",
+      "prompt": "Discover which components and tokens govern a settings screen before implementing it.",
       "expected": "invoke"
     },
     {
@@ -243,12 +258,12 @@
     },
     {
       "skill": "cpt-design-system-code-audit",
-      "prompt": "Scan changed React files for raw UI values and duplicate button implementations.",
+      "prompt": "Enforce governed component imports before a UI release.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-design-system-code-audit",
-      "prompt": "Enforce governed component imports before a UI release.",
+      "prompt": "Scan changed React files for raw UI values and duplicate button implementations.",
       "expected": "invoke"
     },
     {
@@ -258,12 +273,12 @@
     },
     {
       "skill": "cpt-design-system-governance",
-      "prompt": "Determine whether a new form may use a custom control or must extend the design system.",
+      "prompt": "Audit a manifest change before claiming UI compliance.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-design-system-governance",
-      "prompt": "Audit a manifest change before claiming UI compliance.",
+      "prompt": "Determine whether a new form may use a custom control or must extend the design system.",
       "expected": "invoke"
     },
     {
@@ -273,12 +288,12 @@
     },
     {
       "skill": "cpt-evidence-research-plan",
-      "prompt": "Plan evidence collection for an unfamiliar market where external browsing is not available.",
+      "prompt": "Design a mixed-method study to decide whether to redesign a workflow.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-evidence-research-plan",
-      "prompt": "Design a mixed-method study to decide whether to redesign a workflow.",
+      "prompt": "Plan evidence collection for an unfamiliar market where external browsing is not available.",
       "expected": "invoke"
     },
     {
@@ -299,6 +314,21 @@
     {
       "skill": "cpt-experiment-design",
       "prompt": "Run five user interviews to understand mental models.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-form-task-flow-design",
+      "prompt": "Choose between one-thing-per-page, persistent form, add-another, and task-list patterns for a long multi-actor data-entry process.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-form-task-flow-design",
+      "prompt": "Run a Question Protocol and design validation, focus, error recovery, review, and save-resume for this regulated application form.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-form-task-flow-design",
+      "prompt": "Choose a chart type for comparing monthly revenue trends.",
       "expected": "do_not_invoke"
     },
     {
@@ -333,12 +363,12 @@
     },
     {
       "skill": "cpt-growth-activation",
-      "prompt": "Improve activation for a multi-step B2B onboarding flow.",
+      "prompt": "Design a retention loop with ethical guardrails and experiments.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-growth-activation",
-      "prompt": "Design a retention loop with ethical guardrails and experiments.",
+      "prompt": "Improve activation for a multi-step B2B onboarding flow.",
       "expected": "invoke"
     },
     {
@@ -348,12 +378,12 @@
     },
     {
       "skill": "cpt-implementation-review",
-      "prompt": "Review a frontend feature against its Impact Map and API/design contracts.",
+      "prompt": "Produce blocker findings and handoff notes for a multi-file implementation.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-implementation-review",
-      "prompt": "Produce blocker findings and handoff notes for a multi-file implementation.",
+      "prompt": "Review a frontend feature against its Impact Map and API/design contracts.",
       "expected": "invoke"
     },
     {
@@ -363,12 +393,12 @@
     },
     {
       "skill": "cpt-incident-review",
-      "prompt": "Run a blameless post-incident review for an outage.",
+      "prompt": "Analyze a failed deployment and improve detection and rollback.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-incident-review",
-      "prompt": "Analyze a failed deployment and improve detection and rollback.",
+      "prompt": "Run a blameless post-incident review for an outage.",
       "expected": "invoke"
     },
     {
@@ -378,17 +408,32 @@
     },
     {
       "skill": "cpt-information-architecture",
-      "prompt": "Redesign the information architecture of a large settings module.",
-      "expected": "invoke"
-    },
-    {
-      "skill": "cpt-information-architecture",
       "prompt": "Create taxonomy and navigation for a knowledge library.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-information-architecture",
+      "prompt": "Redesign the information architecture of a large settings module.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-information-architecture",
       "prompt": "Tune the contrast of existing buttons.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-interaction-pattern-selection",
+      "prompt": "Compare a wizard, settings editor, and creation workspace for this branching configuration flow and record the contextual forces.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-interaction-pattern-selection",
+      "prompt": "Select an interaction pattern composition for a multi-workspace document editor with deep links, undo, and keyboard shortcuts.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-interaction-pattern-selection",
+      "prompt": "Polish button shadows and typography on an approved screen without changing interaction.",
       "expected": "do_not_invoke"
     },
     {
@@ -408,12 +453,12 @@
     },
     {
       "skill": "cpt-knowledge-lifecycle",
-      "prompt": "Update only the workflows area map after implementing a new editor mode.",
+      "prompt": "Create a greenfield Product Map from approved decisions and mark unimplemented flows as planned.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-knowledge-lifecycle",
-      "prompt": "Create a greenfield Product Map from approved decisions and mark unimplemented flows as planned.",
+      "prompt": "Update only the workflows area map after implementing a new editor mode.",
       "expected": "invoke"
     },
     {
@@ -438,12 +483,12 @@
     },
     {
       "skill": "cpt-migration-plan",
-      "prompt": "Plan a zero-downtime schema migration with backfill and rollback.",
+      "prompt": "Migrate an API version with expand-contract compatibility.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-migration-plan",
-      "prompt": "Migrate an API version with expand-contract compatibility.",
+      "prompt": "Plan a zero-downtime schema migration with backfill and rollback.",
       "expected": "invoke"
     },
     {
@@ -453,12 +498,12 @@
     },
     {
       "skill": "cpt-model-evaluation",
-      "prompt": "Create an eval suite for summarization faithfulness and safety.",
+      "prompt": "Compare model/prompt variants with slice thresholds and regression cases.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-model-evaluation",
-      "prompt": "Compare model/prompt variants with slice thresholds and regression cases.",
+      "prompt": "Create an eval suite for summarization faithfulness and safety.",
       "expected": "invoke"
     },
     {
@@ -468,12 +513,12 @@
     },
     {
       "skill": "cpt-observability-plan",
-      "prompt": "Design observability for an async execution pipeline.",
+      "prompt": "Add migration progress, failure, and rollback signals.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-observability-plan",
-      "prompt": "Add migration progress, failure, and rollback signals.",
+      "prompt": "Design observability for an async execution pipeline.",
       "expected": "invoke"
     },
     {
@@ -498,12 +543,12 @@
     },
     {
       "skill": "cpt-performance-review",
-      "prompt": "Review a dashboard for rendering and bundle regressions.",
+      "prompt": "Plan API latency measurements and optimization for a high-percentile SLO.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-performance-review",
-      "prompt": "Plan API latency measurements and optimization for a high-percentile SLO.",
+      "prompt": "Review a dashboard for rendering and bundle regressions.",
       "expected": "invoke"
     },
     {
@@ -513,12 +558,12 @@
     },
     {
       "skill": "cpt-privacy-impact",
-      "prompt": "Review a feature that stores user documents and derived embeddings.",
+      "prompt": "Map privacy impact of analytics identifiers and retention.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-privacy-impact",
-      "prompt": "Map privacy impact of analytics identifiers and retention.",
+      "prompt": "Review a feature that stores user documents and derived embeddings.",
       "expected": "invoke"
     },
     {
@@ -528,12 +573,12 @@
     },
     {
       "skill": "cpt-product-scope",
-      "prompt": "Define the MVP and non-goals for a new analytics module.",
+      "prompt": "Clarify the user outcome and success metrics before redesigning onboarding.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-product-scope",
-      "prompt": "Clarify the user outcome and success metrics before redesigning onboarding.",
+      "prompt": "Define the MVP and non-goals for a new analytics module.",
       "expected": "invoke"
     },
     {
@@ -543,17 +588,32 @@
     },
     {
       "skill": "cpt-production-readiness",
-      "prompt": "Run a production readiness review for a new web service.",
-      "expected": "invoke"
-    },
-    {
-      "skill": "cpt-production-readiness",
       "prompt": "Plan CI/CD, feature-flag rollout, rollback, and support for a major feature.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-production-readiness",
+      "prompt": "Run a production readiness review for a new web service.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-production-readiness",
       "prompt": "Create a low-fidelity prototype only.",
+      "expected": "do_not_invoke"
+    },
+    {
+      "skill": "cpt-professional-data-interface-design",
+      "prompt": "Create a professional monitoring workspace with linked data views, saved filters, exception triage, exact values, and expert shortcuts.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-professional-data-interface-design",
+      "prompt": "Design a dense administrator table with cross-page selection, bulk actions, keyboard operation, permissions, audit, and partial-failure recovery.",
+      "expected": "invoke"
+    },
+    {
+      "skill": "cpt-professional-data-interface-design",
+      "prompt": "Write the headline and CTA copy for a consumer marketing landing page.",
       "expected": "do_not_invoke"
     },
     {
@@ -573,12 +633,12 @@
     },
     {
       "skill": "cpt-reference-taste-calibration",
-      "prompt": "Extract a design contract from a reference screenshot and two anti-examples.",
+      "prompt": "Critique three screen alternatives against approved taste and product goals.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-reference-taste-calibration",
-      "prompt": "Critique three screen alternatives against approved taste and product goals.",
+      "prompt": "Extract a design contract from a reference screenshot and two anti-examples.",
       "expected": "invoke"
     },
     {
@@ -588,12 +648,12 @@
     },
     {
       "skill": "cpt-runtime",
-      "prompt": "Start a CPT task and record a bounded lease before editing.",
+      "prompt": "Recover the current CPT task after context compaction and verify the checkpoint.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-runtime",
-      "prompt": "Recover the current CPT task after context compaction and verify the checkpoint.",
+      "prompt": "Start a CPT task and record a bounded lease before editing.",
       "expected": "invoke"
     },
     {
@@ -603,12 +663,12 @@
     },
     {
       "skill": "cpt-screen-module-design",
-      "prompt": "Redesign an analytics screen and provide a rebuild-ready design specification.",
+      "prompt": "Create a consistent multi-screen prototype when no design system exists.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-screen-module-design",
-      "prompt": "Create a consistent multi-screen prototype when no design system exists.",
+      "prompt": "Redesign an analytics screen and provide a rebuild-ready design specification.",
       "expected": "invoke"
     },
     {
@@ -633,12 +693,12 @@
     },
     {
       "skill": "cpt-threat-model",
-      "prompt": "Threat-model an agent that can perform irreversible tool actions.",
+      "prompt": "Review authorization and input boundaries for a new API.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-threat-model",
-      "prompt": "Review authorization and input boundaries for a new API.",
+      "prompt": "Threat-model an agent that can perform irreversible tool actions.",
       "expected": "invoke"
     },
     {
@@ -648,12 +708,12 @@
     },
     {
       "skill": "cpt-ux-research",
-      "prompt": "Plan a usability test for a complex editing workflow.",
+      "prompt": "Design generative interviews and recruiting for a new user segment.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-ux-research",
-      "prompt": "Design generative interviews and recruiting for a new user segment.",
+      "prompt": "Plan a usability test for a complex editing workflow.",
       "expected": "invoke"
     },
     {
@@ -663,12 +723,12 @@
     },
     {
       "skill": "cpt-visual-acceptance-review",
-      "prompt": "Review the implemented dashboard against its reference and all critical states.",
+      "prompt": "Capture responsive screenshots and block design-system drift before completion.",
       "expected": "invoke"
     },
     {
       "skill": "cpt-visual-acceptance-review",
-      "prompt": "Capture responsive screenshots and block design-system drift before completion.",
+      "prompt": "Review the implemented dashboard against its reference and all critical states.",
       "expected": "invoke"
     },
     {

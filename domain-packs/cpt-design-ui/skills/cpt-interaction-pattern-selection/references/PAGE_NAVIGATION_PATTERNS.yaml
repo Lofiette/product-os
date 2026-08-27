@@ -1,0 +1,630 @@
+schema: cpt-interaction-pattern-catalog-v1
+source_basis: Tidwell et al., transformed summary
+patterns:
+- id: page.overview
+  family: page-type
+  name: Overview
+  problem: Users need to scan, compare, find, sort, or act across a collection.
+  use_when:
+  - The primary object is a set, queue, catalog, result list, or tool collection.
+  avoid_when:
+  - A single object or focused task is dominant.
+  forces:
+  - data volume
+  - hierarchy
+  - comparison
+  - available space
+  - sort/filter needs
+  procedure:
+  - define item identity and comparison fields
+  - choose list/table/grid from task
+  - expose search/sort/filter and item actions deliberately
+  alternatives:
+  - page.focus
+  - list.two-panel-selector
+  - page.dashboard
+  state_obligations:
+  - loading
+  - empty
+  - partial
+  - extreme data
+  - selection
+  evidence_to_seek:
+  - representative dataset
+  - top tasks
+  - comparison behavior
+- id: page.focus
+  family: page-type
+  name: Focus
+  problem: One object, document, map, media item, or detailed state needs sustained attention.
+  use_when:
+  - The object is primary and surrounding tools are secondary.
+  avoid_when:
+  - Users mainly compare many peers.
+  forces:
+  - object complexity
+  - navigation continuity
+  - editing vs viewing
+  procedure:
+  - center the object
+  - keep contextual actions near it
+  - preserve route back and deep link when useful
+  alternatives:
+  - page.overview
+  - page.creation-workspace
+  state_obligations:
+  - loading
+  - permission
+  - stale
+  - edited
+  evidence_to_seek:
+  - object lifecycle
+  - return paths
+- id: page.creation-workspace
+  family: page-type
+  name: Creation Workspace
+  problem: Users create or edit objects incrementally with tools, preview, and multiple work states.
+  use_when:
+  - Creation is iterative, non-linear, or expert-heavy.
+  avoid_when:
+  - A short, infrequent transaction can be completed as an action flow.
+  forces:
+  - incremental construction
+  - spatial memory
+  - tool frequency
+  - preview latency
+  procedure:
+  - separate canvas/content from tools
+  - keep frequent tools stable
+  - support drafts, preview, history, and multiple workspaces when needed
+  alternatives:
+  - page.action-flow
+  - pattern.wizard
+  state_obligations:
+  - draft
+  - dirty
+  - saving
+  - conflict
+  - undo history
+  evidence_to_seek:
+  - observed creation workflow
+  - frequency analysis
+- id: page.action-flow
+  family: page-type
+  name: Action Flow
+  problem: Users must complete a bounded transaction or change.
+  use_when:
+  - The outcome is a clear submission, purchase, upload, publish, or setting change.
+  avoid_when:
+  - Open-ended creation or continuous monitoring dominates.
+  forces:
+  - risk
+  - branching
+  - required information
+  - review need
+  procedure:
+  - model steps and dependencies
+  - ask only when needed
+  - support review, confirmation, recovery, and resume
+  alternatives:
+  - pattern.wizard
+  - pattern.settings-editor
+  - page.creation-workspace
+  state_obligations:
+  - validation
+  - interrupted
+  - server error
+  - completed
+  evidence_to_seek:
+  - drop-off points
+  - error logs
+  - task duration
+- id: ia.feature-search-browse
+  family: information-access
+  name: Feature, Search, and Browse
+  problem: Users may know what they want, browse categories, or need an initial recommendation.
+  use_when:
+  - A large catalog or content space supports both directed search and exploration.
+  avoid_when:
+  - The product has one narrow task with no meaningful browse behavior.
+  forces:
+  - search intent
+  - category quality
+  - recommendation trust
+  procedure:
+  - make search discoverable
+  - provide browse categories/facets
+  - use recommendations as optional entry, not obstruction
+  alternatives:
+  - page.overview
+  - pattern.clear-entry-points
+  state_obligations:
+  - zero results
+  - partial index
+  - personalized/unpersonalized
+  evidence_to_seek:
+  - search analytics
+  - category research
+  - recommendation outcomes
+- id: page.dashboard
+  family: page-type
+  name: Dashboard
+  problem: Users monitor status, anomalies, priorities, and routes to action at a glance.
+  use_when:
+  - Repeated monitoring and exception handling are primary.
+  avoid_when:
+  - The page is a decorative summary with no decisions or actions.
+  forces:
+  - signal priority
+  - refresh cadence
+  - role differences
+  - data trust
+  procedure:
+  - define decisions and thresholds
+  - prioritize exceptions
+  - link summaries to evidence and action
+  - support role-specific configuration only when valuable
+  alternatives:
+  - page.overview
+  - data.small-multiples
+  state_obligations:
+  - loading
+  - stale
+  - partial data
+  - no anomalies
+  evidence_to_seek:
+  - decision interviews
+  - alert/action history
+  - metric definitions
+- id: workspace.canvas-palette
+  family: workspace
+  name: Canvas Plus Palette
+  problem: A spatial or document object is manipulated with a recurring tool set.
+  use_when:
+  - Users create/edit visual, spatial, document, or model artifacts.
+  avoid_when:
+  - The task is a short form or simple list edit.
+  forces:
+  - tool frequency
+  - canvas size
+  - selection model
+  - keyboard speed
+  procedure:
+  - reserve central workspace
+  - group tools by task
+  - keep selection/context visible
+  - support zoom, history, shortcuts, and preview
+  alternatives:
+  - page.creation-workspace
+  - workspace.many-workspaces
+  state_obligations:
+  - no selection
+  - multi-selection
+  - locked object
+  - dirty
+  evidence_to_seek:
+  - workflow observation
+  - shortcut usage
+- id: pattern.wizard
+  family: workflow
+  name: Wizard
+  problem: A constrained sequence helps infrequent users complete a branching or high-risk task.
+  use_when:
+  - Order matters, guidance is valuable, and steps can be meaningfully bounded.
+  avoid_when:
+  - Experts need non-linear comparison or frequent batch work.
+  forces:
+  - branching
+  - re-entry
+  - progress
+  - review
+  - change midstream
+  procedure:
+  - show current task and consequence
+  - preserve prior answers
+  - allow safe back/change
+  - skip irrelevant steps
+  - review before commitment
+  alternatives:
+  - page.action-flow
+  - pattern.settings-editor
+  - form.task-list
+  state_obligations:
+  - resume
+  - branch change
+  - validation
+  - server failure
+  evidence_to_seek:
+  - completion/drop-off
+  - expert frequency
+- id: pattern.settings-editor
+  family: workflow
+  name: Settings Editor
+  problem: Users change independent or semi-independent properties over time.
+  use_when:
+  - Configuration is revisited and not naturally sequential.
+  avoid_when:
+  - A one-time ordered transaction dominates.
+  forces:
+  - grouping
+  - defaults
+  - inheritance
+  - save model
+  procedure:
+  - group by user mental model
+  - show current/default/inherited values
+  - make save/apply semantics explicit
+  - support search for large sets
+  alternatives:
+  - pattern.wizard
+  - page.creation-workspace
+  state_obligations:
+  - dirty
+  - saved
+  - inherited
+  - permission
+  - conflict
+  evidence_to_seek:
+  - settings usage
+  - support questions
+- id: pattern.alternative-views
+  family: information-access
+  name: Alternative Views
+  problem: The same objects need different representations for different tasks.
+  use_when:
+  - List, map, board, calendar, or chart views reveal different useful relationships.
+  avoid_when:
+  - Views duplicate each other without distinct decisions.
+  forces:
+  - state synchronization
+  - view preference
+  - deep links
+  procedure:
+  - preserve selection/filter/sort across views where valid
+  - make differences explicit
+  - remember user choice when appropriate
+  alternatives:
+  - data.data-brushing
+  - page.overview
+  state_obligations:
+  - view unavailable
+  - partial data
+  - state sync
+  evidence_to_seek:
+  - task-to-view mapping
+- id: workspace.many-workspaces
+  family: workspace
+  name: Many Workspaces
+  problem: Users need several documents, cases, or contexts open in parallel.
+  use_when:
+  - Interruption, comparison, or multi-object work is common.
+  avoid_when:
+  - Context switching is rare and adds unnecessary chrome.
+  forces:
+  - memory
+  - resource limits
+  - unsaved state
+  - orientation
+  procedure:
+  - make workspace identity visible
+  - preserve state independently
+  - support reopen/recent work
+  - prevent accidental loss
+  alternatives:
+  - page.creation-workspace
+  - list.two-panel-selector
+  state_obligations:
+  - dirty
+  - conflict
+  - closed/reopened
+  - resource limit
+  evidence_to_seek:
+  - concurrent-work observation
+- id: navigation.clear-entry-points
+  family: navigation
+  name: Clear Entry Points
+  problem: Users need an obvious route into a small set of distinct top-level tasks.
+  use_when:
+  - New/infrequent users face several valid starting goals.
+  avoid_when:
+  - The product has one dominant action that should open directly.
+  forces:
+  - task distinctness
+  - first value
+  - role variation
+  procedure:
+  - present task-oriented entries
+  - explain outcomes not features
+  - avoid equal emphasis when priorities differ
+  alternatives:
+  - ia.feature-search-browse
+  - page.dashboard
+  state_obligations:
+  - permission-filtered
+  - first use
+  evidence_to_seek:
+  - top-task research
+- id: navigation.modal-panel
+  family: navigation
+  name: Modal Panel
+  problem: A short subtask requires focused attention without losing background context.
+  use_when:
+  - The subtask is bounded, interrupting, and must resolve or cancel before continuation.
+  avoid_when:
+  - Complex, long, multi-page, or reference-heavy work is required.
+  forces:
+  - focus management
+  - dismissal risk
+  - context visibility
+  procedure:
+  - define entry and return focus
+  - trap focus only while modal
+  - provide explicit completion/cancel
+  - prevent accidental dismissal for risky input
+  alternatives:
+  - page.action-flow
+  - navigation.deep-linked-state
+  state_obligations:
+  - loading
+  - error
+  - unsaved
+  - destructive
+  evidence_to_seek:
+  - task duration
+  - need for background reference
+- id: navigation.deep-linked-state
+  family: navigation
+  name: Deep-linked State
+  problem: Users need to return or share a precise object, view, filter, or state.
+  use_when:
+  - Collaboration, bookmarking, support, or resume depends on exact location.
+  avoid_when:
+  - State contains sensitive/transient data that must not be encoded.
+  forces:
+  - URL/state model
+  - permissions
+  - staleness
+  procedure:
+  - define stable addressable state
+  - restore orientation
+  - handle missing/expired/unauthorized targets
+  alternatives:
+  - navigation.breadcrumbs
+  - workspace.many-workspaces
+  state_obligations:
+  - expired
+  - moved
+  - unauthorized
+  - partial restore
+  evidence_to_seek:
+  - sharing/support workflows
+- id: navigation.escape-hatch
+  family: navigation
+  name: Escape Hatch
+  problem: A constrained surface needs a safe, obvious route out.
+  use_when:
+  - Users may arrive through search/deep links or feel trapped in a flow.
+  avoid_when:
+  - Leaving must be prevented for an explicit safety reason.
+  forces:
+  - work loss
+  - orientation
+  - back behavior
+  procedure:
+  - provide predictable close/back/home path
+  - warn only for real loss
+  - preserve work where possible
+  alternatives:
+  - navigation.breadcrumbs
+  - pattern.cancelability
+  state_obligations:
+  - dirty
+  - external entry
+  - error
+  evidence_to_seek:
+  - abandonment/support evidence
+- id: navigation.progress-indicator
+  family: navigation
+  name: Progress Indicator
+  problem: Users benefit from understanding progress through a known process.
+  use_when:
+  - The process is long enough to create uncertainty and steps are reasonably stable.
+  avoid_when:
+  - Branching makes step counts misleading or the task is short.
+  forces:
+  - conditional steps
+  - space
+  - accessibility
+  - resume
+  procedure:
+  - start with textual progress
+  - show meaningful milestones
+  - avoid false precision
+  - keep current task primary
+  alternatives:
+  - form.task-list
+  - pattern.wizard
+  state_obligations:
+  - branch change
+  - resume
+  - unknown duration
+  evidence_to_seek:
+  - research showing orientation problem
+- id: navigation.breadcrumbs
+  family: navigation
+  name: Breadcrumbs
+  problem: Users navigate a meaningful hierarchy and need location plus ancestor access.
+  use_when:
+  - Hierarchy is stable and pages may be entered deeply.
+  avoid_when:
+  - The model is flat, sequential, or labels cannot express hierarchy.
+  forces:
+  - hierarchy depth
+  - responsive space
+  - current-page clarity
+  procedure:
+  - show meaningful ancestors
+  - keep current location clear
+  - do not replace primary navigation when broader movement is needed
+  alternatives:
+  - navigation.deep-linked-state
+  - navigation.escape-hatch
+  state_obligations:
+  - long labels
+  - moved item
+  evidence_to_seek:
+  - IA evidence
+- id: layout.center-stage
+  family: layout
+  name: Center Stage
+  problem: One content object or task needs dominant visual and spatial priority.
+  use_when:
+  - Secondary tools support a central object or decision.
+  avoid_when:
+  - Many peer objects require comparison.
+  forces:
+  - tool placement
+  - viewport
+  - focus
+  procedure:
+  - allocate the strongest region to the primary object
+  - subordinate controls
+  - preserve access without competing emphasis
+  alternatives:
+  - layout.grid-of-equals
+  - page.focus
+  state_obligations:
+  - empty
+  - loading
+  - tool expanded
+  evidence_to_seek:
+  - attention/task analysis
+- id: layout.grid-of-equals
+  family: layout
+  name: Grid of Equals
+  problem: Peer items need consistent scanning and comparison.
+  use_when:
+  - Items share structure and visual priority.
+  avoid_when:
+  - One item is intentionally dominant or rows need precise column comparison.
+  forces:
+  - item count
+  - metadata
+  - responsive transformation
+  procedure:
+  - use consistent item anatomy
+  - make selection and actions predictable
+  - switch to list/table when comparison or density requires
+  alternatives:
+  - page.overview
+  - layout.center-stage
+  - list.two-panel-selector
+  state_obligations:
+  - loading skeleton
+  - uneven content
+  - selected
+  evidence_to_seek:
+  - comparison behavior
+- id: layout.titled-sections
+  family: layout
+  name: Titled Sections
+  problem: A page contains meaningful groups that should remain visible together.
+  use_when:
+  - Groups are distinct and users scan by topic.
+  avoid_when:
+  - Sections are arbitrary decoration or too many levels create fragmentation.
+  forces:
+  - heading semantics
+  - group size
+  - responsive order
+  procedure:
+  - name groups in user language
+  - use hierarchy and whitespace
+  - keep heading with content
+  alternatives:
+  - layout.module-tabs
+  - layout.collapsible-panels
+  state_obligations:
+  - empty section
+  - permission-hidden
+  evidence_to_seek:
+  - content grouping research
+- id: layout.module-tabs
+  family: layout
+  name: Module Tabs
+  problem: A bounded region has peer views sharing context and space.
+  use_when:
+  - Users switch among a few related views and context remains stable.
+  avoid_when:
+  - The content should be visible simultaneously for comparison or tabs hide critical status.
+  forces:
+  - tab count
+  - state persistence
+  - deep link
+  - keyboard
+  procedure:
+  - use clear labels
+  - show selected state beyond color
+  - preserve per-tab state intentionally
+  - support keyboard semantics
+  alternatives:
+  - layout.collapsible-panels
+  - pattern.alternative-views
+  state_obligations:
+  - disabled
+  - loading
+  - overflow
+  evidence_to_seek:
+  - switching frequency
+- id: layout.accordion
+  family: layout
+  name: Accordion
+  problem: Several titled sections may be expanded one at a time or selectively.
+  use_when:
+  - Users need focused scanning and sections are independently understandable.
+  avoid_when:
+  - Users must compare sections, errors may be hidden, or completion order matters.
+  forces:
+  - open-state policy
+  - deep link
+  - error visibility
+  procedure:
+  - make headers controls
+  - preserve visibility of errors/status
+  - allow multiple open sections when comparison matters
+  alternatives:
+  - layout.collapsible-panels
+  - layout.titled-sections
+  - pattern.wizard
+  state_obligations:
+  - error in collapsed panel
+  - all collapsed
+  - long content
+  evidence_to_seek:
+  - comparison need
+  - error rates
+- id: layout.collapsible-panels
+  family: layout
+  name: Collapsible Panels
+  problem: Secondary or advanced content can be hidden without changing the primary task.
+  use_when:
+  - Content is optional, advanced, or infrequently consulted.
+  avoid_when:
+  - Hidden content is required for understanding or expert speed.
+  forces:
+  - discoverability
+  - state persistence
+  - responsive use
+  procedure:
+  - label consequence and content
+  - preserve open state when useful
+  - do not use to conceal unresolved complexity
+  alternatives:
+  - layout.titled-sections
+  - layout.accordion
+  state_obligations:
+  - permission
+  - open/closed
+  - validation inside
+  evidence_to_seek:
+  - usage frequency

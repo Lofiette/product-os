@@ -1,13 +1,58 @@
 {
   "schema": "cpt-behavior-test-report-v1",
-  "version": "4.0.0",
-  "generated_at": "2026-07-11T17:08:32Z",
+  "version": "4.1.0",
+  "generated_at": "2026-08-27T14:51:42Z",
   "execution_mode": "Each unittest case executes in an isolated Python interpreter; executable evaluations use isolated fixture repositories and isolated HOME/CODEX_HOME directories.",
   "modules": [
     {
       "module": "distribution",
-      "total": 18,
-      "passed": 18
+      "total": 19,
+      "passed": 19
+    },
+    {
+      "module": "installation_receipts",
+      "total": 5,
+      "passed": 5
+    },
+    {
+      "module": "manager_registry",
+      "total": 7,
+      "passed": 7
+    },
+    {
+      "module": "manager_planning",
+      "total": 11,
+      "passed": 11
+    },
+    {
+      "module": "manager_backup",
+      "total": 5,
+      "passed": 5
+    },
+    {
+      "module": "manager_transaction",
+      "total": 20,
+      "passed": 20
+    },
+    {
+      "module": "manager_git_provider",
+      "total": 8,
+      "passed": 8
+    },
+    {
+      "module": "manager_codex_adapter",
+      "total": 16,
+      "passed": 16
+    },
+    {
+      "module": "manager_lifecycle",
+      "total": 6,
+      "passed": 6
+    },
+    {
+      "module": "manager_cli",
+      "total": 4,
+      "passed": 4
     },
     {
       "module": "skills",
@@ -46,15 +91,16 @@
     },
     {
       "module": "release",
-      "total": 10,
-      "passed": 10
+      "total": 13,
+      "passed": 13
     }
   ],
-  "total": 115,
-  "passed": 115,
+  "total": 201,
+  "passed": 201,
   "failed": 0,
   "limitations": [
     "The suite validates deterministic local behavior, synthetic hook payloads, migration safety, release gates, and executable offline evaluations.",
-    "Live Codex model quality, native platform behavior, real subagent ordering, cancellation delivery, and cross-client reconnect require RC evidence."
-  ]
+    "Broader live Codex model coverage, WSL behavior, real worker ordering and cancellation delivery, cross-client reconnect, and an independent mega-audit still require RC evidence."
+  ],
+  "verification_note": "The 116-case verified seed baseline is preserved. Product OS 4.1 adds five receipt v2 compatibility cases, seven rebuildable-registry and crash-safe lock cases, eleven read-only detection/dry-run planning cases, five external backup cases, twenty provider-neutral adoption transaction and migration-doctor cases, eight Local Git provider cases, sixteen bounded Codex selector adapter cases, six privacy-minimized lifecycle cases, four trusted CLI cases, and three fail-closed reviewed-release-evidence cases. Manager coverage includes end-to-end local-to-Git adoption, same-marketplace commit updates, receipt-bound predecessor derivation, canonical Git object-database provenance, Codex explicit-relative marketplace source compatibility, exact adapter binding and selector diffs, full plugin coverage, two-phase multi-plugin switching, journal integrity, ownership-envelope CAS, compensation, rollback, interrupted-retarget recovery and transaction discovery, read-only diagnosis without a surviving source repository, active-home refusal, lifecycle pending-to-PASS evidence with bounded retention, subprocess CLI fail-closed behavior, zero-write rejection, and preservation of unrelated selector and registry state. Real Codex acceptance is recorded separately in the sanitized RC evidence registry."
 }

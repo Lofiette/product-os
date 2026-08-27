@@ -16,6 +16,18 @@ sys.dont_write_bytecode = True
 os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
 
 
+def subprocess_env() -> dict[str, str]:
+    env = os.environ.copy()
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
+    if os.name == "nt" and shutil.which("grep", path=env.get("PATH")) is None:
+        git = shutil.which("git", path=env.get("PATH"))
+        if git:
+            git_usr_bin = Path(git).resolve().parent.parent / "usr" / "bin"
+            if (git_usr_bin / "grep.exe").exists():
+                env["PATH"] = str(git_usr_bin) + os.pathsep + env.get("PATH", "")
+    return env
+
+
 def flatten(suite: unittest.TestSuite):
     for item in suite:
         if isinstance(item, unittest.TestSuite):
@@ -26,9 +38,7 @@ def flatten(suite: unittest.TestSuite):
 
 def run(command: list[str], *, timeout: int = 300) -> None:
     print("+", " ".join(map(str, command)), flush=True)
-    env = os.environ.copy()
-    env["PYTHONDONTWRITEBYTECODE"] = "1"
-    completed = subprocess.run(command, cwd=ROOT, text=True, timeout=timeout, env=env)
+    completed = subprocess.run(command, cwd=ROOT, text=True, timeout=timeout, env=subprocess_env())
     if completed.returncode:
         raise SystemExit(completed.returncode)
 
@@ -38,6 +48,15 @@ def run(command: list[str], *, timeout: int = 300) -> None:
 suite = unittest.TestSuite(
     [
         unittest.defaultTestLoader.loadTestsFromName("tests.test_distribution"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_receipts"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_registry"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_planning"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_backup"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_transaction"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_git_provider"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_codex_adapter"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_lifecycle"),
+        unittest.defaultTestLoader.loadTestsFromName("tests.test_manager_cli"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_skills"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_roles"),
         unittest.defaultTestLoader.loadTestsFromName("tests.test_knowledge"),
@@ -85,6 +104,7 @@ commands = [
     [sys.executable, str(ROOT / "tools" / "validate_release.py")],
     [sys.executable, str(ROOT / "tools" / "cpt_release.py"), "readiness", "--scope", "offline"],
     [sys.executable, str(ROOT / "tools" / "validate_evaluation.py")],
+    [sys.executable, str(ROOT / "scripts" / "validate_marketplace_helpers.py")],
     [sys.executable, str(ROOT / "tools" / "validate_distribution.py")],
     [sys.executable, str(ROOT / "tools" / "validate_skills.py"), "--root", str(ROOT)],
     [
@@ -102,7 +122,7 @@ for command in commands:
 
 # Generated reports live outside the immutable package tree. This both tests the
 # executable plane and proves that validation does not self-pollute MANIFEST.json.
-eval_tmp = Path(tempfile.mkdtemp(prefix="cpt-beta1-run-all-evals-"))
+eval_tmp = Path(tempfile.mkdtemp(prefix="po41-e-"))
 try:
     run(
         [
@@ -150,4 +170,4 @@ try:
 finally:
     shutil.rmtree(eval_tmp, ignore_errors=True)
 
-print(f"BETA 1 COMPLETE TEST SUITE PASSED: {len(test_ids) + 7} behavioral cases")
+print(f"PRODUCT OS COMPLETE TEST SUITE PASSED: {len(test_ids) + 7} behavioral cases")

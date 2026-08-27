@@ -1,0 +1,327 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/product-os/installation-receipt-v2.schema.json",
+  "title": "Product OS Installation Receipt v2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "installation_id",
+    "package",
+    "version",
+    "product",
+    "source_lineage",
+    "installed_plugins",
+    "applied_migrations",
+    "manager",
+    "mode",
+    "plugin_scope",
+    "created_at",
+    "updated_at",
+    "managed_files",
+    "mutable_files",
+    "agents",
+    "plugin",
+    "packs",
+    "workers",
+    "warnings"
+  ],
+  "properties": {
+    "schema": {
+      "const": "cpt-install-receipt-v2"
+    },
+    "installation_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "package": {
+      "const": "codex-product-os"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "runtime_schema"
+      ],
+      "properties": {
+        "id": {
+          "const": "product-os"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime_schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delivery_type",
+        "repository",
+        "marketplace_identity",
+        "release",
+        "ref",
+        "commit_sha",
+        "manifest_sha256",
+        "observed_from"
+      ],
+      "properties": {
+        "delivery_type": {
+          "enum": [
+            "unknown",
+            "local_distribution",
+            "git_marketplace"
+          ]
+        },
+        "repository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "marketplace_identity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "release": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commit_sha": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+            }
+          ]
+        },
+        "manifest_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ]
+        },
+        "observed_from": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "installed_plugins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "selector",
+          "marketplace_identity",
+          "version",
+          "payload_path",
+          "manifest_sha256",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "selector": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marketplace_identity": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payload_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "manifest_sha256": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            ]
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "applied_migrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "kind",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "manager": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "last_transaction_id",
+        "last_backup_path"
+      ],
+      "properties": {
+        "last_transaction_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_backup_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "mode": {
+      "enum": [
+        "local",
+        "team"
+      ]
+    },
+    "plugin_scope": {
+      "enum": [
+        "none",
+        "personal",
+        "repo"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "managed_files": {
+      "type": "object"
+    },
+    "mutable_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "agents": {
+      "type": "object"
+    },
+    "plugin": {
+      "type": "object"
+    },
+    "packs": {
+      "type": "array"
+    },
+    "workers": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["source_lineage"],
+        "properties": {
+          "source_lineage": {
+            "required": ["delivery_type"],
+            "properties": {
+              "delivery_type": {"const": "git_marketplace"}
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_lineage": {
+            "properties": {
+              "repository": {"type": "string", "minLength": 1},
+              "marketplace_identity": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+              "release": {"type": "string", "minLength": 1},
+              "ref": {"type": "string", "minLength": 1},
+              "commit_sha": {"type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"},
+              "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "observed_from": {"const": "product-os-manager"}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

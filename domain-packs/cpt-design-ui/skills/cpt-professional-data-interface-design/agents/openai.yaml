@@ -1,0 +1,7 @@
+interface:
+  display_name: CPT Professional Data Interface Design
+  short_description: Design dense tables, dashboards, bulk actions, linked data, and expert workflows
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-professional-data-interface-design and return a Professional Interface Contract.
+policy:
+  allow_implicit_invocation: true

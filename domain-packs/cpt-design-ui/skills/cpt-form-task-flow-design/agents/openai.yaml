@@ -1,0 +1,7 @@
+interface:
+  display_name: CPT Form Task Flow Design
+  short_description: Design inclusive forms, validation, search/filter/upload, and long task flows
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-form-task-flow-design and return a Form Task Flow Decision.
+policy:
+  allow_implicit_invocation: true

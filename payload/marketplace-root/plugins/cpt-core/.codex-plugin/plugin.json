@@ -1,6 +1,6 @@
 {
   "name": "cpt-core",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Task lifecycle, bounded planning, Product Knowledge, deterministic enforcement, checkpoint recovery, and managed worker orchestration for CPT OS.",
   "keywords": [
     "cpt",
@@ -19,9 +19,12 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use the smallest CPT workflow that fits the task; keep roles in the main thread unless bounded worker delegation materially improves evidence or isolation."
+      "Use the smallest CPT workflow that fits the task; delegate only when bounded workers improve evidence or isolation."
     ],
     "brandColor": "#3B82F6"
   },
-  "hooks": "./hooks/hooks.json"
+  "hooks": "./hooks/hooks.json",
+  "author": {
+    "name": "Product OS"
+  }
 }

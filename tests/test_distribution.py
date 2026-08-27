@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import stat
 import shutil
 import subprocess
 import sys
@@ -28,10 +29,15 @@ class DistributionTests(unittest.TestCase):
         self.home.mkdir()
         self.env = os.environ.copy()
         self.env['HOME'] = str(self.home)
+        self.env['USERPROFILE'] = str(self.home)
         self.env['CODEX_HOME'] = str(self.home / '.codex')
 
     def tearDown(self):
-        shutil.rmtree(self.tmp)
+        def remove_readonly(function, path, _error):
+            os.chmod(path, stat.S_IWRITE)
+            function(path)
+
+        shutil.rmtree(self.tmp, onerror=remove_readonly)
 
     def init_git(self, repo: Path):
         repo.mkdir(parents=True)
@@ -90,6 +96,23 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('state_revision: 7', current.read_text())
         import yaml
         self.assertEqual(yaml.safe_load(enforcement.read_text())['mode'], 'audit')
+
+    def test_update_refreshes_recorded_bundled_domain_packs(self):
+        repo = self.tmp / 'update-pack'
+        self.init_git(repo)
+        run('install', '--project', str(repo), '--mode', 'team', '--plugin-scope', 'repo', env=self.env)
+        run('pack-add', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
+        skill = repo / 'plugins/cpt-design-ui/skills/cpt-screen-module-design/SKILL.md'
+        original = skill.read_text(encoding='utf-8')
+        skill.write_text(original + '\nLOCAL MUTATION\n', encoding='utf-8')
+        result = run('update', '--project', str(repo), env=self.env)
+        self.assertIn('refreshed bundled packs=1', result.stdout)
+        self.assertNotIn('LOCAL MUTATION', skill.read_text(encoding='utf-8'))
+        receipt = json.loads((repo / '.cpt/install.json').read_text(encoding='utf-8'))
+        design_pack = next(item for item in receipt['packs'] if item['name'] == 'cpt-design-ui')
+        self.assertEqual(design_pack['version'], '4.1.0')
+        second = run('update', '--project', str(repo), env=self.env)
+        self.assertIn('refreshed bundled packs=1', second.stdout)
 
     def test_update_refuses_modified_managed_tool(self):
         repo = self.tmp / 'conflict'
@@ -174,7 +197,7 @@ class DistributionTests(unittest.TestCase):
         run('pack-add', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
         self.assertTrue((repo / 'plugins/cpt-design-ui/.codex-plugin/plugin.json').exists())
         receipt = json.loads((repo / '.cpt/install.json').read_text())
-        self.assertTrue(any(p['name'] == 'cpt-design-ui' for p in receipt['packs']))
+        self.assertTrue(any(p['name'] == 'cpt-design-ui' and p.get('version') == '4.1.0' for p in receipt['packs']))
         run('pack-remove', '--name', 'cpt-design-ui', '--scope', 'repo', '--project', str(repo), env=self.env)
         self.assertFalse((repo / 'plugins/cpt-design-ui').exists())
 

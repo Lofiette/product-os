@@ -15,7 +15,8 @@
     "approvals",
     "evidence",
     "verification",
-    "unknowns"
+    "unknowns",
+    "notes"
   ],
   "properties": {
     "case_id": {
@@ -39,29 +40,25 @@
       "type": "array",
       "items": {
         "type": "string"
-      },
-      "uniqueItems": true
+      }
     },
     "selected_skills": {
       "type": "array",
       "items": {
         "type": "string"
-      },
-      "uniqueItems": true
+      }
     },
     "files_read": {
       "type": "array",
       "items": {
         "type": "string"
-      },
-      "uniqueItems": true
+      }
     },
     "files_changed": {
       "type": "array",
       "items": {
         "type": "string"
-      },
-      "uniqueItems": true
+      }
     },
     "impact_map": {
       "type": "object",
@@ -94,7 +91,7 @@
           }
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "approvals": {
       "type": "array",

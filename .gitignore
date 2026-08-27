@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Product OS generated evaluation output
+.cpt-eval-runs/
+.cpt-eval-live/
+evaluation/executable/reports/*
+!evaluation/executable/reports/.gitkeep
+*-comparison.json
+
+# Local build artifacts
+build/
+dist/
+*.zip
+*.bundle
+
+# Editor and OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Root-level runtime state when this repository is used as a test project
+/.cpt/

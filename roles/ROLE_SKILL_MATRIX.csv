@@ -12,7 +12,7 @@ cx_researcher,cpt-product-research,cpt-customer-journey;cpt-evidence-research-pl
 business_analyst,cpt-product-research,cpt-product-scope;cpt-information-architecture,cpt-api-contract;cpt-data-architecture;cpt-interaction-state-model
 domain_expert,cpt-product-research,cpt-evidence-research-plan,cpt-product-scope;cpt-data-architecture;cpt-api-contract
 growth_activation_strategist,cpt-product-research,cpt-growth-activation;cpt-analytics-measurement,cpt-experiment-design;cpt-product-scope;cpt-content-design
-product_designer,cpt-design-ui,cpt-screen-module-design;cpt-interaction-state-model,cpt-design-recon;cpt-information-architecture;cpt-content-design;cpt-design-system-governance;cpt-reference-taste-calibration
+product_designer,cpt-design-ui,cpt-screen-module-design;cpt-interaction-pattern-selection;cpt-interaction-state-model,cpt-form-task-flow-design;cpt-professional-data-interface-design;cpt-design-execution-orchestration;cpt-design-recon;cpt-information-architecture;cpt-content-design;cpt-data-visualization-review;cpt-design-system-governance;cpt-reference-taste-calibration;cpt-visual-acceptance-review
 service_designer,cpt-design-ui,cpt-customer-journey;cpt-product-scope,cpt-information-architecture;cpt-cross-cutting-risk;cpt-analytics-measurement
 information_architect,cpt-design-ui,cpt-information-architecture,cpt-ux-research;cpt-content-design;cpt-data-architecture
 ux_interaction_reviewer,cpt-design-ui,cpt-interaction-state-model;cpt-visual-acceptance-review,cpt-ux-research;cpt-accessibility-review;cpt-content-design

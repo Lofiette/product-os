@@ -1,6 +1,6 @@
 {
   "schema": "cpt-skill-registry-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "skills": [
     {
       "id": "cpt-accessibility-review",
@@ -206,6 +206,19 @@
       ]
     },
     {
+      "id": "cpt-design-execution-orchestration",
+      "plugin": "cpt-design-ui",
+      "description": "Use to build design artifacts through discovered provider-neutral tools with explicit fallbacks and independent QA.",
+      "implicit": true,
+      "positive_examples": [
+        "Discover the available browser, screenshot, image-generation, prototyping, code, and publishing capabilities, then build a staged design execution plan with fallbacks.",
+        "Use the OpenAI Product Design plugin only if it is visibly available; otherwise compose generic tools to turn this screenshot into an interactive prototype and run visual QA."
+      ],
+      "negative_example": "Define the object and permission model for a policy workflow without building or publishing an artifact.",
+      "source_skills": [],
+      "origin": "product-designer-4.1"
+    },
+    {
       "id": "cpt-design-handoff",
       "plugin": "cpt-design-ui",
       "description": "Use to produce and validate design-to-development handoff so implementation does not require guessing structure, states, components, content, or constraints.",
@@ -295,6 +308,19 @@
       ]
     },
     {
+      "id": "cpt-form-task-flow-design",
+      "plugin": "cpt-design-ui",
+      "description": "Use to design forms and data-entry flows, including question reduction, validation, focus, upload, save-resume, and long processes.",
+      "implicit": true,
+      "positive_examples": [
+        "Run a Question Protocol and design validation, focus, error recovery, review, and save-resume for this regulated application form.",
+        "Choose between one-thing-per-page, persistent form, add-another, and task-list patterns for a long multi-actor data-entry process."
+      ],
+      "negative_example": "Choose a chart type for comparing monthly revenue trends.",
+      "source_skills": [],
+      "origin": "product-designer-4.1"
+    },
+    {
       "id": "cpt-framework-audit",
       "plugin": "cpt-risk-operations",
       "description": "Use explicitly to audit CPT routing, runtime, skills, gates, artifacts, and contradictions; not as routine task review.",
@@ -378,6 +404,19 @@
       "source_skills": [
         "information-architecture"
       ]
+    },
+    {
+      "id": "cpt-interaction-pattern-selection",
+      "plugin": "cpt-design-ui",
+      "description": "Use to select and compose interaction patterns from user behavior, task forces, IA, navigation, lists, forms, and data.",
+      "implicit": true,
+      "positive_examples": [
+        "Select an interaction pattern composition for a multi-workspace document editor with deep links, undo, and keyboard shortcuts.",
+        "Compare a wizard, settings editor, and creation workspace for this branching configuration flow and record the contextual forces."
+      ],
+      "negative_example": "Polish button shadows and typography on an approved screen without changing interaction.",
+      "source_skills": [],
+      "origin": "product-designer-4.1"
     },
     {
       "id": "cpt-interaction-state-model",
@@ -544,6 +583,19 @@
       ]
     },
     {
+      "id": "cpt-professional-data-interface-design",
+      "plugin": "cpt-design-ui",
+      "description": "Use to design dense professional data interfaces, bulk actions, keyboard workflows, permissions, and partial-failure recovery.",
+      "implicit": true,
+      "positive_examples": [
+        "Design a dense administrator table with cross-page selection, bulk actions, keyboard operation, permissions, audit, and partial-failure recovery.",
+        "Create a professional monitoring workspace with linked data views, saved filters, exception triage, exact values, and expert shortcuts."
+      ],
+      "negative_example": "Write the headline and CTA copy for a consumer marketing landing page.",
+      "source_skills": [],
+      "origin": "product-designer-4.1"
+    },
+    {
       "id": "cpt-refactor-plan",
       "plugin": "cpt-engineering",
       "description": "Use to plan behavior-preserving refactoring with characterization tests, staged changes, invariants, and rollback.",
@@ -560,7 +612,7 @@
     {
       "id": "cpt-reference-taste-calibration",
       "plugin": "cpt-design-ui",
-      "description": "Use to extract a reference/taste contract, good-bad examples, and design criteria before choosing or critiquing a direction.",
+      "description": "Use to extract a reference/taste contract, good-bad examples, and observable design criteria before choosing or critiquing a direction.",
       "implicit": true,
       "positive_examples": [
         "Extract a design contract from a reference screenshot and two anti-examples.",
@@ -599,11 +651,11 @@
     {
       "id": "cpt-screen-module-design",
       "plugin": "cpt-design-ui",
-      "description": "Use to create or redesign a screen, flow, module, or prototype with hierarchy, states, components, content, and implementation handoff.",
+      "description": "Use to create or redesign screens, flows, modules, or prototypes with product reasoning, patterns, UI craft, states, execution, and handoff.",
       "implicit": true,
       "positive_examples": [
-        "Redesign an analytics screen and provide a rebuild-ready design specification.",
-        "Create a consistent multi-screen prototype when no design system exists."
+        "Redesign an analytics screen with a pattern decision, realistic states, visual contract, and rebuild-ready specification.",
+        "Create a multi-screen prototype with form/professional workflow rules and a capability-portable execution plan."
       ],
       "negative_example": "Compare an implemented page screenshot against an approved reference.",
       "source_skills": [
@@ -663,7 +715,7 @@
     {
       "id": "cpt-visual-acceptance-review",
       "plugin": "cpt-design-ui",
-      "description": "Use to review rendered UI and coded interaction against specs, references, design system, states, taste, responsiveness, and obvious defects.",
+      "description": "Use to review rendered UI against product goals, specs, sources, design system, UI craft, states, responsiveness, accessibility, and defects.",
       "implicit": true,
       "positive_examples": [
         "Review the implemented dashboard against its reference and all critical states.",

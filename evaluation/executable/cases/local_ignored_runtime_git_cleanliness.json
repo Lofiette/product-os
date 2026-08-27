@@ -109,5 +109,39 @@
     "max_wall_seconds": 15,
     "max_input_tokens": 1600,
     "max_output_tokens": 500
+  },
+  "live_budgets": {
+    "max_tool_events": 25,
+    "max_commands": 12,
+    "max_writes": 0,
+    "max_wall_seconds": 150,
+    "max_input_tokens": 300000,
+    "max_output_tokens": 3000
+  },
+  "live_expectations": {
+    "status_in": [
+      "PASS",
+      "PASS_WITH_WARNINGS"
+    ],
+    "required_output_terms": [
+      "Git",
+      "clean"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "AGENTS.md",
+        ".gitignore",
+        ".git/info/exclude",
+        ".cpt/runtime.yaml",
+        ".cpt/current.yaml",
+        ".cpt/task-index.yaml",
+        ".cpt/runtime-summary.md",
+        ".cpt/enforcement.yaml",
+        ".cpt/install.json"
+      ],
+      "required_commands": [
+        "git status --porcelain=v2"
+      ]
+    }
   }
 }

@@ -23,6 +23,8 @@ class SkillTests(unittest.TestCase):
         result = run_script('tools/validate_skills.py', '--root', str(ROOT))
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('95 unique legacy mappings', result.stdout)
+        vnext = run_script('tools/validate_product_design_vnext2.py', '--root', str(ROOT))
+        self.assertEqual(vnext.returncode, 0, vnext.stdout + vnext.stderr)
 
     def test_trigger_proxy_eval(self):
         result = run_script(
@@ -32,7 +34,7 @@ class SkillTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         report = json.loads((ROOT / 'evaluation/trigger-eval-report.json').read_text())
         self.assertEqual(report['failed'], 0)
-        self.assertEqual(report['case_count'], 135)
+        self.assertEqual(report['case_count'], 147)
 
     def test_metadata_profiles(self):
         result = run_script('tools/measure_all_skill_metadata.py')
@@ -53,7 +55,7 @@ class SkillTests(unittest.TestCase):
 
     def test_skill_counts(self):
         registry = json.loads((ROOT / 'skills/SKILL_REGISTRY.json').read_text())
-        self.assertEqual(len(registry['skills']), 45)
+        self.assertEqual(len(registry['skills']), 49)
         migration = json.loads((ROOT / 'migration/SKILL_MIGRATION.json').read_text())
         self.assertEqual(len(migration['mappings']), 95)
 

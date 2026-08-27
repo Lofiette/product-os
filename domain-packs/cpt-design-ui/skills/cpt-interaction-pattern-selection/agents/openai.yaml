@@ -1,0 +1,7 @@
+interface:
+  display_name: CPT Interaction Pattern Selection
+  short_description: Select and compose interaction, navigation, workspace, list, and data patterns
+  brand_color: '#DB2777'
+  default_prompt: Use $cpt-interaction-pattern-selection to produce a Pattern Decision Record.
+policy:
+  allow_implicit_invocation: true

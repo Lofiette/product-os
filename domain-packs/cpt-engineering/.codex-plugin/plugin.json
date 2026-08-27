@@ -1,6 +1,6 @@
 {
   "name": "cpt-engineering",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Software engineering planning, implementation review, and operations workflows.",
   "keywords": [
     "cpt",
@@ -22,5 +22,8 @@
       "Use CPT Engineering for the smallest relevant workflow; do not load unrelated skills."
     ],
     "brandColor": "#059669"
+  },
+  "author": {
+    "name": "Product OS"
   }
 }

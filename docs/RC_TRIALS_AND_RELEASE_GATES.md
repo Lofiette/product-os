@@ -1,10 +1,10 @@
 # RC trials and release gates
 
-Product OS 4.0 is certified for the deterministic, self-contained offline scope. It is not an RC and does not claim live Codex certification.
+Beta 1 is certified for the deterministic, self-contained offline scope. It is not an RC and does not claim live Codex certification.
 
-Nine release gates separate evidence that can be proven locally from evidence that requires native platforms or a live Codex client. A gate marked `PENDING` is not silently converted into `PASS`.
+Eleven release gates separate evidence that can be proven locally from evidence that requires native platforms or a live Codex client. The provider-neutral Manager/adoption gate is deterministic and beta-required; real isolated Codex switching plus a fresh-session lifecycle receipt is a separate RC gate. A gate marked `PENDING` is not silently converted into `PASS`.
 
-The release tool reads the package's reviewed registries and reports. It does not replace the underlying validators or executable evaluation harness.
+The release tool reads the package's reviewed registries and reports. It does not replace the underlying validators or executable evaluation harness. Sanitized, owner-reviewed RC evidence is recorded in `release/EVIDENCE.json` and validated against `release/schemas/release-evidence.schema.json`. Missing or malformed evidence fails package integrity closed; a partial platform record stays `PENDING` until every required platform is represented.
 
 ## Offline Beta gate
 
@@ -12,4 +12,6 @@ Beta requires package integrity, offline regression, migration safety, install/u
 
 ## RC gate
 
-RC additionally requires native Linux/macOS/Windows/WSL evidence, live Codex tasks with real worker threads and compaction/reconnect, token and latency measurements, and an independent mega-audit.
+RC additionally requires native Linux/macOS/Windows/WSL evidence, a real isolated Codex adoption with new-session evidence, live Codex tasks with real worker threads and compaction/reconnect, token and latency measurements, and an independent mega-audit.
+
+The isolated Codex adoption gate is satisfied by the owner-confirmed TKT-003 acceptance record: an isolated Git-marketplace switch, a fresh authenticated Codex session with privacy-minimized startup evidence, passing post-switch doctors, and a normal rollback to v4.0.0. This does not satisfy the separate WSL, wider live-model, or independent-audit gates.

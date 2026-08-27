@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/product-os/detection-report-v1.schema.json",
+  "title": "Product OS installation detection report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "detected_at",
+    "read_only",
+    "project",
+    "project_path_key",
+    "context",
+    "receipt",
+    "runtime",
+    "managed_files",
+    "plugins",
+    "marketplaces",
+    "selectors",
+    "registry",
+    "state_hash"
+  ],
+  "properties": {
+    "schema": {
+      "const": "product-os-detection-report-v1"
+    },
+    "detected_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "read_only": {
+      "const": true
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_path_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": "object",
+      "required": [
+        "project",
+        "user_home",
+        "codex_home",
+        "product_os_home",
+        "marketplace_registry",
+        "registry_path"
+      ]
+    },
+    "receipt": {
+      "type": "object",
+      "required": [
+        "path",
+        "exists",
+        "valid",
+        "schema",
+        "installation_id",
+        "version",
+        "mode",
+        "plugin_scope",
+        "sha256",
+        "semantic_sha256",
+        "source_lineage",
+        "packs",
+        "claim_issues",
+        "error"
+      ]
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "exists",
+        "valid",
+        "schema_version",
+        "runtime_status",
+        "current_task",
+        "current_micro_change",
+        "current_lease",
+        "current_orchestration",
+        "latest_checkpoint",
+        "checkpoint_valid",
+        "state_revision",
+        "file_sha256",
+        "active_reasons",
+        "errors"
+      ]
+    },
+    "managed_files": {
+      "type": "object",
+      "required": [
+        "total",
+        "counts",
+        "entries"
+      ]
+    },
+    "plugins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "selector",
+          "marketplace_identity",
+          "version",
+          "payload_path",
+          "expected_manifest_sha256",
+          "actual_manifest_sha256",
+          "materialized",
+          "status",
+          "error"
+        ]
+      }
+    },
+    "marketplaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "user",
+        "repo"
+      ],
+      "properties": {
+        "user": {
+          "$ref": "#/$defs/marketplace"
+        },
+        "repo": {
+          "$ref": "#/$defs/marketplace"
+        }
+      }
+    },
+    "selectors": {
+      "type": "object",
+      "required": [
+        "status",
+        "adapter",
+        "adapter_version",
+        "capability_fingerprint",
+        "authoritative",
+        "selectors",
+        "sha256",
+        "error"
+      ]
+    },
+    "registry": {
+      "type": "object",
+      "required": [
+        "path",
+        "exists",
+        "valid",
+        "busy",
+        "sha256",
+        "entry_present",
+        "entry_matches_receipt",
+        "installation_count",
+        "identity_collisions",
+        "error"
+      ]
+    },
+    "state_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "marketplace": {
+      "type": "object",
+      "required": [
+        "label",
+        "path",
+        "exists",
+        "valid",
+        "sha256",
+        "name",
+        "plugins",
+        "error"
+      ]
+    }
+  }
+}

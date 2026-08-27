@@ -10,14 +10,19 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 import yaml
+from jsonschema import Draft202012Validator
 
-PACKAGE_VERSION = "4.0.0"
-RECEIPT_SCHEMA = "cpt-install-receipt-v1"
+PACKAGE_VERSION = "4.1.0"
+RUNTIME_SCHEMA_VERSION = "4.0-alpha8"
+RECEIPT_SCHEMA_V1 = "cpt-install-receipt-v1"
+RECEIPT_SCHEMA_V2 = "cpt-install-receipt-v2"
+RECEIPT_SCHEMA = RECEIPT_SCHEMA_V2
 KERNEL_BEGIN = "<!-- CPT-OS KERNEL BEGIN -->"
 KERNEL_END = "<!-- CPT-OS KERNEL END -->"
 EXCLUDE_BEGIN = "# CPT-OS BEGIN"
@@ -36,8 +41,9 @@ def payload_root() -> Path:
     return package_root() / "payload"
 
 
-def scaffold_root() -> Path:
-    return payload_root() / "repo-scaffold"
+def scaffold_root(distribution_root: Path | None = None) -> Path:
+    root = distribution_root.resolve() if distribution_root is not None else package_root()
+    return root / "payload" / "repo-scaffold"
 
 
 def core_plugin_root() -> Path:
@@ -84,6 +90,13 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def canonical_sha256(path: Path) -> str:
+    data = path.read_bytes()
+    if b"\0" not in data:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def rel(path: Path, root: Path) -> str:
@@ -151,8 +164,8 @@ def replace_marked_block(text: str, begin: str, end: str, block: str | None) -> 
     return text, found
 
 
-def kernel_block() -> str:
-    text = (scaffold_root() / "AGENTS.md").read_text(encoding="utf-8")
+def kernel_block(distribution_root: Path | None = None) -> str:
+    text = (scaffold_root(distribution_root) / "AGENTS.md").read_text(encoding="utf-8")
     pattern = re.compile(rf"{re.escape(KERNEL_BEGIN)}.*?{re.escape(KERNEL_END)}", re.S)
     match = pattern.search(text)
     if not match:
@@ -189,24 +202,185 @@ def update_exclude(project: Path, paths: list[str] | None) -> bool:
     return True
 
 
+def receipt_schema_v2() -> dict[str, Any]:
+    return read_json(package_root() / "manager" / "schemas" / "installation-receipt-v2.schema.json", {})
+
+
+def validate_receipt_v2(receipt: dict[str, Any]) -> None:
+    schema = receipt_schema_v2()
+    if not schema:
+        raise RuntimeError("Installation receipt v2 schema is missing")
+    errors = sorted(Draft202012Validator(schema).iter_errors(receipt), key=lambda item: list(item.path))
+    if errors:
+        details = "; ".join(error.message for error in errors[:5])
+        raise RuntimeError(f"Invalid CPT installation receipt v2: {details}")
+
+
+def package_manifest_sha256() -> str | None:
+    path = package_root() / "MANIFEST.json"
+    return canonical_sha256(path) if path.exists() else None
+
+
+def default_source_lineage(*, observed_from: str, delivery_type: str) -> dict[str, Any]:
+    return {
+        "delivery_type": delivery_type,
+        "repository": None,
+        "marketplace_identity": None,
+        "release": PACKAGE_VERSION,
+        "ref": None,
+        "commit_sha": None,
+        "manifest_sha256": package_manifest_sha256() if delivery_type == "local_distribution" else None,
+        "observed_from": observed_from,
+    }
+
+
+def resolve_receipt_path(project: Path, value: str | None) -> Path | None:
+    if not value:
+        return None
+    path = Path(value)
+    return path.resolve() if path.is_absolute() else (project / path).resolve()
+
+
+def projected_installed_plugins(project: Path, receipt: dict[str, Any]) -> list[dict[str, Any]]:
+    projected: list[dict[str, Any]] = []
+    plugin = receipt.get("plugin", {})
+    scope = plugin.get("scope", receipt.get("plugin_scope", "none"))
+    if scope in {"personal", "repo"}:
+        target = resolve_receipt_path(project, plugin.get("plugin_path"))
+        manifest_path = target / ".codex-plugin" / "plugin.json" if target else None
+        manifest = read_json(manifest_path, {}) if manifest_path and manifest_path.exists() else {}
+        projected.append({
+            "name": "cpt-core",
+            "selector": None,
+            "marketplace_identity": "cpt-personal" if scope == "personal" else "cpt-repo",
+            "version": manifest.get("version", receipt.get("version")),
+            "payload_path": str(target) if target else None,
+            "manifest_sha256": sha256(manifest_path) if manifest_path and manifest_path.exists() else None,
+            "status": plugin.get("status", "unknown"),
+        })
+    for pack in receipt.get("packs", []):
+        name = pack.get("name")
+        if not name:
+            continue
+        target = resolve_receipt_path(project, pack.get("path"))
+        manifest_path = target / ".codex-plugin" / "plugin.json" if target else None
+        scope = pack.get("scope")
+        projected.append({
+            "name": name,
+            "selector": None,
+            "marketplace_identity": "cpt-personal" if scope == "personal" else ("cpt-repo" if scope == "repo" else None),
+            "version": pack.get("version"),
+            "payload_path": str(target) if target else None,
+            "manifest_sha256": sha256(manifest_path) if manifest_path and manifest_path.exists() else None,
+            "status": pack.get("status", "unknown"),
+        })
+    return sorted(projected, key=lambda item: item["name"])
+
+
+def ensure_receipt_v2(project: Path, receipt: dict[str, Any]) -> dict[str, Any]:
+    schema = receipt.get("schema")
+    if schema not in {RECEIPT_SCHEMA_V1, RECEIPT_SCHEMA_V2}:
+        raise RuntimeError("No valid CPT installation receipt found")
+    if schema == RECEIPT_SCHEMA_V1:
+        receipt["schema"] = RECEIPT_SCHEMA_V2
+        receipt["installation_id"] = str(uuid.uuid4())
+        receipt["product"] = {
+            "id": "product-os",
+            "version": receipt.get("version", PACKAGE_VERSION),
+            "runtime_schema": RUNTIME_SCHEMA_VERSION,
+        }
+        receipt["source_lineage"] = default_source_lineage(
+            observed_from="v1_receipt",
+            delivery_type="unknown",
+        )
+        receipt["source_lineage"]["release"] = receipt.get("version")
+        receipt["installed_plugins"] = projected_installed_plugins(project, receipt)
+        receipt["applied_migrations"] = []
+        receipt["manager"] = {
+            "last_transaction_id": None,
+            "last_backup_path": None,
+        }
+    else:
+        receipt.setdefault("applied_migrations", [])
+        receipt.setdefault("installed_plugins", [])
+        receipt.setdefault("manager", {"last_transaction_id": None, "last_backup_path": None})
+    existing = {
+        item.get("name"): item
+        for item in receipt.get("installed_plugins", [])
+        if isinstance(item, dict) and item.get("name")
+    }
+    if (receipt.get("source_lineage") or {}).get("delivery_type") == "git_marketplace":
+        # Manager-adopted v2 receipts own their canonical plugin provenance. Re-projecting
+        # legacy plugin/packs fields here would create a selector/payload hybrid.
+        receipt["installed_plugins"] = [existing[name] for name in sorted(existing)]
+    else:
+        merged = []
+        for item in projected_installed_plugins(project, receipt):
+            previous = existing.get(item["name"], {})
+            if previous.get("selector"):
+                item["selector"] = previous["selector"]
+            if previous.get("marketplace_identity"):
+                item["marketplace_identity"] = previous["marketplace_identity"]
+            merged.append(item)
+        projected_names = {item["name"] for item in merged}
+        merged.extend(existing[name] for name in sorted(existing) if name not in projected_names)
+        receipt["installed_plugins"] = merged
+    receipt["product"]["version"] = receipt.get("version", PACKAGE_VERSION)
+    receipt["product"]["runtime_schema"] = RUNTIME_SCHEMA_VERSION
+    return receipt
+
+
 def load_receipt(project: Path) -> dict[str, Any]:
     path = project / ".cpt" / "install.json"
     data = read_json(path)
-    if not isinstance(data, dict) or data.get("schema") != RECEIPT_SCHEMA:
+    if not isinstance(data, dict) or data.get("schema") not in {RECEIPT_SCHEMA_V1, RECEIPT_SCHEMA_V2}:
         raise RuntimeError("No valid CPT installation receipt found")
+    if data.get("schema") == RECEIPT_SCHEMA_V2:
+        validate_receipt_v2(data)
     return data
 
 
 def save_receipt(project: Path, receipt: dict[str, Any]) -> None:
+    ensure_receipt_v2(project, receipt)
     receipt["updated_at"] = now()
+    validate_receipt_v2(receipt)
     write_json(project / ".cpt" / "install.json", receipt)
+    try:
+        root = str(package_root())
+        if root not in sys.path:
+            sys.path.insert(0, root)
+        from manager.product_os_manager.context import InstallationContext
+        from manager.product_os_manager.registry import RegistryStore
+
+        RegistryStore(InstallationContext.from_environment(project)).upsert(project, receipt)
+    except Exception as exc:
+        print(
+            f"WARNING: Product OS user registry was not updated and can be rebuilt: {exc}",
+            file=sys.stderr,
+        )
 
 
 def default_receipt(mode: str, plugin_scope: str) -> dict[str, Any]:
     return {
         "schema": RECEIPT_SCHEMA,
+        "installation_id": str(uuid.uuid4()),
         "package": "codex-product-os",
         "version": PACKAGE_VERSION,
+        "product": {
+            "id": "product-os",
+            "version": PACKAGE_VERSION,
+            "runtime_schema": RUNTIME_SCHEMA_VERSION,
+        },
+        "source_lineage": default_source_lineage(
+            observed_from="installer",
+            delivery_type="local_distribution",
+        ),
+        "installed_plugins": [],
+        "applied_migrations": [],
+        "manager": {
+            "last_transaction_id": None,
+            "last_backup_path": None,
+        },
         "mode": mode,
         "plugin_scope": plugin_scope,
         "created_at": now(),
@@ -363,12 +537,19 @@ def remove_marketplace_entry(path: Path, name: str, remove_if_empty_and_created:
     return True
 
 
+def user_home() -> Path:
+    configured = os.environ.get("HOME") or os.environ.get("USERPROFILE")
+    if configured:
+        return Path(configured).expanduser().resolve()
+    return Path.home().resolve()
+
+
 def codex_home() -> Path:
-    return Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")).expanduser().resolve()
+    return Path(os.environ.get("CODEX_HOME", user_home() / ".codex")).expanduser().resolve()
 
 
 def personal_marketplace() -> Path:
-    return (Path.home() / ".agents" / "plugins" / "marketplace.json").resolve()
+    return (user_home() / ".agents" / "plugins" / "marketplace.json").resolve()
 
 
 def install_core_plugin(project: Path, receipt: dict[str, Any], scope: str) -> None:
@@ -444,15 +625,21 @@ def patch_enforcement_mode(project: Path, mode: str) -> None:
     atomic_write(path, text)
 
 
-def rules_source(profile: str) -> Path:
-    return package_root() / "policies" / "rules" / f"cpt-{profile}.rules"
+def rules_source(profile: str, distribution_root: Path | None = None) -> Path:
+    root = distribution_root.resolve() if distribution_root is not None else package_root()
+    return root / "policies" / "rules" / f"cpt-{profile}.rules"
 
 
-def install_rules(project: Path, receipt: dict[str, Any], profile: str) -> None:
+def install_rules(
+    project: Path,
+    receipt: dict[str, Any],
+    profile: str,
+    distribution_root: Path | None = None,
+) -> None:
     if profile == "none":
         receipt["rules"] = {"profile": "none", "status": "not_installed"}
         return
-    source = rules_source(profile)
+    source = rules_source(profile, distribution_root)
     if not source.exists():
         raise RuntimeError(f"Unknown rules profile: {profile}")
     target = project / ".codex" / "rules" / "cpt.rules"
@@ -620,9 +807,117 @@ def migrate_runtime_state(project: Path) -> None:
     ]:
         directory.mkdir(parents=True, exist_ok=True)
 
+def refresh_installed_packs(project: Path, receipt: dict[str, Any]) -> tuple[int, list[str]]:
+    """Refresh bundled domain packs already recorded in the project receipt.
+
+    External/custom packs are preserved because their source cannot be reconstructed
+    safely from the Product OS distribution.
+    """
+    refreshed = 0
+    warnings: list[str] = []
+    updated_entries: list[dict[str, Any]] = []
+    for entry in list(receipt.get("packs", [])):
+        name = entry.get("name")
+        scope = entry.get("scope")
+        if not name or scope not in {"personal", "repo"}:
+            updated_entries.append(entry)
+            warnings.append(f"Skipped malformed pack receipt entry: {entry}")
+            continue
+        source = bundled_pack_root(name)
+        if not source.exists():
+            updated_entries.append(entry)
+            warnings.append(f"Preserved external pack {name}; bundled source is unavailable")
+            continue
+        validated = validate_plugin(source)
+        version = validated["manifest"].get("version")
+        if scope == "repo":
+            target = project / "plugins" / name
+            market = project / ".agents" / "plugins" / "marketplace.json"
+            source_path = f"./plugins/{name}"
+            market_name = "cpt-repo"
+        else:
+            target = codex_home() / "plugins" / name
+            market = personal_marketplace()
+            source_path = f"./.codex/plugins/{name}"
+            market_name = "cpt-personal"
+        copy_tree(source, target)
+        market_existed, _ = upsert_marketplace(market, market_name, marketplace_entry(name, source_path))
+        if scope == "repo":
+            market_key = rel(market, project)
+            created = receipt.get("managed_files", {}).get(market_key, {}).get("created", not market_existed)
+            register_managed(receipt, project, market, created=created)
+        updated_entries.append({
+            **entry,
+            "path": str(target),
+            "version": version,
+            "status": "exposed_not_enabled",
+        })
+        refreshed += 1
+    receipt["packs"] = updated_entries
+    return refreshed, warnings
+
+
+def refresh_runtime_scaffold(
+    project: Path,
+    receipt: dict[str, Any],
+    *,
+    distribution_root: Path | None = None,
+) -> None:
+    """Refresh runtime-owned project files without touching plugin selectors.
+
+    Callers must perform conflict detection and backups before invoking this
+    primitive. The legacy update command composes it with local plugin and pack
+    refresh so its public behavior remains unchanged.
+    """
+    source_scaffold = scaffold_root(distribution_root)
+    new_managed: dict[str, Any] = {}
+    for file, mutable in core_scaffold_files():
+        dst = project / file
+        if mutable:
+            if not dst.exists():
+                copy_file(source_scaffold / file, dst)
+            continue
+        copy_file(source_scaffold / file, dst)
+        new_managed[file] = {
+            "sha256": sha256(dst),
+            "created": receipt.get("managed_files", {}).get(file, {}).get("created", False),
+        }
+    receipt["managed_files"].update(new_managed)
+    migrate_runtime_state(project)
+    patch_runtime_mode(project, receipt["mode"])
+    runtime_render_summary(project)
+
+    agents = receipt.get("agents", {})
+    if agents.get("result") in {"created", "merged"} and (project / "AGENTS.md").exists():
+        current = (project / "AGENTS.md").read_text(encoding="utf-8")
+        new, _ = replace_marked_block(
+            current,
+            KERNEL_BEGIN,
+            KERNEL_END,
+            kernel_block(distribution_root),
+        )
+        atomic_write(project / "AGENTS.md", new)
+        agents["sha256"] = sha256(project / "AGENTS.md")
+    elif (project / ".cpt" / "AGENTS_SNIPPET.md").exists():
+        atomic_write(
+            project / ".cpt" / "AGENTS_SNIPPET.md",
+            kernel_block(distribution_root) + "\n",
+        )
+
+    rules = receipt.get("rules", {})
+    if rules.get("profile") not in {None, "none"}:
+        install_rules(project, receipt, rules["profile"], distribution_root)
+    receipt["version"] = PACKAGE_VERSION
+
+
 def update(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
+    if (receipt.get("source_lineage") or {}).get("delivery_type") == "git_marketplace":
+        raise RuntimeError(
+            "This installation is managed by a Git marketplace; use Product OS Manager "
+            "to plan and apply an immutable target revision."
+        )
     conflicts = managed_conflicts(project, receipt)
     if conflicts and not args.force:
         print("Refusing update because managed files changed:", file=sys.stderr)
@@ -634,37 +929,18 @@ def update(args: argparse.Namespace) -> int:
         backup = backup_paths(project, [project / item for item in conflicts], "update-conflicts")
         print(f"Backed up conflicts to {backup}")
 
-    new_managed: dict[str, Any] = {}
-    for file, mutable in core_scaffold_files():
-        dst = project / file
-        if mutable:
-            if not dst.exists():
-                copy_file(scaffold_root() / file, dst)
-            continue
-        copy_file(scaffold_root() / file, dst)
-        new_managed[file] = {"sha256": sha256(dst), "created": receipt.get("managed_files", {}).get(file, {}).get("created", False)}
-    receipt["managed_files"].update(new_managed)
-    migrate_runtime_state(project)
-    patch_runtime_mode(project, receipt["mode"])
-    runtime_render_summary(project)
-
-    agents = receipt.get("agents", {})
-    if agents.get("result") in {"created", "merged"} and (project / "AGENTS.md").exists():
-        current = (project / "AGENTS.md").read_text(encoding="utf-8")
-        new, _ = replace_marked_block(current, KERNEL_BEGIN, KERNEL_END, kernel_block())
-        atomic_write(project / "AGENTS.md", new)
-        agents["sha256"] = sha256(project / "AGENTS.md")
-    elif (project / ".cpt" / "AGENTS_SNIPPET.md").exists():
-        atomic_write(project / ".cpt" / "AGENTS_SNIPPET.md", kernel_block() + "\n")
-
+    refresh_runtime_scaffold(project, receipt)
     scope = receipt.get("plugin_scope", "none")
     install_core_plugin(project, receipt, scope)
-    rules = receipt.get("rules", {})
-    if rules.get("profile") not in {None, "none"}:
-        install_rules(project, receipt, rules["profile"])
-    receipt["version"] = PACKAGE_VERSION
+    refreshed_packs, pack_warnings = refresh_installed_packs(project, receipt)
+    receipt.setdefault("warnings", []).extend(pack_warnings)
     save_receipt(project, receipt)
-    print(f"CPT OS updated to {PACKAGE_VERSION}; mutable runtime state was preserved.")
+    print(
+        f"CPT OS updated to {PACKAGE_VERSION}; mutable runtime state was preserved; "
+        f"refreshed bundled packs={refreshed_packs}."
+    )
+    for warning in pack_warnings:
+        print(f"WARNING: {warning}")
     return 0
 
 
@@ -672,7 +948,7 @@ def backup_runtime_outside_project(project: Path, backup_dir: str | None) -> Pat
     if backup_dir:
         root = Path(backup_dir).expanduser().resolve()
     else:
-        root = Path.home() / ".cpt-os" / "backups"
+        root = user_home() / ".cpt-os" / "backups"
     slug = re.sub(r"[^A-Za-z0-9._-]+", "-", project.name).strip("-") or "project"
     target = root / f"{slug}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -683,6 +959,11 @@ def backup_runtime_outside_project(project: Path, backup_dir: str | None) -> Pat
 def uninstall(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve()
     receipt = load_receipt(project)
+    if (receipt.get("source_lineage") or {}).get("delivery_type") == "git_marketplace":
+        raise RuntimeError(
+            "This installation is managed by a Git marketplace; use Product OS Manager "
+            "rollback/uninstall so selectors, registry, receipt, and backup stay consistent."
+        )
     active = active_runtime_reasons(project)
     if active and not args.force_active_runtime:
         raise RuntimeError("Refusing uninstall while CPT runtime is active: " + "; ".join(active) + ". Use --force-active-runtime only after reviewing unfinished work.")
@@ -825,9 +1106,14 @@ def status(args: argparse.Namespace) -> int:
     ok, validation = runtime_validate(project)
     data = {
         "project": str(project),
+        "receipt_schema": receipt.get("schema"),
+        "installation_id": receipt.get("installation_id"),
         "version": receipt.get("version"),
+        "source_lineage": receipt.get("source_lineage"),
+        "installed_plugins": receipt.get("installed_plugins", []),
         "mode": receipt.get("mode"),
         "plugin_scope": receipt.get("plugin_scope"),
+        "packs": receipt.get("packs", []),
         "agents": receipt.get("agents"),
         "framework_file_count": count_framework_files(project, receipt),
         "runtime_valid": ok,
@@ -999,11 +1285,15 @@ def pack_add(args: argparse.Namespace) -> int:
         source_path = f"./.codex/plugins/{name}"
         market_name = "cpt-personal"
     copy_tree(source, target)
-    upsert_marketplace(market, market_name, marketplace_entry(name, source_path))
+    market_existed, _ = upsert_marketplace(market, market_name, marketplace_entry(name, source_path))
     if project and (project / ".cpt" / "install.json").exists():
         receipt = load_receipt(project)
+        if args.scope == "repo":
+            market_key = rel(market, project)
+            created = receipt.get("managed_files", {}).get(market_key, {}).get("created", not market_existed)
+            register_managed(receipt, project, market, created=created)
         receipt["packs"] = [p for p in receipt.get("packs", []) if p.get("name") != name]
-        receipt["packs"].append({"name": name, "scope": args.scope, "path": str(target), "status": "exposed_not_enabled"})
+        receipt["packs"].append({"name": name, "scope": args.scope, "path": str(target), "version": validated["manifest"].get("version"), "status": "exposed_not_enabled"})
         save_receipt(project, receipt)
     print(f"Pack {name} exposed in {args.scope} marketplace. Enable it independently in Codex.")
     return 0
@@ -1025,6 +1315,13 @@ def pack_remove(args: argparse.Namespace) -> int:
     remove_marketplace_entry(market, name)
     if project and (project / ".cpt" / "install.json").exists():
         receipt = load_receipt(project)
+        if args.scope == "repo":
+            market_key = rel(market, project)
+            if market.exists():
+                created = receipt.get("managed_files", {}).get(market_key, {}).get("created", False)
+                register_managed(receipt, project, market, created=created)
+            else:
+                receipt.get("managed_files", {}).pop(market_key, None)
         receipt["packs"] = [p for p in receipt.get("packs", []) if p.get("name") != name]
         save_receipt(project, receipt)
     print(f"Pack {name} removed from {args.scope} marketplace. Other packs were preserved.")
@@ -1122,7 +1419,7 @@ def worker_pack_data() -> dict[str, Any]:
 
 
 def personal_workers_receipt() -> Path:
-    return Path.home() / ".cpt-os" / "worker-packs" / "cpt-workers.json"
+    return user_home() / ".cpt-os" / "worker-packs" / "cpt-workers.json"
 
 
 def worker_target(scope: str, project: Path | None) -> tuple[Path, Path]:
@@ -1158,7 +1455,7 @@ def workers_install(args: argparse.Namespace) -> int:
     project = Path(args.project).resolve() if args.project else None
     target, receipt_path = worker_target(args.scope, project)
     target.mkdir(parents=True, exist_ok=True)
-    backup_root = (project / ".cpt" / "backups" if project else Path.home() / ".cpt-os" / "backups") / f"workers-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    backup_root = (project / ".cpt" / "backups" if project else user_home() / ".cpt-os" / "backups") / f"workers-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     files: dict[str, str] = {}
     for source in data["agent_files"]:
         destination = target / source.name
@@ -1239,7 +1536,7 @@ def active_runtime_reasons(project: Path) -> list[str]:
     current_path = project / ".cpt" / "current.yaml"
     if current_path.exists():
         current = yaml.safe_load(current_path.read_text(encoding="utf-8")) or {}
-        for field in ("current_task", "current_micro_change", "current_orchestration"):
+        for field in ("current_task", "current_micro_change", "current_lease", "current_orchestration"):
             if current.get(field):
                 reasons.append(f"{field}={current[field]}")
     for path in (project / ".cpt" / "workers").glob("*.yaml") if (project / ".cpt" / "workers").exists() else []:

@@ -1,6 +1,6 @@
 {
   "schema_version":"cpt-release-trials-v1",
-  "version":"4.0.0",
+  "version":"4.1.0",
   "tracks":[
     {"id":"clean_local_install","category":"distribution","mode":"offline","beta_required":true},
     {"id":"clean_team_install","category":"distribution","mode":"offline","beta_required":true},
@@ -28,6 +28,8 @@
     {"id":"skill_metadata_budget","category":"expertise","mode":"offline","beta_required":true},
     {"id":"role_routing","category":"expertise","mode":"offline_and_live","beta_required":true},
     {"id":"local_git_cleanliness","category":"distribution","mode":"offline","beta_required":true},
+    {"id":"provider_neutral_adoption","category":"migration","mode":"offline","beta_required":true},
+    {"id":"isolated_codex_adoption","category":"migration","mode":"live","beta_required":false},
     {"id":"linux_native","category":"platform","mode":"ci","beta_required":false},
     {"id":"macos_native","category":"platform","mode":"ci","beta_required":false},
     {"id":"windows_native","category":"platform","mode":"ci","beta_required":false},

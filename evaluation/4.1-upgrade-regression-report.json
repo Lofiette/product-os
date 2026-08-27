@@ -1,0 +1,31 @@
+{
+  "schema": "product-os-targeted-regression-report-v1",
+  "version": "4.1.0",
+  "generated_at": "2026-08-21T05:30:00Z",
+  "scope": "4.0-to-4.1 distribution update",
+  "tests": [
+    {
+      "id": "tests.test_distribution.DistributionTests.test_update_refreshes_recorded_bundled_domain_packs",
+      "status": "PASS",
+      "purpose": "Proves that update refreshes cpt-design-ui and other bundled packs recorded in .cpt/install.json."
+    },
+    {
+      "id": "tests.test_distribution.DistributionTests.test_bundled_pack_can_be_added_by_name",
+      "status": "PASS",
+      "purpose": "Proves that an explicitly installed bundled pack records the 4.1.0 version in the project receipt."
+    }
+  ],
+  "supporting_validators": [
+    "tools/validate_distribution.py",
+    "tools/validate_product_design_vnext2.py",
+    "tools/validate_roles.py",
+    "tools/validate_skills.py",
+    "tools/validate_knowledge_assets.py",
+    "tools/validate_enforcement.py",
+    "tools/validate_orchestration.py",
+    "tools/validate_evaluation.py",
+    "scripts/validate_migration_assets.py",
+    "tools/validate_release.py"
+  ],
+  "note": "The preceding 115-case internal Product Designer development baseline is preserved within the 4.1 release evidence. Product OS 4.1 adds one distribution test definition and targeted evidence for the changed upgrade path."
+}

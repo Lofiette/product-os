@@ -1,6 +1,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import os
 import shutil
@@ -198,6 +199,50 @@ class EnforcementTests(unittest.TestCase):
         plugin=home2/'.codex/plugins/cpt-core'
         self.assertTrue((plugin/'hooks/hooks.json').exists())
         self.assertTrue((plugin/'hooks/cpt_hook.py').exists())
+        windows_launcher=plugin/'hooks/cpt_hook_windows.ps1'
+        self.assertTrue(windows_launcher.exists())
+        launcher_text=windows_launcher.read_text(encoding='utf-8')
+        self.assertIn('[Console]::In.ReadToEnd()',launcher_text)
+        self.assertIn('ConvertFrom-Json',launcher_text)
+        self.assertIn('System.Diagnostics.ProcessStartInfo',launcher_text)
+        self.assertIn('StandardInput.Write($rawPayload)',launcher_text)
+        hooks=json.loads((plugin/'hooks/hooks.json').read_text(encoding='utf-8'))
+        commands=[
+            hook['commandWindows']
+            for groups in hooks['hooks'].values()
+            for group in groups
+            for hook in group['hooks']
+        ]
+        self.assertTrue(commands)
+        self.assertTrue(all(not command.startswith('py ') for command in commands))
+        self.assertTrue(all('"' not in command for command in commands))
+        self.assertTrue(all(' -EncodedCommand ' in command for command in commands))
+        decoded_commands=[]
+        for command in commands:
+            encoded_command=command.rsplit(' ',1)[-1]
+            decoded_commands.append(
+                base64.b64decode(encoded_command).decode('utf-16-le')
+            )
+        self.assertTrue(all('$env:PLUGIN_ROOT' in command for command in decoded_commands))
+        self.assertTrue(all('cpt_hook_windows.ps1' in command for command in decoded_commands))
+        if os.name == 'nt':
+            payload=json.dumps({'hook_event_name':'SessionStart','cwd':str(repo2),'source':'startup'})
+            hook_env=env2.copy()
+            hook_env['PRODUCT_OS_PYTHON']=sys.executable
+            hook_env['PLUGIN_ROOT']=str(plugin)
+            launched=subprocess.run(
+                ['powershell.exe','-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',str(windows_launcher)],
+                cwd=repo2,input=payload,text=True,capture_output=True,env=hook_env,
+            )
+            self.assertEqual(launched.returncode,0,launched.stdout+launched.stderr)
+            self.assertFalse((plugin/'hooks/__pycache__').exists())
+            host_launched=subprocess.run(
+                commands[0],shell=True,cwd=repo2,input=payload,text=True,
+                capture_output=True,env=hook_env,
+            )
+            self.assertEqual(
+                host_launched.returncode,0,host_launched.stdout+host_launched.stderr
+            )
         self.assertTrue((repo2/'.codex/rules/cpt.rules').exists())
 
     def test_lazy_off_install_can_enable_enforcement_later(self):

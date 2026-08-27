@@ -1,0 +1,53 @@
+schema: cpt-design-execution-adapter-v1
+id: generic-agent-tools
+provider: host-agnostic
+status: generic
+detection:
+  strategy: inspect the actual runtime tool and skill inventory
+  match_any:
+  - browser or URL inspection
+  - image/screenshot inspection
+  - image generation
+  - frontend/code execution
+  - design export
+  - preview hosting
+capability_map:
+- capability: context.confirm
+  observed_name: any structured brief playback method
+  use_only_if_observed: true
+  notes: Can be performed by the Product Designer without an external tool.
+- capability: source.live.inspect
+  observed_name: browser, screenshot capture, or site inspection tool
+  use_only_if_observed: true
+  notes: Record exact URL/state and access limits.
+- capability: source.screenshot.inspect
+  observed_name: image vision or screenshot audit tool
+  use_only_if_observed: true
+  notes: Preserve source image and state metadata.
+- capability: visual.direction.generate
+  observed_name: image generation or editable design-generation tool
+  use_only_if_observed: true
+  notes: Use the frozen visual contract and compare distinct models.
+- capability: prototype.interactive.build
+  observed_name: frontend builder, prototyping tool, or code sandbox
+  use_only_if_observed: true
+  notes: Specify states and interaction, not only navigation hotspots.
+- capability: frontend.responsive.build
+  observed_name: repository-aware coding tool
+  use_only_if_observed: true
+  notes: Use governed components and tests.
+- capability: qa.visual.diff
+  observed_name: screenshot comparison, browser capture, or visual review tool
+  use_only_if_observed: true
+  notes: Independent review is preferred.
+- capability: preview.publish
+  observed_name: hosting or share-preview tool
+  use_only_if_observed: true
+  notes: Requires visibility, ownership, expiry, and rollback approval.
+constraints:
+- Do not claim absent integrations.
+- External writes and publishing require the active host permission model and user approval.
+fallback_policy:
+- Produce a structured design decision and handoff when build tools are absent.
+- Use local coded prototypes when design-tool export is absent.
+- Mark final visual acceptance as insufficient evidence when no rendering/capture exists.

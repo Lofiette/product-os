@@ -1,0 +1,52 @@
+schema: cpt-design-execution-adapter-v1
+id: openai-product-design
+provider: OpenAI Codex Product Design plugin
+status: optional
+detection:
+  strategy: use only when the runtime visibly lists the Product Design plugin and the specific skill/action needed
+  match_any:
+  - Product Design plugin
+  - Audit
+  - Design QA
+  - Get Context
+  - Ideate
+  - Image To Code
+  - Research
+  do_not_assume:
+  - installation means enabled
+  - ten advertised skills are all visible
+  - hidden skills or undocumented inputs
+capability_map:
+- capability: context.confirm
+  observed_name: Get Context
+  use_only_if_observed: true
+  notes: Use to confirm the execution brief; CPT Product Designer retains decision ownership.
+- capability: research.synthesize
+  observed_name: Research
+  use_only_if_observed: true
+  notes: Use only with supplied/accessible evidence and preserve provenance.
+- capability: source.screenshot.inspect
+  observed_name: Audit
+  use_only_if_observed: true
+  notes: Treat plugin critique as supporting evidence.
+- capability: visual.direction.generate
+  observed_name: Ideate
+  use_only_if_observed: true
+  notes: Request materially different directions bound by the visual contract.
+- capability: qa.visual.diff
+  observed_name: Design QA
+  use_only_if_observed: true
+  notes: Follow with CPT Visual Acceptance Review for independent acceptance.
+- capability: source.image.to.code
+  observed_name: Image To Code
+  use_only_if_observed: true
+  notes: Require responsive, state, design-system, and accessibility verification.
+constraints:
+- Codex-only optional accelerator; never a required dependency.
+- Invoke only skills actually exposed in the current runtime.
+- Do not infer undocumented Product Design capabilities from marketing text or skill count.
+- CPT gates and role ownership remain authoritative.
+fallback_policy:
+- Map the same capability to generic browser/image/code/design tools.
+- If no equivalent build tool exists, return the Design Execution Brief and implementation handoff.
+- If no independent render or QA is available, use INSUFFICIENT_EVIDENCE rather than PASS.

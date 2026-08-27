@@ -1,89 +1,138 @@
-# Codex Product Operating System 4.0 Beta 1
+# Product OS 4.1
 
-Beta 1 is the first integrated, self-contained release of the 4.0 architecture. It combines the Runtime, Knowledge, Expertise, Enforcement, Worker Orchestration, Evaluation, Migration, and Release planes without requiring external services.
+Product OS is a model- and client-neutral operating system for product work. It combines a file-based runtime, Product Knowledge, professional role lenses, skills, quality gates, deterministic enforcement, bounded worker orchestration, an Evaluation Plane, migration tooling, and release evidence.
 
-## Certification boundary
+## Product Designer 4.1
 
-Beta 1 is certified for deterministic offline behavior. It is **not** an RC and does not claim live Codex or native cross-platform certification.
+Version 4.1 adds:
+
+- Interaction Intelligence and contextual pattern selection;
+- form and long-process design;
+- professional data and expert-workflow interfaces;
+- a provider-neutral Design Execution Plane;
+- optional compatibility with OpenAI Product Design when its capabilities are actually present.
+
+OpenAI Product Design is an adapter, not a dependency. Product OS remains usable by agents without Codex plugin support.
+
+See `docs/PRODUCT_DESIGNER_4.1.md`.
+
+## Codex quick start
+
+Product Designer needs two plugins: `cpt-core` and `cpt-design-ui`. Pin the
+marketplace to the immutable release tag, install both plugins, then start a new
+Codex thread:
 
 ```bash
-python tools/cpt_release.py readiness --scope offline
+codex plugin marketplace add Lofiette/product-os --ref v4.1.0
+codex plugin add cpt-core@product-os
+codex plugin add cpt-design-ui@product-os
 ```
 
-RC readiness remains blocked until native platform evidence, live Codex trials, real worker lifecycle evidence, and the final mega-audit exist.
+From a cloned release checkout, the helpers perform the same bounded operation:
 
-## Install the core runtime
+```powershell
+.\scripts\register-codex-marketplace.ps1
+```
 
 ```bash
+./scripts/register-codex-marketplace.sh
+```
+
+These commands add Product Designer capabilities to Codex. They do not create
+the per-project `.cpt` runtime; projects that need the full Product OS workflow
+must also use the project installer below.
+
+## Repository versus project installation
+
+These are different layers:
+
+1. **Product OS repository**: canonical source, version history, tests, plugins, and releases.
+2. **Project installation**: a small `AGENTS.md` and `.cpt/` runtime scaffold plus selected plugin packs.
+
+Plugins provide discovery and workflow capabilities. They do not own the project's canonical runtime or Product Knowledge state.
+
+## Install into a project
+
+```bash
+python -m pip install -r requirements.txt
 python tools/cpt_dist.py install \
-  --project /path/to/repo \
+  --project /path/to/project \
   --mode local \
   --enforcement-mode audit
+python tools/cpt_dist.py pack-add \
+  --name cpt-design-ui \
+  --scope personal \
+  --project /path/to/project
 ```
 
-The core plugin is exposed personally by default. Restart Codex, enable CPT Core, and review/trust its hooks before relying on lifecycle enforcement.
+## Update a project
 
-## Optional worker pack
+Run from the **new Product OS source checkout**:
 
 ```bash
-python tools/cpt_dist.py workers-install --scope personal
+python tools/cpt_dist.py status --project /path/to/project
+python tools/cpt_dist.py update --project /path/to/project
+python tools/cpt_dist.py doctor --project /path/to/project
 ```
 
-The worker pack provides ten bounded custom-agent archetypes. It is never installed implicitly.
+Product OS 4.1 preserves mutable runtime state and refreshes the core plus every bundled pack recorded in `.cpt/install.json`.
 
-## Migration from 2.x / 3.x
+## Codex Git marketplace
+
+The repository contains `.agents/plugins/marketplace.json` with all six plugins:
 
 ```bash
-python tools/cpt_migrate.py inspect --project /path/to/repo
-python tools/cpt_migrate.py plan --project /path/to/repo --output /safe/path/plan.json
+codex plugin marketplace add <GIT_URL_OR_OWNER/REPO> --ref v4.1.0
+codex plugin add cpt-core@product-os
+codex plugin add cpt-design-ui@product-os
 ```
 
-Review the plan before `apply`. Migration is backup-backed, rollback-aware, and leaves `AGENTS.override.md` outside the CPT contract.
-
-## Executable evaluations
+Update:
 
 ```bash
-python tools/cpt_eval.py run \
-  --suite offline-core \
-  --backend reference \
-  --report-dir /tmp/cpt-offline-core
+codex plugin marketplace upgrade product-os
 ```
 
-The required suite contains 21 isolated fixture-repository cases. Optional live cases use `codex exec --json` when the Codex CLI and credentials are available.
+This command is for a marketplace that Codex registered directly from Git. A
+Product OS Manager installation is pinned to an immutable local commit root;
+publishing to GitHub does not silently update it. Use a new Manager
+`plan-local-git` -> `prepare` -> `switch` transaction for that case.
+The bundled registration helpers are repeat-safe for an existing direct
+marketplace, reject Manager immutable roots even under a custom
+`PRODUCT_OS_HOME`, and refuse to pretend that `upgrade` can retarget a ref.
+If an existing marketplace is combined with an explicitly requested source or
+ref, they fail closed because current Codex output cannot verify that provenance.
+Plugin adds are sequential; after a partial failure, correct the cause and re-run
+the same helper.
 
-## Core principles
+Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update` for a legacy local-distribution installation.
 
-- Typed, recoverable runtime state.
-- Product Knowledge uses canonical YAML and generated human views.
-- Fifty logical roles are professional lenses, not fifty default agents.
-- Forty-five canonical skills load through focused plugins.
-- Real workers require a task, lease, approved contract, and bounded scope.
-- Main thread owns integration and final decisions.
-- Parallel writes require managed Git worktrees; CPT never auto-merges.
-- External integrations are optional adapters, never core dependencies.
-- Offline evidence and live evidence are never conflated.
+For a transactional 4.0 local-installation to Git-marketplace adoption, use
+`tools/product_os_manager.py plan-local-git`, then separately confirm `prepare`
+and `switch`. Trusted commands require explicit project, user, Codex, and
+Product OS roots; source-dependent phases additionally require a repository
+root. They reject the process-active `CODEX_HOME` by default. See
+`docs/PRODUCT_OS_MANAGER.md`; real Codex switching remains separately evidenced
+from the deterministic offline certification.
 
-## Start here
-
-- `INSTALL.md`
-- `docs/MIGRATION_3X_TO_4X.md`
-- `EVALUATION.md`
-- `ORCHESTRATION.md`
-- `ENFORCEMENT.md`
-- `KNOWLEDGE.md`
-- `ROLES.md`
-- `SKILLS.md`
-- `BETA1_LIMITATIONS.md`
-- `EVALUATION_LIMITATIONS.md`
-- `docs/BETA1_RELEASE_INTEGRATION.md`
-- `docs/RC_TRIALS_AND_RELEASE_GATES.md`
-
-## Validate the package
+## Verification
 
 ```bash
+python tools/build_manifest.py
 python tools/validate_distribution.py
 python tools/validate_release.py
 python tools/validate_evaluation.py
 python scripts/validate_migration_assets.py
 python tests/run_all.py
 ```
+
+## Documentation
+
+- `INSTALL.md`
+- `UPDATE_AND_ROLLBACK.md`
+- `docs/MIGRATION_4.0_TO_4.1.md`
+- `docs/VERSIONING_AND_GIT.md`
+- `docs/PLUGIN_AND_MARKETPLACE.md`
+- `docs/PRODUCT_DESIGNER_4.1.md`
+- `docs/PRODUCT_OS_MANAGER.md`
+- `KNOWN_LIMITATIONS.md`

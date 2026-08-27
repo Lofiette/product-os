@@ -11,18 +11,27 @@ EXCLUDED_NAMES = {"MANIFEST.json"}
 EXCLUDED_PARTS = {"__pycache__", ".git", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo"}
 RUNTIME_DIR_NAMES = {".cpt-eval-runs", ".cpt-eval-live"}
+ROOT_LOCAL_NAMES = {"AGENTS.md"}
+ROOT_LOCAL_DIRS = {".cpt", ".runtime"}
+
+
+def canonical_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    if b"\0" in data:
+        return data
+    return data.replace(b"\r\n", b"\n")
 
 
 def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    return hashlib.sha256(canonical_bytes(path)).hexdigest()
 
 
 def excluded(rel: Path) -> bool:
     if rel.name in EXCLUDED_NAMES:
+        return True
+    if len(rel.parts) == 1 and rel.name in ROOT_LOCAL_NAMES:
+        return True
+    if rel.parts and rel.parts[0] in ROOT_LOCAL_DIRS:
         return True
     if any(part in EXCLUDED_PARTS or part in RUNTIME_DIR_NAMES for part in rel.parts):
         return True
@@ -51,10 +60,15 @@ def included_files() -> list[Path]:
 def main() -> int:
     files = included_files()
     data = {
-        "schema": "cpt-package-manifest-v9",
+        "schema": "cpt-package-manifest-v10",
         "name": "codex-product-os",
-        "version": "4.0.0",
-        "phase": "rc-trials-offline-beta",
+        "version": "4.1.0",
+        "phase": "offline-certified-live-pending",
+        "release_lineage": [
+            "4.0.0",
+            "4.1.0",
+        ],
+        "custom_patches": [],
         "manifest_excludes": [
             "MANIFEST.json",
             "**/__pycache__/**",
@@ -65,14 +79,25 @@ def main() -> int:
             "**/.ruff_cache/**",
             "**/.cpt-eval-runs/**",
             "**/.cpt-eval-live/**",
+            "/.cpt/**",
+            "/.runtime/**",
+            "/AGENTS.md",
             "evaluation/executable/reports/** except .gitkeep",
             "**/*-comparison.json",
         ],
         "file_count": len(files),
         "inventories": {
             "plugins": 6,
-            "canonical_skills": 45,
+            "canonical_skills": 49,
             "legacy_skill_mappings": 95,
+            "design_intelligence_dimensions": 16,
+            "design_intelligence_cases": 20,
+            "interaction_behavior_lenses": 12,
+            "interaction_patterns": 44,
+            "form_flow_modes": 8,
+            "form_patterns": 24,
+            "professional_workflow_classes": 7,
+            "design_execution_adapters": 2,
             "logical_roles": 50,
             "quality_gates": 25,
             "routing_profiles": 14,
@@ -85,24 +110,33 @@ def main() -> int:
             "worker_archetypes": 10,
             "orchestration_policy_cases": 34,
             "orchestration_integration_checks": 16,
-            "behavior_tests": 115,
+            "behavior_tests": 201,
+            "installation_receipt_tests": 5,
+            "manager_registry_tests": 7,
+            "manager_planning_tests": 11,
+            "manager_backup_tests": 5,
+            "manager_transaction_tests": 20,
+            "manager_git_provider_tests": 8,
+            "manager_codex_adapter_tests": 16,
+            "manager_lifecycle_tests": 6,
+            "manager_cli_tests": 4,
             "executable_evaluation_cases": 21,
             "fixture_repositories": 6,
             "evaluation_suites": 4,
             "evaluation_unit_tests": 13,
             "migration_tests": 7,
-            "release_unit_tests": 10,
-            "release_tracks": 33,
-            "release_gates": 9,
+            "release_unit_tests": 13,
+            "release_tracks": 35,
+            "release_gates": 11,
             "mutation_cases": 4,
-            "hooks": 9,
+            "hooks": 10,
             "rules_profiles": 2,
             "ci_workflows": 2,
         },
         "files": [
             {
                 "path": path.relative_to(ROOT).as_posix(),
-                "size": path.stat().st_size,
+                "size": len(canonical_bytes(path)),
                 "sha256": sha256(path),
             }
             for path in files

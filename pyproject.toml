@@ -1,7 +1,7 @@
 [project]
 name = "codex-product-os-distribution"
-version = "4.0.0b1"
-description = "Runtime, Product Knowledge, expertise routing, deterministic enforcement, managed workers, and executable evaluations for Codex Product Operating System 4.0 Beta 1"
+version = "4.1.0"
+description = "Runtime, Product Knowledge, expertise routing, deterministic enforcement, managed workers, and executable evaluations for Product OS 4.1"
 requires-python = ">=3.10"
 dependencies = [
   "PyYAML>=6.0,<7",
@@ -10,5 +10,5 @@ dependencies = [
 ]
 
 [tool.cpt]
-package_version = "4.0.0"
+package_version = "4.1.0"
 runtime_schema_version = "4.0-alpha8"

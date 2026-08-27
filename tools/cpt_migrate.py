@@ -16,7 +16,7 @@ from typing import Any
 
 SCHEMA_PLAN = 'cpt-migration-plan-v1'
 SCHEMA_RECEIPT = 'cpt-migration-receipt-v1'
-TARGET_VERSION = '4.0.0'
+TARGET_VERSION = '4.1.0'
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 DIST_TOOL = PACKAGE_ROOT / 'tools' / 'cpt_dist.py'
 

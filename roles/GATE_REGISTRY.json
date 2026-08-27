@@ -1,6 +1,6 @@
 {
   "schema": "cpt-gate-registry-v1",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "gate_count": 25,
   "gates": [
     {
@@ -136,22 +136,40 @@
         "product_designer",
         "ux_interaction_reviewer"
       ],
-      "when": "For new or redesigned screens, flows, modules, or interaction behavior.",
+      "when": "For new or redesigned screens, flows, forms, professional workspaces, modules, interaction behavior, execution artifacts, or material visual changes; stage-aware from concept reasoning to rendered acceptance.",
       "pass": [
-        "User goal, information hierarchy, primary action, states, and edge cases are explicit.",
-        "The design can be handed off without inventing missing behavior.",
-        "Alternatives and rationale are visible for material decisions."
+        "The actual user task, product outcome, context, success condition, scope, evidence, assumptions, and non-goals are explicit.",
+        "Objects, actions, page/workflow type, pattern composition, navigation, permissions, selection, states, transitions, interruption, feedback, failure, and recovery form a coherent model.",
+        "Form questions, validation, focus, preservation, review, confirmation, and save/resume are justified when applicable.",
+        "Professional interfaces preserve comparison, expert throughput, keyboard operation, action/selection scope, audit, and partial-failure recovery.",
+        "Location, current state, primary information/action, grouping, hierarchy, density, typography, color, boundaries, and affordances form an intentional visual contract.",
+        "Authoritative system sources, content, accessibility, responsive behavior, realistic/extreme data, and applicable edge states are explicit.",
+        "Execution capabilities are observed, provenance and approval boundaries are recorded, fallbacks are explicit, and provider QA is independently challenged.",
+        "Material alternatives, trade-offs, adversarial critique, validation, falsification, and rendered evidence for final acceptance are visible."
       ],
       "block": [
-        "The screen is visually composed but behavior/states are undefined.",
-        "Multiple primary actions compete without rationale.",
-        "The implementation team must infer core interaction decisions."
+        "The solution does not address the stated problem or invents critical user, domain, data, permission, legal, security, or technical facts.",
+        "A pattern or reference is copied without contextual fit, alternatives, or state consequences.",
+        "Primary task, action, consequence, location, current state, selection scope, draft/publish state, or visual hierarchy is materially ambiguous.",
+        "A material state, transition, error, recovery, permission, interruption, or partial-failure path is missing.",
+        "Unnecessary questions, lost input, hidden professional comparison/actions, or misleading data materially harm the workflow.",
+        "A critical accessibility issue or unapproved design-system deviation is present.",
+        "An unavailable capability, undocumented plugin behavior, external write, or publication is assumed without evidence or approval.",
+        "Provider self-QA is the sole acceptance evidence or implementation must infer core behavior, content, responsive, or state decisions."
       ],
       "evidence": [
-        "Screen/module design spec",
-        "State matrix",
-        "Interaction rationale",
-        "Design QA notes"
+        "UI Design Decision or equivalent problem/rationale artifact",
+        "Object/action/state model and task flow",
+        "Behavior lenses, page/workflow classification, and Pattern Decision Record",
+        "Conditional Form Task Flow Decision and/or Professional Interface Contract",
+        "Screen/module design spec and intended perception order",
+        "State and responsive matrix",
+        "Design-system/component/token references and deviations",
+        "Content/data examples, permissions, and technical constraints",
+        "Adversarial critique and residual risks",
+        "Capability Inventory, Design Execution Brief, provenance, and fallback when tools are used",
+        "Validation plan and Design QA notes",
+        "Rendered screenshots or inspectable implementation for final visual acceptance"
       ],
       "verdicts": [
         "PASS",

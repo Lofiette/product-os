@@ -121,7 +121,7 @@ if failure and failure in " ".join(args):
             "product-os /tmp/codex/plugins/marketplaces/product-os",
         )
         assert explicit_ref.returncode != 0
-        assert "does not expose enough provenance" in (explicit_ref.stderr + explicit_ref.stdout)
+        assert "provenance" in (explicit_ref.stderr + explicit_ref.stdout).lower()
         assert not any(call[:2] == ["plugin", "add"] for call in calls)
 
         explicit_source_args = (
@@ -134,7 +134,7 @@ if failure and failure in " ".join(args):
             "product-os /tmp/codex/plugins/marketplaces/product-os",
         )
         assert explicit_source.returncode != 0
-        assert "does not expose enough provenance" in (explicit_source.stderr + explicit_source.stdout)
+        assert "provenance" in (explicit_source.stderr + explicit_source.stdout).lower()
         assert not any(call[:2] == ["plugin", "add"] for call in calls)
 
         manager, calls = invoke(

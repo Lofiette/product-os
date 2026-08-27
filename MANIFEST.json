@@ -2181,7 +2181,7 @@
     {
       "path": "release/EVIDENCE.json",
       "size": 2229,
-      "sha256": "9f2305a36a1cd68781f8b780e4a34b604c75c171d49159bfa5b97041d42c514d"
+      "sha256": "89c845eead13f9cdf78a31682e6d65bc06d0b1e3f7b949369d93967020b000fb"
     },
     {
       "path": "release/GATES.json",
@@ -2915,8 +2915,8 @@
     },
     {
       "path": "scripts/validate_marketplace_helpers.py",
-      "size": 9049,
-      "sha256": "6374e0bde6cb88752d39eb162a72e64c1bca0ddc2e437ac57b956e7417ef42a5"
+      "size": 9019,
+      "sha256": "bf84d858f5511cb6540001aa5464f6604bf0f6123594a6506bedaf6b168661d3"
     },
     {
       "path": "scripts/validate_migration_assets.py",

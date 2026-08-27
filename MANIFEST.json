@@ -90,8 +90,8 @@
     },
     {
       "path": ".github/workflows/migration-ci.yml",
-      "size": 845,
-      "sha256": "a4eca757010a8bcdeafd070444056761078659780eb9b03ab04477bfd61d4304"
+      "size": 940,
+      "sha256": "b1bdb64452aefe8fe10815263ef04e6c2fca4f91f83cc3bbdff4e65cba80b716"
     },
     {
       "path": ".github/workflows/offline-evals.yml",

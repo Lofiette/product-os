@@ -160,9 +160,10 @@ Python launcher, and finally a real Python executable on PATH (Windows Store
 aliases are rejected). This avoids assuming that the py launcher is installed.
 Both launch paths disable bytecode writes so trusted hooks cannot mutate the
 Manager's hash-verified immutable source materialization.
-The Windows hook command is deliberately quote-free and resolves PLUGIN_ROOT
-inside PowerShell. This avoids the current Codex cmd.exe quoting failure while
-remaining safe when the installed plugin path contains spaces.
+The Windows hook command uses PowerShell `-EncodedCommand`; its host-facing
+command line is quote-free while the decoded script resolves `PLUGIN_ROOT`
+with `Join-Path`. This avoids Codex's current `cmd.exe` outer-quote failure and
+remains safe when the installed plugin path contains spaces.
 The launcher does not rely on Codex starting it in the project directory. It
 reads the standard hook payload once, uses its `cwd` field for project-local
 Python discovery, and then forwards the same payload to the Python hook as

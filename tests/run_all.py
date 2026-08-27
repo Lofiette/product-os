@@ -104,6 +104,7 @@ commands = [
     [sys.executable, str(ROOT / "tools" / "validate_release.py")],
     [sys.executable, str(ROOT / "tools" / "cpt_release.py"), "readiness", "--scope", "offline"],
     [sys.executable, str(ROOT / "tools" / "validate_evaluation.py")],
+    [sys.executable, str(ROOT / "scripts" / "validate_marketplace_helpers.py")],
     [sys.executable, str(ROOT / "tools" / "validate_distribution.py")],
     [sys.executable, str(ROOT / "tools" / "validate_skills.py"), "--root", str(ROOT)],
     [

@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 617,
+  "file_count": 620,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -95,8 +95,8 @@
     },
     {
       "path": ".github/workflows/offline-evals.yml",
-      "size": 2420,
-      "sha256": "ec41b0d10f6a780dff3fc268f4d28c24f3cf26111958eb7b2165e4385b8a1490"
+      "size": 2550,
+      "sha256": "f26bcf5457625dd7bfbde939005a33bd3848090c758f7d5dfd339e609964a333"
     },
     {
       "path": ".gitignore",
@@ -110,8 +110,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 5006,
-      "sha256": "58200d0dcb2e09ae7758cae66a2dbc2fa8e3498edff3cf97afe2ad022d324240"
+      "size": 5162,
+      "sha256": "9d4504bcbdb2ba452dd38efdb2f561b50acb1d48effd49ed577ddcb26b157aac"
     },
     {
       "path": "DISTRIBUTION_MODES.md",
@@ -140,8 +140,8 @@
     },
     {
       "path": "INSTALL.md",
-      "size": 4895,
-      "sha256": "93c9bc038161f2b32353cb8712e3881588fa1ca87764ef1523fb930f3fe32e00"
+      "size": 5233,
+      "sha256": "54529850dc09b5beccff01150d0b31960c97fd57099d9880e64e51171fd3fad2"
     },
     {
       "path": "KNOWLEDGE.md",
@@ -160,13 +160,13 @@
     },
     {
       "path": "README.md",
-      "size": 3669,
-      "sha256": "d633e987941cb157223d0800cd885367427875471444252323a17182ced273e3"
+      "size": 4426,
+      "sha256": "c1e22a6c29ed770227f820de335f47bd817763472314e44c57affb6aefa31c45"
     },
     {
       "path": "README_RU.md",
-      "size": 4257,
-      "sha256": "4267069b2ac570d2f7fd1a07309cf0a3dddb3d57b88a3eecf45825502f97544b"
+      "size": 5567,
+      "sha256": "fb32e08c2cdbf0da34235e43ac3f29ba8c235756c3a3096250374b4a3813e94f"
     },
     {
       "path": "ROLES.md",
@@ -344,14 +344,19 @@
       "sha256": "ad542321aaf3603bafa6062def65d3ff75edfb2e27ab22a95c71a561f802285d"
     },
     {
+      "path": "docs/OFFICIAL_PLUGIN_SUBMISSION.md",
+      "size": 1904,
+      "sha256": "3428406f34e4ef5e8e80747dbbd4a97e8b83f46a4b4ee707bd0208a475fa0da3"
+    },
+    {
       "path": "docs/PLATFORM_SUPPORT.md",
       "size": 707,
       "sha256": "5271bf57e05a8b39f42e95540496148fe7316e9826f32c9adb7405fadf0ede15"
     },
     {
       "path": "docs/PLUGIN_AND_MARKETPLACE.md",
-      "size": 3180,
-      "sha256": "09f275a7f43500a4e37e319ed863ce03172b59478366f431d544914260435e03"
+      "size": 3667,
+      "sha256": "0f1601003bdebf013ab08b5598cac1a78608ee8c37700881434526fc2a8de39e"
     },
     {
       "path": "docs/PRODUCT_DESIGNER_4.1.md",
@@ -2890,8 +2895,18 @@
     },
     {
       "path": "scripts/register-codex-marketplace.ps1",
-      "size": 1146,
-      "sha256": "68ff6b1e35d646f5646626cf2c6d8312123e2f4b34191ba97fae9316e6aa4326"
+      "size": 2360,
+      "sha256": "ae1b1b5e5ca779c2014f9796890c2b7a2b6cc910dc67bf4f18c3e0a031e02913"
+    },
+    {
+      "path": "scripts/register-codex-marketplace.sh",
+      "size": 2529,
+      "sha256": "8b2a0246141f0bf5ffb275c85c6aaba693549bde731022b0ec45e3a5dc0fd7b7"
+    },
+    {
+      "path": "scripts/validate_marketplace_helpers.py",
+      "size": 3636,
+      "sha256": "79ad38589e2e93c1f6c970b0a9a68ec375e895fddae72504787957ca0f11c6e5"
     },
     {
       "path": "scripts/validate_migration_assets.py",
@@ -2935,8 +2950,8 @@
     },
     {
       "path": "tests/run_all.py",
-      "size": 6669,
-      "sha256": "ec9913c79698a69b434a6a4d605478c1b31d14cacaf50ace2ffbb11347b764e8"
+      "size": 6750,
+      "sha256": "78ab7b6bfcacffbddee606952995eca2ce5366421db1b6c48143c4adf7eebf03"
     },
     {
       "path": "tests/test_distribution.py",

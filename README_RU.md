@@ -8,6 +8,32 @@ Product Designer получил Interaction Intelligence, выбор патте�
 
 Подробности: `docs/PRODUCT_DESIGNER_4.1.md`.
 
+## Быстрый старт в Codex
+
+Для нового Product Designer нужны два плагина: `cpt-core` и `cpt-design-ui`.
+Marketplace фиксируется на неизменяемом release tag, после установки нужно
+открыть новую задачу Codex:
+
+```bash
+codex plugin marketplace add Lofiette/product-os --ref v4.1.0
+codex plugin add cpt-core@product-os
+codex plugin add cpt-design-ui@product-os
+```
+
+Из скачанного release checkout те же действия выполняет один helper:
+
+```powershell
+.\scripts\register-codex-marketplace.ps1
+```
+
+```bash
+./scripts/register-codex-marketplace.sh
+```
+
+Это подключает возможности Product Designer к Codex, но не создаёт проектный
+runtime `.cpt`. Для полного процесса Product OS рабочий проект дополнительно
+устанавливается отдельной командой ниже.
+
 ## Две разные сущности
 
 1. **Репозиторий Product OS** содержит исходники, версии, тесты, release-артефакты и marketplace.
@@ -46,7 +72,7 @@ python tools/cpt_dist.py doctor --project /path/to/project
 Репозиторий содержит `.agents/plugins/marketplace.json` со всеми шестью плагинами. После публикации репозитория:
 
 ```bash
-codex plugin marketplace add <GIT_URL_OR_OWNER/REPO>
+codex plugin marketplace add <GIT_URL_OR_OWNER/REPO> --ref v4.1.0
 codex plugin add cpt-core@product-os
 codex plugin add cpt-design-ui@product-os
 ```
@@ -58,6 +84,10 @@ codex plugin marketplace upgrade product-os
 ```
 
 После обновления плагинов создайте новый thread. Если в проектах установлен `.cpt/` scaffold, отдельно запустите `cpt_dist.py update` для каждого проекта.
+
+Если marketplace `product-os` управляется Product OS Manager и указывает в
+`~/.product-os/sources/`, не заменяйте его вручную. Используйте подтверждённую
+Manager-транзакцию `plan-local-git -> prepare -> switch`.
 
 ## Граница сертификации
 

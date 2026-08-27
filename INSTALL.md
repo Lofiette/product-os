@@ -146,20 +146,29 @@ codex plugin add cpt-design-ui@product-os
 Remote Git repository:
 
 ```bash
-codex plugin marketplace add <GIT_URL_OR_OWNER/REPO>
+codex plugin marketplace add <GIT_URL_OR_OWNER/REPO> --ref v4.1.0
 codex plugin add cpt-core@product-os
 codex plugin add cpt-design-ui@product-os
 ```
 
-Windows helper:
+Windows helper, pinned to `Lofiette/product-os@v4.1.0` by default:
 
 ```powershell
-.\scripts\register-codex-marketplace.ps1 \
-  -Source "owner/product-os" \
-  -Plugins cpt-core,cpt-design-ui
+.\scripts\register-codex-marketplace.ps1
+```
+
+macOS or Linux helper:
+
+```bash
+./scripts/register-codex-marketplace.sh
 ```
 
 Start a new Codex thread after installation.
+
+The helpers refuse to replace an existing marketplace. Use `-Upgrade` on
+Windows or `--upgrade` on macOS/Linux only when Codex registered the marketplace
+directly from Git. If its root is under `~/.product-os/sources/`, update through
+Product OS Manager instead.
 
 ## Optional worker pack
 

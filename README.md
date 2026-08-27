@@ -16,6 +16,32 @@ OpenAI Product Design is an adapter, not a dependency. Product OS remains usable
 
 See `docs/PRODUCT_DESIGNER_4.1.md`.
 
+## Codex quick start
+
+Product Designer needs two plugins: `cpt-core` and `cpt-design-ui`. Pin the
+marketplace to the immutable release tag, install both plugins, then start a new
+Codex thread:
+
+```bash
+codex plugin marketplace add Lofiette/product-os --ref v4.1.0
+codex plugin add cpt-core@product-os
+codex plugin add cpt-design-ui@product-os
+```
+
+From a cloned release checkout, the helpers perform the same bounded operation:
+
+```powershell
+.\scripts\register-codex-marketplace.ps1
+```
+
+```bash
+./scripts/register-codex-marketplace.sh
+```
+
+These commands add Product Designer capabilities to Codex. They do not create
+the per-project `.cpt` runtime; projects that need the full Product OS workflow
+must also use the project installer below.
+
 ## Repository versus project installation
 
 These are different layers:
@@ -56,7 +82,7 @@ Product OS 4.1 preserves mutable runtime state and refreshes the core plus every
 The repository contains `.agents/plugins/marketplace.json` with all six plugins:
 
 ```bash
-codex plugin marketplace add <GIT_URL_OR_OWNER/REPO>
+codex plugin marketplace add <GIT_URL_OR_OWNER/REPO> --ref v4.1.0
 codex plugin add cpt-core@product-os
 codex plugin add cpt-design-ui@product-os
 ```

@@ -41,10 +41,20 @@ Each plugin has its own `.codex-plugin/plugin.json` and semantic version.
 After the repository is pushed to GitHub or another Git server:
 
 ```bash
-codex plugin marketplace add <HTTPS_OR_SSH_GIT_URL_OR_OWNER/REPO>
+codex plugin marketplace add <HTTPS_OR_SSH_GIT_URL_OR_OWNER/REPO> --ref v4.1.0
 codex plugin add cpt-core@product-os
 codex plugin add cpt-design-ui@product-os
 codex plugin list
+```
+
+Release helpers use `Lofiette/product-os@v4.1.0` by default:
+
+```powershell
+.\scripts\register-codex-marketplace.ps1
+```
+
+```bash
+./scripts/register-codex-marketplace.sh
 ```
 
 To refresh a Git-backed marketplace:
@@ -56,6 +66,11 @@ codex plugin add cpt-design-ui@product-os
 ```
 
 Start a new Codex thread after installation or reinstall so new skills and tool declarations are loaded at a clean session boundary.
+
+The helpers fail closed when `product-os` already exists. Direct Git-backed
+marketplaces may use the explicit upgrade option. A Manager-owned root under
+`~/.product-os/sources/` must use the transactional Manager update path so the
+receipt, rollback source, and plugin selectors remain consistent.
 
 ## Local marketplace for development
 

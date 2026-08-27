@@ -15,6 +15,8 @@ Product OS 4.1.0 is the first complete Product Designer redesign. The internal P
 - Added a vendor-neutral Design Execution Plane with capability discovery, generic adapters, provenance, fallbacks, approval boundaries, and an optional OpenAI Product Design bridge.
 - Added deterministic validation for the Product Designer knowledge and adapter contracts.
 - Added a repository-level Codex marketplace containing all six Product OS plugins.
+- Added pinned Windows, macOS, and Linux marketplace helpers for the public
+  `v4.1.0` install path, with fail-closed protection for Manager-owned sources.
 - Added Product OS Manager with receipt v2, source lineage, a rebuildable user
   installation registry, deterministic detection and dry-run adoption plans.
 - Added a crash-safe two-phase local-to-Git marketplace transaction with

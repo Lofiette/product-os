@@ -1,6 +1,7 @@
 {
   "schema_version": "cpt-release-evidence-v1",
   "version": "4.1.0",
+  "candidate_manifest_digest": "a5c0e8c98e888129501be98e49edbce1eae7940ba56e3f62d5c47470c6b04c53",
   "gates": {
     "isolated_codex_adoption": {
       "status": "PASS",

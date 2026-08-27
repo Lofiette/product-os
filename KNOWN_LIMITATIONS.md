@@ -4,12 +4,14 @@ Product OS 4.1 is offline-certified for its deterministic scope. Its determinist
 
 It does not yet certify:
 
-- live Codex model choice quality;
+- live Codex model quality outside the explicitly recorded release-trial cases and configurations;
 - real subagent event ordering and cancellation delivery;
 - native reconnect behavior across Codex clients;
-- real Codex plugin install/switch/cache behavior on Windows, macOS, or WSL;
-- delivery of the new-session lifecycle receipt by an actual Codex session;
-- real token, latency and cost budgets;
+- real Codex plugin install/switch/cache behavior on macOS or WSL; Windows has
+  one owner-confirmed Product OS 4.1 adoption, rollback rehearsal, and fresh-session check;
+- cross-client delivery of the new-session lifecycle receipt; one actual Windows
+  Codex session is recorded in the reviewed release evidence;
+- token, latency and cost behavior outside the recorded live release trials;
 - screenshot-based visual fidelity grading;
 - organization-managed permission and plugin policies.
 

@@ -3,16 +3,6 @@ name: CPT offline evaluation
 on:
   workflow_dispatch:
   pull_request:
-    paths:
-      - 'evaluation/**'
-      - 'tools/**'
-      - 'tests/**'
-      - 'scripts/**'
-      - 'payload/**'
-      - 'domain-packs/**'
-      - 'roles/**'
-      - 'skills/**'
-      - '.github/workflows/offline-evals.yml'
   push:
     branches: [main]
 

@@ -99,6 +99,21 @@ git switch --detach v4.0.0
 
 Then reinstall the plugins from the selected marketplace revision and start a new thread. Before rolling a project runtime backward, restore the pre-update backup or validate the downgrade in a disposable clone. Product OS 4.1 does not intentionally add an incompatible runtime schema, but backward updates are not treated as a universal substitute for a migration receipt.
 
+For a Manager adoption transaction, use its journaled rollback instead of
+copying files by hand:
+
+```bash
+python tools/product_os_manager.py transactions --project /path/to/repo --user-home /path/to/user --codex-home /path/to/user/.codex --product-os-home /path/to/product-os-home
+python tools/product_os_manager.py rollback --project /path/to/repo --user-home /path/to/user --codex-home /path/to/user/.codex --product-os-home /path/to/product-os-home --transaction-id <transaction-id>
+```
+
+The normal backup for that transaction is stored at
+`PRODUCT_OS_HOME/backups/<installation-id>/<transaction-id>/backup-manifest.json`.
+Rollback verifies that hash-bound manifest and restores the prior receipt,
+registry, runtime, and selectors. Use `rollback --force` only after `doctor` or
+`recover` reports a manual-recovery state and provides the exact current-state
+hash; see [Product OS Manager](docs/PRODUCT_OS_MANAGER.md#transaction-and-recovery-contract).
+
 ## Ownership boundary
 
 Installation owns only files and marked blocks recorded in `.cpt/install.json`. It never assumes ownership of application source files, unmarked project documentation, or external/custom plugin packs.

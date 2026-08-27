@@ -3,11 +3,6 @@ name: CPT migration CI
 on:
   workflow_dispatch:
   pull_request:
-    paths:
-      - "tools/cpt_migrate.py"
-      - "migration/**"
-      - "tests/test_migration.py"
-      - ".github/workflows/migration-ci.yml"
 
 jobs:
   migration:
@@ -47,7 +42,9 @@ jobs:
       - name: Run migration and distribution acceptance inside WSL
         shell: pwsh
         run: |
-          $workspace = (wsl.exe --distribution Ubuntu --user root -- wslpath -a "$env:GITHUB_WORKSPACE").Trim()
+          $drive = $env:GITHUB_WORKSPACE.Substring(0, 1).ToLowerInvariant()
+          $relative = $env:GITHUB_WORKSPACE.Substring(2).Replace('\', '/')
+          $workspace = "/mnt/$drive$relative"
           if (-not $workspace.StartsWith('/mnt/')) {
             throw "Unexpected WSL workspace path: $workspace"
           }

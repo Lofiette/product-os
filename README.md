@@ -97,6 +97,9 @@ This command is for a marketplace that Codex registered directly from Git. A
 Product OS Manager installation is pinned to an immutable local commit root;
 publishing to GitHub does not silently update it. Use a new Manager
 `plan-local-git` -> `prepare` -> `switch` transaction for that case.
+The bundled registration helpers are repeat-safe for an existing direct
+marketplace, reject Manager immutable roots even under a custom
+`PRODUCT_OS_HOME`, and refuse to pretend that `upgrade` can retarget a ref.
 
 Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update` for a legacy local-distribution installation.
 

@@ -3,14 +3,14 @@
   "version": "4.1.0",
   "certification_scope": "offline",
   "status": "BETA_READY",
-  "behavioral_tests": 192,
+  "behavioral_tests": 201,
   "offline_cases": 21,
   "release_tracks": 35,
   "release_gates": 11,
-  "generated_at": "2026-08-26T18:38:04Z",
+  "generated_at": "2026-08-27T14:54:39Z",
   "scorecard_summary": {
-    "passed": 7,
-    "pending": 4,
+    "passed": 8,
+    "pending": 3,
     "blocked": 0
   }
 }

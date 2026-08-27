@@ -3,14 +3,15 @@
   "version": "4.1.0",
   "scope": "offline",
   "status": "BETA_READY",
-  "generated_at": "2026-08-21T05:28:17Z",
+  "generated_at": "2026-08-27T14:54:39Z",
   "gates": [
     {
       "id": "package_integrity",
       "status": "PASS",
       "required": true,
       "evidence": [
-        "MANIFEST.json version and inventory",
+        "MANIFEST.json exact checkout inventory and hashes",
+        "valid reviewed release evidence registry",
         "distribution validator",
         "ZIP verification required at packaging"
       ],
@@ -22,7 +23,8 @@
       "required": true,
       "evidence": [
         "21 offline executable cases",
-        "manifest declares 116 behavioral tests",
+        "behavior report 201/201 with zero failures",
+        "Manager suite inventories match MANIFEST",
         "baseline and mutation reports"
       ],
       "notes": []
@@ -73,17 +75,44 @@
       "notes": []
     },
     {
+      "id": "manager_adoption",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "provider-neutral Manager suites",
+        "Local Git and bounded Codex adapter suites",
+        "transaction discovery, backup, rollback, recovery, and doctor"
+      ],
+      "notes": []
+    },
+    {
+      "id": "isolated_codex_adoption",
+      "status": "PASS",
+      "required": false,
+      "evidence": [
+        "TKT-003 transaction TX-679ec9c6-317e-486f-9142-43209a40ceb2 committed immutable Git commit 343e919ff36970d14b23930230555f2ddfcfa958 in an isolated CODEX_HOME",
+        "The isolated TKT-003 core migration doctor and lifecycle doctor both returned PASS; a fresh authenticated Codex response matched PRODUCT_OS_41_ACCEPTANCE and recorded privacy-minimized SessionStart and SessionEnd lifecycle evidence",
+        "TKT-004 isolated update transaction TX-e507e6da-f4bd-4ee4-9663-b3d006e23576 rehearsed 343e919 to c0b626c, passed doctor, restored 343e919 by rollback, and reapplied c0b626c",
+        "TKT-004 live transaction TX-0cc0aceb-d7df-4e50-8a8a-b4a5661949af then loaded c0b626c in a fresh Codex session with both plugins, SessionStart, core doctor, and lifecycle doctor PASS",
+        "Normal TKT-003 rollback restored the v4.0.0 receipt, runtime, cpt-core selector, and cpt-design-ui selector inside the isolated fixture"
+      ],
+      "notes": [
+        "This is a sanitized acceptance record; raw local paths, session identifiers, and private fields are intentionally omitted.",
+        "The final 3143703 delta after c0b626c is limited to distribution helpers, documentation, CI validation, and the package manifest.",
+        "Reviewed by Owner-confirmed Product OS TKT-003 acceptance at 2026-08-27T09:26:45Z."
+      ]
+    },
+    {
       "id": "platform_matrix",
       "status": "PENDING",
       "required": false,
       "evidence": [
-        "Linux",
-        "macOS",
-        "Windows",
-        "WSL"
+        "GitHub Actions runs 33072569448 and 33072569533 passed migration and offline checks on Ubuntu, macOS, and Windows for release commit 3143703",
+        "No real WSL acceptance record is available"
       ],
       "notes": [
-        "Requires native-platform or live Codex evidence."
+        "The RC gate requires Linux, macOS, Windows, and WSL; three of four platform families are evidenced.",
+        "Reviewed by GitHub Actions plus Product OS release review at 2026-08-27T12:38:30Z."
       ]
     },
     {
@@ -114,7 +143,7 @@
     }
   ],
   "summary": {
-    "passed": 6,
+    "passed": 8,
     "pending": 3,
     "blocked": 0
   }

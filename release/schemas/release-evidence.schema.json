@@ -2,10 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "version", "gates"],
+  "required": ["schema_version", "version", "candidate_manifest_digest", "gates"],
   "properties": {
     "schema_version": {"const": "cpt-release-evidence-v1"},
     "version": {"type": "string"},
+    "candidate_manifest_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "gates": {
       "type": "object",
       "additionalProperties": false,

@@ -120,6 +120,30 @@ def behavior_report_matches_manifest(
     )
 
 
+def candidate_manifest_digest() -> str:
+    """Bind reviewed evidence to the exact packaged candidate, without self-reference."""
+    entries = []
+    for path in included_files():
+        relative = path.relative_to(ROOT).as_posix()
+        if relative == "release/EVIDENCE.json":
+            continue
+        data = canonical_bytes(path)
+        entries.append(
+            {
+                "path": relative,
+                "size": len(data),
+                "sha256": hashlib.sha256(data).hexdigest(),
+            }
+        )
+    payload = json.dumps(
+        entries,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
 def reviewed_release_evidence() -> tuple[dict[str, dict[str, Any]], list[str]]:
     evidence_path = RELEASE / "EVIDENCE.json"
     schema_path = RELEASE / "schemas" / "release-evidence.schema.json"
@@ -134,6 +158,13 @@ def reviewed_release_evidence() -> tuple[dict[str, dict[str, Any]], list[str]]:
     errors = validate_json(document, schema_path)
     if document.get("version") != VERSION:
         errors.append("release evidence version mismatch")
+    recorded_digest = document.get("candidate_manifest_digest")
+    current_digest = candidate_manifest_digest()
+    if recorded_digest != current_digest:
+        errors.append(
+            "release evidence candidate digest mismatch: "
+            f"expected {current_digest}, recorded {recorded_digest}"
+        )
     if errors:
         return {}, errors
     return dict(document.get("gates", {})), []

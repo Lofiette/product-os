@@ -64,6 +64,21 @@ class ReleasePlaneTests(unittest.TestCase):
             evidence = cpt_release.offline_evidence()
         self.assertFalse(evidence["package_integrity"][0])
 
+    def test_reviewed_evidence_is_bound_to_exact_candidate(self):
+        document = json.loads((ROOT / "release" / "EVIDENCE.json").read_text())
+        self.assertEqual(
+            document["candidate_manifest_digest"],
+            cpt_release.candidate_manifest_digest(),
+        )
+        with mock.patch.object(
+            cpt_release,
+            "candidate_manifest_digest",
+            return_value="0" * 64,
+        ):
+            reviewed, errors = cpt_release.reviewed_release_evidence()
+        self.assertEqual(reviewed, {})
+        self.assertTrue(any("candidate digest mismatch" in item for item in errors))
+
     def test_offline_readiness_counts_release_assets(self):
         data = json.loads(self.run_cli("readiness", "--scope", "offline").stdout)
         self.assertEqual(data["status"], "BETA_READY")

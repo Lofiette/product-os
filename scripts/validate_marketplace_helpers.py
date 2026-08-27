@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
+import os
 import shutil
 import subprocess
+import sys
+import tempfile
 from pathlib import Path
 
 
@@ -34,6 +38,101 @@ def run_syntax_check(command: list[str], label: str) -> None:
         )
 
 
+def exercise_helper(executable: str, helper: Path, *, powershell: bool) -> None:
+    with tempfile.TemporaryDirectory(prefix="product-os-marketplace-helper-") as raw_tmp:
+        tmp = Path(raw_tmp)
+        fake = tmp / "fake_codex.py"
+        fake.write_text(
+            """from __future__ import annotations
+import json
+import os
+import sys
+from pathlib import Path
+
+args = sys.argv[1:]
+with Path(os.environ["FAKE_CODEX_LOG"]).open("a", encoding="utf-8") as stream:
+    stream.write(json.dumps(args) + "\\n")
+if args[:3] == ["plugin", "marketplace", "list"]:
+    line = os.environ.get("FAKE_CODEX_MARKETPLACE_LINE", "")
+    if line:
+        print(line)
+failure = os.environ.get("FAKE_CODEX_FAIL_CONTAINS", "")
+if failure and failure in " ".join(args):
+    raise SystemExit(9)
+""",
+            encoding="utf-8",
+        )
+        (tmp / "codex.cmd").write_text(
+            '@echo off\r\n"%FAKE_CODEX_PYTHON%" "%~dp0fake_codex.py" %*\r\nexit /b %ERRORLEVEL%\r\n',
+            encoding="utf-8",
+        )
+        bash_wrapper = tmp / "codex"
+        bash_wrapper.write_text(
+            '#!/usr/bin/env bash\nexec "$FAKE_CODEX_PYTHON" "$(dirname "$0")/fake_codex.py" "$@"\n',
+            encoding="utf-8",
+        )
+        bash_wrapper.chmod(0o755)
+
+        log = tmp / "calls.jsonl"
+        base_env = os.environ.copy()
+        base_env.update(
+            {
+                "PATH": str(tmp) + os.pathsep + base_env.get("PATH", ""),
+                "FAKE_CODEX_LOG": str(log),
+                "FAKE_CODEX_PYTHON": sys.executable,
+            }
+        )
+
+        def invoke(args: list[str], marketplace_line: str = "", fail: str = "") -> tuple[subprocess.CompletedProcess[str], list[list[str]]]:
+            log.unlink(missing_ok=True)
+            env = base_env.copy()
+            env["FAKE_CODEX_MARKETPLACE_LINE"] = marketplace_line
+            env["FAKE_CODEX_FAIL_CONTAINS"] = fail
+            command = (
+                [executable, "-NoProfile", "-File", str(helper), *args]
+                if powershell
+                else [executable, str(helper), *args]
+            )
+            result = subprocess.run(
+                command,
+                cwd=ROOT,
+                env=env,
+                text=True,
+                capture_output=True,
+                timeout=60,
+            )
+            calls = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()] if log.exists() else []
+            return result, calls
+
+        fresh, calls = invoke([])
+        assert fresh.returncode == 0, fresh.stderr or fresh.stdout
+        assert ["plugin", "marketplace", "add", "Lofiette/product-os", "--ref", "v4.1.0"] in calls
+        assert ["plugin", "add", "cpt-core@product-os"] in calls
+        assert ["plugin", "add", "cpt-design-ui@product-os"] in calls
+
+        repeated, calls = invoke([], "product-os /tmp/codex/plugins/marketplaces/product-os")
+        assert repeated.returncode == 0, repeated.stderr or repeated.stdout
+        assert not any(call[:3] == ["plugin", "marketplace", "add"] for call in calls)
+        assert ["plugin", "add", "cpt-core@product-os"] in calls
+
+        manager, calls = invoke(
+            ["-Upgrade"] if powershell else ["--upgrade"],
+            "product-os /srv/custom/sources/product-os/abcdef1234567890",
+        )
+        assert manager.returncode != 0
+        assert not any(call[:3] == ["plugin", "marketplace", "upgrade"] for call in calls)
+
+        retarget_args = ["-Upgrade", "-Ref", "v4.2.0"] if powershell else ["--upgrade", "--ref", "v4.2.0"]
+        retarget, calls = invoke(retarget_args, "product-os /tmp/codex/plugins/marketplaces/product-os")
+        assert retarget.returncode != 0
+        assert not any(call[:3] == ["plugin", "marketplace", "upgrade"] for call in calls)
+
+        partial, calls = invoke([], fail="plugin add cpt-design-ui@product-os")
+        assert partial.returncode != 0
+        assert ["plugin", "add", "cpt-core@product-os"] in calls
+        assert ["plugin", "add", "cpt-design-ui@product-os"] in calls
+
+
 def validate_powershell() -> bool:
     source = POWERSHELL_HELPER.read_text(encoding="utf-8")
     require_ordered(
@@ -44,6 +143,7 @@ def validate_powershell() -> bool:
             "$MarketplaceOutput = (& codex plugin marketplace list",
             "$ManagerRootPattern =",
             "if ($MarketplaceRoot -match $ManagerRootPattern)",
+            "$PSBoundParameters.ContainsKey('Ref')",
             "& codex plugin marketplace upgrade $MarketplaceName",
             "& codex plugin marketplace add $Source --ref $Ref",
             "& codex plugin add \"$Plugin@$MarketplaceName\"",
@@ -67,6 +167,7 @@ def validate_powershell() -> bool:
         [executable, "-NoProfile", "-Command", parser_command],
         "PowerShell helper",
     )
+    exercise_helper(executable, POWERSHELL_HELPER, powershell=True)
     return True
 
 
@@ -78,7 +179,8 @@ def validate_bash() -> bool:
             'source_repo="Lofiette/product-os"',
             'release_ref="v4.1.0"',
             'marketplace_output="$(codex plugin marketplace list)"',
-            'if [[ "$normalized_line" == *"/.product-os/sources/product-os/"* ]]',
+            'if [[ "$normalized_line" =~ /sources/product-os/',
+            'if [[ "$ref_explicit" == true ]]',
             'codex plugin marketplace upgrade "$marketplace_name"',
             'codex plugin marketplace add "$source_repo" --ref "$release_ref"',
             'codex plugin add "cpt-core@${marketplace_name}"',
@@ -92,6 +194,7 @@ def validate_bash() -> bool:
     if not executable:
         return False
     run_syntax_check([executable, "-n", str(BASH_HELPER)], "Bash helper")
+    exercise_helper(executable, BASH_HELPER, powershell=False)
     return True
 
 

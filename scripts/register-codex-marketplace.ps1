@@ -27,7 +27,7 @@ $MarketplacePattern = '(?m)^\s*' + [regex]::Escape($MarketplaceName) + '\s+(.+?)
 $MarketplaceMatch = [regex]::Match($MarketplaceOutput, $MarketplacePattern)
 $MarketplaceExists = $MarketplaceMatch.Success
 $MarketplaceRoot = if ($MarketplaceExists) { $MarketplaceMatch.Groups[1].Value } else { '' }
-$ManagerRootPattern = '[\\/]\.product-os[\\/]sources[\\/]product-os[\\/]'
+$ManagerRootPattern = '[\\/]sources[\\/]product-os[\\/][0-9a-f]{7,64}(?:[\\/]|$)'
 
 if ($Upgrade) {
     if (-not $MarketplaceExists) {
@@ -36,6 +36,9 @@ if ($Upgrade) {
     if ($MarketplaceRoot -match $ManagerRootPattern) {
         throw "Marketplace '$MarketplaceName' is managed by Product OS Manager. Use a confirmed Manager plan-local-git -> prepare -> switch transaction instead of marketplace upgrade."
     }
+    if ($PSBoundParameters.ContainsKey('Ref')) {
+        throw '-Ref cannot retarget an existing marketplace. The Codex upgrade command refreshes its configured ref; use Product OS Manager or register a separate marketplace to change refs.'
+    }
     & codex plugin marketplace upgrade $MarketplaceName
     if ($LASTEXITCODE -ne 0) {
         throw "Marketplace upgrade failed with exit code $LASTEXITCODE."
@@ -43,11 +46,16 @@ if ($Upgrade) {
 }
 else {
     if ($MarketplaceExists) {
-        throw "Marketplace '$MarketplaceName' is already registered at '$MarketplaceRoot'. Use -Upgrade only for a direct Git-backed marketplace; use Product OS Manager for a Manager-owned installation."
+        if ($MarketplaceRoot -match $ManagerRootPattern) {
+            throw "Marketplace '$MarketplaceName' is managed by Product OS Manager. Use a confirmed Manager plan-local-git -> prepare -> switch transaction instead of this direct helper."
+        }
+        Write-Host "Marketplace '$MarketplaceName' is already registered at '$MarketplaceRoot'; keeping it and ensuring the requested plugins are installed."
     }
-    & codex plugin marketplace add $Source --ref $Ref
-    if ($LASTEXITCODE -ne 0) {
-        throw "Marketplace registration failed with exit code $LASTEXITCODE."
+    else {
+        & codex plugin marketplace add $Source --ref $Ref
+        if ($LASTEXITCODE -ne 0) {
+            throw "Marketplace registration failed with exit code $LASTEXITCODE."
+        }
     }
 }
 

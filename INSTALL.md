@@ -165,10 +165,13 @@ macOS or Linux helper:
 
 Start a new Codex thread after installation.
 
-The helpers refuse to replace an existing marketplace. Use `-Upgrade` on
-Windows or `--upgrade` on macOS/Linux only when Codex registered the marketplace
-directly from Git. If its root is under `~/.product-os/sources/`, update through
-Product OS Manager instead.
+Repeating the same helper is safe: an existing direct marketplace is retained
+and the requested plugins are re-checked. Use `-Upgrade` on Windows or
+`--upgrade` on macOS/Linux only when Codex registered the marketplace directly
+from Git. Upgrade refreshes the ref already configured by Codex; it cannot be
+combined with an explicit `-Ref`/`--ref` to retarget the marketplace. Any root
+matching the Manager immutable layout `sources/product-os/<commit>` is rejected,
+including a non-default `PRODUCT_OS_HOME`; update it through Product OS Manager.
 
 ## Optional worker pack
 

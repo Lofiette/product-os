@@ -86,8 +86,11 @@ codex plugin marketplace upgrade product-os
 После обновления плагинов создайте новый thread. Если в проектах установлен `.cpt/` scaffold, отдельно запустите `cpt_dist.py update` для каждого проекта.
 
 Если marketplace `product-os` управляется Product OS Manager и указывает в
-`~/.product-os/sources/`, не заменяйте его вручную. Используйте подтверждённую
-Manager-транзакцию `plan-local-git -> prepare -> switch`.
+`sources/product-os/<commit>` внутри стандартного или пользовательского
+`PRODUCT_OS_HOME`, не заменяйте его вручную. Используйте подтверждённую
+Manager-транзакцию `plan-local-git -> prepare -> switch`. Повторный запуск
+helper безопасно сохраняет уже зарегистрированный direct marketplace; команда
+upgrade обновляет только уже настроенный ref и не используется для retargeting.
 
 ## Граница сертификации
 

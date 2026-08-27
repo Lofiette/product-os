@@ -170,7 +170,7 @@ class CodexCliSelectorAdapterTests(unittest.TestCase):
                 }
             )
             marketplace_plugins.append(
-                {"name": name, "source": {"source": "local", "path": relative}}
+                {"name": name, "source": {"source": "local", "path": f"./{relative}"}}
             )
         marketplace = self.target_root / ".agents" / "plugins" / "marketplace.json"
         marketplace.parent.mkdir(parents=True)

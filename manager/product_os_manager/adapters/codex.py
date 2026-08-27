@@ -21,7 +21,7 @@ from ..state import (
     utc_now,
 )
 from .base import SelectorAdapterEvidence
-from .repository import verify_package_root
+from .repository import _safe_marketplace_source_relative, verify_package_root
 
 TRANSACTION_PATTERN = re.compile(
     r"TX-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
@@ -515,11 +515,15 @@ class CodexCliSelectorAdapter:
         for name, expected in self.bound_plugins.items():
             item = by_name.get(name)
             source = item.get("source") if isinstance(item, dict) else None
-            if (
-                not isinstance(source, dict)
-                or source.get("source") != "local"
-                or source.get("path") != expected["relative_path"]
-            ):
+            canonical_source: str | None = None
+            if isinstance(source, dict) and source.get("source") == "local":
+                try:
+                    canonical_source = _safe_marketplace_source_relative(
+                        source.get("path")
+                    ).as_posix()
+                except RuntimeError:
+                    canonical_source = None
+            if canonical_source != expected["relative_path"]:
                 raise RuntimeError(f"Codex target marketplace source changed: {name}")
             manifest_path = self._plugin_root(name) / ".codex-plugin" / "plugin.json"
             if canonical_text_file_sha256(manifest_path) != expected["manifest_sha256"]:

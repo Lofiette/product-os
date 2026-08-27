@@ -1750,8 +1750,8 @@
     },
     {
       "path": "manager/product_os_manager/adapters/codex.py",
-      "size": 35520,
-      "sha256": "113f06e39ee9cb862eae2e2c0343be729f8e6f21c79b5d339c0b8306bc210438"
+      "size": 35799,
+      "sha256": "3cd49378bd6604d793135032134631657566f3131c8963bdda19db380bead876"
     },
     {
       "path": "manager/product_os_manager/adapters/codex_lifecycle.py",
@@ -2965,8 +2965,8 @@
     },
     {
       "path": "tests/test_manager_codex_adapter.py",
-      "size": 22325,
-      "sha256": "a17b15a006564b349f98fb43629c8bbea05fd7b4e9be3d3f5f12312c9d5c625a"
+      "size": 22332,
+      "sha256": "7e6ee3d0488cc2fd1671531c993fe13e718bfc1a08937eac03242d4ac95548fb"
     },
     {
       "path": "tests/test_manager_git_provider.py",

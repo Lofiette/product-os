@@ -203,6 +203,8 @@ class EnforcementTests(unittest.TestCase):
         launcher_text=windows_launcher.read_text(encoding='utf-8')
         self.assertIn('[Console]::In.ReadToEnd()',launcher_text)
         self.assertIn('ConvertFrom-Json',launcher_text)
+        self.assertIn('System.Diagnostics.ProcessStartInfo',launcher_text)
+        self.assertIn('StandardInput.Write($rawPayload)',launcher_text)
         hooks=json.loads((plugin/'hooks/hooks.json').read_text(encoding='utf-8'))
         commands=[
             hook['commandWindows']

@@ -166,7 +166,8 @@ remaining safe when the installed plugin path contains spaces.
 The launcher does not rely on Codex starting it in the project directory. It
 reads the standard hook payload once, uses its `cwd` field for project-local
 Python discovery, and then forwards the same payload to the Python hook as
-UTF-8.
+UTF-8 through a redirected process stream. This avoids PowerShell pipeline
+serialization changing Codex's JSON input.
 Lifecycle evidence uses a bounded 64-session ring and one shared lock per
 installation transaction.
 

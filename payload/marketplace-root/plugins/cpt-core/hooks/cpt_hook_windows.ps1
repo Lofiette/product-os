@@ -67,5 +67,32 @@ if (-not $pythonPath) {
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $OutputEncoding = $utf8
 [Console]::OutputEncoding = $utf8
-$rawPayload | & $pythonPath @pythonArgs $hookPath
-exit $LASTEXITCODE
+
+$startInfo = New-Object System.Diagnostics.ProcessStartInfo
+$startInfo.FileName = $pythonPath
+$quotedHookPath = '"' + $hookPath.Replace('"', '\"') + '"'
+$startInfo.Arguments = ((@($pythonArgs) + @($quotedHookPath)) -join ' ')
+$startInfo.UseShellExecute = $false
+$startInfo.CreateNoWindow = $true
+$startInfo.RedirectStandardInput = $true
+$startInfo.RedirectStandardOutput = $true
+$startInfo.RedirectStandardError = $true
+$startInfo.EnvironmentVariables['PYTHONIOENCODING'] = 'utf-8'
+
+$process = New-Object System.Diagnostics.Process
+$process.StartInfo = $startInfo
+if (-not $process.Start()) {
+    [Console]::Error.WriteLine('Product OS hook failed to start Python.')
+    exit 127
+}
+
+$stdoutTask = $process.StandardOutput.ReadToEndAsync()
+$stderrTask = $process.StandardError.ReadToEndAsync()
+$process.StandardInput.Write($rawPayload)
+$process.StandardInput.Close()
+$process.WaitForExit()
+$stdout = $stdoutTask.GetAwaiter().GetResult()
+$stderr = $stderrTask.GetAwaiter().GetResult()
+[Console]::Out.Write($stdout)
+[Console]::Error.Write($stderr)
+exit $process.ExitCode

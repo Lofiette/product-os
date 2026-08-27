@@ -218,6 +218,7 @@ class EnforcementTests(unittest.TestCase):
                 cwd=repo2,input=payload,text=True,capture_output=True,env=hook_env,
             )
             self.assertEqual(launched.returncode,0,launched.stdout+launched.stderr)
+            self.assertFalse((plugin/'hooks/__pycache__').exists())
         self.assertTrue((repo2/'.codex/rules/cpt.rules').exists())
 
     def test_lazy_off_install_can_enable_enforcement_later(self):

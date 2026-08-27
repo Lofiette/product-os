@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $hookPath = Join-Path $PSScriptRoot 'cpt_hook.py'
 $pythonPath = $null
-$pythonArgs = @()
+$pythonArgs = @('-B')
 
 if ($env:PRODUCT_OS_PYTHON) {
     $configured = [System.IO.Path]::GetFullPath($env:PRODUCT_OS_PYTHON)
@@ -29,7 +29,7 @@ if (-not $pythonPath) {
     $launcher = Get-Command py.exe -ErrorAction SilentlyContinue
     if ($launcher) {
         $pythonPath = $launcher.Source
-        $pythonArgs = @('-3')
+        $pythonArgs = @('-3', '-B')
     }
 }
 

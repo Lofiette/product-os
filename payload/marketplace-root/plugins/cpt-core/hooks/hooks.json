@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 30,
             "statusMessage": "Loading CPT runtime state"
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 3,
             "statusMessage": "Recording Product OS session lifecycle"
@@ -33,7 +33,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 30,
             "statusMessage": "Checking CPT scope and lease"
@@ -47,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 30,
             "statusMessage": "Checking CPT authorization lease"
@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 45,
             "statusMessage": "Recording CPT audit and freshness"
@@ -75,7 +75,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 60,
             "statusMessage": "Creating CPT compaction checkpoint"
@@ -89,7 +89,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 60,
             "statusMessage": "Verifying CPT state after compaction"
@@ -103,7 +103,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 30,
             "statusMessage": "Recording CPT worker start"
@@ -117,7 +117,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 30,
             "statusMessage": "Recording CPT worker stop"
@@ -130,7 +130,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
+            "command": "python3 -B \"${PLUGIN_ROOT}/hooks/cpt_hook.py\"",
             "commandWindows": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${PLUGIN_ROOT}\\hooks\\cpt_hook_windows.ps1\"",
             "timeout": 45,
             "statusMessage": "Validating CPT runtime before stop"

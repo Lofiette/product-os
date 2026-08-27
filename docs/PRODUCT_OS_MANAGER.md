@@ -158,6 +158,8 @@ On Windows, the bundled hook launcher discovers Python in this order:
 PRODUCT_OS_PYTHON, the nearest project-local .runtime/python/python.exe, the
 Python launcher, and finally a real Python executable on PATH (Windows Store
 aliases are rejected). This avoids assuming that the py launcher is installed.
+Both launch paths disable bytecode writes so trusted hooks cannot mutate the
+Manager's hash-verified immutable source materialization.
 Lifecycle evidence uses a bounded 64-session ring and one shared lock per
 installation transaction.
 

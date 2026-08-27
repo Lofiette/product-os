@@ -90,6 +90,24 @@ product_os_manager.py transactions ...
 `rollback --force` is reserved for an already diagnosed manual-recovery state
 and still requires `--confirmed-current-state-hash`.
 
+## Updating an existing Git marketplace installation
+
+Publishing a newer commit to GitHub does not silently replace an already
+installed commit-addressed Product OS marketplace. Run the same
+`plan-local-git` -> `prepare` -> `switch` flow with the newer ref. Manager reads
+the predecessor commit, package digest, plugin digests, and payload paths from
+installation receipt v2; an incomplete or out-of-root receipt fails closed.
+
+For an update whose marketplace name and plugin selectors stay the same,
+`prepare` verifies and materializes the new commit while leaving the old commit
+active. Only the separately confirmed `switch` phase removes the old selector
+projection, retargets that marketplace name to the new immutable root, and
+reinstalls the complete selected plugin set. If activation fails, the Codex
+adapter compensates back to the receipt-bound predecessor. `recover` performs
+the same bounded predecessor reconciliation after an interrupted retarget, and
+an explicit rollback can restore the prior receipt, registry, runtime, and
+plugin binding.
+
 ## Transaction and recovery contract
 
 `prepare_adoption` and `switch_adoption` accept only registered in-process
@@ -129,14 +147,16 @@ repair remains an explicit rollback or recovery operation.
 
 The Manager core remains provider-neutral. `CodexCliSelectorAdapter` is an
 optional bounded host adapter over the Codex plugin JSON CLI. Prepare registers
-only the already materialized local marketplace; switch installs the complete
-target selector set. A single OS lock serializes all Product OS mutations of an
-explicit `CODEX_HOME`. The adapter binds its capability fingerprint to the Git
-commit, closed package manifest, plugin manifest digests, target paths, and
-legacy selector versions. It verifies the complete source inventory and Codex
-source metadata around every host mutation. This proves a verified source plus
-an observed selector; proof of the bytes inside Codex's private plugin cache is
-left to isolated integration acceptance.
+only the already materialized local marketplace or verifies the active
+receipt-bound predecessor; switch installs the complete target selector set or
+retargets the same marketplace identity between immutable commit roots. A
+single OS lock serializes all Product OS mutations of an explicit `CODEX_HOME`.
+The adapter binds its capability fingerprint to the Git commit, closed package
+manifest, plugin manifest digests, target paths, predecessor lineage when
+present, and legacy selector versions. It verifies the complete source
+inventory and Codex source metadata around every host mutation. This proves a
+verified source plus an observed selector; proof of the bytes inside Codex's
+private plugin cache is left to isolated integration acceptance.
 
 Legacy retirement is deliberately unsupported by the Codex adapter until the
 user registry proves every cross-project reference. The transaction therefore

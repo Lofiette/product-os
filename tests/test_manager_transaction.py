@@ -448,6 +448,67 @@ class ManagerTransactionTests(unittest.TestCase):
             self.initial_selectors,
         )
 
+    def test_same_selector_revision_update_is_transactional(self) -> None:
+        predecessor_revision = "b" * 40
+        self.selector = AdversarialSelectorAdapter(
+            self.tmp / "update-selectors.json",
+            [
+                {
+                    "name": "cpt-core",
+                    "selector": "cpt-core@product-os-git",
+                    "marketplace_identity": "product-os-git",
+                    "enabled": True,
+                    "source_revision": predecessor_revision,
+                },
+                {
+                    "name": "cpt-design-ui",
+                    "selector": "cpt-design-ui@product-os-git",
+                    "marketplace_identity": "product-os-git",
+                    "enabled": True,
+                    "source_revision": predecessor_revision,
+                },
+                {
+                    "name": "external-tool",
+                    "selector": "external-tool@external",
+                    "marketplace_identity": "external",
+                    "enabled": True,
+                    "source_revision": "external-1",
+                },
+            ],
+        )
+        initial = self.selector.inspect().copy_selectors()
+        self.adapters = AdapterRegistry(
+            target_providers=[self.provider],
+            selector_adapters=[self.selector],
+        )
+        self.plan = self._plan()
+        self.assertEqual(self.plan["status"], "ready")
+
+        prepared = self._prepare()
+        self.assertEqual(self.selector.inspect().copy_selectors(), initial)
+        committed = switch_adoption(
+            prepared["transaction_id"],
+            confirmed_prepared_state_hash=prepared["prepared_state_hash"],
+            context=self.context,
+            adapters=self.adapters,
+        )
+        self.assertEqual(committed["status"], "committed")
+        self.assertEqual(
+            {
+                item["source_revision"]
+                for item in self.selector.inspect().selectors
+                if item["name"] in {"cpt-core", "cpt-design-ui"} and item["enabled"]
+            },
+            {"c" * 40},
+        )
+        rolled_back = rollback_adoption(
+            prepared["transaction_id"],
+            context=self.context,
+            adapters=self.adapters,
+        )
+        self.assertEqual(rolled_back["status"], "rolled_back")
+        self.assertEqual(self.selector.inspect().copy_selectors(), initial)
+
     def test_partial_selector_activation_is_compensated(self) -> None:
         prepared = self._prepare()
         self.selector.faults.add("activate_after_first")

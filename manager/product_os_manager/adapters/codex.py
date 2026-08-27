@@ -191,6 +191,7 @@ class CodexCliSelectorAdapter:
         target_product_version: str,
         target_manifest_sha256: str,
         target_plugins: Sequence[Mapping[str, Any]],
+        predecessor_marketplace: Mapping[str, Any] | None = None,
         legacy_selector_revisions: Mapping[str, str | None] | None = None,
         client: CodexPluginClient | None = None,
     ) -> None:
@@ -257,6 +258,10 @@ class CodexCliSelectorAdapter:
         self.bound_plugins = {
             name: bound_plugins[name] for name in sorted(bound_plugins)
         }
+        self.predecessor_marketplace = self._normalize_predecessor(
+            predecessor_marketplace,
+            sources_root=sources_root,
+        )
         self.managed_plugin_names = tuple(self.bound_plugins)
         self.target_selectors = {
             f"{name}@{marketplace_identity}" for name in self.managed_plugin_names
@@ -272,18 +277,23 @@ class CodexCliSelectorAdapter:
                 )
         self.tracked_selectors = set(self.legacy_selector_revisions) | self.target_selectors
         self.client = client or SubprocessCodexPluginClient(context)
-        binding_hash = canonical_json_hash(
-            {
-                "codex_home": self._path_key(context.codex_home),
-                "target_root": str(self.target_root),
-                "marketplace_identity": marketplace_identity,
-                "target_revision": target_revision,
-                "target_product_version": target_product_version,
-                "target_manifest_sha256": target_manifest_sha256,
-                "target_plugins": list(self.bound_plugins.values()),
-                "legacy_selector_revisions": self.legacy_selector_revisions,
-            }
-        )
+        binding_payload: dict[str, Any] = {
+            "codex_home": self._path_key(context.codex_home),
+            "target_root": str(self.target_root),
+            "marketplace_identity": marketplace_identity,
+            "target_revision": target_revision,
+            "target_product_version": target_product_version,
+            "target_manifest_sha256": target_manifest_sha256,
+            "target_plugins": list(self.bound_plugins.values()),
+            "legacy_selector_revisions": self.legacy_selector_revisions,
+        }
+        # Preserve the exact legacy binding hash when no predecessor exists so
+        # previously committed adoption journals remain diagnosable.
+        if self.predecessor_marketplace is not None:
+            binding_payload["predecessor_marketplace"] = copy.deepcopy(
+                self.predecessor_marketplace
+            )
+        binding_hash = canonical_json_hash(binding_payload)
         self.capability_fingerprint = f"codex-json-cli-two-phase-v1:{binding_hash}"
         self.state_path = (
             context.product_os_home
@@ -295,11 +305,124 @@ class CodexCliSelectorAdapter:
         assert_safe_ancestry(self.state_path, context.product_os_home)
         assert_safe_ancestry(self.lock_path, context.codex_home)
 
+    def _normalize_predecessor(
+        self,
+        value: Mapping[str, Any] | None,
+        *,
+        sources_root: Path,
+    ) -> dict[str, Any] | None:
+        if value is None:
+            return None
+        root_value = value.get("root")
+        revision = value.get("revision")
+        version = value.get("product_version")
+        manifest_sha256 = value.get("package_manifest_sha256")
+        plugins = value.get("plugins")
+        if (
+            value.get("marketplace_identity") != self.marketplace_identity
+            or not isinstance(root_value, str)
+            or not isinstance(revision, str)
+            or not re.fullmatch(r"(?:[0-9a-f]{40}|[0-9a-f]{64})", revision)
+            or revision == self.target_revision
+            or not isinstance(version, str)
+            or not version
+            or not isinstance(manifest_sha256, str)
+            or not re.fullmatch(r"[0-9a-f]{64}", manifest_sha256)
+            or not isinstance(plugins, Sequence)
+            or isinstance(plugins, (str, bytes))
+        ):
+            raise RuntimeError("Codex predecessor marketplace descriptor is invalid")
+        root = Path(root_value).resolve()
+        expected = (sources_root / self.marketplace_identity / revision).resolve()
+        if self._path_key(root) != self._path_key(expected):
+            raise RuntimeError("Codex predecessor marketplace root is not commit-addressed")
+        normalized_plugins: dict[str, dict[str, str]] = {}
+        for item in plugins:
+            if not isinstance(item, Mapping):
+                raise RuntimeError("Codex predecessor plugin descriptor is invalid")
+            name = item.get("name")
+            selector = item.get("selector")
+            relative_path = item.get("relative_path")
+            digest = item.get("manifest_sha256")
+            pure = PurePosixPath(relative_path) if isinstance(relative_path, str) else None
+            plugin_root = (root / relative_path).resolve() if isinstance(relative_path, str) else None
+            if (
+                name not in self.bound_plugins
+                or selector != f"{name}@{self.marketplace_identity}"
+                or pure is None
+                or pure.is_absolute()
+                or not pure.parts
+                or any(part in {"", ".", ".."} for part in pure.parts)
+                or pure.as_posix() != relative_path
+                or "\\" in relative_path
+                or plugin_root is None
+                or not _is_within(plugin_root, root)
+                or not isinstance(digest, str)
+                or not re.fullmatch(r"[0-9a-f]{64}", digest)
+                or name in normalized_plugins
+            ):
+                raise RuntimeError("Codex predecessor plugin descriptor is invalid or duplicated")
+            normalized_plugins[str(name)] = {
+                "name": str(name),
+                "selector": str(selector),
+                "relative_path": relative_path,
+                "manifest_sha256": digest,
+            }
+        if not normalized_plugins:
+            raise RuntimeError("Codex predecessor plugin selection must not be empty")
+        return {
+            "root": str(root),
+            "marketplace_identity": self.marketplace_identity,
+            "revision": revision,
+            "product_version": version,
+            "package_manifest_sha256": manifest_sha256,
+            "plugins": [normalized_plugins[name] for name in sorted(normalized_plugins)],
+        }
+
     def _plugin_root(self, name: str) -> Path:
         root = (self.target_root / self.bound_plugins[name]["relative_path"]).resolve()
         if not _is_within(root, self.target_root):
             raise RuntimeError(f"Codex target plugin path escapes the verified package: {name}")
         return root
+
+    def _target_binding(self) -> dict[str, Any]:
+        return {
+            "root": str(self.target_root),
+            "marketplace_identity": self.marketplace_identity,
+            "revision": self.target_revision,
+            "product_version": self.target_product_version,
+            "package_manifest_sha256": self.target_manifest_sha256,
+            "plugins": list(self.bound_plugins.values()),
+        }
+
+    @staticmethod
+    def _plugins_by_name(binding: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+        return {
+            str(item["name"]): item
+            for item in binding.get("plugins", [])
+            if isinstance(item, Mapping) and isinstance(item.get("name"), str)
+        }
+
+    def _binding_plugin_root(self, binding: Mapping[str, Any], name: str) -> Path:
+        plugins = self._plugins_by_name(binding)
+        item = plugins.get(name)
+        if item is None:
+            raise RuntimeError(f"Codex marketplace binding does not contain plugin: {name}")
+        root = Path(str(binding["root"])).resolve()
+        plugin_root = (root / str(item["relative_path"])).resolve()
+        if not _is_within(plugin_root, root):
+            raise RuntimeError(f"Codex marketplace plugin path escapes its package: {name}")
+        return plugin_root
+
+    def _binding_for_root(self, root: Path) -> dict[str, Any] | None:
+        if self._path_key(root) == self._path_key(self.target_root):
+            return self._target_binding()
+        predecessor = self.predecessor_marketplace
+        if predecessor is not None and self._path_key(root) == self._path_key(
+            Path(predecessor["root"])
+        ):
+            return copy.deepcopy(predecessor)
+        return None
 
     @staticmethod
     def _operation_key(transaction_id: str, operation_id: str) -> str:
@@ -364,24 +487,29 @@ class CodexCliSelectorAdapter:
         if not isinstance(version, str) or not version:
             raise RuntimeError(f"Codex plugin version is invalid: {selector}")
         if selector in self.target_selectors:
-            if version != self.target_product_version:
-                raise RuntimeError(f"Codex target plugin version changed: {selector}")
             source = item.get("source")
             marketplace_source = item.get("marketplaceSource")
-            expected_path = self._plugin_root(name)
             if (
                 not isinstance(source, dict)
                 or source.get("source") != "local"
                 or not isinstance(source.get("path"), str)
-                or self._path_key(Path(source["path"])) != self._path_key(expected_path)
                 or not isinstance(marketplace_source, dict)
                 or marketplace_source.get("sourceType") != "local"
                 or not isinstance(marketplace_source.get("source"), str)
-                or self._path_key(Path(marketplace_source["source"]))
-                != self._path_key(self.target_root)
             ):
-                raise RuntimeError(f"Codex target plugin source is not the bound local marketplace: {selector}")
-            revision: str | None = self.target_revision
+                raise RuntimeError(f"Codex plugin source is not a bounded local marketplace: {selector}")
+            binding = self._binding_for_root(Path(marketplace_source["source"]))
+            if binding is None:
+                raise RuntimeError(f"Codex plugin source is outside target and predecessor bindings: {selector}")
+            binding_plugins = self._plugins_by_name(binding)
+            if name not in binding_plugins:
+                raise RuntimeError(f"Codex marketplace does not declare plugin: {selector}")
+            expected_path = self._binding_plugin_root(binding, name)
+            if self._path_key(Path(source["path"])) != self._path_key(expected_path):
+                raise RuntimeError(f"Codex plugin path is outside its bound marketplace: {selector}")
+            if version != binding["product_version"]:
+                raise RuntimeError(f"Codex plugin version changed: {selector}")
+            revision = str(binding["revision"])
         elif selector in self.legacy_selector_revisions:
             expected_revision = self.legacy_selector_revisions[selector]
             if expected_revision is not None and version != expected_revision:
@@ -430,9 +558,10 @@ class CodexCliSelectorAdapter:
         )
         target_source = None
         if target_marketplace is not None:
-            if self._path_key(Path(target_marketplace["root"])) != self._path_key(self.target_root):
+            binding = self._binding_for_root(Path(target_marketplace["root"]))
+            if binding is None:
                 raise RuntimeError("Codex target marketplace name is bound to another root")
-            target_source = self._verify_target_marketplace()
+            target_source = self._verify_marketplace_binding(binding)
         selectors = self._selectors()
         token = canonical_json_hash(
             {
@@ -489,30 +618,33 @@ class CodexCliSelectorAdapter:
             raise RuntimeError("Codex target plugin payload does not cover the bound plugin set")
         return sorted(result, key=lambda item: item["selector"])
 
-    def _verify_target_marketplace(self) -> dict[str, Any]:
-        if not self.target_root.is_dir() or _is_link_like(self.target_root):
-            raise RuntimeError("Codex target marketplace root is missing or link-like")
+    def _verify_marketplace_binding(
+        self, binding: Mapping[str, Any]
+    ) -> dict[str, Any]:
+        root = Path(str(binding["root"])).resolve()
+        if not root.is_dir() or _is_link_like(root):
+            raise RuntimeError("Codex marketplace root is missing or link-like")
         package = verify_package_root(
-            self.target_root,
-            expected_manifest_sha256=self.target_manifest_sha256,
+            root,
+            expected_manifest_sha256=str(binding["package_manifest_sha256"]),
         )
-        if package.get("version") != self.target_product_version:
-            raise RuntimeError("Codex target package version changed")
-        marketplace = read_json(self.target_root / ".agents" / "plugins" / "marketplace.json")
+        if package.get("version") != binding["product_version"]:
+            raise RuntimeError("Codex marketplace package version changed")
+        marketplace = read_json(root / ".agents" / "plugins" / "marketplace.json")
         if not isinstance(marketplace, dict) or marketplace.get("name") != self.marketplace_identity:
-            raise RuntimeError("Codex target marketplace manifest identity is invalid")
+            raise RuntimeError("Codex marketplace manifest identity is invalid")
         entries = marketplace.get("plugins")
         if not isinstance(entries, list):
-            raise RuntimeError("Codex target marketplace plugin inventory is invalid")
+            raise RuntimeError("Codex marketplace plugin inventory is invalid")
         by_name = {
             item.get("name"): item
             for item in entries
             if isinstance(item, dict) and isinstance(item.get("name"), str)
         }
         if len(by_name) != len(entries):
-            raise RuntimeError("Codex target marketplace plugins are invalid or duplicated")
+            raise RuntimeError("Codex marketplace plugins are invalid or duplicated")
         observed_plugins: list[dict[str, str]] = []
-        for name, expected in self.bound_plugins.items():
+        for name, expected in self._plugins_by_name(binding).items():
             item = by_name.get(name)
             source = item.get("source") if isinstance(item, dict) else None
             canonical_source: str | None = None
@@ -524,16 +656,20 @@ class CodexCliSelectorAdapter:
                 except RuntimeError:
                     canonical_source = None
             if canonical_source != expected["relative_path"]:
-                raise RuntimeError(f"Codex target marketplace source changed: {name}")
-            manifest_path = self._plugin_root(name) / ".codex-plugin" / "plugin.json"
+                raise RuntimeError(f"Codex marketplace source changed: {name}")
+            manifest_path = self._binding_plugin_root(binding, name) / ".codex-plugin" / "plugin.json"
             if canonical_text_file_sha256(manifest_path) != expected["manifest_sha256"]:
-                raise RuntimeError(f"Codex target plugin manifest changed: {name}")
-            observed_plugins.append(copy.deepcopy(expected))
+                raise RuntimeError(f"Codex marketplace plugin manifest changed: {name}")
+            observed_plugins.append(copy.deepcopy(dict(expected)))
         return {
-            "package_manifest_sha256": self.target_manifest_sha256,
+            "revision": binding["revision"],
+            "package_manifest_sha256": binding["package_manifest_sha256"],
             "inventory_sha256": canonical_json_hash(package.get("files")),
             "plugins_sha256": canonical_json_hash(observed_plugins),
         }
+
+    def _verify_target_marketplace(self) -> dict[str, Any]:
+        return self._verify_marketplace_binding(self._target_binding())
 
     def prepare(
         self,
@@ -567,8 +703,20 @@ class CodexCliSelectorAdapter:
                 (item for item in marketplaces if item["name"] == self.marketplace_identity),
                 None,
             )
-            if target_marketplace is not None and self._path_key(Path(target_marketplace["root"])) != self._path_key(self.target_root):
+            current_binding = (
+                self._binding_for_root(Path(target_marketplace["root"]))
+                if target_marketplace is not None
+                else None
+            )
+            if target_marketplace is not None and current_binding is None:
                 raise RuntimeError("Codex target marketplace name is already bound to another root")
+            predecessor_active = (
+                current_binding is not None
+                and self.predecessor_marketplace is not None
+                and current_binding["revision"] == self.predecessor_marketplace["revision"]
+            )
+            if predecessor_active:
+                self._verify_marketplace_binding(current_binding)
             operation = {
                 "transaction_id": transaction_id,
                 "operation_id": operation_id,
@@ -579,6 +727,12 @@ class CodexCliSelectorAdapter:
                 "marketplace_existed_before": target_marketplace is not None,
                 "marketplace_add_intent": target_marketplace is None,
                 "marketplace_added": False,
+                "marketplace_retarget_required": predecessor_active,
+                "predecessor_root": (
+                    self.predecessor_marketplace["root"]
+                    if predecessor_active and self.predecessor_marketplace is not None
+                    else None
+                ),
                 "updated_at": utc_now(),
             }
             store["operations"][key] = operation
@@ -604,6 +758,93 @@ class CodexCliSelectorAdapter:
             store["operations"][key] = operation
             self._save_store(store)
             return prepared
+
+    def _installed_managed_selectors(self) -> list[str]:
+        value = self.client.list_plugins()
+        installed = value.get("installed")
+        if not isinstance(installed, list):
+            raise RuntimeError("Codex plugin list JSON is missing the installed array")
+        selectors: list[str] = []
+        for item in installed:
+            if not isinstance(item, dict):
+                raise RuntimeError("Codex installed plugin entry is invalid")
+            name = item.get("name")
+            selector = item.get("pluginId")
+            if name not in self.managed_plugin_names:
+                continue
+            if (
+                not isinstance(selector, str)
+                or selector != f"{name}@{self.marketplace_identity}"
+                or item.get("installed") is not True
+                or item.get("enabled") is not True
+            ):
+                raise RuntimeError("Codex managed plugin state is invalid during retarget")
+            selectors.append(selector)
+        return sorted(selectors)
+
+    def _remove_canonical_marketplace(self) -> None:
+        result = self.client.remove_marketplace(self.marketplace_identity)
+        if (
+            result.get("marketplaceName") != self.marketplace_identity
+            or not (
+                result.get("removed") is True
+                or ("installedRoot" in result and result.get("installedRoot") is None)
+            )
+        ):
+            raise RuntimeError("Codex marketplace removal result is invalid")
+        if any(
+            item["name"] == self.marketplace_identity
+            for item in self._marketplaces()
+        ):
+            raise RuntimeError("Codex marketplace was not removed during retarget")
+
+    def _retarget_marketplace(
+        self, binding: Mapping[str, Any]
+    ) -> SelectorAdapterEvidence:
+        desired_root = Path(str(binding["root"])).resolve()
+        self._verify_marketplace_binding(binding)
+        marketplaces = self._marketplaces()
+        current = next(
+            (item for item in marketplaces if item["name"] == self.marketplace_identity),
+            None,
+        )
+        if current is not None:
+            current_root = Path(current["root"]).resolve()
+            current_binding = self._binding_for_root(current_root)
+            if current_binding is None:
+                raise RuntimeError("Codex marketplace retarget encountered an unknown root")
+            if self._path_key(current_root) != self._path_key(desired_root):
+                for selector in self._installed_managed_selectors():
+                    self.client.remove_plugin(selector)
+                self._remove_canonical_marketplace()
+                current = None
+        if current is None:
+            result = self.client.add_marketplace(desired_root)
+            if (
+                result.get("marketplaceName") != self.marketplace_identity
+                or result.get("alreadyAdded") is not False
+            ):
+                raise RuntimeError("Codex marketplace retarget did not prove ownership")
+        self._verify_marketplace_binding(binding)
+        desired_plugins = self._plugins_by_name(binding)
+        for name in sorted(desired_plugins):
+            selector = f"{name}@{self.marketplace_identity}"
+            result = self.client.add_plugin(selector)
+            plugin_id = result.get("pluginId")
+            if plugin_id is not None and plugin_id != selector:
+                raise RuntimeError("Codex installed an unexpected plugin during retarget")
+        evidence = self.inspect()
+        managed = {
+            item["name"]: item
+            for item in evidence.selectors
+            if item.get("name") in desired_plugins and item.get("enabled")
+        }
+        if set(managed) != set(desired_plugins) or any(
+            item.get("source_revision") != binding["revision"]
+            for item in managed.values()
+        ):
+            raise RuntimeError("Codex marketplace retarget verification failed")
+        return evidence
 
     def activate(
         self,
@@ -638,27 +879,79 @@ class CodexCliSelectorAdapter:
                 "status": "activating",
                 "input_state_token": expected_state_token,
                 "targets_sha256": canonical_json_hash(targets),
+                "predecessor_root": (
+                    self.predecessor_marketplace["root"]
+                    if self.predecessor_marketplace is not None
+                    else None
+                ),
                 "updated_at": utc_now(),
             }
             store["operations"][key] = operation
             self._save_store(store)
-            current_enabled = {
-                str(item["name"]): str(item["selector"])
-                for item in current.selectors
-                if item.get("enabled") and item.get("name") in self.managed_plugin_names
-            }
-            for target in targets:
-                self._verify_target_marketplace()
-                target_selector = str(target["selector"])
-                active_selector = current_enabled.get(str(target["name"]))
-                if active_selector is not None and active_selector != target_selector:
-                    self.client.remove_plugin(active_selector)
-                result = self.client.add_plugin(target_selector)
-                plugin_id = result.get("pluginId")
-                if plugin_id is not None and plugin_id != target_selector:
-                    raise RuntimeError("Codex installed an unexpected plugin selector")
-                self._verify_target_marketplace()
-            activated = self.inspect()
+            marketplace = next(
+                (
+                    item
+                    for item in self._marketplaces()
+                    if item["name"] == self.marketplace_identity
+                ),
+                None,
+            )
+            current_binding = (
+                self._binding_for_root(Path(marketplace["root"]))
+                if marketplace is not None
+                else None
+            )
+            retarget = (
+                current_binding is not None
+                and self.predecessor_marketplace is not None
+                and current_binding["revision"]
+                == self.predecessor_marketplace["revision"]
+            )
+            try:
+                if retarget:
+                    operation["status"] = "retargeting"
+                    operation["updated_at"] = utc_now()
+                    store["operations"][key] = operation
+                    self._save_store(store)
+                    activated = self._retarget_marketplace(self._target_binding())
+                else:
+                    current_enabled = {
+                        str(item["name"]): str(item["selector"])
+                        for item in current.selectors
+                        if item.get("enabled")
+                        and item.get("name") in self.managed_plugin_names
+                    }
+                    for target in targets:
+                        self._verify_target_marketplace()
+                        target_selector = str(target["selector"])
+                        active_selector = current_enabled.get(str(target["name"]))
+                        if active_selector is not None and active_selector != target_selector:
+                            self.client.remove_plugin(active_selector)
+                        result = self.client.add_plugin(target_selector)
+                        plugin_id = result.get("pluginId")
+                        if plugin_id is not None and plugin_id != target_selector:
+                            raise RuntimeError("Codex installed an unexpected plugin selector")
+                        self._verify_target_marketplace()
+                    activated = self.inspect()
+            except Exception as exc:
+                if retarget and self.predecessor_marketplace is not None:
+                    try:
+                        self._retarget_marketplace(self.predecessor_marketplace)
+                        operation["status"] = "compensated"
+                        operation["recovery_error"] = None
+                    except Exception as recovery_error:
+                        operation["status"] = "manual_recovery_required"
+                        operation["recovery_error"] = str(recovery_error)
+                    operation["error"] = str(exc)
+                    operation["updated_at"] = utc_now()
+                    store["operations"][key] = operation
+                    self._save_store(store)
+                    if operation["status"] == "manual_recovery_required":
+                        raise RuntimeError(
+                            "Codex marketplace retarget failed and compensation is incomplete: "
+                            f"{exc}; {operation['recovery_error']}"
+                        ) from exc
+                raise
             operation["status"] = "activated"
             operation["result_state_token"] = activated.state_token
             operation["updated_at"] = utc_now()
@@ -687,10 +980,49 @@ class CodexCliSelectorAdapter:
                 if name in desired_enabled:
                     raise RuntimeError(f"Codex restore has multiple enabled selectors for: {name}")
                 desired_enabled[name] = selector
+        desired_binding: dict[str, Any] | None = None
+        managed_desired = [
+            item
+            for item in desired
+            if item.get("name") in self.managed_plugin_names and item.get("enabled")
+        ]
+        desired_revisions = {
+            item.get("source_revision") for item in managed_desired
+        }
+        if managed_desired and desired_revisions == {self.target_revision}:
+            desired_binding = self._target_binding()
+        elif (
+            managed_desired
+            and self.predecessor_marketplace is not None
+            and desired_revisions == {self.predecessor_marketplace["revision"]}
+        ):
+            predecessor_names = set(
+                self._plugins_by_name(self.predecessor_marketplace)
+            )
+            if {str(item["name"]) for item in managed_desired} != predecessor_names:
+                raise RuntimeError("Codex restore predecessor plugin coverage is incomplete")
+            desired_binding = copy.deepcopy(self.predecessor_marketplace)
         with exclusive_lock(self.lock_path):
             current = self.inspect()
             if current.state_token != expected_state_token:
                 raise RuntimeError("Codex selector state changed after rollback preflight")
+            if desired_binding is not None:
+                marketplace = next(
+                    (
+                        item
+                        for item in self._marketplaces()
+                        if item["name"] == self.marketplace_identity
+                    ),
+                    None,
+                )
+                desired_root = Path(str(desired_binding["root"])).resolve()
+                if (
+                    marketplace is None
+                    or self._path_key(Path(marketplace["root"]))
+                    != self._path_key(desired_root)
+                ):
+                    self._retarget_marketplace(desired_binding)
+                    current = self.inspect()
             current_enabled = {
                 str(item["name"]): str(item["selector"])
                 for item in current.selectors
@@ -754,6 +1086,36 @@ class CodexCliSelectorAdapter:
                 ):
                     raise RuntimeError("Codex transaction-owned marketplace was not removed")
             return self.inspect()
+
+    def recover_incomplete_activation(
+        self, *, transaction_id: str
+    ) -> SelectorAdapterEvidence:
+        if not TRANSACTION_PATTERN.fullmatch(transaction_id):
+            raise RuntimeError("Transaction id is invalid")
+        with exclusive_lock(self.lock_path):
+            store = self._load_store()
+            candidates = [
+                record
+                for record in store["operations"].values()
+                if isinstance(record, dict)
+                and record.get("transaction_id") == transaction_id
+                and record.get("method") == "activate"
+                and record.get("status")
+                in {"activating", "retargeting", "manual_recovery_required"}
+            ]
+            if not candidates:
+                return self.inspect()
+            if len(candidates) != 1 or self.predecessor_marketplace is None:
+                raise RuntimeError("Codex incomplete activation cannot be reconciled safely")
+            record = candidates[0]
+            if record.get("predecessor_root") != self.predecessor_marketplace["root"]:
+                raise RuntimeError("Codex incomplete activation predecessor binding changed")
+            evidence = self._retarget_marketplace(self.predecessor_marketplace)
+            record["status"] = "recovered_predecessor"
+            record["recovered_state_token"] = evidence.state_token
+            record["updated_at"] = utc_now()
+            self._save_store(store)
+            return evidence
 
     def retire(
         self,

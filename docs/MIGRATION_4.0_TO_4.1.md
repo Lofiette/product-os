@@ -89,6 +89,14 @@ codex plugin list
 
 For a local-path marketplace with uncommitted development changes, remove and re-add the marketplace only when Codex does not pick up the changed source. Start a new Codex thread after plugin reinstall or upgrade.
 
+This Codex marketplace command applies only when Codex itself registered a
+Git-backed marketplace that it can upgrade. A Product OS Manager installation
+is intentionally pinned to
+`PRODUCT_OS_HOME/sources/<marketplace>/<commit>`. Pushing a new commit or tag to
+GitHub does not update that installation automatically. Plan the newer Git ref
+with Product OS Manager, confirm `prepare`, then confirm `switch`; Manager keeps
+the predecessor active until switch and can restore it on failure or rollback.
+
 ## What not to copy manually
 
 Do not manually copy only the Product Designer role or only several `SKILL.md` files into 4.0. Product Designer 4.1 also changes:

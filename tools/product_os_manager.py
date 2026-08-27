@@ -39,6 +39,7 @@ from manager.product_os_manager.transaction import (
     switch_adoption,
     validate_mutation_context,
 )
+from tools import cpt_dist
 
 
 def load_object(path: str | None) -> dict[str, Any] | None:
@@ -119,12 +120,82 @@ def _provider(args: argparse.Namespace, context: InstallationContext) -> LocalGi
     )
 
 
+def _predecessor_from_receipt(
+    receipt: dict[str, Any],
+    context: InstallationContext,
+    target: dict[str, Any],
+) -> dict[str, Any] | None:
+    if receipt.get("schema") != cpt_dist.RECEIPT_SCHEMA_V2:
+        return None
+    lineage = receipt.get("source_lineage")
+    if not isinstance(lineage, dict) or lineage.get("delivery_type") != "git_marketplace":
+        return None
+    identity = lineage.get("marketplace_identity")
+    revision = lineage.get("commit_sha")
+    if identity != target.get("marketplace_identity") or revision == target.get("resolved_commit"):
+        return None
+    if not isinstance(identity, str) or not isinstance(revision, str):
+        raise RuntimeError("Current Git marketplace lineage is incomplete")
+    root = (context.product_os_home / "sources" / identity / revision).resolve()
+    plugins: list[dict[str, Any]] = []
+    target_names = {
+        item.get("name")
+        for item in target.get("plugins", [])
+        if isinstance(item, dict)
+    }
+    installed = receipt.get("installed_plugins")
+    if not isinstance(installed, list):
+        raise RuntimeError("Current Git marketplace receipt has no plugin inventory")
+    for item in installed:
+        if not isinstance(item, dict) or item.get("name") not in target_names:
+            continue
+        name = item.get("name")
+        selector = item.get("selector")
+        payload_value = item.get("payload_path")
+        digest = item.get("manifest_sha256")
+        if (
+            not isinstance(name, str)
+            or selector != f"{name}@{identity}"
+            or not isinstance(payload_value, str)
+            or not isinstance(digest, str)
+        ):
+            raise RuntimeError("Current Git marketplace plugin receipt is incomplete")
+        payload = Path(payload_value).resolve()
+        try:
+            relative = payload.relative_to(root).as_posix()
+        except ValueError as exc:
+            raise RuntimeError(
+                "Current Git marketplace plugin escapes its receipt-bound root"
+            ) from exc
+        plugins.append(
+            {
+                "name": name,
+                "selector": selector,
+                "relative_path": relative,
+                "manifest_sha256": digest,
+            }
+        )
+    if not plugins:
+        raise RuntimeError("Current Git marketplace receipt has no covered plugins")
+    package_digest = lineage.get("manifest_sha256")
+    product_version = lineage.get("release") or receipt.get("version")
+    return {
+        "root": str(root),
+        "marketplace_identity": identity,
+        "revision": revision,
+        "product_version": product_version,
+        "package_manifest_sha256": package_digest,
+        "plugins": sorted(plugins, key=lambda item: item["name"]),
+    }
+
+
 def _codex_adapter(
     args: argparse.Namespace,
     context: InstallationContext,
     target: dict[str, Any],
     *,
     legacy_revisions: dict[str, str | None] | None = None,
+    predecessor_receipt: dict[str, Any] | None = None,
 ) -> CodexCliSelectorAdapter:
     if target.get("evidence_adapter") != "local-git":
         raise RuntimeError("Trusted CLI requires a local-git target provider")
@@ -142,6 +213,12 @@ def _codex_adapter(
             names,
             target_marketplace_identity=target["marketplace_identity"],
         )
+    receipt = (
+        predecessor_receipt
+        if predecessor_receipt is not None
+        else cpt_dist.load_receipt(context.project)
+    )
+    predecessor = _predecessor_from_receipt(receipt, context, target)
     return CodexCliSelectorAdapter(
         context,
         target_root=Path(target["materialized_root"]),
@@ -150,6 +227,7 @@ def _codex_adapter(
         target_product_version=target["product_version"],
         target_manifest_sha256=target["package_manifest_sha256"],
         target_plugins=plugins,
+        predecessor_marketplace=predecessor,
         legacy_selector_revisions=legacy_revisions,
         client=client,
     )
@@ -185,6 +263,7 @@ def _journal_adapters(
         context,
         target,
         legacy_revisions=_legacy_revisions_from_journal(journal),
+        predecessor_receipt=journal["initial"]["receipt"],
     )
     lifecycle_adapters = [CodexSessionLifecycleAdapter(context)] if lifecycle else []
     return AdapterRegistry(

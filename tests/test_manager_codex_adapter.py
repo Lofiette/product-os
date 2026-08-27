@@ -21,6 +21,7 @@ from manager.product_os_manager.state import canonical_text_file_sha256
 
 TRANSACTION_ID = "TX-00000000-0000-4000-8000-000000000001"
 TARGET_REVISION = "c" * 40
+PREDECESSOR_REVISION = "b" * 40
 
 
 class FakeCodexPluginClient:
@@ -55,6 +56,7 @@ class FakeCodexPluginClient:
         self.fail_target_add_after: int | None = None
         self.marketplace_already_added_response = False
         self._target_adds = 0
+        self.allowed_marketplace_roots = {self.target_root}
 
     def _entry(
         self,
@@ -101,9 +103,9 @@ class FakeCodexPluginClient:
 
     def add_marketplace(self, source: Path) -> Mapping[str, Any]:
         self.calls.append(("marketplace-add", str(source.resolve())))
-        if source.resolve() != self.target_root:
+        if source.resolve() not in self.allowed_marketplace_roots:
             raise RuntimeError("unexpected fake marketplace root")
-        self.marketplaces["product-os-git"] = str(self.target_root)
+        self.marketplaces["product-os-git"] = str(source.resolve())
         return {
             "marketplaceName": "product-os-git",
             "alreadyAdded": self.marketplace_already_added_response,
@@ -242,6 +244,45 @@ class CodexCliSelectorAdapterTests(unittest.TestCase):
             },
             client=self.client,
         )
+
+    def _update_adapter(self) -> tuple[CodexCliSelectorAdapter, Path]:
+        predecessor_root = (
+            self.product_os_home
+            / "sources"
+            / "product-os-git"
+            / PREDECESSOR_REVISION
+        )
+        shutil.copytree(self.target_root, predecessor_root)
+        predecessor_plugins = copy.deepcopy(self.target_descriptors)
+        predecessor = {
+            "root": str(predecessor_root.resolve()),
+            "marketplace_identity": "product-os-git",
+            "revision": PREDECESSOR_REVISION,
+            "product_version": "4.1.0",
+            "package_manifest_sha256": canonical_text_file_sha256(
+                predecessor_root / "MANIFEST.json"
+            ),
+            "plugins": predecessor_plugins,
+        }
+        self.client.allowed_marketplace_roots.add(predecessor_root.resolve())
+        self.client.marketplaces["product-os-git"] = str(predecessor_root.resolve())
+        self.client.installed.difference_update(
+            {"cpt-core@cpt-personal", "cpt-design-ui@cpt-personal"}
+        )
+        self.client.installed.update(
+            {"cpt-core@product-os-git", "cpt-design-ui@product-os-git"}
+        )
+        return CodexCliSelectorAdapter(
+            self.context,
+            target_root=self.target_root,
+            marketplace_identity="product-os-git",
+            target_revision=TARGET_REVISION,
+            target_product_version="4.1.0",
+            target_manifest_sha256=self.target_manifest_sha256,
+            target_plugins=self.target_descriptors,
+            predecessor_marketplace=predecessor,
+            client=self.client,
+        ), predecessor_root.resolve()
 
     @staticmethod
     def _enabled(evidence) -> set[str]:
@@ -389,6 +430,109 @@ class CodexCliSelectorAdapterTests(unittest.TestCase):
         )
         self.assertEqual(restored.copy_selectors(), initial.copy_selectors())
         self.assertNotIn("product-os-git", self.client.marketplaces)
+
+    def test_same_marketplace_update_retargets_and_restores_predecessor(self) -> None:
+        adapter, predecessor_root = self._update_adapter()
+        initial = adapter.inspect()
+        self.assertEqual(
+            {
+                item["source_revision"]
+                for item in initial.selectors
+                if item.get("enabled") and item.get("name") in adapter.managed_plugin_names
+            },
+            {PREDECESSOR_REVISION},
+        )
+        prepared = adapter.prepare(
+            self.targets,
+            transaction_id=TRANSACTION_ID,
+            operation_id="prepare-selectors",
+            expected_state_token=initial.state_token,
+        )
+        self.assertEqual(prepared.copy_selectors(), initial.copy_selectors())
+        self.assertEqual(
+            Path(self.client.marketplaces["product-os-git"]).resolve(),
+            predecessor_root,
+        )
+        activated = adapter.activate(
+            self.targets,
+            transaction_id=TRANSACTION_ID,
+            operation_id="activate-selectors",
+            expected_state_token=prepared.state_token,
+        )
+        self.assertEqual(
+            {
+                item["source_revision"]
+                for item in activated.selectors
+                if item.get("enabled") and item.get("name") in adapter.managed_plugin_names
+            },
+            {TARGET_REVISION},
+        )
+        self.assertEqual(
+            Path(self.client.marketplaces["product-os-git"]).resolve(),
+            self.target_root.resolve(),
+        )
+        restored = adapter.restore(
+            initial.copy_selectors(),
+            transaction_id=TRANSACTION_ID,
+            operation_id="restore-selectors",
+            expected_state_token=activated.state_token,
+        )
+        self.assertEqual(restored.copy_selectors(), initial.copy_selectors())
+        self.assertEqual(
+            Path(self.client.marketplaces["product-os-git"]).resolve(),
+            predecessor_root,
+        )
+
+    def test_same_marketplace_update_failure_compensates_predecessor(self) -> None:
+        adapter, predecessor_root = self._update_adapter()
+        initial = adapter.inspect()
+        prepared = adapter.prepare(
+            self.targets,
+            transaction_id=TRANSACTION_ID,
+            operation_id="prepare-selectors",
+            expected_state_token=initial.state_token,
+        )
+        self.client.fail_target_add_after = 1
+        with self.assertRaisesRegex(RuntimeError, "partial Codex plugin activation"):
+            adapter.activate(
+                self.targets,
+                transaction_id=TRANSACTION_ID,
+                operation_id="activate-selectors",
+                expected_state_token=prepared.state_token,
+            )
+        self.assertEqual(adapter.inspect().copy_selectors(), initial.copy_selectors())
+        self.assertEqual(
+            Path(self.client.marketplaces["product-os-git"]).resolve(),
+            predecessor_root,
+        )
+
+    def test_incomplete_update_activation_recovers_predecessor(self) -> None:
+        adapter, predecessor_root = self._update_adapter()
+        initial = adapter.inspect()
+        prepared = adapter.prepare(
+            self.targets,
+            transaction_id=TRANSACTION_ID,
+            operation_id="prepare-selectors",
+            expected_state_token=initial.state_token,
+        )
+        store = adapter._load_store()
+        store["operations"][f"{TRANSACTION_ID}:activate-selectors"] = {
+            "transaction_id": TRANSACTION_ID,
+            "operation_id": "activate-selectors",
+            "method": "activate",
+            "status": "retargeting",
+            "predecessor_root": str(predecessor_root),
+        }
+        adapter._save_store(store)
+        adapter._retarget_marketplace(adapter._target_binding())
+        recovered = adapter.recover_incomplete_activation(
+            transaction_id=TRANSACTION_ID
+        )
+        self.assertEqual(recovered.copy_selectors(), initial.copy_selectors())
+        self.assertEqual(
+            Path(self.client.marketplaces["product-os-git"]).resolve(),
+            predecessor_root,
+        )
 
     def test_subprocess_client_does_not_create_missing_codex_home(self) -> None:
         missing = self.tmp / "missing-codex-home"

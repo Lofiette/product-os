@@ -231,7 +231,9 @@ class DeterministicSelectorAdapter:
             for target in targets:
                 key = (target["name"], target["selector"])
                 if key in by_key and by_key[key]["enabled"]:
-                    raise RuntimeError("Target selector is already active before prepare")
+                    if by_key[key].get("source_revision") == target.get("source_revision"):
+                        raise RuntimeError("Target selector is already active before prepare")
+                    continue
                 by_key[key] = target
             result = list(by_key.values())
             enabled_after = {
@@ -340,6 +342,12 @@ class DeterministicSelectorAdapter:
             expected_state_token=expected_state_token,
             after_write_fault="restore_after_write",
         )
+
+    def recover_incomplete_activation(
+        self, *, transaction_id: str
+    ) -> SelectorAdapterEvidence:
+        del transaction_id
+        return self.inspect()
 
     def retire(
         self,

@@ -49,16 +49,16 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 193,
+    "behavior_tests": 198,
     "installation_receipt_tests": 5,
     "manager_registry_tests": 7,
     "manager_planning_tests": 11,
     "manager_backup_tests": 5,
-    "manager_transaction_tests": 19,
+    "manager_transaction_tests": 20,
     "manager_git_provider_tests": 8,
-    "manager_codex_adapter_tests": 13,
+    "manager_codex_adapter_tests": 16,
     "manager_lifecycle_tests": 6,
-    "manager_cli_tests": 3,
+    "manager_cli_tests": 4,
     "executable_evaluation_cases": 21,
     "fixture_repositories": 6,
     "evaluation_suites": 4,
@@ -110,8 +110,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 4769,
-      "sha256": "2f9b84065d8fbe77bf44f2e8fef5a390980047c81121d85f6b5442a2fa9b1d6e"
+      "size": 5006,
+      "sha256": "58200d0dcb2e09ae7758cae66a2dbc2fa8e3498edff3cf97afe2ad022d324240"
     },
     {
       "path": "DISTRIBUTION_MODES.md",
@@ -160,8 +160,8 @@
     },
     {
       "path": "README.md",
-      "size": 3325,
-      "sha256": "6398d54aa55740a554dd85e4fd4fd50cae4397d27903a5e80eee008c6849d981"
+      "size": 3669,
+      "sha256": "d633e987941cb157223d0800cd885367427875471444252323a17182ced273e3"
     },
     {
       "path": "README_RU.md",
@@ -340,8 +340,8 @@
     },
     {
       "path": "docs/MIGRATION_4.0_TO_4.1.md",
-      "size": 5237,
-      "sha256": "be6137a687dd863faeae5bcfdef6b1927dc6b3c04ba517178978a1845c2e4b24"
+      "size": 5738,
+      "sha256": "ad542321aaf3603bafa6062def65d3ff75edfb2e27ab22a95c71a561f802285d"
     },
     {
       "path": "docs/PLATFORM_SUPPORT.md",
@@ -365,8 +365,8 @@
     },
     {
       "path": "docs/PRODUCT_OS_MANAGER.md",
-      "size": 10746,
-      "sha256": "9472a6b3bc479247c55aea45a3ed970fe32726ad410ebf48540722c13ac266a4"
+      "size": 11962,
+      "sha256": "b31076810466b09e4b0b4b5a6791972b46ca0ae57f2d55369d1b7096ed491247"
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
@@ -1125,8 +1125,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 3423,
-      "sha256": "c88a19ba47ca2198bca9184fa686546ed2d105db5045a6906e0b4eaa00fd297d"
+      "size": 3504,
+      "sha256": "3b60e33d785be5035401741d6fcfc87e306cb5afbe2d3b168a61611b94ae4659"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -1745,13 +1745,13 @@
     },
     {
       "path": "manager/product_os_manager/adapters/base.py",
-      "size": 7986,
-      "sha256": "c255a71f6d1c6ed940e2ed115fed2b845ea8e311b4921d14959663efaea750a8"
+      "size": 8355,
+      "sha256": "532bdd1ba7f55b236b376752d5e7130dfa671a4b98dcecbe1c30f09efd9da2f9"
     },
     {
       "path": "manager/product_os_manager/adapters/codex.py",
-      "size": 36532,
-      "sha256": "c2ec4db278edfa928f1e30269b11090ad523827a182edf596a2fe6460989f523"
+      "size": 53419,
+      "sha256": "e716de3075a6634d02fce0958fc534057c681407b28f0a92755fd3081ebd2634"
     },
     {
       "path": "manager/product_os_manager/adapters/codex_lifecycle.py",
@@ -1760,8 +1760,8 @@
     },
     {
       "path": "manager/product_os_manager/adapters/deterministic.py",
-      "size": 15001,
-      "sha256": "0202210bb7f8a217a06a85deeea5e629816e951cced222ca3fe2d26dcc6d9a68"
+      "size": 15294,
+      "sha256": "d97b9efbe580023a3cc1df048a3fbdaa6e539969c8826babf3ccaa9d459bbd57"
     },
     {
       "path": "manager/product_os_manager/adapters/repository.py",
@@ -1805,8 +1805,8 @@
     },
     {
       "path": "manager/product_os_manager/transaction.py",
-      "size": 81476,
-      "sha256": "9d1d827889d4e396b8a2e7fd1fda6dbab082a4f72190f375302122fd43729a9e"
+      "size": 82072,
+      "sha256": "0f7fd57285945feae79f83c2829d26aef1faccdd1cf3af8d00c7dd5900aefcae"
     },
     {
       "path": "manager/schemas/adoption-plan-v1.schema.json",
@@ -2965,13 +2965,13 @@
     },
     {
       "path": "tests/test_manager_cli.py",
-      "size": 12367,
-      "sha256": "d8a663a5ec9e22d7e0c3d2e3c9eefac3ee8a38dc1b4fc6f88a52633386b4264b"
+      "size": 14735,
+      "sha256": "3bf14de8a56e2a9d976395c1e46cc81d97a556dc0155c6b6f3d6a021e55c8902"
     },
     {
       "path": "tests/test_manager_codex_adapter.py",
-      "size": 22167,
-      "sha256": "8479f4902a257d362fa2455f672eacc34b512fead181c9d38f9ed61ad109a753"
+      "size": 28060,
+      "sha256": "aaa06893dfaedaf472a7df31260c33e0528a146476e0ed0a1b4ed2bc8ed5c4ed"
     },
     {
       "path": "tests/test_manager_git_provider.py",
@@ -2995,8 +2995,8 @@
     },
     {
       "path": "tests/test_manager_transaction.py",
-      "size": 32060,
-      "sha256": "3c2a191adf5d48aea05edcd2efb6841749d570e17e6412c100eed03f6bf26402"
+      "size": 34473,
+      "sha256": "4a92964f5de8f220d229d0e118c187626e31ff649d8a0bd2f90131e94902762b"
     },
     {
       "path": "tests/test_migration.py",
@@ -3031,7 +3031,7 @@
     {
       "path": "tools/build_manifest.py",
       "size": 4965,
-      "sha256": "d8bee3999ee02d90f07e7926013dd8c4ca289a44fac52c0f3917a358541b83aa"
+      "sha256": "8f7d12d86795f10016a07d746bfd1341d71eff40838bd9490862d65e7859ba97"
     },
     {
       "path": "tools/cpt_dist.py",
@@ -3090,8 +3090,8 @@
     },
     {
       "path": "tools/product_os_manager.py",
-      "size": 17587,
-      "sha256": "9c5d63a70a0aa97aa8db1ed2d027551abb1b90d243429b2357b0c32aaa050662"
+      "size": 20758,
+      "sha256": "0aceaf450cca2e5b7e84d9e03743c727d3c7ecfdcbaf4407ba31a603a9ecaa4e"
     },
     {
       "path": "tools/run_enforcement_integration.py",
@@ -3111,7 +3111,7 @@
     {
       "path": "tools/validate_distribution.py",
       "size": 14670,
-      "sha256": "f30b906f72644eeb6e750c63c4d7aaea01ef40476e01a557a2f0333d592b4217"
+      "sha256": "e40af2aad3fad4a65f1f32942c4cbf075fcdd84929d381fcea996e931c2af352"
     },
     {
       "path": "tools/validate_enforcement.py",

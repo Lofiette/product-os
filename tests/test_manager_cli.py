@@ -244,6 +244,73 @@ class ManagerCliTests(unittest.TestCase):
             )
             self.assertEqual(journal["state"], "rolled_back")
 
+    def test_predecessor_binding_is_derived_from_receipt_lineage(self) -> None:
+        predecessor_revision = "b" * 40
+        predecessor_root = (
+            self.fixture.product_os_home
+            / "sources"
+            / "product-os-git"
+            / predecessor_revision
+        ).resolve()
+        receipt = cpt_dist.load_receipt(self.fixture.project)
+        receipt["schema"] = cpt_dist.RECEIPT_SCHEMA_V2
+        receipt["version"] = "4.1.0"
+        receipt["source_lineage"] = {
+            "delivery_type": "git_marketplace",
+            "marketplace_identity": "product-os-git",
+            "commit_sha": predecessor_revision,
+            "release": "4.1.0",
+            "manifest_sha256": "a" * 64,
+        }
+        receipt["installed_plugins"] = [
+            {
+                "name": name,
+                "selector": f"{name}@product-os-git",
+                "payload_path": str(
+                    predecessor_root
+                    / "payload"
+                    / "marketplace-root"
+                    / "plugins"
+                    / name
+                ),
+                "manifest_sha256": character * 64,
+            }
+            for name, character in (
+                ("cpt-core", "c"),
+                ("cpt-design-ui", "d"),
+            )
+        ]
+        target = {
+            "marketplace_identity": "product-os-git",
+            "resolved_commit": self.commit,
+            "plugins": [
+                {"name": "cpt-core"},
+                {"name": "cpt-design-ui"},
+            ],
+        }
+        predecessor = cli._predecessor_from_receipt(
+            receipt,
+            self.fixture.context,
+            target,
+        )
+        self.assertEqual(predecessor["revision"], predecessor_revision)
+        self.assertEqual(Path(predecessor["root"]), predecessor_root)
+        self.assertEqual(
+            [item["name"] for item in predecessor["plugins"]],
+            ["cpt-core", "cpt-design-ui"],
+        )
+
+        escaped = json.loads(json.dumps(receipt))
+        escaped["installed_plugins"][0]["payload_path"] = str(
+            self.fixture.tmp / "outside" / "cpt-core"
+        )
+        with self.assertRaisesRegex(RuntimeError, "escapes its receipt-bound root"):
+            cli._predecessor_from_receipt(
+                escaped,
+                self.fixture.context,
+                target,
+            )
+
     def test_explicit_context_refuses_ambient_codex_home_without_exact_confirmation(self) -> None:
         sentinel = self.fixture.codex_home / "active-sentinel.txt"
         sentinel.parent.mkdir(parents=True, exist_ok=True)

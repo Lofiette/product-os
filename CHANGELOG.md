@@ -21,6 +21,9 @@ Product OS 4.1.0 is the first complete Product Designer redesign. The internal P
   verified backup, bounded rollback/recovery, and a read-only migration doctor.
 - Added a production local-Git provider that reads committed objects without
   checkout, fetch, hooks, or working-tree trust.
+- Added transactional same-marketplace Git updates: the old commit stays active
+  through prepare, switch retargets to the new immutable commit, and bounded
+  compensation, recovery, or rollback restores receipt-bound predecessor state.
 - Added an optional Codex JSON selector adapter, explicit active-home safety,
   and privacy-minimized SessionStart/SessionEnd lifecycle evidence. Real Codex
   plugin switching and new-session delivery remain isolated acceptance gates.

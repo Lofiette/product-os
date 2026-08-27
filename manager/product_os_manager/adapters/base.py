@@ -126,6 +126,16 @@ class SelectorAdapter(Protocol):
     ) -> SelectorAdapterEvidence:
         ...
 
+    def recover_incomplete_activation(
+        self, *, transaction_id: str
+    ) -> SelectorAdapterEvidence:
+        """Reconcile adapter-owned partial switch state before core recovery.
+
+        Adapters with no opaque multi-step activation may return `inspect()`.
+        The core invokes this only from an already authorized recovery path.
+        """
+        ...
+
     def retire(
         self,
         selectors: Sequence[str],

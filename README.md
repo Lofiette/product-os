@@ -67,15 +67,20 @@ Update:
 codex plugin marketplace upgrade product-os
 ```
 
-Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update`.
+This command is for a marketplace that Codex registered directly from Git. A
+Product OS Manager installation is pinned to an immutable local commit root;
+publishing to GitHub does not silently update it. Use a new Manager
+`plan-local-git` -> `prepare` -> `switch` transaction for that case.
+
+Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update` for a legacy local-distribution installation.
 
 For a transactional 4.0 local-installation to Git-marketplace adoption, use
 `tools/product_os_manager.py plan-local-git`, then separately confirm `prepare`
 and `switch`. Trusted commands require explicit project, user, Codex, and
 Product OS roots; source-dependent phases additionally require a repository
 root. They reject the process-active `CODEX_HOME` by default. See
-`docs/PRODUCT_OS_MANAGER.md`; real Codex switching is still a release acceptance
-step, not an offline-certified claim.
+`docs/PRODUCT_OS_MANAGER.md`; real Codex switching remains separately evidenced
+from the deterministic offline certification.
 
 ## Verification
 

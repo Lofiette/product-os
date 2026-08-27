@@ -397,7 +397,13 @@ def _expected_prepared_selectors(
     for plugin in target_plugins:
         key = (plugin["name"], plugin["selector"])
         if key in by_key and by_key[key].get("enabled"):
-            raise AdoptionTransactionError("Target selector is active before prepare")
+            if by_key[key].get("source_revision") == plugin.get("source_revision"):
+                raise AdoptionTransactionError("Target selector is active before prepare")
+            # A Git marketplace update keeps the same selector identity while
+            # prepare verifies and materializes a newer immutable revision.
+            # The predecessor must remain active until the separately confirmed
+            # switch phase retargets the marketplace.
+            continue
         by_key[key] = _selector_target_entry(plugin, enabled=False)
     return sorted(by_key.values(), key=lambda item: (item["name"], item["selector"]))
 
@@ -1329,6 +1335,9 @@ def _compensate_switch(
     files, directories = resource_paths(context, latest["initial"]["receipt"])
     restore_keys = _owned_resource_keys(files, directories)
     try:
+        recover_incomplete = getattr(selector, "recover_incomplete_activation", None)
+        if callable(recover_incomplete):
+            recover_incomplete(transaction_id=latest["transaction_id"])
         backup = verify_backup(
             context,
             Path(latest["backup"]["manifest_path"]),

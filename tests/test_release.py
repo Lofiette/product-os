@@ -41,19 +41,31 @@ class ReleasePlaneTests(unittest.TestCase):
         self.assertEqual(data["summary"]["blocked"], 0)
 
     def test_rc_assessment_is_blocked_without_live_evidence(self):
-        proc = self.run_cli("assess", "--scope", "rc", check=False)
-        self.assertNotEqual(proc.returncode, 0)
-        data = json.loads(proc.stdout)
+        with mock.patch.object(
+            cpt_release,
+            "reviewed_release_evidence",
+            return_value=({}, []),
+        ):
+            data = cpt_release.assess("rc")
+            with mock.patch.object(
+                sys,
+                "argv",
+                [str(CLI), "assess", "--scope", "rc"],
+            ), mock.patch("builtins.print"):
+                cli_result = cpt_release.main()
         self.assertEqual(data["status"], "BLOCKED")
         self.assertGreaterEqual(data["summary"]["pending"], 3)
+        self.assertEqual(cli_result, 1)
 
     def test_reviewed_isolated_codex_acceptance_is_ingested(self):
         data = json.loads(self.run_cli("assess", "--scope", "offline").stdout)
         gates = {item["id"]: item for item in data["gates"]}
         self.assertEqual(gates["isolated_codex_adoption"]["status"], "PASS")
         self.assertIn("TX-679ec9c6-317e-486f-9142-43209a40ceb2", " ".join(gates["isolated_codex_adoption"]["evidence"]))
-        self.assertEqual(gates["platform_matrix"]["status"], "PENDING")
+        self.assertEqual(gates["platform_matrix"]["status"], "PASS")
         self.assertIn("WSL", " ".join(gates["platform_matrix"]["evidence"]))
+        self.assertEqual(gates["live_model_trials"]["status"], "PASS")
+        self.assertEqual(gates["rc_mega_audit"]["status"], "PASS")
 
     def test_invalid_reviewed_evidence_fails_package_integrity_closed(self):
         with mock.patch.object(

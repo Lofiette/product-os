@@ -2181,7 +2181,7 @@
     {
       "path": "release/EVIDENCE.json",
       "size": 6455,
-      "sha256": "73f568493c0e439908e7f9a1084f4b745ea27d63f19d5c73f78f5c07a9f5bf86"
+      "sha256": "99828dc8a7286d33af87b289b5d1570e547e81a4d14607ef4ae6e5bb213dd772"
     },
     {
       "path": "release/GATES.json",
@@ -3040,8 +3040,8 @@
     },
     {
       "path": "tests/test_release.py",
-      "size": 5511,
-      "sha256": "f4b331ca60c41ccf1d479b1f4d008733ab154679a5689df808f7113cb818da33"
+      "size": 5948,
+      "sha256": "96994af37c03e60f84c6fbf044aed678e3fffad347ea5590b654d1dd9d7328af"
     },
     {
       "path": "tests/test_roles.py",

@@ -365,8 +365,8 @@
     },
     {
       "path": "docs/PRODUCT_OS_MANAGER.md",
-      "size": 10107,
-      "sha256": "8ef20f528353468b04abde90f620490eb726aa7b9d3afffc567c7376632db650"
+      "size": 10326,
+      "sha256": "2b99e3b489fbc71c42808b5ba75c3c5a2bdc474e3769a58e9b8b0c74bc5e4de3"
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
@@ -1945,8 +1945,8 @@
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/hooks/hooks.json",
-      "size": 4789,
-      "sha256": "931d1917d6d974680c62b7fbe4a4750fa346e4fd936d27bf8ae95a9f2ba81d66"
+      "size": 4819,
+      "sha256": "f43e87a998bcfb2104bb78af05d114ec91cab9c258d8131dad1e3bab34d5c218"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/hooks/product_os_lifecycle.py",
@@ -2945,8 +2945,8 @@
     },
     {
       "path": "tests/test_enforcement.py",
-      "size": 15336,
-      "sha256": "f0cd41366074fbc0c0b7d4b7b621f2abdf3ed48feadd8fcee7aeb3cf7d9f5744"
+      "size": 15861,
+      "sha256": "24df17eb221ad519d42acbbb366ba6ab5410a4051411c760f4f19d4c65b06814"
     },
     {
       "path": "tests/test_evaluation.py",

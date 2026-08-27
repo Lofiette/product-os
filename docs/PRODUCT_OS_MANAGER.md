@@ -160,6 +160,9 @@ Python launcher, and finally a real Python executable on PATH (Windows Store
 aliases are rejected). This avoids assuming that the py launcher is installed.
 Both launch paths disable bytecode writes so trusted hooks cannot mutate the
 Manager's hash-verified immutable source materialization.
+The Windows hook command is deliberately quote-free and resolves PLUGIN_ROOT
+inside PowerShell. This avoids the current Codex cmd.exe quoting failure while
+remaining safe when the installed plugin path contains spaces.
 Lifecycle evidence uses a bounded 64-session ring and one shared lock per
 installation transaction.
 

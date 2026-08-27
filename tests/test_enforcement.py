@@ -200,6 +200,9 @@ class EnforcementTests(unittest.TestCase):
         self.assertTrue((plugin/'hooks/cpt_hook.py').exists())
         windows_launcher=plugin/'hooks/cpt_hook_windows.ps1'
         self.assertTrue(windows_launcher.exists())
+        launcher_text=windows_launcher.read_text(encoding='utf-8')
+        self.assertIn('[Console]::In.ReadToEnd()',launcher_text)
+        self.assertIn('ConvertFrom-Json',launcher_text)
         hooks=json.loads((plugin/'hooks/hooks.json').read_text(encoding='utf-8'))
         commands=[
             hook['commandWindows']

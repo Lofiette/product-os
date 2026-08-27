@@ -3,6 +3,20 @@ $ErrorActionPreference = 'Stop'
 $hookPath = Join-Path $PSScriptRoot 'cpt_hook.py'
 $pythonPath = $null
 $pythonArgs = @('-B')
+$rawPayload = [Console]::In.ReadToEnd()
+$searchPath = (Get-Location).Path
+
+try {
+    $hookPayload = $rawPayload | ConvertFrom-Json
+    if ($hookPayload.cwd) {
+        $candidateCwd = [System.IO.Path]::GetFullPath([string]$hookPayload.cwd)
+        if (Test-Path -LiteralPath $candidateCwd -PathType Container) {
+            $searchPath = $candidateCwd
+        }
+    }
+} catch {
+    # cpt_hook.py owns malformed-payload handling; discovery safely falls back.
+}
 
 if ($env:PRODUCT_OS_PYTHON) {
     $configured = [System.IO.Path]::GetFullPath($env:PRODUCT_OS_PYTHON)
@@ -14,7 +28,7 @@ if ($env:PRODUCT_OS_PYTHON) {
 }
 
 if (-not $pythonPath) {
-    $current = [System.IO.DirectoryInfo](Get-Location).Path
+    $current = [System.IO.DirectoryInfo]$searchPath
     while ($null -ne $current) {
         $candidate = Join-Path $current.FullName '.runtime\python\python.exe'
         if (Test-Path -LiteralPath $candidate -PathType Leaf) {
@@ -50,5 +64,8 @@ if (-not $pythonPath) {
     exit 127
 }
 
-& $pythonPath @pythonArgs $hookPath
+$utf8 = New-Object System.Text.UTF8Encoding($false)
+$OutputEncoding = $utf8
+[Console]::OutputEncoding = $utf8
+$rawPayload | & $pythonPath @pythonArgs $hookPath
 exit $LASTEXITCODE

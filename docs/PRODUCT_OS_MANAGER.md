@@ -163,6 +163,10 @@ Manager's hash-verified immutable source materialization.
 The Windows hook command is deliberately quote-free and resolves PLUGIN_ROOT
 inside PowerShell. This avoids the current Codex cmd.exe quoting failure while
 remaining safe when the installed plugin path contains spaces.
+The launcher does not rely on Codex starting it in the project directory. It
+reads the standard hook payload once, uses its `cwd` field for project-local
+Python discovery, and then forwards the same payload to the Python hook as
+UTF-8.
 Lifecycle evidence uses a bounded 64-session ring and one shared lock per
 installation transaction.
 

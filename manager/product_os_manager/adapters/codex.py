@@ -642,11 +642,20 @@ class CodexCliSelectorAdapter:
             }
             store["operations"][key] = operation
             self._save_store(store)
+            current_enabled = {
+                str(item["name"]): str(item["selector"])
+                for item in current.selectors
+                if item.get("enabled") and item.get("name") in self.managed_plugin_names
+            }
             for target in targets:
                 self._verify_target_marketplace()
-                result = self.client.add_plugin(str(target["selector"]))
+                target_selector = str(target["selector"])
+                active_selector = current_enabled.get(str(target["name"]))
+                if active_selector is not None and active_selector != target_selector:
+                    self.client.remove_plugin(active_selector)
+                result = self.client.add_plugin(target_selector)
                 plugin_id = result.get("pluginId")
-                if plugin_id is not None and plugin_id != target["selector"]:
+                if plugin_id is not None and plugin_id != target_selector:
                     raise RuntimeError("Codex installed an unexpected plugin selector")
                 self._verify_target_marketplace()
             activated = self.inspect()
@@ -692,12 +701,12 @@ class CodexCliSelectorAdapter:
                 active = current_enabled.get(name)
                 if wanted == active:
                     continue
+                if active is not None:
+                    self.client.remove_plugin(active)
                 if wanted is not None:
                     if wanted not in self.tracked_selectors:
                         raise RuntimeError(f"Codex restore selector is outside adapter authority: {wanted}")
                     self.client.add_plugin(wanted)
-                elif active is not None:
-                    self.client.remove_plugin(active)
             store = self._load_store()
             added_by_transaction = any(
                 isinstance(record, dict)
@@ -730,7 +739,13 @@ class CodexCliSelectorAdapter:
                 result = self.client.remove_marketplace(self.marketplace_identity)
                 if (
                     result.get("marketplaceName") != self.marketplace_identity
-                    or result.get("removed") is not True
+                    or not (
+                        result.get("removed") is True
+                        or (
+                            "installedRoot" in result
+                            and result.get("installedRoot") is None
+                        )
+                    )
                 ):
                     raise RuntimeError("Codex marketplace removal result is invalid")
                 if any(

@@ -130,7 +130,7 @@ class ManagerCliTests(unittest.TestCase):
                 transactions["transactions"][0]["transaction_id"],
                 prepared["transaction_id"],
             )
-            enabled_after_prepare = set(self.fake.installed.values())
+            enabled_after_prepare = set(self.fake.installed)
             self.assertIn("cpt-core@cpt-personal", enabled_after_prepare)
             self.assertIn("cpt-design-ui@cpt-personal", enabled_after_prepare)
 
@@ -145,8 +145,9 @@ class ManagerCliTests(unittest.TestCase):
             self.assertEqual(committed["status"], "committed")
             self.assertEqual(
                 {
-                    self.fake.installed["cpt-core"],
-                    self.fake.installed["cpt-design-ui"],
+                    selector
+                    for selector in self.fake.installed
+                    if selector.startswith(("cpt-core@", "cpt-design-ui@"))
                 },
                 {
                     "cpt-core@product-os-git",
@@ -227,8 +228,9 @@ class ManagerCliTests(unittest.TestCase):
             self.assertEqual(rolled_back["status"], "rolled_back")
             self.assertEqual(
                 {
-                    self.fake.installed["cpt-core"],
-                    self.fake.installed["cpt-design-ui"],
+                    selector
+                    for selector in self.fake.installed
+                    if selector.startswith(("cpt-core@", "cpt-design-ui@"))
                 },
                 {
                     "cpt-core@cpt-personal",

@@ -46,10 +46,10 @@ class FakeCodexPluginClient:
                 "cpt-design-ui": "4.1.0",
             },
         }
-        self.installed: dict[str, str] = {
-            "cpt-core": "cpt-core@cpt-personal",
-            "cpt-design-ui": "cpt-design-ui@cpt-personal",
-            "external-tool": "external-tool@external",
+        self.installed: set[str] = {
+            "cpt-core@cpt-personal",
+            "cpt-design-ui@cpt-personal",
+            "external-tool@external",
         }
         self.calls: list[tuple[str, str]] = []
         self.fail_target_add_after: int | None = None
@@ -86,7 +86,7 @@ class FakeCodexPluginClient:
         for marketplace in sorted(self.marketplaces):
             for name in sorted(self.catalogs[marketplace]):
                 selector = f"{name}@{marketplace}"
-                active = self.installed.get(name) == selector
+                active = selector in self.installed
                 entry = self._entry(name, marketplace, installed=active)
                 (installed if active else available).append(entry)
         return {"installed": installed, "available": available}
@@ -111,17 +111,17 @@ class FakeCodexPluginClient:
 
     def remove_marketplace(self, marketplace: str) -> Mapping[str, Any]:
         self.calls.append(("marketplace-remove", marketplace))
-        if any(value.endswith(f"@{marketplace}") for value in self.installed.values()):
+        if any(value.endswith(f"@{marketplace}") for value in self.installed):
             raise RuntimeError("cannot remove a marketplace with installed plugins")
         self.marketplaces.pop(marketplace, None)
-        return {"marketplaceName": marketplace, "removed": True}
+        return {"marketplaceName": marketplace, "installedRoot": None}
 
     def add_plugin(self, selector: str) -> Mapping[str, Any]:
         self.calls.append(("plugin-add", selector))
         name, marketplace = selector.split("@", 1)
         if marketplace not in self.marketplaces or name not in self.catalogs[marketplace]:
             raise RuntimeError("unknown fake plugin selector")
-        self.installed[name] = selector
+        self.installed.add(selector)
         if marketplace == "product-os-git":
             self._target_adds += 1
             if self.fail_target_add_after == self._target_adds:
@@ -130,9 +130,7 @@ class FakeCodexPluginClient:
 
     def remove_plugin(self, selector: str) -> Mapping[str, Any]:
         self.calls.append(("plugin-remove", selector))
-        name, _marketplace = selector.split("@", 1)
-        if self.installed.get(name) == selector:
-            del self.installed[name]
+        self.installed.discard(selector)
         return {"pluginId": selector, "removed": True}
 
 

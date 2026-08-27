@@ -100,6 +100,10 @@ publishing to GitHub does not silently update it. Use a new Manager
 The bundled registration helpers are repeat-safe for an existing direct
 marketplace, reject Manager immutable roots even under a custom
 `PRODUCT_OS_HOME`, and refuse to pretend that `upgrade` can retarget a ref.
+If an existing marketplace is combined with an explicitly requested source or
+ref, they fail closed because current Codex output cannot verify that provenance.
+Plugin adds are sequential; after a partial failure, correct the cause and re-run
+the same helper.
 
 Start a new thread after plugin installation or reinstall. Update project `.cpt/` state separately with `cpt_dist.py update` for a legacy local-distribution installation.
 

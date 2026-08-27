@@ -172,6 +172,12 @@ from Git. Upgrade refreshes the ref already configured by Codex; it cannot be
 combined with an explicit `-Ref`/`--ref` to retarget the marketplace. Any root
 matching the Manager immutable layout `sources/product-os/<commit>` is rejected,
 including a non-default `PRODUCT_OS_HOME`; update it through Product OS Manager.
+Because current Codex marketplace listing does not expose verifiable source/ref
+provenance, an existing marketplace plus an explicitly supplied `Source` or `Ref`
+fails closed. Re-run with no source/ref override to trust that existing registration,
+use the upgrade switch to refresh its configured ref, or choose a separate marketplace
+name. Plugin installation is sequential rather than transactional: if the second
+plugin fails, fix the cause and safely re-run the same helper to converge.
 
 ## Optional worker pack
 

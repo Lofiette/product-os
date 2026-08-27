@@ -115,6 +115,28 @@ if failure and failure in " ".join(args):
         assert not any(call[:3] == ["plugin", "marketplace", "add"] for call in calls)
         assert ["plugin", "add", "cpt-core@product-os"] in calls
 
+        explicit_ref_args = ["-Ref", "v4.1.0"] if powershell else ["--ref", "v4.1.0"]
+        explicit_ref, calls = invoke(
+            explicit_ref_args,
+            "product-os /tmp/codex/plugins/marketplaces/product-os",
+        )
+        assert explicit_ref.returncode != 0
+        assert "does not expose enough provenance" in (explicit_ref.stderr + explicit_ref.stdout)
+        assert not any(call[:2] == ["plugin", "add"] for call in calls)
+
+        explicit_source_args = (
+            ["-Source", "other-owner/product-os"]
+            if powershell
+            else ["--source", "other-owner/product-os"]
+        )
+        explicit_source, calls = invoke(
+            explicit_source_args,
+            "product-os /tmp/codex/plugins/marketplaces/product-os",
+        )
+        assert explicit_source.returncode != 0
+        assert "does not expose enough provenance" in (explicit_source.stderr + explicit_source.stdout)
+        assert not any(call[:2] == ["plugin", "add"] for call in calls)
+
         manager, calls = invoke(
             ["-Upgrade"] if powershell else ["--upgrade"],
             "product-os /srv/custom/sources/product-os/abcdef1234567890",
@@ -142,8 +164,9 @@ def validate_powershell() -> bool:
             "[string]$Ref = 'v4.1.0'",
             "$MarketplaceOutput = (& codex plugin marketplace list",
             "$ManagerRootPattern =",
+            "$SourceExplicit = $PSBoundParameters.ContainsKey('Source')",
+            "$RefExplicit = $PSBoundParameters.ContainsKey('Ref')",
             "if ($MarketplaceRoot -match $ManagerRootPattern)",
-            "$PSBoundParameters.ContainsKey('Ref')",
             "& codex plugin marketplace upgrade $MarketplaceName",
             "& codex plugin marketplace add $Source --ref $Ref",
             "& codex plugin add \"$Plugin@$MarketplaceName\"",
@@ -178,6 +201,7 @@ def validate_bash() -> bool:
         [
             'source_repo="Lofiette/product-os"',
             'release_ref="v4.1.0"',
+            'source_explicit=false',
             'marketplace_output="$(codex plugin marketplace list)"',
             'if [[ "$normalized_line" =~ /sources/product-os/',
             'if [[ "$ref_explicit" == true ]]',

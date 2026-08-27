@@ -28,6 +28,8 @@ $MarketplaceMatch = [regex]::Match($MarketplaceOutput, $MarketplacePattern)
 $MarketplaceExists = $MarketplaceMatch.Success
 $MarketplaceRoot = if ($MarketplaceExists) { $MarketplaceMatch.Groups[1].Value } else { '' }
 $ManagerRootPattern = '[\\/]sources[\\/]product-os[\\/][0-9a-f]{7,64}(?:[\\/]|$)'
+$SourceExplicit = $PSBoundParameters.ContainsKey('Source')
+$RefExplicit = $PSBoundParameters.ContainsKey('Ref')
 
 if ($Upgrade) {
     if (-not $MarketplaceExists) {
@@ -36,7 +38,7 @@ if ($Upgrade) {
     if ($MarketplaceRoot -match $ManagerRootPattern) {
         throw "Marketplace '$MarketplaceName' is managed by Product OS Manager. Use a confirmed Manager plan-local-git -> prepare -> switch transaction instead of marketplace upgrade."
     }
-    if ($PSBoundParameters.ContainsKey('Ref')) {
+    if ($RefExplicit) {
         throw '-Ref cannot retarget an existing marketplace. The Codex upgrade command refreshes its configured ref; use Product OS Manager or register a separate marketplace to change refs.'
     }
     & codex plugin marketplace upgrade $MarketplaceName
@@ -48,6 +50,9 @@ else {
     if ($MarketplaceExists) {
         if ($MarketplaceRoot -match $ManagerRootPattern) {
             throw "Marketplace '$MarketplaceName' is managed by Product OS Manager. Use a confirmed Manager plan-local-git -> prepare -> switch transaction instead of this direct helper."
+        }
+        if ($SourceExplicit -or $RefExplicit) {
+            throw "Marketplace '$MarketplaceName' already exists, but Codex does not expose enough provenance to verify the explicitly requested source or ref. Re-run without -Source/-Ref to trust the existing marketplace, use -Upgrade to refresh its configured ref, or register a separate marketplace to retarget."
         }
         Write-Host "Marketplace '$MarketplaceName' is already registered at '$MarketplaceRoot'; keeping it and ensuring the requested plugins are installed."
     }

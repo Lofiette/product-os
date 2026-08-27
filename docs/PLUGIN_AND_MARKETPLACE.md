@@ -67,10 +67,14 @@ codex plugin add cpt-design-ui@product-os
 
 Start a new Codex thread after installation or reinstall so new skills and tool declarations are loaded at a clean session boundary.
 
-The helpers fail closed when `product-os` already exists. Direct Git-backed
-marketplaces may use the explicit upgrade option. A Manager-owned root under
-`~/.product-os/sources/` must use the transactional Manager update path so the
-receipt, rollback source, and plugin selectors remain consistent.
+The helpers repeat safely when `product-os` already exists and no source/ref
+override is requested. They fail closed if an existing marketplace is combined
+with an explicit source or ref because current Codex listing output cannot prove
+that provenance. Direct Git-backed marketplaces may use the explicit upgrade
+option. A Manager-owned root under `~/.product-os/sources/` must use the
+transactional Manager update path so the receipt, rollback source, and plugin
+selectors remain consistent. Plugin adds are sequential: after a partial failure,
+fix the cause and re-run the helper to converge.
 
 ## Local marketplace for development
 

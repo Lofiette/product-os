@@ -5,6 +5,7 @@ source_repo="Lofiette/product-os"
 release_ref="v4.1.0"
 marketplace_name="product-os"
 upgrade=false
+source_explicit=false
 ref_explicit=false
 
 usage() {
@@ -24,6 +25,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --source)
       source_repo="${2:?--source requires a value}"
+      source_explicit=true
       shift 2
       ;;
     --ref)
@@ -79,6 +81,10 @@ else
     normalized_line="${marketplace_line//\\//}"
     if [[ "$normalized_line" =~ /sources/product-os/[0-9a-fA-F]{7,64}(/|$) ]]; then
       printf "Marketplace '%s' is managed by Product OS Manager. Use a confirmed Manager plan-local-git -> prepare -> switch transaction instead of this direct helper.\n" "$marketplace_name" >&2
+      exit 1
+    fi
+    if [[ "$source_explicit" == true || "$ref_explicit" == true ]]; then
+      printf "Marketplace '%s' already exists, but Codex does not expose enough provenance to verify the explicitly requested source or ref. Re-run without --source/--ref to trust the existing marketplace, use --upgrade to refresh its configured ref, or register a separate marketplace to retarget.\n" "$marketplace_name" >&2
       exit 1
     fi
     printf "Marketplace '%s' is already registered; keeping it and ensuring the requested plugins are installed.\n" "$marketplace_name"

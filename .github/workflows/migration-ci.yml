@@ -32,3 +32,40 @@ jobs:
       - run: python scripts/validate_migration_assets.py
       - run: python tests/test_migration.py
       - run: python tools/cpt_migrate.py platform-check --project .
+
+  wsl:
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install an ephemeral Ubuntu distribution under WSL 1
+        shell: pwsh
+        run: |
+          wsl.exe --set-default-version 1
+          wsl.exe --install --distribution Ubuntu --no-launch --web-download
+          wsl.exe --list --verbose
+      - name: Run migration and distribution acceptance inside WSL
+        shell: pwsh
+        run: |
+          $workspace = (wsl.exe --distribution Ubuntu --user root -- wslpath -a "$env:GITHUB_WORKSPACE").Trim()
+          if (-not $workspace.StartsWith('/mnt/')) {
+            throw "Unexpected WSL workspace path: $workspace"
+          }
+
+          $acceptance = @"
+          set -euo pipefail
+          uname -a
+          cd '$workspace'
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y python3 python3-venv
+          python3 -m venv /tmp/product-os-venv
+          /tmp/product-os-venv/bin/python -m pip install -r requirements.txt
+          /tmp/product-os-venv/bin/python scripts/validate_migration_assets.py
+          /tmp/product-os-venv/bin/python tests/test_migration.py
+          /tmp/product-os-venv/bin/python tools/cpt_migrate.py platform-check --project .
+          /tmp/product-os-venv/bin/python scripts/validate_marketplace_helpers.py
+          /tmp/product-os-venv/bin/python tools/validate_distribution.py
+          "@
+
+          wsl.exe --distribution Ubuntu --user root -- bash -lc $acceptance

@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 616,
+  "file_count": 617,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -365,8 +365,8 @@
     },
     {
       "path": "docs/PRODUCT_OS_MANAGER.md",
-      "size": 9669,
-      "sha256": "f613c56bb62a96d766830ced72513c70d2508f57008056c23ff37f12d15ebbbd"
+      "size": 9972,
+      "sha256": "78b61a38de4c6d70877021be87f878b8f52e34db2edb8973b384c67775a44a9e"
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
@@ -1939,9 +1939,14 @@
       "sha256": "fccedb2d291c8c95213aaf01e04f79b29251141513fa9f54f402c1df34ded78f"
     },
     {
+      "path": "payload/marketplace-root/plugins/cpt-core/hooks/cpt_hook_windows.ps1",
+      "size": 1577,
+      "sha256": "ab5db691025d9f7e97cc78ed82849276eb93eb600c726a2854aa6b1e86b13750"
+    },
+    {
       "path": "payload/marketplace-root/plugins/cpt-core/hooks/hooks.json",
-      "size": 4009,
-      "sha256": "8b84dfd1494685a982c5f4b3bf4f55a544f2ed7d849afa0b77856c55f44ccfa4"
+      "size": 4759,
+      "sha256": "e022de7d63435ef3919a986fac41657cd737f7f06c0950224fdeda8adb0ad834"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/hooks/product_os_lifecycle.py",
@@ -2940,8 +2945,8 @@
     },
     {
       "path": "tests/test_enforcement.py",
-      "size": 14129,
-      "sha256": "350d55b07463ba5ab4f6c96256d8ffa0ec188ce461c29abe6c21191ec473666b"
+      "size": 15268,
+      "sha256": "48b7479d10466c4853a6b0850a1d47e3a722d30828933cee97ab9ae0c407b220"
     },
     {
       "path": "tests/test_evaluation.py",

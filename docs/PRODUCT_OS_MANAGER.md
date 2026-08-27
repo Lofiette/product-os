@@ -154,6 +154,10 @@ For a non-default `PRODUCT_OS_HOME`, the Codex process that creates the new
 session and the lifecycle-required doctor command must both inherit that exact
 environment variable. The CLI rejects a lifecycle-required doctor run when
 the variable does not match, instead of leaving the missing locator implicit.
+On Windows, the bundled hook launcher discovers Python in this order:
+PRODUCT_OS_PYTHON, the nearest project-local .runtime/python/python.exe, the
+Python launcher, and finally a real Python executable on PATH (Windows Store
+aliases are rejected). This avoids assuming that the py launcher is installed.
 Lifecycle evidence uses a bounded 64-session ring and one shared lock per
 installation transaction.
 

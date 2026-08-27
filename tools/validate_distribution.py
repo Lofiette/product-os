@@ -186,7 +186,7 @@ else:
     if manifest.get('phase') != 'offline-certified-live-pending': errors.append('MANIFEST phase mismatch')
     inventories = manifest.get('inventories', {})
     expected_inventories = {
-        'behavior_tests': 198,
+        'behavior_tests': 200,
         'installation_receipt_tests': 5,
         'manager_registry_tests': 7,
         'manager_planning_tests': 11,

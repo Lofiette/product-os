@@ -24,7 +24,7 @@
     "evaluation/executable/reports/** except .gitkeep",
     "**/*-comparison.json"
   ],
-  "file_count": 620,
+  "file_count": 622,
   "inventories": {
     "plugins": 6,
     "canonical_skills": 49,
@@ -49,7 +49,7 @@
     "worker_archetypes": 10,
     "orchestration_policy_cases": 34,
     "orchestration_integration_checks": 16,
-    "behavior_tests": 198,
+    "behavior_tests": 200,
     "installation_receipt_tests": 5,
     "manager_registry_tests": 7,
     "manager_planning_tests": 11,
@@ -375,8 +375,8 @@
     },
     {
       "path": "docs/RC_TRIALS_AND_RELEASE_GATES.md",
-      "size": 1163,
-      "sha256": "999f61db8f5a329247c4ca77fd118b2fa21fe0d2c130eae9608f01ad028e215b"
+      "size": 1818,
+      "sha256": "8451acfc4a72d26d613f368394730ea3aefb08bdd454929117e5bd5ae55e8a11"
     },
     {
       "path": "docs/REPO_SCAFFOLD_CONTRACT.md",
@@ -1130,8 +1130,8 @@
     },
     {
       "path": "evaluation/behavior-test-report.json",
-      "size": 3504,
-      "sha256": "3b60e33d785be5035401741d6fcfc87e306cb5afbe2d3b168a61611b94ae4659"
+      "size": 3542,
+      "sha256": "7e2b5ea641264efcde5760c7f1cdd4dc1e504a6d8beee7f3640d6792070e0b24"
     },
     {
       "path": "evaluation/design-intelligence/README.md",
@@ -2179,6 +2179,11 @@
       "sha256": "8013e1978e810829ff6d062e24c6c2c2de8b76d222bb9fd4c51b21bd5226a1f3"
     },
     {
+      "path": "release/EVIDENCE.json",
+      "size": 2130,
+      "sha256": "752ba53e9aa7c5c5ea58ae9717b79ef187896f9cfe331f585ecccb180ab30af3"
+    },
+    {
       "path": "release/GATES.json",
       "size": 2269,
       "sha256": "1508de18aaca7e69df11219e6cfab91c05c9b9f581065112d016a47c75e431c6"
@@ -2197,6 +2202,11 @@
       "path": "release/reports/offline-scorecard.json",
       "size": 2652,
       "sha256": "b5c30947ebdc79e93784a8bbf8e675f217b9237014daf4fb99f65b6aed0f7d3c"
+    },
+    {
+      "path": "release/schemas/release-evidence.schema.json",
+      "size": 1439,
+      "sha256": "d89fe32edfbd4cc6eee73e313bcfcb57338608c7b855455aef07b6e4244ae628"
     },
     {
       "path": "release/schemas/release-readiness.schema.json",
@@ -3030,8 +3040,8 @@
     },
     {
       "path": "tests/test_release.py",
-      "size": 3971,
-      "sha256": "d97ed83bf12522c23606e89696eeb147d777945bf785e350fbde017fe640454d"
+      "size": 4885,
+      "sha256": "e6771d0d647b1f070f6ab8697f191b14b0999fe936fd55895053e68ea047db9e"
     },
     {
       "path": "tests/test_roles.py",
@@ -3046,7 +3056,7 @@
     {
       "path": "tools/build_manifest.py",
       "size": 4965,
-      "sha256": "8f7d12d86795f10016a07d746bfd1341d71eff40838bd9490862d65e7859ba97"
+      "sha256": "a7ed583c889b99ae0ad49b3d2a2828abf40cd14f1018ae512084aebc14ed4bf6"
     },
     {
       "path": "tools/cpt_dist.py",
@@ -3065,8 +3075,8 @@
     },
     {
       "path": "tools/cpt_release.py",
-      "size": 11316,
-      "sha256": "2d5f446701adca49e31ead9aa161faef53c819e413559abd7f3040608d749c47"
+      "size": 12828,
+      "sha256": "4b8f3cc46c3c38443e122e7f25913d1473980dc990f929b87c4cb71ef07a2ccd"
     },
     {
       "path": "tools/eval_enforcement.py",
@@ -3126,7 +3136,7 @@
     {
       "path": "tools/validate_distribution.py",
       "size": 14670,
-      "sha256": "e40af2aad3fad4a65f1f32942c4cbf075fcdd84929d381fcea996e931c2af352"
+      "sha256": "9769b11fb4beb30a8891da5da17070d087ca513b294164fa4a9c3dbfdd4a6512"
     },
     {
       "path": "tools/validate_enforcement.py",
@@ -3160,8 +3170,8 @@
     },
     {
       "path": "tools/validate_release.py",
-      "size": 1575,
-      "sha256": "bbece668a85815ee76cb53c16f0007bd926dc0e24dea408e2211a53d1453f5e0"
+      "size": 2167,
+      "sha256": "229655587cb33fe8eccd653f93a3e12f60f51971fd084c3d4bb80a8de264f9c2"
     },
     {
       "path": "tools/validate_roles.py",

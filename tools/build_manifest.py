@@ -110,7 +110,7 @@ def main() -> int:
             "worker_archetypes": 10,
             "orchestration_policy_cases": 34,
             "orchestration_integration_checks": 16,
-            "behavior_tests": 198,
+            "behavior_tests": 200,
             "installation_receipt_tests": 5,
             "manager_registry_tests": 7,
             "manager_planning_tests": 11,

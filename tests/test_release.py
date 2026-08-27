@@ -47,6 +47,23 @@ class ReleasePlaneTests(unittest.TestCase):
         self.assertEqual(data["status"], "BLOCKED")
         self.assertGreaterEqual(data["summary"]["pending"], 3)
 
+    def test_reviewed_isolated_codex_acceptance_is_ingested(self):
+        data = json.loads(self.run_cli("assess", "--scope", "offline").stdout)
+        gates = {item["id"]: item for item in data["gates"]}
+        self.assertEqual(gates["isolated_codex_adoption"]["status"], "PASS")
+        self.assertIn("TX-679ec9c6-317e-486f-9142-43209a40ceb2", " ".join(gates["isolated_codex_adoption"]["evidence"]))
+        self.assertEqual(gates["platform_matrix"]["status"], "PENDING")
+        self.assertIn("WSL", " ".join(gates["platform_matrix"]["evidence"]))
+
+    def test_invalid_reviewed_evidence_fails_package_integrity_closed(self):
+        with mock.patch.object(
+            cpt_release,
+            "reviewed_release_evidence",
+            return_value=({}, ["fixture evidence error"]),
+        ):
+            evidence = cpt_release.offline_evidence()
+        self.assertFalse(evidence["package_integrity"][0])
+
     def test_offline_readiness_counts_release_assets(self):
         data = json.loads(self.run_cli("readiness", "--scope", "offline").stdout)
         self.assertEqual(data["status"], "BETA_READY")

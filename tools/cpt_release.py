@@ -120,6 +120,25 @@ def behavior_report_matches_manifest(
     )
 
 
+def reviewed_release_evidence() -> tuple[dict[str, dict[str, Any]], list[str]]:
+    evidence_path = RELEASE / "EVIDENCE.json"
+    schema_path = RELEASE / "schemas" / "release-evidence.schema.json"
+    if not evidence_path.exists():
+        return {}, ["missing release/EVIDENCE.json"]
+    if not schema_path.exists():
+        return {}, ["missing release evidence schema"]
+    try:
+        document = read_json(evidence_path)
+    except (OSError, json.JSONDecodeError) as exc:
+        return {}, [f"release evidence cannot be read: {exc}"]
+    errors = validate_json(document, schema_path)
+    if document.get("version") != VERSION:
+        errors.append("release evidence version mismatch")
+    if errors:
+        return {}, errors
+    return dict(document.get("gates", {})), []
+
+
 def offline_evidence() -> dict[str, tuple[bool, list[str]]]:
     facts = package_facts()
     manifest = facts["manifest"]
@@ -141,11 +160,14 @@ def offline_evidence() -> dict[str, tuple[bool, list[str]]]:
             "tests/test_manager_cli.py",
         ]
     )
+    _, release_evidence_errors = reviewed_release_evidence()
 
     checks = {
         "package_integrity": (
-            manifest.get("version") == VERSION and manifest_matches_checkout(manifest),
-            ["MANIFEST.json exact checkout inventory and hashes", "distribution validator", "ZIP verification required at packaging"],
+            manifest.get("version") == VERSION
+            and manifest_matches_checkout(manifest)
+            and not release_evidence_errors,
+            ["MANIFEST.json exact checkout inventory and hashes", "valid reviewed release evidence registry", "distribution validator", "ZIP verification required at packaging"],
         ),
         "offline_regression": (
             facts["offline_cases"] >= 21 and behavior_ok,
@@ -178,6 +200,7 @@ def offline_evidence() -> dict[str, tuple[bool, list[str]]]:
 def assess(scope: str) -> dict[str, Any]:
     gate_defs = read_json(RELEASE / "GATES.json")["gates"]
     evidence = offline_evidence()
+    reviewed, reviewed_errors = reviewed_release_evidence()
     rows = []
     for gate in gate_defs:
         required = bool(gate["beta_required"] if scope == "offline" else gate["rc_required"])
@@ -185,10 +208,21 @@ def assess(scope: str) -> dict[str, Any]:
             ok, items = evidence[gate["id"]]
             status = "PASS" if ok else "BLOCKED"
             notes: list[str] = []
+        elif gate["id"] in reviewed:
+            record = reviewed[gate["id"]]
+            items = list(record["evidence"])
+            status = str(record["status"])
+            notes = list(record.get("notes", []))
+            review = record["review"]
+            notes.append(
+                f"Reviewed by {review['authority']} at {review['recorded_at']}."
+            )
         else:
             items = list(gate.get("evidence", []))
             status = "PENDING"
             notes = ["Requires native-platform or live Codex evidence."]
+            if reviewed_errors:
+                notes.append("Reviewed evidence registry is invalid: " + "; ".join(reviewed_errors))
         rows.append({"id": gate["id"], "status": status, "required": required, "evidence": items, "notes": notes})
 
     blocked = sum(1 for x in rows if x["required"] and x["status"] == "BLOCKED")

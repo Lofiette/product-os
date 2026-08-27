@@ -1,0 +1,38 @@
+{
+  "schema_version": "cpt-release-evidence-v1",
+  "version": "4.1.0",
+  "gates": {
+    "isolated_codex_adoption": {
+      "status": "PASS",
+      "evidence": [
+        "TKT-003 transaction TX-679ec9c6-317e-486f-9142-43209a40ceb2 committed immutable Git commit 343e919ff36970d14b23930230555f2ddfcfa958 in an isolated CODEX_HOME",
+        "The isolated TKT-003 core migration doctor and lifecycle doctor both returned PASS; a fresh authenticated Codex response matched PRODUCT_OS_41_ACCEPTANCE and recorded privacy-minimized SessionStart and SessionEnd lifecycle evidence",
+        "TKT-004 isolated update transaction TX-e507e6da-f4bd-4ee4-9663-b3d006e23576 rehearsed 343e919 to c0b626c, passed doctor, restored 343e919 by rollback, and reapplied c0b626c",
+        "TKT-004 live transaction TX-0cc0aceb-d7df-4e50-8a8a-b4a5661949af then loaded c0b626c in a fresh Codex session with both plugins, SessionStart, core doctor, and lifecycle doctor PASS",
+        "Normal TKT-003 rollback restored the v4.0.0 receipt, runtime, cpt-core selector, and cpt-design-ui selector inside the isolated fixture"
+      ],
+      "notes": [
+        "This is a sanitized acceptance record; raw local paths, session identifiers, and private fields are intentionally omitted.",
+        "The final 3143703 delta after c0b626c is limited to distribution helpers, documentation, CI validation, and the package manifest."
+      ],
+      "review": {
+        "authority": "Owner-confirmed Product OS TKT-003 acceptance",
+        "recorded_at": "2026-08-27T09:26:45Z"
+      }
+    },
+    "platform_matrix": {
+      "status": "PENDING",
+      "evidence": [
+        "GitHub Actions runs 33072569448 and 33072569533 passed migration and offline checks on Ubuntu, macOS, and Windows for release commit 3143703",
+        "No real WSL acceptance record is available"
+      ],
+      "notes": [
+        "The RC gate requires Linux, macOS, Windows, and WSL; three of four platform families are evidenced."
+      ],
+      "review": {
+        "authority": "GitHub Actions plus Product OS release review",
+        "recorded_at": "2026-08-27T12:38:30Z"
+      }
+    }
+  }
+}

@@ -480,8 +480,8 @@
     },
     {
       "path": "domain-packs/cpt-design-ui/.codex-plugin/plugin.json",
-      "size": 1097,
-      "sha256": "8a901bf7b46fb8a0cdecbd1ffebca13ec4b7f6fc9efee80527b6ea6004466c75"
+      "size": 1072,
+      "sha256": "45ab781e3b390081ddd0bcffb9ce10d26ee79949e299e8a3e9cbbdb4374c07d9"
     },
     {
       "path": "domain-packs/cpt-design-ui/README.md",
@@ -1925,8 +1925,8 @@
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/.codex-plugin/plugin.json",
-      "size": 1042,
-      "sha256": "89c1744ce96551e37e7114ebbb235e5973a2f32e45942ba3c0fad07c6473b5f9"
+      "size": 1002,
+      "sha256": "cd0e9859720807baa2f69cc70d128bd5c0039283c7337d6ff9182c93c4e06d68"
     },
     {
       "path": "payload/marketplace-root/plugins/cpt-core/cpt-pack.json",

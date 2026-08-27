@@ -19,7 +19,7 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use the smallest CPT workflow that fits the task; keep roles in the main thread unless bounded worker delegation materially improves evidence or isolation."
+      "Use the smallest CPT workflow that fits the task; delegate only when bounded workers improve evidence or isolation."
     ],
     "brandColor": "#3B82F6"
   },

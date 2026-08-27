@@ -87,6 +87,7 @@ class EvaluationPlaneTests(unittest.TestCase):
         recorder = cpt_eval.TraceRecorder()
         stream = "\n".join(
             [
+                json.dumps({"type": "thread.started", "thread_id": "test-thread"}),
                 json.dumps(
                     {
                         "type": "item.started",
@@ -115,6 +116,19 @@ class EvaluationPlaneTests(unittest.TestCase):
         cpt_eval.normalize_codex_jsonl(stream, recorder)
         self.assertEqual(cpt_eval.collect_commands(recorder.events), ["rg --files src"])
         self.assertEqual(cpt_eval.usage_totals(recorder.events)["input_tokens"], 100)
+        self.assertTrue(
+            any(
+                event.get("type") == "codex_event"
+                and event.get("codex_event_type") == "thread.started"
+                for event in recorder.events
+            )
+        )
+        fake = subprocess.CompletedProcess(args=["codex"], returncode=0, stdout="✓", stderr="")
+        with patch.object(cpt_eval.subprocess, "run", return_value=fake) as runner:
+            completed = cpt_eval.run_process(["codex", "--version"], cwd=ROOT)
+        self.assertEqual(completed.stdout, "✓")
+        self.assertEqual(runner.call_args.kwargs["encoding"], "utf-8")
+        self.assertEqual(runner.call_args.kwargs["errors"], "replace")
 
     def test_07_structured_output_activity_is_marked_reported(self) -> None:
         recorder = cpt_eval.TraceRecorder()

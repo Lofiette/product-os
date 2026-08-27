@@ -14,7 +14,7 @@
       ],
       "notes": [
         "This is a sanitized acceptance record; raw local paths, session identifiers, and private fields are intentionally omitted.",
-        "The final 3143703 delta after c0b626c is limited to distribution helpers, documentation, CI validation, and the package manifest."
+        "This gate records the one owner-confirmed Windows adoption path; it does not claim native Codex plugin switching on macOS or WSL."
       ],
       "review": {
         "authority": "Owner-confirmed Product OS TKT-003 acceptance",
@@ -22,17 +22,55 @@
       }
     },
     "platform_matrix": {
-      "status": "PENDING",
+      "status": "PASS",
       "evidence": [
-        "GitHub Actions runs 33072569448 and 33072569533 passed migration and offline checks on Ubuntu, macOS, and Windows for release commit 3143703",
-        "No real WSL acceptance record is available"
+        "Exact-head GitHub Actions run 33091238187 passed offline evaluation on macOS, Windows, Ubuntu Python 3.10, and Ubuntu Python 3.12; the Ubuntu 3.12 lane also passed the complete 201-case package regression at commit 7c841e1",
+        "Exact-head GitHub Actions run 33091238401 passed migration checks on Linux, macOS, Windows, and ephemeral WSL 1; WSL job 98584304116 passed seven migration tests, platform-check with wsl=true, Bash helper validation, and distribution validation"
       ],
       "notes": [
-        "The RC gate requires Linux, macOS, Windows, and WSL; three of four platform families are evidenced."
+        "WSL evidence is deliberately limited to migration and distribution behavior. It does not certify native Codex plugin installation, switching, or cache behavior under WSL.",
+        "GitHub Actions emitted non-blocking Node 20 deprecation warnings for some action versions; every required job completed successfully."
       ],
       "review": {
         "authority": "GitHub Actions plus Product OS release review",
-        "recorded_at": "2026-08-27T12:38:30Z"
+        "recorded_at": "2026-08-27T16:16:25Z"
+      }
+    },
+    "live_model_trials": {
+      "status": "PASS",
+      "evidence": [
+        "Three isolated live Codex trials used gpt-5.6-sol at low reasoning effort through codex-cli 0.150.0-alpha.8 with real marketplace/plugin activation in temporary CODEX_HOME roots; all three scorecards passed at 95 points",
+        "Git-clean trial: PASS in 60.953 seconds with 72,761 input tokens, 51,456 cached input tokens, 1,157 output tokens, three commands, and zero writes",
+        "Micro Change trial: PASS in 164.640 seconds with 343,589 input tokens, 308,736 cached input tokens, 2,748 output tokens, thirteen commands, one bounded product-file write, completed MC-001, and valid runtime state",
+        "Reference-fidelity trial: PASS in 95.813 seconds with 133,670 input tokens, 104,192 cached input tokens, 2,326 output tokens, five commands, zero writes, and the expected BLOCKED product verdict for material reference gaps",
+        "Managed orchestration ORC-003 exercised two required real read-only Codex workers through contract, result, all-worker quorum, main-thread integration, and completion; both returned high-confidence PASS",
+        "This release work resumed in the same local Codex task after a Codex Desktop restart with persisted CPT state available. This is one same-device task-resumption observation only; it does not certify reconnect ordering, compaction recovery, or cross-client continuity"
+      ],
+      "notes": [
+        "Usage evidence is accepted only from actual trace usage events; the recorded token counts above are not inferred from missing telemetry.",
+        "Durable existing-product onboarding is not broadly certified: one isolated run completed task and durable product-map work but missed final structured-output delivery within 360 seconds, and a second bounded run remained active at timeout. This limitation is recorded in KNOWN_LIMITATIONS.md.",
+        "These trials certify only the named model, CLI build, cases, budgets, and local recovery path; they do not claim cross-model or cross-client quality."
+      ],
+      "review": {
+        "authority": "Product OS release review of isolated Codex traces and managed ORC-003 results",
+        "recorded_at": "2026-08-27T16:16:25Z"
+      }
+    },
+    "rc_mega_audit": {
+      "status": "PASS",
+      "evidence": [
+        "ORC-003-W01 independent code audit returned high-confidence PASS at exact clean head 7c841e1 with no actionable code, contract, provenance, package-integrity, or documentation finding",
+        "ORC-003-W02 independent release-risk audit returned high-confidence PASS at exact clean head 7c841e1 after verifying platform claims, helper provenance, rollback instructions, publication safeguards, and known limitations",
+        "All prior audit findings were resolved: exact-head CI coverage, candidate digest binding, custom Product OS home detection, explicit-ref retarget rejection, source/ref provenance fail-closed behavior, helper partial-failure recovery documentation, report reconciliation, and WSL/live scope disclosure",
+        "All-worker quorum for ORC-003 was satisfied and main-thread integration completed before this evidence was recorded"
+      ],
+      "notes": [
+        "The audit found only a non-blocking maintenance recommendation to update GitHub Actions versions that currently emit Node 20 deprecation warnings.",
+        "The audit recommendation remains conditional on rebinding the final evidence candidate and passing exact-head CI plus final archive inventory/CRC verification."
+      ],
+      "review": {
+        "authority": "Independent ORC-003 code and release-risk auditors plus Product OS main-thread integration",
+        "recorded_at": "2026-08-27T16:16:25Z"
       }
     }
   }

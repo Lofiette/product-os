@@ -2180,8 +2180,8 @@
     },
     {
       "path": "release/EVIDENCE.json",
-      "size": 2229,
-      "sha256": "89c845eead13f9cdf78a31682e6d65bc06d0b1e3f7b949369d93967020b000fb"
+      "size": 6455,
+      "sha256": "73f568493c0e439908e7f9a1084f4b745ea27d63f19d5c73f78f5c07a9f5bf86"
     },
     {
       "path": "release/GATES.json",

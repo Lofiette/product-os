@@ -12,6 +12,10 @@ It does not yet certify:
 - cross-client delivery of the new-session lifecycle receipt; one actual Windows
   Codex session is recorded in the reviewed release evidence;
 - token, latency and cost behavior outside the recorded live release trials;
+- reliable single-turn completion of the durable existing-product onboarding
+  trial within 360 seconds; one isolated run completed the CPT task and durable
+  product map but missed final structured-output delivery, while a second
+  bounded run remained active at timeout;
 - screenshot-based visual fidelity grading;
 - organization-managed permission and plugin policies.
 

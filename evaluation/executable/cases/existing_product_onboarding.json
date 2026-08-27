@@ -9,7 +9,7 @@
     "live-readonly",
     "live-full"
   ],
-  "task_prompt": "Create a compact product map for the existing repository without reading the entire codebase.",
+  "task_prompt": "Create and validate a compact durable Product Knowledge product_map of top-level routing and navigation through the CPT task and knowledge lifecycle. Use only README.md, src/app/layout.tsx, src/app/dashboard/page.tsx, src/app/settings/page.tsx, and src/components/Navigation.tsx as product evidence. Do not edit product source files.",
   "activation": {
     "plugins": [
       "cpt-product-research"
@@ -20,7 +20,9 @@
   "live_constraints": [
     "Use bounded discovery.",
     "Do not broaden scope silently.",
-    "Record evidence and unknowns."
+    "Record evidence and unknowns.",
+    "Persist the map through Product Knowledge; keep product source files read-only.",
+    "Limit product evidence to the five files named in the task."
   ],
   "reference_actions": [
     {
@@ -257,5 +259,32 @@
     "max_wall_seconds": 60,
     "max_input_tokens": 7000,
     "max_output_tokens": 1500
+  },
+  "live_budgets": {
+    "max_tool_events": 50,
+    "max_commands": 25,
+    "max_writes": 10,
+    "max_wall_seconds": 300,
+    "max_input_tokens": 600000,
+    "max_output_tokens": 5000
+  },
+  "live_expectations": {
+    "status_in": [
+      "PASS",
+      "PASS_WITH_WARNINGS"
+    ],
+    "required_roles": [],
+    "trace": {
+      "allowed_reads": [
+        "AGENTS.md",
+        ".cpt/**",
+        "README.md",
+        "src/app/**",
+        "src/components/Navigation.tsx"
+      ],
+      "allowed_writes": [
+        ".cpt/**"
+      ]
+    }
   }
 }

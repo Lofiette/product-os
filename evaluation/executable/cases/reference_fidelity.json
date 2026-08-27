@@ -125,5 +125,38 @@
     "max_wall_seconds": 25,
     "max_input_tokens": 3500,
     "max_output_tokens": 1000
+  },
+  "live_budgets": {
+    "max_tool_events": 30,
+    "max_commands": 15,
+    "max_writes": 0,
+    "max_wall_seconds": 180,
+    "max_input_tokens": 400000,
+    "max_output_tokens": 3500
+  },
+  "live_expectations": {
+    "required_roles": [],
+    "required_skills": [
+      "cpt-visual-acceptance-review"
+    ],
+    "trace": {
+      "allowed_reads": [
+        "AGENTS.md",
+        ".cpt/runtime.yaml",
+        ".cpt/current.yaml",
+        ".cpt/task-index.yaml",
+        ".cpt/runtime-summary.md",
+        ".cpt/enforcement.yaml",
+        "README.md",
+        "package.json",
+        "external-modules/design-system/README.md",
+        "references/editor-reference.md",
+        "src/app/page.tsx",
+        "src/features/editor/**",
+        "src/design-system/**",
+        "scripts/check_ui.py",
+        "scripts/check_empty_state.py"
+      ]
+    }
   }
 }

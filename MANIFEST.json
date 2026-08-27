@@ -90,8 +90,8 @@
     },
     {
       "path": ".github/workflows/migration-ci.yml",
-      "size": 2409,
-      "sha256": "f6806e462b8432f9129ada841bdcc1a1ec00b8b31174b871532a71981e17412e"
+      "size": 2463,
+      "sha256": "37439353882c6c6b8b1da00f75bb8146e69241d73b46668f26b61c5fb3a73167"
     },
     {
       "path": ".github/workflows/offline-evals.yml",
@@ -150,8 +150,8 @@
     },
     {
       "path": "KNOWN_LIMITATIONS.md",
-      "size": 1659,
-      "sha256": "f7a3b93a6e79910c3751b0bbc064fcb82f0f000c8076ada2d1504253a5087275"
+      "size": 1932,
+      "sha256": "35830ef439d185791e6916b0311caaf3430fe5175c5381dac0a95390f819cb6d"
     },
     {
       "path": "ORCHESTRATION.md",
@@ -1210,8 +1210,8 @@
     },
     {
       "path": "evaluation/executable/cases/existing_product_onboarding.json",
-      "size": 5888,
-      "sha256": "397ba907b3ff5b2258117cbdd7268e4a121442a734a7752f2f37b60ae0da65f8"
+      "size": 6824,
+      "sha256": "8abf3a5f45abdd425250c153c91c706099b0c14599edaea1fe36a1cec00a8e08"
     },
     {
       "path": "evaluation/executable/cases/external_module_boundary.json",
@@ -1260,8 +1260,8 @@
     },
     {
       "path": "evaluation/executable/cases/reference_fidelity.json",
-      "size": 3308,
-      "sha256": "706027aaaeb4a54a154b39d1e7d70fff16d2464854c585210b52962c7ceb8fd0"
+      "size": 4157,
+      "sha256": "2e14ae13cf9c3892fc6e4331075d42087d55ef1f49a4cffda613af7fb472acd4"
     },
     {
       "path": "evaluation/executable/cases/release_readiness_offline.json",
@@ -2181,7 +2181,7 @@
     {
       "path": "release/EVIDENCE.json",
       "size": 2229,
-      "sha256": "2b38d62d6adbcebb0c568ddb97d3068dd0cd2c8bd13568d154888924325aa116"
+      "sha256": "47995cd7ee8ba47e498fe54ab9e83d8ec7a771343a39ee043700e415f5d5665a"
     },
     {
       "path": "release/GATES.json",
@@ -2975,8 +2975,8 @@
     },
     {
       "path": "tests/test_evaluation.py",
-      "size": 10711,
-      "sha256": "703dd520c146f27364ffc665e6a399b1a1e184ac1ce631ce429148a84421b535"
+      "size": 11595,
+      "sha256": "e57a1ef61daa8c3b844eaa40746370299642dc93f1d552c93318290f56ecd8cb"
     },
     {
       "path": "tests/test_knowledge.py",
@@ -3065,8 +3065,8 @@
     },
     {
       "path": "tools/cpt_eval.py",
-      "size": 57766,
-      "sha256": "47efca6c8d5c4ee5c89626a1199665052377230d7315885e66422b514894b694"
+      "size": 60121,
+      "sha256": "ab1c1704f4f356f566f0b027aafb5eb3fb1565ea1ec193ac50148b9edf1dccf0"
     },
     {
       "path": "tools/cpt_migrate.py",

@@ -82,6 +82,15 @@ class EvaluationPlaneTests(unittest.TestCase):
         self.assertEqual(status, "FAIL")
         self.assertIsNone(output)
         self.assertEqual(meta["exit_code"], 2)
+        ok = subprocess.CompletedProcess(args=["codex"], returncode=0, stdout="", stderr="")
+        timeout = subprocess.TimeoutExpired(cmd=["codex", "exec"], timeout=240, output="")
+        with patch.object(cpt_eval, "prepare_workspace", return_value=(workspace, {})), patch.object(
+            cpt_eval.shutil, "which", return_value="/usr/bin/codex"
+        ), patch.object(cpt_eval, "run_process", side_effect=[ok, ok, timeout]):
+            status, output, _, _, meta = cpt_eval.run_live_case(case, self.tmp)
+        self.assertEqual(status, "FAIL")
+        self.assertIsNone(output)
+        self.assertIn("timed out", meta["reason"])
 
     def test_06_codex_jsonl_normalization(self) -> None:
         recorder = cpt_eval.TraceRecorder()
@@ -219,6 +228,9 @@ class EvaluationPlaneTests(unittest.TestCase):
         self.assertEqual(scorecard["status"], "MIXED")
         self.assertEqual(scorecard["passed"], 1)
         self.assertEqual(scorecard["skipped"], 1)
+        live_case = cpt_eval.with_live_overrides(cpt_eval.load_case("micro_copy_change"))
+        self.assertEqual(live_case["budgets"]["max_input_tokens"], 400000)
+        self.assertEqual(live_case["expectations"]["required_any_roles"], [])
 
     def test_13_generated_reports_are_excluded_from_manifest(self) -> None:
         report = EVAL / "reports" / "unit-test-runtime-report.json"

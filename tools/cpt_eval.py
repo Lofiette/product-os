@@ -59,6 +59,15 @@ def run_process(
     shell: bool = False,
     timeout: float = 120,
 ) -> subprocess.CompletedProcess[str]:
+    if isinstance(args, list) and args and not shell:
+        executable = str(args[0])
+        if not Path(executable).is_absolute() and not any(
+            separator in executable for separator in ("/", "\\")
+        ):
+            search_path = (env or os.environ).get("PATH")
+            resolved = shutil.which(executable, path=search_path)
+            if resolved:
+                args = [resolved, *args[1:]]
     return subprocess.run(
         args,
         cwd=cwd,
@@ -253,6 +262,12 @@ def prepare_workspace(
     env.update({"HOME": str(home), "CODEX_HOME": str(codex_home), "PYTHONDONTWRITEBYTECODE": "1"})
     interpreter_dir = str(Path(sys.executable).resolve().parent)
     env["PATH"] = interpreter_dir + os.pathsep + env.get("PATH", "")
+    if os.name == "nt" and shutil.which("grep", path=env.get("PATH")) is None:
+        git = shutil.which("git", path=env.get("PATH"))
+        if git:
+            git_usr_bin = Path(git).resolve().parent.parent / "usr" / "bin"
+            if (git_usr_bin / "grep.exe").exists():
+                env["PATH"] = str(git_usr_bin) + os.pathsep + env["PATH"]
 
     install = run_process(
         [sys.executable, str(PACKAGE_ROOT / "tools" / "cpt_dist.py"), "install", "--project", str(workspace), "--mode", "local", "--enforcement-mode", "off"],
@@ -649,12 +664,34 @@ def run_live_case(
         # Keep the process timeout separate from the acceptance budget. Plugin
         # startup and structured-output finalization can outlive the case's
         # graded wall budget; the grader still fails an over-budget result.
-        proc = run_process(
-            command,
-            cwd=workspace,
-            env=env,
-            timeout=max(240.0, float(case["budgets"]["max_wall_seconds"]) + 60),
+        process_timeout = max(
+            240.0, float(case["budgets"]["max_wall_seconds"]) + 60
         )
+        try:
+            proc = run_process(
+                command,
+                cwd=workspace,
+                env=env,
+                timeout=process_timeout,
+            )
+        except subprocess.TimeoutExpired as exc:
+            elapsed = time.monotonic() - started
+            partial_stdout = exc.stdout or ""
+            if isinstance(partial_stdout, bytes):
+                partial_stdout = partial_stdout.decode("utf-8", errors="replace")
+            if os.environ.get("CPT_EVAL_KEEP_RAW_TRACE") == "1":
+                (run_root / "codex-events.jsonl").write_text(
+                    partial_stdout, encoding="utf-8"
+                )
+            normalize_codex_jsonl(partial_stdout, recorder, workspace)
+            recorder.emit(
+                "error",
+                payload={"reason": "codex exec timed out", "timeout": process_timeout},
+            )
+            return "FAIL", None, workspace, recorder, {
+                "reason": f"codex exec timed out after {process_timeout:.1f} seconds",
+                "elapsed_seconds": elapsed,
+            }
         elapsed = time.monotonic() - started
         if os.environ.get("CPT_EVAL_KEEP_RAW_TRACE") == "1":
             (run_root / "codex-events.jsonl").write_text(proc.stdout, encoding="utf-8")
@@ -708,6 +745,11 @@ def runtime_check(workspace: Path, check: dict[str, Any], ctx: dict[str, Any]) -
         return (actual == check.get("equals"), f"current.{check['field']}={actual!r}")
     if kind == "task_status":
         task_id = check["task"]
+        if "{" in task_id:
+            candidates = sorted((workspace / ".cpt" / "tasks").glob("TKT-*.yaml"))
+            if len(candidates) != 1:
+                return False, f"cannot infer one task id: {[item.stem for item in candidates]}"
+            task_id = candidates[0].stem
         data = read_yaml(workspace / ".cpt" / "tasks" / f"{task_id}.yaml")
         actual = data.get("status")
         return (actual == check["equals"], f"task {task_id} status={actual!r}")
@@ -736,6 +778,11 @@ def runtime_check(workspace: Path, check: dict[str, Any], ctx: dict[str, Any]) -
         return (actual == check["equals"], f"knowledge {artifact_id} freshness={actual!r}")
     if kind == "orchestration_state":
         run_id = check["run"]
+        if "{" in run_id:
+            candidates = sorted((workspace / ".cpt" / "orchestrations").glob("ORC-*.yaml"))
+            if len(candidates) != 1:
+                return False, f"cannot infer one orchestration id: {[item.stem for item in candidates]}"
+            run_id = candidates[0].stem
         data = read_yaml(workspace / ".cpt" / "orchestrations" / f"{run_id}.yaml")
         actual = data.get("status", data.get("state"))
         return (actual == check["equals"], f"orchestration {run_id} status={actual!r}")

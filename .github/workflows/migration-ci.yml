@@ -64,5 +64,6 @@ jobs:
           /tmp/product-os-venv/bin/python scripts/validate_marketplace_helpers.py
           /tmp/product-os-venv/bin/python tools/validate_distribution.py
           "@
+          $acceptance = $acceptance.Replace("`r", "")
 
           wsl.exe --distribution Ubuntu --user root -- bash -lc $acceptance
